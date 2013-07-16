@@ -50,10 +50,10 @@ state (i.e., Point-to-Point).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
+			ospfVirtIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
 			ospfVirtIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -109,16 +109,16 @@ state (i.e., Point-to-Point).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
+			ospfVirtIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
 			ospfVirtIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfVirtIfStateChangeDown:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfVirtIfStateChangeDown:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -182,11 +182,11 @@ ospfIfStateChange.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfNbrStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfNbrIpAddr=%parm[#2]% 
-			ospfNbrAddressLessIndex=%parm[#3]% 
-			ospfNbrRtrId=%parm[#4]% 
+			ospfNbrStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfNbrIpAddr=%parm[#2]%
+			ospfNbrAddressLessIndex=%parm[#3]%
+			ospfNbrRtrId=%parm[#4]%
 			ospfNbrState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -246,16 +246,16 @@ progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtNbrStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtNbrArea=%parm[#2]% 
-			ospfVirtNbrRtrId=%parm[#3]% 
+			ospfVirtNbrStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtNbrArea=%parm[#2]%
+			ospfVirtNbrRtrId=%parm[#3]%
 			ospfVirtNbrState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#4]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfVirtNbrStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#3]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#4]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfVirtNbrStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#3]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -313,16 +313,16 @@ progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtNbrStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtNbrArea=%parm[#2]% 
-			ospfVirtNbrRtrId=%parm[#3]% 
+			ospfVirtNbrStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtNbrArea=%parm[#2]%
+			ospfVirtNbrRtrId=%parm[#3]%
 			ospfVirtNbrState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#4]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfVirtNbrStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#3]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#4]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfVirtNbrStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#3]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -376,10 +376,10 @@ progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtNbrStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtNbrArea=%parm[#2]% 
-			ospfVirtNbrRtrId=%parm[#3]% 
+			ospfVirtNbrStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtNbrArea=%parm[#2]%
+			ospfVirtNbrRtrId=%parm[#3]%
 			ospfVirtNbrState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -453,12 +453,12 @@ prevents an adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfConfigError trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfPacketSrc=%parm[#4]% 
-			ospfConfigErrorType=%parm[#5]% 
+			ospfIfConfigError trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfPacketSrc=%parm[#4]%
+			ospfConfigErrorType=%parm[#5]%
 			ospfPacketType=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -528,11 +528,11 @@ jacency from forming.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfConfigError trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
-			ospfConfigErrorType=%parm[#4]% 
+			ospfVirtIfConfigError trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
+			ospfConfigErrorType=%parm[#4]%
 			ospfPacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -605,12 +605,12 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfAuthFailure trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfPacketSrc=%parm[#4]% 
-			ospfConfigErrorType=%parm[#5]% 
+			ospfIfAuthFailure trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfPacketSrc=%parm[#4]%
+			ospfConfigErrorType=%parm[#5]%
 			ospfPacketType=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -678,11 +678,11 @@ authentication key or authentication type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfAuthFailure trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
-			ospfConfigErrorType=%parm[#4]% 
+			ospfVirtIfAuthFailure trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
+			ospfConfigErrorType=%parm[#4]%
 			ospfPacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -737,11 +737,11 @@ interface that cannot be parsed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfRxBadPacket trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfPacketSrc=%parm[#4]% 
+			ospfIfRxBadPacket trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfPacketSrc=%parm[#4]%
 			ospfPacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -792,10 +792,10 @@ that cannot be parsed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfRxBadPacket trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
+			ospfVirtIfRxBadPacket trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
 			ospfPacketType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -873,14 +873,14 @@ identify the LSDB entry.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='donotpersist'>&lt;p&gt;
-			ospfTxRetransmit trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfNbrRtrId=%parm[#4]% 
-			ospfPacketType=%parm[#5]% 
-			ospfLsdbType=%parm[#6]% 
-			ospfLsdbLsid=%parm[#7]% 
+			ospfTxRetransmit trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfNbrRtrId=%parm[#4]%
+			ospfPacketType=%parm[#5]%
+			ospfLsdbType=%parm[#6]%
+			ospfLsdbLsid=%parm[#7]%
 			ospfLsdbRouterId=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -953,13 +953,13 @@ the LSDB entry.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='donotpersist'>&lt;p&gt;
-			ospfVirtIfTxRetransmit trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
-			ospfPacketType=%parm[#4]% 
-			ospfLsdbType=%parm[#5]% 
-			ospfLsdbLsid=%parm[#6]% 
+			ospfVirtIfTxRetransmit trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
+			ospfPacketType=%parm[#4]%
+			ospfLsdbType=%parm[#5]%
+			ospfLsdbLsid=%parm[#6]%
 			ospfLsdbRouterId=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1021,11 +1021,11 @@ MaxAge.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfOriginateLsa trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfLsdbAreaId=%parm[#2]% 
-			ospfLsdbType=%parm[#3]% 
-			ospfLsdbLsid=%parm[#4]% 
+			ospfOriginateLsa trap received
+			ospfRouterId=%parm[#1]%
+			ospfLsdbAreaId=%parm[#2]%
+			ospfLsdbType=%parm[#3]%
+			ospfLsdbLsid=%parm[#4]%
 			ospfLsdbRouterId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1082,11 +1082,11 @@ aged to MaxAge.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfMaxAgeLsa trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfLsdbAreaId=%parm[#2]% 
-			ospfLsdbType=%parm[#3]% 
-			ospfLsdbLsid=%parm[#4]% 
+			ospfMaxAgeLsa trap received
+			ospfRouterId=%parm[#1]%
+			ospfLsdbAreaId=%parm[#2]%
+			ospfLsdbType=%parm[#3]%
+			ospfLsdbLsid=%parm[#4]%
 			ospfLsdbRouterId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1123,8 +1123,8 @@ base has exceeded ospfExtLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfLsdbOverflow trap received 
-			ospfRouterId=%parm[#1]% 
+			ospfLsdbOverflow trap received
+			ospfRouterId=%parm[#1]%
 			ospfExtLsdbLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1162,8 +1162,8 @@ ospfExtLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfLsdbApproachingOverflow trap received 
-			ospfRouterId=%parm[#1]% 
+			ospfLsdbApproachingOverflow trap received
+			ospfRouterId=%parm[#1]%
 			ospfExtLsdbLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1224,16 +1224,16 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
+			ospfIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
 			ospfIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -1291,16 +1291,16 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
+			ospfIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
 			ospfIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -1358,16 +1358,16 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
+			ospfIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
 			ospfIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -1425,16 +1425,16 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
+			ospfIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
 			ospfIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
-                alarm-type="2" 
-                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
+                alarm-type="2"
+                clear-key="uei.opennms.org/IETF/OSPF/ospfIfStateChange:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
                 auto-clean="true" />
 </event>
 <event>
@@ -1488,10 +1488,10 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfStateChange trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
+			ospfIfStateChange trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
 			ospfIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

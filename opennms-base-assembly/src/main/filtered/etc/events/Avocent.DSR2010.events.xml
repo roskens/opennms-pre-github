@@ -32,7 +32,7 @@ following string
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010RebootStartedTrap trap received 
+			avctDSR2010RebootStartedTrap trap received
 			avctDSR2010TrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -72,8 +72,8 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010VideoSessionStartedTrap trap received 
-			avctDSR2010TrapObjectUserName=%parm[#1]% 
+			avctDSR2010VideoSessionStartedTrap trap received
+			avctDSR2010TrapObjectUserName=%parm[#1]%
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -113,8 +113,8 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010VideoSessionStoppedTrap trap received 
-			avctDSR2010TrapObjectUserName=%parm[#1]% 
+			avctDSR2010VideoSessionStoppedTrap trap received
+			avctDSR2010TrapObjectUserName=%parm[#1]%
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -162,9 +162,9 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010VideoSessionTerminatedTrap trap received 
-			avctDSR2010TrapObjectUserName=%parm[#1]% 
-			avctDSR2010TrapObjectTargetUserName=%parm[#2]% 
+			avctDSR2010VideoSessionTerminatedTrap trap received
+			avctDSR2010TrapObjectUserName=%parm[#1]%
+			avctDSR2010TrapObjectTargetUserName=%parm[#2]%
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -197,7 +197,7 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010LocalPortViewingStartedTrap trap received 
+			avctDSR2010LocalPortViewingStartedTrap trap received
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -230,7 +230,7 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010LocalPortViewingStoppedTrap trap received 
+			avctDSR2010LocalPortViewingStoppedTrap trap received
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -270,8 +270,8 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010LocalPortViewingTerminatedTrap trap received 
-			avctDSR2010TrapObjectUserName=%parm[#1]% 
+			avctDSR2010LocalPortViewingTerminatedTrap trap received
+			avctDSR2010TrapObjectUserName=%parm[#1]%
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -325,10 +325,10 @@ is contained in avctDSR2010TrapObjectImageCurrentVersion.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010ImageUpgradeStarted trap received 
-			avctDSR2010TrapObjectUserName=%parm[#1]% 
-			avctDSR2010TrapObjectImageType=%parm[#2]% 
-			avctDSR2010TrapObjectImageNewVersion=%parm[#3]% 
+			avctDSR2010ImageUpgradeStarted trap received
+			avctDSR2010TrapObjectUserName=%parm[#1]%
+			avctDSR2010TrapObjectImageType=%parm[#2]%
+			avctDSR2010TrapObjectImageNewVersion=%parm[#3]%
 			avctDSR2010TrapObjectImageCurrentVersion=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -366,8 +366,8 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010DSRIQAddedTrap trap received 
-			avctDSR2010TrapObjectDSRIQId=%parm[#1]% 
+			avctDSR2010DSRIQAddedTrap trap received
+			avctDSR2010TrapObjectDSRIQId=%parm[#1]%
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -405,8 +405,8 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010DSRIQRemovedTrap trap received 
-			avctDSR2010TrapObjectDSRIQId=%parm[#1]% 
+			avctDSR2010DSRIQRemovedTrap trap received
+			avctDSR2010TrapObjectDSRIQId=%parm[#1]%
 			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -456,9 +456,9 @@ avctDSR2010TrapObjectFirmwareCondition object.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010SubsystemUpgradeStartedTrap trap received 
-			avctDSR2010TrapObjectDSRIQId=%parm[#1]% 
-			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]% 
+			avctDSR2010SubsystemUpgradeStartedTrap trap received
+			avctDSR2010TrapObjectDSRIQId=%parm[#1]%
+			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%
 			avctDSR2010TrapObjectFirmwareCondition=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -503,9 +503,9 @@ avctDSR2010TrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010SubsystemRestartTrap trap received 
-			avctDSR2010TrapObjectDSRIQId=%parm[#1]% 
-			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]% 
+			avctDSR2010SubsystemRestartTrap trap received
+			avctDSR2010TrapObjectDSRIQId=%parm[#1]%
+			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%
 			avctDSR2010TrapObjectFirmwareCondition=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -559,10 +559,10 @@ avctDSR2010TrapObjectCurrentScreenResolution&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDSR2010ScreenResolutionChangedTrap trap received 
-			avctDSR2010TrapObjectUserName=%parm[#1]% 
-			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]% 
-			avctDSR2010TrapObjectPreviousScreenResolution=%parm[#3]% 
+			avctDSR2010ScreenResolutionChangedTrap trap received
+			avctDSR2010TrapObjectUserName=%parm[#1]%
+			avctDSR2010TrapObjectSessionIdentifier=%parm[#2]%
+			avctDSR2010TrapObjectPreviousScreenResolution=%parm[#3]%
 			avctDSR2010TrapObjectCurrentScreenResolution=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

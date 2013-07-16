@@ -14,8 +14,8 @@
         Check the keyvalue "% Processor Time" - if it's there (should be) collect this whole group.
       Check every recheckInterval milliseconds (3600000 = 1hr) -->
       <wpm name="Processor" keyvalue="\Processor(_Total)\% Processor Time" recheckInterval="3600000">
-      	<!--  Collect these attributes.  Name is the name to pass to NSClient.  
-      	Alias is the local name for the RRD file 
+	<!--  Collect these attributes.  Name is the name to pass to NSClient.
+	Alias is the local name for the RRD file
       	Type is used to convert values around
       	maxval/minval are optional-->
       	<attrib name="\Processor(_Total)\% Processor Time" alias="cpuProcTime" type="Gauge"/>
@@ -28,7 +28,7 @@
       	<attrib name="\System\Processes" alias="winProcesses" type="Gauge"/>
       	<attrib name="\System\Threads" alias="winThreads" type="Gauge"/>
       </wpm>
-      
+
       <!-- IIS stats -->
       <wpm name="IIS" keyvalue="\Web Service(_Total)\Bytes Total/sec" recheckInterval="86400000">
       	<attrib name="\Web Service(_Total)\Total Bytes Transfered" alias="iisbytes" type="Counter"/>
@@ -75,7 +75,7 @@
 
       <wpm name="LiveCommsServer" keyvalue="\LC:SIP - 03 - Requests\SIP - 010 - Incoming MESSAGE Requests" recheckInterval="86400000">
 	<attrib name="\LC:SIP - 00 - Networking\SIP - 014 - Unique users connected directly" alias="lcsusers" type="Gauge"/>
-	<attrib name="\LC:SIP - 03 - Requests\SIP - 010 - Incoming MESSAGE Requests" alias="lcsmessages" type="Counter"/>		
+	<attrib name="\LC:SIP - 03 - Requests\SIP - 010 - Incoming MESSAGE Requests" alias="lcsmessages" type="Counter"/>
       </wpm>
 
       <wpm name="Mailmarshal" keyvalue="\MailMarshal:Engine\Active Threads" recheckInterval="86400000">

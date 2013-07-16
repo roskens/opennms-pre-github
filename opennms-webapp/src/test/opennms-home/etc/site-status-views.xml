@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site-status-view-configuration 
-    xmlns:this="http://www.opennms.org/xsd/config/site-status-views" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://www.opennms.org/xsd/config/site-status-views http://www.opennms.org/xsd/config/site-status-views.xsd " 
+<site-status-view-configuration
+    xmlns:this="http://www.opennms.org/xsd/config/site-status-views"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opennms.org/xsd/config/site-status-views http://www.opennms.org/xsd/config/site-status-views.xsd "
     default-view="default">
   <views>
     <view name="default" >
@@ -31,7 +31,7 @@
         </row-def>
         <row-def label="Servers">
           <category name="Servers"/>
-        </row-def>        
+        </row-def>
       </rows>
     </view>
   </views>

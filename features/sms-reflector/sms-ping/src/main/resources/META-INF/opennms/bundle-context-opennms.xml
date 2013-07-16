@@ -6,11 +6,11 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://xmlns.opennms.org/xsd/spring/onms-osgi http://xmlns.opennms.org/xsd/spring/onms-osgi.xsd
 	">
-	
+
 	<onmsgi:reference id="smsService" interface="org.opennms.sms.reflector.smsservice.SmsService" />
-	
+
     <onmsgi:service ref="smsPingMessenger" interface="org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification"/>
 
     <onmsgi:service ref="smsPonger" interface="org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification"/>
-	
+
 </beans>

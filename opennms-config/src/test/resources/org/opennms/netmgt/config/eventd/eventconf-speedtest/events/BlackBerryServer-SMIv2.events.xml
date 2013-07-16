@@ -81,7 +81,7 @@ indicating that the SRP connection is down.
 	<uei>uei.opennms.org/vendor/RIM/BES/besHungThreadEvent</uei>
 	<event-label>BLACKBERRYSERVERMIB-SMIV2 defined trap event: besHungThreadEvent</event-label>
 	<descr>
-&lt;p&gt;Event related to detection of hung threads 
+&lt;p&gt;Event related to detection of hung threads
 in Exchange BES.&lt;/p&gt;
 	&lt;p&gt;
 	Trap Varbinds (parameters):&lt;br/&gt;
@@ -116,9 +116,9 @@ in Exchange BES.&lt;/p&gt;
 	<uei>uei.opennms.org/vendor/RIM/BES/besMailServerDownEvent</uei>
 	<event-label>BLACKBERRYSERVERMIB-SMIV2 defined trap event: besMailServerDownEvent</event-label>
 	<descr>
-&lt;p&gt;Event is generated when more than one user (or one user 
-if there is only one) gets more than one error connecting 
-to a particular mail server, and those errors are not 
+&lt;p&gt;Event is generated when more than one user (or one user
+if there is only one) gets more than one error connecting
+to a particular mail server, and those errors are not
 Access Control related.&lt;/p&gt;
 	&lt;p&gt;
 	Trap Varbinds (parameters):&lt;br/&gt;
@@ -149,9 +149,9 @@ Access Control related.&lt;/p&gt;
 	<uei>uei.opennms.org/vendor/RIM/BES/besMailServerUpEvent</uei>
 	<event-label>BLACKBERRYSERVERMIB-SMIV2 defined (interpolated) trap event: besMailServerUpEvent</event-label>
 	<descr>
-&lt;p&gt;Event is generated when more than one user (or one user 
-if there is only one) gets more than one error connecting 
-to a particular mail server, and those errors are not 
+&lt;p&gt;Event is generated when more than one user (or one user
+if there is only one) gets more than one error connecting
+to a particular mail server, and those errors are not
 Access Control related. This particular trap is not defined in
 the BES MIB, but is described in the Maintenance Guide for BES
 4.0 as indicating that the mail server has been detected as being

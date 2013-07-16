@@ -12,13 +12,13 @@
 		log.debug("Start TCP PROXY for INS Event ");
 
 		InsServerListener isl = new InsServerListener();
-		
+
 		//optional (if not setted, default port (8154) is used)
 		//isl.setListeningPort(8152);
-		
+
 		//optional (if not setted, no authentication is required)
 		//isl.setSharedASCIIString("1234567890");
-		
+
 		//required properties
 		isl.setCriteriaRestriction("eventuei = 'uei.opennms.org/internal/alarms/AlarmRaised' and EXISTS (select 1 from alarms where alarmtype = 1 and severity > 3 and eventoperinstruct = alarmid and eventtime > lasteventtime)");
 		isl.start();
@@ -34,17 +34,17 @@
 
 	<event-script language="beanshell">
 		event = bsf.lookupBean("event");
-                
+
         if (
            (event.uei.equals("uei.opennms.org/internal/alarms/NotificationAlarm"))
         || (event.uei.equals("uei.opennms.org/internal/alarms/AlarmCleared"))
         || (event.uei.equals("uei.opennms.org/internal/alarms/AlarmRaised"))
            )
         {
-		
+
 			isl.flushEvent(event);
         }
-		
+
 	</event-script>
 
 

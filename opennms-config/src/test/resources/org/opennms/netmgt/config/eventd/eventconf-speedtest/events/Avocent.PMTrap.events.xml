@@ -27,7 +27,7 @@ in pmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmRebootStartedTrap trap received 
+			avctPmRebootStartedTrap trap received
 			pmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -63,8 +63,8 @@ The name of the user who start the daemon is contained in pmTrapObjectUserName.&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmDaemonStarted trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmDaemonStarted trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectDaemonName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -100,8 +100,8 @@ The name of the user who stop the daemon is contained in pmTrapObjectUserName.&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmDaemonStoped trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmDaemonStoped trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectDaemonName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -124,10 +124,10 @@ The name of the user who stop the daemon is contained in pmTrapObjectUserName.&l
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmSessionTerminatedTrap</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmSessionTerminatedTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when one previous session is 
+&lt;p&gt;This trap is generated when one previous session is
 terminated by another user.
 The name of the user who terminated the session is contained in pmTrapObjectUserName.
-The name of the user who was terminated from the session is contained 
+The name of the user who was terminated from the session is contained
 in pmTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -139,8 +139,8 @@ in pmTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSessionTerminatedTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmSessionTerminatedTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -176,8 +176,8 @@ pmTrapObjectFileName is name of the file where the configuration was stored.&lt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmConfigurationStoredTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmConfigurationStoredTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -213,8 +213,8 @@ pmTrapObjectFileName is name of the file used to restored the configuration.&lt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmConfigurationRestoredTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmConfigurationRestoredTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -250,8 +250,8 @@ The name of the new user is contained in pmTrapObjectTargetUserName.&lt;/p&gt;&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmLocalUserAddedTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmLocalUserAddedTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -287,8 +287,8 @@ The name of the user who was deleted is contained in pmTrapObjectTargetUserName.
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmLocalUserDeletedTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmLocalUserDeletedTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -324,8 +324,8 @@ The name of the user who was modified is contained in pmTrapObjectTargetUserName
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmLocalUserModifiedTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmLocalUserModifiedTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -349,7 +349,7 @@ The name of the user who was modified is contained in pmTrapObjectTargetUserName
 	<event-label>PM-TRAP-MIB defined trap event: avctPmFirmwareUpgradeStarted</event-label>
 	<descr>
 &lt;p&gt;The appliance has started an upgrade of a software image.
-The name of the user who initiate the process is contained 
+The name of the user who initiate the process is contained
 in pmTrapObjectUserName.
 The current firmware version is contained in pmTrapFirmwareVersion.
 The new firmware version is contained in pmTrapNewFirmwareVersion.&lt;/p&gt;&lt;table&gt;
@@ -367,9 +367,9 @@ The new firmware version is contained in pmTrapNewFirmwareVersion.&lt;/p&gt;&lt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmFirmwareUpgradeStarted trap received 
-			pmTrapObjectUserName=%parm[#1]% 
-			pmTrapFirmwareVersion=%parm[#2]% 
+			avctPmFirmwareUpgradeStarted trap received
+			pmTrapObjectUserName=%parm[#1]%
+			pmTrapFirmwareVersion=%parm[#2]%
 			pmTrapNewFirmwareVersion=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -408,8 +408,8 @@ The result of the process is contained in pmTrapFirmwareUpgradeResult.&lt;/p&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmFirmwareUpgradeResultsTrap trap received 
-			pmTrapFirmwareUpgradeResult=%parm[#1]% 
+			avctPmFirmwareUpgradeResultsTrap trap received
+			pmTrapFirmwareUpgradeResult=%parm[#1]%
 			pmTrapNewFirmwareVersion=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -433,12 +433,12 @@ The result of the process is contained in pmTrapFirmwareUpgradeResult.&lt;/p&gt;
 	<event-label>PM-TRAP-MIB defined trap event: avctPmApplianceAlertTrap</event-label>
 	<descr>
 &lt;p&gt;An appliance alert was detected on a ssh or telnet session.
-The name of user who was logged into the appliance when 
+The name of user who was logged into the appliance when
 trap occurred is contained in pmTrapObjectUserName.
-The index of the appliance alert that was detected in the message is 
+The index of the appliance alert that was detected in the message is
 contained in pmTrapObjectAlertIndex.
 The appliance alert that was detected is contained in pmTrapObjectAlertString.
-The line text where the appliance alert was detected is contained 
+The line text where the appliance alert was detected is contained
 in pmTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -458,10 +458,10 @@ in pmTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmApplianceAlertTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
-			pmTrapObjectAlertIndex=%parm[#2]% 
-			pmTrapObjectAlertString=%parm[#3]% 
+			avctPmApplianceAlertTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
+			pmTrapObjectAlertIndex=%parm[#2]%
+			pmTrapObjectAlertString=%parm[#3]%
 			pmTrapObjectAlertMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -510,8 +510,8 @@ in pmTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	<event-label>PM-TRAP-MIB defined trap event: avctPmUserLoginTrap</event-label>
 	<descr>
 &lt;p&gt;This trap is sent when user logged into the appliance.
-The name of the user who logged in is contained in 
-pmTrapObjectUserName and the method used to log into appliance 
+The name of the user who logged in is contained in
+pmTrapObjectUserName and the method used to log into appliance
 is contained in pmTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -529,8 +529,8 @@ is contained in pmTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmUserLoginTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmUserLoginTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectSessionType=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -554,8 +554,8 @@ is contained in pmTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	<event-label>PM-TRAP-MIB defined trap event: avctPmUserLogoutTrap</event-label>
 	<descr>
 &lt;p&gt;A user logged out of the appliance.
-The name of the user who logged in is contained in 
-pmTrapObjectUserName and the method used to log into appliance 
+The name of the user who logged in is contained in
+pmTrapObjectUserName and the method used to log into appliance
 is contained in pmTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -573,8 +573,8 @@ is contained in pmTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmUserLogoutTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
+			avctPmUserLogoutTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
 			pmTrapObjectSessionType=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -605,7 +605,7 @@ The name of the user who failed to authenticate is contained in pmTrapObjectUser
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmAuthenticationFailureTrap trap received 
+			avctPmAuthenticationFailureTrap trap received
 			pmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -646,8 +646,8 @@ The affected serial port name is contained in pmTrapObjectSerialPortName.&lt;/p&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPortPowerOnDetectTrap trap received 
-			pmTrapObjectSerialPortName=%parm[#1]% 
+			avctPmPortPowerOnDetectTrap trap received
+			pmTrapObjectSerialPortName=%parm[#1]%
 			pmTrapObjectSerialPortNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -688,8 +688,8 @@ The affected serial port name is contained in pmTrapObjectSerialPortName.&lt;/p&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPortPowerOffDetectTrap trap received 
-			pmTrapObjectSerialPortName=%parm[#1]% 
+			avctPmPortPowerOffDetectTrap trap received
+			pmTrapObjectSerialPortName=%parm[#1]%
 			pmTrapObjectSerialPortNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -712,7 +712,7 @@ The affected serial port name is contained in pmTrapObjectSerialPortName.&lt;/p&
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmDataBufferNFSFailure</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmDataBufferNFSFailure</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is sending data buffering data to a NFS server 
+&lt;p&gt;This trap is generated when the appliance is sending data buffering data to a NFS server
 and the write operation fails.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -738,7 +738,7 @@ and the write operation fails.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmDataBufferNFSRecovery</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmDataBufferNFSRecovery</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the NFS server is back online after a failure in a 
+&lt;p&gt;This trap is generated when the NFS server is back online after a failure in a
 Data Buffering write operation.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -764,7 +764,7 @@ Data Buffering write operation.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmDataBufferFullThresholdLowTrap</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmDataBufferFullThresholdLowTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 global data buffer has reached configured Low level Threshold.
 pmTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -773,7 +773,7 @@ pmTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmDataBufferFullThresholdLowTrap trap received 
+			avctPmDataBufferFullThresholdLowTrap trap received
 			pmTrapObjectDataBufferSize=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -796,7 +796,7 @@ pmTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmDataBufferFullThresholdMedTrap</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmDataBufferFullThresholdMedTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 global data buffer has reached configured Med level Threshold.
 pmTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -805,7 +805,7 @@ pmTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmDataBufferFullThresholdMedTrap trap received 
+			avctPmDataBufferFullThresholdMedTrap trap received
 			pmTrapObjectDataBufferSize=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -828,7 +828,7 @@ pmTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmDataBufferFullLostDataTrap</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmDataBufferFullLostDataTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 global data buffer has exceeded beyond the size of buffer and data lost has occurred.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -854,7 +854,7 @@ global data buffer has exceeded beyond the size of buffer and data lost has occu
 	<uei>uei.opennms.org/vendor/avocent/traps/avctPmPduOnlineTrap</uei>
 	<event-label>PM-TRAP-MIB defined trap event: avctPmPduOnlineTrap</event-label>
 	<descr>
-&lt;p&gt;A power device unit(PDU) attached to the appliance is online. 
+&lt;p&gt;A power device unit(PDU) attached to the appliance is online.
 The port number on the appliance that the power device is attached to is contained in pmTrapObjectSerialPortNumber.
 The power device number in the chain is contained in pmTrapObjectPduNumber.
 The power device ID is contained in pmTrapObjectPduId.
@@ -886,11 +886,11 @@ The vendor of the power device is contained in pmTrapObjectPduVendor&lt;/p&gt;&l
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduOnlineTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduSocket=%parm[#4]% 
+			avctPmPduOnlineTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduSocket=%parm[#4]%
 			pmTrapObjectPduVendor=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -945,11 +945,11 @@ The vendor of the power device is contained in pmTrapObjectPduVendor.&lt;/p&gt;&
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduOfflineTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduSocket=%parm[#4]% 
+			avctPmPduOfflineTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduSocket=%parm[#4]%
 			pmTrapObjectPduVendor=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1004,11 +1004,11 @@ The vendor of the power device is contained in pmTrapObjectPduVendor.&lt;/p&gt;&
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduIdChangedTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduIdOld=%parm[#3]% 
-			pmTrapObjectPduId=%parm[#4]% 
+			avctPmPduIdChangedTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduIdOld=%parm[#3]%
+			pmTrapObjectPduId=%parm[#4]%
 			pmTrapObjectPduVendor=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1064,12 +1064,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduMaxLoadHighTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmPduMaxLoadHighTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1125,12 +1125,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduMinLoadLowTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmPduMinLoadLowTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1181,11 +1181,11 @@ The new firmware version is contained in pmTrapNewFirmwareVersion.&lt;/p&gt;&lt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduFirmwareUpgradeStarted trap received 
-			pmTrapObjectUserName=%parm[#1]% 
-			pmTrapObjectSerialPortNumber=%parm[#2]% 
-			pmTrapObjectPduNumber=%parm[#3]% 
-			pmTrapFirmwareVersion=%parm[#4]% 
+			avctPmPduFirmwareUpgradeStarted trap received
+			pmTrapObjectUserName=%parm[#1]%
+			pmTrapObjectSerialPortNumber=%parm[#2]%
+			pmTrapObjectPduNumber=%parm[#3]%
+			pmTrapFirmwareVersion=%parm[#4]%
 			pmTrapNewFirmwareVersion=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1234,10 +1234,10 @@ The result of the process is contained in pmTrapFirmwareUpgradeResult.&lt;/p&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduFirmwareUpgradeResultsTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapFirmwareUpgradeResult=%parm[#3]% 
+			avctPmPduFirmwareUpgradeResultsTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapFirmwareUpgradeResult=%parm[#3]%
 			pmTrapNewFirmwareVersion=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1278,9 +1278,9 @@ The ID of the PDU that was tripped is contained in the pmTrapObjectPduId. &lt;/p
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduHwOcpTripped trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
+			avctPmPduHwOcpTripped trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
 			pmTrapObjectPduId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1321,9 +1321,9 @@ The ID of the PDU ID whose HW OCP was reset is contained in the pmTrapObjectPduI
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduHwOcpReset trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
+			avctPmPduHwOcpReset trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
 			pmTrapObjectPduId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1379,12 +1379,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduMaxLoadBackTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmPduMaxLoadBackTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1440,12 +1440,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduWarnLoadTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmPduWarnLoadTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1501,12 +1501,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmPduLowLoadLowTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmPduLowLoadLowTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1562,12 +1562,12 @@ The socket name that has changed to the on state is contained in pmTrapObjectSoc
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletNameChangedTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectSocketNumber=%parm[#4]% 
-			pmTrapObjectSocketOldName=%parm[#5]% 
+			avctPmOutletNameChangedTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectSocketNumber=%parm[#4]%
+			pmTrapObjectSocketOldName=%parm[#5]%
 			pmTrapObjectSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1591,7 +1591,7 @@ The socket name that has changed to the on state is contained in pmTrapObjectSoc
 	<event-label>PM-TRAP-MIB defined trap event: avctPmOutletCmdOnTrap</event-label>
 	<descr>
 &lt;p&gt;An outlet on a chain of power device has been issued the on command.
-The name of the user who issued the on command is contained in pmTrapObjectUserName.      
+The name of the user who issued the on command is contained in pmTrapObjectUserName.
 The port number on the appliance that the chain of power device is attached to is contained in pmTrapObjectSerialPortNumber.
 The power device number in the chain is contained in pmTrapObjectPduNumber.
 The ID of the power device is contained in pmTrapObjectPduId.
@@ -1623,12 +1623,12 @@ The socket name that was issued the on command is contained in pmTrapObjectSocke
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletCmdOnTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
-			pmTrapObjectSerialPortNumber=%parm[#2]% 
-			pmTrapObjectPduNumber=%parm[#3]% 
-			pmTrapObjectPduId=%parm[#4]% 
-			pmTrapObjectSocketNumber=%parm[#5]% 
+			avctPmOutletCmdOnTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
+			pmTrapObjectSerialPortNumber=%parm[#2]%
+			pmTrapObjectPduNumber=%parm[#3]%
+			pmTrapObjectPduId=%parm[#4]%
+			pmTrapObjectSocketNumber=%parm[#5]%
 			pmTrapObjectSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1679,11 +1679,11 @@ The socket name that has changed to the on state is contained in pmTrapObjectSoc
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletStatusOnTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectSocketNumber=%parm[#4]% 
+			avctPmOutletStatusOnTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectSocketNumber=%parm[#4]%
 			pmTrapObjectSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1739,12 +1739,12 @@ The name of the user who issued the off command is contained in pmTrapObjectUser
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletCmdOffTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
-			pmTrapObjectSerialPortNumber=%parm[#2]% 
-			pmTrapObjectPduNumber=%parm[#3]% 
-			pmTrapObjectPduId=%parm[#4]% 
-			pmTrapObjectSocketNumber=%parm[#5]% 
+			avctPmOutletCmdOffTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
+			pmTrapObjectSerialPortNumber=%parm[#2]%
+			pmTrapObjectPduNumber=%parm[#3]%
+			pmTrapObjectPduId=%parm[#4]%
+			pmTrapObjectSocketNumber=%parm[#5]%
 			pmTrapObjectSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1795,11 +1795,11 @@ The socket name that has changed to the off state is contained in pmTrapObjectSo
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletStatusOffTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectSocketNumber=%parm[#4]% 
+			avctPmOutletStatusOffTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectSocketNumber=%parm[#4]%
 			pmTrapObjectSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1855,12 +1855,12 @@ The name of the user who issued the cycle command is contained in pmTrapObjectUs
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletCmdCycleTrap trap received 
-			pmTrapObjectUserName=%parm[#1]% 
-			pmTrapObjectSerialPortNumber=%parm[#2]% 
-			pmTrapObjectPduNumber=%parm[#3]% 
-			pmTrapObjectPduId=%parm[#4]% 
-			pmTrapObjectSocketNumber=%parm[#5]% 
+			avctPmOutletCmdCycleTrap trap received
+			pmTrapObjectUserName=%parm[#1]%
+			pmTrapObjectSerialPortNumber=%parm[#2]%
+			pmTrapObjectPduNumber=%parm[#3]%
+			pmTrapObjectPduId=%parm[#4]%
+			pmTrapObjectSocketNumber=%parm[#5]%
 			pmTrapObjectSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1911,11 +1911,11 @@ The socket name that was issued the cycle command is contained in pmTrapObjectSo
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletCycleFinishedTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectSocketNumber=%parm[#4]% 
+			avctPmOutletCycleFinishedTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectSocketNumber=%parm[#4]%
 			pmTrapObjectSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1967,11 +1967,11 @@ The socket name that has changed to the on state is contained in pmTrapObjectSoc
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletOnSenseFailTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectSocketNumber=%parm[#4]% 
+			avctPmOutletOnSenseFailTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectSocketNumber=%parm[#4]%
 			pmTrapObjectSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2023,11 +2023,11 @@ The socket name that has changed to the on state is contained in pmTrapObjectSoc
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmOutletOffSenseFailTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectSocketNumber=%parm[#4]% 
+			avctPmOutletOffSenseFailTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectSocketNumber=%parm[#4]%
 			pmTrapObjectSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2068,9 +2068,9 @@ The current temperature is contained in pmTrapObjectTemperatureCurrent.&lt;/p&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmTemperatureExceededMaxTrap trap received 
-			pmTrapObjectTemperatureMaximumValue=%parm[#1]% 
-			pmTrapObjectTemperatureMaxThreshold=%parm[#2]% 
+			avctPmTemperatureExceededMaxTrap trap received
+			pmTrapObjectTemperatureMaximumValue=%parm[#1]%
+			pmTrapObjectTemperatureMaxThreshold=%parm[#2]%
 			pmTrapObjectTemperatureCurrent=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2111,9 +2111,9 @@ The current temperature is contained in pmTrapObjectTemperatureCurrent.&lt;/p&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmTemperatureReachedMaxTrap trap received 
-			pmTrapObjectTemperatureMaximumValue=%parm[#1]% 
-			pmTrapObjectTemperatureMaxThreshold=%parm[#2]% 
+			avctPmTemperatureReachedMaxTrap trap received
+			pmTrapObjectTemperatureMaximumValue=%parm[#1]%
+			pmTrapObjectTemperatureMaxThreshold=%parm[#2]%
 			pmTrapObjectTemperatureCurrent=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2154,9 +2154,9 @@ The current temperature is contained in pmTrapObjectTemperatureCurrent.&lt;/p&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmTemperatureExceededMinTrap trap received 
-			pmTrapObjectTemperatureMinimumValue=%parm[#1]% 
-			pmTrapObjectTemperatureMinThreshold=%parm[#2]% 
+			avctPmTemperatureExceededMinTrap trap received
+			pmTrapObjectTemperatureMinimumValue=%parm[#1]%
+			pmTrapObjectTemperatureMinThreshold=%parm[#2]%
 			pmTrapObjectTemperatureCurrent=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2197,9 +2197,9 @@ The current temperature is contained in pmTrapObjectTemperatureCurrent.&lt;/p&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmTemperatureReachedMinTrap trap received 
-			pmTrapObjectTemperatureMinimumValue=%parm[#1]% 
-			pmTrapObjectTemperatureMinThreshold=%parm[#2]% 
+			avctPmTemperatureReachedMinTrap trap received
+			pmTrapObjectTemperatureMinimumValue=%parm[#1]%
+			pmTrapObjectTemperatureMinThreshold=%parm[#2]%
 			pmTrapObjectTemperatureCurrent=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2255,12 +2255,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSensorThresholdNormalTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmSensorThresholdNormalTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2316,12 +2316,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSensorThresholdHighCriticalTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmSensorThresholdHighCriticalTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2377,12 +2377,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSensorThresholdHighWarningTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmSensorThresholdHighWarningTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2438,12 +2438,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSensorThresholdLowWarningTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmSensorThresholdLowWarningTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2499,12 +2499,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSensorThresholdLowCriticalTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmSensorThresholdLowCriticalTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2560,12 +2560,12 @@ The current value detected when this trap was originated is contained in pmTrapO
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctPmSensorThresholdDigitalSensorAlarmTrap trap received 
-			pmTrapObjectSerialPortNumber=%parm[#1]% 
-			pmTrapObjectPduNumber=%parm[#2]% 
-			pmTrapObjectPduId=%parm[#3]% 
-			pmTrapObjectPduElementType=%parm[#4]% 
-			pmTrapObjectPduElementName=%parm[#5]% 
+			avctPmSensorThresholdDigitalSensorAlarmTrap trap received
+			pmTrapObjectSerialPortNumber=%parm[#1]%
+			pmTrapObjectPduNumber=%parm[#2]%
+			pmTrapObjectPduId=%parm[#3]%
+			pmTrapObjectPduElementType=%parm[#4]%
+			pmTrapObjectPduElementName=%parm[#5]%
 			pmTrapObjectPduCurrentValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

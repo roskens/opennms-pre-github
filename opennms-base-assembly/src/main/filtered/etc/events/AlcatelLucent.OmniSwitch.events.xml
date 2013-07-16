@@ -59,14 +59,14 @@ want to aware the user of for maintenance purpose.	&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			chassisTrapsStr trap received 
-			chassisTrapsStrLevel=%parm[#1]% 
-			chassisTrapsStrAppID=%parm[#2]% 
-			chassisTrapsStrSnapID=%parm[#3]% 
-			chassisTrapsStrfileName=%parm[#4]% 
-			chassisTrapsStrfileLineNb=%parm[#5]% 
-			chassisTrapsStrErrorNb=%parm[#6]% 
-			chassisTrapsStrcomments=%parm[#7]% 
+			chassisTrapsStr trap received
+			chassisTrapsStrLevel=%parm[#1]%
+			chassisTrapsStrAppID=%parm[#2]%
+			chassisTrapsStrSnapID=%parm[#3]%
+			chassisTrapsStrfileName=%parm[#4]%
+			chassisTrapsStrfileLineNb=%parm[#5]%
+			chassisTrapsStrErrorNb=%parm[#6]%
+			chassisTrapsStrcomments=%parm[#7]%
 			chassisTrapsStrdataInfo=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -179,11 +179,11 @@ whatever it's a failure or not				&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			chassisTrapsAlert trap received 
-			physicalIndex=%parm[#1]% 
-			chassisTrapsObjectType=%parm[#2]% 
-			chassisTrapsObjectNumber=%parm[#3]% 
-			chassisTrapsAlertNumber=%parm[#4]% 
+			chassisTrapsAlert trap received
+			physicalIndex=%parm[#1]%
+			chassisTrapsObjectType=%parm[#2]%
+			chassisTrapsObjectNumber=%parm[#3]%
+			chassisTrapsAlertNumber=%parm[#4]%
 			chassisTrapsAlertDescr=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -242,10 +242,10 @@ whatever it's a failure or not				&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			chassisTrapsStateChange trap received 
-			physicalIndex=%parm[#1]% 
-			chassisTrapsObjectType=%parm[#2]% 
-			chassisTrapsObjectNumber=%parm[#3]% 
+			chassisTrapsStateChange trap received
+			physicalIndex=%parm[#1]%
+			chassisTrapsObjectType=%parm[#2]%
+			chassisTrapsObjectNumber=%parm[#3]%
 			chasEntPhysOperStatus=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -325,14 +325,14 @@ a binding rule which has been configured gets violated.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gmBindRuleViolation trap received 
-			gmBindRuleType=%parm[#1]% 
-			gmBindRuleVlanId=%parm[#2]% 
-			gmBindRuleIPAddress=%parm[#3]% 
-			gmBindRuleMacAddress=%parm[#4]% 
-			gmBindRulePortIfIndex=%parm[#5]% 
-			gmBindRuleProtoClass=%parm[#6]% 
-			gmBindRuleEthertype=%parm[#7]% 
+			gmBindRuleViolation trap received
+			gmBindRuleType=%parm[#1]%
+			gmBindRuleVlanId=%parm[#2]%
+			gmBindRuleIPAddress=%parm[#3]%
+			gmBindRuleMacAddress=%parm[#4]%
+			gmBindRulePortIfIndex=%parm[#5]%
+			gmBindRuleProtoClass=%parm[#6]%
+			gmBindRuleEthertype=%parm[#7]%
 			gmBindRuleDsapSsap=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -416,13 +416,13 @@ due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gmHwVlanRuleTableOverloadAlert trap received 
-			gmOverloadRuleTable=%parm[#1]% 
-			gmOverloadRuleType=%parm[#2]% 
-			gmOverloadRuleVlanId=%parm[#3]% 
-			gmOverloadRuleMacAddress=%parm[#4]% 
-			gmOverloadRuleIpAddress=%parm[#5]% 
-			gmOverloadRuleProtocol=%parm[#6]% 
+			gmHwVlanRuleTableOverloadAlert trap received
+			gmOverloadRuleTable=%parm[#1]%
+			gmOverloadRuleType=%parm[#2]%
+			gmOverloadRuleVlanId=%parm[#3]%
+			gmOverloadRuleMacAddress=%parm[#4]%
+			gmOverloadRuleIpAddress=%parm[#5]%
+			gmOverloadRuleProtocol=%parm[#6]%
 			gmOverloadRuleIpxNetwork=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -458,8 +458,8 @@ in OS6800 due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gmHwMixModeSubnetRuleTableOverloadAlert trap received 
-			gmSubnetRuleTable=%parm[#1]% 
+			gmHwMixModeSubnetRuleTableOverloadAlert trap received
+			gmSubnetRuleTable=%parm[#1]%
 			gmOverloadRuleSlice=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -494,7 +494,7 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gvrpVlanLimitReachedEvent trap received 
+			gvrpVlanLimitReachedEvent trap received
 			alaGvrpMaxVlanLimit=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -570,12 +570,12 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			healthMonDeviceTrap trap received 
-			healthMonRxStatus=%parm[#1]% 
-			healthMonRxTxStatus=%parm[#2]% 
-			healthMonMemoryStatus=%parm[#3]% 
-			healthMonCpuStatus=%parm[#4]% 
-			healthMonCmmTempStatus=%parm[#5]% 
+			healthMonDeviceTrap trap received
+			healthMonRxStatus=%parm[#1]%
+			healthMonRxTxStatus=%parm[#2]%
+			healthMonMemoryStatus=%parm[#3]%
+			healthMonCpuStatus=%parm[#4]%
+			healthMonCmmTempStatus=%parm[#5]%
 			healthMonCmmCpuTempStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -669,15 +669,15 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			healthMonModuleTrap trap received 
-			healthModuleSlot=%parm[#1]% 
-			healthMonRxStatus=%parm[#2]% 
-			healthMonRxTxStatus=%parm[#3]% 
-			healthMonMemoryStatus=%parm[#4]% 
-			healthMonCpuStatus=%parm[#5]% 
-			healthMonPrimaryFabricRxStatus=%parm[#6]% 
-			healthMonPrimaryFabricRxTxStatus=%parm[#7]% 
-			healthMonSecondaryFabricRxStatus=%parm[#8]% 
+			healthMonModuleTrap trap received
+			healthModuleSlot=%parm[#1]%
+			healthMonRxStatus=%parm[#2]%
+			healthMonRxTxStatus=%parm[#3]%
+			healthMonMemoryStatus=%parm[#4]%
+			healthMonCpuStatus=%parm[#5]%
+			healthMonPrimaryFabricRxStatus=%parm[#6]%
+			healthMonPrimaryFabricRxTxStatus=%parm[#7]%
+			healthMonSecondaryFabricRxStatus=%parm[#8]%
 			healthMonSecondaryFabricRxTxStatus=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -727,10 +727,10 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			healthMonPortTrap trap received 
-			healthPortSlot=%parm[#1]% 
-			healthPortIF=%parm[#2]% 
-			healthMonRxStatus=%parm[#3]% 
+			healthMonPortTrap trap received
+			healthPortSlot=%parm[#1]%
+			healthPortIF=%parm[#2]%
+			healthMonRxStatus=%parm[#3]%
 			healthMonRxTxStatus=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -762,7 +762,7 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pethPwrSupplyConflict trap received 
+			pethPwrSupplyConflict trap received
 			pethSourceSlot=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -792,7 +792,7 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pethPwrSupplyNotSupported trap received 
+			pethPwrSupplyNotSupported trap received
 			pethSourceSlot=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -833,8 +833,8 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			aipAMAPStatusTrap trap received 
-			aipAMAPLastTrapReason=%parm[#1]% 
+			aipAMAPStatusTrap trap received
+			aipAMAPLastTrapReason=%parm[#1]%
 			aipAMAPLastTrapPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -887,11 +887,11 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			aipGMAPConflictTrap trap received 
-			aipGMAPLastTrapReason=%parm[#1]% 
-			aipGMAPLastTrapPort=%parm[#2]% 
-			aipGMAPLastTrapMac=%parm[#3]% 
-			aipGMAPLastTrapProtocol=%parm[#4]% 
+			aipGMAPConflictTrap trap received
+			aipGMAPLastTrapReason=%parm[#1]%
+			aipGMAPLastTrapPort=%parm[#2]%
+			aipGMAPLastTrapMac=%parm[#3]%
+			aipGMAPLastTrapProtocol=%parm[#4]%
 			aipGMAPLastTrapVlan=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -959,12 +959,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1018,10 +1018,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1066,9 +1066,9 @@ Overload state.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisDatabaseOverload trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			isisSysL1State=%parm[#2]% 
+			vRtrIsisDatabaseOverload trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			isisSysL1State=%parm[#2]%
 			isisSysL2State=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1093,11 +1093,11 @@ Overload state.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;This notification is generated when one of the manual areaAddresses
 assigned to this system is ignored when computing routes. The object
-vRtrIsisManAreaAddrExistState describes the area that has been 
+vRtrIsisManAreaAddrExistState describes the area that has been
 dropped.
 
 This notification is edge triggered, and should not be regenerated
-until an address that was used in the previous computation has been 
+until an address that was used in the previous computation has been
 dropped.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1105,7 +1105,7 @@ dropped.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisManualAddressDrops trap received 
+			vRtrIsisManualAddressDrops trap received
 			isisManAreaAddrExistState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1128,8 +1128,8 @@ dropped.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisCorruptedLSPDetected</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisCorruptedLSPDetected</event-label>
 	<descr>
-&lt;p&gt;This notification is generated when we find that and LSP that was 
-stored in memory has become corrupted.  
+&lt;p&gt;This notification is generated when we find that and LSP that was
+stored in memory has become corrupted.
 
 We forward an LSP ID. We may have independent knowledge of the ID,
 but in some implementations there is a chance that the ID itself will
@@ -1148,8 +1148,8 @@ be corrupted.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisCorruptedLSPDetected trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
+			vRtrIsisCorruptedLSPDetected trap received
+			vRtrIsisSystemLevel=%parm[#1]%
 			vRtrIsisTrapLSPID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1174,7 +1174,7 @@ be corrupted.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;When the sequence number on an LSP we generate wraps the 32 bit
 sequence counter, we purge and wait to re-announce this information.
-This notification describes that event.  Since these should not be 
+This notification describes that event.  Since these should not be
 generated rapidly, we generate an event each time this happens.
 
 While the first 6 bytes of the LSPID are ours, the other two contain
@@ -1193,8 +1193,8 @@ useful information.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisMaxSeqExceedAttempt trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
+			vRtrIsisMaxSeqExceedAttempt trap received
+			vRtrIsisSystemLevel=%parm[#1]%
 			vRtrIsisTrapLSPID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1217,9 +1217,9 @@ useful information.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisIDLenMismatch</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisIDLenMismatch</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with a different value of 
-the System ID Length. This notification includes the an index to 
-identify the circuit where we saw the PDU and the header of the PDU 
+&lt;p&gt;A notification sent when we receive a PDU with a different value of
+the System ID Length. This notification includes the an index to
+identify the circuit where we saw the PDU and the header of the PDU
 which may help a network manager identify the source of the confusion.
 
 This should be an edge-triggered notification. We should not send a
@@ -1240,9 +1240,9 @@ the circuit or on some MAC level information.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisIDLenMismatch trap received 
-			vRtrIsisFieldLen=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisIDLenMismatch trap received
+			vRtrIsisFieldLen=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisPDUFragment=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1265,12 +1265,12 @@ the circuit or on some MAC level information.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisMaxAreaAddrsMismatch</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisMaxAreaAddrsMismatch</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with a different value of 
+&lt;p&gt;A notification sent when we receive a PDU with a different value of
 the Maximum Area Addresses.  This notification includes the header of
-the packet, which may help a network manager identify the source of 
+the packet, which may help a network manager identify the source of
 the confusion.
 
-This should be an edge-triggered notification. We should not send a 
+This should be an edge-triggered notification. We should not send a
 second notification about PDUs received from what seem to be the same
 source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1287,9 +1287,9 @@ source.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisMaxAreaAddrsMismatch trap received 
-			vRtrIsisMaxAreaAddress=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisMaxAreaAddrsMismatch trap received
+			vRtrIsisMaxAreaAddress=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisPDUFragment=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1313,8 +1313,8 @@ source.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisOwnLSPPurge</event-label>
 	<descr>
 &lt;p&gt;A notification sent when we receive a PDU with our systemID and zero
-age.  This notification includes the circuit Index if available, 
-which may help a network manager identify the source of the 
+age.  This notification includes the circuit Index if available,
+which may help a network manager identify the source of the
 confusion.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1334,9 +1334,9 @@ confusion.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisOwnLSPPurge trap received 
-			vRtrIsisIfIndex=%parm[#1]% 
-			vRtrIsisTrapLSPID=%parm[#2]% 
+			vRtrIsisOwnLSPPurge trap received
+			vRtrIsisIfIndex=%parm[#1]%
+			vRtrIsisTrapLSPID=%parm[#2]%
 			vRtrIsisSystemLevel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1362,8 +1362,8 @@ confusion.&lt;/p&gt;&lt;table&gt;
 &lt;p&gt;When we recieve an LSP with out System ID and different contents, we
 may need to reissue the LSP with a higher sequence number.
 
-We send this notification if we need to increase the sequence number 
-by more than one.  If two Intermediate Systems are configured with 
+We send this notification if we need to increase the sequence number
+by more than one.  If two Intermediate Systems are configured with
 the same System ID, this notification will fire.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1383,9 +1383,9 @@ the same System ID, this notification will fire.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisSequenceNumberSkip trap received 
-			vRtrIsisTrapLSPID=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisSequenceNumberSkip trap received
+			vRtrIsisTrapLSPID=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisSystemLevel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1408,13 +1408,13 @@ the same System ID, this notification will fire.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisAutTypeFail</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisAutTypeFail</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with the wrong 
-authentication type field. This notification includes the header of 
-the packet, which may help a network manager identify the source of 
+&lt;p&gt;A notification sent when we receive a PDU with the wrong
+authentication type field. This notification includes the header of
+the packet, which may help a network manager identify the source of
 the confusion.
 
-This should be an edge-triggered notification. We should not send a 
-second notification about PDUs received from what seem to be the 
+This should be an edge-triggered notification. We should not send a
+second notification about PDUs received from what seem to be the
 same source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1434,9 +1434,9 @@ same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAutTypeFail trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisPDUFragment=%parm[#2]% 
+			vRtrIsisAutTypeFail trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisPDUFragment=%parm[#2]%
 			vRtrIsisIfIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1459,12 +1459,12 @@ same source.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisAuthFail</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisAuthFail</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with incorrent 
-authentication information field. This notification includes the 
+&lt;p&gt;A notification sent when we receive a PDU with incorrent
+authentication information field. This notification includes the
 header of the packet, which may help a network manager
 identify the source of the confusion.
 
-This should be an edge-triggered notification. We should not send a 
+This should be an edge-triggered notification. We should not send a
 second notification about PDUs received from what seem to be the same
 source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1485,9 +1485,9 @@ source.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAuthFail trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisPDUFragment=%parm[#2]% 
+			vRtrIsisAuthFail trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisPDUFragment=%parm[#2]%
 			vRtrIsisIfIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1545,10 +1545,10 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisVersionSkew trap received 
-			vRtrIsisProtocolVersion=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisPDUFragment=%parm[#3]% 
+			vRtrIsisVersionSkew trap received
+			vRtrIsisProtocolVersion=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisPDUFragment=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1606,10 +1606,10 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAreaMismatch trap received 
-			vRtrIsisLSPSize=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisIfIndex=%parm[#3]% 
+			vRtrIsisAreaMismatch trap received
+			vRtrIsisLSPSize=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisIfIndex=%parm[#3]%
 			vRtrIsisPDUFragment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1653,8 +1653,8 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisRejectedAdjacency trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
+			vRtrIsisRejectedAdjacency trap received
+			vRtrIsisSystemLevel=%parm[#1]%
 			vRtrIsisIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1706,10 +1706,10 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisLSPTooLargeToPropagate trap received 
-			vRtrIsisLSPSize=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisLSPTooLargeToPropagate trap received
+			vRtrIsisLSPSize=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1769,10 +1769,10 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisOrigLSPBufSizeMismatch trap received 
-			vRtrIsisOriginatingBufferSize=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisOrigLSPBufSizeMismatch trap received
+			vRtrIsisOriginatingBufferSize=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1829,10 +1829,10 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisProtoSuppMismatch trap received 
-			vRtrIsisProtocolsSupported=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisProtoSuppMismatch trap received
+			vRtrIsisProtocolsSupported=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1855,7 +1855,7 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisAdjacencyChange</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisAdjacencyChange</event-label>
 	<descr>
-&lt;p&gt;A notification sent when an adjacency changes state, 
+&lt;p&gt;A notification sent when an adjacency changes state,
 entering or leaving state up. The first 6 bytes of the
 vRtrIsisTrapLSPID are the SystemID of the adjacent IS.
 The isisISAdjState is the new state of the adjacency.&lt;/p&gt;&lt;table&gt;
@@ -1881,10 +1881,10 @@ The isisISAdjState is the new state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAdjacencyChange trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisAdjacencyChange trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			isisISAdjState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1907,14 +1907,14 @@ The isisISAdjState is the new state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisCircIdExhausted</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisCircIdExhausted</event-label>
 	<descr>
-&lt;p&gt;A notification sent when ISIS cannot be started on a 
+&lt;p&gt;A notification sent when ISIS cannot be started on a
 LAN interface as a unique circid could not be assigned
 due to the exhaustion of the circId space.
 
 This could happen only on the broadcast interfaces.
 
-In such a case the interface is marked operationally 
-down. When an operationally up interface is deleted, the 
+In such a case the interface is marked operationally
+down. When an operationally up interface is deleted, the
 circId can be reused by any interface which is waiting to
 receive a unique circId.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1923,7 +1923,7 @@ receive a unique circId.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisCircIdExhausted trap received 
+			vRtrIsisCircIdExhausted trap received
 			vRtrIsisIfIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1948,7 +1948,7 @@ receive a unique circId.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A notification sent when an adjancency's
 graceful restart status changes.
-The vRtrIsisISAdjRestartStatus is the new 
+The vRtrIsisISAdjRestartStatus is the new
 graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1973,9 +1973,9 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAdjRestartStatusChange trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisAdjRestartStatusChange trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisISAdjRestartStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2001,7 +2001,7 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggAggUp</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation  is  active .
-This trap is sent when any one port of the link aggregation 
+This trap is sent when any one port of the link aggregation
 	goes to attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2013,8 +2013,8 @@ This trap is sent when any one port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggAggUp trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggAggUp trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2038,7 +2038,7 @@ This trap is sent when any one port of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggAggDown</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation  is  not active .
-This trap is sent when all  ports of the link aggregation 
+This trap is sent when all  ports of the link aggregation
 	goes out of attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2050,8 +2050,8 @@ This trap is sent when all  ports of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggAggDown trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggAggDown trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2075,7 +2075,7 @@ This trap is sent when all  ports of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggPortJoin</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation port  joins  the aggregate .
-This trap is sent when given  port of the link aggregation 
+This trap is sent when given  port of the link aggregation
 	goes to attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2087,8 +2087,8 @@ This trap is sent when given  port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggPortJoin trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggPortJoin trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2112,7 +2112,7 @@ This trap is sent when given  port of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggPortLeave</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation port  leaves  the aggregate .
-This trap is sent when given  port of the link aggregation 
+This trap is sent when given  port of the link aggregation
 	goes out of  attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2124,8 +2124,8 @@ This trap is sent when given  port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggPortLeave trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggPortLeave trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2149,7 +2149,7 @@ This trap is sent when given  port of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggPortRemove</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation port removed from the aggregate  .
-This trap is sent when given  port of the link aggregation 
+This trap is sent when given  port of the link aggregation
 	removed due to invalid configuration .&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2161,8 +2161,8 @@ This trap is sent when given  port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggPortRemove trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggPortRemove trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2226,14 +2226,14 @@ This trap is sent when given  port of the link aggregation
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lpsViolationTrap trap received 
-			lpsTrapSwitchName=%parm[#1]% 
-			lpsTrapSwitchIpAddr=%parm[#2]% 
-			lpsTrapSwitchSlice=%parm[#3]% 
-			lpsTrapSwitchPort=%parm[#4]% 
-			lpsTrapViolatingMac=%parm[#5]% 
-			lpsTrapViolationType=%parm[#6]% 
-			systemServicesDate=%parm[#7]% 
+			lpsViolationTrap trap received
+			lpsTrapSwitchName=%parm[#1]%
+			lpsTrapSwitchIpAddr=%parm[#2]%
+			lpsTrapSwitchSlice=%parm[#3]%
+			lpsTrapSwitchPort=%parm[#4]%
+			lpsTrapViolatingMac=%parm[#5]%
+			lpsTrapViolationType=%parm[#6]%
+			systemServicesDate=%parm[#7]%
 			systemServicesTime=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2257,7 +2257,7 @@ This trap is sent when given  port of the link aggregation
 	<event-label>ALCATEL-IND1-LPS-MIB defined trap event: lpsPortUpAfterLearningWindowExpiredTrap</event-label>
 	<descr>
 &lt;p&gt;When an LPS port joins or is enabled after the Learning Window is expired,
-the MAC address learning on the port will be disabled, and this trap is 
+the MAC address learning on the port will be disabled, and this trap is
 generated as a notification. This trap will also be generated at the time
  the Learning Window expires, with a slice and port value of 0&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2282,11 +2282,11 @@ generated as a notification. This trap will also be generated at the time
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lpsPortUpAfterLearningWindowExpiredTrap trap received 
-			lpsTrapSwitchName=%parm[#1]% 
-			lpsTrapSwitchSlice=%parm[#2]% 
-			lpsTrapSwitchPort=%parm[#3]% 
-			systemServicesDate=%parm[#4]% 
+			lpsPortUpAfterLearningWindowExpiredTrap trap received
+			lpsTrapSwitchName=%parm[#1]%
+			lpsTrapSwitchSlice=%parm[#2]%
+			lpsTrapSwitchPort=%parm[#3]%
+			systemServicesDate=%parm[#4]%
 			systemServicesTime=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2336,12 +2336,12 @@ generated as a notification. This trap will also be generated at the time
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lpsLearnMac trap received 
-			lpsTrapSwitchName=%parm[#1]% 
-			lpsTrapSwitchSlice=%parm[#2]% 
-			lpsTrapSwitchPort=%parm[#3]% 
-			lpsTrapSwitchVlan=%parm[#4]% 
-			systemServicesDate=%parm[#5]% 
+			lpsLearnMac trap received
+			lpsTrapSwitchName=%parm[#1]%
+			lpsTrapSwitchSlice=%parm[#2]%
+			lpsTrapSwitchPort=%parm[#3]%
+			lpsTrapSwitchVlan=%parm[#4]%
+			systemServicesDate=%parm[#5]%
 			systemServicesTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2386,9 +2386,9 @@ generated as a notification. This trap will also be generated at the time
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slPCAMStatusTrap trap received 
-			slPCAMSlotNumber=%parm[#1]% 
-			slPCAMSliceNumber=%parm[#2]% 
+			slPCAMStatusTrap trap received
+			slPCAMSlotNumber=%parm[#1]%
+			slPCAMSliceNumber=%parm[#2]%
 			slPCAMStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2448,9 +2448,9 @@ generated as a notification. This trap will also be generated at the time
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaNetSecPortTrapAnomaly trap received 
-			alaNetSecPortTrapInfoIfId=%parm[#1]% 
-			alaNetSecPortTrapInfoAnomaly=%parm[#2]% 
+			alaNetSecPortTrapAnomaly trap received
+			alaNetSecPortTrapInfoIfId=%parm[#1]%
+			alaNetSecPortTrapInfoAnomaly=%parm[#2]%
 			alaNetSecPortTrapInfoType=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2480,7 +2480,7 @@ generated as a notification. This trap will also be generated at the time
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaNetSecPortTrapQuarantine trap received 
+			alaNetSecPortTrapQuarantine trap received
 			alaNetSecPortTrapInfoIfId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2506,7 +2506,7 @@ generated as a notification. This trap will also be generated at the time
 	<event-label>ALCATEL-IND1-PIM-BSR-MIB defined trap event: alaPimBsrElectedBSRLostElection</event-label>
 	<descr>
 &lt;p&gt;A alaPimBsrElectedBSRLostElection trap should be generated
-when current E-BSR lost election to a new Candidate BSR current E-BSR, 
+when current E-BSR lost election to a new Candidate BSR current E-BSR,
 start sending BootStrap Messages. Only an E-BSR should generate this trap.
 
 This notification is generated when
@@ -2520,7 +2520,7 @@ alaPimBsrCandidateBSRElectedBSR becomes FALSE.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimBsrElectedBSRLostElection trap received 
+			alaPimBsrElectedBSRLostElection trap received
 			alaPimBsrCandidateBSRElectedBSR=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2558,7 +2558,7 @@ alaPimBsrCandidateBSRElectedBSR becomes TRUE&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimBsrCandidateBSRWinElection trap received 
+			alaPimBsrCandidateBSRWinElection trap received
 			alaPimBsrCandidateBSRElectedBSR=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2583,15 +2583,15 @@ alaPimBsrCandidateBSRElectedBSR becomes TRUE&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimNeighborLoss</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimNeighborLoss</event-label>
 	<descr>
-&lt;p&gt;A alaPimNeighborLoss notification signifies the loss of an 
-adjacency with a neighbor.  This notification should be 
-generated when the neighbor timer expires, and the router 
-has no other neighbors on the same interface with the same 
+&lt;p&gt;A alaPimNeighborLoss notification signifies the loss of an
+adjacency with a neighbor.  This notification should be
+generated when the neighbor timer expires, and the router
+has no other neighbors on the same interface with the same
 IP version and a lower IP address than itself.
 
 This notification is generated whenever the counter
 alaPimNeighborLossCount is incremented, subject
-to the rate limit specified by 
+to the rate limit specified by
 alaPimNeighborLossNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2599,7 +2599,7 @@ alaPimNeighborLossNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimNeighborLoss trap received 
+			alaPimNeighborLoss trap received
 			alaPimNeighborUpTime=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2622,12 +2622,12 @@ alaPimNeighborLossNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimInvalidRegister</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimInvalidRegister</event-label>
 	<descr>
-&lt;p&gt;A alaPimInvalidRegister notification signifies that an invalid 
+&lt;p&gt;A alaPimInvalidRegister notification signifies that an invalid
 PIM Register message was received by this device.
 
 This notification is generated whenever the counter
 alaPimInvalidRegisterMsgsRcvd is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimInvalidRegisterNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2665,11 +2665,11 @@ alaPimInvalidRegisterNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimInvalidRegister trap received 
-			alaPimGroupMappingPimMode=%parm[#1]% 
-			alaPimInvalidRegisterAddressType=%parm[#2]% 
-			alaPimInvalidRegisterOrigin=%parm[#3]% 
-			alaPimInvalidRegisterGroup=%parm[#4]% 
+			alaPimInvalidRegister trap received
+			alaPimGroupMappingPimMode=%parm[#1]%
+			alaPimInvalidRegisterAddressType=%parm[#2]%
+			alaPimInvalidRegisterOrigin=%parm[#3]%
+			alaPimInvalidRegisterGroup=%parm[#4]%
 			alaPimInvalidRegisterRp=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2692,12 +2692,12 @@ alaPimInvalidRegisterNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimInvalidJoinPrune</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimInvalidJoinPrune</event-label>
 	<descr>
-&lt;p&gt;A alaPimInvalidJoinPrune notification signifies that an 
+&lt;p&gt;A alaPimInvalidJoinPrune notification signifies that an
 invalid PIM Join/Prune message was received by this device.
 
 This notification is generated whenever the counter
 alaPimInvalidJoinPruneMsgsRcvd is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimInvalidJoinPruneNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2739,12 +2739,12 @@ alaPimInvalidJoinPruneNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimInvalidJoinPrune trap received 
-			alaPimGroupMappingPimMode=%parm[#1]% 
-			alaPimInvalidJoinPruneAddressType=%parm[#2]% 
-			alaPimInvalidJoinPruneOrigin=%parm[#3]% 
-			alaPimInvalidJoinPruneGroup=%parm[#4]% 
-			alaPimInvalidJoinPruneRp=%parm[#5]% 
+			alaPimInvalidJoinPrune trap received
+			alaPimGroupMappingPimMode=%parm[#1]%
+			alaPimInvalidJoinPruneAddressType=%parm[#2]%
+			alaPimInvalidJoinPruneOrigin=%parm[#3]%
+			alaPimInvalidJoinPruneGroup=%parm[#4]%
+			alaPimInvalidJoinPruneRp=%parm[#5]%
 			alaPimNeighborUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2767,12 +2767,12 @@ alaPimInvalidJoinPruneNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimRPMappingChange</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimRPMappingChange</event-label>
 	<descr>
-&lt;p&gt;A alaPimRPMappingChange notification signifies a change to the 
+&lt;p&gt;A alaPimRPMappingChange notification signifies a change to the
 active RP mapping on this device.
 
 This notification is generated whenever the counter
 alaPimRPMappingChangeCount is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimRPMappingChangeNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2791,8 +2791,8 @@ alaPimRPMappingChangeNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimRPMappingChange trap received 
-			alaPimGroupMappingPimMode=%parm[#1]% 
+			alaPimRPMappingChange trap received
+			alaPimGroupMappingPimMode=%parm[#1]%
 			alaPimGroupMappingPrecedence=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2815,12 +2815,12 @@ alaPimRPMappingChangeNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimInterfaceElection</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimInterfaceElection</event-label>
 	<descr>
-&lt;p&gt;A alaPimInterfaceElection notification signifies that a new DR 
+&lt;p&gt;A alaPimInterfaceElection notification signifies that a new DR
 or DR has been elected on a network.
 
 This notification is generated whenever the counter
 alaPimInterfaceElectionsWinCount is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimInterfaceElectionNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2839,8 +2839,8 @@ alaPimInterfaceElectionNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimInterfaceElection trap received 
-			alaPimInterfaceAddressType=%parm[#1]% 
+			alaPimInterfaceElection trap received
+			alaPimInterfaceAddressType=%parm[#1]%
 			alaPimInterfaceAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2865,10 +2865,10 @@ alaPimInterfaceElectionNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/policyEventNotification</uei>
 	<event-label>ALCATEL-IND1-POLICY-MIB defined trap event: policyEventNotification</event-label>
 	<descr>
-&lt;p&gt;The policyEventNotification allows the switch to notify an NMS when 
-significant events happen. The NMS can then investigate and perform 
-appropriate control functions.  Other tables allow the NMS app to 
-zone in on the problem as part of a proactive monitoring system by the 
+&lt;p&gt;The policyEventNotification allows the switch to notify an NMS when
+significant events happen. The NMS can then investigate and perform
+appropriate control functions.  Other tables allow the NMS app to
+zone in on the problem as part of a proactive monitoring system by the
 NMS application. &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2939,8 +2939,8 @@ NMS application. &lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			policyEventNotification trap received 
-			policyTrapEventDetailString=%parm[#1]% 
+			policyEventNotification trap received
+			policyTrapEventDetailString=%parm[#1]%
 			policyTrapEventCode=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2989,11 +2989,11 @@ excessive errors, a Trap is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			esmDrvTrapDropsLink trap received 
-			esmPortSlot=%parm[#1]% 
-			esmPortIF=%parm[#2]% 
-			ifInErrors=%parm[#3]% 
-			ifOutErrors=%parm[#4]% 
+			esmDrvTrapDropsLink trap received
+			esmPortSlot=%parm[#1]%
+			esmPortIF=%parm[#2]%
+			ifInErrors=%parm[#3]%
+			ifOutErrors=%parm[#4]%
 			esmDrvTrapDrops=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3019,7 +3019,7 @@ excessive errors, a Trap is sent.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-IND1-PORT-MIRRORING-MONITORING-MIB defined trap event: mirrorConfigError</event-label>
 	<descr>
 &lt;p&gt;The Mirroring Configuration failed on NI.
-This trap is sent when any NI fails to configure mirroring.			
+This trap is sent when any NI fails to configure mirroring.
 Due to this error, port mirroring session will be terminated.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3052,12 +3052,12 @@ Due to this error, port mirroring session will be terminated.&lt;/p&gt;&lt;table
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mirrorConfigError trap received 
-			mirmonPrimarySlot=%parm[#1]% 
-			mirmonPrimaryPort=%parm[#2]% 
-			mirroringSlot=%parm[#3]% 
-			mirroringPort=%parm[#4]% 
-			mirMonErrorNi=%parm[#5]% 
+			mirrorConfigError trap received
+			mirmonPrimarySlot=%parm[#1]%
+			mirmonPrimaryPort=%parm[#2]%
+			mirroringSlot=%parm[#3]%
+			mirroringPort=%parm[#4]%
+			mirMonErrorNi=%parm[#5]%
 			mirMonError=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3100,10 +3100,10 @@ by the user has been written by the port monitoring instance.&lt;/p&gt;&lt;table
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			monitorFileWritten trap received 
-			mirmonPrimarySlot=%parm[#1]% 
-			mirmonPrimaryPort=%parm[#2]% 
-			monitorFileName=%parm[#3]% 
+			monitorFileWritten trap received
+			mirmonPrimarySlot=%parm[#1]%
+			mirmonPrimaryPort=%parm[#2]%
+			monitorFileName=%parm[#3]%
 			monitorFileSize=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3126,8 +3126,8 @@ by the user has been written by the port monitoring instance.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/mirrorUnlikeNi</uei>
 	<event-label>ALCATEL-IND1-PORT-MIRRORING-MONITORING-MIB defined trap event: mirrorUnlikeNi</event-label>
 	<descr>
-&lt;p&gt; The Mirroring Configuration is deleted due to the swapping of different 
-NI board type. Port Mirroring session which was active on a slot,cannot 
+&lt;p&gt; The Mirroring Configuration is deleted due to the swapping of different
+NI board type. Port Mirroring session which was active on a slot,cannot
 continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3151,11 +3151,11 @@ continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mirrorUnlikeNi trap received 
-			mirmonPrimarySlot=%parm[#1]% 
-			mirmonPrimaryPort=%parm[#2]% 
-			mirroringSlot=%parm[#3]% 
-			mirroringPort=%parm[#4]% 
+			mirrorUnlikeNi trap received
+			mirmonPrimarySlot=%parm[#1]%
+			mirmonPrimaryPort=%parm[#2]%
+			mirroringSlot=%parm[#3]%
+			mirroringPort=%parm[#4]%
 			mirMonErrorNi=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3208,10 +3208,10 @@ authentication is refused.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sessionAuthenticationTrap trap received 
-			sessionAccessType=%parm[#1]% 
-			sessionUserName=%parm[#2]% 
-			sessionUserIpAddress=%parm[#3]% 
+			sessionAuthenticationTrap trap received
+			sessionAccessType=%parm[#1]%
+			sessionUserName=%parm[#2]%
+			sessionUserIpAddress=%parm[#3]%
 			sessionAuthFailure=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3243,7 +3243,7 @@ authentication is refused.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slbTrapException trap received 
+			slbTrapException trap received
 			slbTrapInfoException=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3285,9 +3285,9 @@ authentication is refused.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slbTrapConfigChanged trap received 
-			slbTrapInfoEntityGroup=%parm[#1]% 
-			slbTrapInfoClusterName=%parm[#2]% 
+			slbTrapConfigChanged trap received
+			slbTrapInfoEntityGroup=%parm[#1]%
+			slbTrapInfoClusterName=%parm[#2]%
 			slbTrapInfoServerIpAddr=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3336,10 +3336,10 @@ authentication is refused.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slbTrapOperStatus trap received 
-			slbTrapInfoEntityGroup=%parm[#1]% 
-			slbTrapInfoOperStatus=%parm[#2]% 
-			slbTrapInfoClusterName=%parm[#3]% 
+			slbTrapOperStatus trap received
+			slbTrapInfoEntityGroup=%parm[#1]%
+			slbTrapInfoOperStatus=%parm[#2]%
+			slbTrapInfoClusterName=%parm[#3]%
 			slbTrapInfoServerIpAddr=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3374,7 +3374,7 @@ The elements will be put in pass through mode.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrDuplicateSlotTrap trap received 
+			alaStackMgrDuplicateSlotTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3430,9 +3430,9 @@ indicate where the Stack is broken&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrNeighborChangeTrap trap received 
-			alaStackMgrStackStatus=%parm[#1]% 
-			alaStackMgrSlotNINumber=%parm[#2]% 
+			alaStackMgrNeighborChangeTrap trap received
+			alaStackMgrStackStatus=%parm[#1]%
+			alaStackMgrSlotNINumber=%parm[#2]%
 			alaStackMgrTrapLinkNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3466,8 +3466,8 @@ indicate where the Stack is broken&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrRoleChangeTrap trap received 
-			alaStackMgrPrimary=%parm[#1]% 
+			alaStackMgrRoleChangeTrap trap received
+			alaStackMgrPrimary=%parm[#1]%
 			alaStackMgrSecondary=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3510,8 +3510,8 @@ alaStackMgrChasRole on the stack.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrDuplicateRoleTrap trap received 
-			alaStackMgrSlotNINumber=%parm[#1]% 
+			alaStackMgrDuplicateRoleTrap trap received
+			alaStackMgrSlotNINumber=%parm[#1]%
 			alaStackMgrChasRole=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3534,7 +3534,7 @@ alaStackMgrChasRole on the stack.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaStackMgrClearedSlotTrap</uei>
 	<event-label>ALCATEL-IND1-STACK-MANAGER-MIB defined trap event: alaStackMgrClearedSlotTrap</event-label>
 	<descr>
-&lt;p&gt;The element identified by alaStackMgrSlotNINumber will enter the pass through 
+&lt;p&gt;The element identified by alaStackMgrSlotNINumber will enter the pass through
 mode because its operational slot was cleared with immediate effect.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3542,7 +3542,7 @@ mode because its operational slot was cleared with immediate effect.&lt;/p&gt;&l
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrClearedSlotTrap trap received 
+			alaStackMgrClearedSlotTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3565,7 +3565,7 @@ mode because its operational slot was cleared with immediate effect.&lt;/p&gt;&l
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaStackMgrOutOfSlotsTrap</uei>
 	<event-label>ALCATEL-IND1-STACK-MANAGER-MIB defined trap event: alaStackMgrOutOfSlotsTrap</event-label>
 	<descr>
-&lt;p&gt;One element of the stack will enter the pass through mode because there 
+&lt;p&gt;One element of the stack will enter the pass through mode because there
 are no slot numbers available to be assigned to this element.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3599,7 +3599,7 @@ mode because there are no tokens available to be assigned to this element.&lt;/p
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrOutOfTokensTrap trap received 
+			alaStackMgrOutOfTokensTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3656,7 +3656,7 @@ mode because it is not compatible with the existing stack.&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrBadMixTrap trap received 
+			alaStackMgrBadMixTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3701,10 +3701,10 @@ absorbed at least once.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			trapAbsorptionTrap trap received 
-			trapAbsorStamp=%parm[#1]% 
-			trapAbsorTrapId=%parm[#2]% 
-			trapAbsorCounter=%parm[#3]% 
+			trapAbsorptionTrap trap received
+			trapAbsorStamp=%parm[#1]%
+			trapAbsorTrapId=%parm[#2]%
+			trapAbsorCounter=%parm[#3]%
 			trapAbsorTime=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3730,7 +3730,7 @@ absorbed at least once.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-IND1-UDLD-MIB defined trap event: udldStateChange</event-label>
 	<descr>
 &lt;p&gt;The UDLD-state of port has changed. Notify the user by
-raising the Trap. Notify the Management Entity the previous 
+raising the Trap. Notify the Management Entity the previous
  UDLD-state and UDLD-Current.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3756,9 +3756,9 @@ raising the Trap. Notify the Management Entity the previous
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			udldStateChange trap received 
-			alaUdldPortIfIndex=%parm[#1]% 
-			alaUdldPrevState=%parm[#2]% 
+			udldStateChange trap received
+			alaUdldPortIfIndex=%parm[#1]%
+			alaUdldPrevState=%parm[#2]%
 			alaUdldCurrentState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3795,7 +3795,7 @@ its election.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			stpNewRoot trap received 
+			stpNewRoot trap received
 			vStpNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3833,8 +3833,8 @@ instance by a bridge when its root port has changed.
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			stpRootPortChange trap received 
-			vStpNumber=%parm[#1]% 
+			stpRootPortChange trap received
+			vStpNumber=%parm[#1]%
 			vStpRootPortNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3886,9 +3886,9 @@ has transitioned to 'Master' state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaVrrp3TrapNewMaster trap received 
-			alaVrrp3OperMasterIpAddrType=%parm[#1]% 
-			alaVrrp3OperMasterIpAddr=%parm[#2]% 
+			alaVrrp3TrapNewMaster trap received
+			alaVrrp3OperMasterIpAddrType=%parm[#1]%
+			alaVrrp3OperMasterIpAddr=%parm[#2]%
 			alaVrrp3TrapNewMasterReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3925,7 +3925,7 @@ ErrorReason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaVrrp3TrapProtoError trap received 
+			alaVrrp3TrapProtoError trap received
 			alaVrrp3TrapProtoErrReason=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -3976,10 +3976,10 @@ ErrorReason.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wccpTrapOperStatus trap received 
-			wccpTrapInfoEntityGroup=%parm[#1]% 
-			wccpTrapInfoOperStatus=%parm[#2]% 
-			wccpTrapInfoServiceId=%parm[#3]% 
+			wccpTrapOperStatus trap received
+			wccpTrapInfoEntityGroup=%parm[#1]%
+			wccpTrapInfoOperStatus=%parm[#2]%
+			wccpTrapInfoServiceId=%parm[#3]%
 			wccpTrapInfoWebCacheIpAddr=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4023,9 +4023,9 @@ server detects it is under attack.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			httpServerDoSAttackTrap trap received 
-			httpConnectionStats=%parm[#1]% 
-			httpsConnectionStats=%parm[#2]% 
+			httpServerDoSAttackTrap trap received
+			httpConnectionStats=%parm[#1]%
+			httpsConnectionStats=%parm[#2]%
 			httpServerDoSAttackSrcIp=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -10961,7 +10961,7 @@ GVRP and the configured GVRP vlan limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gvrpVlanLimitReachedEvent trap received 
+			gvrpVlanLimitReachedEvent trap received
 			alaGvrpMaxVlanLimit=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -11041,14 +11041,14 @@ a binding rule which has been configured gets violated.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gmBindRuleViolation trap received 
-			gmBindRuleType=%parm[#1]% 
-			gmBindRuleVlanId=%parm[#2]% 
-			gmBindRuleIPAddress=%parm[#3]% 
-			gmBindRuleMacAddress=%parm[#4]% 
-			gmBindRulePortIfIndex=%parm[#5]% 
-			gmBindRuleProtoClass=%parm[#6]% 
-			gmBindRuleEthertype=%parm[#7]% 
+			gmBindRuleViolation trap received
+			gmBindRuleType=%parm[#1]%
+			gmBindRuleVlanId=%parm[#2]%
+			gmBindRuleIPAddress=%parm[#3]%
+			gmBindRuleMacAddress=%parm[#4]%
+			gmBindRulePortIfIndex=%parm[#5]%
+			gmBindRuleProtoClass=%parm[#6]%
+			gmBindRuleEthertype=%parm[#7]%
 			gmBindRuleDsapSsap=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11132,13 +11132,13 @@ due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gmHwVlanRuleTableOverloadAlert trap received 
-			gmOverloadRuleTable=%parm[#1]% 
-			gmOverloadRuleType=%parm[#2]% 
-			gmOverloadRuleVlanId=%parm[#3]% 
-			gmOverloadRuleMacAddress=%parm[#4]% 
-			gmOverloadRuleIpAddress=%parm[#5]% 
-			gmOverloadRuleProtocol=%parm[#6]% 
+			gmHwVlanRuleTableOverloadAlert trap received
+			gmOverloadRuleTable=%parm[#1]%
+			gmOverloadRuleType=%parm[#2]%
+			gmOverloadRuleVlanId=%parm[#3]%
+			gmOverloadRuleMacAddress=%parm[#4]%
+			gmOverloadRuleIpAddress=%parm[#5]%
+			gmOverloadRuleProtocol=%parm[#6]%
 			gmOverloadRuleIpxNetwork=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11174,8 +11174,8 @@ in OS6800 due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			gmHwMixModeSubnetRuleTableOverloadAlert trap received 
-			gmSubnetRuleTable=%parm[#1]% 
+			gmHwMixModeSubnetRuleTableOverloadAlert trap received
+			gmSubnetRuleTable=%parm[#1]%
 			gmOverloadRuleSlice=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11251,12 +11251,12 @@ in OS6800 due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			healthMonDeviceTrap trap received 
-			healthMonRxStatus=%parm[#1]% 
-			healthMonRxTxStatus=%parm[#2]% 
-			healthMonMemoryStatus=%parm[#3]% 
-			healthMonCpuStatus=%parm[#4]% 
-			healthMonCmmTempStatus=%parm[#5]% 
+			healthMonDeviceTrap trap received
+			healthMonRxStatus=%parm[#1]%
+			healthMonRxTxStatus=%parm[#2]%
+			healthMonMemoryStatus=%parm[#3]%
+			healthMonCpuStatus=%parm[#4]%
+			healthMonCmmTempStatus=%parm[#5]%
 			healthMonCmmCpuTempStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -11350,15 +11350,15 @@ in OS6800 due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			healthMonModuleTrap trap received 
-			healthModuleSlot=%parm[#1]% 
-			healthMonRxStatus=%parm[#2]% 
-			healthMonRxTxStatus=%parm[#3]% 
-			healthMonMemoryStatus=%parm[#4]% 
-			healthMonCpuStatus=%parm[#5]% 
-			healthMonPrimaryFabricRxStatus=%parm[#6]% 
-			healthMonPrimaryFabricRxTxStatus=%parm[#7]% 
-			healthMonSecondaryFabricRxStatus=%parm[#8]% 
+			healthMonModuleTrap trap received
+			healthModuleSlot=%parm[#1]%
+			healthMonRxStatus=%parm[#2]%
+			healthMonRxTxStatus=%parm[#3]%
+			healthMonMemoryStatus=%parm[#4]%
+			healthMonCpuStatus=%parm[#5]%
+			healthMonPrimaryFabricRxStatus=%parm[#6]%
+			healthMonPrimaryFabricRxTxStatus=%parm[#7]%
+			healthMonSecondaryFabricRxStatus=%parm[#8]%
 			healthMonSecondaryFabricRxTxStatus=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -11408,10 +11408,10 @@ in OS6800 due to the overload of the table.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			healthMonPortTrap trap received 
-			healthPortSlot=%parm[#1]% 
-			healthPortIF=%parm[#2]% 
-			healthMonRxStatus=%parm[#3]% 
+			healthMonPortTrap trap received
+			healthPortSlot=%parm[#1]%
+			healthPortIF=%parm[#2]%
+			healthMonRxStatus=%parm[#3]%
 			healthMonRxTxStatus=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -11483,12 +11483,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11559,12 +11559,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11635,12 +11635,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11711,12 +11711,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11787,12 +11787,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11863,12 +11863,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -11939,12 +11939,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12015,12 +12015,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12091,12 +12091,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12167,12 +12167,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12243,12 +12243,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12319,12 +12319,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12395,12 +12395,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12471,12 +12471,12 @@ has received DoS attack&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaDoSTrap trap received 
-			alaDoSType=%parm[#1]% 
-			alaDoSDetected=%parm[#2]% 
-			alaDoSIp=%parm[#3]% 
-			alaDoSMac=%parm[#4]% 
-			alaDoSSlot=%parm[#5]% 
+			alaDoSTrap trap received
+			alaDoSType=%parm[#1]%
+			alaDoSDetected=%parm[#2]%
+			alaDoSIp=%parm[#3]%
+			alaDoSMac=%parm[#4]%
+			alaDoSSlot=%parm[#5]%
 			alaDoSPort=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -12534,10 +12534,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12595,10 +12595,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12656,10 +12656,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12717,10 +12717,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12778,10 +12778,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12839,10 +12839,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12900,10 +12900,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -12961,10 +12961,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13022,10 +13022,10 @@ has dropped certain packets (to blocked IP ports,
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pktDrop trap received 
-			pktDropType=%parm[#1]% 
-			pktDropIfIndex=%parm[#2]% 
-			pktDropCount=%parm[#3]% 
+			pktDrop trap received
+			pktDropType=%parm[#1]%
+			pktDropIfIndex=%parm[#2]%
+			pktDropCount=%parm[#3]%
 			pktDropFrag=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13071,9 +13071,9 @@ Overload state.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisDatabaseOverload trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			isisSysL1State=%parm[#2]% 
+			vRtrIsisDatabaseOverload trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			isisSysL1State=%parm[#2]%
 			isisSysL2State=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -13098,11 +13098,11 @@ Overload state.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;This notification is generated when one of the manual areaAddresses
 assigned to this system is ignored when computing routes. The object
-vRtrIsisManAreaAddrExistState describes the area that has been 
+vRtrIsisManAreaAddrExistState describes the area that has been
 dropped.
 
 This notification is edge triggered, and should not be regenerated
-until an address that was used in the previous computation has been 
+until an address that was used in the previous computation has been
 dropped.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -13110,7 +13110,7 @@ dropped.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisManualAddressDrops trap received 
+			vRtrIsisManualAddressDrops trap received
 			isisManAreaAddrExistState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -13133,8 +13133,8 @@ dropped.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisCorruptedLSPDetected</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisCorruptedLSPDetected</event-label>
 	<descr>
-&lt;p&gt;This notification is generated when we find that and LSP that was 
-stored in memory has become corrupted.  
+&lt;p&gt;This notification is generated when we find that and LSP that was
+stored in memory has become corrupted.
 
 We forward an LSP ID. We may have independent knowledge of the ID,
 but in some implementations there is a chance that the ID itself will
@@ -13153,8 +13153,8 @@ be corrupted.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisCorruptedLSPDetected trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
+			vRtrIsisCorruptedLSPDetected trap received
+			vRtrIsisSystemLevel=%parm[#1]%
 			vRtrIsisTrapLSPID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -13179,7 +13179,7 @@ be corrupted.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;When the sequence number on an LSP we generate wraps the 32 bit
 sequence counter, we purge and wait to re-announce this information.
-This notification describes that event.  Since these should not be 
+This notification describes that event.  Since these should not be
 generated rapidly, we generate an event each time this happens.
 
 While the first 6 bytes of the LSPID are ours, the other two contain
@@ -13198,8 +13198,8 @@ useful information.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisMaxSeqExceedAttempt trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
+			vRtrIsisMaxSeqExceedAttempt trap received
+			vRtrIsisSystemLevel=%parm[#1]%
 			vRtrIsisTrapLSPID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -13222,9 +13222,9 @@ useful information.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisIDLenMismatch</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisIDLenMismatch</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with a different value of 
-the System ID Length. This notification includes the an index to 
-identify the circuit where we saw the PDU and the header of the PDU 
+&lt;p&gt;A notification sent when we receive a PDU with a different value of
+the System ID Length. This notification includes the an index to
+identify the circuit where we saw the PDU and the header of the PDU
 which may help a network manager identify the source of the confusion.
 
 This should be an edge-triggered notification. We should not send a
@@ -13245,9 +13245,9 @@ the circuit or on some MAC level information.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisIDLenMismatch trap received 
-			vRtrIsisFieldLen=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisIDLenMismatch trap received
+			vRtrIsisFieldLen=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisPDUFragment=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -13270,12 +13270,12 @@ the circuit or on some MAC level information.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisMaxAreaAddrsMismatch</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisMaxAreaAddrsMismatch</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with a different value of 
+&lt;p&gt;A notification sent when we receive a PDU with a different value of
 the Maximum Area Addresses.  This notification includes the header of
-the packet, which may help a network manager identify the source of 
+the packet, which may help a network manager identify the source of
 the confusion.
 
-This should be an edge-triggered notification. We should not send a 
+This should be an edge-triggered notification. We should not send a
 second notification about PDUs received from what seem to be the same
 source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -13292,9 +13292,9 @@ source.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisMaxAreaAddrsMismatch trap received 
-			vRtrIsisMaxAreaAddress=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisMaxAreaAddrsMismatch trap received
+			vRtrIsisMaxAreaAddress=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisPDUFragment=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -13318,8 +13318,8 @@ source.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisOwnLSPPurge</event-label>
 	<descr>
 &lt;p&gt;A notification sent when we receive a PDU with our systemID and zero
-age.  This notification includes the circuit Index if available, 
-which may help a network manager identify the source of the 
+age.  This notification includes the circuit Index if available,
+which may help a network manager identify the source of the
 confusion.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -13339,9 +13339,9 @@ confusion.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisOwnLSPPurge trap received 
-			vRtrIsisIfIndex=%parm[#1]% 
-			vRtrIsisTrapLSPID=%parm[#2]% 
+			vRtrIsisOwnLSPPurge trap received
+			vRtrIsisIfIndex=%parm[#1]%
+			vRtrIsisTrapLSPID=%parm[#2]%
 			vRtrIsisSystemLevel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -13367,8 +13367,8 @@ confusion.&lt;/p&gt;&lt;table&gt;
 &lt;p&gt;When we recieve an LSP with out System ID and different contents, we
 may need to reissue the LSP with a higher sequence number.
 
-We send this notification if we need to increase the sequence number 
-by more than one.  If two Intermediate Systems are configured with 
+We send this notification if we need to increase the sequence number
+by more than one.  If two Intermediate Systems are configured with
 the same System ID, this notification will fire.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -13388,9 +13388,9 @@ the same System ID, this notification will fire.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisSequenceNumberSkip trap received 
-			vRtrIsisTrapLSPID=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisSequenceNumberSkip trap received
+			vRtrIsisTrapLSPID=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisSystemLevel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -13413,13 +13413,13 @@ the same System ID, this notification will fire.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisAutTypeFail</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisAutTypeFail</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with the wrong 
-authentication type field. This notification includes the header of 
-the packet, which may help a network manager identify the source of 
+&lt;p&gt;A notification sent when we receive a PDU with the wrong
+authentication type field. This notification includes the header of
+the packet, which may help a network manager identify the source of
 the confusion.
 
-This should be an edge-triggered notification. We should not send a 
-second notification about PDUs received from what seem to be the 
+This should be an edge-triggered notification. We should not send a
+second notification about PDUs received from what seem to be the
 same source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -13439,9 +13439,9 @@ same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAutTypeFail trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisPDUFragment=%parm[#2]% 
+			vRtrIsisAutTypeFail trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisPDUFragment=%parm[#2]%
 			vRtrIsisIfIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13464,12 +13464,12 @@ same source.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisAuthFail</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisAuthFail</event-label>
 	<descr>
-&lt;p&gt;A notification sent when we receive a PDU with incorrent 
-authentication information field. This notification includes the 
+&lt;p&gt;A notification sent when we receive a PDU with incorrent
+authentication information field. This notification includes the
 header of the packet, which may help a network manager
 identify the source of the confusion.
 
-This should be an edge-triggered notification. We should not send a 
+This should be an edge-triggered notification. We should not send a
 second notification about PDUs received from what seem to be the same
 source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -13490,9 +13490,9 @@ source.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAuthFail trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisPDUFragment=%parm[#2]% 
+			vRtrIsisAuthFail trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisPDUFragment=%parm[#2]%
 			vRtrIsisIfIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13550,10 +13550,10 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisVersionSkew trap received 
-			vRtrIsisProtocolVersion=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisPDUFragment=%parm[#3]% 
+			vRtrIsisVersionSkew trap received
+			vRtrIsisProtocolVersion=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisPDUFragment=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13611,10 +13611,10 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAreaMismatch trap received 
-			vRtrIsisLSPSize=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisIfIndex=%parm[#3]% 
+			vRtrIsisAreaMismatch trap received
+			vRtrIsisLSPSize=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisIfIndex=%parm[#3]%
 			vRtrIsisPDUFragment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13658,8 +13658,8 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisRejectedAdjacency trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
+			vRtrIsisRejectedAdjacency trap received
+			vRtrIsisSystemLevel=%parm[#1]%
 			vRtrIsisIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -13711,10 +13711,10 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisLSPTooLargeToPropagate trap received 
-			vRtrIsisLSPSize=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisLSPTooLargeToPropagate trap received
+			vRtrIsisLSPSize=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -13774,10 +13774,10 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisOrigLSPBufSizeMismatch trap received 
-			vRtrIsisOriginatingBufferSize=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisOrigLSPBufSizeMismatch trap received
+			vRtrIsisOriginatingBufferSize=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13834,10 +13834,10 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisProtoSuppMismatch trap received 
-			vRtrIsisProtocolsSupported=%parm[#1]% 
-			vRtrIsisSystemLevel=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisProtoSuppMismatch trap received
+			vRtrIsisProtocolsSupported=%parm[#1]%
+			vRtrIsisSystemLevel=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			vRtrIsisIfIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13860,7 +13860,7 @@ PDUs received from the same source.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisAdjacencyChange</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisAdjacencyChange</event-label>
 	<descr>
-&lt;p&gt;A notification sent when an adjacency changes state, 
+&lt;p&gt;A notification sent when an adjacency changes state,
 entering or leaving state up. The first 6 bytes of the
 vRtrIsisTrapLSPID are the SystemID of the adjacent IS.
 The isisISAdjState is the new state of the adjacency.&lt;/p&gt;&lt;table&gt;
@@ -13886,10 +13886,10 @@ The isisISAdjState is the new state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAdjacencyChange trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
-			vRtrIsisTrapLSPID=%parm[#3]% 
+			vRtrIsisAdjacencyChange trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
+			vRtrIsisTrapLSPID=%parm[#3]%
 			isisISAdjState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -13912,14 +13912,14 @@ The isisISAdjState is the new state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/vRtrIsisCircIdExhausted</uei>
 	<event-label>ALCATEL-ISIS-MIB defined trap event: vRtrIsisCircIdExhausted</event-label>
 	<descr>
-&lt;p&gt;A notification sent when ISIS cannot be started on a 
+&lt;p&gt;A notification sent when ISIS cannot be started on a
 LAN interface as a unique circid could not be assigned
 due to the exhaustion of the circId space.
 
 This could happen only on the broadcast interfaces.
 
-In such a case the interface is marked operationally 
-down. When an operationally up interface is deleted, the 
+In such a case the interface is marked operationally
+down. When an operationally up interface is deleted, the
 circId can be reused by any interface which is waiting to
 receive a unique circId.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -13928,7 +13928,7 @@ receive a unique circId.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisCircIdExhausted trap received 
+			vRtrIsisCircIdExhausted trap received
 			vRtrIsisIfIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -13953,7 +13953,7 @@ receive a unique circId.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A notification sent when an adjancency's
 graceful restart status changes.
-The vRtrIsisISAdjRestartStatus is the new 
+The vRtrIsisISAdjRestartStatus is the new
 graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -13978,9 +13978,9 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vRtrIsisAdjRestartStatusChange trap received 
-			vRtrIsisSystemLevel=%parm[#1]% 
-			vRtrIsisIfIndex=%parm[#2]% 
+			vRtrIsisAdjRestartStatusChange trap received
+			vRtrIsisSystemLevel=%parm[#1]%
+			vRtrIsisIfIndex=%parm[#2]%
 			vRtrIsisISAdjRestartStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14012,7 +14012,7 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pethPwrSupplyConflict trap received 
+			pethPwrSupplyConflict trap received
 			pethSourceSlot=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14042,7 +14042,7 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pethPwrSupplyNotSupported trap received 
+			pethPwrSupplyNotSupported trap received
 			pethSourceSlot=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -14083,8 +14083,8 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			aipAMAPStatusTrap trap received 
-			aipAMAPLastTrapReason=%parm[#1]% 
+			aipAMAPStatusTrap trap received
+			aipAMAPLastTrapReason=%parm[#1]%
 			aipAMAPLastTrapPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14137,11 +14137,11 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			aipGMAPConflictTrap trap received 
-			aipGMAPLastTrapReason=%parm[#1]% 
-			aipGMAPLastTrapPort=%parm[#2]% 
-			aipGMAPLastTrapMac=%parm[#3]% 
-			aipGMAPLastTrapProtocol=%parm[#4]% 
+			aipGMAPConflictTrap trap received
+			aipGMAPLastTrapReason=%parm[#1]%
+			aipGMAPLastTrapPort=%parm[#2]%
+			aipGMAPLastTrapMac=%parm[#3]%
+			aipGMAPLastTrapProtocol=%parm[#4]%
 			aipGMAPLastTrapVlan=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14167,7 +14167,7 @@ graceful restart state of the adjacency.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggAggUp</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation  is  active .
-This trap is sent when any one port of the link aggregation 
+This trap is sent when any one port of the link aggregation
 	goes to attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14179,8 +14179,8 @@ This trap is sent when any one port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggAggUp trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggAggUp trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14204,7 +14204,7 @@ This trap is sent when any one port of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggAggDown</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation  is  not active .
-This trap is sent when all  ports of the link aggregation 
+This trap is sent when all  ports of the link aggregation
 	goes out of attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14216,8 +14216,8 @@ This trap is sent when all  ports of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggAggDown trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggAggDown trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -14241,7 +14241,7 @@ This trap is sent when all  ports of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggPortJoin</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation port  joins  the aggregate .
-This trap is sent when given  port of the link aggregation 
+This trap is sent when given  port of the link aggregation
 	goes to attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14253,8 +14253,8 @@ This trap is sent when given  port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggPortJoin trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggPortJoin trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14278,7 +14278,7 @@ This trap is sent when given  port of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggPortLeave</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation port  leaves  the aggregate .
-This trap is sent when given  port of the link aggregation 
+This trap is sent when given  port of the link aggregation
 	goes out of  attached state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14290,8 +14290,8 @@ This trap is sent when given  port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggPortLeave trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggPortLeave trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -14315,7 +14315,7 @@ This trap is sent when given  port of the link aggregation
 	<event-label>ALCATEL-IND1-LAG-MIB defined trap event: lnkaggPortRemove</event-label>
 	<descr>
 &lt;p&gt;The Link Aggregation port removed from the aggregate  .
-This trap is sent when given  port of the link aggregation 
+This trap is sent when given  port of the link aggregation
 	removed due to invalid configuration .&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14327,8 +14327,8 @@ This trap is sent when given  port of the link aggregation
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lnkaggPortRemove trap received 
-			traplnkaggAggId=%parm[#1]% 
+			lnkaggPortRemove trap received
+			traplnkaggAggId=%parm[#1]%
 			traplnkaggPortIfIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14392,14 +14392,14 @@ This trap is sent when given  port of the link aggregation
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lpsViolationTrap trap received 
-			lpsTrapSwitchName=%parm[#1]% 
-			lpsTrapSwitchIpAddr=%parm[#2]% 
-			lpsTrapSwitchSlice=%parm[#3]% 
-			lpsTrapSwitchPort=%parm[#4]% 
-			lpsTrapViolatingMac=%parm[#5]% 
-			lpsTrapViolationType=%parm[#6]% 
-			systemServicesDate=%parm[#7]% 
+			lpsViolationTrap trap received
+			lpsTrapSwitchName=%parm[#1]%
+			lpsTrapSwitchIpAddr=%parm[#2]%
+			lpsTrapSwitchSlice=%parm[#3]%
+			lpsTrapSwitchPort=%parm[#4]%
+			lpsTrapViolatingMac=%parm[#5]%
+			lpsTrapViolationType=%parm[#6]%
+			systemServicesDate=%parm[#7]%
 			systemServicesTime=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14423,7 +14423,7 @@ This trap is sent when given  port of the link aggregation
 	<event-label>ALCATEL-IND1-LPS-MIB defined trap event: lpsPortUpAfterLearningWindowExpiredTrap</event-label>
 	<descr>
 &lt;p&gt;When an LPS port joins or is enabled after the Learning Window is expired,
-the MAC address learning on the port will be disabled, and this trap is 
+the MAC address learning on the port will be disabled, and this trap is
 generated as a notification. This trap will also be generated at the time
  the Learning Window expires, with a slice and port value of 0&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -14448,11 +14448,11 @@ generated as a notification. This trap will also be generated at the time
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lpsPortUpAfterLearningWindowExpiredTrap trap received 
-			lpsTrapSwitchName=%parm[#1]% 
-			lpsTrapSwitchSlice=%parm[#2]% 
-			lpsTrapSwitchPort=%parm[#3]% 
-			systemServicesDate=%parm[#4]% 
+			lpsPortUpAfterLearningWindowExpiredTrap trap received
+			lpsTrapSwitchName=%parm[#1]%
+			lpsTrapSwitchSlice=%parm[#2]%
+			lpsTrapSwitchPort=%parm[#3]%
+			systemServicesDate=%parm[#4]%
 			systemServicesTime=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -14502,12 +14502,12 @@ generated as a notification. This trap will also be generated at the time
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lpsLearnMac trap received 
-			lpsTrapSwitchName=%parm[#1]% 
-			lpsTrapSwitchSlice=%parm[#2]% 
-			lpsTrapSwitchPort=%parm[#3]% 
-			lpsTrapSwitchVlan=%parm[#4]% 
-			systemServicesDate=%parm[#5]% 
+			lpsLearnMac trap received
+			lpsTrapSwitchName=%parm[#1]%
+			lpsTrapSwitchSlice=%parm[#2]%
+			lpsTrapSwitchPort=%parm[#3]%
+			lpsTrapSwitchVlan=%parm[#4]%
+			systemServicesDate=%parm[#5]%
 			systemServicesTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14552,9 +14552,9 @@ generated as a notification. This trap will also be generated at the time
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slPCAMStatusTrap trap received 
-			slPCAMSlotNumber=%parm[#1]% 
-			slPCAMSliceNumber=%parm[#2]% 
+			slPCAMStatusTrap trap received
+			slPCAMSlotNumber=%parm[#1]%
+			slPCAMSliceNumber=%parm[#2]%
 			slPCAMStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14614,9 +14614,9 @@ generated as a notification. This trap will also be generated at the time
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaNetSecPortTrapAnomaly trap received 
-			alaNetSecPortTrapInfoIfId=%parm[#1]% 
-			alaNetSecPortTrapInfoAnomaly=%parm[#2]% 
+			alaNetSecPortTrapAnomaly trap received
+			alaNetSecPortTrapInfoIfId=%parm[#1]%
+			alaNetSecPortTrapInfoAnomaly=%parm[#2]%
 			alaNetSecPortTrapInfoType=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14646,7 +14646,7 @@ generated as a notification. This trap will also be generated at the time
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaNetSecPortTrapQuarantine trap received 
+			alaNetSecPortTrapQuarantine trap received
 			alaNetSecPortTrapInfoIfId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14672,7 +14672,7 @@ generated as a notification. This trap will also be generated at the time
 	<event-label>ALCATEL-IND1-PIM-BSR-MIB defined trap event: alaPimBsrElectedBSRLostElection</event-label>
 	<descr>
 &lt;p&gt;A alaPimBsrElectedBSRLostElection trap should be generated
-when current E-BSR lost election to a new Candidate BSR current E-BSR, 
+when current E-BSR lost election to a new Candidate BSR current E-BSR,
 start sending BootStrap Messages. Only an E-BSR should generate this trap.
 
 This notification is generated when
@@ -14686,7 +14686,7 @@ alaPimBsrCandidateBSRElectedBSR becomes FALSE.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimBsrElectedBSRLostElection trap received 
+			alaPimBsrElectedBSRLostElection trap received
 			alaPimBsrCandidateBSRElectedBSR=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -14724,7 +14724,7 @@ alaPimBsrCandidateBSRElectedBSR becomes TRUE&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimBsrCandidateBSRWinElection trap received 
+			alaPimBsrCandidateBSRWinElection trap received
 			alaPimBsrCandidateBSRElectedBSR=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -14749,15 +14749,15 @@ alaPimBsrCandidateBSRElectedBSR becomes TRUE&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimNeighborLoss</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimNeighborLoss</event-label>
 	<descr>
-&lt;p&gt;A alaPimNeighborLoss notification signifies the loss of an 
-adjacency with a neighbor.  This notification should be 
-generated when the neighbor timer expires, and the router 
-has no other neighbors on the same interface with the same 
+&lt;p&gt;A alaPimNeighborLoss notification signifies the loss of an
+adjacency with a neighbor.  This notification should be
+generated when the neighbor timer expires, and the router
+has no other neighbors on the same interface with the same
 IP version and a lower IP address than itself.
 
 This notification is generated whenever the counter
 alaPimNeighborLossCount is incremented, subject
-to the rate limit specified by 
+to the rate limit specified by
 alaPimNeighborLossNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14765,7 +14765,7 @@ alaPimNeighborLossNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimNeighborLoss trap received 
+			alaPimNeighborLoss trap received
 			alaPimNeighborUpTime=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -14788,12 +14788,12 @@ alaPimNeighborLossNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimInvalidRegister</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimInvalidRegister</event-label>
 	<descr>
-&lt;p&gt;A alaPimInvalidRegister notification signifies that an invalid 
+&lt;p&gt;A alaPimInvalidRegister notification signifies that an invalid
 PIM Register message was received by this device.
 
 This notification is generated whenever the counter
 alaPimInvalidRegisterMsgsRcvd is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimInvalidRegisterNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14831,11 +14831,11 @@ alaPimInvalidRegisterNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimInvalidRegister trap received 
-			alaPimGroupMappingPimMode=%parm[#1]% 
-			alaPimInvalidRegisterAddressType=%parm[#2]% 
-			alaPimInvalidRegisterOrigin=%parm[#3]% 
-			alaPimInvalidRegisterGroup=%parm[#4]% 
+			alaPimInvalidRegister trap received
+			alaPimGroupMappingPimMode=%parm[#1]%
+			alaPimInvalidRegisterAddressType=%parm[#2]%
+			alaPimInvalidRegisterOrigin=%parm[#3]%
+			alaPimInvalidRegisterGroup=%parm[#4]%
 			alaPimInvalidRegisterRp=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14858,12 +14858,12 @@ alaPimInvalidRegisterNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimInvalidJoinPrune</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimInvalidJoinPrune</event-label>
 	<descr>
-&lt;p&gt;A alaPimInvalidJoinPrune notification signifies that an 
+&lt;p&gt;A alaPimInvalidJoinPrune notification signifies that an
 invalid PIM Join/Prune message was received by this device.
 
 This notification is generated whenever the counter
 alaPimInvalidJoinPruneMsgsRcvd is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimInvalidJoinPruneNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14905,12 +14905,12 @@ alaPimInvalidJoinPruneNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimInvalidJoinPrune trap received 
-			alaPimGroupMappingPimMode=%parm[#1]% 
-			alaPimInvalidJoinPruneAddressType=%parm[#2]% 
-			alaPimInvalidJoinPruneOrigin=%parm[#3]% 
-			alaPimInvalidJoinPruneGroup=%parm[#4]% 
-			alaPimInvalidJoinPruneRp=%parm[#5]% 
+			alaPimInvalidJoinPrune trap received
+			alaPimGroupMappingPimMode=%parm[#1]%
+			alaPimInvalidJoinPruneAddressType=%parm[#2]%
+			alaPimInvalidJoinPruneOrigin=%parm[#3]%
+			alaPimInvalidJoinPruneGroup=%parm[#4]%
+			alaPimInvalidJoinPruneRp=%parm[#5]%
 			alaPimNeighborUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14933,12 +14933,12 @@ alaPimInvalidJoinPruneNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimRPMappingChange</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimRPMappingChange</event-label>
 	<descr>
-&lt;p&gt;A alaPimRPMappingChange notification signifies a change to the 
+&lt;p&gt;A alaPimRPMappingChange notification signifies a change to the
 active RP mapping on this device.
 
 This notification is generated whenever the counter
 alaPimRPMappingChangeCount is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimRPMappingChangeNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -14957,8 +14957,8 @@ alaPimRPMappingChangeNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimRPMappingChange trap received 
-			alaPimGroupMappingPimMode=%parm[#1]% 
+			alaPimRPMappingChange trap received
+			alaPimGroupMappingPimMode=%parm[#1]%
 			alaPimGroupMappingPrecedence=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -14981,12 +14981,12 @@ alaPimRPMappingChangeNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaPimInterfaceElection</uei>
 	<event-label>ALCATEL-IND1-PIM-STD-MIB defined trap event: alaPimInterfaceElection</event-label>
 	<descr>
-&lt;p&gt;A alaPimInterfaceElection notification signifies that a new DR 
+&lt;p&gt;A alaPimInterfaceElection notification signifies that a new DR
 or DR has been elected on a network.
 
 This notification is generated whenever the counter
 alaPimInterfaceElectionsWinCount is incremented, subject to the
-rate limit specified by 
+rate limit specified by
 alaPimInterfaceElectionNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -15005,8 +15005,8 @@ alaPimInterfaceElectionNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaPimInterfaceElection trap received 
-			alaPimInterfaceAddressType=%parm[#1]% 
+			alaPimInterfaceElection trap received
+			alaPimInterfaceAddressType=%parm[#1]%
 			alaPimInterfaceAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15031,10 +15031,10 @@ alaPimInterfaceElectionNotificationPeriod.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/policyEventNotification</uei>
 	<event-label>ALCATEL-IND1-POLICY-MIB defined trap event: policyEventNotification</event-label>
 	<descr>
-&lt;p&gt;The policyEventNotification allows the switch to notify an NMS when 
-significant events happen. The NMS can then investigate and perform 
-appropriate control functions.  Other tables allow the NMS app to 
-zone in on the problem as part of a proactive monitoring system by the 
+&lt;p&gt;The policyEventNotification allows the switch to notify an NMS when
+significant events happen. The NMS can then investigate and perform
+appropriate control functions.  Other tables allow the NMS app to
+zone in on the problem as part of a proactive monitoring system by the
 NMS application. &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -15105,8 +15105,8 @@ NMS application. &lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			policyEventNotification trap received 
-			policyTrapEventDetailString=%parm[#1]% 
+			policyEventNotification trap received
+			policyTrapEventDetailString=%parm[#1]%
 			policyTrapEventCode=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15155,11 +15155,11 @@ excessive errors, a Trap is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			esmDrvTrapDropsLink trap received 
-			esmPortSlot=%parm[#1]% 
-			esmPortIF=%parm[#2]% 
-			ifInErrors=%parm[#3]% 
-			ifOutErrors=%parm[#4]% 
+			esmDrvTrapDropsLink trap received
+			esmPortSlot=%parm[#1]%
+			esmPortIF=%parm[#2]%
+			ifInErrors=%parm[#3]%
+			ifOutErrors=%parm[#4]%
 			esmDrvTrapDrops=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15185,7 +15185,7 @@ excessive errors, a Trap is sent.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-IND1-PORT-MIRRORING-MONITORING-MIB defined trap event: mirrorConfigError</event-label>
 	<descr>
 &lt;p&gt;The Mirroring Configuration failed on NI.
-This trap is sent when any NI fails to configure mirroring.			
+This trap is sent when any NI fails to configure mirroring.
 Due to this error, port mirroring session will be terminated.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -15218,12 +15218,12 @@ Due to this error, port mirroring session will be terminated.&lt;/p&gt;&lt;table
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mirrorConfigError trap received 
-			mirmonPrimarySlot=%parm[#1]% 
-			mirmonPrimaryPort=%parm[#2]% 
-			mirroringSlot=%parm[#3]% 
-			mirroringPort=%parm[#4]% 
-			mirMonErrorNi=%parm[#5]% 
+			mirrorConfigError trap received
+			mirmonPrimarySlot=%parm[#1]%
+			mirmonPrimaryPort=%parm[#2]%
+			mirroringSlot=%parm[#3]%
+			mirroringPort=%parm[#4]%
+			mirMonErrorNi=%parm[#5]%
 			mirMonError=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15266,10 +15266,10 @@ by the user has been written by the port monitoring instance.&lt;/p&gt;&lt;table
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			monitorFileWritten trap received 
-			mirmonPrimarySlot=%parm[#1]% 
-			mirmonPrimaryPort=%parm[#2]% 
-			monitorFileName=%parm[#3]% 
+			monitorFileWritten trap received
+			mirmonPrimarySlot=%parm[#1]%
+			mirmonPrimaryPort=%parm[#2]%
+			monitorFileName=%parm[#3]%
 			monitorFileSize=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15292,8 +15292,8 @@ by the user has been written by the port monitoring instance.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/mirrorUnlikeNi</uei>
 	<event-label>ALCATEL-IND1-PORT-MIRRORING-MONITORING-MIB defined trap event: mirrorUnlikeNi</event-label>
 	<descr>
-&lt;p&gt; The Mirroring Configuration is deleted due to the swapping of different 
-NI board type. Port Mirroring session which was active on a slot,cannot 
+&lt;p&gt; The Mirroring Configuration is deleted due to the swapping of different
+NI board type. Port Mirroring session which was active on a slot,cannot
 continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -15317,11 +15317,11 @@ continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mirrorUnlikeNi trap received 
-			mirmonPrimarySlot=%parm[#1]% 
-			mirmonPrimaryPort=%parm[#2]% 
-			mirroringSlot=%parm[#3]% 
-			mirroringPort=%parm[#4]% 
+			mirrorUnlikeNi trap received
+			mirmonPrimarySlot=%parm[#1]%
+			mirmonPrimaryPort=%parm[#2]%
+			mirroringSlot=%parm[#3]%
+			mirroringPort=%parm[#4]%
 			mirMonErrorNi=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15353,7 +15353,7 @@ continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slbTrapException trap received 
+			slbTrapException trap received
 			slbTrapInfoException=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -15395,9 +15395,9 @@ continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slbTrapConfigChanged trap received 
-			slbTrapInfoEntityGroup=%parm[#1]% 
-			slbTrapInfoClusterName=%parm[#2]% 
+			slbTrapConfigChanged trap received
+			slbTrapInfoEntityGroup=%parm[#1]%
+			slbTrapInfoClusterName=%parm[#2]%
 			slbTrapInfoServerIpAddr=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15446,10 +15446,10 @@ continue with the insertion of different NI type in the same slot. &lt;/p&gt;&lt
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slbTrapOperStatus trap received 
-			slbTrapInfoEntityGroup=%parm[#1]% 
-			slbTrapInfoOperStatus=%parm[#2]% 
-			slbTrapInfoClusterName=%parm[#3]% 
+			slbTrapOperStatus trap received
+			slbTrapInfoEntityGroup=%parm[#1]%
+			slbTrapInfoOperStatus=%parm[#2]%
+			slbTrapInfoClusterName=%parm[#3]%
 			slbTrapInfoServerIpAddr=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15502,10 +15502,10 @@ authentication is refused.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sessionAuthenticationTrap trap received 
-			sessionAccessType=%parm[#1]% 
-			sessionUserName=%parm[#2]% 
-			sessionUserIpAddress=%parm[#3]% 
+			sessionAuthenticationTrap trap received
+			sessionAccessType=%parm[#1]%
+			sessionUserName=%parm[#2]%
+			sessionUserIpAddress=%parm[#3]%
 			sessionAuthFailure=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -15540,7 +15540,7 @@ The elements will be put in pass through mode.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrDuplicateSlotTrap trap received 
+			alaStackMgrDuplicateSlotTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15596,9 +15596,9 @@ indicate where the Stack is broken&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrNeighborChangeTrap trap received 
-			alaStackMgrStackStatus=%parm[#1]% 
-			alaStackMgrSlotNINumber=%parm[#2]% 
+			alaStackMgrNeighborChangeTrap trap received
+			alaStackMgrStackStatus=%parm[#1]%
+			alaStackMgrSlotNINumber=%parm[#2]%
 			alaStackMgrTrapLinkNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15632,8 +15632,8 @@ indicate where the Stack is broken&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrRoleChangeTrap trap received 
-			alaStackMgrPrimary=%parm[#1]% 
+			alaStackMgrRoleChangeTrap trap received
+			alaStackMgrPrimary=%parm[#1]%
 			alaStackMgrSecondary=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15676,8 +15676,8 @@ alaStackMgrChasRole on the stack.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrDuplicateRoleTrap trap received 
-			alaStackMgrSlotNINumber=%parm[#1]% 
+			alaStackMgrDuplicateRoleTrap trap received
+			alaStackMgrSlotNINumber=%parm[#1]%
 			alaStackMgrChasRole=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15700,7 +15700,7 @@ alaStackMgrChasRole on the stack.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaStackMgrClearedSlotTrap</uei>
 	<event-label>ALCATEL-IND1-STACK-MANAGER-MIB defined trap event: alaStackMgrClearedSlotTrap</event-label>
 	<descr>
-&lt;p&gt;The element identified by alaStackMgrSlotNINumber will enter the pass through 
+&lt;p&gt;The element identified by alaStackMgrSlotNINumber will enter the pass through
 mode because its operational slot was cleared with immediate effect.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -15708,7 +15708,7 @@ mode because its operational slot was cleared with immediate effect.&lt;/p&gt;&l
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrClearedSlotTrap trap received 
+			alaStackMgrClearedSlotTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15731,7 +15731,7 @@ mode because its operational slot was cleared with immediate effect.&lt;/p&gt;&l
 	<uei>uei.opennms.org/vendor/alcatellucent/traps/alaStackMgrOutOfSlotsTrap</uei>
 	<event-label>ALCATEL-IND1-STACK-MANAGER-MIB defined trap event: alaStackMgrOutOfSlotsTrap</event-label>
 	<descr>
-&lt;p&gt;One element of the stack will enter the pass through mode because there 
+&lt;p&gt;One element of the stack will enter the pass through mode because there
 are no slot numbers available to be assigned to this element.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -15765,7 +15765,7 @@ mode because there are no tokens available to be assigned to this element.&lt;/p
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrOutOfTokensTrap trap received 
+			alaStackMgrOutOfTokensTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15822,7 +15822,7 @@ mode because it is not compatible with the existing stack.&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaStackMgrBadMixTrap trap received 
+			alaStackMgrBadMixTrap trap received
 			alaStackMgrSlotNINumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15867,10 +15867,10 @@ absorbed at least once.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			trapAbsorptionTrap trap received 
-			trapAbsorStamp=%parm[#1]% 
-			trapAbsorTrapId=%parm[#2]% 
-			trapAbsorCounter=%parm[#3]% 
+			trapAbsorptionTrap trap received
+			trapAbsorStamp=%parm[#1]%
+			trapAbsorTrapId=%parm[#2]%
+			trapAbsorCounter=%parm[#3]%
 			trapAbsorTime=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15896,7 +15896,7 @@ absorbed at least once.&lt;/p&gt;&lt;table&gt;
 	<event-label>ALCATEL-IND1-UDLD-MIB defined trap event: udldStateChange</event-label>
 	<descr>
 &lt;p&gt;The UDLD-state of port has changed. Notify the user by
-raising the Trap. Notify the Management Entity the previous 
+raising the Trap. Notify the Management Entity the previous
  UDLD-state and UDLD-Current.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -15922,9 +15922,9 @@ raising the Trap. Notify the Management Entity the previous
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			udldStateChange trap received 
-			alaUdldPortIfIndex=%parm[#1]% 
-			alaUdldPrevState=%parm[#2]% 
+			udldStateChange trap received
+			alaUdldPortIfIndex=%parm[#1]%
+			alaUdldPrevState=%parm[#2]%
 			alaUdldCurrentState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -15961,7 +15961,7 @@ its election.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			stpNewRoot trap received 
+			stpNewRoot trap received
 			vStpNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -15999,8 +15999,8 @@ instance by a bridge when its root port has changed.
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			stpRootPortChange trap received 
-			vStpNumber=%parm[#1]% 
+			stpRootPortChange trap received
+			vStpNumber=%parm[#1]%
 			vStpRootPortNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -16052,9 +16052,9 @@ has transitioned to 'Master' state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaVrrp3TrapNewMaster trap received 
-			alaVrrp3OperMasterIpAddrType=%parm[#1]% 
-			alaVrrp3OperMasterIpAddr=%parm[#2]% 
+			alaVrrp3TrapNewMaster trap received
+			alaVrrp3OperMasterIpAddrType=%parm[#1]%
+			alaVrrp3OperMasterIpAddr=%parm[#2]%
 			alaVrrp3TrapNewMasterReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -16091,7 +16091,7 @@ ErrorReason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alaVrrp3TrapProtoError trap received 
+			alaVrrp3TrapProtoError trap received
 			alaVrrp3TrapProtoErrReason=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -16142,10 +16142,10 @@ ErrorReason.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wccpTrapOperStatus trap received 
-			wccpTrapInfoEntityGroup=%parm[#1]% 
-			wccpTrapInfoOperStatus=%parm[#2]% 
-			wccpTrapInfoServiceId=%parm[#3]% 
+			wccpTrapOperStatus trap received
+			wccpTrapInfoEntityGroup=%parm[#1]%
+			wccpTrapInfoOperStatus=%parm[#2]%
+			wccpTrapInfoServiceId=%parm[#3]%
 			wccpTrapInfoWebCacheIpAddr=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -16189,9 +16189,9 @@ server detects it is under attack.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			httpServerDoSAttackTrap trap received 
-			httpConnectionStats=%parm[#1]% 
-			httpsConnectionStats=%parm[#2]% 
+			httpServerDoSAttackTrap trap received
+			httpConnectionStats=%parm[#1]%
+			httpsConnectionStats=%parm[#2]%
 			httpServerDoSAttackSrcIp=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>

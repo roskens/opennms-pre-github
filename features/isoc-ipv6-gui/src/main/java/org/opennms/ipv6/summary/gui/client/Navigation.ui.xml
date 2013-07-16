@@ -6,7 +6,7 @@
 	       font-family: "Lucida Grande", Verdana, sans-serif;
 	       font-size: 70%;
 		}
-		
+
 		.opennmsLink{
             font-family: "Lucida Grande", Verdana, sans-serif;
             font-size:70%;
@@ -50,4 +50,4 @@
 	        </div>
         </div>
 	</g:HTMLPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

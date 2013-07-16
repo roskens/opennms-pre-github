@@ -49,11 +49,11 @@ dhcp server is reachable/unreachable.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDhcpServerReachability trap received 
-				jnxMbgDhcpServerIP=%parm[#1]% 
-				jnxMbgDhcpLogicalSystemName=%parm[#2]% 
-				jnxMbgDhcpRoutingInstanceName=%parm[#3]% 
-				jnxMbgDhcpProfileName=%parm[#4]% 
+			jnxMbgDhcpServerReachability trap received
+				jnxMbgDhcpServerIP=%parm[#1]%
+				jnxMbgDhcpLogicalSystemName=%parm[#2]%
+				jnxMbgDhcpRoutingInstanceName=%parm[#3]%
+				jnxMbgDhcpProfileName=%parm[#4]%
 				jnxMbgDhcpReachability=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -111,11 +111,11 @@ dhcp server is reachable/unreachable.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDhcpServerReachability trap received 
-				jnxMbgDhcpServerIP=%parm[#1]% 
-				jnxMbgDhcpLogicalSystemName=%parm[#2]% 
-				jnxMbgDhcpRoutingInstanceName=%parm[#3]% 
-				jnxMbgDhcpProfileName=%parm[#4]% 
+			jnxMbgDhcpServerReachability trap received
+				jnxMbgDhcpServerIP=%parm[#1]%
+				jnxMbgDhcpLogicalSystemName=%parm[#2]%
+				jnxMbgDhcpRoutingInstanceName=%parm[#3]%
+				jnxMbgDhcpProfileName=%parm[#4]%
 				jnxMbgDhcpReachability=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -166,11 +166,11 @@ from a given address pool have exhusted.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDhcpAddrPoolExhaust trap received 
-				jnxMbgDhcpServerIP=%parm[#1]% 
-				jnxMbgDhcpLogicalSystemName=%parm[#2]% 
-				jnxMbgDhcpRoutingInstanceName=%parm[#3]% 
-				jnxMbgDhcpProfileName=%parm[#4]% 
+			jnxMbgDhcpAddrPoolExhaust trap received
+				jnxMbgDhcpServerIP=%parm[#1]%
+				jnxMbgDhcpLogicalSystemName=%parm[#2]%
+				jnxMbgDhcpRoutingInstanceName=%parm[#3]%
+				jnxMbgDhcpProfileName=%parm[#4]%
 				jnxMbgDhcpPoolName=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>

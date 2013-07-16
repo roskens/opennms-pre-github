@@ -22,5 +22,5 @@
 	</bean>
 
     <service interface="org.opennms.features.geocoder.GeocoderService"  ref="nominatimGeocoderService" ranking="100" />
-    
+
 </blueprint>

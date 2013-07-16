@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
   This file contains profiles for posting to and reading notices from
   one or more microblog services such as Identica, StatusNet, or Twitter.
-  
+
   Currently these profiles are used only by the MicroblogNotificationStrategy
   and its ~Reply~ and ~DM~ derived classes.  These strategies will first try
   to use a profile whose name is "notifd", falling back to the default profile
   if one does not exist.
-  
+
   Future uses for the profiles in this configuration file include an
   AckReader for Ackd and perhaps a MicroblogTransportMonitor for Pollerd.
  -->

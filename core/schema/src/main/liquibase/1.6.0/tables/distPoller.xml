@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-distPoller">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="distpoller" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- Contains information on Distributed Pollers installed in this OpenNMS instance. -->
 		<createTable tableName="distpoller">
@@ -55,7 +55,7 @@
 
 		<preConditions onFail="MARK_RAN">
 			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM distpoller WHERE dpname='localhost' AND dpip='127.0.0.1'</sqlCheck>
-		</preConditions> 
+		</preConditions>
 
 		<insert tableName="distpoller">
 			<column name="dpname" value="localhost" />

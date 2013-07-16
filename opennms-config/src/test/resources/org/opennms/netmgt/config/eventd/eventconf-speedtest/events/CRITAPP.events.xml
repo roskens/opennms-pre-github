@@ -34,9 +34,9 @@ critAppIndex changed status to down (exited.)&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			critAppDown trap received 
-			critAppName=%parm[#1]% 
-			critAppProcID=%parm[#2]% 
+			critAppDown trap received
+			critAppName=%parm[#1]%
+			critAppProcID=%parm[#2]%
 			critAppLastExitStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -72,8 +72,8 @@ critAppIndex changed status to up.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			critAppUp trap received 
-			critAppName=%parm[#1]% 
+			critAppUp trap received
+			critAppName=%parm[#1]%
 			critAppProcID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

@@ -54,7 +54,7 @@ field of the trap.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxNodeDown trap received 
+			jnxNodeDown trap received
 			jnxSpaceNodeIP=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -78,7 +78,7 @@ field of the trap.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/SpacePlatform/traps/jnxJbossDown</uei>
 	<event-label>SPACE-PLATFORM-MIB defined trap event: jnxJbossDown</event-label>
 	<descr>
-&lt;p&gt;The JBOSS process referred by jnxSpaceNodeIP is 
+&lt;p&gt;The JBOSS process referred by jnxSpaceNodeIP is
 currently down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -86,7 +86,7 @@ currently down.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxJbossDown trap received 
+			jnxJbossDown trap received
 			jnxSpaceNodeIP=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
@@ -9,13 +9,13 @@
   <bean id="ackdConfigurationDao" class="org.opennms.netmgt.dao.jaxb.DefaultAckdConfigurationDao">
     <property name="configResource" value="file:${opennms.home}/etc/ackd-configuration.xml" />
   </bean>
-  
+
   <bean id="readerScheduler" class="java.util.concurrent.ScheduledThreadPoolExecutor" >
     <constructor-arg>
       <value>1</value>
     </constructor-arg>
   </bean>
-  
+
   <bean id="javaMailReader" class="org.opennms.netmgt.ackd.readers.DefaultAckReader" >
     <property name="ackProcessor" ref="mailAckProcessor" />
     <property name="name" value="JavaMailReader" />
@@ -52,7 +52,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="daemonListener" class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
     <property name="annotatedListener" ref="daemon" />
     <property name="eventSubscriptionService" ref="eventSubscriptionService" />

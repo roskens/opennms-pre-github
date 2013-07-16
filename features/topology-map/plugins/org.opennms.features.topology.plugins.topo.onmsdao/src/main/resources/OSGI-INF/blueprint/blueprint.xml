@@ -7,19 +7,19 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
    <reference id="onmsMapDao" interface="org.opennms.netmgt.dao.api.OnmsMapDao" availability="mandatory" />
    <reference id="onmsMapElementDao" interface="org.opennms.netmgt.dao.api.OnmsMapElementDao" availability="mandatory" />
    <reference id="dataLinkInterfaceDao" interface="org.opennms.netmgt.dao.api.DataLinkInterfaceDao" availability="mandatory" />
-   
+
     <bean id="onmsTopologyProvider" class="org.opennms.features.topology.plugins.topo.onmsdao.internal.OnmsTopologyProvider">
 			<property name="onmsMapDao" ref="onmsMapDao" />
             <property name="onmsMapElementDao" ref="onmsMapElementDao" />
             <property name="dataLinkInterfaceDao" ref="dataLinkInterfaceDao" />
     </bean>
-    
+
     <service interface="org.opennms.features.topology.api.TopologyProvider" ref="onmsTopologyProvider">
         <service-properties>
             <entry key="label" value="Hierarchical Map"/>
         </service-properties>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
@@ -31,7 +31,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
@@ -41,7 +41,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
@@ -51,7 +51,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
@@ -61,7 +61,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
@@ -71,7 +71,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="Edit"/>
@@ -81,7 +81,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" >
         <service-properties>
             <entry key="operation.menuLocation" value="File"/>
@@ -91,5 +91,5 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <argument ref="onmsTopologyProvider"/>
         </bean>
     </service>
-    
+
 </blueprint>

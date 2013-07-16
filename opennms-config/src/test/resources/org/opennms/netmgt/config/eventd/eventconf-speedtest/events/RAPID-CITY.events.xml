@@ -18,9 +18,9 @@
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcCardDown</uei>
 	<event-label>RAPID-CITY defined trap event: rcCardDown</event-label>
 	<descr>
-&lt;p&gt;A rcCardDown trap signifies that the SNMPv2 entity, 
-acting in an agent role, has detected that the 
-rcCardOperStatus object for one of its cards  
+&lt;p&gt;A rcCardDown trap signifies that the SNMPv2 entity,
+acting in an agent role, has detected that the
+rcCardOperStatus object for one of its cards
 is about to transition into the down state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -46,9 +46,9 @@ is about to transition into the down state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcCardDown trap received 
-			rcCardIndex=%parm[#1]% 
-			rcCardAdminStatus=%parm[#2]% 
+			rcCardDown trap received
+			rcCardIndex=%parm[#1]%
+			rcCardAdminStatus=%parm[#2]%
 			rcCardOperStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -71,9 +71,9 @@ is about to transition into the down state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcCardUp</uei>
 	<event-label>RAPID-CITY defined trap event: rcCardUp</event-label>
 	<descr>
-&lt;p&gt;A rcCardUp trap signifies that the SNMPv2 entity, 
-acting in an agent role, has detected that the 
-rcCardOperStatus object for one of its cards  
+&lt;p&gt;A rcCardUp trap signifies that the SNMPv2 entity,
+acting in an agent role, has detected that the
+rcCardOperStatus object for one of its cards
 is about to transition into the up state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -99,9 +99,9 @@ is about to transition into the up state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcCardUp trap received 
-			rcCardIndex=%parm[#1]% 
-			rcCardAdminStatus=%parm[#2]% 
+			rcCardUp trap received
+			rcCardIndex=%parm[#1]%
+			rcCardAdminStatus=%parm[#2]%
 			rcCardOperStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -124,8 +124,8 @@ is about to transition into the up state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcErrorNotification</uei>
 	<event-label>RAPID-CITY defined trap event: rcErrorNotification</event-label>
 	<descr>
-&lt;p&gt;A rcErrorNotification trap signifies that the  
-SNMPv2 entity, acting in an agent role, has  
+&lt;p&gt;A rcErrorNotification trap signifies that the
+SNMPv2 entity, acting in an agent role, has
 detected that an error condition has occured.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -141,9 +141,9 @@ detected that an error condition has occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcErrorNotification trap received 
-			rcErrorLevel=%parm[#1]% 
-			rcErrorCode=%parm[#2]% 
+			rcErrorNotification trap received
+			rcErrorLevel=%parm[#1]%
+			rcErrorCode=%parm[#2]%
 			rcErrorText=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -166,10 +166,10 @@ detected that an error condition has occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcStpNewRoot</uei>
 	<event-label>RAPID-CITY defined trap event: rcStpNewRoot</event-label>
 	<descr>
-&lt;p&gt;A rcStpNewRoot trap signifies that the 
-SNMPv2 entity, acting in an agent role, has 
-detected the Spanning Tree Protocol has declared 
-the device to be the new root of the spanning  
+&lt;p&gt;A rcStpNewRoot trap signifies that the
+SNMPv2 entity, acting in an agent role, has
+detected the Spanning Tree Protocol has declared
+the device to be the new root of the spanning
  tree.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -177,7 +177,7 @@ the device to be the new root of the spanning
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcStpNewRoot trap received 
+			rcStpNewRoot trap received
 			rcStgId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -200,9 +200,9 @@ the device to be the new root of the spanning
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcStpTopologyChange</uei>
 	<event-label>RAPID-CITY defined trap event: rcStpTopologyChange</event-label>
 	<descr>
-&lt;p&gt;A rcStpTopologyChange trap signifies that the  
-SNMPv2 entity, acting in an agent role, has  
-detected the Spanning Tree Protocol has gone due 
+&lt;p&gt;A rcStpTopologyChange trap signifies that the
+SNMPv2 entity, acting in an agent role, has
+detected the Spanning Tree Protocol has gone due
 a topology change event.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -214,8 +214,8 @@ a topology change event.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcStpTopologyChange trap received 
-			rcStgId=%parm[#1]% 
+			rcStpTopologyChange trap received
+			rcStgId=%parm[#1]%
 			rcPortIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -238,10 +238,10 @@ a topology change event.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcChasPowerSupplyDown</uei>
 	<event-label>RAPID-CITY defined trap event: rcChasPowerSupplyDown</event-label>
 	<descr>
-&lt;p&gt;A rcChasPowerSupplyDown trap signifies that the  
-SNMPv2 entity, acting in an agent role, has  
-detected that the rcChasPowerSupplyOperStatus  
-object for one of its power supply unit is  
+&lt;p&gt;A rcChasPowerSupplyDown trap signifies that the
+SNMPv2 entity, acting in an agent role, has
+detected that the rcChasPowerSupplyOperStatus
+object for one of its power supply unit is
 about to transition into the down state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -258,8 +258,8 @@ about to transition into the down state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcChasPowerSupplyDown trap received 
-			rcChasPowerSupplyId=%parm[#1]% 
+			rcChasPowerSupplyDown trap received
+			rcChasPowerSupplyId=%parm[#1]%
 			rcChasPowerSupplyOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -282,10 +282,10 @@ about to transition into the down state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcChasFanDown</uei>
 	<event-label>RAPID-CITY defined trap event: rcChasFanDown</event-label>
 	<descr>
-&lt;p&gt;A rcChasFanDown trap signifies that the  
-SNMPv2 entity, acting in an agent role, has  
-detected that the rcChasFanOperStatus object  
-for one of its power supply unit is about to  
+&lt;p&gt;A rcChasFanDown trap signifies that the
+SNMPv2 entity, acting in an agent role, has
+detected that the rcChasFanOperStatus object
+for one of its power supply unit is about to
 transition into the down state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -301,8 +301,8 @@ transition into the down state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcChasFanDown trap received 
-			rcChasFanId=%parm[#1]% 
+			rcChasFanDown trap received
+			rcChasFanId=%parm[#1]%
 			rcChasFanOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -325,9 +325,9 @@ transition into the down state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/rapidCity/traps/rcLinkOscillation</uei>
 	<event-label>RAPID-CITY defined trap event: rcLinkOscillation</event-label>
 	<descr>
-&lt;p&gt;A rcLinkOscillation trap signifies that the 
-SNMPv2 entity, acting in an agent role, has 
-detected an excessive number of link state 
+&lt;p&gt;A rcLinkOscillation trap signifies that the
+SNMPv2 entity, acting in an agent role, has
+detected an excessive number of link state
 transitions on the specified port.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -335,7 +335,7 @@ transitions on the specified port.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rcLinkOscillation trap received 
+			rcLinkOscillation trap received
 			rcPortIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

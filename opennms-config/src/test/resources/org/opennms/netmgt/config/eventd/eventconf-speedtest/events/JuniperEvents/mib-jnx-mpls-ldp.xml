@@ -30,7 +30,7 @@ of the 'jnxMplsLdpEntityInitSesThreshold' object.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMplsLdpInitSesThresholdExceeded trap received 
+			jnxMplsLdpInitSesThresholdExceeded trap received
 			jnxMplsLdpEntityInitSesThreshold=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -69,8 +69,8 @@ a specific Entity.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMplsLdpPathVectorLimitMismatch trap received 
-			jnxMplsLdpEntityPathVectorLimit=%parm[#1]% 
+			jnxMplsLdpPathVectorLimitMismatch trap received
+			jnxMplsLdpEntityPathVectorLimit=%parm[#1]%
 			jnxMplsLdpPeerPathVectorLimit=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -121,10 +121,10 @@ the 'operational(5)' state.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMplsLdpSessionUp trap received 
-			jnxMplsLdpSesState=%parm[#1]% 
-			jnxMplsLdpSesDiscontinuityTime=%parm[#2]% 
-			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]% 
+			jnxMplsLdpSessionUp trap received
+			jnxMplsLdpSesState=%parm[#1]%
+			jnxMplsLdpSesDiscontinuityTime=%parm[#2]%
+			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]%
 			jnxMplsLdpSesStatsUnkTlvErrors=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -175,10 +175,10 @@ the 'operational(5)' state.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMplsLdpSessionDown trap received 
-			jnxMplsLdpSesState=%parm[#1]% 
-			jnxMplsLdpSesDiscontinuityTime=%parm[#2]% 
-			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]% 
+			jnxMplsLdpSessionDown trap received
+			jnxMplsLdpSesState=%parm[#1]%
+			jnxMplsLdpSesDiscontinuityTime=%parm[#2]%
+			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]%
 			jnxMplsLdpSesStatsUnkTlvErrors=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

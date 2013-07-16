@@ -3,7 +3,7 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd"> 
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
 	<!-- this is a pidgin version of the context from opennms-webapps, start there if you haven't already -->
@@ -71,7 +71,7 @@
                 IMPORTANT: To use this feature the following package must be installed:
                 opennms-plugin-protocols-radius
 	-->
-	<!-- 
+	<!--
 	<beans:bean id="radiusAuthenticationProvider" class="org.opennms.protocols.radius.springsecurity.RadiusAuthenticationProvider">
 		<beans:constructor-arg value="%%% Radius Server %%%"/>
 		<beans:constructor-arg value="%%% Shared Secret %%%"/>
@@ -82,7 +82,7 @@
 		<!--<beans:property name="authTypeClass"><beans:bean class="net.jradius.client.auth.PAPAuthenticator"/></beans:property>-->
 		<!--<beans:property name="defaultRoles" value="ROLE_USER"/>-->
 		<!--<beans:property name="rolesAttribute" value="Unknown-VSAttribute(%%% Vendor ID %%%:%%% Attribute Number %%%)"/>-->
-		<!-- 
+		<!--
 	</beans:bean>
 	-->
 

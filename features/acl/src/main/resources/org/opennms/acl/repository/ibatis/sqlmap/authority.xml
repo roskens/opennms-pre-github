@@ -77,7 +77,7 @@
 		cacheModel="authority-cache">
 		SELECT authorities.id, authorities.name
 		FROM authorities
-		WHERE authorities.id NOT IN( 
+		WHERE authorities.id NOT IN(
 		  SELECT authorities.id
 		  FROM authorities, group_members
 		  WHERE authorities.group_id = group_members.group_id
@@ -148,7 +148,7 @@
 		SET group_id = #groupId:BIGINT#
 		WHERE id = #id:BIGINT# ;
     </update>
-    
+
     <update id="updateAuthorityToGroupToHidden" parameterClass="int">
         UPDATE authorities
         SET group_id = 0

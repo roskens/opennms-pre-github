@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!-- 24 hours -->
-<capsd-configuration 
-	rescan-frequency="86400000" 
-	initial-sleep-time="30000" 
+<capsd-configuration
+	rescan-frequency="86400000"
+	initial-sleep-time="30000"
 	max-suspect-thread-pool-size="6"
-        max-rescan-thread-pool-size="3"> 
+        max-rescan-thread-pool-size="3">
 
     <protocol-plugin protocol="ICMP" class-name="org.opennms.netmgt.capsd.plugins.IcmpPlugin" scan="on">
         <property key="timeout" value="2000" />
@@ -134,7 +134,7 @@
         <property key="port" value="1311" />
         <property key="timeout" value="3000" />
         <property key="retry" value="1" />
-    </protocol-plugin>    
+    </protocol-plugin>
     <protocol-plugin protocol="NRPE" class-name="org.opennms.netmgt.capsd.plugins.NrpePlugin" scan="on">
         <property key="banner" value="*" />
         <property key="port" value="5666" />

@@ -28,7 +28,7 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Blackberry Event: besSRPConnectEvent trap received 
+			Blackberry Event: besSRPConnectEvent trap received
 			besSRPConnectState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -51,7 +51,7 @@
 	<uei>uei.opennms.org/vendor/rim/traps/BlackBerryServer/besHungThreadEvent</uei>
 	<event-label>BLACKBERRYSERVER-MIB defined trap event: besHungThreadEvent</event-label>
 	<descr>
-&lt;p&gt;Event related to detection of hung threads 
+&lt;p&gt;Event related to detection of hung threads
 in Exchange BES.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -77,9 +77,9 @@ in Exchange BES.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/rim/traps/BlackBerryServer/besMailServerDownEvent</uei>
 	<event-label>BLACKBERRYSERVER-MIB defined trap event: besMailServerDownEvent</event-label>
 	<descr>
-&lt;p&gt;Event is generated when more than one user (or one user 
-if there is only one) gets more than one error connecting 
-to a particular mail server, and those errors are not 
+&lt;p&gt;Event is generated when more than one user (or one user
+if there is only one) gets more than one error connecting
+to a particular mail server, and those errors are not
 Access Control related.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;

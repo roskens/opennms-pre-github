@@ -194,14 +194,14 @@
   <uei>uei.opennms.org/vendor/ADIC/traps/EnterpriseDefault</uei>
   <event-label>OpenNMS-defined trap event: ADIC EnterpriseDefault</event-label>
   <descr>
-  &lt;p&gt;This is the default event format used when an 
-  enterprise specific event (trap) is received from an ADIC device for which no 
+  &lt;p&gt;This is the default event format used when an
+  enterprise specific event (trap) is received from an ADIC device for which no
   format has been configured (i.e. no event definition exists).&lt;/p&gt;
   </descr>
   <logmsg dest='logndisplay'>
-  ADIC Received unformatted enterprise event (enterprise:%id% generic:%generic% 
-  specific:%specific%). %parm[##]% 
-  args: %parm[all]% 
+  ADIC Received unformatted enterprise event (enterprise:%id% generic:%generic%
+  specific:%specific%). %parm[##]%
+  args: %parm[all]%
   </logmsg>
   <severity>Indeterminate</severity>
  </event>

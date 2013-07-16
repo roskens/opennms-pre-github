@@ -15,21 +15,21 @@
 		 <ref local="reportWrapperService"/>
 	</property>
   </bean>
-  
+
   <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="schedulerName" value="databaseReport" />
        	<property name="applicationContextSchedulerContextKey">
        		<value>applicationContext</value>
        	</property>
   </bean>
-  
+
   <bean id="batchReportJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
 	  <property name="jobClass">
 		<value>org.opennms.reporting.core.BatchReportJob</value>
 	  </property>
 	  <property name="durability" value="true" />
   </bean>
-  
+
   <bean id="reportWrapperService" class="org.easymock.EasyMock" factory-method="createStrictMock">
 	<constructor-arg value="org.opennms.reporting.core.svclayer.ReportWrapperService"/>
   </bean>

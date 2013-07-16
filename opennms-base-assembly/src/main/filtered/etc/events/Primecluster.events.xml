@@ -33,9 +33,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cvNodeStateChanged trap received 
-			cvNodeNumber=%parm[#1]% 
-			cvNodeName=%parm[#2]% 
+			cvNodeStateChanged trap received
+			cvNodeNumber=%parm[#1]%
+			cvNodeName=%parm[#2]%
 			cvNodeState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -73,9 +73,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cvServiceStateChanged trap received 
-			cvServiceNumber=%parm[#1]% 
-			cvServiceName=%parm[#2]% 
+			cvServiceStateChanged trap received
+			cvServiceNumber=%parm[#1]%
+			cvServiceName=%parm[#2]%
 			cvServiceState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -113,9 +113,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cvProductStateChanged trap received 
-			cvProductNumber=%parm[#1]% 
-			cvProductName=%parm[#2]% 
+			cvProductStateChanged trap received
+			cvProductNumber=%parm[#1]%
+			cvProductName=%parm[#2]%
 			cvProductState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

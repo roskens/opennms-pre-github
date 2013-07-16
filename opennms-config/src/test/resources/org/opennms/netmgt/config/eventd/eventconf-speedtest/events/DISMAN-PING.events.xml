@@ -92,18 +92,18 @@ before this notification can be generated.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pingProbeFailed trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			pingResultsMinRtt=%parm[#6]% 
-			pingResultsMaxRtt=%parm[#7]% 
-			pingResultsAverageRtt=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
+			pingProbeFailed trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			pingResultsMinRtt=%parm[#6]%
+			pingResultsMaxRtt=%parm[#7]%
+			pingResultsAverageRtt=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
 			pingResultsLastGoodProbe=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -199,18 +199,18 @@ consider the test as failed.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pingTestFailed trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			pingResultsMinRtt=%parm[#6]% 
-			pingResultsMaxRtt=%parm[#7]% 
-			pingResultsAverageRtt=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
+			pingTestFailed trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			pingResultsMinRtt=%parm[#6]%
+			pingResultsMaxRtt=%parm[#7]%
+			pingResultsAverageRtt=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
 			pingResultsLastGoodProbe=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -303,18 +303,18 @@ testCompletion(4).&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pingTestCompleted trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			pingResultsMinRtt=%parm[#6]% 
-			pingResultsMaxRtt=%parm[#7]% 
-			pingResultsAverageRtt=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
+			pingTestCompleted trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			pingResultsMinRtt=%parm[#6]%
+			pingResultsMaxRtt=%parm[#7]%
+			pingResultsAverageRtt=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
 			pingResultsLastGoodProbe=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

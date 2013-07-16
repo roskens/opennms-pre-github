@@ -9,7 +9,7 @@
       <doNotOverride>script</doNotOverride>
     </security>
   </global>
-  
+
   <event>
     <uei>uei.opennms.org/troubleTicket/cancel</uei>
     <event-label>A request has been made to cancel a trouble ticket</event-label>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
@@ -14,7 +14,7 @@
 
     <context:annotation-config />
     <aop:aspectj-autoproxy />
-    
+
     <bean name="eventIpcManager" class="org.opennms.netmgt.dao.mock.MockEventIpcManager" >
       <property name="eventIpcManagerProxy">
         <bean class="org.opennms.netmgt.model.events.EventIpcManagerProxy" />
@@ -22,12 +22,12 @@
     </bean>
 
     <bean name="handler" class="org.opennms.spring.xml.AspectJTestEventHandler" />
-    
+
     <bean name="adapter" class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
         <property name="eventSubscriptionService" ref="eventIpcManager" />
         <property name="annotatedListener" ref="handler" />
     </bean>
 
-    <bean class="org.opennms.spring.xml.AspectJTestEventHandlerInteceptor"/>  
+    <bean class="org.opennms.spring.xml.AspectJTestEventHandlerInteceptor"/>
 
 </beans>

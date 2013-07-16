@@ -43,9 +43,9 @@ about the LAST event of the priority reported.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			airDefenseAlarm trap received 
-			airDefenseEventPriority=%parm[#1]% 
-			airDefenseEventDescriptor=%parm[#2]% 
+			airDefenseAlarm trap received
+			airDefenseEventPriority=%parm[#1]%
+			airDefenseEventDescriptor=%parm[#2]%
 			airDefenseEventCount=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -160,8 +160,8 @@ receival will be expected. If the confirmation is not received, retransmission o
 	%parm[#19]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			airDefenseDetailedAlarm trap received 
-			Description=%parm[#6]% 
+			airDefenseDetailedAlarm trap received
+			Description=%parm[#6]%
 			&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

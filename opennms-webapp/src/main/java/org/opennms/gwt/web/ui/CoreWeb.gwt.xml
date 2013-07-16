@@ -9,10 +9,10 @@
 	<inherits name="org.opennms.features.gwt.ksc.add.KSCResourceAddGraph"/>
 	<inherits name="org.opennms.features.gwt.graph.resource.list.GraphResourceList"/>
 	<inherits name="org.opennms.features.gwt.snmpselect.list.SnmpSelectList"/>
-	
+
 	<!-- Theme -->
 	<inherits name='org.opennms.features.gwt.theme.OpennmsTheme'/>
-	
+
 	<source path="client" />
 	<entry-point class="org.opennms.gwt.web.ui.client.CoreWeb" />
 <!-- 	<entry-point class='org.opennms.features.node.list.gwt.client.NodeInterfaceList'/> -->

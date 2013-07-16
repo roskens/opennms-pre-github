@@ -76,7 +76,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidNoControllers trap received 
+			IBM ServeRaid: ibmServeRaidNoControllers trap received
 			ibmServeRaidTrapServerName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -110,8 +110,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidControllerFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
+			IBM ServeRaid: ibmServeRaidControllerFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
 			ibmServeRaidTrapController=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -145,8 +145,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDeadBattery trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
+			IBM ServeRaid: ibmServeRaidDeadBattery trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
 			ibmServeRaidTrapController=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -184,9 +184,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDeadBatteryCache trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidDeadBatteryCache trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
 			ibmServeRaidTrapErrorCode=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -224,9 +224,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPollingFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidPollingFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
 			ibmServeRaidTrapErrorCode=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -256,7 +256,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidConfigFail trap received 
+			IBM ServeRaid: ibmServeRaidConfigFail trap received
 			ibmServeRaidTrapServerName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -290,8 +290,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidControllerAdded trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
+			IBM ServeRaid: ibmServeRaidControllerAdded trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
 			ibmServeRaidTrapController=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -325,8 +325,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidControllerReplaced trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
+			IBM ServeRaid: ibmServeRaidControllerReplaced trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
 			ibmServeRaidTrapController=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -360,8 +360,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidControllerFailover trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
+			IBM ServeRaid: ibmServeRaidControllerFailover trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
 			ibmServeRaidTrapController=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -395,8 +395,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidControllerVersionMismatch trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
+			IBM ServeRaid: ibmServeRaidControllerVersionMismatch trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
 			ibmServeRaidTrapController=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -434,9 +434,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidLogicalDriveCritical trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidLogicalDriveCritical trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -474,9 +474,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidLogicalDriveBlocked trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidLogicalDriveBlocked trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -514,9 +514,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidLogicalDriveOffLine trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidLogicalDriveOffLine trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -554,9 +554,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidRebuildDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidRebuildDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -594,9 +594,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidRebuildComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidRebuildComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -638,10 +638,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidRebuildFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidRebuildFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -679,9 +679,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidSyncDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidSyncDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -719,9 +719,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidSyncComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidSyncComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -763,10 +763,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidSyncFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidSyncFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -804,9 +804,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidMigrationDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidMigrationDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -844,9 +844,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidMigrationComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidMigrationComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -888,10 +888,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidMigrationFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidMigrationFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -929,9 +929,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidCompressionDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidCompressionDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -969,9 +969,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidCompressionComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidCompressionComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1013,10 +1013,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidcompressionFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidcompressionFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1054,9 +1054,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDecompressionDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidDecompressionDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1094,9 +1094,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDecompressionComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidDecompressionComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1138,10 +1138,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDecompressionFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidDecompressionFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1179,9 +1179,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFlashCopyDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidFlashCopyDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1219,9 +1219,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFlashCopyComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidFlashCopyComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1263,10 +1263,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFlashCopyFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidFlashCopyFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1304,9 +1304,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArrayRebuildDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidArrayRebuildDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1344,9 +1344,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArrayRebuildComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidArrayRebuildComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1388,10 +1388,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArrayRebuildFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidArrayRebuildFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1429,9 +1429,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArraySyncDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidArraySyncDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1469,9 +1469,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArraySyncComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidArraySyncComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1513,10 +1513,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArraySyncFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidArraySyncFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1554,9 +1554,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArrayFlashCopyDetected trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidArrayFlashCopyDetected trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1594,9 +1594,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArrayFlashCopyComplete trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidArrayFlashCopyComplete trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1638,10 +1638,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidArrayFlashCopyFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapArray=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidArrayFlashCopyFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapArray=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapErrorCode=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1679,9 +1679,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidLogicalDriveUnblocked trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapLogicalDrive=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidLogicalDriveUnblocked trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapLogicalDrive=%parm[#2]%
 			ibmServeRaidTrapController=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1723,10 +1723,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDefunctDrive trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
-			ibmServeRaidTrapChannel=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidDefunctDrive trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
+			ibmServeRaidTrapChannel=%parm[#3]%
 			ibmServeRaidTrapScsiId=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1768,10 +1768,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPfaDrive trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
-			ibmServeRaidTrapChannel=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidPfaDrive trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
+			ibmServeRaidTrapChannel=%parm[#3]%
 			ibmServeRaidTrapScsiId=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1813,10 +1813,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDefunctReplaced trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
-			ibmServeRaidTrapChannel=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidDefunctReplaced trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
+			ibmServeRaidTrapChannel=%parm[#3]%
 			ibmServeRaidTrapScsiId=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1862,11 +1862,11 @@
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidDefunctDriveFru trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapFru=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
-			ibmServeRaidTrapChannel=%parm[#4]% 
+			IBM ServeRaid: ibmServeRaidDefunctDriveFru trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapFru=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
+			ibmServeRaidTrapChannel=%parm[#4]%
 			ibmServeRaidTrapScsiId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1912,11 +1912,11 @@
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPfaDriveFru trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapFru=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
-			ibmServeRaidTrapChannel=%parm[#4]% 
+			IBM ServeRaid: ibmServeRaidPfaDriveFru trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapFru=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
+			ibmServeRaidTrapChannel=%parm[#4]%
 			ibmServeRaidTrapScsiId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1958,10 +1958,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidUnsupportedDrive trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
-			ibmServeRaidTrapChannel=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidUnsupportedDrive trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
+			ibmServeRaidTrapChannel=%parm[#3]%
 			ibmServeRaidTrapScsiId=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1999,9 +1999,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidEnclosureOK trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidEnclosureOK trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
 			ibmServeRaidTrapChannel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2039,9 +2039,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidEnclosureFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidEnclosureFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
 			ibmServeRaidTrapChannel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2083,10 +2083,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFanOk trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapFan=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidFanOk trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapFan=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2128,10 +2128,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFanFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapFan=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidFanFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapFan=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2173,10 +2173,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFanInstalled trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapFan=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidFanInstalled trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapFan=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2218,10 +2218,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidFanRemoved trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapFan=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidFanRemoved trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapFan=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2259,9 +2259,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidTempOk trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidTempOk trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
 			ibmServeRaidTrapChannel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2299,9 +2299,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidTempFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapController=%parm[#2]% 
+			IBM ServeRaid: ibmServeRaidTempFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapController=%parm[#2]%
 			ibmServeRaidTrapChannel=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2343,10 +2343,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPowerSupplyOk trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapPowerSupply=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidPowerSupplyOk trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapPowerSupply=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2388,10 +2388,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPowerSupplyFail trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapPowerSupply=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidPowerSupplyFail trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapPowerSupply=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2433,10 +2433,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPowerSupplyInstalled trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapPowerSupply=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidPowerSupplyInstalled trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapPowerSupply=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2478,10 +2478,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidPowerSupplyRemoved trap received 
-			ibmServeRaidTrapServerName=%parm[#1]% 
-			ibmServeRaidTrapPowerSupply=%parm[#2]% 
-			ibmServeRaidTrapController=%parm[#3]% 
+			IBM ServeRaid: ibmServeRaidPowerSupplyRemoved trap received
+			ibmServeRaidTrapServerName=%parm[#1]%
+			ibmServeRaidTrapPowerSupply=%parm[#2]%
+			ibmServeRaidTrapController=%parm[#3]%
 			ibmServeRaidTrapChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2511,7 +2511,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM ServeRaid: ibmServeRaidTestTrap trap received 
+			IBM ServeRaid: ibmServeRaidTestTrap trap received
 			ibmServeRaidTrapServerName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2563,12 +2563,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGGenericEvent trap received 
-			iBMPSGGenericEventIdentifier=%parm[#1]% 
-			iBMPSGGenericEventSourceObjectPath=%parm[#2]% 
-			iBMPSGGenericEventTargetObjectPath=%parm[#3]% 
-			iBMPSGGenericEventdescription=%parm[#4]% 
-			iBMPSGGenericEventSeverity=%parm[#5]% 
+			IBM UMS Event: iBMPSGGenericEvent trap received
+			iBMPSGGenericEventIdentifier=%parm[#1]%
+			iBMPSGGenericEventSourceObjectPath=%parm[#2]%
+			iBMPSGGenericEventTargetObjectPath=%parm[#3]%
+			iBMPSGGenericEventdescription=%parm[#4]%
+			iBMPSGGenericEventSeverity=%parm[#5]%
 			iBMPSGGenericEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2619,12 +2619,12 @@ with respect to a manufacturer-defined and/or user-defined threshold.&lt;/p&gt;&
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGTemperatureEvent trap received 
-			iBMPSGTemperatureEventIdentifier=%parm[#1]% 
-			iBMPSGTemperatureEventSourceObjectPath=%parm[#2]% 
-			iBMPSGTemperatureEventTargetObjectPath=%parm[#3]% 
-			iBMPSGTemperatureEventSeverity=%parm[#4]% 
-			iBMPSGTemperatureEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGTemperatureEvent trap received
+			iBMPSGTemperatureEventIdentifier=%parm[#1]%
+			iBMPSGTemperatureEventSourceObjectPath=%parm[#2]%
+			iBMPSGTemperatureEventTargetObjectPath=%parm[#3]%
+			iBMPSGTemperatureEventSeverity=%parm[#4]%
+			iBMPSGTemperatureEventdescription=%parm[#5]%
 			iBMPSGTemperatureEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2675,12 +2675,12 @@ with respect to a manufacturer-defined threshold.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGVoltageEvent trap received 
-			iBMPSGVoltageEventIdentifier=%parm[#1]% 
-			iBMPSGVoltageEventSourceObjectPath=%parm[#2]% 
-			iBMPSGVoltageEventTargetObjectPath=%parm[#3]% 
-			iBMPSGVoltageEventSeverity=%parm[#4]% 
-			iBMPSGVoltageEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGVoltageEvent trap received
+			iBMPSGVoltageEventIdentifier=%parm[#1]%
+			iBMPSGVoltageEventSourceObjectPath=%parm[#2]%
+			iBMPSGVoltageEventTargetObjectPath=%parm[#3]%
+			iBMPSGVoltageEventSeverity=%parm[#4]%
+			iBMPSGVoltageEventdescription=%parm[#5]%
 			iBMPSGVoltageEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2730,12 +2730,12 @@ with respect to a manufacturer-defined threshold.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGChassisEvent trap received 
-			iBMPSGChassisEventIdentifier=%parm[#1]% 
-			iBMPSGChassisEventSourceObjectPath=%parm[#2]% 
-			iBMPSGChassisEventTargetObjectPath=%parm[#3]% 
-			iBMPSGChassisEventSeverity=%parm[#4]% 
-			iBMPSGChassisEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGChassisEvent trap received
+			iBMPSGChassisEventIdentifier=%parm[#1]%
+			iBMPSGChassisEventSourceObjectPath=%parm[#2]%
+			iBMPSGChassisEventTargetObjectPath=%parm[#3]%
+			iBMPSGChassisEventSeverity=%parm[#4]%
+			iBMPSGChassisEventdescription=%parm[#5]%
 			iBMPSGChassisEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2786,12 +2786,12 @@ manufacturer-defined rpm values.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGFanEvent trap received 
-			iBMPSGFanEventIdentifier=%parm[#1]% 
-			iBMPSGFanEventSourceObjectPath=%parm[#2]% 
-			iBMPSGFanEventTargetObjectPath=%parm[#3]% 
-			iBMPSGFanEventSeverity=%parm[#4]% 
-			iBMPSGFanEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGFanEvent trap received
+			iBMPSGFanEventIdentifier=%parm[#1]%
+			iBMPSGFanEventSourceObjectPath=%parm[#2]%
+			iBMPSGFanEventTargetObjectPath=%parm[#3]%
+			iBMPSGFanEventSeverity=%parm[#4]%
+			iBMPSGFanEventdescription=%parm[#5]%
 			iBMPSGFanEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2841,12 +2841,12 @@ manufacturer-defined rpm values.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGProcessorEvent trap received 
-			iBMPSGProcessorEventIdentifier=%parm[#1]% 
-			iBMPSGProcessorEventSourceObjectPath=%parm[#2]% 
-			iBMPSGProcessorEventTargetObjectPath=%parm[#3]% 
-			iBMPSGProcessorEventSeverity=%parm[#4]% 
-			iBMPSGProcessorEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGProcessorEvent trap received
+			iBMPSGProcessorEventIdentifier=%parm[#1]%
+			iBMPSGProcessorEventSourceObjectPath=%parm[#2]%
+			iBMPSGProcessorEventTargetObjectPath=%parm[#3]%
+			iBMPSGProcessorEventSeverity=%parm[#4]%
+			iBMPSGProcessorEventdescription=%parm[#5]%
 			iBMPSGProcessorEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2869,8 +2869,8 @@ manufacturer-defined rpm values.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/IBM/iBMPSGStorageEvent</uei>
 	<event-label>UMSEVENT-MIB defined trap event: iBMPSGStorageEvent</event-label>
 	<descr>
-&lt;p&gt;On systems with no Remote Supervisor Adapter, this event is sent when the 
-state of a system's hard file space has changed with respect to user-defined 
+&lt;p&gt;On systems with no Remote Supervisor Adapter, this event is sent when the
+state of a system's hard file space has changed with respect to user-defined
 levels of percentage hard file space remaining.
 On systems with a Remote Supervisor Adapter, this event is sent when the
 system has experienced a DASD controller failure.&lt;/p&gt;&lt;table&gt;
@@ -2900,12 +2900,12 @@ system has experienced a DASD controller failure.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGStorageEvent trap received 
-			iBMPSGStorageEventIdentifier=%parm[#1]% 
-			iBMPSGStorageEventSourceObjectPath=%parm[#2]% 
-			iBMPSGStorageEventTargetObjectPath=%parm[#3]% 
-			iBMPSGStorageEventSeverity=%parm[#4]% 
-			iBMPSGStorageEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGStorageEvent trap received
+			iBMPSGStorageEventIdentifier=%parm[#1]%
+			iBMPSGStorageEventSourceObjectPath=%parm[#2]%
+			iBMPSGStorageEventTargetObjectPath=%parm[#3]%
+			iBMPSGStorageEventSeverity=%parm[#4]%
+			iBMPSGStorageEventdescription=%parm[#5]%
 			iBMPSGStorageEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2955,12 +2955,12 @@ system has experienced a DASD controller failure.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGAssetEvent trap received 
-			iBMPSGAssetEventIdentifier=%parm[#1]% 
-			iBMPSGAssetEventSourceObjectPath=%parm[#2]% 
-			iBMPSGAssetEventTargetObjectPath=%parm[#3]% 
-			iBMPSGAssetEventSeverity=%parm[#4]% 
-			iBMPSGAssetEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGAssetEvent trap received
+			iBMPSGAssetEventIdentifier=%parm[#1]%
+			iBMPSGAssetEventSourceObjectPath=%parm[#2]%
+			iBMPSGAssetEventTargetObjectPath=%parm[#3]%
+			iBMPSGAssetEventSeverity=%parm[#4]%
+			iBMPSGAssetEventdescription=%parm[#5]%
 			iBMPSGAssetEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3012,12 +3012,12 @@ its availability.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGSMARTEvent trap received 
-			iBMPSGSMARTEventIdentifier=%parm[#1]% 
-			iBMPSGSMARTEventSourceObjectPath=%parm[#2]% 
-			iBMPSGSMARTEventTargetObjectPath=%parm[#3]% 
-			iBMPSGSMARTEventSeverity=%parm[#4]% 
-			iBMPSGSMARTEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGSMARTEvent trap received
+			iBMPSGSMARTEventIdentifier=%parm[#1]%
+			iBMPSGSMARTEventSourceObjectPath=%parm[#2]%
+			iBMPSGSMARTEventTargetObjectPath=%parm[#3]%
+			iBMPSGSMARTEventSeverity=%parm[#4]%
+			iBMPSGSMARTEventdescription=%parm[#5]%
 			iBMPSGSMARTEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3067,12 +3067,12 @@ its availability.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGPOSTEvent trap received 
-			iBMPSGPOSTEventIdentifier=%parm[#1]% 
-			iBMPSGPOSTEventSourceObjectPath=%parm[#2]% 
-			iBMPSGPOSTEventTargetObjectPath=%parm[#3]% 
-			iBMPSGPOSTEventSeverity=%parm[#4]% 
-			iBMPSGPOSTEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGPOSTEvent trap received
+			iBMPSGPOSTEventIdentifier=%parm[#1]%
+			iBMPSGPOSTEventSourceObjectPath=%parm[#2]%
+			iBMPSGPOSTEventTargetObjectPath=%parm[#3]%
+			iBMPSGPOSTEventSeverity=%parm[#4]%
+			iBMPSGPOSTEventdescription=%parm[#5]%
 			iBMPSGPOSTEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3122,12 +3122,12 @@ its availability.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGConfigurationChangeEvent trap received 
-			iBMPSGConfigurationChangeEventIdentifier=%parm[#1]% 
-			iBMPSGConfigurationChangeEventSourceObjectPath=%parm[#2]% 
-			iBMPSGConfigurationChangeEventTargetObjectPath=%parm[#3]% 
-			iBMPSGConfigurationChangeEventSeverity=%parm[#4]% 
-			iBMPSGConfigurationChangeEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGConfigurationChangeEvent trap received
+			iBMPSGConfigurationChangeEventIdentifier=%parm[#1]%
+			iBMPSGConfigurationChangeEventSourceObjectPath=%parm[#2]%
+			iBMPSGConfigurationChangeEventTargetObjectPath=%parm[#3]%
+			iBMPSGConfigurationChangeEventSeverity=%parm[#4]%
+			iBMPSGConfigurationChangeEventdescription=%parm[#5]%
 			iBMPSGConfigurationChangeEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3178,12 +3178,12 @@ respect to the physical connection between its AlertOnLAN-capable NIC and the LA
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGLANLeashEvent trap received 
-			iBMPSGLANLeashEventIdentifier=%parm[#1]% 
-			iBMPSGLANLeashEventSourceObjectPath=%parm[#2]% 
-			iBMPSGLANLeashEventTargetObjectPath=%parm[#3]% 
-			iBMPSGLANLeashEventSeverity=%parm[#4]% 
-			iBMPSGLANLeashEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGLANLeashEvent trap received
+			iBMPSGLANLeashEventIdentifier=%parm[#1]%
+			iBMPSGLANLeashEventSourceObjectPath=%parm[#2]%
+			iBMPSGLANLeashEventTargetObjectPath=%parm[#3]%
+			iBMPSGLANLeashEventSeverity=%parm[#4]%
+			iBMPSGLANLeashEventdescription=%parm[#5]%
 			iBMPSGLANLeashEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3234,12 +3234,12 @@ with respect to the value configured for the date in the Asset ID tool.&lt;/p&gt
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGLeaseExpirationEvent trap received 
-			iBMPSGLeaseExpirationEventIdentifier=%parm[#1]% 
-			iBMPSGLeaseExpirationEventSourceObjectPath=%parm[#2]% 
-			iBMPSGLeaseExpirationEventTargetObjectPath=%parm[#3]% 
-			iBMPSGLeaseExpirationEventSeverity=%parm[#4]% 
-			iBMPSGLeaseExpirationEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGLeaseExpirationEvent trap received
+			iBMPSGLeaseExpirationEventIdentifier=%parm[#1]%
+			iBMPSGLeaseExpirationEventSourceObjectPath=%parm[#2]%
+			iBMPSGLeaseExpirationEventTargetObjectPath=%parm[#3]%
+			iBMPSGLeaseExpirationEventSeverity=%parm[#4]%
+			iBMPSGLeaseExpirationEventdescription=%parm[#5]%
 			iBMPSGLeaseExpirationEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3290,12 +3290,12 @@ with respect to the value configured for the date in the Asset ID tool.&lt;/p&gt
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGWarrantyExpirationEvent trap received 
-			iBMPSGWarrantyExpirationEventIdentifier=%parm[#1]% 
-			iBMPSGWarrantyExpirationEventSourceObjectPath=%parm[#2]% 
-			iBMPSGWarrantyExpirationEventTargetObjectPath=%parm[#3]% 
-			iBMPSGWarrantyExpirationEventSeverity=%parm[#4]% 
-			iBMPSGWarrantyExpirationEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGWarrantyExpirationEvent trap received
+			iBMPSGWarrantyExpirationEventIdentifier=%parm[#1]%
+			iBMPSGWarrantyExpirationEventSourceObjectPath=%parm[#2]%
+			iBMPSGWarrantyExpirationEventTargetObjectPath=%parm[#3]%
+			iBMPSGWarrantyExpirationEventSeverity=%parm[#4]%
+			iBMPSGWarrantyExpirationEventdescription=%parm[#5]%
 			iBMPSGWarrantyExpirationEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3348,12 +3348,12 @@ a switchback.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGRedundantNetworkAdapterEvent trap received 
-			iBMPSGRedundantNetworkAdapterEventIdentifier=%parm[#1]% 
-			iBMPSGRedundantNetworkAdapterEventSourceObjectPath=%parm[#2]% 
-			iBMPSGRedundantNetworkAdapterEventTargetObjectPath=%parm[#3]% 
-			iBMPSGRedundantNetworkAdapterEventSeverity=%parm[#4]% 
-			iBMPSGRedundantNetworkAdapterEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGRedundantNetworkAdapterEvent trap received
+			iBMPSGRedundantNetworkAdapterEventIdentifier=%parm[#1]%
+			iBMPSGRedundantNetworkAdapterEventSourceObjectPath=%parm[#2]%
+			iBMPSGRedundantNetworkAdapterEventTargetObjectPath=%parm[#3]%
+			iBMPSGRedundantNetworkAdapterEventSeverity=%parm[#4]%
+			iBMPSGRedundantNetworkAdapterEventdescription=%parm[#5]%
 			iBMPSGRedundantNetworkAdapterEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3404,12 +3404,12 @@ to a redundant NIC.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGRedundantNetworkAdapterSwitchoverEvent trap received 
-			iBMPSGRedundantNetworkAdapterSwitchoverEventIdentifier=%parm[#1]% 
-			iBMPSGRedundantNetworkAdapterSwitchoverEventSourceObjectPath=%parm[#2]% 
-			iBMPSGRedundantNetworkAdapterSwitchoverEventTargetObjectPath=%parm[#3]% 
-			iBMPSGRedundantNetworkAdapterSwitchoverEventSeverity=%parm[#4]% 
-			iBMPSGRedundantNetworkAdapterSwitchoverEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGRedundantNetworkAdapterSwitchoverEvent trap received
+			iBMPSGRedundantNetworkAdapterSwitchoverEventIdentifier=%parm[#1]%
+			iBMPSGRedundantNetworkAdapterSwitchoverEventSourceObjectPath=%parm[#2]%
+			iBMPSGRedundantNetworkAdapterSwitchoverEventTargetObjectPath=%parm[#3]%
+			iBMPSGRedundantNetworkAdapterSwitchoverEventSeverity=%parm[#4]%
+			iBMPSGRedundantNetworkAdapterSwitchoverEventdescription=%parm[#5]%
 			iBMPSGRedundantNetworkAdapterSwitchoverEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3460,12 +3460,12 @@ to a recovery from a redundant NIC.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGRedundantNetworkAdapterSwitchbackEvent trap received 
-			iBMPSGRedundantNetworkAdapterSwitchbackEventIdentifier=%parm[#1]% 
-			iBMPSGRedundantNetworkAdapterSwitchbackEventSourceObjectPath=%parm[#2]% 
-			iBMPSGRedundantNetworkAdapterSwitchbackEventTargetObjectPath=%parm[#3]% 
-			iBMPSGRedundantNetworkAdapterSwitchbackEventSeverity=%parm[#4]% 
-			iBMPSGRedundantNetworkAdapterSwitchbackEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGRedundantNetworkAdapterSwitchbackEvent trap received
+			iBMPSGRedundantNetworkAdapterSwitchbackEventIdentifier=%parm[#1]%
+			iBMPSGRedundantNetworkAdapterSwitchbackEventSourceObjectPath=%parm[#2]%
+			iBMPSGRedundantNetworkAdapterSwitchbackEventTargetObjectPath=%parm[#3]%
+			iBMPSGRedundantNetworkAdapterSwitchbackEventSeverity=%parm[#4]%
+			iBMPSGRedundantNetworkAdapterSwitchbackEventdescription=%parm[#5]%
 			iBMPSGRedundantNetworkAdapterSwitchbackEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3515,12 +3515,12 @@ to a recovery from a redundant NIC.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGProcessorPFEvent trap received 
-			iBMPSGProcessorPFEventIdentifier=%parm[#1]% 
-			iBMPSGProcessorPFEventSourceObjectPath=%parm[#2]% 
-			iBMPSGProcessorPFEventTargetObjectPath=%parm[#3]% 
-			iBMPSGProcessorPFEventSeverity=%parm[#4]% 
-			iBMPSGProcessorPFEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGProcessorPFEvent trap received
+			iBMPSGProcessorPFEventIdentifier=%parm[#1]%
+			iBMPSGProcessorPFEventSourceObjectPath=%parm[#2]%
+			iBMPSGProcessorPFEventTargetObjectPath=%parm[#3]%
+			iBMPSGProcessorPFEventSeverity=%parm[#4]%
+			iBMPSGProcessorPFEventdescription=%parm[#5]%
 			iBMPSGProcessorPFEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3570,12 +3570,12 @@ to a recovery from a redundant NIC.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGMemoryPFEvent trap received 
-			iBMPSGMemoryPFEventIdentifier=%parm[#1]% 
-			iBMPSGMemoryPFEventSourceObjectPath=%parm[#2]% 
-			iBMPSGMemoryPFEventTargetObjectPath=%parm[#3]% 
-			iBMPSGMemoryPFEventSeverity=%parm[#4]% 
-			iBMPSGMemoryPFEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGMemoryPFEvent trap received
+			iBMPSGMemoryPFEventIdentifier=%parm[#1]%
+			iBMPSGMemoryPFEventSourceObjectPath=%parm[#2]%
+			iBMPSGMemoryPFEventTargetObjectPath=%parm[#3]%
+			iBMPSGMemoryPFEventSeverity=%parm[#4]%
+			iBMPSGMemoryPFEventdescription=%parm[#5]%
 			iBMPSGMemoryPFEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3626,12 +3626,12 @@ a system is about to fail.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGPFAEvent trap received 
-			iBMPSGPFAEventIdentifier=%parm[#1]% 
-			iBMPSGPFAEventSourceObjectPath=%parm[#2]% 
-			iBMPSGPFAEventTargetObjectPath=%parm[#3]% 
-			iBMPSGPFAEventSeverity=%parm[#4]% 
-			iBMPSGPFAEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGPFAEvent trap received
+			iBMPSGPFAEventIdentifier=%parm[#1]%
+			iBMPSGPFAEventSourceObjectPath=%parm[#2]%
+			iBMPSGPFAEventTargetObjectPath=%parm[#3]%
+			iBMPSGPFAEventSeverity=%parm[#4]%
+			iBMPSGPFAEventdescription=%parm[#5]%
 			iBMPSGPFAEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3682,12 +3682,12 @@ state of a system's power supply changes with respect to availability.&lt;/p&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGPowerSupplyEvent trap received 
-			iBMPSGPowerSupplyEventIdentifier=%parm[#1]% 
-			iBMPSGPowerSupplyEventSourceObjectPath=%parm[#2]% 
-			iBMPSGPowerSupplyEventTargetObjectPath=%parm[#3]% 
-			iBMPSGPowerSupplyEventSeverity=%parm[#4]% 
-			iBMPSGPowerSupplyEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGPowerSupplyEvent trap received
+			iBMPSGPowerSupplyEventIdentifier=%parm[#1]%
+			iBMPSGPowerSupplyEventSourceObjectPath=%parm[#2]%
+			iBMPSGPowerSupplyEventTargetObjectPath=%parm[#3]%
+			iBMPSGPowerSupplyEventSeverity=%parm[#4]%
+			iBMPSGPowerSupplyEventdescription=%parm[#5]%
 			iBMPSGPowerSupplyEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3738,12 +3738,12 @@ log is 75% full and/or 100% full.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGErrorLogEvent trap received 
-			iBMPSGErrorLogEventIdentifier=%parm[#1]% 
-			iBMPSGErrorLogEventSourceObjectPath=%parm[#2]% 
-			iBMPSGErrorLogEventTargetObjectPath=%parm[#3]% 
-			iBMPSGErrorLogEventSeverity=%parm[#4]% 
-			iBMPSGErrorLogEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGErrorLogEvent trap received
+			iBMPSGErrorLogEventIdentifier=%parm[#1]%
+			iBMPSGErrorLogEventSourceObjectPath=%parm[#2]%
+			iBMPSGErrorLogEventTargetObjectPath=%parm[#3]%
+			iBMPSGErrorLogEventSeverity=%parm[#4]%
+			iBMPSGErrorLogEventdescription=%parm[#5]%
 			iBMPSGErrorLogEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3794,12 +3794,12 @@ with respect to security because a user has logged into it.&lt;/p&gt;&lt;table&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IBM UMS Event: iBMPSGRemoteLoginEvent trap received 
-			iBMPSGRemoteLoginEventIdentifier=%parm[#1]% 
-			iBMPSGRemoteLoginEventSourceObjectPath=%parm[#2]% 
-			iBMPSGRemoteLoginEventTargetObjectPath=%parm[#3]% 
-			iBMPSGRemoteLoginEventSeverity=%parm[#4]% 
-			iBMPSGRemoteLoginEventdescription=%parm[#5]% 
+			IBM UMS Event: iBMPSGRemoteLoginEvent trap received
+			iBMPSGRemoteLoginEventIdentifier=%parm[#1]%
+			iBMPSGRemoteLoginEventSourceObjectPath=%parm[#2]%
+			iBMPSGRemoteLoginEventTargetObjectPath=%parm[#3]%
+			iBMPSGRemoteLoginEventSeverity=%parm[#4]%
+			iBMPSGRemoteLoginEventdescription=%parm[#5]%
 			iBMPSGRemoteLoginEventTimeStamp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

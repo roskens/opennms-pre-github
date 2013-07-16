@@ -74,7 +74,7 @@
     <bean id="eventDao" class="org.opennms.netmgt.dao.mock.MockEventDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.EventDao" ref="eventDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.EventCountDao" ref="eventDao" />
-    
+
     <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.mock.MockIpInterfaceDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.IpInterfaceDao" ref="ipInterfaceDao" />
 
@@ -107,13 +107,13 @@
 
     <bean id="resourceDao" class="org.opennms.netmgt.dao.mock.MockResourceDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.ResourceDao" ref="resourceDao"/>
-    
+
     <bean id="resourceReferenceDao" class="org.opennms.netmgt.dao.mock.MockResourceReferenceDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.ResourceReferenceDao" ref="resourceReferenceDao"/>
-    
+
     <bean id="rrdDao" class="org.opennms.netmgt.dao.mock.MockRrdDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.RrdDao" ref="rrdDao"/>
-    
+
     <bean id="serviceTypeDao" class="org.opennms.netmgt.dao.mock.MockServiceTypeDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.ServiceTypeDao" ref="serviceTypeDao" />
 
@@ -143,7 +143,7 @@
 
     <bean id="statisticsReportDao" class="org.opennms.netmgt.dao.mock.MockStatisticsReportDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.StatisticsReportDao" ref="statisticsReportDao"/>
-    
+
     <bean id="surveillanceViewConfigResourceLocation" class="java.lang.String">
         <constructor-arg value="file:${opennms.home}/etc/surveillance-views.xml" />
     </bean>
@@ -161,7 +161,7 @@
     <bean id="vlanDao" class="org.opennms.netmgt.dao.mock.MockVlanDao" />
     <onmsgi:service interface="org.opennms.netmgt.dao.api.VlanDao" ref="vlanDao" />
 
-    <!-- 
+    <!--
     <bean id="resourceDao" class="org.opennms.netmgt.dao.support.DefaultResourceDao">
         <property name="nodeDao" ref="nodeDao" />
         <property name="locationMonitorDao" ref="locationMonitorDao" />

@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPingRttThresholdExceeded</uei>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingRttThresholdExceeded</event-label>
     <descr><![CDATA[
-<p>This notification is generated when the round trip time 
+<p>This notification is generated when the round trip time
 (jnxPingCtlRttThreshold) exceeds the configured
 threshold (jnxPingCtlRttThreshold) and the rttThreshold bit is
 set in jnxPingCtlTrapGeneration.</p><table>
@@ -98,20 +98,20 @@ set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#14]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingRttThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinRttUs=%parm[#6]% 
-			jnxPingResultsMaxRttUs=%parm[#7]% 
-			jnxPingResultsAvgRttUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
-			pingResultsLastGoodProbe=%parm[#12]% 
-			jnxPingCtlRttThreshold=%parm[#13]% 
+			jnxPingRttThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinRttUs=%parm[#6]%
+			jnxPingResultsMaxRttUs=%parm[#7]%
+			jnxPingResultsAvgRttUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
+			pingResultsLastGoodProbe=%parm[#12]%
+			jnxPingCtlRttThreshold=%parm[#13]%
 			jnxPingResultsRttUs=%parm[#14]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -136,7 +136,7 @@ set in jnxPingCtlTrapGeneration.</p><table>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingRttStdDevThresholdExceeded</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the standard deviation of
-the round trip time (jnxPingResultsStdDevRttUs) exceeds the 
+the round trip time (jnxPingResultsStdDevRttUs) exceeds the
 configured threshold (jnxPingCtlRttStdDevThreshold) and the
 rttStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
@@ -214,20 +214,20 @@ rttStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#14]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingRttStdDevThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinRttUs=%parm[#6]% 
-			jnxPingResultsMaxRttUs=%parm[#7]% 
-			jnxPingResultsAvgRttUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
-			pingResultsLastGoodProbe=%parm[#12]% 
-			jnxPingCtlRttStdDevThreshold=%parm[#13]% 
+			jnxPingRttStdDevThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinRttUs=%parm[#6]%
+			jnxPingResultsMaxRttUs=%parm[#7]%
+			jnxPingResultsAvgRttUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
+			pingResultsLastGoodProbe=%parm[#12]%
+			jnxPingCtlRttStdDevThreshold=%parm[#13]%
 			jnxPingResultsStdDevRttUs=%parm[#14]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -252,7 +252,7 @@ rttStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingRttJitterThresholdExceeded</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the round trip time jitter
-(jnxPingResultsMaxRttUs minus jnxPingResultsMinRttUs) exceeds the 
+(jnxPingResultsMaxRttUs minus jnxPingResultsMinRttUs) exceeds the
 configured threshold (jnxPingCtlRttJitterThreshold) and the
 rttJitterThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
@@ -326,19 +326,19 @@ rttJitterThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#13]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingRttJitterThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinRttUs=%parm[#6]% 
-			jnxPingResultsMaxRttUs=%parm[#7]% 
-			jnxPingResultsAvgRttUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
-			pingResultsLastGoodProbe=%parm[#12]% 
+			jnxPingRttJitterThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinRttUs=%parm[#6]%
+			jnxPingResultsMaxRttUs=%parm[#7]%
+			jnxPingResultsAvgRttUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
+			pingResultsLastGoodProbe=%parm[#12]%
 			jnxPingCtlRttJitterThreshold=%parm[#13]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -362,9 +362,9 @@ rttJitterThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPingEgressThresholdExceeded</uei>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingEgressThresholdExceeded</event-label>
     <descr><![CDATA[
-<p>This notification is generated when the egress time 
+<p>This notification is generated when the egress time
 (jnxPingResultsEgressUs) exceeds the configured
-threshold (jnxPingCtlEgressTimeThreshold) and the 
+threshold (jnxPingCtlEgressTimeThreshold) and the
 egressThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
 
@@ -437,19 +437,19 @@ egressThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#13]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingEgressThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinEgressUs=%parm[#6]% 
-			jnxPingResultsMaxEgressUs=%parm[#7]% 
-			jnxPingResultsAvgEgressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingCtlEgressTimeThreshold=%parm[#12]% 
+			jnxPingEgressThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinEgressUs=%parm[#6]%
+			jnxPingResultsMaxEgressUs=%parm[#7]%
+			jnxPingResultsAvgEgressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingCtlEgressTimeThreshold=%parm[#12]%
 			jnxPingResultsEgressUs=%parm[#13]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -474,7 +474,7 @@ egressThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingEgressStdDevThresholdExceeded</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the standard deviation of
-the egress time (jnxPingResultsStddevEgressUs) exceeds the 
+the egress time (jnxPingResultsStddevEgressUs) exceeds the
 configured threshold (jnxPingCtlEgressStdDevThreshold) and the
 egressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
@@ -552,20 +552,20 @@ egressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#14]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingEgressStdDevThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinEgressUs=%parm[#6]% 
-			jnxPingResultsMaxEgressUs=%parm[#7]% 
-			jnxPingResultsAvgEgressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingResultsStddevEgressUs=%parm[#12]% 
-			jnxPingCtlEgressStdDevThreshold=%parm[#13]% 
+			jnxPingEgressStdDevThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinEgressUs=%parm[#6]%
+			jnxPingResultsMaxEgressUs=%parm[#7]%
+			jnxPingResultsAvgEgressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingResultsStddevEgressUs=%parm[#12]%
+			jnxPingCtlEgressStdDevThreshold=%parm[#13]%
 			jnxPingResultsStddevEgressUs=%parm[#14]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -589,9 +589,9 @@ egressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingEgressJitterThresholdExceeded</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the egress time jitter
-(jnxPingResultsMaxEgressUs minus jnxPingResultsMinEgressUs) 
+(jnxPingResultsMaxEgressUs minus jnxPingResultsMinEgressUs)
 exceeds the configured threshold (jnxPingCtlEgressJitterThreshold)
-and the egressJitterThreshold bit is set in 
+and the egressJitterThreshold bit is set in
 jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
 
@@ -660,18 +660,18 @@ jnxPingCtlTrapGeneration.</p><table>
 	%parm[#12]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingEgressJitterThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinEgressUs=%parm[#6]% 
-			jnxPingResultsMaxEgressUs=%parm[#7]% 
-			jnxPingResultsAvgEgressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
+			jnxPingEgressJitterThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinEgressUs=%parm[#6]%
+			jnxPingResultsMaxEgressUs=%parm[#7]%
+			jnxPingResultsAvgEgressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
 			jnxPingCtlEgressJitterThreshold=%parm[#12]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -695,9 +695,9 @@ jnxPingCtlTrapGeneration.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPingIngressThresholdExceeded</uei>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingIngressThresholdExceeded</event-label>
     <descr><![CDATA[
-<p>This notification is generated when the ingress time 
+<p>This notification is generated when the ingress time
 (jnxPingResultsIngressUs) exceeds the configured
-threshold (jnxPingCtlIngressTimeThreshold) and the 
+threshold (jnxPingCtlIngressTimeThreshold) and the
 ingressThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
 
@@ -770,19 +770,19 @@ ingressThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#13]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingIngressThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinIngressUs=%parm[#6]% 
-			jnxPingResultsMaxIngressUs=%parm[#7]% 
-			jnxPingResultsAvgIngressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingCtlIngressTimeThreshold=%parm[#12]% 
+			jnxPingIngressThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinIngressUs=%parm[#6]%
+			jnxPingResultsMaxIngressUs=%parm[#7]%
+			jnxPingResultsAvgIngressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingCtlIngressTimeThreshold=%parm[#12]%
 			jnxPingResultsIngressUs=%parm[#13]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -807,7 +807,7 @@ ingressThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingIngressStddevThresholdExceeded</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the standard deviation of
-the ingress time (jnxPingResultsStddevIngressUs) exceeds the 
+the ingress time (jnxPingResultsStddevIngressUs) exceeds the
 configured threshold (jnxPingCtlIngressStddevThreshold) and the
 ingressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
@@ -885,20 +885,20 @@ ingressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
 	%parm[#14]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingIngressStddevThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinIngressUs=%parm[#6]% 
-			jnxPingResultsMaxIngressUs=%parm[#7]% 
-			jnxPingResultsAvgIngressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingResultsStddevIngressUs=%parm[#12]% 
-			jnxPingCtlIngressStddevThreshold=%parm[#13]% 
+			jnxPingIngressStddevThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinIngressUs=%parm[#6]%
+			jnxPingResultsMaxIngressUs=%parm[#7]%
+			jnxPingResultsAvgIngressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingResultsStddevIngressUs=%parm[#12]%
+			jnxPingCtlIngressStddevThreshold=%parm[#13]%
 			jnxPingResultsStddevIngressUs=%parm[#14]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -923,9 +923,9 @@ ingressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.</p><table>
     <event-label>JUNIPER-PING-MIB defined trap event: jnxPingIngressJitterThresholdExceeded</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the ingress time jitter
-(jnxPingResultsMaxIngressUs minus jnxPingResultsMinIngressUs) 
+(jnxPingResultsMaxIngressUs minus jnxPingResultsMinIngressUs)
 exceeds the configured threshold (jnxPingCtlIngressJitterThreshold)
-and the ingressJitterThreshold bit is set in 
+and the ingressJitterThreshold bit is set in
 jnxPingCtlTrapGeneration.</p><table>
 	<tr><td><b>
 
@@ -994,18 +994,18 @@ jnxPingCtlTrapGeneration.</p><table>
 	%parm[#12]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPingIngressJitterThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinIngressUs=%parm[#6]% 
-			jnxPingResultsMaxIngressUs=%parm[#7]% 
-			jnxPingResultsAvgIngressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
+			jnxPingIngressJitterThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinIngressUs=%parm[#6]%
+			jnxPingResultsMaxIngressUs=%parm[#7]%
+			jnxPingResultsAvgIngressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
 			jnxPingCtlIngressJitterThreshold=%parm[#12]%</p>
 		]]></logmsg>
     <severity>Major</severity>

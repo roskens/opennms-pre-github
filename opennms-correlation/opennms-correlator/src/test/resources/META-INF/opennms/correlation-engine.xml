@@ -9,7 +9,7 @@
 			<bean class="org.springframework.scheduling.timer.TimerFactoryBean" />
 		</property>
 	</bean>
-	
+
 	<bean name="listedEngines" class="org.opennms.netmgt.correlation.MultiEngineBuilder">
 		<property name="correlator" ref="correlator" />
 		<property name="eventIpcManager" ref="eventIpcManager" />

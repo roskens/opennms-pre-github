@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	 
+
 	<bean id="OssBeanRunnerList"	class="org.openoss.ossj.fm.monitor.spring.OssBeanRunnerList">
 		<property name="ossbeanrunnerlist">
 			<list>
@@ -11,7 +11,7 @@
 			-->
 
 				<value>Outstation_OpenOSS1</value>
-				<value>Outstation_OpenOSS2</value>				
+				<value>Outstation_OpenOSS2</value>
 				<value>Outstation_OpenOSS3</value>
 				<value>Outstation_OpenOSS4</value>
 				<value>Outstation_OpenOSS5</value>
@@ -20,24 +20,24 @@
 				<value>Outstation_OpenOSS8</value>
 				<value>Outstation_OpenOSS9</value>
 				<value>Outstation_OpenOSS10</value>
-				
+
 				<!--
 				<value>AlarmEventReceiver_remote_jbossmq</value>
 				-->
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Example configuration using separate properties file -->
 	<!-- ____________________________________________________ -->
-	
+
 	<!--
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" >
 			<value>org/openoss/ossj/fm/junittests/qosclient.properties</value>
 		</property>
 	</bean>
-	
+
 	<bean id="AlarmEventReceiver_local_jbossmq"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl"
 		depends-on="propertyConfigurer">
@@ -58,9 +58,9 @@
 
 	<!-- Example configuration using a remote JBOSSMQ provider -->
 	<!-- _____________________________________________________ -->
-	
+
 	<!--
-	
+
 	<bean id="AlarmEventReceiver_remote_jbossmq"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="remote_test_receiver"/>
@@ -76,12 +76,12 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
+
 	-->
-	
+
 	<!-- 10 configurations using the jbossjmsserver1 JBOSSMQ server -->
 	<!-- __________________________________________________________ -->
-	
+
 
 	<bean id="Outstation_OpenOSS1"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
@@ -100,7 +100,7 @@
 	</bean>
 
 
-	
+
 	<bean id="Outstation_OpenOSS2"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS2"/>
@@ -116,7 +116,7 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS2/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS2/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
+
 	<bean id="Outstation_OpenOSS3"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS3"/>
@@ -132,7 +132,7 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS3/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS3/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
+
 	<bean id="Outstation_OpenOSS4"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS4"/>
@@ -148,7 +148,7 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS4/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS4/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
+
 	<bean id="Outstation_OpenOSS5"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS5"/>
@@ -164,8 +164,8 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS5/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS5/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
-	
+
+
 	<bean id="Outstation_OpenOSS6"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS6"/>
@@ -181,8 +181,8 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS6/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS6/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
-	
+
+
 	<bean id="Outstation_OpenOSS7"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS7"/>
@@ -198,8 +198,8 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS7/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS7/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
-	
+
+
 		<bean id="Outstation_OpenOSS8"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS8"/>
@@ -215,8 +215,8 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS8/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS8/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
-	
+
+
 	<bean id="Outstation_OpenOSS9"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS9"/>
@@ -232,8 +232,8 @@
 		<property name="jvt_event_topic_name" value="System/OpenOSS9/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/JVTEventTopic"/>
 		<property name="xvt_event_topic_name" value="System/OpenOSS9/ApplicationType/AlarmMonitor/Application/1-0;0-0;OpenNMS_OpenOSS_AM/Comp/XVTEventTopic"/>
 	</bean>
-	
-	
+
+
 	<bean id="Outstation_OpenOSS10"
 		class="org.openoss.ossj.fm.monitor.spring.OssBeanAlarmEventReceiverImpl">
 		<property name="name" value="Outstation_OpenOSS10"/>
@@ -251,5 +251,5 @@
 	</bean>
 
 
-  
+
 </beans>

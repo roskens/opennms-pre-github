@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-ifServices">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="ifservices" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- Contains a mapping of interfaces to services available on those interfaces
 			(e.g., FTP, SMTP, DNS, etc.) and recent polling status information. -->

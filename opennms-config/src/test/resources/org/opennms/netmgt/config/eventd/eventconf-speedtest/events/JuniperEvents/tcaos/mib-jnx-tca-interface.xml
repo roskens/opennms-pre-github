@@ -35,8 +35,8 @@ loss of signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Los trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Los trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -76,8 +76,8 @@ loss of signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Los trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Los trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -117,8 +117,8 @@ loss of signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Los trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Los trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -158,8 +158,8 @@ loss of signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Los trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Los trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -181,8 +181,8 @@ loss of signal defect.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTe1Los</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Los trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Los trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -240,8 +240,8 @@ loss of frame defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Lof trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Lof trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -281,8 +281,8 @@ loss of frame defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Lof trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Lof trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -322,8 +322,8 @@ loss of frame defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Lof trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Lof trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -363,8 +363,8 @@ loss of frame defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Lof trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Lof trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -386,8 +386,8 @@ loss of frame defect.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTe1Lof</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Lof trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Lof trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -445,8 +445,8 @@ alarm indication signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Ais trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Ais trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -486,8 +486,8 @@ alarm indication signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Ais trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Ais trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -527,8 +527,8 @@ alarm indication signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Ais trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Ais trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -568,8 +568,8 @@ alarm indication signal defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Ais trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Ais trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -591,8 +591,8 @@ alarm indication signal defect.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTe1Ais</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Ais trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Ais trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -650,8 +650,8 @@ remote alarm indication defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Rai trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Rai trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -691,8 +691,8 @@ remote alarm indication defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Rai trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Rai trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -732,8 +732,8 @@ remote alarm indication defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Rai trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Rai trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -773,8 +773,8 @@ remote alarm indication defect.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Rai trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Rai trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -796,8 +796,8 @@ remote alarm indication defect.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTe1Rai</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTe1Rai trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTe1Rai trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>

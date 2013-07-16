@@ -18,7 +18,7 @@
 	<uei>uei.opennms.org/vendor/vmware/traps/vmPoweredOn</uei>
 	<event-label>VMWARE-TRAPS-MIB defined trap event: vmPoweredOn</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when a virtual machine is powered ON from a suspended 
+&lt;p&gt;This trap is sent when a virtual machine is powered ON from a suspended
 or a powered off state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -30,8 +30,8 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vmPoweredOn trap received 
-			vmID=%parm[#1]% 
+			vmPoweredOn trap received
+			vmID=%parm[#1]%
 			vmConfigFile=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -65,8 +65,8 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vmPoweredOff trap received 
-			vmID=%parm[#1]% 
+			vmPoweredOff trap received
+			vmID=%parm[#1]%
 			vmConfigFile=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -100,8 +100,8 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vmHBLost trap received 
-			vmID=%parm[#1]% 
+			vmHBLost trap received
+			vmID=%parm[#1]%
 			vmConfigFile=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -135,8 +135,8 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vmHBDetected trap received 
-			vmID=%parm[#1]% 
+			vmHBDetected trap received
+			vmID=%parm[#1]%
 			vmConfigFile=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -170,8 +170,8 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vmSuspended trap received 
-			vmID=%parm[#1]% 
+			vmSuspended trap received
+			vmID=%parm[#1]%
 			vmConfigFile=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -222,12 +222,12 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vpxdTrap trap received 
-			vpxdTrapType=%parm[#1]% 
-			vpxdHostName=%parm[#2]% 
-			vpxdVMName=%parm[#3]% 
-			vpxdNewStatus=%parm[#4]% 
-			vpxdOldStatus=%parm[#5]% 
+			vpxdTrap trap received
+			vpxdTrapType=%parm[#1]%
+			vpxdHostName=%parm[#2]%
+			vpxdVMName=%parm[#3]%
+			vpxdNewStatus=%parm[#4]%
+			vpxdOldStatus=%parm[#5]%
 			vpxdObjValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -278,12 +278,12 @@ or a powered off state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vpxdTrap trap received 
-			vpxdTrapType=%parm[#1]% 
-			vpxdHostName=%parm[#2]% 
-			vpxdVMName=%parm[#3]% 
-			vpxdNewStatus=%parm[#4]% 
-			vpxdOldStatus=%parm[#5]% 
+			vpxdTrap trap received
+			vpxdTrapType=%parm[#1]%
+			vpxdHostName=%parm[#2]%
+			vpxdVMName=%parm[#3]%
+			vpxdNewStatus=%parm[#4]%
+			vpxdOldStatus=%parm[#5]%
 			vpxdObjValue=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

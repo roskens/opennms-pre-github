@@ -30,8 +30,8 @@ for CPU Utilization has been exceeded.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCpuThrStatusHi trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwCpuThrStatusHi trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -70,8 +70,8 @@ for CPU Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCpuThrStatusLow trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwCpuThrStatusLow trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -110,8 +110,8 @@ for CPU Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCpuThrStatusClear trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwCpuThrStatusClear trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -138,7 +138,7 @@ for CPU Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the configured high threshold 
+&lt;p&gt;This notification signifies that the configured high threshold
 for Memory Utilization has been exceeded.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -150,8 +150,8 @@ for Memory Utilization has been exceeded.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwMemThrStatusHi trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwMemThrStatusHi trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -178,7 +178,7 @@ for Memory Utilization has been exceeded.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the configured low threshold 
+&lt;p&gt;This notification signifies that the configured low threshold
 for Memory Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -190,8 +190,8 @@ for Memory Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwMemThrStatusLow trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwMemThrStatusLow trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -218,7 +218,7 @@ for Memory Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the normal threshold 
+&lt;p&gt;This notification signifies that the normal threshold
 for Memory Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -230,8 +230,8 @@ for Memory Utilization has been reached.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwMemThrStatusClear trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwMemThrStatusClear trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -270,8 +270,8 @@ for bearers at gateway level has been exceeded.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwQosBearerThrStatusHi trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwQosBearerThrStatusHi trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -310,8 +310,8 @@ for bearers at gateway level has been reached.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwQosBearerThrStatusLow trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwQosBearerThrStatusLow trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -350,8 +350,8 @@ for bearers at gateway level has been reached.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwQosBearerThrStatusClear trap received 
-				jnxMbgSgwTrapGwIndex=%parm[#1]% 
+			jnxMbgSgwQosBearerThrStatusClear trap received
+				jnxMbgSgwTrapGwIndex=%parm[#1]%
 				jnxMbgSgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>

@@ -140,7 +140,7 @@
       <groupId>org.opennms</groupId>
       <artifactId>opennms-dao</artifactId>
     </dependency>
-    <!-- 
+    <!--
       We have to use a different version of the JAXB implementation
       here because the NamespacePrefixMapper class isn't accessible
       from the JAXB implementation inside the Java6 JVM.

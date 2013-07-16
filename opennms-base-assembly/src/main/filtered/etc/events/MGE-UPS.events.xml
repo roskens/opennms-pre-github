@@ -129,8 +129,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgAtLowBattery trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgAtLowBattery trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -164,8 +164,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgFromLowBattery trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgFromLowBattery trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -249,8 +249,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgAtLowCondition trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgAtLowCondition trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -284,8 +284,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgFromLowCondition trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgFromLowCondition trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -319,8 +319,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOnBattery trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgOnBattery trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -354,8 +354,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgReturnFromBattery trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgReturnFromBattery trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -706,10 +706,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOnToStart trap received 
-			mgreceptacleIndex=%parm[#1]% 
-			mgreceptacleState=%parm[#2]% 
-			mgreceptacleOnDelay=%parm[#3]% 
+			MGE Event: upsmgOnToStart trap received
+			mgreceptacleIndex=%parm[#1]%
+			mgreceptacleState=%parm[#2]%
+			mgreceptacleOnDelay=%parm[#3]%
 			mgreceptacleRestartDelay=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -743,8 +743,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOnAbort trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgOnAbort trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleOnDelay=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -791,9 +791,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOnInProgress trap received 
-			mgreceptacleIndex=%parm[#1]% 
-			mgreceptacleState=%parm[#2]% 
+			MGE Event: upsmgOnInProgress trap received
+			mgreceptacleIndex=%parm[#1]%
+			mgreceptacleState=%parm[#2]%
 			mgreceptacleBootUpDuration=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -827,8 +827,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOnComplete trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgOnComplete trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleOnDelay=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -883,11 +883,11 @@
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOffToStart trap received 
-			mgreceptacleIndex=%parm[#1]% 
-			mgreceptacleState=%parm[#2]% 
-			mgreceptacleOffDelay=%parm[#3]% 
-			mgreceptacleShutoffTimer=%parm[#4]% 
+			MGE Event: upsmgOffToStart trap received
+			mgreceptacleIndex=%parm[#1]%
+			mgreceptacleState=%parm[#2]%
+			mgreceptacleOffDelay=%parm[#3]%
+			mgreceptacleShutoffTimer=%parm[#4]%
 			upsmgConfigSysShutDuration=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -921,8 +921,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOffAbort trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgOffAbort trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleOffDelay=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -969,9 +969,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOffInProgress trap received 
-			mgreceptacleIndex=%parm[#1]% 
-			mgreceptacleState=%parm[#2]% 
+			MGE Event: upsmgOffInProgress trap received
+			mgreceptacleIndex=%parm[#1]%
+			mgreceptacleState=%parm[#2]%
 			mgreceptacleShutdownDuration=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1005,8 +1005,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgOffComplete trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgOffComplete trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleOffDelay=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1040,8 +1040,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgToggleToStart trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgToggleToStart trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleToggleDelay=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1075,8 +1075,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgToggleAbort trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgToggleAbort trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleToggleDelay=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1110,8 +1110,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgToggleInProgress trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgToggleInProgress trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleToggleDuration=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1145,8 +1145,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgToggleComplete trap received 
-			mgreceptacleIndex=%parm[#1]% 
+			MGE Event: upsmgToggleComplete trap received
+			mgreceptacleIndex=%parm[#1]%
 			mgreceptacleToggleDuration=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1330,8 +1330,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgAtLowRecharge trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgAtLowRecharge trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1365,8 +1365,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgFromLowRecharge trap received 
-			upsmgBatteryRemainingTime=%parm[#1]% 
+			MGE Event: upsmgFromLowRecharge trap received
+			upsmgBatteryRemainingTime=%parm[#1]%
 			upsmgBatteryLevel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1500,8 +1500,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgExternalAlarmActive trap received 
-			mgextAlarmIndex=%parm[#1]% 
+			MGE Event: upsmgExternalAlarmActive trap received
+			mgextAlarmIndex=%parm[#1]%
 			mgextAlarmUID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1535,8 +1535,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			MGE Event: upsmgExternalAlarmInactive trap received 
-			mgextAlarmIndex=%parm[#1]% 
+			MGE Event: upsmgExternalAlarmInactive trap received
+			mgextAlarmIndex=%parm[#1]%
 			mgextAlarmUID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>

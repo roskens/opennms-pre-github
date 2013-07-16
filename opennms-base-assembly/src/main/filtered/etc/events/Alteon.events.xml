@@ -18,7 +18,7 @@
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwPrimaryPowerSupplyFailure</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwPrimaryPowerSupplyFailure</event-label>
 	<descr>
-&lt;p&gt;A altSwPrimaryPowerSupplyFailure trap signifies that the 
+&lt;p&gt;A altSwPrimaryPowerSupplyFailure trap signifies that the
 primary power supply failed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -44,7 +44,7 @@ primary power supply failed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwRedunPowerSupplyFailure</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwRedunPowerSupplyFailure</event-label>
 	<descr>
-&lt;p&gt;A altSwRedunPowerSupplyFailure trap signifies that the 
+&lt;p&gt;A altSwRedunPowerSupplyFailure trap signifies that the
 redundant power supply failed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -94,11 +94,11 @@ gateway is alive.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwDefGwUp trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwDefGwUp trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -145,11 +145,11 @@ gateway is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwDefGwDown trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwDefGwDown trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -196,11 +196,11 @@ gateway is up and in service.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwDefGwInService trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwDefGwInService trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -247,11 +247,11 @@ gateway is alive but not in service.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwDefGwNotInService trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwDefGwNotInService trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -302,12 +302,12 @@ server is up and operational.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbRealServerUp trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbRealServerUp trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -358,12 +358,12 @@ server is down and out of service.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbRealServerDown trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbRealServerDown trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -386,7 +386,7 @@ server is down and out of service.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbRealServerMaxConnReached</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbRealServerMaxConnReached</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbRealServerMaxConnReached trap signifies that the 
+&lt;p&gt;A altSwSlbRealServerMaxConnReached trap signifies that the
 real server has reached maximum connections.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -414,12 +414,12 @@ real server has reached maximum connections.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbRealServerMaxConnReached trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbRealServerMaxConnReached trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -442,7 +442,7 @@ real server has reached maximum connections.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerAct</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbBkupRealServerAct</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerAct trap signifies that the 
+&lt;p&gt;A altSwSlbBkupRealServerAct trap signifies that the
 backup real server is activated due to availablity of the
 primary real server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -471,12 +471,12 @@ primary real server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbBkupRealServerAct trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbBkupRealServerAct trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -499,8 +499,8 @@ primary real server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerDeact</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbBkupRealServerDeact</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerDeact trap signifies that the 
-backup real server is deactivated due to the primary real 
+&lt;p&gt;A altSwSlbBkupRealServerDeact trap signifies that the
+backup real server is deactivated due to the primary real
 server is available.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -528,12 +528,12 @@ server is available.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbBkupRealServerDeact trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbBkupRealServerDeact trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -556,8 +556,8 @@ server is available.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerActOverflow</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbBkupRealServerActOverflow</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerActOverflow trap signifies 
-that the backup real server is deactivated due to the primary 
+&lt;p&gt;A altSwSlbBkupRealServerActOverflow trap signifies
+that the backup real server is deactivated due to the primary
 real server is overflowed.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -585,12 +585,12 @@ real server is overflowed.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbBkupRealServerActOverflow trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbBkupRealServerActOverflow trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -613,8 +613,8 @@ real server is overflowed.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerDeactOverflow</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbBkupRealServerDeactOverflow</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerDeactOverflow trap signifies 
-that the backup real server is deactivated due to the primary 
+&lt;p&gt;A altSwSlbBkupRealServerDeactOverflow trap signifies
+that the backup real server is deactivated due to the primary
 real server is out from overflow situation.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -642,12 +642,12 @@ real server is out from overflow situation.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbBkupRealServerDeactOverflow trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			Alteon Event: altSwSlbBkupRealServerDeactOverflow trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -774,7 +774,7 @@ switch is down.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwfltFilterFired</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwfltFilterFired</event-label>
 	<descr>
-&lt;p&gt;A altSwfltFilterFired trap signifies that the packet 
+&lt;p&gt;A altSwfltFilterFired trap signifies that the packet
 received on a switch port matches the filter rule.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -798,11 +798,11 @@ received on a switch port matches the filter rule.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwfltFilterFired trap received 
-			fltCurCfgIndx=%parm[#1]% 
-			fltCurCfgPortIndx=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwfltFilterFired trap received
+			fltCurCfgIndx=%parm[#1]%
+			fltCurCfgPortIndx=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -825,7 +825,7 @@ received on a switch port matches the filter rule.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbRealServerServiceUp</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbRealServerServiceUp</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbRealServerServiceUp trap signifies that the 
+&lt;p&gt;A altSwSlbRealServerServiceUp trap signifies that the
 service port of the real server is up and operational.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -857,13 +857,13 @@ service port of the real server is up and operational.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbRealServerServiceUp trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			slbCurCfgVirtServiceRealPort=%parm[#4]% 
-			sysName=%parm[#5]% 
-			sysLocation=%parm[#6]% 
+			Alteon Event: altSwSlbRealServerServiceUp trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			slbCurCfgVirtServiceRealPort=%parm[#4]%
+			sysName=%parm[#5]%
+			sysLocation=%parm[#6]%
 			sysContact=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -886,7 +886,7 @@ service port of the real server is up and operational.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbRealServerServiceDown</uei>
 	<event-label>ALTEON-TRAP-MIB defined trap event: altSwSlbRealServerServiceDown</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbRealServerServiceDown trap signifies that the 
+&lt;p&gt;A altSwSlbRealServerServiceDown trap signifies that the
 service port of the real server is down and out of service.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -918,13 +918,13 @@ service port of the real server is down and out of service.&lt;/p&gt;&lt;table&g
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwSlbRealServerServiceDown trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			slbCurCfgVirtServiceRealPort=%parm[#4]% 
-			sysName=%parm[#5]% 
-			sysLocation=%parm[#6]% 
+			Alteon Event: altSwSlbRealServerServiceDown trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			slbCurCfgVirtServiceRealPort=%parm[#4]%
+			sysName=%parm[#5]%
+			sysLocation=%parm[#6]%
 			sysContact=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -971,11 +971,11 @@ has transitioned to 'Master' state.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwVrrpNewMaster trap received 
-			vrrpCurCfgVirtRtrIndx=%parm[#1]% 
-			vrrpCurCfgVirtRtrAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwVrrpNewMaster trap received
+			vrrpCurCfgVirtRtrIndx=%parm[#1]%
+			vrrpCurCfgVirtRtrAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1022,11 +1022,11 @@ has transitioned to 'Backup' state.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwVrrpNewBackup trap received 
-			vrrpCurCfgVirtRtrIndx=%parm[#1]% 
-			vrrpCurCfgVirtRtrAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwVrrpNewBackup trap received
+			vrrpCurCfgVirtRtrIndx=%parm[#1]%
+			vrrpCurCfgVirtRtrAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1076,11 +1076,11 @@ of this trap is optional.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwVrrpAuthFailure trap received 
-			vrrpCurCfgIfIndx=%parm[#1]% 
-			vrrpCurCfgIfPasswd=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			Alteon Event: altSwVrrpAuthFailure trap received
+			vrrpCurCfgIfIndx=%parm[#1]%
+			vrrpCurCfgIfPasswd=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1123,10 +1123,10 @@ enter a valid username/password combination.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwLoginFailure trap received 
-			altSwTrapDisplayString=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			Alteon Event: altSwLoginFailure trap received
+			altSwTrapDisplayString=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1169,10 +1169,10 @@ switch temperature has exceeded maximum safety limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Alteon Event: altSwTempExceedThreshold trap received 
-			altSwTrapDisplayString=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			Alteon Event: altSwTempExceedThreshold trap received
+			altSwTrapDisplayString=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1195,7 +1195,7 @@ switch temperature has exceeded maximum safety limits.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwPrimaryPowerSupplyFailure</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwPrimaryPowerSupplyFailure</event-label>
 	<descr>
-&lt;p&gt;A altSwPrimaryPowerSupplyFailure trap signifies that the 
+&lt;p&gt;A altSwPrimaryPowerSupplyFailure trap signifies that the
 primary power supply failed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -1221,7 +1221,7 @@ primary power supply failed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwDefGwUp</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwDefGwUp</event-label>
 	<descr>
-&lt;p&gt;A altSwDefGwUp trap signifies that the default gateway is alive. 
+&lt;p&gt;A altSwDefGwUp trap signifies that the default gateway is alive.
 ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable.
 The range for ipCurCfgGwIndex is from 1 to ipGatewayTableMax.
 ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
@@ -1247,11 +1247,11 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwDefGwUp trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwDefGwUp trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1275,7 +1275,7 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwDefGwDown</event-label>
 	<descr>
 &lt;p&gt;A altSwDefGwDown trap signifies that the default gateway is down.
-ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable. 
+ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable.
 The range for ipCurCfgGwIndex is from 1 to ipGatewayTableMax.
 ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1300,11 +1300,11 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwDefGwDown trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwDefGwDown trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1328,9 +1328,9 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwDefGwInService</event-label>
 	<descr>
 &lt;p&gt;A altSwDefGwInService trap signifies that the default gateway is
-up and in service. 
-ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable. 
-The range for ipCurCfgGwIndex is from 1 to ipGatewayTableMax. 
+up and in service.
+ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable.
+The range for ipCurCfgGwIndex is from 1 to ipGatewayTableMax.
 ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1354,11 +1354,11 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwDefGwInService trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwDefGwInService trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1381,10 +1381,10 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwDefGwNotInService</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwDefGwNotInService</event-label>
 	<descr>
-&lt;p&gt;A altSwDefGwNotInService trap signifies that the default gateway 
-is alive but not in service. 
-ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable. 
-The range for ipCurCfgGwIndex is from 1 to ipGatewayTableMax. 
+&lt;p&gt;A altSwDefGwNotInService trap signifies that the default gateway
+is alive but not in service.
+ipCurCfgGwIndex is the index of the Gateway in ipCurCfgGwTable.
+The range for ipCurCfgGwIndex is from 1 to ipGatewayTableMax.
 ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1408,11 +1408,11 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwDefGwNotInService trap received 
-			ipCurCfgGwIndex=%parm[#1]% 
-			ipCurCfgGwAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwDefGwNotInService trap received
+			ipCurCfgGwIndex=%parm[#1]%
+			ipCurCfgGwAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1435,13 +1435,13 @@ ipCurCfgGwAddr is the IP address of the default gateway.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbRealServerUp</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbRealServerUp</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbRealServerUp trap signifies that the real server 
+&lt;p&gt;A altSwSlbRealServerUp trap signifies that the real server
 (which had gone down )is back up and operational now.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1469,12 +1469,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerUp trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealServerUp trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1501,9 +1501,9 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 down and is out of service.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1531,12 +1531,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerDown trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealServerDown trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1559,17 +1559,17 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbRealServerMaxConnReached</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbRealServerMaxConnReached</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbRealServerMaxConnReached trap signifies that the real 
-server has reached maximum connections. The Real server will not be 
+&lt;p&gt;A altSwSlbRealServerMaxConnReached trap signifies that the real
+server has reached maximum connections. The Real server will not be
 sent any more traffic from the switch until the number of connections
-drops below the maximum. If a backup server has been specified, it 
-will be used to service additional requests, which is referred to as 
+drops below the maximum. If a backup server has been specified, it
+will be used to service additional requests, which is referred to as
 an Overflow server.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1597,12 +1597,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerMaxConnReached trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealServerMaxConnReached trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1625,15 +1625,15 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerAct</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbBkupRealServerAct</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerAct trap signifies that this backup real 
-server has been activated because the Real server that it backs up 
-went down.One might expect that a altSwSlbRealServerDown trap with 
+&lt;p&gt;A altSwSlbBkupRealServerAct trap signifies that this backup real
+server has been activated because the Real server that it backs up
+went down.One might expect that a altSwSlbRealServerDown trap with
 the primary real server specified would preceded this one.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1661,12 +1661,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbBkupRealServerAct trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbBkupRealServerAct trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1689,15 +1689,15 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerDeact</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbBkupRealServerDeact</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerDeact trap signifies that the backup real 
-server is deactivated because the primary real server has become 
+&lt;p&gt;A altSwSlbBkupRealServerDeact trap signifies that the backup real
+server is deactivated because the primary real server has become
 available. One might expect that a altSwSlbRealServerUp trap with the
 primary real server specified would preceded this one.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1725,12 +1725,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbBkupRealServerDeact trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbBkupRealServerDeact trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1753,17 +1753,17 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerActOverflow</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbBkupRealServerActOverflow</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerActOverflow trap signifies that the backup 
-real server is activated because the primary real server has reached 
-the maximum allowed connections and is considered to be  is in the 
-Overflow state. One would expect an altSwSlbRealServerMaxConnReached 
-trap from the Real server that just entered Overflow would preceded  
-this one. 
+&lt;p&gt;A altSwSlbBkupRealServerActOverflow trap signifies that the backup
+real server is activated because the primary real server has reached
+the maximum allowed connections and is considered to be  is in the
+Overflow state. One would expect an altSwSlbRealServerMaxConnReached
+trap from the Real server that just entered Overflow would preceded
+this one.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1791,12 +1791,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbBkupRealServerActOverflow trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbBkupRealServerActOverflow trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1819,16 +1819,16 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbBkupRealServerDeactOverflow</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbBkupRealServerDeactOverflow</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbBkupRealServerDeactOverflow trap signifies that the backup 
-real server is deactivated because the primary real server is no 
-longer in Overflow. The number of connections to the real server has 
-fallen below the maximum allowed. The backup/overflow server is no 
+&lt;p&gt;A altSwSlbBkupRealServerDeactOverflow trap signifies that the backup
+real server is deactivated because the primary real server is no
+longer in Overflow. The number of connections to the real server has
+fallen below the maximum allowed. The backup/overflow server is no
 longer needed.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the 
+slbCurCfgRealServerName is the optional Name given to the
 affected Real Server.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1856,12 +1856,12 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbBkupRealServerDeactOverflow trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbBkupRealServerDeactOverflow trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1884,11 +1884,11 @@ affected Real Server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwfltFilterFired</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwfltFilterFired</event-label>
 	<descr>
-&lt;p&gt;A altSwfltFilterFired trap signifies that the packet received on a 
+&lt;p&gt;A altSwfltFilterFired trap signifies that the packet received on a
 switch port matches the filter rule.
-fltCurCfgIndx is the affected filter index, referenced in 
+fltCurCfgIndx is the affected filter index, referenced in
 fltCurCfgTable. The range is from 1 to fltCfgTableMaxSize.
-fltCurCfgPortIndx is the affected port index, referenced in 
+fltCurCfgPortIndx is the affected port index, referenced in
 fltCurCfgPortTable. The range is from 1 to agPortTableMaxEnt.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1912,11 +1912,11 @@ fltCurCfgPortTable. The range is from 1 to agPortTableMaxEnt.&lt;/p&gt;&lt;table
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwfltFilterFired trap received 
-			fltCurCfgIndx=%parm[#1]% 
-			fltCurCfgPortIndx=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwfltFilterFired trap received
+			fltCurCfgIndx=%parm[#1]%
+			fltCurCfgPortIndx=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1943,12 +1943,12 @@ fltCurCfgPortTable. The range is from 1 to agPortTableMaxEnt.&lt;/p&gt;&lt;table
 the real server is up and operational.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to the value return from slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the affected 
+slbCurCfgRealServerName is the optional Name given to the affected
 Real Server.
 slbCurCfgVirtualServiceRealPort referenced in
-slbCurCfgVirtServicesTable. This is the layer 4 real port number of 
+slbCurCfgVirtServicesTable. This is the layer 4 real port number of
 the service.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1980,13 +1980,13 @@ the service.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerServiceUp trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			slbCurCfgVirtServiceRealPort=%parm[#4]% 
-			sysName=%parm[#5]% 
-			sysLocation=%parm[#6]% 
+			altSwSlbRealServerServiceUp trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			slbCurCfgVirtServiceRealPort=%parm[#4]%
+			sysName=%parm[#5]%
+			sysLocation=%parm[#6]%
 			sysContact=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2009,16 +2009,16 @@ the service.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbRealServerServiceDown</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbRealServerServiceDown</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbRealServerServiceDown trap signifies that the service port 
+&lt;p&gt;A altSwSlbRealServerServiceDown trap signifies that the service port
 of the real server is down and out of service.
 slbCurCfgRealServerIndex is the affected Real Server Number.
 The range is from 1 to the value return from slbRealServerMaxSize.
-slbCurCfgRealServerIpAddr is the IP address of the affected 
+slbCurCfgRealServerIpAddr is the IP address of the affected
 Real Server.
-slbCurCfgRealServerName is the optional Name given to the affected 
+slbCurCfgRealServerName is the optional Name given to the affected
 Real Server.
-slbCurCfgVirtualServiceRealPort referenced in 
-slbCurCfgVirtServicesTable.  
+slbCurCfgVirtualServiceRealPort referenced in
+slbCurCfgVirtServicesTable.
 This is the layer 4 real port number of the service.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2050,13 +2050,13 @@ This is the layer 4 real port number of the service.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerServiceDown trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			slbCurCfgVirtServiceRealPort=%parm[#4]% 
-			sysName=%parm[#5]% 
-			sysLocation=%parm[#6]% 
+			altSwSlbRealServerServiceDown trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			slbCurCfgVirtServiceRealPort=%parm[#4]%
+			sysName=%parm[#5]%
+			sysLocation=%parm[#6]%
 			sysContact=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2079,10 +2079,10 @@ This is the layer 4 real port number of the service.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwVrrpNewMaster</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwVrrpNewMaster</event-label>
 	<descr>
-&lt;p&gt;The altSwVrrpNewMaster trap indicates that the sending agent has 
+&lt;p&gt;The altSwVrrpNewMaster trap indicates that the sending agent has
 transitioned to 'Master' state.
-vrrpCurCfgVirtRtrIndx is the VRRP virtual router table index 
-referenced in vrrpCurCfgVirtRtrTable. The range is from 1 to 
+vrrpCurCfgVirtRtrIndx is the VRRP virtual router table index
+referenced in vrrpCurCfgVirtRtrTable. The range is from 1 to
 vrrpVirtRtrTableMaxSize.
 vrrpCurCfgVirtRtrAddr is the VRRP virtual router IP address.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2107,11 +2107,11 @@ vrrpCurCfgVirtRtrAddr is the VRRP virtual router IP address.&lt;/p&gt;&lt;table&
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwVrrpNewMaster trap received 
-			vrrpCurCfgVirtRtrIndx=%parm[#1]% 
-			vrrpCurCfgVirtRtrAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwVrrpNewMaster trap received
+			vrrpCurCfgVirtRtrIndx=%parm[#1]%
+			vrrpCurCfgVirtRtrAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2134,10 +2134,10 @@ vrrpCurCfgVirtRtrAddr is the VRRP virtual router IP address.&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwVrrpNewBackup</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwVrrpNewBackup</event-label>
 	<descr>
-&lt;p&gt;The altSwVrrpNewBackup trap indicates that the sending agent has 
+&lt;p&gt;The altSwVrrpNewBackup trap indicates that the sending agent has
 transitioned to 'Backup' state.
-vrrpCurCfgVirtRtrIndx is the VRRP virtual router table index 
-referenced in vrrpCurCfgVirtRtrTable. The range is from 1 to 
+vrrpCurCfgVirtRtrIndx is the VRRP virtual router table index
+referenced in vrrpCurCfgVirtRtrTable. The range is from 1 to
 vrrpVirtRtrTableMaxSize.
 vrrpCurCfgVirtRtrAddr is the VRRP virtual router IP address.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2162,11 +2162,11 @@ vrrpCurCfgVirtRtrAddr is the VRRP virtual router IP address.&lt;/p&gt;&lt;table&
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwVrrpNewBackup trap received 
-			vrrpCurCfgVirtRtrIndx=%parm[#1]% 
-			vrrpCurCfgVirtRtrAddr=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwVrrpNewBackup trap received
+			vrrpCurCfgVirtRtrIndx=%parm[#1]%
+			vrrpCurCfgVirtRtrAddr=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2190,10 +2190,10 @@ vrrpCurCfgVirtRtrAddr is the VRRP virtual router IP address.&lt;/p&gt;&lt;table&
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwVrrpAuthFailure</event-label>
 	<descr>
 &lt;p&gt;A altSwVrrpAuthFailure trap signifies that a packet has been received
-from a router whose authentication key or authentication type 
-conflicts with this router's authentication key or authentication 
+from a router whose authentication key or authentication type
+conflicts with this router's authentication key or authentication
 type. Implementation of this trap is optional.
-vrrpCurCfgIfIndx is the VRRP interface index. This is equivalent to 
+vrrpCurCfgIfIndx is the VRRP interface index. This is equivalent to
 ifIndex in RFC 1213 mib. The range is from 1 to vrrpIfTableMaxSize.
 vrrpCurCfgIfPasswd is the password for authentication. It is a
 DisplayString of 0 to 7 characters.&lt;/p&gt;&lt;table&gt;
@@ -2219,11 +2219,11 @@ DisplayString of 0 to 7 characters.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwVrrpAuthFailure trap received 
-			vrrpCurCfgIfIndx=%parm[#1]% 
-			vrrpCurCfgIfPasswd=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwVrrpAuthFailure trap received
+			vrrpCurCfgIfIndx=%parm[#1]%
+			vrrpCurCfgIfPasswd=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2246,10 +2246,10 @@ DisplayString of 0 to 7 characters.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwLoginFailure</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwLoginFailure</event-label>
 	<descr>
-&lt;p&gt;A altSwLoginFailure trap signifies that someone failed to enter a 
-valid username/password combination. 
-altSwTrapDisplayString specifies whether the login attempt was from 
-CONSOLE or TELNET. In case of TELNET login it also specifies the IP 
+&lt;p&gt;A altSwLoginFailure trap signifies that someone failed to enter a
+valid username/password combination.
+altSwTrapDisplayString specifies whether the login attempt was from
+CONSOLE or TELNET. In case of TELNET login it also specifies the IP
 address of the host from which the attempt was made.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2269,10 +2269,10 @@ address of the host from which the attempt was made.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwLoginFailure trap received 
-			altSwTrapDisplayString=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			altSwLoginFailure trap received
+			altSwTrapDisplayString=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2295,9 +2295,9 @@ address of the host from which the attempt was made.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbSynAttack</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbSynAttack</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbSynAttack trap signifies that a SYN attack has been 
+&lt;p&gt;A altSwSlbSynAttack trap signifies that a SYN attack has been
 detected.
-altSwTrapRate specifies the number of new half-open sessions per 
+altSwTrapRate specifies the number of new half-open sessions per
 second.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2317,10 +2317,10 @@ second.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbSynAttack trap received 
-			altSwTrapRate=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			altSwSlbSynAttack trap received
+			altSwTrapRate=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2346,10 +2346,10 @@ second.&lt;/p&gt;&lt;table&gt;
 &lt;p&gt;A altSwTcpHoldDown trap signifies that new TCP connection requests
 from a particular client will be blocked for a pre-determined amount
 of time since the rate of new TCP connections from that client has
-reached a pre-determined threshold. 
-The fltCurCfgSrcIp is the client source IP address for which new TCP 
-connection requests will be blocked. 
-The altSwTrapRate specifies the amount of time in minutes that the 
+reached a pre-determined threshold.
+The fltCurCfgSrcIp is the client source IP address for which new TCP
+connection requests will be blocked.
+The altSwTrapRate specifies the amount of time in minutes that the
 particular client will be blocked.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2373,11 +2373,11 @@ particular client will be blocked.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwTcpHoldDown trap received 
-			fltCurCfgSrcIp=%parm[#1]% 
-			altSwTrapRate=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwTcpHoldDown trap received
+			fltCurCfgSrcIp=%parm[#1]%
+			altSwTrapRate=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2401,8 +2401,8 @@ particular client will be blocked.&lt;/p&gt;&lt;table&gt;
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwTempExceedThreshold</event-label>
 	<descr>
 &lt;p&gt;A altSwTempExceedThreshold trap signifies that the
-switch temperature has exceeded maximum safety limits. 
-altSwTrapDisplayString specifies the sensor, the current sensor 
+switch temperature has exceeded maximum safety limits.
+altSwTrapDisplayString specifies the sensor, the current sensor
 temperature and the threshold for the particular sensor.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2422,10 +2422,10 @@ temperature and the threshold for the particular sensor.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwTempExceedThreshold trap received 
-			altSwTrapDisplayString=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			altSwTempExceedThreshold trap received
+			altSwTrapDisplayString=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2448,7 +2448,7 @@ temperature and the threshold for the particular sensor.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwSlbSessAttack</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwSlbSessAttack</event-label>
 	<descr>
-&lt;p&gt;A altSwSlbSessAttack trap signifies that a SLB attack has been 
+&lt;p&gt;A altSwSlbSessAttack trap signifies that a SLB attack has been
 detected.
 altSwTrapRate specifies the number of new sessions per second.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2469,10 +2469,10 @@ altSwTrapRate specifies the number of new sessions per second.&lt;/p&gt;&lt;tabl
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbSessAttack trap received 
-			altSwTrapRate=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			altSwSlbSessAttack trap received
+			altSwTrapRate=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2514,10 +2514,10 @@ altSwTrapRate specifies the number of new sessions per second.&lt;/p&gt;&lt;tabl
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwFanFailure trap received 
-			altSwTrapDisplayString=%parm[#1]% 
-			sysName=%parm[#2]% 
-			sysLocation=%parm[#3]% 
+			altSwFanFailure trap received
+			altSwTrapDisplayString=%parm[#1]%
+			sysName=%parm[#2]%
+			sysLocation=%parm[#3]%
 			sysContact=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2574,12 +2574,12 @@ Virtal Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbVirtServerServicesUp trap received 
-			slbCurCfgVirtServerIndex=%parm[#1]% 
-			slbCurCfgVirtServerIpAddress=%parm[#2]% 
-			slbCurCfgVirtServerVname=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbVirtServerServicesUp trap received
+			slbCurCfgVirtServerIndex=%parm[#1]%
+			slbCurCfgVirtServerIpAddress=%parm[#2]%
+			slbCurCfgVirtServerVname=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2636,12 +2636,12 @@ Virtual Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbVirtServerServicesDown trap received 
-			slbCurCfgVirtServerIndex=%parm[#1]% 
-			slbCurCfgVirtServerIpAddress=%parm[#2]% 
-			slbCurCfgVirtServerVname=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbVirtServerServicesDown trap received
+			slbCurCfgVirtServerIndex=%parm[#1]%
+			slbCurCfgVirtServerIpAddress=%parm[#2]%
+			slbCurCfgVirtServerVname=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2697,12 +2697,12 @@ actual health of a virtual service.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealGroupAdvhlUp trap received 
-			slbCurCfgGroupIndex=%parm[#1]% 
-			slbCurCfgGroupName=%parm[#2]% 
-			slbCurCfgGroupHealthCheckFormula=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealGroupAdvhlUp trap received
+			slbCurCfgGroupIndex=%parm[#1]%
+			slbCurCfgGroupName=%parm[#2]%
+			slbCurCfgGroupHealthCheckFormula=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2758,12 +2758,12 @@ actual health of a virtual service.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealGroupAdvhlDown trap received 
-			slbCurCfgGroupIndex=%parm[#1]% 
-			slbCurCfgGroupName=%parm[#2]% 
-			slbCurCfgGroupHealthCheckFormula=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealGroupAdvhlDown trap received
+			slbCurCfgGroupIndex=%parm[#1]%
+			slbCurCfgGroupName=%parm[#2]%
+			slbCurCfgGroupHealthCheckFormula=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2815,11 +2815,11 @@ trap message.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbBkupGroupAct trap received 
-			slbCurCfgGroupIndex=%parm[#1]% 
-			slbCurCfgGroupName=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwSlbBkupGroupAct trap received
+			slbCurCfgGroupIndex=%parm[#1]%
+			slbCurCfgGroupName=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2871,11 +2871,11 @@ trap message.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbBkupGroupDeact trap received 
-			slbCurCfgGroupIndex=%parm[#1]% 
-			slbCurCfgGroupName=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwSlbBkupGroupDeact trap received
+			slbCurCfgGroupIndex=%parm[#1]%
+			slbCurCfgGroupName=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2932,12 +2932,12 @@ affected real server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRemoteRealServerUp trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRemoteRealServerUp trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2994,12 +2994,12 @@ affected real server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRemoteRealServerDown trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRemoteRealServerDown trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3057,12 +3057,12 @@ affected real server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerOperDis trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealServerOperDis trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3119,12 +3119,12 @@ affected real server.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwSlbRealServerOperEna trap received 
-			slbCurCfgRealServerIndex=%parm[#1]% 
-			slbCurCfgRealServerIpAddr=%parm[#2]% 
-			slbCurCfgRealServerName=%parm[#3]% 
-			sysName=%parm[#4]% 
-			sysLocation=%parm[#5]% 
+			altSwSlbRealServerOperEna trap received
+			slbCurCfgRealServerIndex=%parm[#1]%
+			slbCurCfgRealServerIpAddr=%parm[#2]%
+			slbCurCfgRealServerName=%parm[#3]%
+			sysName=%parm[#4]%
+			sysLocation=%parm[#5]%
 			sysContact=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3147,7 +3147,7 @@ affected real server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwIfcVlanDown</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwIfcVlanDown</event-label>
 	<descr>
-&lt;p&gt;A altSwIfcVlanDown trap signifies that all the interfaces in that 
+&lt;p&gt;A altSwIfcVlanDown trap signifies that all the interfaces in that
 vlan either disabled or moved to different vlan.
 vlanCurCfgVlanId is the affected vlan number.
 vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt;table&gt;
@@ -3173,11 +3173,11 @@ vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwIfcVlanDown trap received 
-			vlanCurCfgVlanId=%parm[#1]% 
-			vlanCurCfgVlanName=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwIfcVlanDown trap received
+			vlanCurCfgVlanId=%parm[#1]%
+			vlanCurCfgVlanName=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3200,7 +3200,7 @@ vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt
 	<uei>uei.opennms.org/vendor/Alteon/traps/altSwPortVlanDown</uei>
 	<event-label>CHEETAH-TRAP-MIB defined trap event: altSwPortVlanDown</event-label>
 	<descr>
-&lt;p&gt;A altSwPortVlanDown trap signifies that all the ports either down 
+&lt;p&gt;A altSwPortVlanDown trap signifies that all the ports either down
 or moved to different vlan and interfaces are down in that vlan.
 vlanCurCfgVlanId is the affected vlan number.
 vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt;table&gt;
@@ -3226,11 +3226,11 @@ vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwPortVlanDown trap received 
-			vlanCurCfgVlanId=%parm[#1]% 
-			vlanCurCfgVlanName=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwPortVlanDown trap received
+			vlanCurCfgVlanId=%parm[#1]%
+			vlanCurCfgVlanName=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3279,11 +3279,11 @@ vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwIfcVlanUp trap received 
-			vlanCurCfgVlanId=%parm[#1]% 
-			vlanCurCfgVlanName=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwIfcVlanUp trap received
+			vlanCurCfgVlanId=%parm[#1]%
+			vlanCurCfgVlanName=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3332,11 +3332,11 @@ vlanCurCfgVlanName is the optional name given to the affected vlan.&lt;/p&gt;&lt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwPortVlanUp trap received 
-			vlanCurCfgVlanId=%parm[#1]% 
-			vlanCurCfgVlanName=%parm[#2]% 
-			sysName=%parm[#3]% 
-			sysLocation=%parm[#4]% 
+			altSwPortVlanUp trap received
+			vlanCurCfgVlanId=%parm[#1]%
+			vlanCurCfgVlanName=%parm[#2]%
+			sysName=%parm[#3]%
+			sysLocation=%parm[#4]%
 			sysContact=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3375,9 +3375,9 @@ has been applied.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			altSwBulkApply trap received 
-			sysName=%parm[#1]% 
-			sysLocation=%parm[#2]% 
+			altSwBulkApply trap received
+			sysName=%parm[#1]%
+			sysLocation=%parm[#2]%
 			sysContact=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

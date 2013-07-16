@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
@@ -28,7 +28,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="apiKey" class="java.lang.String">
     <constructor-arg value="${gwt.apikey}" />
   </bean>
@@ -41,7 +41,7 @@
     <property name="locationDataService" ref="locationDataService" />
   </bean>
 
-<!-- Don't need this anymore since we update the locations and applications on a schedule 
+<!-- Don't need this anymore since we update the locations and applications on a schedule
   <bean id="locationBroadcastProcessor" class="org.opennms.features.poller.remote.gwt.server.LocationBroadcastProcessor" />
  -->
   <!--

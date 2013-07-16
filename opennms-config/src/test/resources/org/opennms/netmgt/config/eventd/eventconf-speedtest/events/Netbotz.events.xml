@@ -46,12 +46,12 @@ limit has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -102,12 +102,12 @@ limit has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -158,12 +158,12 @@ the value has returned to acceptable limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -186,7 +186,7 @@ the value has returned to acceptable limits.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/netbotz/traps/netBotz-prd-bot-offline-trap</uei>
 	<event-label>NETBOTZ-MIB defined trap event: netBotz-prd-bot-offline-trap</event-label>
 	<descr>
-&lt;p&gt;NetBotz Device Offline Trap. This trap indicates that a device or function 
+&lt;p&gt;NetBotz Device Offline Trap. This trap indicates that a device or function
 has been determined to be offline.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -214,12 +214,12 @@ has been determined to be offline.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-offline-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-offline-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -242,7 +242,7 @@ has been determined to be offline.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/netbotz/traps/netBotz-prd-bot-online-trap</uei>
 	<event-label>NETBOTZ-MIB defined trap event: netBotz-prd-bot-online-trap</event-label>
 	<descr>
-&lt;p&gt;NetBotz Device Online Trap. This trap indicates that a device or function 
+&lt;p&gt;NetBotz Device Online Trap. This trap indicates that a device or function
 has been determined to be online.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -270,12 +270,12 @@ has been determined to be online.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-online-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-online-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -337,15 +337,15 @@ has been determined to be online.&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-ping-offline-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-ping-offline-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -408,15 +408,15 @@ a period when no replies had been received.&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-ping-online-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-ping-online-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -479,15 +479,15 @@ being reported as less than the previously reported reading.&lt;/p&gt;&lt;table&
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-uptime-online-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-uptime-online-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -550,15 +550,15 @@ not possible on an IP address.&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-snmp-offline-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-snmp-offline-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -621,15 +621,15 @@ on an IP address where it had previously failed.&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-snmp-online-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-snmp-online-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -652,7 +652,7 @@ on an IP address where it had previously failed.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/netbotz/traps/netBotz-prd-crl-opstatus-mismatch-trap</uei>
 	<event-label>NETBOTZ-MIB defined trap event: netBotz-prd-crl-opstatus-mismatch-trap</event-label>
 	<descr>
-&lt;p&gt;NetBotz Interface Status Mismatch Trap. This trap indicates that the operational 
+&lt;p&gt;NetBotz Interface Status Mismatch Trap. This trap indicates that the operational
 status of a device interface does not match the administrative status.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -692,15 +692,15 @@ status of a device interface does not match the administrative status.&lt;/p&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-opstatus-mismatch-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-opstatus-mismatch-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -723,7 +723,7 @@ status of a device interface does not match the administrative status.&lt;/p&gt;
 	<uei>uei.opennms.org/vendor/netbotz/traps/netBotz-prd-crl-opstatus-match-trap</uei>
 	<event-label>NETBOTZ-MIB defined trap event: netBotz-prd-crl-opstatus-match-trap</event-label>
 	<descr>
-&lt;p&gt;NetBotz Interface Status Match Trap. This trap indicates that the operational 
+&lt;p&gt;NetBotz Interface Status Match Trap. This trap indicates that the operational
 status of a device interface now matches the administrative status. This trap indicates
 a transition from a state in which the administrative and operational status did not match.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -764,15 +764,15 @@ a transition from a state in which the administrative and operational status did
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-opstatus-match-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-opstatus-match-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -835,15 +835,15 @@ did not respond to an SNMP query on the ifAdminStatus or ifOperStatus objects.&l
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-crl-opstatus-offline-trap trap received 
-			netBotz-prd-crl-trap-index=%parm[#1]% 
-			netBotz-prd-crl-trap-address=%parm[#2]% 
-			netBotz-prd-crl-trap-oid=%parm[#3]% 
-			netBotz-prd-crl-trap-botoid=%parm[#4]% 
-			netBotz-prd-crl-trap-value=%parm[#5]% 
-			netBotz-prd-crl-trap-date=%parm[#6]% 
-			netBotz-prd-crl-trap-attrib=%parm[#7]% 
-			netBotz-prd-crl-trap-desc=%parm[#8]% 
+			NetBotz Event: netBotz-prd-crl-opstatus-offline-trap trap received
+			netBotz-prd-crl-trap-index=%parm[#1]%
+			netBotz-prd-crl-trap-address=%parm[#2]%
+			netBotz-prd-crl-trap-oid=%parm[#3]%
+			netBotz-prd-crl-trap-botoid=%parm[#4]%
+			netBotz-prd-crl-trap-value=%parm[#5]%
+			netBotz-prd-crl-trap-date=%parm[#6]%
+			netBotz-prd-crl-trap-attrib=%parm[#7]%
+			netBotz-prd-crl-trap-desc=%parm[#8]%
 			netBotz-ismetric=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -894,12 +894,12 @@ limit for temperature has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-temperature-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-temperature-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -950,12 +950,12 @@ limit for temperature has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-temperature-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-temperature-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1006,12 +1006,12 @@ the temperature value has returned to acceptable limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-temperature-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-temperature-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1062,12 +1062,12 @@ limit for humidity has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-humidity-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-humidity-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1118,12 +1118,12 @@ limit for humidity has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-humidity-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-humidity-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1174,12 +1174,12 @@ the humidity value has returned to acceptable limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-humidity-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-humidity-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1230,12 +1230,12 @@ limit for airflow has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-airflow-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-airflow-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1286,12 +1286,12 @@ the airflow value has returned to acceptable limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-airflow-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-airflow-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1342,12 +1342,12 @@ limit for audio has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-audio-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-audio-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1398,12 +1398,12 @@ the audio value has returned to acceptable limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-audio-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-audio-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1454,12 +1454,12 @@ has been triggered (i.e. opened, if the thresdhold has been set to trip on open,
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-door-trap-tripped trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-door-trap-tripped trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1510,12 +1510,12 @@ the door sensor has returned to normal (i.e. been closed, if the threshold has b
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-door-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-door-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1566,12 +1566,12 @@ limit for the first amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp1-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp1-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1622,12 +1622,12 @@ limit for the first amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp1-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp1-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1678,12 +1678,12 @@ the first amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp1-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp1-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1733,12 +1733,12 @@ the first amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp1-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp1-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1788,12 +1788,12 @@ the first amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp1-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp1-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1844,12 +1844,12 @@ limit for the second amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp2-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp2-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1900,12 +1900,12 @@ limit for the second amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp2-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp2-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1956,12 +1956,12 @@ the second amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp2-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp2-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2011,12 +2011,12 @@ the second amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp2-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp2-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2066,12 +2066,12 @@ the second amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp2-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp2-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2122,12 +2122,12 @@ limit for the third amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp3-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp3-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2178,12 +2178,12 @@ limit for the third amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp3-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp3-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2234,12 +2234,12 @@ the third amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp3-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp3-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2289,12 +2289,12 @@ the third amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp3-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp3-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2344,12 +2344,12 @@ the third amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp3-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp3-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2400,12 +2400,12 @@ limit for the fourth amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp4-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp4-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2456,12 +2456,12 @@ limit for the fourth amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp4-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp4-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2512,12 +2512,12 @@ the fourth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp4-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp4-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2567,12 +2567,12 @@ the fourth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp4-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp4-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2622,12 +2622,12 @@ the fourth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp4-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp4-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2678,12 +2678,12 @@ limit for the total amperage has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp-total-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp-total-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2734,12 +2734,12 @@ limit for the total amperage has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp-total-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp-total-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2790,12 +2790,12 @@ the total amperage value has returned to acceptable limits.&lt;/p&gt;&lt;table&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp-total-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp-total-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2846,12 +2846,12 @@ limit for external temperature probe on port 1 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp1-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp1-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2902,12 +2902,12 @@ limit for external temperature probe on port 1 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp1-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp1-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2958,12 +2958,12 @@ the temperature value for the temperature probe on port 1 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp1-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp1-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3013,12 +3013,12 @@ the temperature value for the temperature probe on port 1 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp1-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp1-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3068,12 +3068,12 @@ the temperature value for the temperature probe on port 1 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp1-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp1-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3124,12 +3124,12 @@ limit for external temperature probe on port 2 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp2-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp2-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3180,12 +3180,12 @@ limit for external temperature probe on port 2 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp2-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp2-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3236,12 +3236,12 @@ the temperature value for the temperature probe on port 2 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp2-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp2-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3291,12 +3291,12 @@ the temperature value for the temperature probe on port 2 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp2-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp2-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3346,12 +3346,12 @@ the temperature value for the temperature probe on port 2 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp2-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp2-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3402,12 +3402,12 @@ limit for external temperature probe on port 3 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp3-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp3-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3458,12 +3458,12 @@ limit for external temperature probe on port 3 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp3-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp3-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3514,12 +3514,12 @@ the temperature value for the temperature probe on port 3 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp3-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp3-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3569,12 +3569,12 @@ the temperature value for the temperature probe on port 3 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp3-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp3-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3624,12 +3624,12 @@ the temperature value for the temperature probe on port 3 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp3-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp3-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3680,12 +3680,12 @@ limit for external temperature probe on port 4 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp4-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp4-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3736,12 +3736,12 @@ limit for external temperature probe on port 4 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp4-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp4-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3792,12 +3792,12 @@ the temperature value for the temperature probe on port 4 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp4-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp4-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3847,12 +3847,12 @@ the temperature value for the temperature probe on port 4 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp4-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp4-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3902,12 +3902,12 @@ the temperature value for the temperature probe on port 4 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp4-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp4-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3958,12 +3958,12 @@ dry contact sensor on Ext1 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry1-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry1-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4014,12 +4014,12 @@ the state of the dry contact sensor on Ext1 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry1-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry1-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4070,12 +4070,12 @@ dry contact sensor on Ext2 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry2-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry2-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4126,12 +4126,12 @@ the state of the dry contact sensor on Ext2 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry2-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry2-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4182,12 +4182,12 @@ dry contact sensor on Ext3 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry3-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry3-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4238,12 +4238,12 @@ the state of the dry contact sensor on Ext3 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry3-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry3-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4294,12 +4294,12 @@ dry contact sensor on Ext4 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry4-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry4-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4350,12 +4350,12 @@ the state of the dry contact sensor on Ext4 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry4-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry4-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4406,12 +4406,12 @@ limit for the fifth amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp5-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp5-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4462,12 +4462,12 @@ limit for the fifth amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp5-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp5-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4518,12 +4518,12 @@ the fifth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp5-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp5-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4573,12 +4573,12 @@ the fifth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp5-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp5-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4628,12 +4628,12 @@ the fifth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp5-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp5-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4684,12 +4684,12 @@ limit for the sixth amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp6-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp6-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4740,12 +4740,12 @@ limit for the sixth amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp6-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp6-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4796,12 +4796,12 @@ the sixth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp6-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp6-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4851,12 +4851,12 @@ the sixth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp6-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp6-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4906,12 +4906,12 @@ the sixth amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;table
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp6-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp6-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4962,12 +4962,12 @@ limit for the seventh amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp7-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp7-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5018,12 +5018,12 @@ limit for the seventh amp detect has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp7-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp7-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5074,12 +5074,12 @@ the seventh amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tab
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp7-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp7-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5129,12 +5129,12 @@ the seventh amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tab
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp7-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp7-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5184,12 +5184,12 @@ the seventh amp detect value has returned to acceptable limits.&lt;/p&gt;&lt;tab
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-amp7-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-amp7-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5240,12 +5240,12 @@ limit for external temperature probe on port 5 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp5-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp5-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5296,12 +5296,12 @@ limit for external temperature probe on port 5 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp5-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp5-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5352,12 +5352,12 @@ the temperature value for the temperature probe on port 5 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp5-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp5-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5407,12 +5407,12 @@ the temperature value for the temperature probe on port 5 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp5-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp5-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5462,12 +5462,12 @@ the temperature value for the temperature probe on port 5 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp5-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp5-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5518,12 +5518,12 @@ limit for external temperature probe on port 6 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp6-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp6-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5574,12 +5574,12 @@ limit for external temperature probe on port 6 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp6-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp6-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5630,12 +5630,12 @@ the temperature value for the temperature probe on port 6 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp6-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp6-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5685,12 +5685,12 @@ the temperature value for the temperature probe on port 6 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp6-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp6-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5740,12 +5740,12 @@ the temperature value for the temperature probe on port 6 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp6-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp6-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5796,12 +5796,12 @@ limit for external temperature probe on port 7 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp7-low-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp7-low-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5852,12 +5852,12 @@ limit for external temperature probe on port 7 has been exceeded.&lt;/p&gt;&lt;t
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp7-high-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp7-high-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5908,12 +5908,12 @@ the temperature value for the temperature probe on port 7 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp7-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp7-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5963,12 +5963,12 @@ the temperature value for the temperature probe on port 7 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp7-sensor-unplugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp7-sensor-unplugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6018,12 +6018,12 @@ the temperature value for the temperature probe on port 7 has returned to accept
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-temp7-sensor-replugged trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-temp7-sensor-replugged trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6074,12 +6074,12 @@ dry contact sensor on Ext5 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry5-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry5-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6130,12 +6130,12 @@ the state of the dry contact sensor on Ext5 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry5-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry5-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6186,12 +6186,12 @@ dry contact sensor on Ext6 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry6-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry6-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6242,12 +6242,12 @@ the state of the dry contact sensor on Ext6 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry6-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry6-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6298,12 +6298,12 @@ dry contact sensor on Ext7 matches the alarm value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry7-triggered-trap trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry7-triggered-trap trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6354,12 +6354,12 @@ the state of the dry contact sensor on Ext7 no longer matches the alarm value.&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-ext-dry7-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-ext-dry7-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6410,12 +6410,12 @@ has been triggered (motion has been detected).&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-camera-motion-trap-tripped trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-camera-motion-trap-tripped trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6466,12 +6466,12 @@ the camera motion sensor has returned to normal (no longer is detecting motion).
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: netBotz-prd-bot-camera-motion-trap-clear trap received 
-			netBotz-prd-bot-trap-index=%parm[#1]% 
-			netBotz-prd-bot-trap-address=%parm[#2]% 
-			netBotz-prd-bot-trap-oid=%parm[#3]% 
-			netBotz-prd-bot-trap-value=%parm[#4]% 
-			netBotz-prd-bot-trap-date=%parm[#5]% 
+			NetBotz Event: netBotz-prd-bot-camera-motion-trap-clear trap received
+			netBotz-prd-bot-trap-index=%parm[#1]%
+			netBotz-prd-bot-trap-address=%parm[#2]%
+			netBotz-prd-bot-trap-oid=%parm[#3]%
+			netBotz-prd-bot-trap-value=%parm[#4]%
+			netBotz-prd-bot-trap-date=%parm[#5]%
 			netBotz-ismetric=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6537,16 +6537,16 @@ the camera motion sensor has returned to normal (no longer is detecting motion).
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: device-crawlers-ping-offline-trap trap received 
-			netBotz-addon-traps-crawlers-index=%parm[#1]% 
-			netBotz-addon-traps-crawlers-address=%parm[#2]% 
-			netBotz-addon-traps-crawlers-oid=%parm[#3]% 
-			netBotz-addon-traps-crawlers-botoid=%parm[#4]% 
-			netBotz-addon-traps-crawlers-value=%parm[#5]% 
-			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]% 
-			netBotz-addon-traps-crawlers-date=%parm[#7]% 
-			netBots-addon-traps-crawlers-attrib=%parm[#8]% 
-			netBotz-addon-traps-crawlers-desc=%parm[#9]% 
+			NetBotz Event: device-crawlers-ping-offline-trap trap received
+			netBotz-addon-traps-crawlers-index=%parm[#1]%
+			netBotz-addon-traps-crawlers-address=%parm[#2]%
+			netBotz-addon-traps-crawlers-oid=%parm[#3]%
+			netBotz-addon-traps-crawlers-botoid=%parm[#4]%
+			netBotz-addon-traps-crawlers-value=%parm[#5]%
+			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]%
+			netBotz-addon-traps-crawlers-date=%parm[#7]%
+			netBots-addon-traps-crawlers-attrib=%parm[#8]%
+			netBotz-addon-traps-crawlers-desc=%parm[#9]%
 			netBotz-addon-traps-ismetric=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6612,16 +6612,16 @@ the camera motion sensor has returned to normal (no longer is detecting motion).
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: device-crawlers-ping-online-trap trap received 
-			netBotz-addon-traps-crawlers-index=%parm[#1]% 
-			netBotz-addon-traps-crawlers-address=%parm[#2]% 
-			netBotz-addon-traps-crawlers-oid=%parm[#3]% 
-			netBotz-addon-traps-crawlers-botoid=%parm[#4]% 
-			netBotz-addon-traps-crawlers-value=%parm[#5]% 
-			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]% 
-			netBotz-addon-traps-crawlers-date=%parm[#7]% 
-			netBots-addon-traps-crawlers-attrib=%parm[#8]% 
-			netBotz-addon-traps-crawlers-desc=%parm[#9]% 
+			NetBotz Event: device-crawlers-ping-online-trap trap received
+			netBotz-addon-traps-crawlers-index=%parm[#1]%
+			netBotz-addon-traps-crawlers-address=%parm[#2]%
+			netBotz-addon-traps-crawlers-oid=%parm[#3]%
+			netBotz-addon-traps-crawlers-botoid=%parm[#4]%
+			netBotz-addon-traps-crawlers-value=%parm[#5]%
+			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]%
+			netBotz-addon-traps-crawlers-date=%parm[#7]%
+			netBots-addon-traps-crawlers-attrib=%parm[#8]%
+			netBotz-addon-traps-crawlers-desc=%parm[#9]%
 			netBotz-addon-traps-ismetric=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6687,16 +6687,16 @@ the camera motion sensor has returned to normal (no longer is detecting motion).
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: device-crawlers-snmp-offline-trap trap received 
-			netBotz-addon-traps-crawlers-index=%parm[#1]% 
-			netBotz-addon-traps-crawlers-address=%parm[#2]% 
-			netBotz-addon-traps-crawlers-oid=%parm[#3]% 
-			netBotz-addon-traps-crawlers-botoid=%parm[#4]% 
-			netBotz-addon-traps-crawlers-value=%parm[#5]% 
-			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]% 
-			netBotz-addon-traps-crawlers-date=%parm[#7]% 
-			netBots-addon-traps-crawlers-attrib=%parm[#8]% 
-			netBotz-addon-traps-crawlers-desc=%parm[#9]% 
+			NetBotz Event: device-crawlers-snmp-offline-trap trap received
+			netBotz-addon-traps-crawlers-index=%parm[#1]%
+			netBotz-addon-traps-crawlers-address=%parm[#2]%
+			netBotz-addon-traps-crawlers-oid=%parm[#3]%
+			netBotz-addon-traps-crawlers-botoid=%parm[#4]%
+			netBotz-addon-traps-crawlers-value=%parm[#5]%
+			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]%
+			netBotz-addon-traps-crawlers-date=%parm[#7]%
+			netBots-addon-traps-crawlers-attrib=%parm[#8]%
+			netBotz-addon-traps-crawlers-desc=%parm[#9]%
 			netBotz-addon-traps-ismetric=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6762,16 +6762,16 @@ the camera motion sensor has returned to normal (no longer is detecting motion).
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NetBotz Event: device-crawlers-snmp-online-trap trap received 
-			netBotz-addon-traps-crawlers-index=%parm[#1]% 
-			netBotz-addon-traps-crawlers-address=%parm[#2]% 
-			netBotz-addon-traps-crawlers-oid=%parm[#3]% 
-			netBotz-addon-traps-crawlers-botoid=%parm[#4]% 
-			netBotz-addon-traps-crawlers-value=%parm[#5]% 
-			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]% 
-			netBotz-addon-traps-crawlers-date=%parm[#7]% 
-			netBots-addon-traps-crawlers-attrib=%parm[#8]% 
-			netBotz-addon-traps-crawlers-desc=%parm[#9]% 
+			NetBotz Event: device-crawlers-snmp-online-trap trap received
+			netBotz-addon-traps-crawlers-index=%parm[#1]%
+			netBotz-addon-traps-crawlers-address=%parm[#2]%
+			netBotz-addon-traps-crawlers-oid=%parm[#3]%
+			netBotz-addon-traps-crawlers-botoid=%parm[#4]%
+			netBotz-addon-traps-crawlers-value=%parm[#5]%
+			netBotz-addon-traps-crawlers-stringvalue=%parm[#6]%
+			netBotz-addon-traps-crawlers-date=%parm[#7]%
+			netBots-addon-traps-crawlers-attrib=%parm[#8]%
+			netBotz-addon-traps-crawlers-desc=%parm[#9]%
 			netBotz-addon-traps-ismetric=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

@@ -2,7 +2,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
 xsi:schemaLocation="
 http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
-http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-core/src/main/resources/org/apache/aries/blueprint/ext/blueprint-ext.xsd">	
+http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/aries/tags/blueprint-0.3.1/blueprint-core/src/main/resources/org/apache/aries/blueprint/ext/blueprint-ext.xsd">
 
     <cm:property-placeholder persistent-id="org.opennms.features.topology.netutils" update-strategy="reload">
         <cm:default-properties>
@@ -13,10 +13,10 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         	<cm:property name="nodeListURL" value="/opennms/element/nodeList.htm"/>
         	<cm:property name="nodePageURL" value="/opennms/element/node.jsp?node="/>
         	<cm:property name="resourceGraphListURL" value="/opennms/graph/index.jsp"/>
-        	<cm:property name="resourceGraphNodeURL" value="/opennms/graph/chooseresource.htm?reports=all&amp;parentResourceId=node"/> 
+		<cm:property name="resourceGraphNodeURL" value="/opennms/graph/chooseresource.htm?reports=all&amp;parentResourceId=node"/>
         </cm:default-properties>
     </cm:property-placeholder>
-    
+
     <bean id="pingOperation" class="org.opennms.features.topology.netutils.internal.operations.PingOperation" >
         <property name="pingURL" value="${pingURL}"/>
     </bean>
@@ -35,7 +35,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
         <property name="resourceGraphListURL" value="${resourceGraphListURL}"/>
         <property name="resourceGraphNodeURL" value="${resourceGraphNodeURL}"/>
     </bean>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" ref="pingOperation">
         <service-properties>
             <entry key="operation.label" value="Ping"/>
@@ -43,7 +43,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <entry key="operation.contextMenuLocation" value=""/> <!-- SPC-360 -->
         </service-properties>
     </service>
-    
+
 <!--     <service interface="org.opennms.features.topology.api.Operation" ref="tracerouteOperation"> -->
 <!--         <service-properties> -->
 <!--             <entry key="operation.label" value="Traceroute"/> -->
@@ -51,7 +51,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
 <!--             <entry key="operation.contextMenuLocation" value=""/> -->
 <!--         </service-properties> -->
 <!--     </service> -->
-    
+
     <service interface="org.opennms.features.topology.api.Operation" ref="eventsAlarmsOperation">
         <service-properties>
             <entry key="operation.menuLocation" value="Device"/>
@@ -59,7 +59,7 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <entry key="operation.label" value="Events/Alarms"/>
         </service-properties>
     </service>
-    
+
     <service interface="org.opennms.features.topology.api.Operation" ref="nodeInfoOperation">
         <service-properties>
             <entry key="operation.menuLocation" value="Device"/>
@@ -75,5 +75,5 @@ http://www.osgi.org/xmlns/blueprint-ext/v1.1.0 https://svn.apache.org/repos/asf/
             <entry key="operation.label" value="Resource Graphs"/>
         </service-properties>
     </service>
-    
+
 </blueprint>

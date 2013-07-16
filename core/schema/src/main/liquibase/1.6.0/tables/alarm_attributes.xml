@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-alarm_attributes">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="alarm_attributes" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- Use this table to add additional custom data about an alarm... somewhat
 			useful with automations and will be viewable/editable in the alarm details WebUI page. -->

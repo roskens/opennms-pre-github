@@ -28,8 +28,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ARCServe: arcServetrapHigh trap received 
-			arcServeServerName=%parm[#1]% 
+			ARCServe: arcServetrapHigh trap received
+			arcServeServerName=%parm[#1]%
 			arcServetrapdesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -63,8 +63,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ARCServe: arcServetrapMed trap received 
-			arcServeServerName=%parm[#1]% 
+			ARCServe: arcServetrapMed trap received
+			arcServeServerName=%parm[#1]%
 			arcServetrapdesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -98,8 +98,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ARCServe: arcServetrapLow trap received 
-			arcServeServerName=%parm[#1]% 
+			ARCServe: arcServetrapLow trap received
+			arcServeServerName=%parm[#1]%
 			arcServetrapdesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

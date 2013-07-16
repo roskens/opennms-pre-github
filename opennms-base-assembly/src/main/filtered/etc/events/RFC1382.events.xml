@@ -31,7 +31,7 @@ trap.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			x25Restart trap received 
+			x25Restart trap received
 			x25OperIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -67,8 +67,8 @@ agent should send an x25Reset trap.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			x25Reset trap received 
-			x25CircuitIndex=%parm[#1]% 
+			x25Reset trap received
+			x25CircuitIndex=%parm[#1]%
 			x25CircuitChannel=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

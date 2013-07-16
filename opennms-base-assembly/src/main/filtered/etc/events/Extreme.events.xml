@@ -19,7 +19,7 @@
 	<event-label>A3COM51-SS9000SX defined trap event: overheat</event-label>
 	<descr>
 &lt;p&gt;A overheat trap indicates that the on board
-tempature sensor has reported a overheat 
+tempature sensor has reported a overheat
 condition.  System will shutdown until unit has
 			  suficiently cooled such that operation may begin
 again.  A cold start trap will be issued when
@@ -34,8 +34,8 @@ the unit has come back on line.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			overheat trap received 
-			sysUpTime=%parm[#1]% 
+			overheat trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -73,8 +73,8 @@ normal operation.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fanfailed trap received 
-			sysUpTime=%parm[#1]% 
+			fanfailed trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -110,8 +110,8 @@ is now operating correctly.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fanOK trap received 
-			sysUpTime=%parm[#1]% 
+			fanOK trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -147,8 +147,8 @@ access due to incorrect username or password&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			invalidLoginAttempt trap received 
-			sysUpTime=%parm[#1]% 
+			invalidLoginAttempt trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -174,7 +174,7 @@ access due to incorrect username or password&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeTrapDiagPortDiagnostics</uei>
 	<event-label>EXTREME-CABLE-MIB defined trap event: extremeTrapDiagPortDiagnostics</event-label>
 	<descr>
-&lt;p&gt;Indicates the status of Diagnostics for a port. The status indicates 
+&lt;p&gt;Indicates the status of Diagnostics for a port. The status indicates
 whether Diagnostics for a particular port failed&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -198,9 +198,9 @@ whether Diagnostics for a particular port failed&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeTrapDiagPortDiagnostics trap received 
-			extremeDiagPortCfgPortIfIndex=%parm[#1]% 
-			extremeDiagPortCfgMode=%parm[#2]% 
+			extremeTrapDiagPortDiagnostics trap received
+			extremeDiagPortCfgPortIfIndex=%parm[#1]%
+			extremeDiagPortCfgMode=%parm[#2]%
 			extremeDiagPortCfgStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -264,15 +264,15 @@ whether Diagnostics for a particular port failed&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeClearflowMessage trap received 
-			extremeClearflowMsgId=%parm[#1]% 
-			extremeClearflowMsg=%parm[#2]% 
-			extremeClearflowPolicyName=%parm[#3]% 
-			extremeClearflowRuleName=%parm[#4]% 
-			extremeClearflowRuleValue=%parm[#5]% 
-			extremeClearflowRuleThreshold=%parm[#6]% 
-			extremeClearflowRuleInterval=%parm[#7]% 
-			extremeClearflowVlanName=%parm[#8]% 
+			extremeClearflowMessage trap received
+			extremeClearflowMsgId=%parm[#1]%
+			extremeClearflowMsg=%parm[#2]%
+			extremeClearflowPolicyName=%parm[#3]%
+			extremeClearflowRuleName=%parm[#4]%
+			extremeClearflowRuleValue=%parm[#5]%
+			extremeClearflowRuleThreshold=%parm[#6]%
+			extremeClearflowRuleInterval=%parm[#7]%
+			extremeClearflowVlanName=%parm[#8]%
 			extremeClearflowPortName=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -305,7 +305,7 @@ the DOS threshold is cleared .&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeDosThresholdCleared trap received 
+			extremeDosThresholdCleared trap received
 			extremeDosAlertLevel=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -337,7 +337,7 @@ the DOS threshold is crossed for any of the ports.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeDosThresholdReached trap received 
+			extremeDosThresholdReached trap received
 			extremeDosAlertLevel=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -375,8 +375,8 @@ the DOS threshold is crossed for any of the ports.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEnhDosThresholdReached trap received 
-			extremeEnhDosPortIfIndex=%parm[#1]% 
+			extremeEnhDosThresholdReached trap received
+			extremeEnhDosPortIfIndex=%parm[#1]%
 			extremeEnhDosPortRateLimitThreshold=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -412,8 +412,8 @@ the DOS threshold is cleared for any of the ports.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEnhDosThresholdCleared trap received 
-			extremeEnhDosPortIfIndex=%parm[#1]% 
+			extremeEnhDosThresholdCleared trap received
+			extremeEnhDosPortIfIndex=%parm[#1]%
 			extremeEnhDosPortRateLimitThreshold=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -496,18 +496,18 @@ the DOS threshold is cleared for any of the ports.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEsrpDomainStateChange trap received 
-			extremeEsrpDmnName=%parm[#1]% 
-			extremeEsrpDmnGroup=%parm[#2]% 
-			extremeEsrpDmnState=%parm[#3]% 
-			extremeEsrpDmnNetAddress=%parm[#4]% 
-			extremeEsrpDmnMasterMacAddress=%parm[#5]% 
-			extremeEsrpDmnActivePorts=%parm[#6]% 
-			extremeEsrpDmnInternalActivePorts=%parm[#7]% 
-			extremeEsrpDmnTrackedActivePorts=%parm[#8]% 
-			extremeEsrpDmnTrackedIpRoutes=%parm[#9]% 
-			extremeEsrpDmnTrackedPings=%parm[#10]% 
-			extremeEsrpDmnActivePortWeight=%parm[#11]% 
+			extremeEsrpDomainStateChange trap received
+			extremeEsrpDmnName=%parm[#1]%
+			extremeEsrpDmnGroup=%parm[#2]%
+			extremeEsrpDmnState=%parm[#3]%
+			extremeEsrpDmnNetAddress=%parm[#4]%
+			extremeEsrpDmnMasterMacAddress=%parm[#5]%
+			extremeEsrpDmnActivePorts=%parm[#6]%
+			extremeEsrpDmnInternalActivePorts=%parm[#7]%
+			extremeEsrpDmnTrackedActivePorts=%parm[#8]%
+			extremeEsrpDmnTrackedIpRoutes=%parm[#9]%
+			extremeEsrpDmnTrackedPings=%parm[#10]%
+			extremeEsrpDmnActivePortWeight=%parm[#11]%
 			extremeEsrpDmnTrackedActivePortWeight=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -532,9 +532,9 @@ the DOS threshold is cleared for any of the ports.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeIpSecurityViolation</uei>
 	<event-label>EXTREME-IP-SECURITY-MIB defined trap event: extremeIpSecurityViolation</event-label>
 	<descr>
-&lt;p&gt;For vlans/ports on which one or more of the IP Security 
-features have been enabled, this trap will be generated when a packet 
-received on that vlan/port is in violation of the configured IP 
+&lt;p&gt;For vlans/ports on which one or more of the IP Security
+features have been enabled, this trap will be generated when a packet
+received on that vlan/port is in violation of the configured IP
 Security protections&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -567,12 +567,12 @@ Security protections&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeIpSecurityViolation trap received 
-			extremeIpSecurityVlanIfIndex=%parm[#1]% 
-			extremeIpSecurityVlanDescr=%parm[#2]% 
-			extremeIpSecurityPortIfIndex=%parm[#3]% 
-			extremeIpSecurityIpAddr=%parm[#4]% 
-			extremeIpSecurityMacAddress=%parm[#5]% 
+			extremeIpSecurityViolation trap received
+			extremeIpSecurityVlanIfIndex=%parm[#1]%
+			extremeIpSecurityVlanDescr=%parm[#2]%
+			extremeIpSecurityPortIfIndex=%parm[#3]%
+			extremeIpSecurityIpAddr=%parm[#4]%
+			extremeIpSecurityMacAddress=%parm[#5]%
 			extremeIpSecurityViolationType=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -595,8 +595,8 @@ Security protections&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeIpSecurityAnomalyIpViolation</uei>
 	<event-label>EXTREME-IP-SECURITY-MIB defined trap event: extremeIpSecurityAnomalyIpViolation</event-label>
 	<descr>
-&lt;p&gt;For ports on which the protocol anomaly protection IP 
-features has been enabled, this trap will be generated when a packet 
+&lt;p&gt;For ports on which the protocol anomaly protection IP
+features has been enabled, this trap will be generated when a packet
 received on that port if the packet's source IP == destination IP&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -663,17 +663,17 @@ received on that port if the packet's source IP == destination IP&lt;/p&gt;&lt;t
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeIpSecurityAnomalyIpViolation trap received 
-			esAnomalyPortIfIndex=%parm[#1]% 
-			esAnomalyVlanIfIndex=%parm[#2]% 
-			esAnomalyVlanDescr=%parm[#3]% 
-			esAnomalySrcMacAddress=%parm[#4]% 
-			esAnomalyDestMacAddress=%parm[#5]% 
-			esAnomalyVlanTag=%parm[#6]% 
-			esAnomalySrcIpAddrType=%parm[#7]% 
-			esAnomalySrcIpAddr=%parm[#8]% 
-			esAnomalyDestIpAddrType=%parm[#9]% 
-			esAnomalyDestIpAddr=%parm[#10]% 
+			extremeIpSecurityAnomalyIpViolation trap received
+			esAnomalyPortIfIndex=%parm[#1]%
+			esAnomalyVlanIfIndex=%parm[#2]%
+			esAnomalyVlanDescr=%parm[#3]%
+			esAnomalySrcMacAddress=%parm[#4]%
+			esAnomalyDestMacAddress=%parm[#5]%
+			esAnomalyVlanTag=%parm[#6]%
+			esAnomalySrcIpAddrType=%parm[#7]%
+			esAnomalySrcIpAddr=%parm[#8]%
+			esAnomalyDestIpAddrType=%parm[#9]%
+			esAnomalyDestIpAddr=%parm[#10]%
 			esAnomalyIpProto=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -696,10 +696,10 @@ received on that port if the packet's source IP == destination IP&lt;/p&gt;&lt;t
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeIpSecurityAnomalyL4PortViolation</uei>
 	<event-label>EXTREME-IP-SECURITY-MIB defined trap event: extremeIpSecurityAnomalyL4PortViolation</event-label>
 	<descr>
-&lt;p&gt;For ports on which the protocol anomaly protection L4port 
-features has been enabled, this trap will be generated when a packet 
-received on that port if 
-1) the packet is a TCP or UDP packetr.  AND 
+&lt;p&gt;For ports on which the protocol anomaly protection L4port
+features has been enabled, this trap will be generated when a packet
+received on that port if
+1) the packet is a TCP or UDP packetr.  AND
 2) its source L4 port == destination port&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -774,19 +774,19 @@ received on that port if
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeIpSecurityAnomalyL4PortViolation trap received 
-			esAnomalyPortIfIndex=%parm[#1]% 
-			esAnomalyVlanIfIndex=%parm[#2]% 
-			esAnomalyVlanDescr=%parm[#3]% 
-			esAnomalySrcMacAddress=%parm[#4]% 
-			esAnomalyDestMacAddress=%parm[#5]% 
-			esAnomalyVlanTag=%parm[#6]% 
-			esAnomalySrcIpAddrType=%parm[#7]% 
-			esAnomalySrcIpAddr=%parm[#8]% 
-			esAnomalyDestIpAddrType=%parm[#9]% 
-			esAnomalyDestIpAddr=%parm[#10]% 
-			esAnomalyIpProto=%parm[#11]% 
-			esAnomalySrcL4Port=%parm[#12]% 
+			extremeIpSecurityAnomalyL4PortViolation trap received
+			esAnomalyPortIfIndex=%parm[#1]%
+			esAnomalyVlanIfIndex=%parm[#2]%
+			esAnomalyVlanDescr=%parm[#3]%
+			esAnomalySrcMacAddress=%parm[#4]%
+			esAnomalyDestMacAddress=%parm[#5]%
+			esAnomalyVlanTag=%parm[#6]%
+			esAnomalySrcIpAddrType=%parm[#7]%
+			esAnomalySrcIpAddr=%parm[#8]%
+			esAnomalyDestIpAddrType=%parm[#9]%
+			esAnomalyDestIpAddr=%parm[#10]%
+			esAnomalyIpProto=%parm[#11]%
+			esAnomalySrcL4Port=%parm[#12]%
 			esAnomalyDestL4Port=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -809,12 +809,12 @@ received on that port if
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeIpSecurityAnomalyTcpFlagViolation</uei>
 	<event-label>EXTREME-IP-SECURITY-MIB defined trap event: extremeIpSecurityAnomalyTcpFlagViolation</event-label>
 	<descr>
-&lt;p&gt;For ports on which the protocol anomaly protection TCP flags 
-features has been enabled, this trap will be generated when a TCP 
-packet received on that port if 
-1) (TCP flag SYN is set) and (its TCP source port &lt; 1024). OR   
-2) (TCP flag == 0) and (TCP seq # == 0). OR   
-3) (TCP flag FIN/URG/PSH bits sre set) and (TCP seq # == 0). OR   
+&lt;p&gt;For ports on which the protocol anomaly protection TCP flags
+features has been enabled, this trap will be generated when a TCP
+packet received on that port if
+1) (TCP flag SYN is set) and (its TCP source port &lt; 1024). OR
+2) (TCP flag == 0) and (TCP seq # == 0). OR
+3) (TCP flag FIN/URG/PSH bits sre set) and (TCP seq # == 0). OR
 4) Both TCP iflag SYN and FIN are set&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -898,21 +898,21 @@ packet received on that port if
 	%parm[#15]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeIpSecurityAnomalyTcpFlagViolation trap received 
-			esAnomalyPortIfIndex=%parm[#1]% 
-			esAnomalyVlanIfIndex=%parm[#2]% 
-			esAnomalyVlanDescr=%parm[#3]% 
-			esAnomalySrcMacAddress=%parm[#4]% 
-			esAnomalyDestMacAddress=%parm[#5]% 
-			esAnomalyVlanTag=%parm[#6]% 
-			esAnomalySrcIpAddrType=%parm[#7]% 
-			esAnomalySrcIpAddr=%parm[#8]% 
-			esAnomalyDestIpAddrType=%parm[#9]% 
-			esAnomalyDestIpAddr=%parm[#10]% 
-			esAnomalySrcL4Port=%parm[#11]% 
-			esAnomalyDestL4Port=%parm[#12]% 
-			esAnomalyTcpFlagReason=%parm[#13]% 
-			esAnomalyTcpFlag=%parm[#14]% 
+			extremeIpSecurityAnomalyTcpFlagViolation trap received
+			esAnomalyPortIfIndex=%parm[#1]%
+			esAnomalyVlanIfIndex=%parm[#2]%
+			esAnomalyVlanDescr=%parm[#3]%
+			esAnomalySrcMacAddress=%parm[#4]%
+			esAnomalyDestMacAddress=%parm[#5]%
+			esAnomalyVlanTag=%parm[#6]%
+			esAnomalySrcIpAddrType=%parm[#7]%
+			esAnomalySrcIpAddr=%parm[#8]%
+			esAnomalyDestIpAddrType=%parm[#9]%
+			esAnomalyDestIpAddr=%parm[#10]%
+			esAnomalySrcL4Port=%parm[#11]%
+			esAnomalyDestL4Port=%parm[#12]%
+			esAnomalyTcpFlagReason=%parm[#13]%
+			esAnomalyTcpFlag=%parm[#14]%
 			esAnomalyTcpSeq=%parm[#15]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -935,9 +935,9 @@ packet received on that port if
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeIpSecurityAnomalyTcpFragmentViolation</uei>
 	<event-label>EXTREME-IP-SECURITY-MIB defined trap event: extremeIpSecurityAnomalyTcpFragmentViolation</event-label>
 	<descr>
-&lt;p&gt;For ports on which the protocol anomaly protection TCP fragment 
-features has been enabled, this trap will be generated when a packet 
-received on that port if 
+&lt;p&gt;For ports on which the protocol anomaly protection TCP fragment
+features has been enabled, this trap will be generated when a packet
+received on that port if
 1) the packet is a TCP, and its size of the TCP header is less than pre-configured value; or
 2) the packet is a TCP and it is a IP fragmented packet (IP offset != 0)&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1008,18 +1008,18 @@ received on that port if
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeIpSecurityAnomalyTcpFragmentViolation trap received 
-			esAnomalyPortIfIndex=%parm[#1]% 
-			esAnomalyVlanIfIndex=%parm[#2]% 
-			esAnomalyVlanDescr=%parm[#3]% 
-			esAnomalySrcMacAddress=%parm[#4]% 
-			esAnomalyDestMacAddress=%parm[#5]% 
-			esAnomalyVlanTag=%parm[#6]% 
-			esAnomalySrcIpAddrType=%parm[#7]% 
-			esAnomalySrcIpAddr=%parm[#8]% 
-			esAnomalyDestIpAddrType=%parm[#9]% 
-			esAnomalyDestIpAddr=%parm[#10]% 
-			esAnomalyTcpFragmentReason=%parm[#11]% 
+			extremeIpSecurityAnomalyTcpFragmentViolation trap received
+			esAnomalyPortIfIndex=%parm[#1]%
+			esAnomalyVlanIfIndex=%parm[#2]%
+			esAnomalyVlanDescr=%parm[#3]%
+			esAnomalySrcMacAddress=%parm[#4]%
+			esAnomalyDestMacAddress=%parm[#5]%
+			esAnomalyVlanTag=%parm[#6]%
+			esAnomalySrcIpAddrType=%parm[#7]%
+			esAnomalySrcIpAddr=%parm[#8]%
+			esAnomalyDestIpAddrType=%parm[#9]%
+			esAnomalyDestIpAddr=%parm[#10]%
+			esAnomalyTcpFragmentReason=%parm[#11]%
 			esAnomalyTcpHdrSize=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1042,10 +1042,10 @@ received on that port if
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeIpSecurityAnomalyIcmpViolation</uei>
 	<event-label>EXTREME-IP-SECURITY-MIB defined trap event: extremeIpSecurityAnomalyIcmpViolation</event-label>
 	<descr>
-&lt;p&gt;For ports on which the protocol anomaly protection ICMP 
-features has been enabled, this trap will be generated when an ICMP 
-packet received on that port if 
-1) the size of ICMP (IP payload) is large thant pre-configured value; or   
+&lt;p&gt;For ports on which the protocol anomaly protection ICMP
+features has been enabled, this trap will be generated when an ICMP
+packet received on that port if
+1) the size of ICMP (IP payload) is large thant pre-configured value; or
 2) it is a fragmented IP/ICMP packet (IP offset != 0)&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1111,17 +1111,17 @@ packet received on that port if
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeIpSecurityAnomalyIcmpViolation trap received 
-			esAnomalyPortIfIndex=%parm[#1]% 
-			esAnomalyVlanIfIndex=%parm[#2]% 
-			esAnomalyVlanDescr=%parm[#3]% 
-			esAnomalySrcMacAddress=%parm[#4]% 
-			esAnomalyDestMacAddress=%parm[#5]% 
-			esAnomalyVlanTag=%parm[#6]% 
-			esAnomalySrcIpAddrType=%parm[#7]% 
-			esAnomalySrcIpAddr=%parm[#8]% 
-			esAnomalyDestIpAddrType=%parm[#9]% 
-			esAnomalyDestIpAddr=%parm[#10]% 
+			extremeIpSecurityAnomalyIcmpViolation trap received
+			esAnomalyPortIfIndex=%parm[#1]%
+			esAnomalyVlanIfIndex=%parm[#2]%
+			esAnomalyVlanDescr=%parm[#3]%
+			esAnomalySrcMacAddress=%parm[#4]%
+			esAnomalyDestMacAddress=%parm[#5]%
+			esAnomalyVlanTag=%parm[#6]%
+			esAnomalySrcIpAddrType=%parm[#7]%
+			esAnomalySrcIpAddr=%parm[#8]%
+			esAnomalyDestIpAddrType=%parm[#9]%
+			esAnomalyDestIpAddr=%parm[#10]%
 			esAnomalyIcmpReason=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1164,9 +1164,9 @@ packet received on that port if
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremePortMauChangeTrap trap received 
-			ifIndex=%parm[#1]% 
-			extremePortMauType=%parm[#2]% 
+			extremePortMauChangeTrap trap received
+			ifIndex=%parm[#1]%
+			extremePortMauType=%parm[#2]%
 			extremePortMauStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1210,10 +1210,10 @@ packet received on that port if
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeSwMonitorCpuUtilization trap received 
-			extremeCpuMonitorSlotId=%parm[#1]% 
-			extremeCpuMonitorProcessName=%parm[#2]% 
-			extremeCpuMonitorCurrentUtilization=%parm[#3]% 
+			extremeSwMonitorCpuUtilization trap received
+			extremeCpuMonitorSlotId=%parm[#1]%
+			extremeCpuMonitorProcessName=%parm[#2]%
+			extremeCpuMonitorCurrentUtilization=%parm[#3]%
 			extremeCpuMonitorThreshold=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1256,10 +1256,10 @@ packet received on that port if
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeServiceLicenseExpiration trap received 
-			extremeServiceLicenseExpiryDate=%parm[#1]% 
-			extremeServiceLicenseType=%parm[#2]% 
-			imageDescription=%parm[#3]% 
+			extremeServiceLicenseExpiration trap received
+			extremeServiceLicenseExpiryDate=%parm[#1]%
+			extremeServiceLicenseType=%parm[#2]%
+			imageDescription=%parm[#3]%
 			noOfDaysLeft=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1298,9 +1298,9 @@ packet received on that port if
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeTrialLicenseExpiration trap received 
-			trialPeriod=%parm[#1]% 
-			imageDescription=%parm[#2]% 
+			extremeTrialLicenseExpiration trap received
+			trialPeriod=%parm[#1]%
+			imageDescription=%parm[#2]%
 			noOfDaysLeft=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1327,7 +1327,7 @@ packet received on that port if
 	<event-label>EXTREME-STACKING-MIB defined trap event: extremeStackMemberOverheat</event-label>
 	<descr>
 &lt;p&gt;The extremeStackMemberOverheat notification is generated
-when the temperature of the stack member reaches the 
+when the temperature of the stack member reaches the
 threshold temperature&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1347,10 +1347,10 @@ threshold temperature&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeStackMemberOverheat trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			extremeCurrentTemperature=%parm[#3]% 
+			extremeStackMemberOverheat trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			extremeCurrentTemperature=%parm[#3]%
 			extremeStackMemberSlotId=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1373,8 +1373,8 @@ threshold temperature&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeStackMemberStatusChanged</uei>
 	<event-label>EXTREME-STACKING-MIB defined trap event: extremeStackMemberStatusChanged</event-label>
 	<descr>
-&lt;p&gt;The extremeStackMemberStatusChanged notification is 
-generated when the operational status of the stack member 
+&lt;p&gt;The extremeStackMemberStatusChanged notification is
+generated when the operational status of the stack member
 changes&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1390,8 +1390,8 @@ changes&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeStackMemberStatusChanged trap received 
-			extremeStackMemberSlotId=%parm[#1]% 
+			extremeStackMemberStatusChanged trap received
+			extremeStackMemberSlotId=%parm[#1]%
 			extremeStackMemberOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1414,8 +1414,8 @@ changes&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeStackingPortStatusChanged</uei>
 	<event-label>EXTREME-STACKING-MIB defined trap event: extremeStackingPortStatusChanged</event-label>
 	<descr>
-&lt;p&gt;The extremeStackingPortStatusChanged notification is 
-generated when the operational status of the stacking port 
+&lt;p&gt;The extremeStackingPortStatusChanged notification is
+generated when the operational status of the stacking port
 changes&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1438,10 +1438,10 @@ changes&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeStackingPortStatusChanged trap received 
-			ifIndex=%parm[#1]% 
-			extremeStackingPortRemoteMac=%parm[#2]% 
-			extremeStackingPortLinkSpeed=%parm[#3]% 
+			extremeStackingPortStatusChanged trap received
+			ifIndex=%parm[#1]%
+			extremeStackingPortRemoteMac=%parm[#2]%
+			extremeStackingPortLinkSpeed=%parm[#3]%
 			extremeStackingPortLinkStatus=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1466,7 +1466,7 @@ changes&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeSystemPowerStatus</uei>
 	<event-label>EXTREME-SYSTEM-MIB defined trap event: extremeSystemPowerStatus</event-label>
 	<descr>
-&lt;p&gt;Change in status of System Power  
+&lt;p&gt;Change in status of System Power
 The trap will not be generated for discovering state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1483,8 +1483,8 @@ The trap will not be generated for discovering state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeSystemPowerStatus trap received 
-			sysDescr=%parm[#1]% 
+			extremeSystemPowerStatus trap received
+			sysDescr=%parm[#1]%
 			extremeSystemPowerState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1511,7 +1511,7 @@ The trap will not be generated for discovering state.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXTREME-TRAP-MIB defined trap event: extremeOverheat</event-label>
 	<descr>
 &lt;p&gt;A overheat trap indicates that the on board
-tempature sensor has reported a overheat 
+tempature sensor has reported a overheat
 condition.  System will shutdown until unit has
  suficiently cooled such that operation may begin
 again.  A cold start trap will be issued when
@@ -1530,13 +1530,13 @@ the unit has come back on line.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeOverheat trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
+			extremeOverheat trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
 			extremeCurrentTemperature=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="3" auto-clean="true"/>	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="3" auto-clean="true"/>
 </event>
 <event>
 	<mask>
@@ -1574,13 +1574,13 @@ normal operation.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeFanfailed trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
+			extremeFanfailed trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
 			extremeFanNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#3]%" alarm-type="1" auto-clean="true"/>	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#3]%" alarm-type="1" auto-clean="true"/>
 </event>
 <event>
 	<mask>
@@ -1616,13 +1616,13 @@ is now operating correctly.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeFanOK trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
+			extremeFanOK trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
 			extremeFanNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#3]%" alarm-type="2" auto-clean="true" clear-key="uei.opennms.org/vendor/extreme/traps/extremeFanfailed:%dpname%:%nodeid%:%parm[#3]%"/>	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#3]%" alarm-type="2" auto-clean="true" clear-key="uei.opennms.org/vendor/extreme/traps/extremeFanfailed:%dpname%:%nodeid%:%parm[#3]%"/>
 </event>
 <event>
 	<mask>
@@ -1654,12 +1654,12 @@ refused access due to incorrect username or password&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeInvalidLoginAttempt trap received 
-			sysUpTime=%parm[#1]% 
+			extremeInvalidLoginAttempt trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="3" auto-clean="true"/>	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%" alarm-type="3" auto-clean="true"/>
 </event>
 <event>
 	<mask>
@@ -1695,9 +1695,9 @@ Presumably a redundant power-supply has taken over.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremePowerSupplyFail trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
+			extremePowerSupplyFail trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
 			extremePowerSupplyNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1721,7 +1721,7 @@ Presumably a redundant power-supply has taken over.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremePowerSupplyGood</uei>
 	<event-label>EXTREME-TRAP-MIB defined trap event: extremePowerSupplyGood</event-label>
 	<descr>
-&lt;p&gt;One or more previously bad sources of power to this agent 
+&lt;p&gt;One or more previously bad sources of power to this agent
 has come back to life without causing an agent restart.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1737,9 +1737,9 @@ has come back to life without causing an agent restart.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremePowerSupplyGood trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
+			extremePowerSupplyGood trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
 			extremePowerSupplyNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1775,8 +1775,8 @@ an alarm condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeRpsAlarm trap received 
-			sysUpTime=%parm[#1]% 
+			extremeRpsAlarm trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1812,8 +1812,8 @@ indicating an alarm condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeRpsNoAlarm trap received 
-			sysUpTime=%parm[#1]% 
+			extremeRpsNoAlarm trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1837,12 +1837,12 @@ indicating an alarm condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeSmartTrap</uei>
 	<event-label>EXTREME-TRAP-MIB defined trap event: extremeSmartTrap</event-label>
 	<descr>
-&lt;p&gt;Signifies that the value of one of the object identifiers 
-(or the value of an object below that in the MIB tree) 
-defined in the extremeSmartTrapRulesTable has changed, 
-and hence a new entry has been created in the 
-extremeSmartTrapInstanceTable. Such a trap is sent 
-at most once every thirty seconds if one or more entry 
+&lt;p&gt;Signifies that the value of one of the object identifiers
+(or the value of an object below that in the MIB tree)
+defined in the extremeSmartTrapRulesTable has changed,
+and hence a new entry has been created in the
+extremeSmartTrapInstanceTable. Such a trap is sent
+at most once every thirty seconds if one or more entry
 was created in the last thirty seconds.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1854,8 +1854,8 @@ was created in the last thirty seconds.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeSmartTrap trap received 
-			sysUpTime=%parm[#1]% 
+			extremeSmartTrap trap received
+			sysUpTime=%parm[#1]%
 			sysDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1879,7 +1879,7 @@ was created in the last thirty seconds.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeModuleStateChanged</uei>
 	<event-label>EXTREME-TRAP-MIB defined trap event: extremeModuleStateChanged</event-label>
 	<descr>
-&lt;p&gt;Signifies that the value of the extremeSlotModuleState for 
+&lt;p&gt;Signifies that the value of the extremeSlotModuleState for
 the specified extremeSlotNumber has changed.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2069,11 +2069,11 @@ the specified extremeSlotNumber has changed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeModuleStateChanged trap received 
-			sysUpTime=%parm[#1]% 
-			extremeSlotNumber=%parm[#2]% 
-			extremeSlotModuleConfiguredType=%parm[#3]% 
-			extremeSlotModuleInsertedType=%parm[#4]% 
+			extremeModuleStateChanged trap received
+			sysUpTime=%parm[#1]%
+			extremeSlotNumber=%parm[#2]%
+			extremeSlotModuleConfiguredType=%parm[#3]%
+			extremeSlotModuleInsertedType=%parm[#4]%
 			extremeSlotModuleState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2152,18 +2152,18 @@ the specified extremeSlotNumber has changed.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEsrpStateChange trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			extremeVlanIfIndex=%parm[#3]% 
-			extremeVlanIfDescr=%parm[#4]% 
-			extremeEsrpGroup=%parm[#5]% 
-			extremeEsrpState=%parm[#6]% 
-			extremeEsrpNetAddress=%parm[#7]% 
-			ifPhysAddress=%parm[#8]% 
-			extremeEsrpActivePorts=%parm[#9]% 
-			extremeEsrpInternalActivePorts=%parm[#10]% 
-			extremeEsrpTrackedActivePorts=%parm[#11]% 
+			extremeEsrpStateChange trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			extremeVlanIfIndex=%parm[#3]%
+			extremeVlanIfDescr=%parm[#4]%
+			extremeEsrpGroup=%parm[#5]%
+			extremeEsrpState=%parm[#6]%
+			extremeEsrpNetAddress=%parm[#7]%
+			ifPhysAddress=%parm[#8]%
+			extremeEsrpActivePorts=%parm[#9]%
+			extremeEsrpInternalActivePorts=%parm[#10]%
+			extremeEsrpTrackedActivePorts=%parm[#11]%
 			extremeEsrpTrackedIpRoutes=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2272,12 +2272,12 @@ Protocol.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEdpNeighborAdded trap received 
-			sysUpTime=%parm[#1]% 
-			extremeEdpPortIfIndex=%parm[#2]% 
-			extremeEdpNeighborId=%parm[#3]% 
-			extremeEdpEntryAge=%parm[#4]% 
-			ifAlias=%parm[#5]% 
+			extremeEdpNeighborAdded trap received
+			sysUpTime=%parm[#1]%
+			extremeEdpPortIfIndex=%parm[#2]%
+			extremeEdpNeighborId=%parm[#3]%
+			extremeEdpEntryAge=%parm[#4]%
+			ifAlias=%parm[#5]%
 			ifDescr=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2329,12 +2329,12 @@ out by the device.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEdpNeighborRemoved trap received 
-			sysUpTime=%parm[#1]% 
-			extremeEdpPortIfIndex=%parm[#2]% 
-			extremeEdpNeighborId=%parm[#3]% 
-			extremeEdpEntryAge=%parm[#4]% 
-			ifAlias=%parm[#5]% 
+			extremeEdpNeighborRemoved trap received
+			sysUpTime=%parm[#1]%
+			extremeEdpPortIfIndex=%parm[#2]%
+			extremeEdpNeighborId=%parm[#3]%
+			extremeEdpEntryAge=%parm[#4]%
+			ifAlias=%parm[#5]%
 			ifDescr=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2372,13 +2372,13 @@ out by the device.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeCpuHealthCheckFailed trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
+			extremeCpuHealthCheckFailed trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
 			extremeSlotNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
-    	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#3]%" alarm-type="3" auto-clean="true"/>	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#3]%" alarm-type="3" auto-clean="true"/>
 </event>
 <!-- End of auto generated data from MIB: EXTREME-TRAP-MIB -->
 <!-- Start of auto generated data from MIB: EXTREME-UPM-MIB -->
@@ -2441,13 +2441,13 @@ out by the device.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upmProfileEventExecution trap received 
-			upmProfileName=%parm[#1]% 
-			upmExecutionId=%parm[#2]% 
-			upmEventType=%parm[#3]% 
-			upmExecutionStatus=%parm[#4]% 
-			upmPort=%parm[#5]% 
-			upmProfileExecVars=%parm[#6]% 
+			upmProfileEventExecution trap received
+			upmProfileName=%parm[#1]%
+			upmExecutionId=%parm[#2]%
+			upmEventType=%parm[#3]%
+			upmExecutionStatus=%parm[#4]%
+			upmPort=%parm[#5]%
+			upmProfileExecVars=%parm[#6]%
 			upmTimerName=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2507,11 +2507,11 @@ out by the device.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeHealthCheckFailed trap received 
-			sysDescr=%parm[#1]% 
-			extremeSlotNumber=%parm[#2]% 
-			extremeHealthCheckErrorType=%parm[#3]% 
-			extremeHealthCheckAction=%parm[#4]% 
+			extremeHealthCheckFailed trap received
+			sysDescr=%parm[#1]%
+			extremeSlotNumber=%parm[#2]%
+			extremeHealthCheckErrorType=%parm[#3]%
+			extremeHealthCheckAction=%parm[#4]%
 			extremeHealthCheckMaxRetries=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2551,9 +2551,9 @@ extremeCpuUtilRisingThreshold is touched/crossed &lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeCpuUtilizationRisingTrap trap received 
-			extremeCpuTaskUtilPair=%parm[#1]% 
-			extremeCpuAggregateUtilization=%parm[#2]% 
+			extremeCpuUtilizationRisingTrap trap received
+			extremeCpuTaskUtilPair=%parm[#1]%
+			extremeCpuAggregateUtilization=%parm[#2]%
 			extremeCpuUtilRisingThreshold=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2594,9 +2594,9 @@ extremeCpuUtilRisingThreshold&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeCpuUtilizationFallingTrap trap received 
-			extremeCpuTaskUtilPair=%parm[#1]% 
-			extremeCpuAggregateUtilization=%parm[#2]% 
+			extremeCpuUtilizationFallingTrap trap received
+			extremeCpuTaskUtilPair=%parm[#1]%
+			extremeCpuAggregateUtilization=%parm[#2]%
 			extremeCpuUtilRisingThreshold=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2635,9 +2635,9 @@ extremeCpuUtilRisingThreshold&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeProcessorStateChangeTrap trap received 
-			sysDescr=%parm[#1]% 
-			extremeSlotNumber=%parm[#2]% 
+			extremeProcessorStateChangeTrap trap received
+			sysDescr=%parm[#1]%
+			extremeSlotNumber=%parm[#2]%
 			extremeNPModuleProcessorState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2684,9 +2684,9 @@ extremeCpuUtilRisingThreshold&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeMsmFailoverTrap trap received 
-			sysDescr=%parm[#1]% 
-			extremeMasterMSMSlot=%parm[#2]% 
+			extremeMsmFailoverTrap trap received
+			sysDescr=%parm[#1]%
+			extremeMasterMSMSlot=%parm[#2]%
 			extremeMsmFailoverCause=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2710,7 +2710,7 @@ extremeCpuUtilRisingThreshold&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEsrpTimedOutFailedOverMaster</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEsrpTimedOutFailedOverMaster</event-label>
 	<descr>
-&lt;p&gt;The master node performed a hitless MSM failover, but the 
+&lt;p&gt;The master node performed a hitless MSM failover, but the
 master failed to resume normal operation within the reelect timeout.
 Thus, a new master (this switch) was elected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2735,10 +2735,10 @@ Thus, a new master (this switch) was elected.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEsrpTimedOutFailedOverMaster trap received 
-			sysDescr=%parm[#1]% 
-			extremeVlanIfIndex=%parm[#2]% 
-			extremeVlanIfDescr=%parm[#3]% 
+			extremeEsrpTimedOutFailedOverMaster trap received
+			sysDescr=%parm[#1]%
+			extremeVlanIfIndex=%parm[#2]%
+			extremeVlanIfDescr=%parm[#3]%
 			extremeEsrpState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2791,11 +2791,11 @@ Thus, a new master (this switch) was elected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeRateLimitExceededTrap trap received 
-			extremeRateLimitExceededTrapType=%parm[#1]% 
-			extremeRateLimitExceededTrapIndicator=%parm[#2]% 
-			ifIndex=%parm[#3]% 
-			extremeIQosProfileIndex=%parm[#4]% 
+			extremeRateLimitExceededTrap trap received
+			extremeRateLimitExceededTrapType=%parm[#1]%
+			extremeRateLimitExceededTrapIndicator=%parm[#2]%
+			ifIndex=%parm[#3]%
+			extremeIQosProfileIndex=%parm[#4]%
 			extremeExceededByteCount=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2820,7 +2820,7 @@ Thus, a new master (this switch) was elected.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeBgpPrefixReachedThreshold</event-label>
 	<descr>
 &lt;p&gt;The extremeBgpPrefixReachedThreshold notification is generated
-when the number of prefixes received over this 
+when the number of prefixes received over this
 peer session reaches the threshold limit.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2828,7 +2828,7 @@ peer session reaches the threshold limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeBgpPrefixReachedThreshold trap received 
+			extremeBgpPrefixReachedThreshold trap received
 			bgpPeerRemoteAddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2853,7 +2853,7 @@ peer session reaches the threshold limit.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeBgpPrefixMaxExceeded</event-label>
 	<descr>
 &lt;p&gt;The extremeBgpPrefixMaxExceeded notification is generated
-when the number of prefixes received over this 
+when the number of prefixes received over this
 peer session reaches the maximum configured limit.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2861,7 +2861,7 @@ peer session reaches the maximum configured limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeBgpPrefixMaxExceeded trap received 
+			extremeBgpPrefixMaxExceeded trap received
 			bgpPeerRemoteAddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2885,8 +2885,8 @@ peer session reaches the maximum configured limit.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeMacLimitExceeded</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeMacLimitExceeded</event-label>
 	<descr>
-&lt;p&gt;This trap will be generated, for a port on which limit-learning has been 
-configured,  when a new MAC address exceeding the limit is learnt on that 
+&lt;p&gt;This trap will be generated, for a port on which limit-learning has been
+configured,  when a new MAC address exceeding the limit is learnt on that
 port.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2910,11 +2910,11 @@ port.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeMacLimitExceeded trap received 
-			extremeMacSecurityVlanIfIndex=%parm[#1]% 
-			extremeMacSecurityVlanDescr=%parm[#2]% 
-			extremeMacSecurityMacAddress=%parm[#3]% 
-			extremeMacSecurityPortIfIndex=%parm[#4]% 
+			extremeMacLimitExceeded trap received
+			extremeMacSecurityVlanIfIndex=%parm[#1]%
+			extremeMacSecurityVlanDescr=%parm[#2]%
+			extremeMacSecurityMacAddress=%parm[#3]%
+			extremeMacSecurityPortIfIndex=%parm[#4]%
 			extremeMacSecurityVlanId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2938,8 +2938,8 @@ port.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeUnauthorizedPortForMacDetected</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeUnauthorizedPortForMacDetected</event-label>
 	<descr>
-&lt;p&gt;This trap will be generated when a MAC Address is learnt on a port on which 
-it is not not authorized. This will happen when the MAC address is statically 
+&lt;p&gt;This trap will be generated when a MAC Address is learnt on a port on which
+it is not not authorized. This will happen when the MAC address is statically
 configured  as a 'secure mac' on some other port(s).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2963,11 +2963,11 @@ configured  as a 'secure mac' on some other port(s).&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeUnauthorizedPortForMacDetected trap received 
-			extremeMacSecurityVlanIfIndex=%parm[#1]% 
-			extremeMacSecurityVlanDescr=%parm[#2]% 
-			extremeMacSecurityVlanId=%parm[#3]% 
-			extremeMacSecurityMacAddress=%parm[#4]% 
+			extremeUnauthorizedPortForMacDetected trap received
+			extremeMacSecurityVlanIfIndex=%parm[#1]%
+			extremeMacSecurityVlanDescr=%parm[#2]%
+			extremeMacSecurityVlanId=%parm[#3]%
+			extremeMacSecurityMacAddress=%parm[#4]%
 			extremeMacSecurityPortIfIndex=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2991,7 +2991,7 @@ configured  as a 'secure mac' on some other port(s).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeMacDetectedOnLockedPort</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeMacDetectedOnLockedPort</event-label>
 	<descr>
-&lt;p&gt;This trap will be generated on a port for which lock-learning has been 
+&lt;p&gt;This trap will be generated on a port for which lock-learning has been
 configured, when a new MAC address is learnt on that port.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3015,11 +3015,11 @@ configured, when a new MAC address is learnt on that port.&lt;/p&gt;&lt;table&gt
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeMacDetectedOnLockedPort trap received 
-			extremeMacSecurityVlanIfIndex=%parm[#1]% 
-			extremeMacSecurityVlanDescr=%parm[#2]% 
-			extremeMacSecurityVlanId=%parm[#3]% 
-			extremeMacSecurityMacAddress=%parm[#4]% 
+			extremeMacDetectedOnLockedPort trap received
+			extremeMacSecurityVlanIfIndex=%parm[#1]%
+			extremeMacSecurityVlanDescr=%parm[#2]%
+			extremeMacSecurityVlanId=%parm[#3]%
+			extremeMacSecurityMacAddress=%parm[#4]%
 			extremeMacSecurityPortIfIndex=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3043,7 +3043,7 @@ configured, when a new MAC address is learnt on that port.&lt;/p&gt;&lt;table&gt
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeNetloginUserLogin</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeNetloginUserLogin</event-label>
 	<descr>
-&lt;p&gt;This trap will be generated when a netlogin supplicant passes 
+&lt;p&gt;This trap will be generated when a netlogin supplicant passes
 authentication and logs in successfully into the network.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3099,15 +3099,15 @@ authentication and logs in successfully into the network.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeNetloginUserLogin trap received 
-			extremeNetloginStationMac=%parm[#1]% 
-			extremeNetloginStationAddr=%parm[#2]% 
-			extremeNetloginPortIfIndex=%parm[#3]% 
-			extremeNetloginAuthType=%parm[#4]% 
-			extremeNetloginSystemTime=%parm[#5]% 
-			extremeNetloginUser=%parm[#6]% 
-			extremeNetloginSrcVlan=%parm[#7]% 
-			extremeNetloginDestVlan=%parm[#8]% 
+			extremeNetloginUserLogin trap received
+			extremeNetloginStationMac=%parm[#1]%
+			extremeNetloginStationAddr=%parm[#2]%
+			extremeNetloginPortIfIndex=%parm[#3]%
+			extremeNetloginAuthType=%parm[#4]%
+			extremeNetloginSystemTime=%parm[#5]%
+			extremeNetloginUser=%parm[#6]%
+			extremeNetloginSrcVlan=%parm[#7]%
+			extremeNetloginDestVlan=%parm[#8]%
 			extremeNetloginSessionStatus=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3131,8 +3131,8 @@ authentication and logs in successfully into the network.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeNetloginUserLogout</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeNetloginUserLogout</event-label>
 	<descr>
-&lt;p&gt;This trap will be generated when a netlogin supplicant logs out. 
-This trap is meant to notify logout event only for already 
+&lt;p&gt;This trap will be generated when a netlogin supplicant logs out.
+This trap is meant to notify logout event only for already
 authenticated and logged in supplicant. &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3188,15 +3188,15 @@ authenticated and logged in supplicant. &lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeNetloginUserLogout trap received 
-			extremeNetloginStationMac=%parm[#1]% 
-			extremeNetloginStationAddr=%parm[#2]% 
-			extremeNetloginPortIfIndex=%parm[#3]% 
-			extremeNetloginAuthType=%parm[#4]% 
-			extremeNetloginSystemTime=%parm[#5]% 
-			extremeNetloginUser=%parm[#6]% 
-			extremeNetloginSrcVlan=%parm[#7]% 
-			extremeNetloginDestVlan=%parm[#8]% 
+			extremeNetloginUserLogout trap received
+			extremeNetloginStationMac=%parm[#1]%
+			extremeNetloginStationAddr=%parm[#2]%
+			extremeNetloginPortIfIndex=%parm[#3]%
+			extremeNetloginAuthType=%parm[#4]%
+			extremeNetloginSystemTime=%parm[#5]%
+			extremeNetloginUser=%parm[#6]%
+			extremeNetloginSrcVlan=%parm[#7]%
+			extremeNetloginDestVlan=%parm[#8]%
 			extremeNetloginSessionStatus=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3220,7 +3220,7 @@ authenticated and logged in supplicant. &lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeNetloginAuthFailure</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeNetloginAuthFailure</event-label>
 	<descr>
-&lt;p&gt;This trap will be generated upon authentication failure for a 
+&lt;p&gt;This trap will be generated upon authentication failure for a
 netlogin supplicant&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3276,15 +3276,15 @@ netlogin supplicant&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeNetloginAuthFailure trap received 
-			extremeNetloginStationMac=%parm[#1]% 
-			extremeNetloginStationAddr=%parm[#2]% 
-			extremeNetloginPortIfIndex=%parm[#3]% 
-			extremeNetloginAuthType=%parm[#4]% 
-			extremeNetloginSystemTime=%parm[#5]% 
-			extremeNetloginUser=%parm[#6]% 
-			extremeNetloginSrcVlan=%parm[#7]% 
-			extremeNetloginDestVlan=%parm[#8]% 
+			extremeNetloginAuthFailure trap received
+			extremeNetloginStationMac=%parm[#1]%
+			extremeNetloginStationAddr=%parm[#2]%
+			extremeNetloginPortIfIndex=%parm[#3]%
+			extremeNetloginAuthType=%parm[#4]%
+			extremeNetloginSystemTime=%parm[#5]%
+			extremeNetloginUser=%parm[#6]%
+			extremeNetloginSrcVlan=%parm[#7]%
+			extremeNetloginDestVlan=%parm[#8]%
 			extremeNetloginSessionStatus=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3368,7 +3368,7 @@ in its inventory database occurs. This trap is not send by a router or switch.&l
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeNMSInventoryChanged trap received 
+			extremeNMSInventoryChanged trap received
 			extremeNMSDeviceAddress=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3391,7 +3391,7 @@ in its inventory database occurs. This trap is not send by a router or switch.&l
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeNMSTopologyChanged</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeNMSTopologyChanged</event-label>
 	<descr>
-&lt;p&gt;This trap is sent by Extreme's Network Management Applications when a change 
+&lt;p&gt;This trap is sent by Extreme's Network Management Applications when a change
 in its Topology database occurs. This trap is not send by a router or switch.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3425,7 +3425,7 @@ when the ELRP client detects a loop in the vlan.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeElrpVlanLoopDetected trap received 
+			extremeElrpVlanLoopDetected trap received
 			extremeVlanIfDescr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3488,10 +3488,10 @@ when the EAPS domain has a state change.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsStateChange trap received 
-			extremeEapsName=%parm[#1]% 
-			extremeEapsMode=%parm[#2]% 
-			extremeEapsPrevState=%parm[#3]% 
+			extremeEapsStateChange trap received
+			extremeEapsName=%parm[#1]%
+			extremeEapsMode=%parm[#2]%
+			extremeEapsPrevState=%parm[#3]%
 			extremeEapsState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3515,7 +3515,7 @@ when the EAPS domain has a state change.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEapsFailTimerExpFlagSet</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsFailTimerExpFlagSet</event-label>
 	<descr>
-&lt;p&gt;The extremeEapsFailTimerExpFlagSet notification is 
+&lt;p&gt;The extremeEapsFailTimerExpFlagSet notification is
 generated when the EAPS domain's fail timer expires
 for the first time, while its state is not in Fail state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3556,10 +3556,10 @@ for the first time, while its state is not in Fail state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsFailTimerExpFlagSet trap received 
-			extremeEapsName=%parm[#1]% 
-			extremeEapsMode=%parm[#2]% 
-			extremeEapsPrevState=%parm[#3]% 
+			extremeEapsFailTimerExpFlagSet trap received
+			extremeEapsName=%parm[#1]%
+			extremeEapsMode=%parm[#2]%
+			extremeEapsPrevState=%parm[#3]%
 			extremeEapsState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3583,8 +3583,8 @@ for the first time, while its state is not in Fail state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEapsFailTimerExpFlagClear</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsFailTimerExpFlagClear</event-label>
 	<descr>
-&lt;p&gt;The extremeEapsFailTimerExpFlagClear notification is 
-generated when the EAPS domain's Fail timer expired flag 
+&lt;p&gt;The extremeEapsFailTimerExpFlagClear notification is
+generated when the EAPS domain's Fail timer expired flag
 is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3624,10 +3624,10 @@ is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsFailTimerExpFlagClear trap received 
-			extremeEapsName=%parm[#1]% 
-			extremeEapsMode=%parm[#2]% 
-			extremeEapsPrevState=%parm[#3]% 
+			extremeEapsFailTimerExpFlagClear trap received
+			extremeEapsName=%parm[#1]%
+			extremeEapsMode=%parm[#2]%
+			extremeEapsPrevState=%parm[#3]%
 			extremeEapsState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3651,7 +3651,7 @@ is cleared.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEapsLinkDownRingComplete</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsLinkDownRingComplete</event-label>
 	<descr>
-&lt;p&gt;If a Transit is in Link-Down state, and it receives a 
+&lt;p&gt;If a Transit is in Link-Down state, and it receives a
 Health-Check-Pdu from the Master indicating the ring is
 Complete, it means there is some problem with the Transit
 switch that has issued this trap message.&lt;/p&gt;&lt;table&gt;
@@ -3693,10 +3693,10 @@ switch that has issued this trap message.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsLinkDownRingComplete trap received 
-			extremeEapsName=%parm[#1]% 
-			extremeEapsMode=%parm[#2]% 
-			extremeEapsPrevState=%parm[#3]% 
+			extremeEapsLinkDownRingComplete trap received
+			extremeEapsName=%parm[#1]%
+			extremeEapsMode=%parm[#2]%
+			extremeEapsPrevState=%parm[#3]%
 			extremeEapsState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3720,7 +3720,7 @@ switch that has issued this trap message.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEapsPortStatusChange</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsPortStatusChange</event-label>
 	<descr>
-&lt;p&gt;The extremeEapsPortStatusChange notification is 
+&lt;p&gt;The extremeEapsPortStatusChange notification is
 generated when an EAPS primary or secondary port changes state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3750,10 +3750,10 @@ generated when an EAPS primary or secondary port changes state.&lt;/p&gt;&lt;tab
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsPortStatusChange trap received 
-			extremeEapsName=%parm[#1]% 
-			extremeEapsPrimaryStatus=%parm[#2]% 
-			extremeEapsSecondaryStatus=%parm[#3]% 
+			extremeEapsPortStatusChange trap received
+			extremeEapsName=%parm[#1]%
+			extremeEapsPrimaryStatus=%parm[#2]%
+			extremeEapsSecondaryStatus=%parm[#3]%
 			extremeEapsLastStatusChange=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3778,7 +3778,7 @@ generated when an EAPS primary or secondary port changes state.&lt;/p&gt;&lt;tab
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsConfigChange</event-label>
 	<descr>
 &lt;p&gt;The extremeEapsConfigChange notification is generated
-when the EAPS configuration has changed.  It is sent 30 seconds 
+when the EAPS configuration has changed.  It is sent 30 seconds
 after the first change is made to limit the number of traps sent&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3786,7 +3786,7 @@ after the first change is made to limit the number of traps sent&lt;/p&gt;&lt;ta
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsConfigChange trap received 
+			extremeEapsConfigChange trap received
 			extremeEapsLastConfigurationChange=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3826,8 +3826,8 @@ traps are dropped due to be being sent while the network is converging.&lt;/p&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsLastStatusChangeTime trap received 
-			extremeEapsLastStatusChange=%parm[#1]% 
+			extremeEapsLastStatusChangeTime trap received
+			extremeEapsLastStatusChange=%parm[#1]%
 			extremeEapsStatusTrapCount=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3851,7 +3851,7 @@ traps are dropped due to be being sent while the network is converging.&lt;/p&gt
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeBgpM2PrefixReachedThreshold</event-label>
 	<descr>
 &lt;p&gt;The extremeBgpPrefixReachedThreshold notification is generated
-when the number of prefixes received over this 
+when the number of prefixes received over this
 peer session reaches the threshold limit.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3871,10 +3871,10 @@ peer session reaches the threshold limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeBgpM2PrefixReachedThreshold trap received 
-			bgpM2PeerRemoteAddr=%parm[#1]% 
-			bgpM2PeerRemoteAddrType=%parm[#2]% 
-			bgpM2PeerLocalAddr=%parm[#3]% 
+			extremeBgpM2PrefixReachedThreshold trap received
+			bgpM2PeerRemoteAddr=%parm[#1]%
+			bgpM2PeerRemoteAddrType=%parm[#2]%
+			bgpM2PeerLocalAddr=%parm[#3]%
 			bgpM2PeerLocalAddrType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3899,7 +3899,7 @@ peer session reaches the threshold limit.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeBgpM2PrefixMaxExceeded</event-label>
 	<descr>
 &lt;p&gt;The extremeBgpPrefixMaxExceeded notification is generated
-when the number of prefixes received over this 
+when the number of prefixes received over this
 peer session reaches the maximum configured limit.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3919,10 +3919,10 @@ peer session reaches the maximum configured limit.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeBgpM2PrefixMaxExceeded trap received 
-			bgpM2PeerRemoteAddr=%parm[#1]% 
-			bgpM2PeerRemoteAddrType=%parm[#2]% 
-			bgpM2PeerLocalAddr=%parm[#3]% 
+			extremeBgpM2PrefixMaxExceeded trap received
+			bgpM2PeerRemoteAddr=%parm[#1]%
+			bgpM2PeerRemoteAddrType=%parm[#2]%
+			bgpM2PeerLocalAddr=%parm[#3]%
 			bgpM2PeerLocalAddrType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3946,7 +3946,7 @@ peer session reaches the maximum configured limit.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEapsSegmentTimerExpFlagSet</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsSegmentTimerExpFlagSet</event-label>
 	<descr>
-&lt;p&gt;The extremeEapsFailTimerExpFlagSet notification is 
+&lt;p&gt;The extremeEapsFailTimerExpFlagSet notification is
 generated when the EAPS domain's segment timer expires
 for the first time.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3959,8 +3959,8 @@ for the first time.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsSegmentTimerExpFlagSet trap received 
-			extremeSegmentPort=%parm[#1]% 
+			extremeEapsSegmentTimerExpFlagSet trap received
+			extremeSegmentPort=%parm[#1]%
 			extremeSharedPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3983,8 +3983,8 @@ for the first time.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeEapsSegmentTimerExpFlagClear</uei>
 	<event-label>EXTREME-V2TRAP-MIB defined trap event: extremeEapsSegmentTimerExpFlagClear</event-label>
 	<descr>
-&lt;p&gt;The extremeEapsSegmentTimerExpFlagClear notification is 
-generated when the EAPS domain's Segment Fail timer 
+&lt;p&gt;The extremeEapsSegmentTimerExpFlagClear notification is
+generated when the EAPS domain's Segment Fail timer
 expired flag is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3996,8 +3996,8 @@ expired flag is cleared.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsSegmentTimerExpFlagClear trap received 
-			extremeSegmentPort=%parm[#1]% 
+			extremeEapsSegmentTimerExpFlagClear trap received
+			extremeSegmentPort=%parm[#1]%
 			extremeSharedPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4061,12 +4061,12 @@ when the EAPS shared port state changes.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsSharedPortStateChange trap received 
-			extremeEapsSharedPortIfIndex=%parm[#1]% 
-			extremeEapsSharedPortLinkId=%parm[#2]% 
-			extremeEapsSharedPortState=%parm[#3]% 
-			extremeEapsSharedPortNbrStatus=%parm[#4]% 
-			extremeEapsSharedPortRootBlockerStatus=%parm[#5]% 
+			extremeEapsSharedPortStateChange trap received
+			extremeEapsSharedPortIfIndex=%parm[#1]%
+			extremeEapsSharedPortLinkId=%parm[#2]%
+			extremeEapsSharedPortState=%parm[#3]%
+			extremeEapsSharedPortNbrStatus=%parm[#4]%
+			extremeEapsSharedPortRootBlockerStatus=%parm[#5]%
 			extremeEapsLastStatusChange=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4113,10 +4113,10 @@ when each switch detects a new rootblocker ID on the networks.&lt;/p&gt;&lt;tabl
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeEapsRootBlockerStatusChange trap received 
-			extremeEapsSharedPortIfIndex=%parm[#1]% 
-			extremeEapsSharedPortRootBlockerStatus=%parm[#2]% 
-			extremeEapsSharedPortRootBlockerId=%parm[#3]% 
+			extremeEapsRootBlockerStatusChange trap received
+			extremeEapsSharedPortIfIndex=%parm[#1]%
+			extremeEapsSharedPortRootBlockerStatus=%parm[#2]%
+			extremeEapsSharedPortRootBlockerId=%parm[#3]%
 			extremeEapsLastStatusChange=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4154,8 +4154,8 @@ when each switch detects a new rootblocker ID on the networks.&lt;/p&gt;&lt;tabl
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremePethPSUStatusNotification trap received 
-			extremePethSlotPSUActive=%parm[#1]% 
+			extremePethPSUStatusNotification trap received
+			extremePethSlotPSUActive=%parm[#1]%
 			extremePethSlotMainPseIndex=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4189,8 +4189,8 @@ when each switch detects a new rootblocker ID on the networks.&lt;/p&gt;&lt;tabl
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeLacpAddPortToAggregator trap received 
-			extremeLacpGroup=%parm[#1]% 
+			extremeLacpAddPortToAggregator trap received
+			extremeLacpGroup=%parm[#1]%
 			extremeLacpMemberPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4224,8 +4224,8 @@ when each switch detects a new rootblocker ID on the networks.&lt;/p&gt;&lt;tabl
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeLacpDeletePortFromAggregator trap received 
-			extremeLacpGroup=%parm[#1]% 
+			extremeLacpDeletePortFromAggregator trap received
+			extremeLacpGroup=%parm[#1]%
 			extremeLacpMemberPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4250,7 +4250,7 @@ when each switch detects a new rootblocker ID on the networks.&lt;/p&gt;&lt;tabl
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeWirelessPortStateChange</uei>
 	<event-label>EXTREME-WIRELESS-MIB defined trap event: extremeWirelessPortStateChange</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when a wireless port moves 
+&lt;p&gt;This trap is generated when a wireless port moves
 into enabled, disabled or online.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4271,8 +4271,8 @@ into enabled, disabled or online.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessPortStateChange trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessPortStateChange trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessPortState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4295,7 +4295,7 @@ into enabled, disabled or online.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeWirelessPortBootFailure</uei>
 	<event-label>EXTREME-WIRELESS-MIB defined trap event: extremeWirelessPortBootFailure</event-label>
 	<descr>
-&lt;p&gt;This trap is sent by the platform if a wireless 
+&lt;p&gt;This trap is sent by the platform if a wireless
 port fails to boot too many times.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4303,7 +4303,7 @@ port fails to boot too many times.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessPortBootFailure trap received 
+			extremeWirelessPortBootFailure trap received
 			extremeWirelessPortIfIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4326,7 +4326,7 @@ port fails to boot too many times.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeWirelessClientStationAgedOut</uei>
 	<event-label>EXTREME-WIRELESS-MIB defined trap event: extremeWirelessClientStationAgedOut</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when a client is aged out 
+&lt;p&gt;This trap is generated when a client is aged out
 of the table.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4338,8 +4338,8 @@ of the table.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessClientStationAgedOut trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessClientStationAgedOut trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessClientID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4362,8 +4362,8 @@ of the table.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/extremeWirelessNetloginClientAssociated</uei>
 	<event-label>EXTREME-WIRELESS-MIB defined trap event: extremeWirelessNetloginClientAssociated</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when a client has associated 
-to an interface that is web based network login 
+&lt;p&gt;This trap is generated when a client has associated
+to an interface that is web based network login
 enabled.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4375,8 +4375,8 @@ enabled.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessNetloginClientAssociated trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessNetloginClientAssociated trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessClientID=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4506,24 +4506,24 @@ is true.&lt;/p&gt;&lt;table&gt;
 	%parm[#18]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessAPAdded trap received 
-			ifIndex=%parm[#1]% 
-			extremeWirelessScanResultsStationId=%parm[#2]% 
-			extremeWirelessScanResultsFirstSeen=%parm[#3]% 
-			extremeWirelessScanResultsLastChange=%parm[#4]% 
-			extremeWirelessScanResultsPacketRate=%parm[#5]% 
-			extremeWirelessScanResultsChannel=%parm[#6]% 
-			extremeWirelessScanResultsAvgRSS=%parm[#7]% 
-			extremeWirelessScanResultsSSID=%parm[#8]% 
-			extremeWirelessScanResultsRSNEnabled=%parm[#9]% 
-			extremeWirelessScanResultsPrivacy=%parm[#10]% 
-			extremeWirelessScanResultsNetworkType=%parm[#11]% 
-			extremeWirelessScanWPAIEMcastCipher=%parm[#12]% 
-			extremeWirelessScanWPAUcastCipherCount=%parm[#13]% 
-			extremeWirelessScanWPAUcastCipher=%parm[#14]% 
-			extremeWirelessScanWPAKeyMgmtCount=%parm[#15]% 
-			extremeWirelessScanWPAKeyMgmtSuite=%parm[#16]% 
-			extremeWirelessScanResultsRateSet=%parm[#17]% 
+			extremeWirelessAPAdded trap received
+			ifIndex=%parm[#1]%
+			extremeWirelessScanResultsStationId=%parm[#2]%
+			extremeWirelessScanResultsFirstSeen=%parm[#3]%
+			extremeWirelessScanResultsLastChange=%parm[#4]%
+			extremeWirelessScanResultsPacketRate=%parm[#5]%
+			extremeWirelessScanResultsChannel=%parm[#6]%
+			extremeWirelessScanResultsAvgRSS=%parm[#7]%
+			extremeWirelessScanResultsSSID=%parm[#8]%
+			extremeWirelessScanResultsRSNEnabled=%parm[#9]%
+			extremeWirelessScanResultsPrivacy=%parm[#10]%
+			extremeWirelessScanResultsNetworkType=%parm[#11]%
+			extremeWirelessScanWPAIEMcastCipher=%parm[#12]%
+			extremeWirelessScanWPAUcastCipherCount=%parm[#13]%
+			extremeWirelessScanWPAUcastCipher=%parm[#14]%
+			extremeWirelessScanWPAKeyMgmtCount=%parm[#15]%
+			extremeWirelessScanWPAKeyMgmtSuite=%parm[#16]%
+			extremeWirelessScanResultsRateSet=%parm[#17]%
 			extremeWirelessScanResultsExtRateSet=%parm[#18]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4560,8 +4560,8 @@ is true.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessAPRemoved trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessAPRemoved trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessScanResultsStationId=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4690,24 +4690,24 @@ generated if the value of SendAPUpdatedTrap is true.&lt;/p&gt;&lt;table&gt;
 	%parm[#18]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessAPUpdated trap received 
-			ifIndex=%parm[#1]% 
-			extremeWirelessScanResultsStationId=%parm[#2]% 
-			extremeWirelessScanResultsFirstSeen=%parm[#3]% 
-			extremeWirelessScanResultsLastChange=%parm[#4]% 
-			extremeWirelessScanResultsPacketRate=%parm[#5]% 
-			extremeWirelessScanResultsChannel=%parm[#6]% 
-			extremeWirelessScanResultsAvgRSS=%parm[#7]% 
-			extremeWirelessScanResultsSSID=%parm[#8]% 
-			extremeWirelessScanResultsRSNEnabled=%parm[#9]% 
-			extremeWirelessScanResultsPrivacy=%parm[#10]% 
-			extremeWirelessScanResultsNetworkType=%parm[#11]% 
-			extremeWirelessScanWPAIEMcastCipher=%parm[#12]% 
-			extremeWirelessScanWPAUcastCipherCount=%parm[#13]% 
-			extremeWirelessScanWPAUcastCipher=%parm[#14]% 
-			extremeWirelessScanWPAKeyMgmtCount=%parm[#15]% 
-			extremeWirelessScanWPAKeyMgmtSuite=%parm[#16]% 
-			extremeWirelessScanResultsRateSet=%parm[#17]% 
+			extremeWirelessAPUpdated trap received
+			ifIndex=%parm[#1]%
+			extremeWirelessScanResultsStationId=%parm[#2]%
+			extremeWirelessScanResultsFirstSeen=%parm[#3]%
+			extremeWirelessScanResultsLastChange=%parm[#4]%
+			extremeWirelessScanResultsPacketRate=%parm[#5]%
+			extremeWirelessScanResultsChannel=%parm[#6]%
+			extremeWirelessScanResultsAvgRSS=%parm[#7]%
+			extremeWirelessScanResultsSSID=%parm[#8]%
+			extremeWirelessScanResultsRSNEnabled=%parm[#9]%
+			extremeWirelessScanResultsPrivacy=%parm[#10]%
+			extremeWirelessScanResultsNetworkType=%parm[#11]%
+			extremeWirelessScanWPAIEMcastCipher=%parm[#12]%
+			extremeWirelessScanWPAUcastCipherCount=%parm[#13]%
+			extremeWirelessScanWPAUcastCipher=%parm[#14]%
+			extremeWirelessScanWPAKeyMgmtCount=%parm[#15]%
+			extremeWirelessScanWPAKeyMgmtSuite=%parm[#16]%
+			extremeWirelessScanResultsRateSet=%parm[#17]%
 			extremeWirelessScanResultsExtRateSet=%parm[#18]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4731,7 +4731,7 @@ generated if the value of SendAPUpdatedTrap is true.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXTREME-WIRELESS-MIB defined trap event: extremeWirelessProbeInfoAdded</event-label>
 	<descr>
 &lt;p&gt;This is generated when a new station is added to the
-probe info table.  It will only be generated if the 
+probe info table.  It will only be generated if the
 value of extremeWirelessProbeInfoSendAddedTrap is true.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4743,8 +4743,8 @@ value of extremeWirelessProbeInfoSendAddedTrap is true.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessProbeInfoAdded trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessProbeInfoAdded trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessProbeInfoSource=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4768,8 +4768,8 @@ value of extremeWirelessProbeInfoSendAddedTrap is true.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXTREME-WIRELESS-MIB defined trap event: extremeWirelessProbeInfoRemoved</event-label>
 	<descr>
 &lt;p&gt;This is generated when a station is removed from the
-probe info table.  It will only be generated if the 
-value of extremeWirelessProbeInfoSendRemovedTrap is 
+probe info table.  It will only be generated if the
+value of extremeWirelessProbeInfoSendRemovedTrap is
 true.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4781,8 +4781,8 @@ true.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessProbeInfoRemoved trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessProbeInfoRemoved trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessProbeInfoSource=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4858,8 +4858,8 @@ running.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessOffChannelScanStarted trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessOffChannelScanStarted trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessOffChannelScanList=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4935,8 +4935,8 @@ running.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessOffChannelScanFinished trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessOffChannelScanFinished trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessOffChannelScanList=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4974,8 +4974,8 @@ on a wireless interface.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessCounterMeasureStarted trap received 
-			ifIndex=%parm[#1]% 
+			extremeWirelessCounterMeasureStarted trap received
+			ifIndex=%parm[#1]%
 			extremeWirelessCounterMeasureSource=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5006,7 +5006,7 @@ on a wireless interface.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			extremeWirelessCounterMeasureStopped trap received 
+			extremeWirelessCounterMeasureStopped trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5282,7 +5282,7 @@ successful, or if it failed then the reason for the failure.&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendor/extreme/traps/wanDsx1LineStatusChange</uei>
 	<event-label>WAN-TRAP-MIB defined trap event: wanDsx1LineStatusChange</event-label>
 	<descr>
-&lt;p&gt;Signifies that the DS1 line status change for 
+&lt;p&gt;Signifies that the DS1 line status change for
 the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5306,11 +5306,11 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanDsx1LineStatusChange trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			dsx1LineIndex=%parm[#3]% 
-			dsx1IfIndex=%parm[#4]% 
+			wanDsx1LineStatusChange trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			dsx1LineIndex=%parm[#3]%
+			dsx1IfIndex=%parm[#4]%
 			dsx1LineStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5334,7 +5334,7 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/wanDsx1LossOfMasterClock</uei>
 	<event-label>WAN-TRAP-MIB defined trap event: wanDsx1LossOfMasterClock</event-label>
 	<descr>
-&lt;p&gt;Signifies that the wanDsx1LossOfMasterClock event for 
+&lt;p&gt;Signifies that the wanDsx1LossOfMasterClock event for
 the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5358,11 +5358,11 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanDsx1LossOfMasterClock trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			dsx1LineIndex=%parm[#3]% 
-			dsx1IfIndex=%parm[#4]% 
+			wanDsx1LossOfMasterClock trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			dsx1LineIndex=%parm[#3]%
+			dsx1IfIndex=%parm[#4]%
 			dsx1LineStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5386,7 +5386,7 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/wanDsx1NoLossOfMasterClock</uei>
 	<event-label>WAN-TRAP-MIB defined trap event: wanDsx1NoLossOfMasterClock</event-label>
 	<descr>
-&lt;p&gt;Signifies that the wanDsx1NoLossOfMasterClock event for 
+&lt;p&gt;Signifies that the wanDsx1NoLossOfMasterClock event for
 the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5410,11 +5410,11 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanDsx1NoLossOfMasterClock trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			dsx1LineIndex=%parm[#3]% 
-			dsx1IfIndex=%parm[#4]% 
+			wanDsx1NoLossOfMasterClock trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			dsx1LineIndex=%parm[#3]%
+			dsx1IfIndex=%parm[#4]%
 			dsx1LineStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5438,7 +5438,7 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/wanDsx3LineStatusChange</uei>
 	<event-label>WAN-TRAP-MIB defined trap event: wanDsx3LineStatusChange</event-label>
 	<descr>
-&lt;p&gt;Signifies that the T3 line status change for 
+&lt;p&gt;Signifies that the T3 line status change for
 the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5462,11 +5462,11 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanDsx3LineStatusChange trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			dsx3LineIndex=%parm[#3]% 
-			dsx3IfIndex=%parm[#4]% 
+			wanDsx3LineStatusChange trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			dsx3LineIndex=%parm[#3]%
+			dsx3IfIndex=%parm[#4]%
 			dsx3LineStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5490,7 +5490,7 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/wanDsx3LossOfMasterClock</uei>
 	<event-label>WAN-TRAP-MIB defined trap event: wanDsx3LossOfMasterClock</event-label>
 	<descr>
-&lt;p&gt;Signifies that the wanDsx3LossOfMasterClock event for 
+&lt;p&gt;Signifies that the wanDsx3LossOfMasterClock event for
 the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5514,11 +5514,11 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanDsx3LossOfMasterClock trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			dsx3LineIndex=%parm[#3]% 
-			dsx3IfIndex=%parm[#4]% 
+			wanDsx3LossOfMasterClock trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			dsx3LineIndex=%parm[#3]%
+			dsx3IfIndex=%parm[#4]%
 			dsx3LineStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5542,7 +5542,7 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/extreme/traps/wanDsx3NoLossOfMasterClock</uei>
 	<event-label>WAN-TRAP-MIB defined trap event: wanDsx3NoLossOfMasterClock</event-label>
 	<descr>
-&lt;p&gt;Signifies that the wanDsx3NoLossOfMasterClock event for 
+&lt;p&gt;Signifies that the wanDsx3NoLossOfMasterClock event for
 the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5566,11 +5566,11 @@ the specified interface has been detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanDsx3NoLossOfMasterClock trap received 
-			sysUpTime=%parm[#1]% 
-			sysDescr=%parm[#2]% 
-			dsx3LineIndex=%parm[#3]% 
-			dsx3IfIndex=%parm[#4]% 
+			wanDsx3NoLossOfMasterClock trap received
+			sysUpTime=%parm[#1]%
+			sysDescr=%parm[#2]%
+			dsx3LineIndex=%parm[#3]%
+			dsx3IfIndex=%parm[#4]%
 			dsx3LineStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

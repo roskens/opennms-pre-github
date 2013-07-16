@@ -12,23 +12,23 @@
 	">
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    
+
     <bean name="pollerQueryManager" class="org.opennms.netmgt.poller.DefaultQueryManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
-    
+
     <bean name="pollContext" class="org.opennms.netmgt.poller.DefaultPollContext">
       <property name="eventManager" ref="eventIpcManager" />
       <property name="localHostName" ref="localHostName" />
       <property name="name" value="OpenNMS.Poller.DefaultPollContext" />
       <property name="pollerConfig" ref="pollerConfig" />
       <property name="queryManager" ref="pollerQueryManager" />
-    </bean> 
-    
+    </bean>
+
     <bean name="pollableNetwork" class="org.opennms.netmgt.poller.pollables.PollableNetwork">
         <constructor-arg ref="pollContext" />
     </bean>
-    
+
     <bean name="daemon" class="org.opennms.netmgt.poller.Poller">
       <property name="dataSource" ref="dataSource" />
       <property name="eventManager" ref="eventIpcManager" />
@@ -37,5 +37,5 @@
       <property name="pollerConfig" ref="pollerConfig" />
       <property name="pollOutagesConfig" ref="pollOutagesConfig" />
     </bean>
-    
+
 </beans>

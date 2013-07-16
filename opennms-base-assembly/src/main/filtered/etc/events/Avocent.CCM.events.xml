@@ -28,7 +28,7 @@ is contained in ccmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmRebootStartedTrap trap received 
+			avctCcmRebootStartedTrap trap received
 			ccmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -64,7 +64,7 @@ in ccmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserLoginTrap trap received 
+			avctCcmUserLoginTrap trap received
 			ccmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -98,7 +98,7 @@ in ccmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserLogoutTrap trap received 
+			avctCcmUserLogoutTrap trap received
 			ccmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -129,7 +129,7 @@ is contained in ccmTrapObjectUserName.
 The port number on the appliance that the session is using is
 contained in ccmTrapObjectSessionIdentifier.
 
-The port name on the appliance that the session is using is 
+The port name on the appliance that the session is using is
 contained in ccmTrapObjectServerName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -145,9 +145,9 @@ contained in ccmTrapObjectServerName.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSerialSessionStartedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectSessionIdentifier=%parm[#2]% 
+			avctCcmSerialSessionStartedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectSessionIdentifier=%parm[#2]%
 			ccmTrapObjectServerName=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -194,9 +194,9 @@ contained in ccmTrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSerialSessionStoppedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectSessionIdentifier=%parm[#2]% 
+			avctCcmSerialSessionStoppedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectSessionIdentifier=%parm[#2]%
 			ccmTrapObjectServerName=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -251,10 +251,10 @@ contained in ccmTrapObjectServerName.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSerialSessionTerminatedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectTargetUserName=%parm[#2]% 
-			ccmTrapObjectSessionIdentifier=%parm[#3]% 
+			avctCcmSerialSessionTerminatedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectTargetUserName=%parm[#2]%
+			ccmTrapObjectSessionIdentifier=%parm[#3]%
 			ccmTrapObjectServerName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -311,10 +311,10 @@ is contained in ccmTrapObjectImageCurrentVersion.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmImageUpgradeStartedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectImageType=%parm[#2]% 
-			ccmTrapObjectImageNewVersion=%parm[#3]% 
+			avctCcmImageUpgradeStartedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectImageType=%parm[#2]%
+			ccmTrapObjectImageNewVersion=%parm[#3]%
 			ccmTrapObjectImageCurrentVersion=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -377,8 +377,8 @@ ccmTrapObjectImageType.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmImageUpgradeResultsTrap trap received 
-			ccmTrapObjectImageUpgradeResults=%parm[#1]% 
+			avctCcmImageUpgradeResultsTrap trap received
+			ccmTrapObjectImageUpgradeResults=%parm[#1]%
 			ccmTrapObjectImageType=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -418,8 +418,8 @@ ccmTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserAddedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmUserAddedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -459,8 +459,8 @@ in ccmTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserDeletedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmUserDeletedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -500,8 +500,8 @@ in ccmTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserModifiedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmUserModifiedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -534,7 +534,7 @@ is contained in ccmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserAuthenticationFailureTrap trap received 
+			avctCcmUserAuthenticationFailureTrap trap received
 			ccmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -610,9 +610,9 @@ in ccmTrapObjectPortAlertString.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmPortAlertTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
-			ccmTrapObjectPortAlertString=%parm[#2]% 
+			avctCcmPortAlertTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
+			ccmTrapObjectPortAlertString=%parm[#2]%
 			ccmTrapObjectServerName=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -653,8 +653,8 @@ ccmTrapObjectFileName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmConfigurationFileLoadedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmConfigurationFileLoadedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -695,8 +695,8 @@ ccmTrapObjectFileName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserDatabaseFileLoadedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmUserDatabaseFileLoadedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -742,8 +742,8 @@ ccmTrapObjectServerName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmPortPowerOnDetectTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
+			avctCcmPortPowerOnDetectTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
 			ccmTrapObjectServerName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -789,8 +789,8 @@ ccmTrapObjectServerName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmPortPowerOffDetectTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
+			avctCcmPortPowerOffDetectTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
 			ccmTrapObjectServerName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -815,20 +815,20 @@ ccmTrapObjectServerName.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A power device attached to the appliance is detected to be online.
 
-This trap is sent upon initialization of the power device if it is 
-online and responding. Subsequent traps are sent if the power device 
+This trap is sent upon initialization of the power device if it is
+online and responding. Subsequent traps are sent if the power device
 transitions from offline to online.
 
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -848,10 +848,10 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcDeviceOnlineTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#3]% 
+			avctCcmSpcDeviceOnlineTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -883,13 +883,13 @@ from online to offline.
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -909,10 +909,10 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcDeviceOfflineTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#3]% 
+			avctCcmSpcDeviceOfflineTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -943,16 +943,16 @@ power device using the user name configured in the appliance.
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The user name attempting to login to the power device is contained in
 ccmTrapObjectSpcDeviceLogin.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -976,11 +976,11 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcLoginErrTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceLogin=%parm[#3]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#4]% 
+			avctCcmSpcLoginErrTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceLogin=%parm[#3]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#4]%
 			ccmTrapObjectEntityNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1008,7 +1008,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that was issued the on command is contained
@@ -1017,10 +1017,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that was issued the on command is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1052,13 +1052,13 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcSocketOnCommandTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectSpcDeviceLocation=%parm[#2]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#3]% 
-			ccmTrapObjectSpcSocket=%parm[#4]% 
-			ccmTrapObjectServerName=%parm[#5]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#6]% 
+			avctCcmSpcSocketOnCommandTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectSpcDeviceLocation=%parm[#2]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#3]%
+			ccmTrapObjectSpcSocket=%parm[#4]%
+			ccmTrapObjectServerName=%parm[#5]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#6]%
 			ccmTrapObjectEntityNumber=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1086,7 +1086,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that was issued the off command is contained
@@ -1095,10 +1095,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that was issued the off command is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1130,13 +1130,13 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcSocketOffCommandTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectSpcDeviceLocation=%parm[#2]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#3]% 
-			ccmTrapObjectSpcSocket=%parm[#4]% 
-			ccmTrapObjectServerName=%parm[#5]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#6]% 
+			avctCcmSpcSocketOffCommandTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectSpcDeviceLocation=%parm[#2]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#3]%
+			ccmTrapObjectSpcSocket=%parm[#4]%
+			ccmTrapObjectServerName=%parm[#5]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#6]%
 			ccmTrapObjectEntityNumber=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1164,7 +1164,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that was issued the reboot command is contained
@@ -1173,10 +1173,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that was issued the reboot command is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1208,13 +1208,13 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcSocketRebootCommandTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectSpcDeviceLocation=%parm[#2]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#3]% 
-			ccmTrapObjectSpcSocket=%parm[#4]% 
-			ccmTrapObjectServerName=%parm[#5]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#6]% 
+			avctCcmSpcSocketRebootCommandTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectSpcDeviceLocation=%parm[#2]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#3]%
+			ccmTrapObjectSpcSocket=%parm[#4]%
+			ccmTrapObjectServerName=%parm[#5]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#6]%
 			ccmTrapObjectEntityNumber=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1237,7 +1237,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctCcmSpcSocketOnSenseFailTrap</uei>
 	<event-label>AVCT-CCM-TRAP-MIB defined trap event: avctCcmSpcSocketOnSenseFailTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has detected an on sense 
+&lt;p&gt;A power device attached to the appliance has detected an on sense
 failure for a socket.
 
 An on sense failure occurs when a socket should be in the on state
@@ -1246,7 +1246,7 @@ but is actually in the off state.
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that has the failure is contained
@@ -1255,10 +1255,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that has the failure is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1286,12 +1286,12 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcSocketOnSenseFailTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcSocket=%parm[#3]% 
-			ccmTrapObjectServerName=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctCcmSpcSocketOnSenseFailTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcSocket=%parm[#3]%
+			ccmTrapObjectServerName=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
 			ccmTrapObjectEntityNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1314,7 +1314,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctCcmSpcSocketOffSenseFailTrap</uei>
 	<event-label>AVCT-CCM-TRAP-MIB defined trap event: avctCcmSpcSocketOffSenseFailTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has detected an off sense 
+&lt;p&gt;A power device attached to the appliance has detected an off sense
 failure for a socket.
 
 An off sense failure occurs when a socket should be in the off state
@@ -1323,7 +1323,7 @@ but is actually in the on state.
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that has the failure is contained
@@ -1332,10 +1332,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that has the failure is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1363,12 +1363,12 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcSocketOffSenseFailTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcSocket=%parm[#3]% 
-			ccmTrapObjectServerName=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctCcmSpcSocketOffSenseFailTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcSocket=%parm[#3]%
+			ccmTrapObjectServerName=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
 			ccmTrapObjectEntityNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1391,19 +1391,19 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctCcmSpcTotalLoadHighTrap</uei>
 	<event-label>AVCT-CCM-TRAP-MIB defined trap event: avctCcmSpcTotalLoadHighTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has exceeded the maximum 
+&lt;p&gt;A power device attached to the appliance has exceeded the maximum
 threshold for total load.
 
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1423,10 +1423,10 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcTotalLoadHighTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#3]% 
+			avctCcmSpcTotalLoadHighTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1455,10 +1455,10 @@ threshold for total load.
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
 The entity number of the power device that is connected to a port of
@@ -1481,10 +1481,10 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcTotalLoadLowTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#3]% 
+			avctCcmSpcTotalLoadLowTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1512,7 +1512,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that has changed to the on state is contained
@@ -1521,10 +1521,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that has changed to the on state is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1552,12 +1552,12 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcStatusSocketOnTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcSocket=%parm[#3]% 
-			ccmTrapObjectServerName=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctCcmSpcStatusSocketOnTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcSocket=%parm[#3]%
+			ccmTrapObjectServerName=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
 			ccmTrapObjectEntityNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1585,7 +1585,7 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
 The socket number that has changed to the off state is contained
@@ -1594,10 +1594,10 @@ in ccmTrapObjectSpcSocket.
 The socket name that has changed to the off state is contained
 in ccmTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
-The entity number of the power device that is connected to a port of 
+The entity number of the power device that is connected to a port of
 the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1625,12 +1625,12 @@ the appliance is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcStatusSocketOffTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcSocket=%parm[#3]% 
-			ccmTrapObjectServerName=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctCcmSpcStatusSocketOffTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcSocket=%parm[#3]%
+			ccmTrapObjectServerName=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
 			ccmTrapObjectEntityNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1682,9 +1682,9 @@ in ccmTrapObjectLockReason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserLockedTrap trap received 
-			ccmTrapObjectIPAddress=%parm[#1]% 
-			ccmTrapObjectTargetUserName=%parm[#2]% 
+			avctCcmUserLockedTrap trap received
+			ccmTrapObjectIPAddress=%parm[#1]%
+			ccmTrapObjectTargetUserName=%parm[#2]%
 			ccmTrapObjectLockReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1749,10 +1749,10 @@ in ccmTrapObjectUnlockReason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmUserUnlockedTrap trap received 
-			ccmTrapObjectIPAddress=%parm[#1]% 
-			ccmTrapObjectUserName=%parm[#2]% 
-			ccmTrapObjectTargetUserName=%parm[#3]% 
+			avctCcmUserUnlockedTrap trap received
+			ccmTrapObjectIPAddress=%parm[#1]%
+			ccmTrapObjectUserName=%parm[#2]%
+			ccmTrapObjectTargetUserName=%parm[#3]%
 			ccmTrapObjectUnlockReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1789,7 +1789,7 @@ current status of all connection paths.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmAggregatedServerStatusChangedTrap trap received 
+			avctCcmAggregatedServerStatusChangedTrap trap received
 			ccmTrapObjectAggregateServerStatusChanged=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1822,7 +1822,7 @@ ccmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsDisableRqstdTrap trap received 
+			avctCcmNfsDisableRqstdTrap trap received
 			ccmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1883,7 +1883,7 @@ ccmTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsEnableRqstdTrap trap received 
+			avctCcmNfsEnableRqstdTrap trap received
 			ccmTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2246,8 +2246,8 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsMountFailedRetryingTrap trap received 
-			ccmTrapObjectNfsPriErrorReason=%parm[#1]% 
+			avctCcmNfsMountFailedRetryingTrap trap received
+			ccmTrapObjectNfsPriErrorReason=%parm[#1]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2558,8 +2558,8 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsMountFailedGaveUpTrap trap received 
-			ccmTrapObjectNfsPriErrorReason=%parm[#1]% 
+			avctCcmNfsMountFailedGaveUpTrap trap received
+			ccmTrapObjectNfsPriErrorReason=%parm[#1]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2869,8 +2869,8 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsMountLostRetryingTrap trap received 
-			ccmTrapObjectNfsPriErrorReason=%parm[#1]% 
+			avctCcmNfsMountLostRetryingTrap trap received
+			ccmTrapObjectNfsPriErrorReason=%parm[#1]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3180,8 +3180,8 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsMountLost1stRetryFailedTrap trap received 
-			ccmTrapObjectNfsPriErrorReason=%parm[#1]% 
+			avctCcmNfsMountLost1stRetryFailedTrap trap received
+			ccmTrapObjectNfsPriErrorReason=%parm[#1]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3491,8 +3491,8 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsMountLostGaveUpTrap trap received 
-			ccmTrapObjectNfsPriErrorReason=%parm[#1]% 
+			avctCcmNfsMountLostGaveUpTrap trap received
+			ccmTrapObjectNfsPriErrorReason=%parm[#1]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3532,8 +3532,8 @@ the serial port to be enabled.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortEnableRqstdTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmNfsPortEnableRqstdTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectPortNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3573,8 +3573,8 @@ the serial port to be disabled.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortDisableRqstdTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
+			avctCcmNfsPortDisableRqstdTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
 			ccmTrapObjectPortNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3907,10 +3907,10 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortNeedsMountTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
-			ccmTrapObjectNfsPortErrStatus=%parm[#2]% 
-			ccmTrapObjectNfsPriErrorReason=%parm[#3]% 
+			avctCcmNfsPortNeedsMountTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
+			ccmTrapObjectNfsPortErrStatus=%parm[#2]%
+			ccmTrapObjectNfsPriErrorReason=%parm[#3]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4245,10 +4245,10 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortOpenFailRetryingTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
-			ccmTrapObjectNfsPortErrStatus=%parm[#2]% 
-			ccmTrapObjectNfsPriErrorReason=%parm[#3]% 
+			avctCcmNfsPortOpenFailRetryingTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
+			ccmTrapObjectNfsPortErrStatus=%parm[#2]%
+			ccmTrapObjectNfsPriErrorReason=%parm[#3]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4582,10 +4582,10 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortOpenFailGaveUpTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
-			ccmTrapObjectNfsPortErrStatus=%parm[#2]% 
-			ccmTrapObjectNfsPriErrorReason=%parm[#3]% 
+			avctCcmNfsPortOpenFailGaveUpTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
+			ccmTrapObjectNfsPortErrStatus=%parm[#2]%
+			ccmTrapObjectNfsPriErrorReason=%parm[#3]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4619,7 +4619,7 @@ the serial port that was successfully open.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortFileOpenOKTrap trap received 
+			avctCcmNfsPortFileOpenOKTrap trap received
 			ccmTrapObjectPortNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4961,10 +4961,10 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortWriteErrorTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
-			ccmTrapObjectNfsPortErrStatus=%parm[#2]% 
-			ccmTrapObjectNfsPriErrorReason=%parm[#3]% 
+			avctCcmNfsPortWriteErrorTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
+			ccmTrapObjectNfsPortErrStatus=%parm[#2]%
+			ccmTrapObjectNfsPriErrorReason=%parm[#3]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5307,10 +5307,10 @@ value will be 9999 (no error).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortOverrunErrorTrap trap received 
-			ccmTrapObjectPortNumber=%parm[#1]% 
-			ccmTrapObjectNfsPortErrStatus=%parm[#2]% 
-			ccmTrapObjectNfsPriErrorReason=%parm[#3]% 
+			avctCcmNfsPortOverrunErrorTrap trap received
+			ccmTrapObjectPortNumber=%parm[#1]%
+			ccmTrapObjectNfsPortErrStatus=%parm[#2]%
+			ccmTrapObjectNfsPriErrorReason=%parm[#3]%
 			ccmTrapObjectNfsSecErrorReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5345,7 +5345,7 @@ that has no errors.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortNoRecentErrorsTrap trap received 
+			avctCcmNfsPortNoRecentErrorsTrap trap received
 			ccmTrapObjectPortNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5378,7 +5378,7 @@ where the file was open.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmNfsPortFileClosedTrap trap received 
+			avctCcmNfsPortFileClosedTrap trap received
 			ccmTrapObjectPortNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5409,7 +5409,7 @@ is contained in ccmTrapObjectUserName.
 The name of the SoL port that the session is using is
 contained in ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port connects to 
+The IP address of the BMC the SoL port connects to
 is contained in ccmTrapObjectIPAddress.
 
 The entity number of the SoL port that the session is using is
@@ -5432,10 +5432,10 @@ contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortSessionStartedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
-			ccmTrapObjectIPAddress=%parm[#3]% 
+			avctCcmSolPortSessionStartedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
+			ccmTrapObjectIPAddress=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5466,10 +5466,10 @@ is contained in ccmTrapObjectUserName.
 The name of the SoL port that the session was using is
 contained in ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port connects to 
+The IP address of the BMC the SoL port connects to
 is contained in ccmTrapObjectIPAddress.
 
-The entity number of the SoL port that the session was using is 
+The entity number of the SoL port that the session was using is
 contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5489,10 +5489,10 @@ contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortSessionStoppedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
-			ccmTrapObjectIPAddress=%parm[#3]% 
+			avctCcmSolPortSessionStoppedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
+			ccmTrapObjectIPAddress=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5515,7 +5515,7 @@ contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctCcmSolPortSessionTerminatedTrap</uei>
 	<event-label>AVCT-CCM-TRAP-MIB defined trap event: avctCcmSolPortSessionTerminatedTrap</event-label>
 	<descr>
-&lt;p&gt;A session to a SoL port has been terminated or preempted 
+&lt;p&gt;A session to a SoL port has been terminated or preempted
 by another user.
 
 The name of the user who terminated or preempted the session is
@@ -5527,7 +5527,7 @@ is contained in ccmTrapObjectTargetUserName.
 The name of the SoL port that the session was using is
 contained in ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port connects to 
+The IP address of the BMC the SoL port connects to
 is contained in ccmTrapObjectIPAddress.
 
 The entity number of the SoL port that the session was using is
@@ -5554,11 +5554,11 @@ contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortSessionTerminatedTrap trap received 
-			ccmTrapObjectUserName=%parm[#1]% 
-			ccmTrapObjectTargetUserName=%parm[#2]% 
-			ccmTrapObjectServerName=%parm[#3]% 
-			ccmTrapObjectIPAddress=%parm[#4]% 
+			avctCcmSolPortSessionTerminatedTrap trap received
+			ccmTrapObjectUserName=%parm[#1]%
+			ccmTrapObjectTargetUserName=%parm[#2]%
+			ccmTrapObjectServerName=%parm[#3]%
+			ccmTrapObjectIPAddress=%parm[#4]%
 			ccmTrapObjectEntityNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5586,7 +5586,7 @@ contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The name of the SoL port that has lost communication to its
 BMC is contained in ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port has lost communication 
+The IP address of the BMC the SoL port has lost communication
 with is contained in ccmTrapObjectIPAddress.
 
 The reason for the loss of communication is contained in
@@ -5615,10 +5615,10 @@ BMC is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortLcmTrap trap received 
-			ccmTrapObjectServerName=%parm[#1]% 
-			ccmTrapObjectIPAddress=%parm[#2]% 
-			ccmTrapObjectLcmReason=%parm[#3]% 
+			avctCcmSolPortLcmTrap trap received
+			ccmTrapObjectServerName=%parm[#1]%
+			ccmTrapObjectIPAddress=%parm[#2]%
+			ccmTrapObjectLcmReason=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5646,7 +5646,7 @@ BMC is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 The name of the SoL port that has regained communication to its
 BMC is contained in ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port has regained communication 
+The IP address of the BMC the SoL port has regained communication
 with is contained in ccmTrapObjectIPAddress.
 
 The entity number of the SoL port that has regained communication to
@@ -5665,9 +5665,9 @@ its BMC is contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortRcmTrap trap received 
-			ccmTrapObjectServerName=%parm[#1]% 
-			ccmTrapObjectIPAddress=%parm[#2]% 
+			avctCcmSolPortRcmTrap trap received
+			ccmTrapObjectServerName=%parm[#1]%
+			ccmTrapObjectIPAddress=%parm[#2]%
 			ccmTrapObjectEntityNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5698,7 +5698,7 @@ ccmTrapObjectOldName.
 The new name of the serial port is contained in
 ccmTrapObjectServerName.
 
-The serial port number for which the name changed is 
+The serial port number for which the name changed is
 contained in ccmTrapObjectPortNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5714,9 +5714,9 @@ contained in ccmTrapObjectPortNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSerialPortNameChangedTrap trap received 
-			ccmTrapObjectOldName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
+			avctCcmSerialPortNameChangedTrap trap received
+			ccmTrapObjectOldName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
 			ccmTrapObjectPortNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5747,10 +5747,10 @@ ccmTrapObjectOldName.
 The new name of the SoL port is contained in
 ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port connects to 
+The IP address of the BMC the SoL port connects to
 is contained in ccmTrapObjectIPAddress.
 
-The entity number of the SoL port for which the name changed is 
+The entity number of the SoL port for which the name changed is
 contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5770,10 +5770,10 @@ contained in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortNameChangedTrap trap received 
-			ccmTrapObjectOldName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
-			ccmTrapObjectIPAddress=%parm[#3]% 
+			avctCcmSolPortNameChangedTrap trap received
+			ccmTrapObjectOldName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
+			ccmTrapObjectIPAddress=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5807,16 +5807,16 @@ ccmTrapObjectServerName.
 The location of the power device is contained in
 ccmTrapObjectSPCDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
 The entity number of the power device is contained in
 ccmTrapObjectEntityNumber.
 
-The socket number of the power device is contained in 
+The socket number of the power device is contained in
 ccmTrapObjectSpcSocket.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5848,13 +5848,13 @@ ccmTrapObjectSpcSocket.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcSocketNameChangedTrap trap received 
-			ccmTrapObjectOldName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
-			ccmTrapObjectSpcDeviceLocation=%parm[#3]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
-			ccmTrapObjectEntityNumber=%parm[#6]% 
+			avctCcmSpcSocketNameChangedTrap trap received
+			ccmTrapObjectOldName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
+			ccmTrapObjectSpcDeviceLocation=%parm[#3]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
+			ccmTrapObjectEntityNumber=%parm[#6]%
 			ccmTrapObjectSpcSocket=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5911,9 +5911,9 @@ in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmTdTypeChangedTrap trap received 
-			ccmTrapObjectOldTdType=%parm[#1]% 
-			ccmTrapObjectTdType=%parm[#2]% 
+			avctCcmTdTypeChangedTrap trap received
+			ccmTrapObjectOldTdType=%parm[#1]%
+			ccmTrapObjectTdType=%parm[#2]%
 			ccmTrapObjectEntityNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5938,7 +5938,7 @@ in ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A SoL port has been added.
 
-The name of the SoL port that has been added is contained in 
+The name of the SoL port that has been added is contained in
 ccmTrapObjectServerName.
 
 The IP address of the BMC the SoL port connects to is contained in
@@ -5967,10 +5967,10 @@ ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortAddedTrap trap received 
-			ccmTrapObjectServerName=%parm[#1]% 
-			ccmTrapObjectIPAddress=%parm[#2]% 
-			ccmTrapObjectTelnetPortNumber=%parm[#3]% 
+			avctCcmSolPortAddedTrap trap received
+			ccmTrapObjectServerName=%parm[#1]%
+			ccmTrapObjectIPAddress=%parm[#2]%
+			ccmTrapObjectTelnetPortNumber=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5995,13 +5995,13 @@ ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A SoL port has been deleted.
 
-The name of the SoL port that was deleted is contained in 
+The name of the SoL port that was deleted is contained in
 ccmTrapObjectServerName.
 
-The IP address of the BMC the SoL port was connected to is 
+The IP address of the BMC the SoL port was connected to is
 contained in ccmTrapObjectIPAddress.
 
-The TCP port that was assigned to the SoL port that was deleted is 
+The TCP port that was assigned to the SoL port that was deleted is
 contained in ccmTrapObjectTelnetPortNumber.
 
 The entity number of the SoL port that was deleted is contained in
@@ -6024,10 +6024,10 @@ ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSolPortDeletedTrap trap received 
-			ccmTrapObjectServerName=%parm[#1]% 
-			ccmTrapObjectIPAddress=%parm[#2]% 
-			ccmTrapObjectTelnetPortNumber=%parm[#3]% 
+			avctCcmSolPortDeletedTrap trap received
+			ccmTrapObjectServerName=%parm[#1]%
+			ccmTrapObjectIPAddress=%parm[#2]%
+			ccmTrapObjectTelnetPortNumber=%parm[#3]%
 			ccmTrapObjectEntityNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -6050,16 +6050,16 @@ ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/avctCcmSpcInletTotalLoadHighTrap</uei>
 	<event-label>AVCT-CCM-TRAP-MIB defined trap event: avctCcmSpcInletTotalLoadHighTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has exceeded the maximum 
+&lt;p&gt;A power device attached to the appliance has exceeded the maximum
 threshold for total load of an inlet.
 
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
 The entity number of the power device is contained in
@@ -6088,11 +6088,11 @@ The inlet of the power device is contained in ccmTrapObjectSpcDeviceInlet.&lt;/p
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcInletTotalLoadHighTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#3]% 
-			ccmTrapObjectEntityNumber=%parm[#4]% 
+			avctCcmSpcInletTotalLoadHighTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#3]%
+			ccmTrapObjectEntityNumber=%parm[#4]%
 			ccmTrapObjectSpcDeviceInlet=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -6121,16 +6121,16 @@ threshold for total load.
 The location of the power device is contained in
 ccmTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
 The entity number of the power device is contained in
 ccmTrapObjectEntityNumber.
 
-The inlet of the power device is contained in 
+The inlet of the power device is contained in
 ccmTrapObjectSpcDeviceInlet.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6154,11 +6154,11 @@ ccmTrapObjectSpcDeviceInlet.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcInletTotalLoadLowTrap trap received 
-			ccmTrapObjectSpcDeviceLocation=%parm[#1]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#3]% 
-			ccmTrapObjectEntityNumber=%parm[#4]% 
+			avctCcmSpcInletTotalLoadLowTrap trap received
+			ccmTrapObjectSpcDeviceLocation=%parm[#1]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#2]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#3]%
+			ccmTrapObjectEntityNumber=%parm[#4]%
 			ccmTrapObjectSpcDeviceInlet=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6192,10 +6192,10 @@ ccmTrapObjectServerName.
 The location of the power device is contained in
 ccmTrapObjectSPCDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
 The entity number of the power device is contained in
@@ -6226,12 +6226,12 @@ ccmTrapObjectEntityNumber.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcDeviceNameChangedTrap trap received 
-			ccmTrapObjectOldName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
-			ccmTrapObjectSpcDeviceLocation=%parm[#3]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctCcmSpcDeviceNameChangedTrap trap received
+			ccmTrapObjectOldName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
+			ccmTrapObjectSpcDeviceLocation=%parm[#3]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
 			ccmTrapObjectEntityNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -6265,16 +6265,16 @@ ccmTrapObjectServerName.
 The location of the power device is contained in
 ccmTrapObjectSPCDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in ccmTrapObjectSpcDeviceCCMPort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in ccmTrapObjectSpcDeviceNumber.
 
 The entity number of the power device is contained in
 ccmTrapObjectEntityNumber.
 
-The inlet of the power device is contained in 
+The inlet of the power device is contained in
 ccmTrapObjectSpcDeviceInlet.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6306,13 +6306,13 @@ ccmTrapObjectSpcDeviceInlet.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctCcmSpcInletNameChangedTrap trap received 
-			ccmTrapObjectOldName=%parm[#1]% 
-			ccmTrapObjectServerName=%parm[#2]% 
-			ccmTrapObjectSpcDeviceLocation=%parm[#3]% 
-			ccmTrapObjectSpcDeviceCCMPort=%parm[#4]% 
-			ccmTrapObjectSpcDeviceNumber=%parm[#5]% 
-			ccmTrapObjectEntityNumber=%parm[#6]% 
+			avctCcmSpcInletNameChangedTrap trap received
+			ccmTrapObjectOldName=%parm[#1]%
+			ccmTrapObjectServerName=%parm[#2]%
+			ccmTrapObjectSpcDeviceLocation=%parm[#3]%
+			ccmTrapObjectSpcDeviceCCMPort=%parm[#4]%
+			ccmTrapObjectSpcDeviceNumber=%parm[#5]%
+			ccmTrapObjectEntityNumber=%parm[#6]%
 			ccmTrapObjectSpcDeviceInlet=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

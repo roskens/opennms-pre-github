@@ -18,11 +18,11 @@
 	<uei>uei.opennms.org/mib2opennms/unParsedEvent</uei>
 	<event-label>AGG-TRAP-MIB defined trap event: unParsedEvent</event-label>
 	<descr>
-&lt;p&gt;An event is sent up as unParsedEvent, 
+&lt;p&gt;An event is sent up as unParsedEvent,
 if there is an error in formatting, and event
 construction does not succeed.
 The variables are:
-1) unknownDeviceTrapContents - a string representing 
+1) unknownDeviceTrapContents - a string representing
    the event text as the pep received it.
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -31,7 +31,7 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			unParsedEvent trap received 
+			unParsedEvent trap received
 			unknownDeviceTrapContents=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -54,18 +54,18 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/styxProducerConnect</uei>
 	<event-label>AGG-TRAP-MIB defined trap event: styxProducerConnect</event-label>
 	<descr>
-&lt;p&gt;Indicates that the pep was sucessfully able to 
+&lt;p&gt;Indicates that the pep was sucessfully able to
 connect to the source of events specified in its
 config.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host:port - these two identify the device 
+3-4) host:port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
-     start-up event, mainly.  
+     start-up event, mainly.
 Severity: INFO&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -89,11 +89,11 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			styxProducerConnect trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
+			styxProducerConnect trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
 			file=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -117,14 +117,14 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<event-label>AGG-TRAP-MIB defined trap event: styxProducerUnReadable</event-label>
 	<descr>
 &lt;p&gt;Indicates that the pep's connection exists to the
-device, but the file named in the trap is not 
+device, but the file named in the trap is not
 readable.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host:port - these two identify the device 
+3-4) host:port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
@@ -150,11 +150,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			styxProducerUnReadable trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
+			styxProducerUnReadable trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
 			file=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -178,14 +178,14 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<event-label>AGG-TRAP-MIB defined trap event: styxProducerDisconnect</event-label>
 	<descr>
 &lt;p&gt;Indicates that the pep's connection to the source
-of events was severed.  This could either be because 
+of events was severed.  This could either be because
 device process died, or because there is a network outage.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host:port - these two identify the device 
+3-4) host:port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
@@ -211,11 +211,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			styxProducerDisconnect trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
+			styxProducerDisconnect trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
 			file=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -238,18 +238,18 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/styxProducerUnReachable</uei>
 	<event-label>AGG-TRAP-MIB defined trap event: styxProducerUnReachable</event-label>
 	<descr>
-&lt;p&gt;Indicates that the pep's connection to the device 
-has not been up for some time now, indicated in 
+&lt;p&gt;Indicates that the pep's connection to the device
+has not been up for some time now, indicated in
 minutes.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host, port - these two identify the device 
+3-4) host, port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
-     minutes - the time in minutes for which the 
+     minutes - the time in minutes for which the
      connection to the device has not been up.
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -278,12 +278,12 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			styxProducerUnReachable trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
-			file=%parm[#5]% 
+			styxProducerUnReachable trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
+			file=%parm[#5]%
 			minutes=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -306,12 +306,12 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/logFileChanged</uei>
 	<event-label>AGG-TRAP-MIB defined trap event: logFileChanged</event-label>
 	<descr>
-&lt;p&gt;Indicates that a log-file-change attempt is successful or 
+&lt;p&gt;Indicates that a log-file-change attempt is successful or
 failure.
 The variables are:
 1)   oldFile - this is the name of the old file which
      was to be changed.
-2)   newFile - this is the new log file name 
+2)   newFile - this is the new log file name
 3)   result  - this indicates 'success' or failure of
      logFileChange attempt.
 4)   reason - this describes the reason when log file change
@@ -335,10 +335,10 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			logFileChanged trap received 
-			oldFile=%parm[#1]% 
-			newFile=%parm[#2]% 
-			result=%parm[#3]% 
+			logFileChanged trap received
+			oldFile=%parm[#1]%
+			newFile=%parm[#2]%
+			result=%parm[#3]%
 			reason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -361,13 +361,13 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/styxFTMateConnect</uei>
 	<event-label>AGG-TRAP-MIB defined trap event: styxFTMateConnect</event-label>
 	<descr>
-&lt;p&gt;Indicates that this ServiceNode was sucessfully able to 
+&lt;p&gt;Indicates that this ServiceNode was sucessfully able to
 connect to its redundant mate. This event is usually raised
 by the Backup mate who is responsible for monitoring its
 respective Primary.
 The variables are:
 1)   snName - this is the name of the ServiceNode who
-     is raising the event. 
+     is raising the event.
 2-3)   myHost:myPort - these identify the host and port of the
      ServiceNode raising the event.
 4-5) mateHost:matePort - these identify the host and port
@@ -395,11 +395,11 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			styxFTMateConnect trap received 
-			snName=%parm[#1]% 
-			myHost=%parm[#2]% 
-			myPort=%parm[#3]% 
-			mateHost=%parm[#4]% 
+			styxFTMateConnect trap received
+			snName=%parm[#1]%
+			myHost=%parm[#2]%
+			myPort=%parm[#3]%
+			mateHost=%parm[#4]%
 			matePort=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -422,8 +422,8 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/styxFTMateDisconnect</uei>
 	<event-label>AGG-TRAP-MIB defined trap event: styxFTMateDisconnect</event-label>
 	<descr>
-&lt;p&gt;Indicates that this ServiceNode has lost connection 
-to its redundant mate due to either process or host failure. 
+&lt;p&gt;Indicates that this ServiceNode has lost connection
+to its redundant mate due to either process or host failure.
 This event is usually raised by the Backup mate who is
 monitoring its 	respective Primary. Connection will be
 established upon recovery of the mate.
@@ -458,11 +458,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			styxFTMateDisconnect trap received 
-			snName=%parm[#1]% 
-			myHost=%parm[#2]% 
-			myPort=%parm[#3]% 
-			mateHost=%parm[#4]% 
+			styxFTMateDisconnect trap received
+			snName=%parm[#1]%
+			myHost=%parm[#2]%
+			myPort=%parm[#3]%
+			mateHost=%parm[#4]%
 			matePort=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -494,7 +494,7 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRBufferOverflow trap received 
+			cDRBufferOverflow trap received
 			cdrClient=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -526,7 +526,7 @@ OBJECTS DEFINITION:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRInconsistentState trap received 
+			cDRInconsistentState trap received
 			cdrCallState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -558,7 +558,7 @@ VARIABLES DEFINITION:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRNewClient trap received 
+			cDRNewClient trap received
 			cdrClient=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -590,7 +590,7 @@ VARIABLES DEFINITION:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRClientDisconnected trap received 
+			cDRClientDisconnected trap received
 			cdrClient=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -622,7 +622,7 @@ VARIABLES DEFINITION:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRClientBufferOverflow trap received 
+			cDRClientBufferOverflow trap received
 			cdrClient=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -659,8 +659,8 @@ VARIABLES DEFINITION:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRFCAppInfoTimeOut trap received 
-			fCAppID=%parm[#1]% 
+			cDRFCAppInfoTimeOut trap received
+			fCAppID=%parm[#1]%
 			fCAppInstance=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -718,12 +718,12 @@ VARIABLES DEFINITION:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRLDCDetected trap received 
-			severity=%parm[#1]% 
-			originationNumber=%parm[#2]% 
-			destinationNumber=%parm[#3]% 
-			callAnswerTime=%parm[#4]% 
-			switchId=%parm[#5]% 
+			cDRLDCDetected trap received
+			severity=%parm[#1]%
+			originationNumber=%parm[#2]%
+			destinationNumber=%parm[#3]%
+			callAnswerTime=%parm[#4]%
+			switchId=%parm[#5]%
 			callId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -750,7 +750,7 @@ VARIABLES DEFINITION:
 VARIABLES DEFINITION:
 1) Severity: 1: Info, 2: Minor, 3: Major.
 2) OriginationNumber.
-3) DestinationNumber. 
+3) DestinationNumber.
 4) CallAnswerTime: YYYYMMDD:hhmmssms
 (example '20010506:172335100'  means may/06/2000 05:23PM, 35 seconds, 1000milliseconds).
 5) SwitchId.
@@ -781,12 +781,12 @@ VARIABLES DEFINITION:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRLDCContinued trap received 
-			severity=%parm[#1]% 
-			originationNumber=%parm[#2]% 
-			destinationNumber=%parm[#3]% 
-			callAnswerTime=%parm[#4]% 
-			switchId=%parm[#5]% 
+			cDRLDCContinued trap received
+			severity=%parm[#1]%
+			originationNumber=%parm[#2]%
+			destinationNumber=%parm[#3]%
+			callAnswerTime=%parm[#4]%
+			switchId=%parm[#5]%
 			callId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -824,8 +824,8 @@ VARIABLES DEFINITION:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRDiskFull trap received 
-			fullPercent=%parm[#1]% 
+			cDRDiskFull trap received
+			fullPercent=%parm[#1]%
 			fileSystem=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -875,12 +875,12 @@ VARIABLES DEFINITION:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cDRClientAlarm trap received 
-			subType=%parm[#1]% 
-			severity=%parm[#2]% 
-			fullPercent=%parm[#3]% 
-			fileSystem=%parm[#4]% 
-			fileName=%parm[#5]% 
+			cDRClientAlarm trap received
+			subType=%parm[#1]%
+			severity=%parm[#2]%
+			fullPercent=%parm[#3]%
+			fileSystem=%parm[#4]%
+			fileName=%parm[#5]%
 			errorNo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -905,7 +905,7 @@ VARIABLES DEFINITION:
 	<uei>uei.opennms.org/mib2opennms/excelCardUpTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelCardUpTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when a card is recognized by the matrix for the 
+&lt;p&gt;This trap is sent when a card is recognized by the matrix for the
 first time.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -949,10 +949,10 @@ first time.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardUpTrap trap received 
-			excelSysLastAlarmStatus=%parm[#1]% 
-			excelDeviceCardSlotIndex=%parm[#2]% 
-			excelSysLastAlarmNode=%parm[#3]% 
+			excelCardUpTrap trap received
+			excelSysLastAlarmStatus=%parm[#1]%
+			excelDeviceCardSlotIndex=%parm[#2]%
+			excelSysLastAlarmNode=%parm[#3]%
 			excelSysLastAlarmSeverity=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -975,7 +975,7 @@ first time.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelCardDownTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelCardDownTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when a card goes out of service, is removed or 
+&lt;p&gt;This trap is sent when a card goes out of service, is removed or
 for some reason is no longer recognized by the matrix.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1019,10 +1019,10 @@ for some reason is no longer recognized by the matrix.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardDownTrap trap received 
-			excelSysLastAlarmStatus=%parm[#1]% 
-			excelDeviceCardSlotIndex=%parm[#2]% 
-			excelSysLastAlarmNode=%parm[#3]% 
+			excelCardDownTrap trap received
+			excelSysLastAlarmStatus=%parm[#1]%
+			excelDeviceCardSlotIndex=%parm[#2]%
+			excelSysLastAlarmNode=%parm[#3]%
 			excelSysLastAlarmSeverity=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1045,8 +1045,8 @@ for some reason is no longer recognized by the matrix.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelCardActiveTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelCardActiveTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is sent after a switchover has occured from the 
-standby to active card.  excelDeviceCardSlotIndex will 
+&lt;p&gt;This trap is sent after a switchover has occured from the
+standby to active card.  excelDeviceCardSlotIndex will
 indicate the slot of the new active card.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1090,10 +1090,10 @@ indicate the slot of the new active card.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardActiveTrap trap received 
-			excelSysLastAlarmStatus=%parm[#1]% 
-			excelDeviceCardSlotIndex=%parm[#2]% 
-			excelSysLastAlarmNode=%parm[#3]% 
+			excelCardActiveTrap trap received
+			excelSysLastAlarmStatus=%parm[#1]%
+			excelDeviceCardSlotIndex=%parm[#2]%
+			excelSysLastAlarmNode=%parm[#3]%
 			excelSysLastAlarmSeverity=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1117,7 +1117,7 @@ indicate the slot of the new active card.&lt;/p&gt;&lt;table&gt;
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelFaultLoggedTrap</event-label>
 	<descr>
 &lt;p&gt;This trap is sent when a fault has occurred on a card. The
-slot number of the card on which a fault occurred is bound to 
+slot number of the card on which a fault occurred is bound to
 the trap.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1137,9 +1137,9 @@ the trap.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelFaultLoggedTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelFaultLoggedTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1197,8 +1197,8 @@ the trap.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelRingUpTrap trap received 
-			excelSysLastAlarmStatus=%parm[#1]% 
+			excelRingUpTrap trap received
+			excelSysLastAlarmStatus=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1236,8 +1236,8 @@ the trap.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelRingDownTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelRingDownTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1260,8 +1260,8 @@ the trap.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSystemBusyTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSystemBusyTrap</event-label>
 	<descr>
-&lt;p&gt;If the system is in a Busy Condition, then the matrix EX/CPU 
-is flooded with messages. All incoming calls will be ignored 
+&lt;p&gt;If the system is in a Busy Condition, then the matrix EX/CPU
+is flooded with messages. All incoming calls will be ignored
 until the alarm is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1277,8 +1277,8 @@ until the alarm is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSystemBusyTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelSystemBusyTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1316,8 +1316,8 @@ until the alarm is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSystemBusyWarningTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelSystemBusyWarningTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1355,8 +1355,8 @@ until the alarm is cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSystemBusyClearedTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelSystemBusyClearedTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1397,8 +1397,8 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelClockModeChangeTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelClockModeChangeTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1459,9 +1459,9 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelDSPResourceBlockTrap trap received 
-			excelSysLastAlarmDSPLastBlocked=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelDSPResourceBlockTrap trap received
+			excelSysLastAlarmDSPLastBlocked=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1499,8 +1499,8 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelDSPFuncNotCfgTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelDSPFuncNotCfgTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1538,8 +1538,8 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelDSPMgmtInconsistentTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelDSPMgmtInconsistentTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1577,8 +1577,8 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelDldTimeoutTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelDldTimeoutTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1601,7 +1601,7 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelRANUnAvailableTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelRANUnAvailableTrap</event-label>
 	<descr>
-&lt;p&gt;Recorded announcement requested is no longer available in the 
+&lt;p&gt;Recorded announcement requested is no longer available in the
 system.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1617,8 +1617,8 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelRANUnAvailableTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelRANUnAvailableTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1656,8 +1656,8 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelResourceUtilThreshTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelResourceUtilThreshTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1699,9 +1699,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardNotSuppTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardNotSuppTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1743,9 +1743,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardDldCorruptTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardDldCorruptTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1787,9 +1787,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardNotRecTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardNotRecTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1831,9 +1831,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardCfgResetTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardCfgResetTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1875,9 +1875,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardConnMapFailTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardConnMapFailTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1919,9 +1919,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardNoSWTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardNoSWTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1963,9 +1963,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardNoALawTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardNoALawTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2007,9 +2007,9 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardRevNotSuppTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelCardRevNotSuppTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2032,7 +2032,7 @@ system.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelEthernetErrTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelEthernetErrTrap</event-label>
 	<descr>
-&lt;p&gt;The switch determines the integrity of the host link by 
+&lt;p&gt;The switch determines the integrity of the host link by
 monitoring host ACKs to Poll messages. If two consecutive
 Poll messages are unacknowledged by the host, the switch
 resets its Ethernet Receiver and this trap will be sent.
@@ -2058,9 +2058,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelEthernetErrTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelEthernetErrTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2102,9 +2102,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelNoFanTrayTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelNoFanTrayTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2146,9 +2146,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelExnetACommFailTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelExnetACommFailTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2190,9 +2190,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelExnetBCommFailTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelExnetBCommFailTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2234,9 +2234,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelExnetAFiberFailTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelExnetAFiberFailTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2278,9 +2278,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelExnetBFiberFailTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelExnetBFiberFailTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2322,9 +2322,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelEXSAPITrap trap received 
-			excelNodePhysicalID=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelEXSAPITrap trap received
+			excelNodePhysicalID=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2366,9 +2366,9 @@ This can be prevented by increasing the polling interval.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelEXSConfTSTrap trap received 
-			excelNodePhysicalID=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelEXSConfTSTrap trap received
+			excelNodePhysicalID=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2411,9 +2411,9 @@ card represented by excelExnetConnectIndex resides on has changed.&lt;/p&gt;&lt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelEXSSCbusMasterChangedTrap trap received 
-			excelNodePhysicalID=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelEXSSCbusMasterChangedTrap trap received
+			excelNodePhysicalID=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2436,7 +2436,7 @@ card represented by excelExnetConnectIndex resides on has changed.&lt;/p&gt;&lt;
 	<uei>uei.opennms.org/mib2opennms/excelEXSSCbusFailureTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelEXSSCbusFailureTrap</event-label>
 	<descr>
-&lt;p&gt;The SCbus that the Excel EXNET Connect card represented by 
+&lt;p&gt;The SCbus that the Excel EXNET Connect card represented by
 excelExnetConnectIndex resides has failed.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2456,9 +2456,9 @@ excelExnetConnectIndex resides has failed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelEXSSCbusFailureTrap trap received 
-			excelNodePhysicalID=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelEXSSCbusFailureTrap trap received
+			excelNodePhysicalID=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2496,8 +2496,8 @@ excelExnetConnectIndex resides has failed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSS7NetCongestionTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelSS7NetCongestionTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2535,8 +2535,8 @@ excelExnetConnectIndex resides has failed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSS7RemISUPUnavailTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelSS7RemISUPUnavailTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2561,7 +2561,7 @@ excelExnetConnectIndex resides has failed.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;The Reference Clock Source has been lost.  No host
 intervention is needed for this occurance. The switch
-will automatically switch the clock mode to the next 
+will automatically switch the clock mode to the next
 available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2585,9 +2585,9 @@ available clock source.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelClockSourceLostTrap trap received 
-			excelSysLastAlarmRefClockSrc=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelClockSourceLostTrap trap received
+			excelSysLastAlarmRefClockSrc=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2634,9 +2634,9 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelClockSourceLostClearedTrap trap received 
-			excelSysLastAlarmRefClockSrc=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelClockSourceLostClearedTrap trap received
+			excelSysLastAlarmRefClockSrc=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2678,9 +2678,9 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelNoSupportDSPFuncTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelNoSupportDSPFuncTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2722,9 +2722,9 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPartialMessageReceivedTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelPartialMessageReceivedTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2766,9 +2766,9 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelUnackedMsgTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelUnackedMsgTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2810,9 +2810,9 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelNodeIDAlreadyExistsTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelNodeIDAlreadyExistsTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2854,9 +2854,9 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelInvalidMsgLenTrap trap received 
-			excelDeviceCardSlotIndex=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelInvalidMsgLenTrap trap received
+			excelDeviceCardSlotIndex=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2894,8 +2894,8 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelLogSpanIDExistsTrap trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelLogSpanIDExistsTrap trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2918,7 +2918,7 @@ automatically by the switch.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelNodeUpTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelNodeUpTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the Agent recognizes a new node in the 
+&lt;p&gt;This trap is sent when the Agent recognizes a new node in the
 system.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2934,8 +2934,8 @@ system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelNodeUpTrap trap received 
-			excelNodePhysicalID=%parm[#1]% 
+			excelNodeUpTrap trap received
+			excelNodePhysicalID=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2958,7 +2958,7 @@ system.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelNodeDownTrap</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelNodeDownTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the Agent has lost connectivity to the 
+&lt;p&gt;This trap is sent when the Agent has lost connectivity to the
 switch.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2974,8 +2974,8 @@ switch.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelNodeDownTrap trap received 
-			excelNodePhysicalID=%parm[#1]% 
+			excelNodeDownTrap trap received
+			excelNodePhysicalID=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2998,7 +2998,7 @@ switch.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSubagentConnect</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSubagentConnect</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the subagent process successfully 
+&lt;p&gt;This trap is sent when the subagent process successfully
 connects with the master agent.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3006,7 +3006,7 @@ connects with the master agent.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSubagentConnect trap received 
+			excelSubagentConnect trap received
 			excelNodeIdentifier=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3029,7 +3029,7 @@ connects with the master agent.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSwitchConnect</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSwitchConnect</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the subagent process successfully 
+&lt;p&gt;This trap is sent when the subagent process successfully
 connects to the switch interface process.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3041,8 +3041,8 @@ connects to the switch interface process.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSwitchConnect trap received 
-			excelCurrentNode=%parm[#1]% 
+			excelSwitchConnect trap received
+			excelCurrentNode=%parm[#1]%
 			excelNodeIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3073,7 +3073,7 @@ connectivity with the switch interface process&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSwitchLossConnectivity trap received 
+			excelSwitchLossConnectivity trap received
 			excelNodeIdentifier=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3096,7 +3096,7 @@ connectivity with the switch interface process&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSpanCarrierGroupAlarm</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSpanCarrierGroupAlarm</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the switch detects a Carrier Group 
+&lt;p&gt;This trap is generated when the switch detects a Carrier Group
 Alarm for more then some customer configured time.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3116,9 +3116,9 @@ Alarm for more then some customer configured time.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSpanCarrierGroupAlarm trap received 
-			excelLogicalSpanId=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelSpanCarrierGroupAlarm trap received
+			excelLogicalSpanId=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3141,7 +3141,7 @@ Alarm for more then some customer configured time.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSpanExcessiveSlips</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSpanExcessiveSlips</event-label>
 	<descr>
-&lt;p&gt;This trap will occur when the switch detects an abnormally high 
+&lt;p&gt;This trap will occur when the switch detects an abnormally high
 number of slips occurring&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3161,9 +3161,9 @@ number of slips occurring&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSpanExcessiveSlips trap received 
-			excelLogicalSpanId=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
+			excelSpanExcessiveSlips trap received
+			excelLogicalSpanId=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
 			excelSysLastAlarmSeverity=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3201,8 +3201,8 @@ number of slips occurring&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelSpanJ1Failure trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelSpanJ1Failure trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3225,7 +3225,7 @@ number of slips occurring&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelLineCardBusy</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelLineCardBusy</event-label>
 	<descr>
-&lt;p&gt;This trap will occur when the line card exceeds it's final 
+&lt;p&gt;This trap will occur when the line card exceeds it's final
 traffic threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3251,7 +3251,7 @@ traffic threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelLineCardApproachBusy</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelLineCardApproachBusy</event-label>
 	<descr>
-&lt;p&gt;This trap will occur when the line card reaches it's initial 
+&lt;p&gt;This trap will occur when the line card reaches it's initial
 traffic threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3277,7 +3277,7 @@ traffic threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelLowMemory</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelLowMemory</event-label>
 	<descr>
-&lt;p&gt;This trap will occur when memory usage on the line card 
+&lt;p&gt;This trap will occur when memory usage on the line card
 exceeds the defined threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3346,10 +3346,10 @@ exceeds the defined threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelCardStatusChange trap received 
-			excelSysLastAlarmStatus=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
-			excelDeviceCardSlotIndex=%parm[#3]% 
+			excelCardStatusChange trap received
+			excelSysLastAlarmStatus=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
+			excelDeviceCardSlotIndex=%parm[#3]%
 			excelSysLastAlarmSeverity=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3372,7 +3372,7 @@ exceeds the defined threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelLowMemoryCleared</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelLowMemoryCleared</event-label>
 	<descr>
-&lt;p&gt;This trap will occur when memory usage on the line card 
+&lt;p&gt;This trap will occur when memory usage on the line card
 returns below the defined threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3413,8 +3413,8 @@ returns below the defined threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelGenericEvent trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelGenericEvent trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3487,7 +3487,7 @@ returns below the defined threshold level&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSwitchOverSuccess</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSwitchOverSuccess</event-label>
 	<descr>
-&lt;p&gt;The controller switchover was successful.  The new D channel is 
+&lt;p&gt;The controller switchover was successful.  The new D channel is
 now the controller&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3513,7 +3513,7 @@ now the controller&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSwitchOverFailure</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSwitchOverFailure</event-label>
 	<descr>
-&lt;p&gt;The controller switchover failed.  The existing D channel is 
+&lt;p&gt;The controller switchover failed.  The existing D channel is
 still controlling the D channel&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3564,12 +3564,12 @@ still controlling the D channel&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSCbusMasterChange</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSCbusMasterChange</event-label>
 	<descr>
-&lt;p&gt;The local bus clock master has changed e.g. If the EXNET Connect 
-is configured to be the local (SC/MVIP) clock master and 
-another resource on the local bus is configured to be the 
-backup clock master and the EXNET Connect is then configured 
-NOT to be master or fails to drive the clock, the backup 
-master will take over and drive the clock. This alarm is sent 
+&lt;p&gt;The local bus clock master has changed e.g. If the EXNET Connect
+is configured to be the local (SC/MVIP) clock master and
+another resource on the local bus is configured to be the
+backup clock master and the EXNET Connect is then configured
+NOT to be master or fails to drive the clock, the backup
+master will take over and drive the clock. This alarm is sent
 when the EXNET Connect detects this.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3595,8 +3595,8 @@ when the EXNET Connect detects this.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelSCBusFail</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelSCBusFail</event-label>
 	<descr>
-&lt;p&gt;This event occurs wheneve a matrix has lost contact with a 
-remote SS7 card that is controlling CIC's that are located on 
+&lt;p&gt;This event occurs wheneve a matrix has lost contact with a
+remote SS7 card that is controlling CIC's that are located on
 that node&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3647,7 +3647,7 @@ that node&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelRearSlotController</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelRearSlotController</event-label>
 	<descr>
-&lt;p&gt;Communications resources are being currently controlled by the 
+&lt;p&gt;Communications resources are being currently controlled by the
 corresponding rear slot&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3663,8 +3663,8 @@ corresponding rear slot&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelRearSlotController trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelRearSlotController trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3687,7 +3687,7 @@ corresponding rear slot&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelFrontSlotController</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelFrontSlotController</event-label>
 	<descr>
-&lt;p&gt;Communications resources are being currently controlled by the 
+&lt;p&gt;Communications resources are being currently controlled by the
 corresponding front slot&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3703,8 +3703,8 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelFrontSlotController trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelFrontSlotController trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3759,7 +3759,7 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelRouteTableUpdated trap received 
+			excelRouteTableUpdated trap received
 			excelNodePhysicalID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3789,7 +3789,7 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelResourceGroupTableUpdated trap received 
+			excelResourceGroupTableUpdated trap received
 			excelNodePhysicalID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3819,7 +3819,7 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelOldRouteTableDeleted trap received 
+			excelOldRouteTableDeleted trap received
 			excelNodePhysicalID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3849,7 +3849,7 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelRouteTableForcefullyDeleted trap received 
+			excelRouteTableForcefullyDeleted trap received
 			excelNodePhysicalID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3879,7 +3879,7 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelResourceGroupTableForceDelete trap received 
+			excelResourceGroupTableForceDelete trap received
 			excelNodePhysicalID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3902,7 +3902,7 @@ corresponding front slot&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelLoadProblem</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelLoadProblem</event-label>
 	<descr>
-&lt;p&gt;This event will occur when a problem occurs during the flash or 
+&lt;p&gt;This event will occur when a problem occurs during the flash or
 RAM loading&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -3928,7 +3928,7 @@ RAM loading&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelTFTPFailure</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelTFTPFailure</event-label>
 	<descr>
-&lt;p&gt;This event will occur when a problem occurs during TFTP 
+&lt;p&gt;This event will occur when a problem occurs during TFTP
 processing&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3944,8 +3944,8 @@ processing&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelTFTPFailure trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelTFTPFailure trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3990,7 +3990,7 @@ The possible event ID's are :
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventL3PCIC trap received 
+			excelPPLEventL3PCIC trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4013,7 +4013,7 @@ The possible event ID's are :
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventL3PLINK</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventL3PLINK</event-label>
 	<descr>
-&lt;p&gt;PPL event received from Layer 3 Plus Link, component ID 16.  
+&lt;p&gt;PPL event received from Layer 3 Plus Link, component ID 16.
 The possible eventID's are:
 
 1	Remote Inhibit Confirmation
@@ -4033,7 +4033,7 @@ C	Link Out-of-service, L5_OOS3&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventL3PLINK trap received 
+			excelPPLEventL3PLINK trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4060,11 +4060,11 @@ C	Link Out-of-service, L5_OOS3&lt;/p&gt;&lt;table&gt;
 18.  The possible eventID's are:
 
 3	Continuity check incoming failure
-4	Failure to ack COT after processing incomming 
+4	Failure to ack COT after processing incomming
 	continuity check
 6	Failure to receive RLC after sending RFL
 8	Continuity check outgoing failure
-20	Maximum number of UTP retries completed without a 
+20	Maximum number of UTP retries completed without a
 	response&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4072,7 +4072,7 @@ C	Link Out-of-service, L5_OOS3&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCPC trap received 
+			excelPPLEventCPC trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4095,7 +4095,7 @@ C	Link Out-of-service, L5_OOS3&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventSPRC</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventSPRC</event-label>
 	<descr>
-&lt;p&gt;PPL event Signal Procedure Control (SPRC), component ID 19. 
+&lt;p&gt;PPL event Signal Procedure Control (SPRC), component ID 19.
 The possible eventID's are:
 
 1      Format error in incoming message
@@ -4110,7 +4110,7 @@ The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventSPRC trap received 
+			excelPPLEventSPRC trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4148,7 +4148,7 @@ possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventBLS trap received 
+			excelPPLEventBLS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4171,7 +4171,7 @@ possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventBLR</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventBLR</event-label>
 	<descr>
-&lt;p&gt;PPL event received from Blocking Signal Reception(BLR), 
+&lt;p&gt;PPL event received from Blocking Signal Reception(BLR),
 component ID 23.  The possible eventID's are:
 
 1      	Blocking/Unblocking signal reception&lt;/p&gt;&lt;table&gt;
@@ -4181,7 +4181,7 @@ component ID 23.  The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventBLR trap received 
+			excelPPLEventBLR trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4204,7 +4204,7 @@ component ID 23.  The possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventCRS</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventCRS</event-label>
 	<descr>
-&lt;p&gt;PPL event Circuit Reset Sending (CRS), component ID 24.  The 
+&lt;p&gt;PPL event Circuit Reset Sending (CRS), component ID 24.  The
 possible eventID's are:
 
 1	First expiration of timer 17&lt;/p&gt;&lt;table&gt;
@@ -4214,7 +4214,7 @@ possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCRS trap received 
+			excelPPLEventCRS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4237,7 +4237,7 @@ possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventCRR</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventCRR</event-label>
 	<descr>
-&lt;p&gt;PPL event Circuit Reset Reception (CRR), component ID 25.  
+&lt;p&gt;PPL event Circuit Reset Reception (CRR), component ID 25.
 The possible eventID's are:
 
 1	Circuit Reset Reception&lt;/p&gt;&lt;table&gt;
@@ -4247,7 +4247,7 @@ The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCRR trap received 
+			excelPPLEventCRR trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4270,7 +4270,7 @@ The possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventUCIC</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventUCIC</event-label>
 	<descr>
-&lt;p&gt;PPL event Unequipped CIC Reception (UCIC), component Id 26.  
+&lt;p&gt;PPL event Unequipped CIC Reception (UCIC), component Id 26.
 The possible eventID's are:
 
 1	Unequipted CIC Reception&lt;/p&gt;&lt;table&gt;
@@ -4280,7 +4280,7 @@ The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventUCIC trap received 
+			excelPPLEventUCIC trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4314,7 +4314,7 @@ The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCGRS trap received 
+			excelPPLEventCGRS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4337,7 +4337,7 @@ The possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventCGRR</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventCGRR</event-label>
 	<descr>
-&lt;p&gt;PPL event Circuit Group Reset Reception (CGRR), component Id 
+&lt;p&gt;PPL event Circuit Group Reset Reception (CGRR), component Id
 28.  The possible eventID's are:
 
 1	Failure to rcv ack after sending reset&lt;/p&gt;&lt;table&gt;
@@ -4347,7 +4347,7 @@ The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCGRR trap received 
+			excelPPLEventCGRR trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4385,7 +4385,7 @@ Id 29.  The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventGBUS trap received 
+			excelPPLEventGBUS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4408,7 +4408,7 @@ Id 29.  The possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventGBUR</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventGBUR</event-label>
 	<descr>
-&lt;p&gt;PPL event Circuit Group Un/blocking Reception (GBUR), 
+&lt;p&gt;PPL event Circuit Group Un/blocking Reception (GBUR),
 component Id 30.  The possible eventID's are:
 
 1	Circuit Group Un/blocking Reception&lt;/p&gt;&lt;table&gt;
@@ -4418,7 +4418,7 @@ component Id 30.  The possible eventID's are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventGBUR trap received 
+			excelPPLEventGBUR trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4441,8 +4441,8 @@ component Id 30.  The possible eventID's are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventHGBR</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventHGBR</event-label>
 	<descr>
-&lt;p&gt;PPL event Hardware Oriented Circuit Group Un/blocking 
-Reception (HGBR), component Id 32.  The possible eventID's 
+&lt;p&gt;PPL event Hardware Oriented Circuit Group Un/blocking
+Reception (HGBR), component Id 32.  The possible eventID's
 are:
 
 1	Circuit Group Un/blocking Reception&lt;/p&gt;&lt;table&gt;
@@ -4452,7 +4452,7 @@ are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventHGBR trap received 
+			excelPPLEventHGBR trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4475,7 +4475,7 @@ are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventMTP3Hmdt</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventMTP3Hmdt</event-label>
 	<descr>
-&lt;p&gt;PPL event Message Transfer Part3 Layer (HMDT), component Id 
+&lt;p&gt;PPL event Message Transfer Part3 Layer (HMDT), component Id
 43.  The possible eventID's are:
 
 0	Remote processor outage
@@ -4489,7 +4489,7 @@ are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventMTP3Hmdt trap received 
+			excelPPLEventMTP3Hmdt trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4512,7 +4512,7 @@ are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventMTP3Lsac</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventMTP3Lsac</event-label>
 	<descr>
-&lt;p&gt;PPL event Message Transfer Part3 Layer (LSAC), component Id 
+&lt;p&gt;PPL event Message Transfer Part3 Layer (LSAC), component Id
 46.  The possible eventID's are:
 
 1	Link activation failure
@@ -4525,7 +4525,7 @@ are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventMTP3Lsac trap received 
+			excelPPLEventMTP3Lsac trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4548,7 +4548,7 @@ are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventMTP3Tlac</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventMTP3Tlac</event-label>
 	<descr>
-&lt;p&gt;PPL event Message Transfer Part3 Layer (TLAC), component Id 
+&lt;p&gt;PPL event Message Transfer Part3 Layer (TLAC), component Id
 60.  The possible eventID's are:
 
 0	Remote processor outage
@@ -4563,7 +4563,7 @@ are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventMTP3Tlac trap received 
+			excelPPLEventMTP3Tlac trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4586,7 +4586,7 @@ are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventMTP3Tsfc</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventMTP3Tsfc</event-label>
 	<descr>
-&lt;p&gt;PPL event Message Transfer Part3 Layer (TSFC), component Id 
+&lt;p&gt;PPL event Message Transfer Part3 Layer (TSFC), component Id
 63.  The possible eventID's are:
 
 1	Destination inaccessable
@@ -4597,7 +4597,7 @@ are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventMTP3Tsfc trap received 
+			excelPPLEventMTP3Tsfc trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4620,8 +4620,8 @@ are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventISUPHlb</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventISUPHlb</event-label>
 	<descr>
-&lt;p&gt;PPL event ISUP HLB (ISUP Hardware Failure Oriented Locally 
-Blocking State), component Id 36.  The possible eventID's can 
+&lt;p&gt;PPL event ISUP HLB (ISUP Hardware Failure Oriented Locally
+Blocking State), component Id 36.  The possible eventID's can
 be received are:
 
 1	Hardware Failure Oriented Locally Blocking State&lt;/p&gt;&lt;table&gt;
@@ -4631,7 +4631,7 @@ be received are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventISUPHlb trap received 
+			excelPPLEventISUPHlb trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4654,7 +4654,7 @@ be received are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventCRCR</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventCRCR</event-label>
 	<descr>
-&lt;p&gt;PPL event CRCR, component Id 68.  The possible eventID's can 
+&lt;p&gt;PPL event CRCR, component Id 68.  The possible eventID's can
 be received are:
 
 1	REL received with check indicator set to 3
@@ -4666,7 +4666,7 @@ be received are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCRCR trap received 
+			excelPPLEventCRCR trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4689,8 +4689,8 @@ be received are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventMGBS</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventMGBS</event-label>
 	<descr>
-&lt;p&gt;PPL event MGBS(Maintaince Circuit Group blocking/unblocking 
-Sending), component Id 69.  The possible eventID's can be 
+&lt;p&gt;PPL event MGBS(Maintaince Circuit Group blocking/unblocking
+Sending), component Id 69.  The possible eventID's can be
 received are:
 
 1	First Expiration of T19
@@ -4703,7 +4703,7 @@ received are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventMGBS trap received 
+			excelPPLEventMGBS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4726,8 +4726,8 @@ received are:
 	<uei>uei.opennms.org/mib2opennms/excelPPLEventHGBS</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelPPLEventHGBS</event-label>
 	<descr>
-&lt;p&gt;PPL event HGBS(Hardware Failure Circuit Group 
-blocking/unblocking Sending), component Id 71.  The possible 
+&lt;p&gt;PPL event HGBS(Hardware Failure Circuit Group
+blocking/unblocking Sending), component Id 71.  The possible
 eventID's  are:
 
 1	First Expiration of T19
@@ -4740,7 +4740,7 @@ eventID's  are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventHGBS trap received 
+			excelPPLEventHGBS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4772,7 +4772,7 @@ eventID's  are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCQS trap received 
+			excelPPLEventCQS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4804,7 +4804,7 @@ eventID's  are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCVS trap received 
+			excelPPLEventCVS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4839,7 +4839,7 @@ eventID's  are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCRCS trap received 
+			excelPPLEventCRCS trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4874,7 +4874,7 @@ eventID's  are:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelPPLEventCRO trap received 
+			excelPPLEventCRO trap received
 			excelPPLComponentId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4897,7 +4897,7 @@ eventID's  are:
 	<uei>uei.opennms.org/mib2opennms/excelDchannelFailure</uei>
 	<event-label>EXCEL-SWITCH-MIB defined trap event: excelDchannelFailure</event-label>
 	<descr>
-&lt;p&gt;ISDN D Channel is establishing.  The distant end is not 
+&lt;p&gt;ISDN D Channel is establishing.  The distant end is not
 communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4913,8 +4913,8 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelDchannelFailure trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelDchannelFailure trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4952,8 +4952,8 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelVoIPModuleOOS trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelVoIPModuleOOS trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4991,8 +4991,8 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelVoipModuleDead trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelVoipModuleDead trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5030,8 +5030,8 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelVoipModuleDspDead trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelVoipModuleDspDead trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5069,8 +5069,8 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelVoipModuleReset trap received 
-			excelSysLastAlarmNode=%parm[#1]% 
+			excelVoipModuleReset trap received
+			excelSysLastAlarmNode=%parm[#1]%
 			excelSysLastAlarmSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5136,10 +5136,10 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			excelMatrixSwitchover trap received 
-			excelSysLastAlarmStatus=%parm[#1]% 
-			excelSysLastAlarmNode=%parm[#2]% 
-			excelDeviceCardSlotIndex=%parm[#3]% 
+			excelMatrixSwitchover trap received
+			excelSysLastAlarmStatus=%parm[#1]%
+			excelSysLastAlarmNode=%parm[#2]%
+			excelDeviceCardSlotIndex=%parm[#3]%
 			excelSysLastAlarmSeverity=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5164,11 +5164,11 @@ communicating on the D-channel.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/fcSwitchRegnError</uei>
 	<event-label>FC-TRAP-MIB defined trap event: fcSwitchRegnError</event-label>
 	<descr>
-&lt;p&gt;Registration of FC Server with the switch for FC API services 
+&lt;p&gt;Registration of FC Server with the switch for FC API services
 has failed.
-VARIABLE DEFINITIONS: 
+VARIABLE DEFINITIONS:
     1. FCServer - FC server in the alarm origin field
-            
+
 Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5176,7 +5176,7 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcSwitchRegnError trap received 
+			fcSwitchRegnError trap received
 			fCServer=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5199,11 +5199,11 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/fCSwitchRegnSucc</uei>
 	<event-label>FC-TRAP-MIB defined trap event: fCSwitchRegnSucc</event-label>
 	<descr>
-&lt;p&gt;Registration of FC Server with the switch for FC API services 
+&lt;p&gt;Registration of FC Server with the switch for FC API services
 is successful.
-VARIABLE DEFINITIONS: 
+VARIABLE DEFINITIONS:
     1. FCServer - FC Server in the alarm origin field
-            
+
     Severity: INFO&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5211,7 +5211,7 @@ VARIABLE DEFINITIONS:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fCSwitchRegnSucc trap received 
+			fCSwitchRegnSucc trap received
 			fCServer=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5234,11 +5234,11 @@ VARIABLE DEFINITIONS:
 	<uei>uei.opennms.org/mib2opennms/fcAddLLCNodeError</uei>
 	<event-label>FC-TRAP-MIB defined trap event: fcAddLLCNodeError</event-label>
 	<descr>
-&lt;p&gt;The second step of registration with the switch (add_LLC_Node) 
+&lt;p&gt;The second step of registration with the switch (add_LLC_Node)
 has failed.
-VARIABLE DEFINITIONS: 
+VARIABLE DEFINITIONS:
    1. FCServer - FC Server in the alarm origin field
-            
+
    Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5246,7 +5246,7 @@ VARIABLE DEFINITIONS:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAddLLCNodeError trap received 
+			fcAddLLCNodeError trap received
 			fCServer=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5269,11 +5269,11 @@ VARIABLE DEFINITIONS:
 	<uei>uei.opennms.org/mib2opennms/fcAddLLCNodeSucc</uei>
 	<event-label>FC-TRAP-MIB defined trap event: fcAddLLCNodeSucc</event-label>
 	<descr>
-&lt;p&gt;The second step of registration with the switch (add_LLC_Node) is 
+&lt;p&gt;The second step of registration with the switch (add_LLC_Node) is
 successful.
-VARIABLE DEFINITIONS: 
+VARIABLE DEFINITIONS:
     1. fCServer - FC Server in the alarm origin field
-                   
+
     Severity: INFO&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5281,7 +5281,7 @@ VARIABLE DEFINITIONS:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAddLLCNodeSucc trap received 
+			fcAddLLCNodeSucc trap received
 			fCServer=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5308,7 +5308,7 @@ VARIABLE DEFINITIONS:
 VARIBLE DEFINITIONS:
    1. fCServer - FC Server in the alarm origin field
    2. fCApp - FC Application ID to identify the application
-               
+
    Severity: INFO&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5320,8 +5320,8 @@ VARIBLE DEFINITIONS:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAppStartSucc trap received 
-			fCServer=%parm[#1]% 
+			fcAppStartSucc trap received
+			fCServer=%parm[#1]%
 			fCApp=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5359,8 +5359,8 @@ VARIBLE DEFINITIONS:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAppEndSucc trap received 
-			fCServer=%parm[#1]% 
+			fcAppEndSucc trap received
+			fCServer=%parm[#1]%
 			fCApp=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5398,8 +5398,8 @@ VARIBLE DEFINITIONS:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAppStartError trap received 
-			fCServer=%parm[#1]% 
+			fcAppStartError trap received
+			fCServer=%parm[#1]%
 			fCApp=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5442,9 +5442,9 @@ VARIBLE DEFINITIONS:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAppInfoError trap received 
-			fCServer=%parm[#1]% 
-			fCApp=%parm[#2]% 
+			fcAppInfoError trap received
+			fCServer=%parm[#1]%
+			fCApp=%parm[#2]%
 			fCDescText=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5472,7 +5472,7 @@ VARIBLE DEFINITIONS:
     1. fCServer - FC Server in the alarm origin field
     2. fCApp - FC Application ID to identify the application
     3. fCDescText - Application Alarm description text
-                
+
     Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5488,9 +5488,9 @@ VARIBLE DEFINITIONS:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAppMajorError trap received 
-			fCServer=%parm[#1]% 
-			fCApp=%parm[#2]% 
+			fcAppMajorError trap received
+			fCServer=%parm[#1]%
+			fCApp=%parm[#2]%
 			fCDescText=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5533,9 +5533,9 @@ VARIBLE DEFINITIONS:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcAppCritError trap received 
-			fCServer=%parm[#1]% 
-			fCApp=%parm[#2]% 
+			fcAppCritError trap received
+			fCServer=%parm[#1]%
+			fCApp=%parm[#2]%
 			fCDescText=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5568,7 +5568,7 @@ VARIBLE DEFINITIONS:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fcUnparsedEvent trap received 
+			fcUnparsedEvent trap received
 			fCDescText=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5593,29 +5593,29 @@ VARIBLE DEFINITIONS:
 	<uei>uei.opennms.org/mib2opennms/h323CSConnectionStatus</uei>
 	<event-label>H323-TRAP-MIB defined trap event: h323CSConnectionStatus</event-label>
 	<descr>
-&lt;p&gt;Indicates the registration status of the device 
-server(registered, unregistered or registration 
+&lt;p&gt;Indicates the registration status of the device
+server(registered, unregistered or registration
 failed).
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) | 
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) csID - call server identifier which will be 
-returned by the call server when any device server 
+3) csID - call server identifier which will be
+returned by the call server when any device server
 registers to it.
 4) csType - call server type, 'primary' or 'secondary'.
-(Right now this information does not come from the 
+(Right now this information does not come from the
 call server. It is set to 'primary'.), value = 0 for
 primary, value = 1 for secondary
 5) registrationStatus - 'registered' | 'unregistred' |
-'registrationFailed' depending on whether the device 
-server is registered, unregistered or could not 
+'registrationFailed' depending on whether the device
+server is registered, unregistered or could not
 register to the call server respectively.
-6) reason - {'unreachable' | 'unknown' | 
-'invalidParam'}, indicates the cause for the 
-registration failure. 
+6) reason - {'unreachable' | 'unknown' |
+'invalidParam'}, indicates the cause for the
+registration failure.
 7) comment - Any comment sent along with this NOTIFICATION.
 Severity: INFO for registration/unregistration.
 CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
@@ -5649,13 +5649,13 @@ CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			h323CSConnectionStatus trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			csID=%parm[#3]% 
-			csType=%parm[#4]% 
-			registrationStatus=%parm[#5]% 
-			reason=%parm[#6]% 
+			h323CSConnectionStatus trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			csID=%parm[#3]%
+			csType=%parm[#4]%
+			registrationStatus=%parm[#5]%
+			reason=%parm[#6]%
 			comment=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5678,16 +5678,16 @@ CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/h323GatewayUtilization</uei>
 	<event-label>H323-TRAP-MIB defined trap event: h323GatewayUtilization</event-label>
 	<descr>
-&lt;p&gt;It is triggered when a preset utilization value 
+&lt;p&gt;It is triggered when a preset utilization value
 is set for a gateway and it has met that utilization.
 VARIABLE DEFINITIONS:
-1) timeOccurred - time when the alarm occured, in 
+1) timeOccurred - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) | 
-errorCode(less than 16) | instanceid			
+instanceID, severity(less than 28) | facility(less than 24) |
+errorCode(less than 16) | instanceid
 2) gwID - unique identifier assigned to the gateway.
-3) moduleID - The module of the gateway that reports 
+3) moduleID - The module of the gateway that reports
 utilization.
 4) percent - The percent of utilization being reported.
 5) comment - Any comment sent along with this trap
@@ -5718,12 +5718,12 @@ Severity: INFO/MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			h323GatewayUtilization trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			gwID=%parm[#3]% 
-			moduleID=%parm[#4]% 
-			percent=%parm[#5]% 
+			h323GatewayUtilization trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			gwID=%parm[#3]%
+			moduleID=%parm[#4]%
+			percent=%parm[#5]%
 			comment=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5746,22 +5746,22 @@ Severity: INFO/MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/h323DSError</uei>
 	<event-label>H323-TRAP-MIB defined trap event: h323DSError</event-label>
 	<descr>
-&lt;p&gt;When any error occurs in the device server. 
+&lt;p&gt;When any error occurs in the device server.
 VARIABLE DEFINITIONS:
-1) timeOccurred - time when the alarm occured, in 
+1) timeOccurred - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) | 
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) reason - the reason for the error that occurs 
+3) reason - the reason for the error that occurs
 in the device server. Takes one of these values:
 'internalError' | 'systemResourceUnavailable' |
-'invalidGatewayID' | 'unknown' 
+'invalidGatewayID' | 'unknown'
 4) comment - Any comment sent along with this trap.
-Severity: INFO (internalError), 
+Severity: INFO (internalError),
 MAJOR (systemResourceUnavailable),
-INFO (invalidGatewayID - gateway ID is invalid or 
-no such gateway exists)                    
+INFO (invalidGatewayID - gateway ID is invalid or
+no such gateway exists)
 INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5781,10 +5781,10 @@ INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			h323DSError trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			reason=%parm[#3]% 
+			h323DSError trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			reason=%parm[#3]%
 			comment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5807,20 +5807,20 @@ INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/h323UnreachableGateway</uei>
 	<event-label>H323-TRAP-MIB defined trap event: h323UnreachableGateway</event-label>
 	<descr>
-&lt;p&gt;When any gateway is unreachable . Either the 
+&lt;p&gt;When any gateway is unreachable . Either the
 TCP/IP address is wrong or the gateway is down.
 VARIABLE DEFINITIONS:
-1) timeOccurred - time when the alarm occured, in 
+1) timeOccurred - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) | 
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
 2) gwID - unique identifier of the gateway
 3) gwType - protocol handled by the gateway,
 { 'sip' | 'h323' }
-4) gwIP - IP Address of the gateway, the device server 
+4) gwIP - IP Address of the gateway, the device server
 tries to connect to, in order to place a call.
-5) port - call signalling port of the gateway, 
+5) port - call signalling port of the gateway,
 the device server tries to connect to.
 6) comment - Any comment sent along with this trap
 Severity: MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
@@ -5854,13 +5854,13 @@ Severity: MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			h323UnreachableGateway trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			gwID=%parm[#3]% 
-			gwType=%parm[#4]% 
-			gwIP=%parm[#5]% 
-			port=%parm[#6]% 
+			h323UnreachableGateway trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			gwID=%parm[#3]%
+			gwType=%parm[#4]%
+			gwIP=%parm[#5]%
+			port=%parm[#6]%
 			comment=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5883,16 +5883,16 @@ Severity: MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/h323CommandFailed</uei>
 	<event-label>H323-TRAP-MIB defined trap event: h323CommandFailed</event-label>
 	<descr>
-&lt;p&gt;Triggered when any request is failed by the 
-device server. 		
+&lt;p&gt;Triggered when any request is failed by the
+device server.
 VARIABLE DEFINITIONS:
-1) timeOccurred - time when the alarm occured, in 
+1) timeOccurred - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) | 
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) reason -  reason for the failure of the command. 
-{'internalError' | 'systemResourceUnavailable' 
+3) reason -  reason for the failure of the command.
+{'internalError' | 'systemResourceUnavailable'
 |'notSupported' | 'unknown' }
 4) comment - Any comment along with this trap.
 Severity: MINOR (or may be command sensitive).&lt;/p&gt;&lt;table&gt;
@@ -5914,10 +5914,10 @@ Severity: MINOR (or may be command sensitive).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			h323CommandFailed trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			reason=%parm[#3]% 
+			h323CommandFailed trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			reason=%parm[#3]%
 			comment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5987,13 +5987,13 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssProcessUnstartable trap received 
-			deviceType=%parm[#1]% 
-			domain=%parm[#2]% 
-			group=%parm[#3]% 
-			name=%parm[#4]% 
-			host=%parm[#5]% 
-			port=%parm[#6]% 
+			lssProcessUnstartable trap received
+			deviceType=%parm[#1]%
+			domain=%parm[#2]%
+			group=%parm[#3]%
+			name=%parm[#4]%
+			host=%parm[#5]%
+			port=%parm[#6]%
 			runStatus=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6017,7 +6017,7 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssProcessCreated</event-label>
 	<descr>
 &lt;p&gt;Indicates a certain domain:group:process was
-successfully created/re-started.  Variables are same 
+successfully created/re-started.  Variables are same
 as the above trap:
 1)   deviceType - this is either CC, H323, SS7 or
      EBGen (the various modules in SARAS)
@@ -6027,7 +6027,7 @@ as the above trap:
 5)   host - the hostname on which this process was to be
      run.
 6)   port - the port on which this process was exposing
-     its health information. 
+     its health information.
 7)   runStatus - the current run-state in which the
      process is.  See moduleSummary for more explanation
      of runStatus.
@@ -6062,13 +6062,13 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssProcessCreated trap received 
-			deviceType=%parm[#1]% 
-			domain=%parm[#2]% 
-			group=%parm[#3]% 
-			name=%parm[#4]% 
-			host=%parm[#5]% 
-			port=%parm[#6]% 
+			lssProcessCreated trap received
+			deviceType=%parm[#1]%
+			domain=%parm[#2]%
+			group=%parm[#3]%
+			name=%parm[#4]%
+			host=%parm[#5]%
+			port=%parm[#6]%
 			runStatus=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6100,7 +6100,7 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 5)   host - the hostname on which this process was to be
      run.
 6)   port - the port on which this process was exposing
-     its health information. 
+     its health information.
 7)   runStatus - the current run-state in which the
      process is.   See moduleSummary for more explanation
      of runStatus.
@@ -6135,13 +6135,13 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssProcessDied trap received 
-			deviceType=%parm[#1]% 
-			domain=%parm[#2]% 
-			group=%parm[#3]% 
-			name=%parm[#4]% 
-			host=%parm[#5]% 
-			port=%parm[#6]% 
+			lssProcessDied trap received
+			deviceType=%parm[#1]%
+			domain=%parm[#2]%
+			group=%parm[#3]%
+			name=%parm[#4]%
+			host=%parm[#5]%
+			port=%parm[#6]%
 			runStatus=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6165,7 +6165,7 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssProcessKilled</event-label>
 	<descr>
 &lt;p&gt;Indicates a certain domain:group:process was taken
-down manually in response to an snmp-set on mantraReboot, 
+down manually in response to an snmp-set on mantraReboot,
 or processStop variable.  Variables are exactly same as
 in the processDied trap:
 1)   deviceType - this is either CC, H323, SS7 or
@@ -6176,9 +6176,9 @@ in the processDied trap:
 5)   host - the hostname on which this process was to be
      run.
 6)   port - the port on which this process was exposing
-     its health information. 
+     its health information.
 7)   runStatus - the current run-state in which the
-     process is.  See moduleSummary for more explanation 
+     process is.  See moduleSummary for more explanation
      of runStatus.
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6211,13 +6211,13 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssProcessKilled trap received 
-			deviceType=%parm[#1]% 
-			domain=%parm[#2]% 
-			group=%parm[#3]% 
-			name=%parm[#4]% 
-			host=%parm[#5]% 
-			port=%parm[#6]% 
+			lssProcessKilled trap received
+			deviceType=%parm[#1]%
+			domain=%parm[#2]%
+			group=%parm[#3]%
+			name=%parm[#4]%
+			host=%parm[#5]%
+			port=%parm[#6]%
 			runStatus=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6240,8 +6240,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/lssProcessStateChange</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssProcessStateChange</event-label>
 	<descr>
-&lt;p&gt;Indicates a change of status in a process.  Usually 
-sent to indicate if a process that was inactive, took 
+&lt;p&gt;Indicates a change of status in a process.  Usually
+sent to indicate if a process that was inactive, took
 over for an earlier active process that died.
 Variables are exactly same as all other traps:
 1)   deviceType - this is either CC, H323, SS7 or
@@ -6252,9 +6252,9 @@ Variables are exactly same as all other traps:
 5)   host - the hostname on which this process was to be
      run.
 6)   port - the port on which this process was exposing
-     its health information. 
+     its health information.
 7)   runStatus - the current run-state in which the
-     process is.  See moduleSummary for more explanation 
+     process is.  See moduleSummary for more explanation
      of runStatus.
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6287,13 +6287,13 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssProcessStateChange trap received 
-			deviceType=%parm[#1]% 
-			domain=%parm[#2]% 
-			group=%parm[#3]% 
-			name=%parm[#4]% 
-			host=%parm[#5]% 
-			port=%parm[#6]% 
+			lssProcessStateChange trap received
+			deviceType=%parm[#1]%
+			domain=%parm[#2]%
+			group=%parm[#3]%
+			name=%parm[#4]%
+			host=%parm[#5]%
+			port=%parm[#6]%
 			runStatus=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6316,11 +6316,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/lssInternalError</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssInternalError</event-label>
 	<descr>
-&lt;p&gt;An event is sent up as lssInternalError, 
+&lt;p&gt;An event is sent up as lssInternalError,
 if there is an error in formatting, and event
 construction does not succeed.
 The variables are:
-1) unknownDeviceTrapContents - a string representing 
+1) unknownDeviceTrapContents - a string representing
    the event text as the pep received it.
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6329,7 +6329,7 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssInternalError trap received 
+			lssInternalError trap received
 			unknownDeviceTrapContents=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6352,18 +6352,18 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/lssElementSuccessfulConnection</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssElementSuccessfulConnection</event-label>
 	<descr>
-&lt;p&gt;Indicates that the pep was sucessfully able to 
+&lt;p&gt;Indicates that the pep was sucessfully able to
 connect to the source of events specified in its
 config.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host:port - these two identify the device 
+3-4) host:port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
-     start-up event, mainly.  
+     start-up event, mainly.
 Severity: INFO&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6387,11 +6387,11 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssElementSuccessfulConnection trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
+			lssElementSuccessfulConnection trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
 			file=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6415,14 +6415,14 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssElementFileUnReadable</event-label>
 	<descr>
 &lt;p&gt;Indicates that the pep's connection exists to the
-device, but the file named in the trap is not 
+device, but the file named in the trap is not
 readable.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host:port - these two identify the device 
+3-4) host:port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
@@ -6448,11 +6448,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssElementFileUnReadable trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
+			lssElementFileUnReadable trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
 			file=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6476,14 +6476,14 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssElementDisconnect</event-label>
 	<descr>
 &lt;p&gt;Indicates that the pep's connection to the source
-of events was severed.  This could either be because 
+of events was severed.  This could either be because
 device process died, or because there is a network outage.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host:port - these two identify the device 
+3-4) host:port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
@@ -6509,11 +6509,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssElementDisconnect trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
+			lssElementDisconnect trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
 			file=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6536,18 +6536,18 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/lssElementUnReachable</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssElementUnReachable</event-label>
 	<descr>
-&lt;p&gt;Indicates that the pep's connection to the device 
-has not been up for some time now, indicated in 
+&lt;p&gt;Indicates that the pep's connection to the device
+has not been up for some time now, indicated in
 minutes.
 The variables are:
 1)   pepName - this is the name of the PEP who
      is raising the event
-2)   devName - this is the logical name of the 
+2)   devName - this is the logical name of the
      device this pep is connected to
-3-4) host, port - these two identify the device 
+3-4) host, port - these two identify the device
      that was mounted by the pep
 5)   file - this is the file name used internally
-     minutes - the time in minutes for which the 
+     minutes - the time in minutes for which the
      connection to the device has not been up.
 Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6576,12 +6576,12 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssElementUnReachable trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			host=%parm[#3]% 
-			port=%parm[#4]% 
-			file=%parm[#5]% 
+			lssElementUnReachable trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			host=%parm[#3]%
+			port=%parm[#4]%
+			file=%parm[#5]%
 			minutes=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6604,12 +6604,12 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/logFileChanged</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: logFileChanged</event-label>
 	<descr>
-&lt;p&gt;Indicates that a log-file-change attempt is successful or 
+&lt;p&gt;Indicates that a log-file-change attempt is successful or
 failure.
 The variables are:
 1)   oldFile - this is the name of the old file which
      was to be changed.
-2)   newFile - this is the new log file name 
+2)   newFile - this is the new log file name
 3)   result  - this indicates 'success' or failure of
      logFileChange attempt.
 4)   reason - this describes the reason when log file change
@@ -6633,10 +6633,10 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			logFileChanged trap received 
-			oldFile=%parm[#1]% 
-			newFile=%parm[#2]% 
-			result=%parm[#3]% 
+			logFileChanged trap received
+			oldFile=%parm[#1]%
+			newFile=%parm[#2]%
+			result=%parm[#3]%
 			reason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6659,13 +6659,13 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/lssFTMateConnect</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssFTMateConnect</event-label>
 	<descr>
-&lt;p&gt;Indicates that this ServiceNode was sucessfully able to 
+&lt;p&gt;Indicates that this ServiceNode was sucessfully able to
 connect to its redundant mate. This event is usually raised
 by the Backup mate who is responsible for monitoring its
 respective Primary.
 The variables are:
 1)   snName - this is the name of the ServiceNode who
-     is raising the event. 
+     is raising the event.
 2-3)   myHost:myPort - these identify the host and port of the
      ServiceNode raising the event.
 4-5) mateHost:matePort - these identify the host and port
@@ -6693,11 +6693,11 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssFTMateConnect trap received 
-			snName=%parm[#1]% 
-			myHost=%parm[#2]% 
-			myPort=%parm[#3]% 
-			mateHost=%parm[#4]% 
+			lssFTMateConnect trap received
+			snName=%parm[#1]%
+			myHost=%parm[#2]%
+			myPort=%parm[#3]%
+			mateHost=%parm[#4]%
 			matePort=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6720,8 +6720,8 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/lssFTMateDisconnect</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: lssFTMateDisconnect</event-label>
 	<descr>
-&lt;p&gt;Indicates that this ServiceNode has lost connection 
-to its redundant mate due to either process or host failure. 
+&lt;p&gt;Indicates that this ServiceNode has lost connection
+to its redundant mate due to either process or host failure.
 This event is usually raised by the Backup mate who is
 monitoring its 	respective Primary. Connection will be
 established upon recovery of the mate.
@@ -6756,11 +6756,11 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lssFTMateDisconnect trap received 
-			snName=%parm[#1]% 
-			myHost=%parm[#2]% 
-			myPort=%parm[#3]% 
-			mateHost=%parm[#4]% 
+			lssFTMateDisconnect trap received
+			snName=%parm[#1]%
+			myHost=%parm[#2]%
+			myPort=%parm[#3]%
+			mateHost=%parm[#4]%
 			matePort=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6783,8 +6783,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sbProducerUnreachable</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: sbProducerUnreachable</event-label>
 	<descr>
-&lt;p&gt;Indicates that this Socket Based Producer is not reachable by the Policy 
-Enforcement Point.  
+&lt;p&gt;Indicates that this Socket Based Producer is not reachable by the Policy
+Enforcement Point.
 The variables are:
 1)   pepName - this is the name of the Policy Enforcement Point (PEP)  who
      is raising the event
@@ -6811,10 +6811,10 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sbProducerUnreachable trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			sbProducerHost=%parm[#3]% 
+			sbProducerUnreachable trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			sbProducerHost=%parm[#3]%
 			sbProducerPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6837,8 +6837,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sbProducerConnected</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: sbProducerConnected</event-label>
 	<descr>
-&lt;p&gt;Indicates that this Socket Based Producer has connected to the Policy 
-Enforcement Point (PEP).  
+&lt;p&gt;Indicates that this Socket Based Producer has connected to the Policy
+Enforcement Point (PEP).
 The variables are:
 1)   pepName - this is the name of the Policy Enforcement Point (PEP)  who
      is raising the event
@@ -6865,10 +6865,10 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sbProducerConnected trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			sbProducerHost=%parm[#3]% 
+			sbProducerConnected trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			sbProducerHost=%parm[#3]%
 			sbProducerPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6891,8 +6891,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sbProducerRegistered</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: sbProducerRegistered</event-label>
 	<descr>
-&lt;p&gt;Indicates that this Socket Based Producer has registered with the Policy 
-Enforcement Point (PEP).  
+&lt;p&gt;Indicates that this Socket Based Producer has registered with the Policy
+Enforcement Point (PEP).
 The variables are:
 1)   pepName - this is the name of the Policy Enforcement Point (PEP)  who
      is raising the event
@@ -6919,10 +6919,10 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sbProducerRegistered trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			sbProducerHost=%parm[#3]% 
+			sbProducerRegistered trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			sbProducerHost=%parm[#3]%
 			sbProducerPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6945,8 +6945,8 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sbProducerDisconnected</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: sbProducerDisconnected</event-label>
 	<descr>
-&lt;p&gt;Indicates that this Socket Based Producer has disconnected from the Policy 
-Enforcement Point (PEP).  
+&lt;p&gt;Indicates that this Socket Based Producer has disconnected from the Policy
+Enforcement Point (PEP).
 The variables are:
 1)   pepName - this is the name of the Policy Enforcement Point (PEP)  who
      is raising the event
@@ -6973,10 +6973,10 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sbProducerDisconnected trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			sbProducerHost=%parm[#3]% 
+			sbProducerDisconnected trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			sbProducerHost=%parm[#3]%
 			sbProducerPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6999,8 +6999,8 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sbProducerCannotRegister</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: sbProducerCannotRegister</event-label>
 	<descr>
-&lt;p&gt;Indicates that this Socket Based Producer cannot register to the Policy 
-Enforcement Point (PEP).  
+&lt;p&gt;Indicates that this Socket Based Producer cannot register to the Policy
+Enforcement Point (PEP).
 The variables are:
 1)   pepName - this is the name of the Policy Enforcement Point (PEP)  who
      is raising the event
@@ -7027,10 +7027,10 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sbProducerCannotRegister trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			sbProducerHost=%parm[#3]% 
+			sbProducerCannotRegister trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			sbProducerHost=%parm[#3]%
 			sbProducerPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7053,8 +7053,8 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sbProducerCannotDisconnect</uei>
 	<event-label>MANTRA-TRAP-MIB defined trap event: sbProducerCannotDisconnect</event-label>
 	<descr>
-&lt;p&gt;Indicates that this Socket Based Producer cannot disconenct  from  the Policy 
-Enforcement Point (PEP).  
+&lt;p&gt;Indicates that this Socket Based Producer cannot disconenct  from  the Policy
+Enforcement Point (PEP).
 The variables are:
 1)   pepName - this is the name of the Policy Enforcement Point (PEP)  who
      is raising the event
@@ -7081,10 +7081,10 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sbProducerCannotDisconnect trap received 
-			pepName=%parm[#1]% 
-			devName=%parm[#2]% 
-			sbProducerHost=%parm[#3]% 
+			sbProducerCannotDisconnect trap received
+			pepName=%parm[#1]%
+			devName=%parm[#2]%
+			sbProducerHost=%parm[#3]%
 			sbProducerPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7109,29 +7109,29 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/psaxCSConnectionStatus</uei>
 	<event-label>PSAX-TRAP-MIB defined trap event: psaxCSConnectionStatus</event-label>
 	<descr>
-&lt;p&gt;Indicates the registration status of the device 
-server(registered, unregistered or registration 
+&lt;p&gt;Indicates the registration status of the device
+server(registered, unregistered or registration
 failed).
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) |  
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) csID - call server identifier which will be 
-returned by the call server when any device server 
+3) csID - call server identifier which will be
+returned by the call server when any device server
 registers to it.
 4) csType - call server type, 'primary' or 'secondary'.
-(Right now this information does not come from the 
+(Right now this information does not come from the
 call server. It is set to 'primary'.), value = 0 for
 primary, value = 1 for secondary
 5) registrationStatus - registered | unregistred |
-registrationFailed depending on whether the device 
-server is registered, unregistered or could not 
+registrationFailed depending on whether the device
+server is registered, unregistered or could not
 register to the call server respectively.
-6) reason - {unreachable | unknown | 
-invalidParam}, indicates the cause for the 
-registration failure. 
+6) reason - {unreachable | unknown |
+invalidParam}, indicates the cause for the
+registration failure.
 7) comment - Any comment sent along with this trap.
 Severity: INFO for registration/unregistration.
 CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
@@ -7165,13 +7165,13 @@ CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psaxCSConnectionStatus trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			csID=%parm[#3]% 
-			csType=%parm[#4]% 
-			registrationStatus=%parm[#5]% 
-			reason=%parm[#6]% 
+			psaxCSConnectionStatus trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			csID=%parm[#3]%
+			csType=%parm[#4]%
+			registrationStatus=%parm[#5]%
+			reason=%parm[#6]%
 			comment=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7194,16 +7194,16 @@ CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/psaxGatewayUtilization</uei>
 	<event-label>PSAX-TRAP-MIB defined trap event: psaxGatewayUtilization</event-label>
 	<descr>
-&lt;p&gt;It is triggered when a preset utilization value 
+&lt;p&gt;It is triggered when a preset utilization value
 is set for a gateway and it has met that utilization.
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) |  
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
 2) gwID - unique identifier assigned to the gateway.
-3) moduleID - The module of the gateway that reports 
+3) moduleID - The module of the gateway that reports
 utilization.
 4) percent - The percent of utilization being reported.
 5) comment - Any comment sent along with this trap
@@ -7234,12 +7234,12 @@ Severity: INFO/MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psaxGatewayUtilization trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			gwID=%parm[#3]% 
-			moduleID=%parm[#4]% 
-			percent=%parm[#5]% 
+			psaxGatewayUtilization trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			gwID=%parm[#3]%
+			moduleID=%parm[#4]%
+			percent=%parm[#5]%
 			comment=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7262,22 +7262,22 @@ Severity: INFO/MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/psaxDSError</uei>
 	<event-label>PSAX-TRAP-MIB defined trap event: psaxDSError</event-label>
 	<descr>
-&lt;p&gt;When any error occurs in the device server. 
+&lt;p&gt;When any error occurs in the device server.
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) |  
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-2) reason - the reason for the error that occurs 
+2) reason - the reason for the error that occurs
 in the device server. Takes one of these values:
 internalError | systemResourceUnavailable |
-invalidGatewayID | unknown 
+invalidGatewayID | unknown
 3) comment - Any comment sent along with this trap.
-Severity: INFO (internalError), 
+Severity: INFO (internalError),
 MAJOR (systemResourceUnavailable),
-INFO (invalidGatewayID - gateway ID is invalid or 
-no such gateway exists)                    
+INFO (invalidGatewayID - gateway ID is invalid or
+no such gateway exists)
 INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -7297,10 +7297,10 @@ INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psaxDSError trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			reason=%parm[#3]% 
+			psaxDSError trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			reason=%parm[#3]%
 			comment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7323,20 +7323,20 @@ INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/psaxUnreachableGateway</uei>
 	<event-label>PSAX-TRAP-MIB defined trap event: psaxUnreachableGateway</event-label>
 	<descr>
-&lt;p&gt;When any gateway is unreachable . Either the 
+&lt;p&gt;When any gateway is unreachable . Either the
 TCP/IP address is wrong or the gateway is down.
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) |  
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
 3) gwID - unique identifier of the gateway
 4) gwType - protocol handled by the gateway,
 { h323 | sip | psax }
-5) gwIP - IP Address of the gateway, the device server 
+5) gwIP - IP Address of the gateway, the device server
 tries to connect to, in order to place a call.
-6) port - call signalling port of the gateway, 
+6) port - call signalling port of the gateway,
 the device server tries to connect to.
 7) comment - Any comment sent along with this trap
 Severity: MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
@@ -7370,13 +7370,13 @@ Severity: MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psaxUnreachableGateway trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			gwID=%parm[#3]% 
-			gwType=%parm[#4]% 
-			gwIP=%parm[#5]% 
-			port=%parm[#6]% 
+			psaxUnreachableGateway trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			gwID=%parm[#3]%
+			gwType=%parm[#4]%
+			gwIP=%parm[#5]%
+			port=%parm[#6]%
 			comment=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7399,16 +7399,16 @@ Severity: MINOR depending on the preset value.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/psaxCommandFailed</uei>
 	<event-label>PSAX-TRAP-MIB defined trap event: psaxCommandFailed</event-label>
 	<descr>
-&lt;p&gt;Triggered when any request is failed by the 
-device server. 		
+&lt;p&gt;Triggered when any request is failed by the
+device server.
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
-instanceID, severity(less than 28) | facility(less than 24) |  
+instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) reason -  reason for the failure of the command. 
-{internalError | systemResourceUnavailable 
+3) reason -  reason for the failure of the command.
+{internalError | systemResourceUnavailable
 |notSupported | unknown }
 4) comment - Any comment along with this trap.
 Severity: MINOR (or may be command sensitive).&lt;/p&gt;&lt;table&gt;
@@ -7430,10 +7430,10 @@ Severity: MINOR (or may be command sensitive).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psaxCommandFailed trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			reason=%parm[#3]% 
+			psaxCommandFailed trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			reason=%parm[#3]%
 			comment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7473,8 +7473,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuUtilWarning trap received 
-			host=%parm[#1]% 
+			cpuUtilWarning trap received
+			host=%parm[#1]%
 			percentage=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7512,8 +7512,8 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuUtilAlarm trap received 
-			host=%parm[#1]% 
+			cpuUtilAlarm trap received
+			host=%parm[#1]%
 			percentage=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7536,7 +7536,7 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/cpuUtilInform</uei>
 	<event-label>RM-TRAP-MIB defined trap event: cpuUtilInform</event-label>
 	<descr>
-&lt;p&gt;Indicating previously raised cpuUtilAlarm or 
+&lt;p&gt;Indicating previously raised cpuUtilAlarm or
 cpuUtilAttention cleared.
 The variables are:
 1) host - Identify the machine
@@ -7557,9 +7557,9 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuUtilInform trap received 
-			host=%parm[#1]% 
-			percentage=%parm[#2]% 
+			cpuUtilInform trap received
+			host=%parm[#1]%
+			percentage=%parm[#2]%
 			status=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7597,8 +7597,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuLoadWarning trap received 
-			host=%parm[#1]% 
+			cpuLoadWarning trap received
+			host=%parm[#1]%
 			load=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7636,8 +7636,8 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuLoadAlarm trap received 
-			host=%parm[#1]% 
+			cpuLoadAlarm trap received
+			host=%parm[#1]%
 			load=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7660,7 +7660,7 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/cpuLoadInform</uei>
 	<event-label>RM-TRAP-MIB defined trap event: cpuLoadInform</event-label>
 	<descr>
-&lt;p&gt;Indicating previously raised cpuLoadAlarm or 
+&lt;p&gt;Indicating previously raised cpuLoadAlarm or
 cpuLoadWarning cleared.
 The variables are:
 1) host - Identify the machine
@@ -7681,9 +7681,9 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuLoadInform trap received 
-			host=%parm[#1]% 
-			load=%parm[#2]% 
+			cpuLoadInform trap received
+			host=%parm[#1]%
+			load=%parm[#2]%
 			status=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7721,8 +7721,8 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			diskUsageWarning trap received 
-			disk=%parm[#1]% 
+			diskUsageWarning trap received
+			disk=%parm[#1]%
 			percentage=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7760,8 +7760,8 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			diskUsageAlarm trap received 
-			disk=%parm[#1]% 
+			diskUsageAlarm trap received
+			disk=%parm[#1]%
 			percentage=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7784,7 +7784,7 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/diskUsageInform</uei>
 	<event-label>RM-TRAP-MIB defined trap event: diskUsageInform</event-label>
 	<descr>
-&lt;p&gt;Indicating previously raised diskUsageWarning or 
+&lt;p&gt;Indicating previously raised diskUsageWarning or
 diskUsageAlarm NOTIFICATION cleared.
 The variables are:
 1) disk - Identify the disk
@@ -7805,9 +7805,9 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			diskUsageInform trap received 
-			disk=%parm[#1]% 
-			percentage=%parm[#2]% 
+			diskUsageInform trap received
+			disk=%parm[#1]%
+			percentage=%parm[#2]%
 			status=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7830,7 +7830,7 @@ Severity: INFO&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/fileSizeEvent</uei>
 	<event-label>RM-TRAP-MIB defined trap event: fileSizeEvent</event-label>
 	<descr>
-&lt;p&gt;Indicates that a log file has exceeded its maximum 
+&lt;p&gt;Indicates that a log file has exceeded its maximum
 allowed size.
 The variables are:
 1) fileName - this file being monitored for size
@@ -7852,9 +7852,9 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fileSizeEvent trap received 
-			file=%parm[#1]% 
-			curSize=%parm[#2]% 
+			fileSizeEvent trap received
+			file=%parm[#1]%
+			curSize=%parm[#2]%
 			maxSize=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7896,9 +7896,9 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			unixProcessDied trap received 
-			host=%parm[#1]% 
-			processName=%parm[#2]% 
+			unixProcessDied trap received
+			host=%parm[#1]%
+			processName=%parm[#2]%
 			processID=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7945,10 +7945,10 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procCpuAlarm trap received 
-			host=%parm[#1]% 
-			processName=%parm[#2]% 
-			processID=%parm[#3]% 
+			procCpuAlarm trap received
+			host=%parm[#1]%
+			processName=%parm[#2]%
+			processID=%parm[#3]%
 			cpuUsage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7995,10 +7995,10 @@ Severity: MAJOR&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procCpuWarn trap received 
-			host=%parm[#1]% 
-			processName=%parm[#2]% 
-			processID=%parm[#3]% 
+			procCpuWarn trap received
+			host=%parm[#1]%
+			processName=%parm[#2]%
+			processID=%parm[#3]%
 			cpuUsage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8045,10 +8045,10 @@ Severity: CRITICAL&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procMemAlarm trap received 
-			host=%parm[#1]% 
-			processName=%parm[#2]% 
-			processID=%parm[#3]% 
+			procMemAlarm trap received
+			host=%parm[#1]%
+			processName=%parm[#2]%
+			processID=%parm[#3]%
 			memUsage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8090,9 +8090,9 @@ The variables are:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procCpuInform trap received 
-			host=%parm[#1]% 
-			processName=%parm[#2]% 
+			procCpuInform trap received
+			host=%parm[#1]%
+			processName=%parm[#2]%
 			processID=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8133,9 +8133,9 @@ The variables are:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procMemInform trap received 
-			host=%parm[#1]% 
-			processName=%parm[#2]% 
+			procMemInform trap received
+			host=%parm[#1]%
+			processName=%parm[#2]%
 			processID=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8160,29 +8160,29 @@ The variables are:
 	<uei>uei.opennms.org/mib2opennms/sipCSConnectionStatus</uei>
 	<event-label>SIP-TRAP-MIB defined trap event: sipCSConnectionStatus</event-label>
 	<descr>
-&lt;p&gt;Indicates the registration status of the device 
-server(registered, unregistered or registration 
+&lt;p&gt;Indicates the registration status of the device
+server(registered, unregistered or registration
 failed).
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
 instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) csID - call server identifier which will be 
-returned by the call server when any device server 
+3) csID - call server identifier which will be
+returned by the call server when any device server
 registers to it.
 4) csType - call server type, 'primary' or 'secondary'.
-(Right now this information does not come from the 
+(Right now this information does not come from the
 call server. It is set to 'primary'.) value = 0 for
 primary, value = 1 for secondary
 5) registrationStatus - registered | unregistred |
-registrationFailed depending on whether the device 
-server is registered, unregistered or could not 
+registrationFailed depending on whether the device
+server is registered, unregistered or could not
 register to the call server respectively.
-6) reason - {unreachable | unknown | 
-invalidParam}, indicates the cause for the 
-registration failure. 
+6) reason - {unreachable | unknown |
+invalidParam}, indicates the cause for the
+registration failure.
 7) comment - Any comment sent along with this trap.
 Severity: INFO for registration/unregistration.
 CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
@@ -8216,13 +8216,13 @@ CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sipCSConnectionStatus trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			csID=%parm[#3]% 
-			csType=%parm[#4]% 
-			registrationStatus=%parm[#5]% 
-			reason=%parm[#6]% 
+			sipCSConnectionStatus trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			csID=%parm[#3]%
+			csType=%parm[#4]%
+			registrationStatus=%parm[#5]%
+			reason=%parm[#6]%
 			comment=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8245,19 +8245,19 @@ CRITICAL for failed registration.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sipDSError</uei>
 	<event-label>SIP-TRAP-MIB defined trap event: sipDSError</event-label>
 	<descr>
-&lt;p&gt;When any error occurs in the device server. 
+&lt;p&gt;When any error occurs in the device server.
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
 instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) reason - the reason for the error that occurs 
+3) reason - the reason for the error that occurs
 in the device server. Takes one of these values:
 internalError | systemResourceUnavailable |
-unknown 
+unknown
 4) comment - Any comment sent along with this trap.
-Severity: INFO (internalError), 
+Severity: INFO (internalError),
 MAJOR (systemResourceUnavailable),
 INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -8278,10 +8278,10 @@ INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sipDSError trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			reason=%parm[#3]% 
+			sipDSError trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			reason=%parm[#3]%
 			comment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8304,16 +8304,16 @@ INFO (unknownError - any other errors).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/sipCommandFailed</uei>
 	<event-label>SIP-TRAP-MIB defined trap event: sipCommandFailed</event-label>
 	<descr>
-&lt;p&gt;Triggered when any request is failed by the 
-device server. 		
+&lt;p&gt;Triggered when any request is failed by the
+device server.
 VARIABLE DEFINITIONS:
-1) timeStamp - time when the alarm occured, in 
+1) timeStamp - time when the alarm occured, in
 sec.usec format
 2) code - bitwise OR of severity, facility, errorCode,
 instanceID, severity(less than 28) | facility(less than 24) |
 errorCode(less than 16) | instanceid
-3) reason -  reason for the failure of the command. 
-{internalError | systemResourceUnavailable 
+3) reason -  reason for the failure of the command.
+{internalError | systemResourceUnavailable
 | notSupported | unknown }
 4) comment - Any comment sent along with this trap.
 Severity: MINOR (or may be command sensitive).&lt;/p&gt;&lt;table&gt;
@@ -8335,10 +8335,10 @@ Severity: MINOR (or may be command sensitive).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sipCommandFailed trap received 
-			timeOccurred=%parm[#1]% 
-			code=%parm[#2]% 
-			reason=%parm[#3]% 
+			sipCommandFailed trap received
+			timeOccurred=%parm[#1]%
+			code=%parm[#2]%
+			reason=%parm[#3]%
 			comment=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8588,10 +8588,10 @@ alarmActiveResourceType and alarmACtiveResourceId.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alarmRaise trap received 
-			alarmModelIndex=%parm[#1]% 
-			alarmModelState=%parm[#2]% 
-			alarmActiveResourceType=%parm[#3]% 
+			alarmRaise trap received
+			alarmModelIndex=%parm[#1]%
+			alarmModelState=%parm[#2]%
+			alarmActiveResourceType=%parm[#3]%
 			alarmActiveResourceId=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8637,9 +8637,9 @@ alarmActiveResourceType and alarmACtiveResourceId.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			alarmCleared trap received 
-			alarmModelIndex=%parm[#1]% 
-			alarmActiveResourceType=%parm[#2]% 
+			alarmCleared trap received
+			alarmModelIndex=%parm[#1]%
+			alarmActiveResourceType=%parm[#2]%
 			alarmActiveResourceId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>

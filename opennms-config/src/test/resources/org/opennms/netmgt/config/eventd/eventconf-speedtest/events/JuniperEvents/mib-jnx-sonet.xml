@@ -116,10 +116,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSonetAlarmSet trap received 
-			ifDescr=%parm[#1]% 
-			jnxSonetLastAlarmId=%parm[#2]% 
-			jnxSonetCurrentAlarms=%parm[#3]% 
+			jnxSonetAlarmSet trap received
+			ifDescr=%parm[#1]%
+			jnxSonetLastAlarmId=%parm[#2]%
+			jnxSonetCurrentAlarms=%parm[#3]%
 			jnxSonetLastAlarmDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -240,10 +240,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSonetAlarmCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxSonetLastAlarmId=%parm[#2]% 
-			jnxSonetCurrentAlarms=%parm[#3]% 
+			jnxSonetAlarmCleared trap received
+			ifDescr=%parm[#1]%
+			jnxSonetLastAlarmId=%parm[#2]%
+			jnxSonetCurrentAlarms=%parm[#3]%
 			jnxSonetLastAlarmDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

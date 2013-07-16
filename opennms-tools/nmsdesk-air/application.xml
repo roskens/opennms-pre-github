@@ -6,10 +6,10 @@
 	Specifies parameters for identifying, installing, and launching AIR applications.
 
 	xmlns - The Adobe AIR namespace: http://ns.adobe.com/air/application/1.1
-			The last segment of the namespace specifies the version 
+			The last segment of the namespace specifies the version
 			of the AIR runtime required for this application to run.
-			
-	minimumPatchLevel - The minimum patch level of the AIR runtime required to run 
+
+	minimumPatchLevel - The minimum patch level of the AIR runtime required to run
 			the application. Optional.
 -->
 
@@ -35,7 +35,7 @@
 	<initialWindow>
 		<!-- The main HTML file of the application. Required. -->
 		<content>NMSDesk.html</content>
-		
+
 		<!-- The title of the main window. Optional. -->
 		<title/>
 
@@ -95,7 +95,7 @@
 	of the AIR file (true), or the default AIR application installer handles the update (false).
 	Optional. Default false. -->
 	<!-- <customUpdateUI></customUpdateUI> -->
-	
+
 	<!-- Whether the application can be launched when the user clicks a link in a web browser.
 	Optional. Default false. -->
 	<!-- <allowBrowserInvocation></allowBrowserInvocation> -->

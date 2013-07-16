@@ -17,7 +17,7 @@
    <license url="%licenseURL">
       %license
    </license>
-   
+
    <plugin
          id="org.opennms.m2e.castor"
          download-size="0"

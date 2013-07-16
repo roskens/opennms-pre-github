@@ -15,7 +15,7 @@
 
         server(12345);
         source("${install.dir}/etc/scriptd-event-forwarder.bsh");
- 
+
 	</start-script>
 
 	<stop-script language="beanshell">

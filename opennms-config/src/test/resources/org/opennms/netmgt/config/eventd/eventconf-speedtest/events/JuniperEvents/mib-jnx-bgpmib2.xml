@@ -68,12 +68,12 @@ the BGP FSM enters the ESTABLISHED state.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxBgpM2Established trap received 
-			jnxBgpM2PeerLocalAddrType=%parm[#1]% 
-			jnxBgpM2PeerLocalAddr=%parm[#2]% 
-			jnxBgpM2PeerRemoteAddrType=%parm[#3]% 
-			jnxBgpM2PeerRemoteAddr=%parm[#4]% 
-			jnxBgpM2PeerLastErrorReceived=%parm[#5]% 
+			jnxBgpM2Established trap received
+			jnxBgpM2PeerLocalAddrType=%parm[#1]%
+			jnxBgpM2PeerLocalAddr=%parm[#2]%
+			jnxBgpM2PeerRemoteAddrType=%parm[#3]%
+			jnxBgpM2PeerRemoteAddr=%parm[#4]%
+			jnxBgpM2PeerLastErrorReceived=%parm[#5]%
 			jnxBgpM2PeerState=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Normal</severity>
@@ -151,13 +151,13 @@ state to a lower numbered state.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxBgpM2BackwardTransition trap received 
-			jnxBgpM2PeerLocalAddrType=%parm[#1]% 
-			jnxBgpM2PeerLocalAddr=%parm[#2]% 
-			jnxBgpM2PeerRemoteAddrType=%parm[#3]% 
-			jnxBgpM2PeerRemoteAddr=%parm[#4]% 
-			jnxBgpM2PeerLastErrorReceived=%parm[#5]% 
-			jnxBgpM2PeerLastErrorReceivedText=%parm[#6]% 
+			jnxBgpM2BackwardTransition trap received
+			jnxBgpM2PeerLocalAddrType=%parm[#1]%
+			jnxBgpM2PeerLocalAddr=%parm[#2]%
+			jnxBgpM2PeerRemoteAddrType=%parm[#3]%
+			jnxBgpM2PeerRemoteAddr=%parm[#4]%
+			jnxBgpM2PeerLastErrorReceived=%parm[#5]%
+			jnxBgpM2PeerLastErrorReceivedText=%parm[#6]%
 			jnxBgpM2PeerState=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

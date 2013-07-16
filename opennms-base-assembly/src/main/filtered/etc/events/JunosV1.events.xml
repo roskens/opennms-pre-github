@@ -30,8 +30,8 @@ the BGP FSM enters the ESTABLISHED state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bgpEstablishedV1 trap received 
-			bgpPeerLastError=%parm[#1]% 
+			bgpEstablishedV1 trap received
+			bgpPeerLastError=%parm[#1]%
 			bgpPeerState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -67,8 +67,8 @@ state to a lower numbered state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bgpBackwardTransitionV1 trap received 
-			bgpPeerLastError=%parm[#1]% 
+			bgpBackwardTransitionV1 trap received
+			bgpPeerLastError=%parm[#1]%
 			bgpPeerState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -94,7 +94,7 @@ state to a lower numbered state.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-V1-TRAPS-CHAS defined trap event: jnxPowerSupplyFailureV1</event-label>
 	<descr>
 &lt;p&gt;A jnxPowerSupplyFailure trap signifies that
-the specified power supply in the chassis has 
+the specified power supply in the chassis has
 been in the failure (bad DC output) condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -118,11 +118,11 @@ been in the failure (bad DC output) condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPowerSupplyFailureV1 trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
+			jnxPowerSupplyFailureV1 trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
 			jnxContentsDescr=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -170,11 +170,11 @@ the failure (not spinning) condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFanFailureV1 trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
+			jnxFanFailureV1 trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
 			jnxContentsDescr=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -197,8 +197,8 @@ the failure (not spinning) condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOverTemperatureV1</uei>
 	<event-label>JUNIPER-V1-TRAPS-CHAS defined trap event: jnxOverTemperatureV1</event-label>
 	<descr>
-&lt;p&gt;A jnxOverTemperature trap signifies that the 
-specified hardware component in the chassis has 
+&lt;p&gt;A jnxOverTemperature trap signifies that the
+specified hardware component in the chassis has
 experienced over temperature condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -222,11 +222,11 @@ experienced over temperature condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOverTemperatureV1 trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
+			jnxOverTemperatureV1 trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
 			jnxContentsDescr=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -251,7 +251,7 @@ experienced over temperature condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspUpV1</uei>
 	<event-label>JUNIPER-V1-TRAPS-MPLS defined trap event: mplsLspUpV1</event-label>
 	<descr>
-&lt;p&gt;An mplsLspUp trap signifies that the 
+&lt;p&gt;An mplsLspUp trap signifies that the
 specified LSP is up. The current active
 path for the LSP is mplsPathName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -264,8 +264,8 @@ path for the LSP is mplsPathName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspUpV1 trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspUpV1 trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -288,7 +288,7 @@ path for the LSP is mplsPathName.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspDownV1</uei>
 	<event-label>JUNIPER-V1-TRAPS-MPLS defined trap event: mplsLspDownV1</event-label>
 	<descr>
-&lt;p&gt;An mplsLspDown trap signifies that the 
+&lt;p&gt;An mplsLspDown trap signifies that the
 specified LSP is down, because the current
 active path mplsPathName went down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -301,8 +301,8 @@ active path mplsPathName went down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspDownV1 trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspDownV1 trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -326,7 +326,7 @@ active path mplsPathName went down.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-V1-TRAPS-MPLS defined trap event: mplsLspChangeV1</event-label>
 	<descr>
 &lt;p&gt;An mplsLspChange trap signifies that the
-the specified LSP has switched traffic to 
+the specified LSP has switched traffic to
 the new active path 'toLspPath'. The LSP maintains
 up state before and after the switch over&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -339,8 +339,8 @@ up state before and after the switch over&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspChangeV1 trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspChangeV1 trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -390,10 +390,10 @@ state (i.e., Point-to-Point).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfStateChangeV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
+			ospfVirtIfStateChangeV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
 			ospfVirtIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -450,11 +450,11 @@ ospfIfStateChange.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfNbrStateChangeV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfNbrIpAddr=%parm[#2]% 
-			ospfNbrAddressLessIndex=%parm[#3]% 
-			ospfNbrRtrId=%parm[#4]% 
+			ospfNbrStateChangeV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfNbrIpAddr=%parm[#2]%
+			ospfNbrAddressLessIndex=%parm[#3]%
+			ospfNbrRtrId=%parm[#4]%
 			ospfNbrState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -501,10 +501,10 @@ progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtNbrStateChangeV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtNbrArea=%parm[#2]% 
-			ospfVirtNbrRtrId=%parm[#3]% 
+			ospfVirtNbrStateChangeV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtNbrArea=%parm[#2]%
+			ospfVirtNbrRtrId=%parm[#3]%
 			ospfVirtNbrState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -560,12 +560,12 @@ prevents an adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfConfigErrorV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfPacketSrc=%parm[#4]% 
-			ospfConfigErrorType=%parm[#5]% 
+			ospfIfConfigErrorV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfPacketSrc=%parm[#4]%
+			ospfConfigErrorType=%parm[#5]%
 			ospfPacketType=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -617,11 +617,11 @@ jacency from forming.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfConfigErrorV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
-			ospfConfigErrorType=%parm[#4]% 
+			ospfVirtIfConfigErrorV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
+			ospfConfigErrorType=%parm[#4]%
 			ospfPacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -676,12 +676,12 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfAuthFailureV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfPacketSrc=%parm[#4]% 
-			ospfConfigErrorType=%parm[#5]% 
+			ospfIfAuthFailureV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfPacketSrc=%parm[#4]%
+			ospfConfigErrorType=%parm[#5]%
 			ospfPacketType=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -731,11 +731,11 @@ authentication key or authentication type.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfAuthFailureV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
-			ospfConfigErrorType=%parm[#4]% 
+			ospfVirtIfAuthFailureV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
+			ospfConfigErrorType=%parm[#4]%
 			ospfPacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -783,11 +783,11 @@ interface that cannot be parsed.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfRxBadPacketV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfPacketSrc=%parm[#4]% 
+			ospfIfRxBadPacketV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfPacketSrc=%parm[#4]%
 			ospfPacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -831,10 +831,10 @@ that cannot be parsed.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfRxBadPacketV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
+			ospfVirtIfRxBadPacketV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
 			ospfPacketType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -897,14 +897,14 @@ identify the LSDB entry.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfTxRetransmitV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
-			ospfNbrRtrId=%parm[#4]% 
-			ospfPacketType=%parm[#5]% 
-			ospfLsdbType=%parm[#6]% 
-			ospfLsdbLsid=%parm[#7]% 
+			ospfTxRetransmitV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
+			ospfNbrRtrId=%parm[#4]%
+			ospfPacketType=%parm[#5]%
+			ospfLsdbType=%parm[#6]%
+			ospfLsdbLsid=%parm[#7]%
 			ospfLsdbRouterId=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -963,13 +963,13 @@ the LSDB entry.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfVirtIfTxRetransmitV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfVirtIfAreaId=%parm[#2]% 
-			ospfVirtIfNeighbor=%parm[#3]% 
-			ospfPacketType=%parm[#4]% 
-			ospfLsdbType=%parm[#5]% 
-			ospfLsdbLsid=%parm[#6]% 
+			ospfVirtIfTxRetransmitV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfVirtIfAreaId=%parm[#2]%
+			ospfVirtIfNeighbor=%parm[#3]%
+			ospfPacketType=%parm[#4]%
+			ospfLsdbType=%parm[#5]%
+			ospfLsdbLsid=%parm[#6]%
 			ospfLsdbRouterId=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1023,11 +1023,11 @@ MaxAge.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfOriginateLsaV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfLsdbAreaId=%parm[#2]% 
-			ospfLsdbType=%parm[#3]% 
-			ospfLsdbLsid=%parm[#4]% 
+			ospfOriginateLsaV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfLsdbAreaId=%parm[#2]%
+			ospfLsdbType=%parm[#3]%
+			ospfLsdbLsid=%parm[#4]%
 			ospfLsdbRouterId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1075,11 +1075,11 @@ aged to MaxAge.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfMaxAgeLsaV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfLsdbAreaId=%parm[#2]% 
-			ospfLsdbType=%parm[#3]% 
-			ospfLsdbLsid=%parm[#4]% 
+			ospfMaxAgeLsaV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfLsdbAreaId=%parm[#2]%
+			ospfLsdbType=%parm[#3]%
+			ospfLsdbLsid=%parm[#4]%
 			ospfLsdbRouterId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1115,8 +1115,8 @@ base has exceeded ospfExtLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfLsdbOverflowV1 trap received 
-			ospfRouterId=%parm[#1]% 
+			ospfLsdbOverflowV1 trap received
+			ospfRouterId=%parm[#1]%
 			ospfExtLsdbLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1153,8 +1153,8 @@ ospfExtLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfLsdbApproachingOverflowV1 trap received 
-			ospfRouterId=%parm[#1]% 
+			ospfLsdbApproachingOverflowV1 trap received
+			ospfRouterId=%parm[#1]%
 			ospfExtLsdbLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1202,10 +1202,10 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ospfIfStateChangeV1 trap received 
-			ospfRouterId=%parm[#1]% 
-			ospfIfIpAddress=%parm[#2]% 
-			ospfAddressLessIf=%parm[#3]% 
+			ospfIfStateChangeV1 trap received
+			ospfRouterId=%parm[#1]%
+			ospfIfIpAddress=%parm[#2]%
+			ospfAddressLessIf=%parm[#3]%
 			ospfIfState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

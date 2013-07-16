@@ -19,9 +19,9 @@
 	<event-label>MPLS-VPN-MIB defined trap event: mplsVrfIfUp</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when:
-a. The ifOperStatus of an interface associated with a VRF 
+a. The ifOperStatus of an interface associated with a VRF
    changes to the up(1) state.
-b. When an interface with ifOperStatus = up(1) is 
+b. When an interface with ifOperStatus = up(1) is
    associated with a VRF.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -49,9 +49,9 @@ b. When an interface with ifOperStatus = up(1) is
 	<event-label>MPLS-VPN-MIB defined trap event: mplsVrfIfDown</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when:
-a. The ifOperStatus of an interface associated with a VRF 
+a. The ifOperStatus of an interface associated with a VRF
    changes to the down(1) state.
-b. When an interface with ifOperStatus = up(1) state is 
+b. When an interface with ifOperStatus = up(1) state is
    disassociated with a VRF.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -136,11 +136,11 @@ mplsVrfMaxRouteThreshold.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<event-label>MPLS-VPN-MIB defined trap event: mplsNumVrfSecIllegalLabelThreshExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the number of illegal
-label violations on a VRF as indicated by 
-mplsVpnVrfSecIllegalLabelViolations has exceeded 
-mplsVpnVrfSecIllegalLabelRcvThresh. The threshold is not 
-included in the varbind here because the value of 
-mplsVpnVrfSecIllegalLabelViolations should be one greater than 
+label violations on a VRF as indicated by
+mplsVpnVrfSecIllegalLabelViolations has exceeded
+mplsVpnVrfSecIllegalLabelRcvThresh. The threshold is not
+included in the varbind here because the value of
+mplsVpnVrfSecIllegalLabelViolations should be one greater than
 the threshold at the time this notification is issued.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -200,8 +200,8 @@ c. Multiple interfaces are associated with this VRF, and the
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsL3VpnVrfUp trap received 
-			mplsL3VpnIfConfRowStatus=%parm[#1]% 
+			mplsL3VpnVrfUp trap received
+			mplsL3VpnIfConfRowStatus=%parm[#1]%
 			mplsL3VpnVrfOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -257,8 +257,8 @@ c. The last interface with ifOperStatus equal to up(1)
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsL3VpnVrfDown trap received 
-			mplsL3VpnIfConfRowStatus=%parm[#1]% 
+			mplsL3VpnVrfDown trap received
+			mplsL3VpnIfConfRowStatus=%parm[#1]%
 			mplsL3VpnVrfOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -299,8 +299,8 @@ mplsL3VpnVrfConfMidRteThresh.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsL3VpnVrfRouteMidThreshExceeded trap received 
-			mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]% 
+			mplsL3VpnVrfRouteMidThreshExceeded trap received
+			mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]%
 			mplsL3VpnVrfConfMidRteThresh=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -356,8 +356,8 @@ value.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsL3VpnVrfNumVrfRouteMaxThreshExceeded trap received 
-			mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]% 
+			mplsL3VpnVrfNumVrfRouteMaxThreshExceeded trap received
+			mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]%
 			mplsL3VpnVrfConfHighRteThresh=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -395,7 +395,7 @@ the threshold at the time this notification is issued.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsL3VpnNumVrfSecIllglLblThrshExcd trap received 
+			mplsL3VpnNumVrfSecIllglLblThrshExcd trap received
 			mplsL3VpnVrfSecIllegalLblVltns=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -456,8 +456,8 @@ whenever the maximum threshold has been cleared.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsL3VpnNumVrfRouteMaxThreshCleared trap received 
-			mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]% 
+			mplsL3VpnNumVrfRouteMaxThreshCleared trap received
+			mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]%
 			mplsL3VpnVrfConfHighRteThresh=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -528,8 +528,8 @@ mplsXCOperStatus objects MUST be the identical.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsXCUp trap received 
-			mplsXCOperStatus=%parm[#1]% 
+			mplsXCUp trap received
+			mplsXCOperStatus=%parm[#1]%
 			mplsXCOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -598,8 +598,8 @@ mplsXCOperStatus objects MUST be identical.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsXCDown trap received 
-			mplsXCOperStatus=%parm[#1]% 
+			mplsXCDown trap received
+			mplsXCOperStatus=%parm[#1]%
 			mplsXCOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

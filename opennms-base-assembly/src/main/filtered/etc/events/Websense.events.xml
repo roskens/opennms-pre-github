@@ -22,7 +22,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -212,7 +212,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: This event is for testing use</logmsg>
@@ -241,7 +241,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -471,7 +471,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: High CPU Usage</logmsg>
@@ -500,7 +500,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -762,7 +762,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: High Memory Usage</logmsg>
@@ -791,7 +791,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -1021,7 +1021,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Heavy network traffic on interface</logmsg>
@@ -1050,7 +1050,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -1264,7 +1264,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Low Disk Free Space</logmsg>
@@ -1293,7 +1293,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -1507,7 +1507,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Low Swap Free Space</logmsg>
@@ -1536,7 +1536,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -1750,7 +1750,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Heavy System Load</logmsg>
@@ -1779,7 +1779,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -1993,7 +1993,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Too large log file size</logmsg>
@@ -2022,7 +2022,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -2228,7 +2228,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Module Down</logmsg>
@@ -2257,7 +2257,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -2471,7 +2471,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Applicance Service Down</logmsg>
@@ -2500,7 +2500,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -2706,7 +2706,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Applicance Backup Failure</logmsg>
@@ -2735,7 +2735,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -2949,7 +2949,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Applicance Hostname Changed</logmsg>
@@ -2978,7 +2978,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -3200,7 +3200,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Applicance IP Address Changed</logmsg>
@@ -3229,7 +3229,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -3459,7 +3459,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Power Supply Warning</logmsg>
@@ -3488,7 +3488,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -3718,7 +3718,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Redundancy Warning</logmsg>
@@ -3747,7 +3747,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -3993,7 +3993,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Temperatures Warning</logmsg>
@@ -4022,7 +4022,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -4268,7 +4268,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Fans Warning</logmsg>
@@ -4297,7 +4297,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -4543,7 +4543,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Voltages Warning</logmsg>
@@ -4572,7 +4572,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -4802,7 +4802,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Logs Warning</logmsg>
@@ -4831,7 +4831,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -5061,7 +5061,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Memory Warning</logmsg>
@@ -5090,7 +5090,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -5320,7 +5320,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Chassis Intrusion Detected</logmsg>
@@ -5349,7 +5349,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -5579,7 +5579,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance Battery Warning</logmsg>
@@ -5608,7 +5608,7 @@
                 &lt;tr&gt;
                     &lt;th&gt;
                         Parameter
-                    &lt;/th&gt;    
+                    &lt;/th&gt;
                     &lt;th&gt;
                         Value
                     &lt;/th&gt;
@@ -5862,7 +5862,7 @@
                     &lt;/td&gt;
                 &lt;/tr&gt;
 
-            &lt;/table&gt;    
+            &lt;/table&gt;
 
     </descr>
     <logmsg dest='logndisplay'>Websense Alert: Appliance RAID Controller Warning</logmsg>

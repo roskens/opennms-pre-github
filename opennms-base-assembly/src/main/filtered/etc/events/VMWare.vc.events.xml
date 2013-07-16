@@ -53,12 +53,12 @@ for details.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vpxdAlarm trap received 
-			vmwVpxdTrapType=%parm[#1]% 
-			vmwVpxdHostName=%parm[#2]% 
-			vmwVpxdVMName=%parm[#3]% 
-			vmwVpxdOldStatus=%parm[#4]% 
-			vmwVpxdNewStatus=%parm[#5]% 
+			vpxdAlarm trap received
+			vmwVpxdTrapType=%parm[#1]%
+			vmwVpxdHostName=%parm[#2]%
+			vmwVpxdVMName=%parm[#3]%
+			vmwVpxdOldStatus=%parm[#4]%
+			vmwVpxdNewStatus=%parm[#5]%
 			vmwVpxdObjValue=%parm[#6]%</p>
 ]]>		</logmsg>
 	<severity>Warning</severity>
@@ -147,11 +147,11 @@ for details.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vpxdAlarmInfo trap received 
-			vmwVpxdTargetObjType=%parm[#1]% 
-			vmwVpxdOldStatus=%parm[#2]% 
-			vmwVpxdNewStatus=%parm[#3]% 
-			vmwVpxdObjValue=%parm[#4]% 
+			vpxdAlarmInfo trap received
+			vmwVpxdTargetObjType=%parm[#1]%
+			vmwVpxdOldStatus=%parm[#2]%
+			vmwVpxdNewStatus=%parm[#3]%
+			vmwVpxdObjValue=%parm[#4]%
 			vmwVpxdTargetObj=%parm[#5]%</p>
 ]]>		</logmsg>
 	<severity>Warning</severity>

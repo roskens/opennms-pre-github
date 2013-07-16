@@ -37,10 +37,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgAdded trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgAdded trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -82,10 +82,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgDeleted trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgDeleted trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -110,7 +110,7 @@
 	<descr>
 &lt;p&gt;An SG has transitioned to the CONNECTED state.
 
-SG's that do not implement the Health Monitoring CLI 
+SG's that do not implement the Health Monitoring CLI
 commands will typically enter this state and remain here
 as long as Director can maintain an SSH connection to that
 SG.&lt;/p&gt;&lt;table&gt;
@@ -132,10 +132,10 @@ SG.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgConnected trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgConnected trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -177,10 +177,10 @@ SG.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgDisconnected trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgDisconnected trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -222,10 +222,10 @@ SG.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgOk trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgOk trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -274,10 +274,10 @@ sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgWarning trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgWarning trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -304,9 +304,9 @@ sent.&lt;/p&gt;&lt;table&gt;
 
 Note that even if the SG encounters additional
 trouble, (also of 'critical' severity), a second
-trap will NOT be sent.  Likewise, if the SG 
+trap will NOT be sent.  Likewise, if the SG
 encounters additional trouble of severity 'warning'
-a _Warning trap will NOT be sent, as the SG is 
+a _Warning trap will NOT be sent, as the SG is
 still in state critical.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -326,10 +326,10 @@ still in state critical.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgCritical trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgCritical trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -371,10 +371,10 @@ still in state critical.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgAutoregistered trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgAutoregistered trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -416,10 +416,10 @@ still in state critical.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorSgChgSgAutoregistrationFailed trap received 
-			sgHostname=%parm[#1]% 
-			sgSerialNumber=%parm[#2]% 
-			sgDeviceId=%parm[#3]% 
+			blueCoatDirectorSgChgSgAutoregistrationFailed trap received
+			sgHostname=%parm[#1]%
+			sgSerialNumber=%parm[#2]%
+			sgDeviceId=%parm[#3]%
 			sgDeviceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -442,8 +442,8 @@ still in state critical.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/bluecoat/traps/blueCoatDirectorStandbyChgPartnerReachabilityLost</uei>
 	<event-label>BLUECOAT-DIRECTOR-TRAP-MIB defined trap event: blueCoatDirectorStandbyChgPartnerReachabilityLost</event-label>
 	<descr>
-&lt;p&gt;If reported by the Primary Director, that Primary Director 
-could not reach the Secondary in order to log-in and check 
+&lt;p&gt;If reported by the Primary Director, that Primary Director
+could not reach the Secondary in order to log-in and check
 its Standby status, (called 'heartbeat').
 
 If reported by the Secondary Director, that Secondary has
@@ -464,7 +464,7 @@ where you have two Active Directors with changes on each.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgPartnerReachabilityLost trap received 
+			blueCoatDirectorStandbyChgPartnerReachabilityLost trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -496,7 +496,7 @@ Partner Director.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgPartnerReachabilityRegained trap received 
+			blueCoatDirectorStandbyChgPartnerReachabilityRegained trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -527,7 +527,7 @@ Director in a Standby pair by Operator command.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgForcedToPrimary trap received 
+			blueCoatDirectorStandbyChgForcedToPrimary trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -558,7 +558,7 @@ Director in a Standby pair by Operator command.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgForcedToSecondary trap received 
+			blueCoatDirectorStandbyChgForcedToSecondary trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -589,7 +589,7 @@ Director in a Standby pair by Operator command.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgForcedToStandalone trap received 
+			blueCoatDirectorStandbyChgForcedToStandalone trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -612,7 +612,7 @@ Director in a Standby pair by Operator command.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/bluecoat/traps/blueCoatDirectorStandbyChgForcedToActiveState</uei>
 	<event-label>BLUECOAT-DIRECTOR-TRAP-MIB defined trap event: blueCoatDirectorStandbyChgForcedToActiveState</event-label>
 	<descr>
-&lt;p&gt;The reporting Director has been forced to the Active state 
+&lt;p&gt;The reporting Director has been forced to the Active state
 by Operator command.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -620,7 +620,7 @@ by Operator command.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgForcedToActiveState trap received 
+			blueCoatDirectorStandbyChgForcedToActiveState trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -650,7 +650,7 @@ by Operator command.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgSyncFailed trap received 
+			blueCoatDirectorStandbyChgSyncFailed trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -684,7 +684,7 @@ sync completes).&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgSyncReestablished trap received 
+			blueCoatDirectorStandbyChgSyncReestablished trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -707,7 +707,7 @@ sync completes).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/bluecoat/traps/blueCoatDirectorStandbyChgPrimaryBackingOffToInactive</uei>
 	<event-label>BLUECOAT-DIRECTOR-TRAP-MIB defined trap event: blueCoatDirectorStandbyChgPrimaryBackingOffToInactive</event-label>
 	<descr>
-&lt;p&gt;While running in the Active state, the Primary Director 
+&lt;p&gt;While running in the Active state, the Primary Director
 found the Secondary in the Active state.  In such a case,
 the Primary automatically 'backs-off' to the Inactive state.
 
@@ -718,13 +718,13 @@ condition:
    Secondary Director in the Reserve state, the network
    between the two goes down.  An Operator promotes the
    Secondary to the Active state.  On the first 'heartbeat'
-   after the network comes back up, this double-Active 
+   after the network comes back up, this double-Active
    condition is detected.
 
 2. With the Primary Director in the Active state and the
    Secondary Director in the Reserve state, the Primary
    Director powers-off.  An Operator promotes the
-   Secondary to the Active state.  When the Primary 
+   Secondary to the Active state.  When the Primary
    powers-up, this double-Active condition is detected.
 
 In both cases, an Operator will have to determine which
@@ -736,7 +736,7 @@ changes to keep when they make the Primary Active again.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgPrimaryBackingOffToInactive trap received 
+			blueCoatDirectorStandbyChgPrimaryBackingOffToInactive trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -759,15 +759,15 @@ changes to keep when they make the Primary Active again.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/bluecoat/traps/blueCoatDirectorStandbyChgPartnerConfigInvalid</uei>
 	<event-label>BLUECOAT-DIRECTOR-TRAP-MIB defined trap event: blueCoatDirectorStandbyChgPartnerConfigInvalid</event-label>
 	<descr>
-&lt;p&gt;There are two possibilities: the Director setup to be this 
+&lt;p&gt;There are two possibilities: the Director setup to be this
 Director's partner can be configured to be part of a pair,
 or not.
 
 If that partner Director is configured to be part of a pair:
-This [Primary] Director logged-into the Secondary, (as part 
-of the 'heartbeat' process), and asked that Secondary 
-Director who it thought it's Primary was.  Unfortunately, 
-that Secondary 'pointed-to' a THIRD Director, when it was 
+This [Primary] Director logged-into the Secondary, (as part
+of the 'heartbeat' process), and asked that Secondary
+Director who it thought it's Primary was.  Unfortunately,
+that Secondary 'pointed-to' a THIRD Director, when it was
 expected that it would point back to this Director.  The
 IPaddr of that THIRD Director is reported by the
 'standbyPartnersPrimary' varbind in this notification.
@@ -777,7 +777,7 @@ The Primary will find no Primary configured on that other
 Director, and will report '0.0.0.0' for the varbind
 'standbyPartnersPrimary' in this notification.
 
-Remediation: an Operator must check and resolve the 
+Remediation: an Operator must check and resolve the
 configuration on either/both Directors in the pair.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -789,8 +789,8 @@ configuration on either/both Directors in the pair.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgPartnerConfigInvalid trap received 
-			standbyPartnerIpaddr=%parm[#1]% 
+			blueCoatDirectorStandbyChgPartnerConfigInvalid trap received
+			standbyPartnerIpaddr=%parm[#1]%
 			standbyPartnersPrimary=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -822,7 +822,7 @@ Director once again found its Secondary to correctly
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgPartnerConfigValidated trap received 
+			blueCoatDirectorStandbyChgPartnerConfigValidated trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -860,7 +860,7 @@ the Secondary transitions to the Reserve state.
 If the Secondary does not report this notification
 immediately after the Primary is promoted via Make-Active,
 the network between the two Directors may be down, (which
-would shortly be reported by a _PartnerReachabilityLost 
+would shortly be reported by a _PartnerReachabilityLost
 notification).  In such a case, operators must be especially
 cautious, as they would then be running with both Directors
 in the Active state, and may inadvertently make changes on
@@ -873,7 +873,7 @@ lost).&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			blueCoatDirectorStandbyChgIndirectlyForcedToReserve trap received 
+			blueCoatDirectorStandbyChgIndirectlyForcedToReserve trap received
 			standbyPartnerIpaddr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -915,8 +915,8 @@ At the end of an attack a notification is generated with
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceAttackTrap trap received 
-			deviceAttackName=%parm[#1]% 
+			deviceAttackTrap trap received
+			deviceAttackName=%parm[#1]%
 			deviceAttackStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -958,7 +958,7 @@ At the end of an attack a notification is generated with
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceDiskTrap trap received 
+			deviceDiskTrap trap received
 			deviceDiskStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -991,7 +991,7 @@ of a monitored system changes.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceHealthCheckTrap trap received 
+			deviceHealthCheckTrap trap received
 			deviceHealthCheckMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1024,7 +1024,7 @@ of the SG system changes.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bluecoatSgHealthMonitorTrap trap received 
+			bluecoatSgHealthMonitorTrap trap received
 			bluecoatSgHealthMonitorMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1056,7 +1056,7 @@ of the SG system changes.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			devicePolicyTrap trap received 
+			devicePolicyTrap trap received
 			devicePolicyMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1114,9 +1114,9 @@ of the SG system changes.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceSensorTrap trap received 
-			deviceSensorName=%parm[#1]% 
-			deviceSensorValue=%parm[#2]% 
+			deviceSensorTrap trap received
+			deviceSensorName=%parm[#1]%
+			deviceSensorValue=%parm[#2]%
 			deviceSensorCode=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1161,9 +1161,9 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceUsageTrap trap received 
-			deviceUsageName=%parm[#1]% 
-			deviceUsagePercent=%parm[#2]% 
+			deviceUsageTrap trap received
+			deviceUsageName=%parm[#1]%
+			deviceUsagePercent=%parm[#2]%
 			deviceUsageStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1209,10 +1209,10 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avAntivirusUpdateSuccess trap received 
-			avVendorName=%parm[#1]% 
-			avEngineVersion=%parm[#2]% 
-			avPatternVersion=%parm[#3]% 
+			avAntivirusUpdateSuccess trap received
+			avVendorName=%parm[#1]%
+			avEngineVersion=%parm[#2]%
+			avPatternVersion=%parm[#3]%
 			avPatternDateTime=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1258,11 +1258,11 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avAntivirusUpdateFailed trap received 
-			avUpdateFailureReason=%parm[#1]% 
-			avVendorName=%parm[#2]% 
-			avEngineVersion=%parm[#3]% 
-			avPatternVersion=%parm[#4]% 
+			avAntivirusUpdateFailed trap received
+			avUpdateFailureReason=%parm[#1]%
+			avVendorName=%parm[#2]%
+			avEngineVersion=%parm[#3]%
+			avPatternVersion=%parm[#4]%
 			avPatternDateTime=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1300,9 +1300,9 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avVirusDetected trap received 
-			avUrl=%parm[#1]% 
-			avVirusName=%parm[#2]% 
+			avVirusDetected trap received
+			avUrl=%parm[#1]%
+			avVirusName=%parm[#2]%
 			avVirusDetails=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1340,9 +1340,9 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avFileServed trap received 
-			avUrl=%parm[#1]% 
-			avErrorCode=%parm[#2]% 
+			avFileServed trap received
+			avUrl=%parm[#1]%
+			avErrorCode=%parm[#2]%
 			avErrorDetails=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1380,9 +1380,9 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avFileBlocked trap received 
-			avUrl=%parm[#1]% 
-			avErrorCode=%parm[#2]% 
+			avFileBlocked trap received
+			avUrl=%parm[#1]%
+			avErrorCode=%parm[#2]%
 			avErrorDetails=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1416,8 +1416,8 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avNewFirmwareAvailable trap received 
-			avInstalledFirmwareVersion=%parm[#1]% 
+			avNewFirmwareAvailable trap received
+			avInstalledFirmwareVersion=%parm[#1]%
 			avPublishedFirmwareVersion=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1451,8 +1451,8 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avFirmwareUpdateSuccess trap received 
-			avPreviousFirmwareVersion=%parm[#1]% 
+			avFirmwareUpdateSuccess trap received
+			avPreviousFirmwareVersion=%parm[#1]%
 			avInstalledFirmwareVersion=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1490,9 +1490,9 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avFirmwareUpdateFailed trap received 
-			avInstalledFirmwareVersion=%parm[#1]% 
-			avPublishedFirmwareVersion=%parm[#2]% 
+			avFirmwareUpdateFailed trap received
+			avInstalledFirmwareVersion=%parm[#1]%
+			avPublishedFirmwareVersion=%parm[#2]%
 			avUpdateFailureReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1526,8 +1526,8 @@ Use health monitoring instead.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avAntivirusLicenseWarning trap received 
-			avVendorName=%parm[#1]% 
+			avAntivirusLicenseWarning trap received
+			avVendorName=%parm[#1]%
 			avLicenseDaysRemaining=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1563,8 +1563,8 @@ threshold value.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avICTMWarning trap received 
-			avICTMWarningReason=%parm[#1]% 
+			avICTMWarning trap received
+			avICTMWarningReason=%parm[#1]%
 			avSlowICAPConnections=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1606,8 +1606,8 @@ At the end of an attack a notification is generated with
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceAttackTrap trap received 
-			deviceAttackName=%parm[#1]% 
+			deviceAttackTrap trap received
+			deviceAttackName=%parm[#1]%
 			deviceAttackStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1639,7 +1639,7 @@ At the end of an attack a notification is generated with
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			devicePolicyTrap trap received 
+			devicePolicyTrap trap received
 			devicePolicyMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1695,9 +1695,9 @@ At the end of an attack a notification is generated with
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceSensorTrap trap received 
-			deviceSensorName=%parm[#1]% 
-			deviceSensorValue=%parm[#2]% 
+			deviceSensorTrap trap received
+			deviceSensorName=%parm[#1]%
+			deviceSensorValue=%parm[#2]%
 			deviceSensorCode=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1741,9 +1741,9 @@ exceeds a threshold.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceUsageTrap trap received 
-			deviceUsageName=%parm[#1]% 
-			deviceUsagePercent=%parm[#2]% 
+			deviceUsageTrap trap received
+			deviceUsageName=%parm[#1]%
+			deviceUsagePercent=%parm[#2]%
 			deviceUsageStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

@@ -74,15 +74,15 @@ SNMP OID mapping is not defined).&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiEventIndication trap received 
-			dmiEventClassString=%parm[#1]% 
-			dmiEventType=%parm[#2]% 
-			dmiEventDateTime=%parm[#3]% 
-			dmiCompId=%parm[#4]% 
-			dmiEventSeverity=%parm[#5]% 
-			dmiEventStateKey=%parm[#6]% 
-			dmiEventAssociatedGroup=%parm[#7]% 
-			dmiEventSystem=%parm[#8]% 
+			dmiEventIndication trap received
+			dmiEventClassString=%parm[#1]%
+			dmiEventType=%parm[#2]%
+			dmiEventDateTime=%parm[#3]%
+			dmiCompId=%parm[#4]%
+			dmiEventSeverity=%parm[#5]%
+			dmiEventStateKey=%parm[#6]%
+			dmiEventAssociatedGroup=%parm[#7]%
+			dmiEventSystem=%parm[#8]%
 			dmiEventSubSystem=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -117,8 +117,8 @@ Service Layer.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiComponentAddedIndication trap received 
-			dmiCompId=%parm[#1]% 
+			dmiComponentAddedIndication trap received
+			dmiCompId=%parm[#1]%
 			dmiCompName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -149,7 +149,7 @@ the DMI Service Layer.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiComponentDeletedIndication trap received 
+			dmiComponentDeletedIndication trap received
 			dmiCompId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -184,8 +184,8 @@ component in the DMI Service Layer.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiLanguageAddedIndication trap received 
-			dmiCompId=%parm[#1]% 
+			dmiLanguageAddedIndication trap received
+			dmiCompId=%parm[#1]%
 			dmiLanguage=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -220,8 +220,8 @@ from a component in the DMI Service Layer.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiLanguageDeletedIndication trap received 
-			dmiCompId=%parm[#1]% 
+			dmiLanguageDeletedIndication trap received
+			dmiCompId=%parm[#1]%
 			dmiLanguage=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -260,9 +260,9 @@ DMI Service Layer.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiGroupAddedIndication trap received 
-			dmiCompId=%parm[#1]% 
-			dmiGroupId=%parm[#2]% 
+			dmiGroupAddedIndication trap received
+			dmiCompId=%parm[#1]%
+			dmiGroupId=%parm[#2]%
 			dmiGroupClassString=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -297,8 +297,8 @@ component in the DMI Service Layer.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmiGroupDeletedIndication trap received 
-			dmiCompId=%parm[#1]% 
+			dmiGroupDeletedIndication trap received
+			dmiCompId=%parm[#1]%
 			dmiGroupId=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -372,13 +372,13 @@ portable computer is running low.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPortableBatteryLowCombinedBatterysCharge trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPortableBatteryEvSys=%parm[#6]% 
+			dmtfPortableBatteryLowCombinedBatterysCharge trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPortableBatteryEvSys=%parm[#6]%
 			dmtfPortableBatteryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -450,13 +450,13 @@ portable computer is critcally low.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPortableBatteryCriticalCombinedBatterysCharge trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPortableBatteryEvSys=%parm[#6]% 
+			dmtfPortableBatteryCriticalCombinedBatterysCharge trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPortableBatteryEvSys=%parm[#6]%
 			dmtfPortableBatteryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -479,7 +479,7 @@ portable computer is critcally low.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfPortableBatteryMaintenanceRequired</uei>
 	<event-label>DMTF-MOBILE-MIB defined trap event: dmtfPortableBatteryMaintenanceRequired</event-label>
 	<descr>
-&lt;p&gt;A battery in the portable computer is 
+&lt;p&gt;A battery in the portable computer is
 defective and requires maintenance.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -528,13 +528,13 @@ defective and requires maintenance.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPortableBatteryMaintenanceRequired trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPortableBatteryEvSys=%parm[#6]% 
+			dmtfPortableBatteryMaintenanceRequired trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPortableBatteryEvSys=%parm[#6]%
 			dmtfPortableBatteryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -603,13 +603,13 @@ defective and requires maintenance.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfProcessorFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfProcessorEvSys=%parm[#6]% 
+			dmtfProcessorFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfProcessorEvSys=%parm[#6]%
 			dmtfProcessorEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -676,13 +676,13 @@ defective and requires maintenance.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfProcessorSystemUp trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfProcessorEvSys=%parm[#6]% 
+			dmtfProcessorSystemUp trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfProcessorEvSys=%parm[#6]%
 			dmtfProcessorEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -705,7 +705,7 @@ defective and requires maintenance.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfProcessorInitializationFailure</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfProcessorInitializationFailure</event-label>
 	<descr>
-&lt;p&gt;A system processor failed to initialize 
+&lt;p&gt;A system processor failed to initialize
 properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -750,13 +750,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfProcessorInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfProcessorEvSys=%parm[#6]% 
+			dmtfProcessorInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfProcessorEvSys=%parm[#6]%
 			dmtfProcessorEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -823,13 +823,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfProcessorConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfProcessorEvSys=%parm[#6]% 
+			dmtfProcessorConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfProcessorEvSys=%parm[#6]%
 			dmtfProcessorEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -852,7 +852,7 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfMotherboardProcessorFailure</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfMotherboardProcessorFailure</event-label>
 	<descr>
-&lt;p&gt;A processor on the system motherboard has 
+&lt;p&gt;A processor on the system motherboard has
 failed or been fixed according to the event
 severity indicated.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -898,13 +898,13 @@ severity indicated.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMotherboardProcessorFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMotherboardEvSys=%parm[#6]% 
+			dmtfMotherboardProcessorFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMotherboardEvSys=%parm[#6]%
 			dmtfMotherboardEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -972,13 +972,13 @@ according to the event severity indicated.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMotherboardPhysicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMotherboardEvSys=%parm[#6]% 
+			dmtfMotherboardPhysicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMotherboardEvSys=%parm[#6]%
 			dmtfMotherboardEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1046,13 +1046,13 @@ has failed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMotherboardMemoryError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMotherboardEvSys=%parm[#6]% 
+			dmtfMotherboardMemoryError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMotherboardEvSys=%parm[#6]%
 			dmtfMotherboardEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1120,13 +1120,13 @@ started-up successfully.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMotherboardSystemUp trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMotherboardEvSys=%parm[#6]% 
+			dmtfMotherboardSystemUp trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMotherboardEvSys=%parm[#6]%
 			dmtfMotherboardEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1194,13 +1194,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMotherboardInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMotherboardEvSys=%parm[#6]% 
+			dmtfMotherboardInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMotherboardEvSys=%parm[#6]%
 			dmtfMotherboardEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1267,13 +1267,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMotherboardConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMotherboardEvSys=%parm[#6]% 
+			dmtfMotherboardConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMotherboardEvSys=%parm[#6]%
 			dmtfMotherboardEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1340,13 +1340,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfLogicalMemoryError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfLogicalMemoryEvSys=%parm[#6]% 
+			dmtfLogicalMemoryError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfLogicalMemoryEvSys=%parm[#6]%
 			dmtfLogicalMemoryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1413,13 +1413,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfLogicalMemoryInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfLogicalMemoryEvSys=%parm[#6]% 
+			dmtfLogicalMemoryInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfLogicalMemoryEvSys=%parm[#6]%
 			dmtfLogicalMemoryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1486,13 +1486,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfSystemCacheMemoryError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfSystemCacheEvSys=%parm[#6]% 
+			dmtfSystemCacheMemoryError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfSystemCacheEvSys=%parm[#6]%
 			dmtfSystemCacheEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1560,13 +1560,13 @@ during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfSystemCacheInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfSystemCacheEvSys=%parm[#6]% 
+			dmtfSystemCacheInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfSystemCacheEvSys=%parm[#6]%
 			dmtfSystemCacheEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1635,13 +1635,13 @@ event severity indicated.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPowerSupplyStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPowerSupplyEvSys=%parm[#6]% 
+			dmtfPowerSupplyStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPowerSupplyEvSys=%parm[#6]%
 			dmtfPowerSupplyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1709,13 +1709,13 @@ on the system has changed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPowerSupplyPowerControlRequest trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPowerSupplyEvSys=%parm[#6]% 
+			dmtfPowerSupplyPowerControlRequest trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPowerSupplyEvSys=%parm[#6]%
 			dmtfPowerSupplyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1738,12 +1738,12 @@ on the system has changed.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfCoolingDeviceStatusChange</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfCoolingDeviceStatusChange</event-label>
 	<descr>
-&lt;p&gt;A cooling device (e.g., fan) on the system 
+&lt;p&gt;A cooling device (e.g., fan) on the system
 has changed status according to the event
-severity indicated.  
+severity indicated.
 
-Improper operation of a system cooling device 
-can lead to over-heating and eventual breakdown 
+Improper operation of a system cooling device
+can lead to over-heating and eventual breakdown
 of the system.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1788,13 +1788,13 @@ of the system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfCoolingDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfCoolingDeviceEvSys=%parm[#6]% 
+			dmtfCoolingDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfCoolingDeviceEvSys=%parm[#6]%
 			dmtfCoolingDeviceEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1818,13 +1818,13 @@ of the system.&lt;/p&gt;&lt;table&gt;
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfCoolingDeviceTemperatureFault</event-label>
 	<descr>
 &lt;p&gt;A temperature fault has been detected by a cooling
-device (e.g., fan) on the system. The system or a 
+device (e.g., fan) on the system. The system or a
 system component is either over-heating or too cold.
 Probable causes include an inoperable or obstructed
 cooling device; or insufficient ventilation around
 the system.
 
-This condition can lead to eventual breakdown 
+This condition can lead to eventual breakdown
 of the system if left unattended.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1869,13 +1869,13 @@ of the system if left unattended.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfCoolingDeviceTemperatureFault trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfCoolingDeviceEvSys=%parm[#6]% 
+			dmtfCoolingDeviceTemperatureFault trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfCoolingDeviceEvSys=%parm[#6]%
 			dmtfCoolingDeviceEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1898,7 +1898,7 @@ of the system if left unattended.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfDisksStatusChange</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfDisksStatusChange</event-label>
 	<descr>
-&lt;p&gt;The operational status of a physical disk 
+&lt;p&gt;The operational status of a physical disk
 on the system has changed, as indicated by
 the event severity.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1944,13 +1944,13 @@ the event severity.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfDisksStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfDisksEvSys=%parm[#6]% 
+			dmtfDisksStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfDisksEvSys=%parm[#6]%
 			dmtfDisksEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1973,7 +1973,7 @@ the event severity.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfDisksInitializationError</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfDisksInitializationError</event-label>
 	<descr>
-&lt;p&gt;A physical disk drive on the system failed 
+&lt;p&gt;A physical disk drive on the system failed
 to initialize properly on startup.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2018,13 +2018,13 @@ to initialize properly on startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfDisksInitializationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfDisksEvSys=%parm[#6]% 
+			dmtfDisksInitializationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfDisksEvSys=%parm[#6]%
 			dmtfDisksEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2091,13 +2091,13 @@ to initialize properly on startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfDisksConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfDisksEvSys=%parm[#6]% 
+			dmtfDisksConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfDisksEvSys=%parm[#6]%
 			dmtfDisksEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2165,13 +2165,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfDiskControllerInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfDiskControllerEvSys=%parm[#6]% 
+			dmtfDiskControllerInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfDiskControllerEvSys=%parm[#6]%
 			dmtfDiskControllerEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2238,13 +2238,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfDiskControllerConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfDiskControllerEvSys=%parm[#6]% 
+			dmtfDiskControllerConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfDiskControllerEvSys=%parm[#6]%
 			dmtfDiskControllerEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2311,13 +2311,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalMemoryArrayError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalMemoryArrayEvSys=%parm[#6]% 
+			dmtfPhysicalMemoryArrayError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalMemoryArrayEvSys=%parm[#6]%
 			dmtfPhysicalMemoryArrayEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2385,13 +2385,13 @@ to initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalMemoryArrayInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalMemoryArrayEvSys=%parm[#6]% 
+			dmtfPhysicalMemoryArrayInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalMemoryArrayEvSys=%parm[#6]%
 			dmtfPhysicalMemoryArrayEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2459,13 +2459,13 @@ to initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMassStoreLogicalDrivesPhysicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]% 
+			dmtfMassStoreLogicalDrivesPhysicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]%
 			dmtfMassStoreLogicalDrivesEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2533,13 +2533,13 @@ logical disk drive has been activated.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMassStoreLogicalDrivesHotSpareActivated trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]% 
+			dmtfMassStoreLogicalDrivesHotSpareActivated trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]%
 			dmtfMassStoreLogicalDrivesEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2606,13 +2606,13 @@ logical disk drive has been activated.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMassStoreLogicalDrivesLogicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]% 
+			dmtfMassStoreLogicalDrivesLogicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]%
 			dmtfMassStoreLogicalDrivesEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2680,13 +2680,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMassStoreLogicalDrivesInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]% 
+			dmtfMassStoreLogicalDrivesInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]%
 			dmtfMassStoreLogicalDrivesEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2753,13 +2753,13 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfMassStoreLogicalDrivesConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]% 
+			dmtfMassStoreLogicalDrivesConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfMassStoreLogicalDrivesEvSys=%parm[#6]%
 			dmtfMassStoreLogicalDrivesEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2782,7 +2782,7 @@ initialize properly during system startup.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfSystemResetSystemUp</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfSystemResetSystemUp</event-label>
 	<descr>
-&lt;p&gt;The system is up and running after having 
+&lt;p&gt;The system is up and running after having
 automatically re-booted due to some (abnormal)
 reset condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2828,13 +2828,13 @@ reset condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfSystemResetSystemUp trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfSystemResetEvSys=%parm[#6]% 
+			dmtfSystemResetSystemUp trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfSystemResetEvSys=%parm[#6]%
 			dmtfSystemResetEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2901,13 +2901,13 @@ reset condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfSystemHardwareSecuritySettingsChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfSystemHardwareSecurityEvSys=%parm[#6]% 
+			dmtfSystemHardwareSecuritySettingsChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfSystemHardwareSecurityEvSys=%parm[#6]%
 			dmtfSystemHardwareSecurityEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2976,13 +2976,13 @@ accessed without proper authorization.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfSystemHardwareSecurityContainerSecurityBreach trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfSystemHardwareSecurityEvSys=%parm[#6]% 
+			dmtfSystemHardwareSecurityContainerSecurityBreach trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfSystemHardwareSecurityEvSys=%parm[#6]%
 			dmtfSystemHardwareSecurityEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3050,13 +3050,13 @@ to the event severity indicated.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfUPSBatteryStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfUPSBatteryEvSys=%parm[#6]% 
+			dmtfUPSBatteryStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfUPSBatteryEvSys=%parm[#6]%
 			dmtfUPSBatteryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3124,13 +3124,13 @@ now running on UPS Battery.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfUPSBatteryUtilityPowerLostSystemOnBattery trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfUPSBatteryEvSys=%parm[#6]% 
+			dmtfUPSBatteryUtilityPowerLostSystemOnBattery trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfUPSBatteryEvSys=%parm[#6]%
 			dmtfUPSBatteryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3198,13 +3198,13 @@ The UPS battery is no longer in use.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfUPSBatteryUtilityPowerUpSystemOffBattery trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfUPSBatteryEvSys=%parm[#6]% 
+			dmtfUPSBatteryUtilityPowerUpSystemOffBattery trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfUPSBatteryEvSys=%parm[#6]%
 			dmtfUPSBatteryEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3274,13 +3274,13 @@ component.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfVoltageProbePowerSupplyStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfVoltageProbeEvSys=%parm[#6]% 
+			dmtfVoltageProbePowerSupplyStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfVoltageProbeEvSys=%parm[#6]%
 			dmtfVoltageProbeEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3349,13 +3349,13 @@ or a system component.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfTemperatureProbeCoolingDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfTemperatureProbeEvSys=%parm[#6]% 
+			dmtfTemperatureProbeCoolingDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfTemperatureProbeEvSys=%parm[#6]%
 			dmtfTemperatureProbeEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3425,13 +3425,13 @@ the system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfElectricalCurrentProbePowerSupplyStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfElectricalCurrentProbeEvSys=%parm[#6]% 
+			dmtfElectricalCurrentProbePowerSupplyStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfElectricalCurrentProbeEvSys=%parm[#6]%
 			dmtfElectricalCurrentProbeEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3454,7 +3454,7 @@ the system.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfElectricalCurrentProbeCoolingDeviceStatusChange</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfElectricalCurrentProbeCoolingDeviceStatusChange</event-label>
 	<descr>
-&lt;p&gt;A cooling device (e.g., Fan) on the system has changed 
+&lt;p&gt;A cooling device (e.g., Fan) on the system has changed
 status due to loss of (or regained) electrical power.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3499,13 +3499,13 @@ status due to loss of (or regained) electrical power.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfElectricalCurrentProbeCoolingDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfElectricalCurrentProbeEvSys=%parm[#6]% 
+			dmtfElectricalCurrentProbeCoolingDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfElectricalCurrentProbeEvSys=%parm[#6]%
 			dmtfElectricalCurrentProbeEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3528,7 +3528,7 @@ status due to loss of (or regained) electrical power.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfPhysicalContainerSecuritySettingsChange</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfPhysicalContainerSecuritySettingsChange</event-label>
 	<descr>
-&lt;p&gt;The security settings for the system chassis or 
+&lt;p&gt;The security settings for the system chassis or
 physical container in the system have been modified.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3573,13 +3573,13 @@ physical container in the system have been modified.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerSecuritySettingsChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerSecuritySettingsChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3647,13 +3647,13 @@ chassis or physical container has changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerPowerSupplyStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerPowerSupplyStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3721,13 +3721,13 @@ chassis or physical container has changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerCoolingDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerCoolingDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3794,13 +3794,13 @@ chassis or physical container has changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerPhysicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerPhysicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3867,13 +3867,13 @@ chassis or physical container has changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerLogicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerLogicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3896,7 +3896,7 @@ chassis or physical container has changed status.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfPhysicalContainerSecurityBreach</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfPhysicalContainerSecurityBreach</event-label>
 	<descr>
-&lt;p&gt;The system chassis has been opened has 
+&lt;p&gt;The system chassis has been opened has
 been opened without poper authorization.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3941,13 +3941,13 @@ been opened without poper authorization.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerSecurityBreach trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerSecurityBreach trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3970,7 +3970,7 @@ been opened without poper authorization.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfPhysicalContainerConfigurationError</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfPhysicalContainerConfigurationError</event-label>
 	<descr>
-&lt;p&gt;A chassis or other physical container on the 
+&lt;p&gt;A chassis or other physical container on the
 system is not properly configured.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4015,13 +4015,13 @@ system is not properly configured.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfPhysicalContainerConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfPhysicalContainerGlobalEvSys=%parm[#6]% 
+			dmtfPhysicalContainerConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfPhysicalContainerGlobalEvSys=%parm[#6]%
 			dmtfPhysicalContainerGlobalEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4088,13 +4088,13 @@ system is not properly configured.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyPowerSupplyStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyPowerSupplyStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4117,7 +4117,7 @@ system is not properly configured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfStructureDependencyCoolingDeviceStatusChange</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfStructureDependencyCoolingDeviceStatusChange</event-label>
 	<descr>
-&lt;p&gt;A cooling device (e.g., fan) in the system 
+&lt;p&gt;A cooling device (e.g., fan) in the system
 has changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4162,13 +4162,13 @@ has changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyCoolingDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyCoolingDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4236,13 +4236,13 @@ changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyPhysicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyPhysicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4310,13 +4310,13 @@ changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyLogicalDeviceStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyLogicalDeviceStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4383,13 +4383,13 @@ changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencySystemUp trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencySystemUp trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4456,13 +4456,13 @@ changed status.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyBatteryStatusChange trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyBatteryStatusChange trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4485,7 +4485,7 @@ changed status.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/dmtf/traps/dmtfStructureDependencyContainerSecurityBreach</uei>
 	<event-label>DMTF-SYSTEMS-MIB defined trap event: dmtfStructureDependencyContainerSecurityBreach</event-label>
 	<descr>
-&lt;p&gt;The system chassis has been opened has 
+&lt;p&gt;The system chassis has been opened has
 been opened without poper authorization.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4530,13 +4530,13 @@ been opened without poper authorization.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyContainerSecurityBreach trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyContainerSecurityBreach trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4604,13 +4604,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyInitializationFailure trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyInitializationFailure trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4677,13 +4677,13 @@ properly during system startup.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dmtfStructureDependencyConfigurationError trap received 
-			dmiEventDateTime=%parm[#1]% 
-			dmiCompId=%parm[#2]% 
-			dmiEventSeverity=%parm[#3]% 
-			dmiEventStateKey=%parm[#4]% 
-			dmiEventAssociatedGroup=%parm[#5]% 
-			dmtfStructureDependencyEvSys=%parm[#6]% 
+			dmtfStructureDependencyConfigurationError trap received
+			dmiEventDateTime=%parm[#1]%
+			dmiCompId=%parm[#2]%
+			dmiEventSeverity=%parm[#3]%
+			dmiEventStateKey=%parm[#4]%
+			dmiEventAssociatedGroup=%parm[#5]%
+			dmtfStructureDependencyEvSys=%parm[#6]%
 			dmtfStructureDependencyEvSub=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

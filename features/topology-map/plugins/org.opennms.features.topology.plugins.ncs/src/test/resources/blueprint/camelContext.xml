@@ -10,7 +10,7 @@
         <argument ref="ncsRepository"/>
         <argument ref="nodeDao"/>
     </bean>
-    
+
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
     <route>
       <from uri="direct:start"/>
@@ -25,7 +25,7 @@
       <to uri="http://dummyhost"/>
       <bean ref="ncsPathProvider" method="createPath" />
     </route>
-    
+
     <route>
       <from uri="direct:start"/>
       <transform>

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!-- 24 hours -->
-<capsd-configuration 
-	rescan-frequency="86400000" 
-	initial-sleep-time="300000" 
-	management-policy="managed" 
+<capsd-configuration
+	rescan-frequency="86400000"
+	initial-sleep-time="300000"
+	management-policy="managed"
 	max-suspect-thread-pool-size="6"
-    max-rescan-thread-pool-size="3" 
-    abort-protocol-scans-if-no-route="false" 
-    delete-propagation-enabled="true" 
+    max-rescan-thread-pool-size="3"
+    abort-protocol-scans-if-no-route="false"
+    delete-propagation-enabled="true"
     xmlrpc="false">
 
     <protocol-plugin protocol="ICMP" class-name="org.opennms.netmgt.capsd.plugins.IcmpPlugin" scan="on">
@@ -146,7 +146,7 @@
         <property key="port" value="1311" />
         <property key="timeout" value="3000" />
         <property key="retry" value="2" />
-    </protocol-plugin>    
+    </protocol-plugin>
     <protocol-plugin protocol="NRPE" class-name="org.opennms.netmgt.capsd.plugins.NrpePlugin" scan="on">
         <property key="banner" value="*" />
         <property key="port" value="5666" />
@@ -180,8 +180,8 @@
     </protocol-plugin>
 
     <!--
-        The following <protocol-plugin> tags contain examples of other types of 
-        capsd plugins that can be added to the system 
+        The following <protocol-plugin> tags contain examples of other types of
+        capsd plugins that can be added to the system
     -->
 
     <protocol-plugin protocol="Memcached" class-name="org.opennms.netmgt.capsd.plugins.TcpPlugin" scan="on">
@@ -238,8 +238,8 @@
          <property key="retry" value="2"/>
          <property key="timeout" value="2000"/>
          <property key="factory" value="RMI"/>
-         <!-- if you set the factory to HTTP (necessary when monitoring through a firewall) then you 
-              need to ensure the port matches the port specified in the InvokerURLSuffix for the Naming Service entry in 
+         <!-- if you set the factory to HTTP (necessary when monitoring through a firewall) then you
+              need to ensure the port matches the port specified in the InvokerURLSuffix for the Naming Service entry in
              <jboss-home>/server/default/deploy/http-invoker/META-INF/jboss-service.xml
               The default port is 8080
          -->
@@ -250,8 +250,8 @@
          <property key="retry" value="2"/>
          <property key="timeout" value="2000"/>
          <property key="factory" value="RMI"/>
-         <!-- if you set the factory to HTTP (necessary when monitoring through a firewall) then you 
-              need to ensure the port matches the port specified in the InvokerURLSuffix for the Naming Service entry in 
+         <!-- if you set the factory to HTTP (necessary when monitoring through a firewall) then you
+              need to ensure the port matches the port specified in the InvokerURLSuffix for the Naming Service entry in
               <jboss-home>/server/default/deploy/http-invoker/META-INF/jboss-service.xml
               The default port is 8080
           -->
@@ -405,7 +405,7 @@
         <property key="timeout" value="3000" />
         <property key="retry" value="2" />
     </protocol-plugin>
-    
+
     <!--  The RADIUS plugin is now distributed separately and must be installed before enabling this -->
     <protocol-plugin protocol="RadiusAuth" class-name="org.opennms.protocols.radius.capsd.RadiusAuthPlugin" scan="on">
         <property key="timeout" value="3000" />
@@ -422,8 +422,8 @@
         <property key="timeout" value="3000" />
         <property key="retry" value="1" />
     </protocol-plugin>
-    
-    
+
+
     <smb-config>
         <smb-auth user="guest" password="guest" type="domain">WORKGROUP</smb-auth>
     </smb-config>

@@ -111,12 +111,12 @@
 		INSERT INTO authentication (id, username, password, enabled)
 		VALUES (#id:INT#, #username:VARCHAR#, #password:VARCHAR#, 1) ;
 	</insert>
-	
+
 	<insert id="insertUserAuthorities" parameterClass="userComplete">
         INSERT INTO authentication (id, username, password, enabled)
         VALUES (#id:INT#, #username:VARCHAR#, #password:VARCHAR#, 1) ;
     </insert>
-    
+
     <insert id="insertUserItem" parameterClass="map">
         INSERT INTO group_members (username, group_id)
         VALUES (#username:VARCHAR#, #id:INT# ) ;
@@ -145,10 +145,10 @@
 		DELETE FROM authentication
 		WHERE id = #id:BIGINT# ;
     </delete>
-    
+
     <delete id="deleteUserItems" parameterClass="string">
         DELETE FROM group_members
         WHERE username = #username:VARCHAR# ;
     </delete>
-    
+
 </sqlMap>

@@ -34,9 +34,9 @@
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpv6LocalServerInterfaceLimitExceeded trap received 
-			jnxJdhcpv6RouterName=%parm[#1]% 
-			jnxJdhcpv6LocalServerInterfaceName=%parm[#2]% 
+			jnxJdhcpv6LocalServerInterfaceLimitExceeded trap received
+			jnxJdhcpv6RouterName=%parm[#1]%
+			jnxJdhcpv6LocalServerInterfaceName=%parm[#2]%
 			jnxJdhcpv6LocalServerInterfaceLimit=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -75,9 +75,9 @@ below the limit allowed on that interface.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpv6LocalServerInterfaceLimitAbated trap received 
-			jnxJdhcpv6RouterName=%parm[#1]% 
-			jnxJdhcpv6LocalServerInterfaceName=%parm[#2]% 
+			jnxJdhcpv6LocalServerInterfaceLimitAbated trap received
+			jnxJdhcpv6RouterName=%parm[#1]%
+			jnxJdhcpv6LocalServerInterfaceName=%parm[#2]%
 			jnxJdhcpv6LocalServerInterfaceLimit=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -100,7 +100,7 @@ below the limit allowed on that interface.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJdhcpv6LocalServerHealth</uei>
     <event-label>JUNIPER-JDHCPV6-MIB defined trap event: jnxJdhcpv6LocalServerHealth</event-label>
     <descr><![CDATA[
-<p>Reports when a health event occurs in the V6 Local Server 
+<p>Reports when a health event occurs in the V6 Local Server
 application.</p><table>
 	<tr><td><b>
 
@@ -120,9 +120,9 @@ application.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpv6LocalServerHealth trap received 
-			jnxJdhcpv6RouterName=%parm[#1]% 
-			jnxJdhcpv6LocalServerEventSeverity=%parm[#2]% 
+			jnxJdhcpv6LocalServerHealth trap received
+			jnxJdhcpv6RouterName=%parm[#1]%
+			jnxJdhcpv6LocalServerEventSeverity=%parm[#2]%
 			jnxJdhcpv6LocalServerEventString=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

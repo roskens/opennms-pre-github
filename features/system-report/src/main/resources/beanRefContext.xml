@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-        
+
   <bean id="systemReportContext" class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
      <constructor-arg>
        <list>
@@ -12,5 +12,5 @@
      <constructor-arg ref="soaContext" />
      <constructor-arg ref="daoContext" />
    </bean>
-   
+
 </beans>

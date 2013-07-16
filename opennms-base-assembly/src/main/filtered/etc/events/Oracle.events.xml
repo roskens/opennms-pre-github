@@ -113,7 +113,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/Oracle/traps/oraNavigatorStateChange</uei>
  <event-label>ORAINTERCHANGE-MIB defined trap event: oraNavigatorStateChange</event-label>
- <descr>&lt;p&gt;A navigatorStateChange trap signifies that a Navigator state 
+ <descr>&lt;p&gt;A navigatorStateChange trap signifies that a Navigator state
  has been changed.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  oraNavigatorState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -142,7 +142,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/Oracle/traps/oraCmanagerStateChange</uei>
  <event-label>ORAINTERCHANGE-MIB defined trap event: oraCmanagerStateChange</event-label>
- <descr>&lt;p&gt;A cmanagerStateChange trap signifies that a Connection Manager 
+ <descr>&lt;p&gt;A cmanagerStateChange trap signifies that a Connection Manager
  state has been changed.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  oraCmanagerState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -267,17 +267,17 @@
         %parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        oraEM4Alert trap received 
-                        oraEM4AlertTargetName=%parm[#1]% 
-                        oraEM4AlertTargetType=%parm[#2]% 
-                        oraEM4AlertHostName=%parm[#3]% 
-                        oraEM4AlertMetricName=%parm[#4]% 
-                        oraEM4AlertKeyName=%parm[#5]% 
-                        oraEM4AlertKeyValue=%parm[#6]% 
-                        oraEM4AlertTimeStamp=%parm[#7]% 
-                        oraEM4AlertSeverity=%parm[#8]% 
-                        oraEM4AlertMessage=%parm[#9]% 
-                        oraEM4AlertRuleName=%parm[#10]% 
+                        oraEM4Alert trap received
+                        oraEM4AlertTargetName=%parm[#1]%
+                        oraEM4AlertTargetType=%parm[#2]%
+                        oraEM4AlertHostName=%parm[#3]%
+                        oraEM4AlertMetricName=%parm[#4]%
+                        oraEM4AlertKeyName=%parm[#5]%
+                        oraEM4AlertKeyValue=%parm[#6]%
+                        oraEM4AlertTimeStamp=%parm[#7]%
+                        oraEM4AlertSeverity=%parm[#8]%
+                        oraEM4AlertMessage=%parm[#9]%
+                        oraEM4AlertRuleName=%parm[#10]%
                         oraEM4AlertRuleOwner=%parm[#11]%&lt;/p&gt;
                 </logmsg>
         <severity>Indeterminate</severity>

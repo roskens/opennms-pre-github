@@ -6,14 +6,14 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
 	">
-	
+
     <!-- in order to make the tests independent I create a new registry for each test context
     <util:constant id="serviceRegistry" static-field="org.opennms.core.soa.support.DefaultServiceRegistry.INSTANCE" />
      -->
     <bean id="serviceRegistry" class="org.opennms.core.soa.support.DefaultServiceRegistry" />
-	
+
     <bean id="myProvider" class="org.opennms.core.soa.support.MyProvider" />
-    
+
     <bean id="greeterRegistration" class="org.opennms.core.soa.support.ServiceFactoryBean">
         <property name="serviceRegistry" ref="serviceRegistry" />
         <property name="target" ref="myProvider" />

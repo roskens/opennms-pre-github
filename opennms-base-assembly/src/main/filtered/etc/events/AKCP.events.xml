@@ -205,12 +205,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -270,12 +270,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -335,12 +335,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -400,12 +400,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -465,12 +465,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -530,12 +530,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -595,12 +595,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -660,12 +660,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -725,12 +725,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -790,12 +790,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogueStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogueStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -855,12 +855,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitchStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitchStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -920,12 +920,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMSStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMSStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -985,12 +985,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMSStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMSStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1050,12 +1050,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSenUnknownStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSenUnknownStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1115,12 +1115,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSenNormalStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSenNormalStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1180,12 +1180,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSenWarningStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSenWarningStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1245,12 +1245,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSenCriticalStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSenCriticalStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1310,12 +1310,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSenDownStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSenDownStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1375,12 +1375,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spWattStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spWattStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1440,12 +1440,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1505,12 +1505,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1570,12 +1570,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1635,12 +1635,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1700,12 +1700,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1765,12 +1765,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1830,12 +1830,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1895,12 +1895,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtualStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtualStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1960,12 +1960,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2025,12 +2025,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2090,12 +2090,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2155,12 +2155,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2220,12 +2220,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2285,12 +2285,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2350,12 +2350,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2415,12 +2415,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperature8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperature8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2480,12 +2480,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2545,12 +2545,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2610,12 +2610,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2675,12 +2675,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2740,12 +2740,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2805,12 +2805,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2870,12 +2870,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2935,12 +2935,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray1-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray1-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3000,12 +3000,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3065,12 +3065,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3130,12 +3130,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3195,12 +3195,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3260,12 +3260,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3325,12 +3325,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3390,12 +3390,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3455,12 +3455,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray2-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray2-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3520,12 +3520,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3585,12 +3585,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3650,12 +3650,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3715,12 +3715,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3780,12 +3780,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3845,12 +3845,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3910,12 +3910,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3975,12 +3975,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray3-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray3-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4040,12 +4040,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4105,12 +4105,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4170,12 +4170,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4235,12 +4235,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4300,12 +4300,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4365,12 +4365,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4430,12 +4430,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4495,12 +4495,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray4-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray4-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4560,12 +4560,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4625,12 +4625,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4690,12 +4690,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4755,12 +4755,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4820,12 +4820,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4885,12 +4885,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4950,12 +4950,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5015,12 +5015,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray5-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray5-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5080,12 +5080,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5145,12 +5145,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5210,12 +5210,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5275,12 +5275,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5340,12 +5340,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5405,12 +5405,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5470,12 +5470,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5535,12 +5535,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray6-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray6-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5600,12 +5600,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5665,12 +5665,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5730,12 +5730,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5795,12 +5795,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5860,12 +5860,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5925,12 +5925,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5990,12 +5990,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6055,12 +6055,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray7-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray7-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6120,12 +6120,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6185,12 +6185,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6250,12 +6250,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6315,12 +6315,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6380,12 +6380,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6445,12 +6445,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6510,12 +6510,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6575,12 +6575,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spTemperatureArray8-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spTemperatureArray8-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6640,12 +6640,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6705,12 +6705,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6770,12 +6770,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6835,12 +6835,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6900,12 +6900,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6965,12 +6965,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7030,12 +7030,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7095,12 +7095,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spAnalogue8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spAnalogue8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7160,12 +7160,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7225,12 +7225,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7290,12 +7290,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7355,12 +7355,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7420,12 +7420,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7485,12 +7485,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7550,12 +7550,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7615,12 +7615,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7680,12 +7680,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch9Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch9Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7745,12 +7745,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch10Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch10Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7810,12 +7810,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch11Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch11Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7875,12 +7875,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch12Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch12Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7940,12 +7940,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch13Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch13Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8005,12 +8005,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch14Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch14Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8070,12 +8070,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch15Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch15Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8135,12 +8135,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch16Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch16Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8200,12 +8200,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch17Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch17Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8265,12 +8265,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch18Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch18Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8330,12 +8330,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch19Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch19Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8395,12 +8395,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch20Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch20Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8460,12 +8460,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch21Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch21Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8525,12 +8525,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch22Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch22Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8590,12 +8590,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch23Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch23Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8655,12 +8655,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch24Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch24Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8720,12 +8720,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch25Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch25Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8785,12 +8785,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch26Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch26Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8850,12 +8850,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch27Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch27Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8915,12 +8915,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch28Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch28Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8980,12 +8980,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch29Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch29Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9045,12 +9045,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch30Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch30Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9110,12 +9110,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch31Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch31Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9175,12 +9175,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch32Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch32Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9240,12 +9240,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch33Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch33Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9305,12 +9305,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch34Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch34Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9370,12 +9370,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch35Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch35Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9435,12 +9435,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch36Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch36Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9500,12 +9500,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch37Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch37Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9565,12 +9565,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch38Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch38Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9630,12 +9630,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch39Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch39Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9695,12 +9695,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch40Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch40Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9760,12 +9760,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch41Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch41Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9825,12 +9825,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch42Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch42Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9890,12 +9890,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch43Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch43Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -9955,12 +9955,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch44Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch44Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10020,12 +10020,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch45Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch45Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10085,12 +10085,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch46Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch46Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10150,12 +10150,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch47Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch47Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10215,12 +10215,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch48Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch48Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10280,12 +10280,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch49Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch49Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10345,12 +10345,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch50Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch50Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10410,12 +10410,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch51Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch51Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10475,12 +10475,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch52Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch52Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10540,12 +10540,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch53Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch53Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10605,12 +10605,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch54Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch54Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10670,12 +10670,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch55Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch55Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10735,12 +10735,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch56Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch56Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10800,12 +10800,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch57Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch57Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10865,12 +10865,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch58Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch58Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10930,12 +10930,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch59Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch59Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -10995,12 +10995,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch60Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch60Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11060,12 +11060,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch61Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch61Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11125,12 +11125,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch62Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch62Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11190,12 +11190,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch63Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch63Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11255,12 +11255,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch64Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch64Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11320,12 +11320,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch65Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch65Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11385,12 +11385,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch66Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch66Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11450,12 +11450,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch67Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch67Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11515,12 +11515,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spSwitch68Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spSwitch68Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11580,12 +11580,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11645,12 +11645,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11710,12 +11710,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11775,12 +11775,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11840,12 +11840,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11905,12 +11905,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -11970,12 +11970,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12035,12 +12035,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spIRMS8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spIRMS8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12100,12 +12100,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12165,12 +12165,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12230,12 +12230,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12295,12 +12295,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12360,12 +12360,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12425,12 +12425,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12490,12 +12490,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12555,12 +12555,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVRMS8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVRMS8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12620,12 +12620,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12685,12 +12685,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12750,12 +12750,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12815,12 +12815,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12880,12 +12880,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -12945,12 +12945,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13010,12 +13010,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13075,12 +13075,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spEnergy8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spEnergy8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13140,12 +13140,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13205,12 +13205,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13270,12 +13270,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13335,12 +13335,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13400,12 +13400,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13465,12 +13465,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13530,12 +13530,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13595,12 +13595,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray1-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray1-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13660,12 +13660,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13725,12 +13725,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13790,12 +13790,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13855,12 +13855,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13920,12 +13920,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -13985,12 +13985,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14050,12 +14050,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14115,12 +14115,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray2-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray2-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14180,12 +14180,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14245,12 +14245,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14310,12 +14310,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14375,12 +14375,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14440,12 +14440,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14505,12 +14505,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14570,12 +14570,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14635,12 +14635,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray3-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray3-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14700,12 +14700,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14765,12 +14765,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14830,12 +14830,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14895,12 +14895,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -14960,12 +14960,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15025,12 +15025,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15090,12 +15090,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15155,12 +15155,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray4-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray4-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15220,12 +15220,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15285,12 +15285,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15350,12 +15350,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15415,12 +15415,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15480,12 +15480,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15545,12 +15545,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15610,12 +15610,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15675,12 +15675,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray5-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray5-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15740,12 +15740,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15805,12 +15805,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15870,12 +15870,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -15935,12 +15935,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16000,12 +16000,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16065,12 +16065,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16130,12 +16130,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16195,12 +16195,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray6-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray6-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16260,12 +16260,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16325,12 +16325,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16390,12 +16390,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16455,12 +16455,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16520,12 +16520,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16585,12 +16585,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16650,12 +16650,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16715,12 +16715,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray7-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray7-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16780,12 +16780,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16845,12 +16845,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16910,12 +16910,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -16975,12 +16975,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17040,12 +17040,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17105,12 +17105,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17170,12 +17170,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17235,12 +17235,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spRelayArray8-8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spRelayArray8-8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17300,12 +17300,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual1Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual1Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17365,12 +17365,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual2Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual2Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17430,12 +17430,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual3Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual3Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17495,12 +17495,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual4Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual4Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17560,12 +17560,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual5Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual5Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17625,12 +17625,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual6Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual6Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17690,12 +17690,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual7Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual7Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17755,12 +17755,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual8Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual8Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17820,12 +17820,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual9Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual9Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17885,12 +17885,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual10Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual10Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -17950,12 +17950,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual11Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual11Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18015,12 +18015,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual12Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual12Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18080,12 +18080,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual13Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual13Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18145,12 +18145,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual14Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual14Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18210,12 +18210,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual15Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual15Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18275,12 +18275,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual16Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual16Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18340,12 +18340,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual17Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual17Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18405,12 +18405,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual18Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual18Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18470,12 +18470,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual19Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual19Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18535,12 +18535,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spVirtual20Status trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
+			spVirtual20Status trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
 			spSensorDescription=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -18657,20 +18657,20 @@
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			spCustomStatus trap received 
-			spSensorStatus=%parm[#1]% 
-			spSensorValue=%parm[#2]% 
-			spSensorLevelExceeded=%parm[#3]% 
-			spSensorIndex=%parm[#4]% 
-			spSensorName=%parm[#5]% 
-			spSensorDescription=%parm[#6]% 
-			spSensorType=%parm[#7]% 
-			spSensorStatusName=%parm[#8]% 
-			spSensorSubIndex=%parm[#9]% 
-			spBoardIndex=%parm[#10]% 
-			spBoardDescription=%parm[#11]% 
-			spEventTimeStamp=%parm[#12]% 
-			spEventClassNumber=%parm[#13]% 
+			spCustomStatus trap received
+			spSensorStatus=%parm[#1]%
+			spSensorValue=%parm[#2]%
+			spSensorLevelExceeded=%parm[#3]%
+			spSensorIndex=%parm[#4]%
+			spSensorName=%parm[#5]%
+			spSensorDescription=%parm[#6]%
+			spSensorType=%parm[#7]%
+			spSensorStatusName=%parm[#8]%
+			spSensorSubIndex=%parm[#9]%
+			spBoardIndex=%parm[#10]%
+			spBoardDescription=%parm[#11]%
+			spEventTimeStamp=%parm[#12]%
+			spEventClassNumber=%parm[#13]%
 			spEventClassName=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

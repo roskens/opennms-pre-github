@@ -36,8 +36,8 @@ interface number.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rxOverflowHWFault trap received 
-			rndErrorDesc=%parm[#1]% 
+			rxOverflowHWFault trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -77,8 +77,8 @@ The bound variable rndErrorDesc provides the interface number.&lt;/p&gt;&lt;tabl
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			txOverflowHWFault trap received 
-			rndErrorDesc=%parm[#1]% 
+			txOverflowHWFault trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -118,8 +118,8 @@ Table is used for IP routing algorithm (RIP).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			routeTableOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			routeTableOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -161,8 +161,8 @@ using the variable rndAction.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			resetRequired trap received 
-			rndErrorDesc=%parm[#1]% 
+			resetRequired trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -204,8 +204,8 @@ text and severity respectively.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			endTftp trap received 
-			rndErrorDesc=%parm[#1]% 
+			endTftp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -246,8 +246,8 @@ provides the actual  message text  and severity  respectively.&lt;/p&gt;&lt;tabl
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			abortTftp trap received 
-			rndErrorDesc=%parm[#1]% 
+			abortTftp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -288,8 +288,8 @@ question&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			startTftp trap received 
-			rndErrorDesc=%parm[#1]% 
+			startTftp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -328,8 +328,8 @@ question&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			faultBackUp trap received 
-			rndErrorDesc=%parm[#1]% 
+			faultBackUp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -368,8 +368,8 @@ question&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mainLinkUp trap received 
-			rndErrorDesc=%parm[#1]% 
+			mainLinkUp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -410,8 +410,8 @@ provides the actual  message text and severity respectively.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ipxRipTblOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			ipxRipTblOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -452,8 +452,8 @@ provides the actual  message text and severity respectively.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ipxSapTblOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			ipxSapTblOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -495,8 +495,8 @@ interface Number.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			facsAccessVoilation trap received 
-			rndErrorDesc=%parm[#1]% 
+			facsAccessVoilation trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -536,8 +536,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== info )&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			autoConfigurationCompleted trap received 
-			rndErrorDesc=%parm[#1]% 
+			autoConfigurationCompleted trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -578,8 +578,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== warning )&lt;/p&gt;&lt;tabl
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			forwardingTabOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			forwardingTabOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -620,8 +620,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== warning )&lt;/p&gt;&lt;tabl
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			framRelaySwitchConnectionUp trap received 
-			rndErrorDesc=%parm[#1]% 
+			framRelaySwitchConnectionUp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -662,8 +662,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== warning )&lt;/p&gt;&lt;tabl
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			framRelaySwitchConnectionDown trap received 
-			rndErrorDesc=%parm[#1]% 
+			framRelaySwitchConnectionDown trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -703,8 +703,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== error )&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			errorsDuringInit trap received 
-			rndErrorDesc=%parm[#1]% 
+			errorsDuringInit trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -743,8 +743,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== error )&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vlanDynPortAdded trap received 
-			rndErrorDesc=%parm[#1]% 
+			vlanDynPortAdded trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -783,8 +783,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== error )&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vlanDynPortRemoved trap received 
-			rndErrorDesc=%parm[#1]% 
+			vlanDynPortRemoved trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -823,8 +823,8 @@ The bound variable rndErrorDesc, rndErrorSeverity(== error )&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsSDclientsTableOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsSDclientsTableOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -864,8 +864,8 @@ and is thought to be inactive.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsSDinactiveServer trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsSDinactiveServer trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -904,8 +904,8 @@ and is thought to be inactive.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsIpZhrConnectionsTableOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsIpZhrConnectionsTableOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -945,8 +945,8 @@ no available IP virtual address to allocate to it.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsIpZhrReqStaticConnNotAccepted trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsIpZhrReqStaticConnNotAccepted trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -987,8 +987,8 @@ it will not be further allocated to new connections.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsIpZhrVirtualIpAsSource trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsIpZhrVirtualIpAsSource trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1030,8 +1030,8 @@ specific source IP.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsIpZhrNotAllocVirtualIp trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsIpZhrNotAllocVirtualIp trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1073,8 +1073,8 @@ configuration to an NMS.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsSnmpSetRequestInSpecialCfgState trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsSnmpSetRequestInSpecialCfgState trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1123,8 +1123,8 @@ if any responses were received:
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsPingCompletion trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsPingCompletion trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1165,8 +1165,8 @@ rndErrorSeverity(== warning ), interface Number. and pppSecurityIdentity&lt;/p&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			pppSecurityViolation trap received 
-			rndErrorDesc=%parm[#1]% 
+			pppSecurityViolation trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1205,8 +1205,8 @@ rndErrorSeverity(== warning ), interface Number. and pppSecurityIdentity&lt;/p&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			frDLCIStatudChange trap received 
-			rndErrorDesc=%parm[#1]% 
+			frDLCIStatudChange trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1245,8 +1245,8 @@ rndErrorSeverity(== warning ), interface Number. and pppSecurityIdentity&lt;/p&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			papFailedCommunication trap received 
-			rndErrorDesc=%parm[#1]% 
+			papFailedCommunication trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1285,8 +1285,8 @@ rndErrorSeverity(== warning ), interface Number. and pppSecurityIdentity&lt;/p&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			chapFailedCommunication trap received 
-			rndErrorDesc=%parm[#1]% 
+			chapFailedCommunication trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1326,8 +1326,8 @@ up after failure a trap of this type is issued.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsWSDRedundancySwitch trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsWSDRedundancySwitch trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1368,8 +1368,8 @@ available IP addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rsDhcpAllocationFailure trap received 
-			rndErrorDesc=%parm[#1]% 
+			rsDhcpAllocationFailure trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1408,8 +1408,8 @@ available IP addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIpFftStnOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIpFftStnOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1448,8 +1448,8 @@ available IP addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIpFftSubOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIpFftSubOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1488,8 +1488,8 @@ available IP addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIpxFftStnOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIpxFftStnOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1528,8 +1528,8 @@ available IP addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIpxFftSubOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIpxFftSubOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1568,8 +1568,8 @@ available IP addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIpmFftOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIpmFftOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1609,8 +1609,8 @@ changed&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlPhysicalDescriptionChanged trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlPhysicalDescriptionChanged trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1658,10 +1658,10 @@ transitions from the Learning state to the Forwarding state.&lt;/p&gt;&lt;table&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rldot1dStpPortStateForwarding trap received 
-			rndErrorDesc=%parm[#1]% 
-			rndErrorSeverity=%parm[#2]% 
-			rldot1dStpTrapVrblifIndex=%parm[#3]% 
+			rldot1dStpPortStateForwarding trap received
+			rndErrorDesc=%parm[#1]%
+			rndErrorSeverity=%parm[#2]%
+			rldot1dStpTrapVrblifIndex=%parm[#3]%
 			rldot1dStpTrapVrblVID=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1709,10 +1709,10 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rldot1dStpPortStateNotForwarding trap received 
-			rndErrorDesc=%parm[#1]% 
-			rndErrorSeverity=%parm[#2]% 
-			rldot1dStpTrapVrblifIndex=%parm[#3]% 
+			rldot1dStpPortStateNotForwarding trap received
+			rndErrorDesc=%parm[#1]%
+			rndErrorSeverity=%parm[#2]%
+			rldot1dStpTrapVrblifIndex=%parm[#3]%
 			rldot1dStpTrapVrblVID=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1751,8 +1751,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlPolicyDropPacketTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlPolicyDropPacketTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1791,8 +1791,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlPolicyForwardPacketTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlPolicyForwardPacketTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1831,8 +1831,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIgmpProxyTableOverflow trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIgmpProxyTableOverflow trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1871,8 +1871,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlIgmpV1MsgReceived trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlIgmpV1MsgReceived trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1911,8 +1911,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlVrrpEntriesDeleted trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlVrrpEntriesDeleted trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1951,8 +1951,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlHotSwapTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlHotSwapTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1991,8 +1991,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlTrunkPortAddedTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlTrunkPortAddedTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2031,8 +2031,8 @@ transitions from the Forwarding state to the Blocking state.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlTrunkPortRemovedTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlTrunkPortRemovedTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2072,8 +2072,8 @@ a trunk because of device limitations or diffrent swIfType.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlTrunkPortNotCapableTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlTrunkPortNotCapableTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2113,8 +2113,8 @@ a frame with new source Mac Address.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlLockPortTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlLockPortTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2153,8 +2153,8 @@ a frame with new source Mac Address.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vlanDynVlanAdded trap received 
-			rndErrorDesc=%parm[#1]% 
+			vlanDynVlanAdded trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2193,8 +2193,8 @@ a frame with new source Mac Address.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vlanDynVlanRemoved trap received 
-			rndErrorDesc=%parm[#1]% 
+			vlanDynVlanRemoved trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2233,8 +2233,8 @@ a frame with new source Mac Address.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vlanDynamicToStatic trap received 
-			rndErrorDesc=%parm[#1]% 
+			vlanDynamicToStatic trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2273,8 +2273,8 @@ a frame with new source Mac Address.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vlanStaticToDynamic trap received 
-			rndErrorDesc=%parm[#1]% 
+			vlanStaticToDynamic trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2313,8 +2313,8 @@ a frame with new source Mac Address.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dstrSysLog trap received 
-			rndErrorDesc=%parm[#1]% 
+			dstrSysLog trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2359,8 +2359,8 @@ The error text will specify the fan index, fan description and the exact fan sta
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlEnvMonFanStateChange trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlEnvMonFanStateChange trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2405,8 +2405,8 @@ The error text will specify the power supply index, power supply description and
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlEnvMonPowerSupplyStateChange trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlEnvMonPowerSupplyStateChange trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2447,8 +2447,8 @@ The error text will specify the power supply index, power supply description and
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlStackStateChange trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlStackStateChange trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2488,8 +2488,8 @@ device specific safe temperature threshold.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlEnvMonTemperatureRisingAlarm trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlEnvMonTemperatureRisingAlarm trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2529,8 +2529,8 @@ a copy operation successfully.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlCopyFinished trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlCopyFinished trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2569,8 +2569,8 @@ a copy operation successfully.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlCopyFailed trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlCopyFailed trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2610,8 +2610,8 @@ failed due to full hash chain.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlBrgMacAddFailedTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlBrgMacAddFailedTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2650,8 +2650,8 @@ failed due to full hash chain.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rldot1xPortStatusAuthorizedTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rldot1xPortStatusAuthorizedTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2690,8 +2690,8 @@ failed due to full hash chain.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rldot1xPortStatusUnauthorizedTrap trap received 
-			rndErrorDesc=%parm[#1]% 
+			rldot1xPortStatusUnauthorizedTrap trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2730,8 +2730,8 @@ failed due to full hash chain.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			swIfTablePortLock trap received 
-			rndErrorDesc=%parm[#1]% 
+			swIfTablePortLock trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2770,8 +2770,8 @@ failed due to full hash chain.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			swIfTablePortUnLock trap received 
-			rndErrorDesc=%parm[#1]% 
+			swIfTablePortUnLock trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2811,8 +2811,8 @@ number of consecutives unsuccessful login attempts.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rlAAAUserLocked trap received 
-			rndErrorDesc=%parm[#1]% 
+			rlAAAUserLocked trap received
+			rndErrorDesc=%parm[#1]%
 			rndErrorSeverity=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

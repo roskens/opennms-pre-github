@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPortRootProtectStateChangeTrap</uei>
     <event-label>JUNIPER-L2CP-FEATURES-MIB defined trap event: jnxPortRootProtectStateChangeTrap</event-label>
     <descr><![CDATA[
-<p>Generated when the ports Root-protect state (no-error or root-prevented) 
+<p>Generated when the ports Root-protect state (no-error or root-prevented)
 changes.</p><table>
 	<tr><td><b>
 
@@ -30,7 +30,7 @@ changes.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPortRootProtectStateChangeTrap trap received 
+			jnxPortRootProtectStateChangeTrap trap received
 			jnxDot1dStpPortRootProtectState=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Normal</severity>
@@ -54,7 +54,7 @@ changes.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPortLoopProtectStateChangeTrap</uei>
     <event-label>JUNIPER-L2CP-FEATURES-MIB defined trap event: jnxPortLoopProtectStateChangeTrap</event-label>
     <descr><![CDATA[
-<p>Generated when the ports Loop-protect state (no-error or loop-prevented) 
+<p>Generated when the ports Loop-protect state (no-error or loop-prevented)
 changes.</p><table>
 	<tr><td><b>
 
@@ -65,7 +65,7 @@ changes.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPortLoopProtectStateChangeTrap trap received 
+			jnxPortLoopProtectStateChangeTrap trap received
 			jnxDot1dStpPortLoopProtectState=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Normal</severity>
@@ -89,7 +89,7 @@ changes.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPortBpduErrorStatusChangeTrap</uei>
     <event-label>JUNIPER-L2CP-FEATURES-MIB defined trap event: jnxPortBpduErrorStatusChangeTrap</event-label>
     <descr><![CDATA[
-<p>Generated when the ports BPDU error state (no-error or detected) 
+<p>Generated when the ports BPDU error state (no-error or detected)
 changes.</p><table>
 	<tr><td><b>
 
@@ -100,7 +100,7 @@ changes.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPortBpduErrorStatusChangeTrap trap received 
+			jnxPortBpduErrorStatusChangeTrap trap received
 			jnxL2cpPortBpduError=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -147,11 +147,11 @@ changes.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLacpTimeOut trap received 
-			jnxLacpInterfaceName=%parm[#1]% 
-			jnxLacpifIndex=%parm[#2]% 
-			jnxLacpAggregateInterfaceName=%parm[#3]% 
-			jnxLacpAggregateifIndex=%parm[#4]% 
+			jnxLacpTimeOut trap received
+			jnxLacpInterfaceName=%parm[#1]%
+			jnxLacpifIndex=%parm[#2]%
+			jnxLacpAggregateInterfaceName=%parm[#3]%
+			jnxLacpAggregateifIndex=%parm[#4]%
 			jnxLacpAggPortActorOperState=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

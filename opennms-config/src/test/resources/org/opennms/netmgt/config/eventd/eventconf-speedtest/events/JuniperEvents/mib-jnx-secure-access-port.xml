@@ -19,8 +19,8 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxSecAccessdsRateLimitCrossed</uei>
     <event-label>JUNIPER-SECURE-ACCESS-PORT-MIB defined trap event: jnxSecAccessdsRateLimitCrossed</event-label>
     <descr><![CDATA[
-<p>A jnxdsRateLimitCrossed notification is generated when 
-the number of DHCP packets from an untrusted interface exceeds 
+<p>A jnxdsRateLimitCrossed notification is generated when
+the number of DHCP packets from an untrusted interface exceeds
 jnxSecAccessdsIfRateLimit.</p><table>
 	<tr><td><b>
 
@@ -28,7 +28,7 @@ jnxSecAccessdsIfRateLimit.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSecAccessdsRateLimitCrossed trap received 
+			jnxSecAccessdsRateLimitCrossed trap received
 			jnxSecAccessdsIfRateLimit=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -51,9 +51,9 @@ jnxSecAccessdsIfRateLimit.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxSecAccessIfMacLimitExceeded</uei>
     <event-label>JUNIPER-SECURE-ACCESS-PORT-MIB defined trap event: jnxSecAccessIfMacLimitExceeded</event-label>
     <descr><![CDATA[
-<p>Notification is sent when the number of MAC addresses learnt by 
-the interface has crossed the limit of MAC addresses(jnxSecAccessIfMacLimit) 
-	and if MAC Limit Exceeded Action(jnxSecAccessIfMacLimitExceed) is 
+<p>Notification is sent when the number of MAC addresses learnt by
+the interface has crossed the limit of MAC addresses(jnxSecAccessIfMacLimit)
+	and if MAC Limit Exceeded Action(jnxSecAccessIfMacLimitExceed) is
 	drop or alarm or shutdown.</p><table>
 	<tr><td><b>
 
@@ -70,8 +70,8 @@ the interface has crossed the limit of MAC addresses(jnxSecAccessIfMacLimit)
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSecAccessIfMacLimitExceeded trap received 
-			jnxSecAccessIfMacLimit=%parm[#1]% 
+			jnxSecAccessIfMacLimitExceeded trap received
+			jnxSecAccessIfMacLimit=%parm[#1]%
 			jnxSecAccessIfMacLimitExceed=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -94,7 +94,7 @@ the interface has crossed the limit of MAC addresses(jnxSecAccessIfMacLimit)
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxStormEventNotification</uei>
     <event-label>JUNIPER-SECURE-ACCESS-PORT-MIB defined trap event: jnxStormEventNotification</event-label>
     <descr><![CDATA[
-<p>Notification is sent when the traffic in the interface exceeds 
+<p>Notification is sent when the traffic in the interface exceeds
 rising threshold(jnxStormCtlRisingThreshold).</p><table>
 	<tr><td><b>
 
@@ -102,7 +102,7 @@ rising threshold(jnxStormCtlRisingThreshold).</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxStormEventNotification trap received 
+			jnxStormEventNotification trap received
 			jnxStormCtlRisingThreshold=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<http-datacollection-config  
-    xmlns:http-dc="http://xmlns.opennms.org/xsd/config/http-datacollection" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/http-datacollection http://www.opennms.org/xsd/config/http-datacollection-config.xsd" 
+<http-datacollection-config
+    xmlns:http-dc="http://xmlns.opennms.org/xsd/config/http-datacollection"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/http-datacollection http://www.opennms.org/xsd/config/http-datacollection-config.xsd"
     rrdRepository="${install.share.dir}/rrd/snmp/" >
   <!--
   <http-collection name="doc-count">
@@ -16,7 +16,7 @@
     <uris>
       <uri name="document-counts">
         <url path="/test/resources/httpcolltest.html"
-             user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412" 
+             user-agent="Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412"
              matches=".*([0-9]+).*" response-range="100-399" >
         </url>
         <attributes>

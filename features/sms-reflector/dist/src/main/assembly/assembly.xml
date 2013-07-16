@@ -1,10 +1,10 @@
 <assembly>
-  <formats>    
+  <formats>
     <format>tar.gz</format>
-  </formats>   
-  
-  <dependencySets>    
-    <dependencySet>   
+  </formats>
+
+  <dependencySets>
+    <dependencySet>
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <outputDirectory>/lib</outputDirectory>
       <includes>
@@ -21,16 +21,16 @@
         <exclude>dist*</exclude>
         <exclude>log4j*</exclude>
       </excludes>
-    </dependencySet>  
-    <dependencySet>   
+    </dependencySet>
+    <dependencySet>
       <outputDirectory>/bin</outputDirectory>
       <includes>
         <include>org.ops4j.pax.runner:*</include>
       </includes>
-    </dependencySet>   
-  </dependencySets>    
-  
-  <repositories>    
+    </dependencySet>
+  </dependencySets>
+
+  <repositories>
     <repository>
       <outputDirectory>equinox</outputDirectory>
       <includes>
@@ -38,9 +38,9 @@
         <include>org.eclipse.osgi:*</include>
       </includes>
     </repository>
-  </repositories>   
-  
-  <fileSets>       
+  </repositories>
+
+  <fileSets>
     <fileSet>
       <directory>src/main/etc</directory>
       <outputDirectory></outputDirectory>

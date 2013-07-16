@@ -8,5 +8,5 @@
 </decorator>
 <decorator name="adminScripts" page="admin/adminScriptsLayout.jsp">
     <pattern>/group.*.page</pattern>
-</decorator>           
+</decorator>
 </decorators>

@@ -19,7 +19,7 @@
 	<event-label>VMWARE-OBSOLETE-MIB defined trap event: vmPoweredOn</event-label>
 	<descr>
 <![CDATA[
-<p>This trap is sent when a virtual machine is powered ON from a suspended 
+<p>This trap is sent when a virtual machine is powered ON from a suspended
 or a powered off state.</p><table>
 	<tr><td><b>
 
@@ -32,8 +32,8 @@ or a powered off state.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmPoweredOn trap received 
-			vmwVmID=%parm[#1]% 
+			vmPoweredOn trap received
+			vmwVmID=%parm[#1]%
 			vmwVmConfigFilePath=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -69,8 +69,8 @@ or a powered off state.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmPoweredOff trap received 
-			vmwVmID=%parm[#1]% 
+			vmPoweredOff trap received
+			vmwVmID=%parm[#1]%
 			vmwVmConfigFilePath=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -106,8 +106,8 @@ or a powered off state.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmHBLost trap received 
-			vmwVmID=%parm[#1]% 
+			vmHBLost trap received
+			vmwVmID=%parm[#1]%
 			vmwVmConfigFilePath=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -143,8 +143,8 @@ or a powered off state.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmHBDetected trap received 
-			vmwVmID=%parm[#1]% 
+			vmHBDetected trap received
+			vmwVmID=%parm[#1]%
 			vmwVmConfigFilePath=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -180,8 +180,8 @@ or a powered off state.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmSuspended trap received 
-			vmwVmID=%parm[#1]% 
+			vmSuspended trap received
+			vmwVmID=%parm[#1]%
 			vmwVmConfigFilePath=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -233,12 +233,12 @@ or a powered off state.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vpxdTrap trap received 
-			vpxdTrapType=%parm[#1]% 
-			vpxdHostName=%parm[#2]% 
-			vpxdVMName=%parm[#3]% 
-			vpxdNewStatus=%parm[#4]% 
-			vpxdOldStatus=%parm[#5]% 
+			vpxdTrap trap received
+			vpxdTrapType=%parm[#1]%
+			vpxdHostName=%parm[#2]%
+			vpxdVMName=%parm[#3]%
+			vpxdNewStatus=%parm[#4]%
+			vpxdOldStatus=%parm[#5]%
 			vpxdObjValue=%parm[#6]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>

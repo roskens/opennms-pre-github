@@ -103,7 +103,7 @@
                 <include>org/opennms/netmgt/model/ncs/NCSComponent.java</include>
                 <include>org/opennms/netmgt/model/ncs/package-info.java</include>
               </includes>
-              <!-- 
+              <!--
               <excludes>
                 <exclude>org/opennms/netmgt/model/ncs/NCSBuilder.java</exclude>
                 <exclude>org/opennms/netmgt/model/ncs/NCSComponentRe.java</exclude>
@@ -128,7 +128,7 @@
           </plugin>
         </plugins>
       </build>
-      <!-- 
+      <!--
         The jaxb schemagen plugin fails when this is marked as provided to override it here when generating the schema
        -->
       <dependencies>

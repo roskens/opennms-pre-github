@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-element">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="element" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- This table maintains a record of elements belonging to maps -->
 		<createTable tableName="element">
@@ -26,7 +26,7 @@
 			</column>
 
 			<!-- Flag indicating the type of the element.
-				'M' - Element is a Map 
+				'M' - Element is a Map
 				'N' - Element is a Node -->
 			<column name="elementtype" type="char(1)">
 				<constraints nullable="false" />

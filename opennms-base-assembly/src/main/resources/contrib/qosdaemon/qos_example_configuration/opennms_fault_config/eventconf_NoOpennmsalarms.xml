@@ -72,7 +72,7 @@
         <event-file>/opt/OpenNMS/etc/events/Xerox.events.xml</event-file>
 
         <event-file>/opt/OpenNMS/etc/events/Standard.events.xml</event-file>
-                
+
         <!-- event file for ossj events -->
         <event-file>/opt/OpenNMS/etc/events/ossj_events.xml</event-file>
 
@@ -176,7 +176,7 @@
 		<uei>uei.opennms.org/internal/capsd/duplicateIPAddress</uei>
 		<event-label>OpenNMS-defined internal event: capsd duplicateIPAddress</event-label>
 		<descr>
-			&lt;p&gt;A services scan has discovered an IP address on 
+			&lt;p&gt;A services scan has discovered an IP address on
 		        more than one device: IP Address: %interface%. The address
 			has been added to the database under all nodes that have it.
 			If this address is in error, please take steps to correct it.
@@ -196,10 +196,10 @@
 		<event-label>OpenNMS-defined internal event: capsd updateServer</event-label>
 		<descr>
 			&lt;p&gt;This event is an external command to add an
-                        interface/server mapping to the database. The required 
-                        paramater is the IP address of the interface: %interface%, 
-                        the NMS host server name: %host%, and the optional parameter 
-                        of a node label: %nodelabel%. This event will cause an 
+                        interface/server mapping to the database. The required
+                        paramater is the IP address of the interface: %interface%,
+                        the NMS host server name: %host%, and the optional parameter
+                        of a node label: %nodelabel%. This event will cause an
                         addInterface event. &lt;/p&gt;
 		</descr>
 		<logmsg dest='logndisplay'>
@@ -214,15 +214,15 @@
 		<uei>uei.opennms.org/internal/capsd/updateService</uei>
 		<event-label>OpenNMS-defined internal event: capsd updateService</event-label>
 		<descr>
-			&lt;p&gt;This event is an external command to add or remove 
-                        an interface/service mapping into the database. The required 
-                        paramater is the IP address of the interface: %interface%, 
-                        the service name: %service%, and the optional parameter 
+			&lt;p&gt;This event is an external command to add or remove
+                        an interface/service mapping into the database. The required
+                        paramater is the IP address of the interface: %interface%,
+                        the service name: %service%, and the optional parameter
                         action: %action%. This event will cause a changeService
                         event with the specified action. &lt;/p&gt;
 		</descr>
 		<logmsg dest='logndisplay'>
-			&lt;p&gt;A request has been made to add or remove an 
+			&lt;p&gt;A request has been made to add or remove an
                         interface/service mapping, as well as add or remove a service:
                         %service% from the specified interface: %interface%. &lt;/p&gt;
 		</logmsg>
@@ -266,7 +266,7 @@
 			address for the main interface: %interface%.&lt;/p&gt;
 		</descr>
 		<logmsg dest='logndisplay'>
-			&lt;p&gt;A request has been made to add an interface 
+			&lt;p&gt;A request has been made to add an interface
 			%interface%.&lt;/p&gt;
 		</logmsg>
 		<severity>Normal</severity>
@@ -330,7 +330,7 @@
       <uei>uei.opennms.org/internal/importer/importSuccessful</uei>
       <event-label>OpenNMS-defined internal event: importer process successfully completed</event-label>
       <descr>
-        &lt;p&gt;This event indicates the model-importer process has completed successfully. There 
+        &lt;p&gt;This event indicates the model-importer process has completed successfully. There
         is 1 parameter called importStats: %parm [importStats]%&lt;/p&gt;
       </descr>
       <logmsg dest='logndisplay'>
@@ -342,7 +342,7 @@
       <uei>uei.opennms.org/internal/importer/importFailed</uei>
       <event-label>OpenNMS-defined internal event: importer process failed.</event-label>
       <descr>
-        &lt;p&gt;This event indicates the model-importer process has failed.  There is 1 parameter 
+        &lt;p&gt;This event indicates the model-importer process has failed.  There is 1 parameter
         called failureMessage: %parm [failureMessage]%&lt;/p&gt;
       </descr>
       <logmsg dest='logndisplay'>
@@ -354,14 +354,14 @@
         <event>
                 <uei>uei.opennms.org/nodes/restartPollingInterface</uei>
                 <event-label>OpeNMS-defined node event: restartPollingInterface</event-label>
-                <descr> 
-                        &lt;p&gt;This event is an external command to restart polling 
-                        all active services on a specified interface. The requeried 
-                        parameter is the IP address of the interface. (%parm [ipaddr]%). 
-                        &lt;/p&gt; 
+                <descr>
+                        &lt;p&gt;This event is an external command to restart polling
+                        all active services on a specified interface. The requeried
+                        parameter is the IP address of the interface. (%parm [ipaddr]%).
+                        &lt;/p&gt;
                 </descr>
                 <logmsg dest='logndisplay'>
-                        Reschedule polling to services on a specified interface(%parm[ipaddr]%).                
+                        Reschedule polling to services on a specified interface(%parm[ipaddr]%).
                 </logmsg>
                 <severity>Normal</severity>
         </event>
@@ -371,12 +371,12 @@
 		<descr>
 			&lt;p&gt;This event will be produced by capsd to carry the process status
                         information, so that the xmlrpcd could catch it, and reports to the external
-                        XMLRPC server. The paramters include transaction number, %parm [txNo]%, 
+                        XMLRPC server. The paramters include transaction number, %parm [txNo]%,
                         source event uei, %parm [srcUei]%, message, %parm [message]%, and process
                         status, %parm [status]%.&lt;/p&gt;
 		</descr>
 		<logmsg dest='logndisplay'>
-			&lt;p&gt;A request has been made to xmlrpcd to report status for 
+			&lt;p&gt;A request has been made to xmlrpcd to report status for
 			%parm [srcUei]%.&lt;/p&gt;
 		</logmsg>
 		<severity>Normal</severity>
@@ -777,9 +777,9 @@
 		<uei>uei.opennms.org/nodes/nodeDeleted</uei>
 		<event-label>OpenNMS-defined node event: nodeDeleted</event-label>
 		<descr>
-			&lt;p&gt;Node %nodeid% was deleted.&lt;/p&gt; 
+			&lt;p&gt;Node %nodeid% was deleted.&lt;/p&gt;
 			&lt;p&gt;OpenNMS will delete any node
-			that is down for seven (7) consecutive days, or via operator action. 
+			that is down for seven (7) consecutive days, or via operator action.
 			Nodes are considered "down" if there are no interfaces that have
 			pollable services associated with them.&lt;/p&gt;
 			&lt;p&gt;If a node becomes active again
@@ -1020,7 +1020,7 @@
 		<event-label>OpenNMS-defined node event: serviceResponsive</event-label>
 		<descr>
 			&lt;p&gt;The %service% service which was previously unresponsive
-			is now responding normally on interface %interface%.&lt;/p&gt; 
+			is now responding normally on interface %interface%.&lt;/p&gt;
 		</descr>
 		<logmsg dest='logndisplay'>
 			%service% is responding normally on interface %interface%.
@@ -1050,8 +1050,8 @@
                 <uei>uei.opennms.org/nodes/serviceUnresponsive</uei>
 		<event-label>OpenNMS-defined node event: serviceUnresponsive</event-label>
 		<descr>
-			&lt;p&gt;The %service% service is up but was unresponsive 
-			during the last poll on interface %interface%.&lt;/p&gt; 
+			&lt;p&gt;The %service% service is up but was unresponsive
+			during the last poll on interface %interface%.&lt;/p&gt;
 		</descr>
 		<logmsg dest='logndisplay'>
 			%service% is up but unresponsive on interface %interface%.
@@ -1119,7 +1119,7 @@
                         determined and configured based on vendor recommendations,
                         tempered with real-world experience in working
                         deployments.&lt;/p&gt; &lt;p&gt;This specific event
-                        indicates that a high threshold was exceeded but then dropped 
+                        indicates that a high threshold was exceeded but then dropped
 			below the rearm threshold..&lt;/p&gt;
                 </descr>
                 <logmsg dest='logndisplay'>
@@ -1199,7 +1199,7 @@
 			&lt;p&gt;Status information for service %service% has been updated.&lt;/p&gt;
 		</logmsg>
 		<severity>Normal</severity>
-<!--		
+<!--
 		<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%service%" alarm-type="1"/>
 -->
 	</event>

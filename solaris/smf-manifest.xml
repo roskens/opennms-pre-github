@@ -10,7 +10,7 @@
     <create_default_instance enabled='false' />
 
     <single_instance />
-  		
+
     <!-- Must be able to resolve hostnames. -->
     <dependency
         name='nameservice'
@@ -35,7 +35,7 @@
         grouping='require_all'
         restart_on='none'>
       <service_fmri value='svc:/milestone/multi-user-server' />
-    </dependency> 
+    </dependency>
 
     <exec_method
         type='method'
@@ -46,7 +46,7 @@
         <method_credential user='opennms' group='opennms' privileges='basic,net_icmpaccess,net_privaddr' />
       </method_context>
     </exec_method>
-  
+
     <exec_method
         type='method'
         name='stop'
@@ -56,7 +56,7 @@
         <method_credential user='opennms' group='opennms' />
       </method_context>
     </exec_method>
-  
+
     <template>
       <common_name>
         <loctext xml:lang='C'>
@@ -67,6 +67,6 @@
         <manpage title='opennms' section='1M' manpath='/usr/share/man' />
       </documentation>
     </template>
-  
+
   </service>
 </service_bundle>

@@ -97,12 +97,12 @@
 
 			<section id="installing-rpm-determine">
 				<title>Determine What to Install</title>
-				
+
 				<para>
 					As of version 1.6, OpenNMS is packaged in a modular fashion.  The
 					following packages are available for installation:
 				</para>
-				
+
 				<itemizedlist>
 					<listitem>
 						<para>
@@ -117,14 +117,14 @@
 							<emphasis>opennms-docs</emphasis>: Documentation.
 						</para>
 					</listitem>
-					
+
 					<listitem>
 						<para>
 							<emphasis>opennms-webapp-jetty</emphasis>: The OpenNMS web
 							UI, designed to be started by the opennms-core engine.
 						</para>
 					</listitem>
-					
+
 					<listitem>
 						<para>
 							<emphasis>opennms</emphasis>: A convenience package which
@@ -139,7 +139,7 @@
 							remote poller, which can report back to an OpenNMS instance.
 						</para>
 					</listitem>
-					
+
 					<listitem>
 						<para>
 							<emphasis>opennms-plugin-ticketer-centric</emphasis>: The
@@ -147,14 +147,14 @@
 							ticketer plugin.
 						</para>
 					</listitem>
-							
+
 				</itemizedlist>
-				
+
 			</section>
-			
+
 			<section id="installing-rpm-yum">
 				<title>Installing on RPM-Based Distributions Using Yum</title>
-					
+
 				<para>
 					As long as Yum is configured to point at the OpenNMS repository,
 					all you should need to run is:
@@ -162,12 +162,12 @@
 					...where <varname>[packages]</varname> is the list of packages above
 					that you wish to install.
 				</para>
-					
+
 			</section>
-				
+
 			<section id="installing-rpm-urpmi">
 				<title>Installing on RPM-Based Distributions Using URPMI</title>
-					
+
 				<para>
 					If URPMI is configured to point at the OpenNMS repository, you can install
 					by running:
@@ -179,7 +179,7 @@
 
 			<section id="installing-rpm-manual">
 				<title>Installing on RPM-Based Distributions Manually</title>
-				
+
 				<para>
 					Download the packages you wish to install from the <ulink
 					url="http://sourceforge.net/project/showfiles.php?group_id=4141&amp;package_id=4151">SourceForge
@@ -190,7 +190,7 @@
 					Then, use <code>rpm -i</code> to install the packages:
 					<programlisting>rpm -ivh opennms*.rpm</programlisting>
 				</para>
-				
+
 				<note>
 					<para>
 						As of OpenNMS 1.3.10, you can use the <code>--relocate</code> flag to RPM
@@ -226,21 +226,21 @@
 				OpenNMS is supported on Mac OS X via the <ulink
 				url="http://www.finkproject.org/">Fink</ulink> project.
 			</para>
-			
+
 			<para>
 				Once you've installed Fink, you should be able to install OpenNMS by running:
 				<programlisting>fink install opennms</programlisting>
 			</para>
 		</section>
-		
+
 		<section id="installing-windows">
 			<title>Installing on Windows</title>
-			
+
 			<para>
 				OpenNMS is supported on Windows as well, although the lack
 				of true package management makes it a bit more work to maintain.
 			</para>
-			
+
 			<para>
 				To install on Windows, download the latest
 				<filename>standalone-opennms-installer-X.X.X.jar</filename>
@@ -248,12 +248,12 @@
 				url="http://sourceforge.net/project/showfiles.php?group_id=4141&amp;package_id=4151">the
 				OpenNMS SourceForge download page</ulink>.
 			</para>
-			
+
 			<para>
 				You should be able to then just double-click the jar file in
 				Explorer, and follow the instructions in the install wizard.
 			</para>
-			
+
 			<para>
 				Once you're done, you may want to make a pristine copy of the
 				<filename><varname>$OPENNMS_HOME</varname>/etc</filename> directory
@@ -275,32 +275,32 @@
 
 			<section id="upgrading-preparation-prune-events">
 				<title>Prune Unneeded Events</title>
-				
+
 				<para>
 					Should you not be doing this already, either using vacuumd or
 					cron, prune away any unneeded events.  The events table will most
 					probably be the largest, and there's no point backing up data that
 					you don't need.
 				</para>
-				
+
 				<para>
 					For example, to delete any events older than 6 weeks that have no
 					associated outages, you can run, from the <filename>psql</filename>
 					command-line:
 					<programlisting>--# this deletes any events that are not associated with outages
-DELETE FROM events WHERE NOT EXISTS 
-  (SELECT svclosteventid FROM outages WHERE svclosteventid = events.eventid  
-UNION 
-  SELECT svcregainedeventid FROM outages WHERE svcregainedeventid = events.eventid 
-UNION 
-  SELECT eventid FROM notifications WHERE eventid = events.eventid) 
+DELETE FROM events WHERE NOT EXISTS
+  (SELECT svclosteventid FROM outages WHERE svclosteventid = events.eventid
+UNION
+  SELECT svcregainedeventid FROM outages WHERE svcregainedeventid = events.eventid
+UNION
+  SELECT eventid FROM notifications WHERE eventid = events.eventid)
 AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 				</para>
 			</section>
 
 			<section id="upgrading-preparation-backup-database">
 				<title>Back Up Your Database</title>
-				
+
 				<para>
 					Depending on the version you are upgrading <emphasis>from</emphasis> and the
 					version you are upgrading <emphasis>to</emphasis>, you may run into issues with
@@ -312,7 +312,7 @@ AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 
 			<section id="upgrading-preparation-backup-etc">
 				<title>Back Up Your OpenNMS <filename>etc</filename> Directory</title>
-				
+
 				<para>
 					Back up your <filename>$OPENNMS_HOME/etc</filename> directory before doing any
 					upgrades, so you can go back to your previous version if something goes wrong, and
@@ -321,10 +321,10 @@ AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 					<programlisting>tar -C $OPENNMS_HOME -cvzf /tmp/opennms-etc-backup.tar.gz etc</programlisting>
 				</para>
 			</section>
-			
+
 			<section id="upgrading-preparation-determine-memory">
 				<title>Assess the Events Table Size</title>
-				
+
 				<para>
 					If you have a large number of events, you may need to increase the amount
 					of memory passed to the OpenNMS <filename>install</filename> tool.  For example,
@@ -334,7 +334,7 @@ AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 					<filename>install</filename>, like:
 					<programlisting>install -Xms1024m -Xmx2048m -dis</programlisting>
 				</para>
-				
+
 			</section>
 
 		</section>
@@ -347,23 +347,23 @@ AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 				to do to get the new release is run:
 				<programlisting>sudo yum upgrade opennms</programlisting>
 			</para>
-				
+
 			<para>
 				If you are comfortable letting your distribution give you OS updates along
 				with OpenNMS, you can just run:
 				<programlisting>sudo yum upgrade</programlisting>
 			</para>
 		</section>
-			
+
 		<section id="upgrading-to-latest-urpmi">
 			<title>Upgrading RPM-Based Distributions Using URPMI</title>
-			
+
 			<para>
 				If you have the OpenNMS URPMI repositories configured, you can upgrade by
 				running:
 				<programlisting>sudo urpmi --auto opennms</programlisting>
 			</para>
-				
+
 			<para>
 				As with Yum, if you are comfortable letting URPMI give OS updates along with
 				OpenNMS, you can run:
@@ -373,7 +373,7 @@ AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 
 		<section id="upgrading-to-latest-rpm-manual">
 			<title>Upgrading RPM-Based Distributions Manually</title>
-			
+
 			<para>
 				You can upgrade RPM systems manually by downloading the <ulink
 				url="http://sourceforge.net/project/showfiles.php?group_id=4141&amp;package_id=4151">RPM
@@ -384,7 +384,7 @@ AND eventtime &lt; now() - interval '6 weeks';</programlisting>
 
 		<section id="upgrading-to-latest-debian">
 			<title>Upgrading Debian-Based Distributions</title>
-				
+
 			<para>
 				If your Debian or Ubuntu system is configured with the OpenNMS Apt
 				repository, you should just need to run:
@@ -395,13 +395,13 @@ sudo apt-get -u install opennms</programlisting>
 
 		<section id="upgrading-to-latest-windows">
 			<title>Upgrading Windows</title>
-			
+
 			<para>
 				Since there is no automated installation/upgrade procedure for
 				Windows, you will have to do some preparation before installing
 				the latest version.
 			</para>
-			
+
 			<itemizedlist>
 				<listitem>
 					<para>Back up and then remove <filename><varname>$OPENNMS_HOME</varname>/etc</filename>.</para>
@@ -411,14 +411,14 @@ sudo apt-get -u install opennms</programlisting>
 					<filename><varname>$OPENNMS_HOME</varname>/jetty-webapps/opennms/WEB-INF/lib</filename>.</para>
 				</listitem>
 			</itemizedlist>
-			
+
 			<para>
 				Once you've cleaned up the etc and lib directories, the next
 				step is to download the latest <filename>standalone-opennms-installer-X.X.X.jar</filename> from <ulink
 				url="http://sourceforge.net/project/showfiles.php?group_id=4141&amp;package_id=4151">the
 				OpenNMS SourceForge download page</ulink>.
 			</para>
-			
+
 			<para>
 				Next, run the installer jar, and install over your existing OpenNMS location.
 			</para>
@@ -429,12 +429,12 @@ sudo apt-get -u install opennms</programlisting>
 				if there are any configuration changes you wish to integrate into
 				your new install.
 			</para>
-			
+
 			<para>
 				Copy your backed up <code>etc</code> directory back into the
 				<filename><varname>$OPENNMS_HOME</varname>/etc</filename> directory.
 			</para>
-			
+
 			<para>
 				You should now be able to run your upgraded OpenNMS.
 			</para>

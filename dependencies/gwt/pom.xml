@@ -24,7 +24,7 @@
       <groupId>org.gwtwidgets</groupId>
       <artifactId>gwt-widgets</artifactId>
       <version>0.2.0</version>
-      <!-- we use provided since this is compiled to javascript 
+      <!-- we use provided since this is compiled to javascript
             and need to not be included with opennms -->
       <scope>provided</scope>
     </dependency>

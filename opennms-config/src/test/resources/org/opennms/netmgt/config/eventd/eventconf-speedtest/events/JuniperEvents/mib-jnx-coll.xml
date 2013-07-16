@@ -50,11 +50,11 @@ while transferring a collector file.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollUnavailableDest trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyUrl=%parm[#3]% 
-			jnxCollNotifyInetType=%parm[#4]% 
+			jnxCollUnavailableDest trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyUrl=%parm[#3]%
+			jnxCollNotifyInetType=%parm[#4]%
 			jnxCollNotifyInetAddress=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -78,7 +78,7 @@ while transferring a collector file.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxCollUnavailableDestCleared</uei>
     <event-label>JUNIPER-COLLECTOR-MIB defined trap event: jnxCollUnavailableDestCleared</event-label>
     <descr><![CDATA[
-<p>This indicates a previous unavailable destination failure 
+<p>This indicates a previous unavailable destination failure
 has been resolved.</p><table>
 	<tr><td><b>
 
@@ -109,11 +109,11 @@ has been resolved.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollUnavailableDestCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyUrl=%parm[#3]% 
-			jnxCollNotifyInetType=%parm[#4]% 
+			jnxCollUnavailableDestCleared trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyUrl=%parm[#3]%
+			jnxCollNotifyInetType=%parm[#4]%
 			jnxCollNotifyInetAddress=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -184,15 +184,15 @@ a file transfer.</p><table>
 	%parm[#9]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollUnsuccessfulTransfer trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyFile=%parm[#3]% 
-			jnxCollNotifyUrl=%parm[#4]% 
-			jnxCollNotifyInetType=%parm[#5]% 
-			jnxCollNotifyInetAddress=%parm[#6]% 
-			jnxCollNotifyError=%parm[#7]% 
-			jnxCollNotifyFtpResultCode=%parm[#8]% 
+			jnxCollUnsuccessfulTransfer trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyFile=%parm[#3]%
+			jnxCollNotifyUrl=%parm[#4]%
+			jnxCollNotifyInetType=%parm[#5]%
+			jnxCollNotifyInetAddress=%parm[#6]%
+			jnxCollNotifyError=%parm[#7]%
+			jnxCollNotifyFtpResultCode=%parm[#8]%
 			jnxCollNotifyFtpErrorText=%parm[#9]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -247,12 +247,12 @@ triggered.</p><table>
 	%parm[#6]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollFlowOverload trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyOverloadType=%parm[#3]% 
-			jnxCollNotifyNewRecordRate=%parm[#4]% 
-			jnxCollPicIfCreatedFiles=%parm[#5]% 
+			jnxCollFlowOverload trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyOverloadType=%parm[#3]%
+			jnxCollNotifyNewRecordRate=%parm[#4]%
+			jnxCollPicIfCreatedFiles=%parm[#5]%
 			jnxCollPicIfDestroyedFiles=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -307,12 +307,12 @@ cleared.</p><table>
 	%parm[#6]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollFlowOverloadCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyOverloadType=%parm[#3]% 
-			jnxCollNotifyNewRecordRate=%parm[#4]% 
-			jnxCollPicIfCreatedFiles=%parm[#5]% 
+			jnxCollFlowOverloadCleared trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyOverloadType=%parm[#3]%
+			jnxCollNotifyNewRecordRate=%parm[#4]%
+			jnxCollPicIfCreatedFiles=%parm[#5]%
 			jnxCollPicIfDestroyedFiles=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -360,11 +360,11 @@ triggered.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollMemoryUnavailable trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyMemThresh=%parm[#3]% 
-			jnxCollNotifyMemUtil=%parm[#4]% 
+			jnxCollMemoryUnavailable trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyMemThresh=%parm[#3]%
+			jnxCollNotifyMemUtil=%parm[#4]%
 			jnxCollNotifyMemFree=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -412,11 +412,11 @@ cleared.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollMemoryAvailable trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyMemThresh=%parm[#3]% 
-			jnxCollNotifyMemUtil=%parm[#4]% 
+			jnxCollMemoryAvailable trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyMemThresh=%parm[#3]%
+			jnxCollNotifyMemUtil=%parm[#4]%
 			jnxCollNotifyMemFree=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -502,15 +502,15 @@ cleared.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCollFtpSwitchover trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyFromFtpServerInetType=%parm[#3]% 
-			jnxCollNotifyFromFtpServerInetAddress=%parm[#4]% 
-			jnxCollNotifyFromFtpServerType=%parm[#5]% 
-			jnxCollNotifyToFtpServerInetType=%parm[#6]% 
-			jnxCollNotifyToFtpServerInetAddress=%parm[#7]% 
-			jnxCollNotifyToFtpServerType=%parm[#8]% 
+			jnxCollFtpSwitchover trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyFromFtpServerInetType=%parm[#3]%
+			jnxCollNotifyFromFtpServerInetAddress=%parm[#4]%
+			jnxCollNotifyFromFtpServerType=%parm[#5]%
+			jnxCollNotifyToFtpServerInetType=%parm[#6]%
+			jnxCollNotifyToFtpServerInetAddress=%parm[#7]%
+			jnxCollNotifyToFtpServerType=%parm[#8]%
 			jnxCollNotifyInitiatedBy=%parm[#9]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

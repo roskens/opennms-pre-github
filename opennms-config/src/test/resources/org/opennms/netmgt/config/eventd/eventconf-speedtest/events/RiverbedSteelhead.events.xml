@@ -27,7 +27,7 @@ the notification indicates which process crashed.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procCrash trap received 
+			procCrash trap received
 			procName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -53,7 +53,7 @@ the notification indicates which process crashed.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A procExit trap signifies that a process managed by PM
 has exited unexpectedly, but not left a core file.
-The variable sent with the notification indicates 
+The variable sent with the notification indicates
 which process exited.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -61,7 +61,7 @@ which process exited.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			procExit trap received 
+			procExit trap received
 			procName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -171,7 +171,7 @@ above the acceptable threshold&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			peerVersionMismatch trap received 
+			peerVersionMismatch trap received
 			systemVersion=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -353,7 +353,7 @@ optimized&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/riverbed/steelhead/traps/serviceError</uei>
 	<event-label>STEELHEAD-MIB defined trap event: serviceError</event-label>
 	<descr>
-&lt;p&gt;There has been a non-fatal optimization service error. 
+&lt;p&gt;There has been a non-fatal optimization service error.
 Please consult the log file&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -746,7 +746,7 @@ the details in the alarm report on the web UI&lt;/p&gt;&lt;table&gt;&lt;/table&g
 	<uei>uei.opennms.org/vendor/riverbed/steelhead/traps/cpuUtilClear</uei>
 	<event-label>STEELHEAD-MIB defined trap event: cpuUtilClear</event-label>
 	<descr>
-&lt;p&gt;The average CPU utilization has fallen back 
+&lt;p&gt;The average CPU utilization has fallen back
 within the acceptable threshold&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -806,7 +806,7 @@ within the acceptable threshold&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			peerVersionMismatchClear trap received 
+			peerVersionMismatchClear trap received
 			systemVersion=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

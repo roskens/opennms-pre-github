@@ -28,7 +28,7 @@ is contained in bvTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvRebootStartedTrap trap received 
+			bvRebootStartedTrap trap received
 			bvTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -61,7 +61,7 @@ is contained in bvTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserLoginTrap trap received 
+			bvUserLoginTrap trap received
 			bvTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -94,7 +94,7 @@ in bvTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserLogoutTrap trap received 
+			bvUserLogoutTrap trap received
 			bvTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -133,8 +133,8 @@ The session identifier is contained in bvTrapObjectSessionIdentifier.&lt;/p&gt;&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvVideoSessionStartedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvVideoSessionStartedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -173,8 +173,8 @@ The session identifier is contained in bvTrapObjectSessionIdentifier.&lt;/p&gt;&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvVideoSessionStoppedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvVideoSessionStoppedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -221,9 +221,9 @@ The session identifier is contained in bvTrapObjectSessionIdentifier.&lt;/p&gt;&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvVideoSessionTerminatedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
-			bvTrapObjectTargetUserName=%parm[#2]% 
+			bvVideoSessionTerminatedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
+			bvTrapObjectTargetUserName=%parm[#2]%
 			bvTrapObjectSessionIdentifier=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -255,7 +255,7 @@ The session identifier is contained in bvTrapObjectSessionIdentifier.&lt;/p&gt;&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvLocalPortViewingStartedTrap trap received 
+			bvLocalPortViewingStartedTrap trap received
 			bvTrapObjectSessionIdentifier=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -287,7 +287,7 @@ The session identifier is contained in bvTrapObjectSessionIdentifier.&lt;/p&gt;&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvLocalPortViewingStoppedTrap trap received 
+			bvLocalPortViewingStoppedTrap trap received
 			bvTrapObjectSessionIdentifier=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -315,7 +315,7 @@ The session identifier is contained in bvTrapObjectSessionIdentifier.&lt;/p&gt;&
 The name of the user who terminated the session is
 contained in bvTrapObjectUserName.
 
-The session identifier is contained in 
+The session identifier is contained in
 bvTrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -327,8 +327,8 @@ bvTrapObjectSessionIdentifier.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvLocalPortViewingTerminatedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvLocalPortViewingTerminatedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectSessionIdentifier=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -382,10 +382,10 @@ is contained in bvTrapObjectImageCurrentVersion.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvImageUpgradeStarted trap received 
-			bvTrapObjectUserName=%parm[#1]% 
-			bvTrapObjectImageType=%parm[#2]% 
-			bvTrapObjectImageNewVersion=%parm[#3]% 
+			bvImageUpgradeStarted trap received
+			bvTrapObjectUserName=%parm[#1]%
+			bvTrapObjectImageType=%parm[#2]%
+			bvTrapObjectImageNewVersion=%parm[#3]%
 			bvTrapObjectImageCurrentVersion=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -415,7 +415,7 @@ is contained in bvTrapObjectImageCurrentVersion.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvImageUpgradeResultsTrap trap received 
+			bvImageUpgradeResultsTrap trap received
 			bvTrapObjectImageUpgradeResults=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -454,8 +454,8 @@ The name of the new user is contained in bvTrapObjectTargetUserName.&lt;/p&gt;&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserAddedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvUserAddedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -495,8 +495,8 @@ in bvTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserDeletedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvUserDeletedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -536,8 +536,8 @@ in bvTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserModifiedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvUserModifiedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -570,7 +570,7 @@ is contained in bvTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserAuthenticationFailureTrap trap received 
+			bvUserAuthenticationFailureTrap trap received
 			bvTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -601,7 +601,7 @@ contained in bvTrapObjectDSRIQId.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvDSRIQAddedTrap trap received 
+			bvDSRIQAddedTrap trap received
 			bvTrapObjectDSRIQId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -632,7 +632,7 @@ contained in bvTrapObjectDSRIQId.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvDSRIQRemovedTrap trap received 
+			bvDSRIQRemovedTrap trap received
 			bvTrapObjectDSRIQId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -679,9 +679,9 @@ contained in bvTrapObjectDSRIQId.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvServerNameChangedTrap trap received 
-			bvTrapObjectOldServerName=%parm[#1]% 
-			bvTrapObjectServerName=%parm[#2]% 
+			bvServerNameChangedTrap trap received
+			bvTrapObjectOldServerName=%parm[#1]%
+			bvTrapObjectServerName=%parm[#2]%
 			bvTrapObjectDSRIQId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -722,8 +722,8 @@ bvTrapObjectFileName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvConfigurationFileLoadedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvConfigurationFileLoadedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -764,8 +764,8 @@ bvTrapObjectFileName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserDatabaseFileLoadedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
+			bvUserDatabaseFileLoadedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
 			bvTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -805,8 +805,8 @@ bvTrapObjectFirmwareCondition object.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvInvalidHookupDetectedTrap trap received 
-			bvTrapObjectDeviceId=%parm[#1]% 
+			bvInvalidHookupDetectedTrap trap received
+			bvTrapObjectDeviceId=%parm[#1]%
 			bvTrapObjectFirmwareCondition=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -846,8 +846,8 @@ bvTrapObjectFirmwareCondition object.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSubsystemUpgradeStartedTrap trap received 
-			bvTrapObjectDeviceId=%parm[#1]% 
+			bvSubsystemUpgradeStartedTrap trap received
+			bvTrapObjectDeviceId=%parm[#1]%
 			bvTrapObjectFirmwareCondition=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -882,8 +882,8 @@ subsystem specified in the bvTrapObjectFirmwareCondition object.&lt;/p&gt;&lt;ta
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSubsystemRestartTrap trap received 
-			bvTrapObjectDeviceId=%parm[#1]% 
+			bvSubsystemRestartTrap trap received
+			bvTrapObjectDeviceId=%parm[#1]%
 			bvTrapObjectFirmwareCondition=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -919,8 +919,8 @@ in the bvTrapObjectFirmwareCondition object.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSubsystemUpgradeFailureTrap trap received 
-			bvTrapObjectDeviceId=%parm[#1]% 
+			bvSubsystemUpgradeFailureTrap trap received
+			bvTrapObjectDeviceId=%parm[#1]%
 			bvTrapObjectFirmwareCondition=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -966,9 +966,9 @@ in bvTrapObjectLockReason.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserLockedTrap trap received 
-			bvTrapObjectIPAddress=%parm[#1]% 
-			bvTrapObjectTargetUserName=%parm[#2]% 
+			bvUserLockedTrap trap received
+			bvTrapObjectIPAddress=%parm[#1]%
+			bvTrapObjectTargetUserName=%parm[#2]%
 			bvTrapObjectLockReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1029,10 +1029,10 @@ in bvTrapObjectUnlockReason.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvUserUnlockedTrap trap received 
-			bvTrapObjectIPAddress=%parm[#1]% 
-			bvTrapObjectUserName=%parm[#2]% 
-			bvTrapObjectTargetUserName=%parm[#3]% 
+			bvUserUnlockedTrap trap received
+			bvTrapObjectIPAddress=%parm[#1]%
+			bvTrapObjectUserName=%parm[#2]%
+			bvTrapObjectTargetUserName=%parm[#3]%
 			bvTrapObjectUnlockReason=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1074,8 +1074,8 @@ The DSR1021 Port Number is contained in bvTrapObjectSPCDeviceCPSPort.&lt;/p&gt;&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcDeviceOnlineTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
+			bvSpcDeviceOnlineTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
 			bvTrapObjectSPCDeviceBvPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1098,9 +1098,9 @@ The DSR1021 Port Number is contained in bvTrapObjectSPCDeviceCPSPort.&lt;/p&gt;&
 	<uei>uei.opennms.org/vendor/avocent/traps/bvSpcDeviceOfflineTrap</uei>
 	<event-label>DSR1021-TRAP-MIB defined trap event: bvSpcDeviceOfflineTrap</event-label>
 	<descr>
-&lt;p&gt;The SPC attached to the appliance is detected to be offline.  This 
-trap is sent upon initialization of the SPC device if it is not 
-responding.  Subsequent traps are sent if the SPC Device transitions 
+&lt;p&gt;The SPC attached to the appliance is detected to be offline.  This
+trap is sent upon initialization of the SPC device if it is not
+responding.  Subsequent traps are sent if the SPC Device transitions
 from online to offline.
 
 The Location Name of the SPC attached to the DSR1021 port is
@@ -1117,8 +1117,8 @@ The DSR1021 Port Number is contained in bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcDeviceOfflineTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
+			bvSpcDeviceOfflineTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
 			bvTrapObjectSPCDeviceBvPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1164,9 +1164,9 @@ bvTrapObjectSPCDeviceLogin.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcLoginErrTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#2]% 
+			bvSpcLoginErrTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#2]%
 			bvTrapObjectSPCDeviceLogin=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1197,7 +1197,7 @@ The UserName of the person logged into the ASMP.
 The Location Name of the SPC attached to the CPS port is contained in
 cpsTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 bvTrapObjectSPCDeviceBvPort.
 
 The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
@@ -1219,10 +1219,10 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcSocketOnCommandTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
-			bvTrapObjectSPCDeviceLocation=%parm[#2]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#3]% 
+			bvSpcSocketOnCommandTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
+			bvTrapObjectSPCDeviceLocation=%parm[#2]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#3]%
 			bvTrapObjectSPCSocket=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1245,12 +1245,12 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendor/avocent/traps/bvSpcSocketOffCommandTrap</uei>
 	<event-label>DSR1021-TRAP-MIB defined trap event: bvSpcSocketOffCommandTrap</event-label>
 	<descr>
-&lt;p&gt;The SPC attached to the appliance has been issued an Off Command to 
+&lt;p&gt;The SPC attached to the appliance has been issued an Off Command to
 a socket.
 
 The UserName of the person logged into the ASMP.
 
-The Location Name of the SPC attached to the DSR1021 port is 
+The Location Name of the SPC attached to the DSR1021 port is
 contained in bvTrapObjectSPCDeviceLocation.
 
 The DSR1021 Port Number is contained in bvTrapObjectSPCDeviceBvPort.
@@ -1274,10 +1274,10 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcSocketOffCommandTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
-			bvTrapObjectSPCDeviceLocation=%parm[#2]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#3]% 
+			bvSpcSocketOffCommandTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
+			bvTrapObjectSPCDeviceLocation=%parm[#2]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#3]%
 			bvTrapObjectSPCSocket=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1308,7 +1308,7 @@ The UserName of the person logged into the ASMP.
 The Location Name of the SPC attached to the CPS port is contained in
 cpsTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 cpsTrapObjectSPCDeviceCPSPort.
 
 The SPC Socket Number is contained in cpsTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
@@ -1330,10 +1330,10 @@ The SPC Socket Number is contained in cpsTrapObjectSPCSocket.&lt;/p&gt;&lt;table
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcSocketRebootCommandTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
-			bvTrapObjectSPCDeviceLocation=%parm[#2]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#3]% 
+			bvSpcSocketRebootCommandTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
+			bvTrapObjectSPCDeviceLocation=%parm[#2]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#3]%
 			bvTrapObjectSPCSocket=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1358,7 +1358,7 @@ The SPC Socket Number is contained in cpsTrapObjectSPCSocket.&lt;/p&gt;&lt;table
 	<descr>
 &lt;p&gt;The SPC attached to the appliance has an On Sense Failure.
 
-The Location Name of the SPC attached to the DSR1021 port is 
+The Location Name of the SPC attached to the DSR1021 port is
 contained in bvTrapObjectSPCDeviceLocation.
 
 The DSR1021 Port Number is contained in bvTrapObjectSPCDeviceBvPort.
@@ -1378,9 +1378,9 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcSocketOnSenseFailTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#2]% 
+			bvSpcSocketOnSenseFailTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#2]%
 			bvTrapObjectSPCSocket=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1406,10 +1406,10 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 &lt;p&gt;The SPC attached to the appliance has an Off Sense Detect Failure
 (On Sense detected, but should be off).
 
-The Location Name of the SPC attached to the DSR1021 port is contained 
+The Location Name of the SPC attached to the DSR1021 port is contained
 in bvTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 bvTrapObjectSPCDeviceBvPort.
 
 The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
@@ -1427,9 +1427,9 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcSocketOffSenseFailTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#2]% 
+			bvSpcSocketOffSenseFailTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#2]%
 			bvTrapObjectSPCSocket=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1457,7 +1457,7 @@ The SPC Socket Number is contained in bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&
 The Location Name of the SPC attached to the DSR1021 port
 is contained in bvTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1469,8 +1469,8 @@ bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcTotalLoadHighTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
+			bvSpcTotalLoadHighTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
 			bvTrapObjectSPCDeviceBvPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1498,7 +1498,7 @@ bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&lt;table&gt;
 The Location Name of the SPC attached to the DSR1021 port is
 contained in bvTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1510,8 +1510,8 @@ bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcTotalLoadLowTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
+			bvSpcTotalLoadLowTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
 			bvTrapObjectSPCDeviceBvPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1539,7 +1539,7 @@ bvTrapObjectSPCDeviceBvPort.&lt;/p&gt;&lt;table&gt;
 The Location Name of the SPC attached to the DSR1021 port
 is contained in bvTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 bvTrapObjectSPCDeviceBvPort.
 
 The SPC Socket Number, or Port Name of the socket is contained in
@@ -1558,9 +1558,9 @@ bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcStatusSocketOnTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#2]% 
+			bvSpcStatusSocketOnTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#2]%
 			bvTrapObjectSPCSocket=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1588,7 +1588,7 @@ bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
 The Location Name of the SPC attached to the BrancView port is
 contained in bvTrapObjectSPCDeviceLocation.
 
-The DSR1021 Port Number is contained in 
+The DSR1021 Port Number is contained in
 bvTrapObjectSPCDeviceBvPort.
 
 The SPC Socket Number, or Port Name of the socket is contained in
@@ -1607,9 +1607,9 @@ bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvSpcStatusSocketOffTrap trap received 
-			bvTrapObjectSPCDeviceLocation=%parm[#1]% 
-			bvTrapObjectSPCDeviceBvPort=%parm[#2]% 
+			bvSpcStatusSocketOffTrap trap received
+			bvTrapObjectSPCDeviceLocation=%parm[#1]%
+			bvTrapObjectSPCDeviceBvPort=%parm[#2]%
 			bvTrapObjectSPCSocket=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1637,13 +1637,13 @@ bvTrapObjectSPCSocket.&lt;/p&gt;&lt;table&gt;
 The name of the user who is connected to the session
 is contained in bvTrapObjectUserName.
 
-The session identifier is contained in 
+The session identifier is contained in
 bvTrapObjectSessionIdentifier.
 
-The previous screen resolution is contained in 
-bvTrapObjectPreviousScreenResolution 
+The previous screen resolution is contained in
+bvTrapObjectPreviousScreenResolution
 
-The current screen resolution is contained in 
+The current screen resolution is contained in
 bvTrapObjectCurrentScreenResolution &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1663,10 +1663,10 @@ bvTrapObjectCurrentScreenResolution &lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bvScreenResolutionChangedTrap trap received 
-			bvTrapObjectUserName=%parm[#1]% 
-			bvTrapObjectSessionIdentifier=%parm[#2]% 
-			bvTrapObjectPreviousScreenResolution=%parm[#3]% 
+			bvScreenResolutionChangedTrap trap received
+			bvTrapObjectUserName=%parm[#1]%
+			bvTrapObjectSessionIdentifier=%parm[#2]%
+			bvTrapObjectPreviousScreenResolution=%parm[#3]%
 			bvTrapObjectCurrentScreenResolution=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

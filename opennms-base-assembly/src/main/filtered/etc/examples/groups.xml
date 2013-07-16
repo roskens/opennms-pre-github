@@ -38,8 +38,8 @@
         	</group>
     </groups>
 <!--  These role time formats are not valid.  They must be revised.
-    <roles> 
-		<role supervisor="admin" name="oncall" description="The On Call Schedule" membership-group="TempGroup"> 
+    <roles>
+		<role supervisor="admin" name="oncall" description="The On Call Schedule" membership-group="TempGroup">
 			<schedule name="tempuser" type="specific">
 				<time begins="21-Apr-2005 10:00:00" ends="21-Apr-2005 18:00:00" />
 				<time begins="22-Apr-2005 10:00:00" ends="22-Apr-2005 18:00:00" />
@@ -49,5 +49,5 @@
 			</schedule>
 	    </role>
   </roles>
---> 
+-->
 </groupinfo>

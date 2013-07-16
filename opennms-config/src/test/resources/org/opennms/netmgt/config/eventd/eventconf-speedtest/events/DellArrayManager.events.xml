@@ -29,8 +29,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: arrayDiskFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: arrayDiskFailed trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -64,8 +64,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: arrayDiskRemoved trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: arrayDiskRemoved trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -99,8 +99,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: arrayDiskOffline trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: arrayDiskOffline trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -134,8 +134,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: arrayDiskDegraded trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: arrayDiskDegraded trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -169,8 +169,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: arrayDiskInserted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: arrayDiskInserted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -204,8 +204,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: virtualDiskCreated trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: virtualDiskCreated trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -239,8 +239,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: virtualDiskDeleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: virtualDiskDeleted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -282,10 +282,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: virtualDiskConfigChanged trap received 
-			controllerNameEv=%parm[#1]% 
-			virtualDiskNameEv=%parm[#2]% 
-			oldVDConfigEv=%parm[#3]% 
+			Dell ArrayManager: virtualDiskConfigChanged trap received
+			controllerNameEv=%parm[#1]%
+			virtualDiskNameEv=%parm[#2]%
+			oldVDConfigEv=%parm[#3]%
 			newVDConfigEv=%parm[#4]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -319,8 +319,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: virtualDiskFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: virtualDiskFailed trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -354,8 +354,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: virtualDiskDegraded trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: virtualDiskDegraded trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -389,8 +389,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdFailedRedundancy trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdFailedRedundancy trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -424,8 +424,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: checkConsistencyStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: checkConsistencyStarted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -459,8 +459,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdFormatStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdFormatStarted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -494,8 +494,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adFormatStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adFormatStarted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -529,8 +529,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdInitializeStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdInitializeStarted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -564,8 +564,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adInitializeStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adInitializeStarted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -588,7 +588,7 @@
         <uei>uei.opennms.org/vendor/Dell/traps/vdReconfigStarted</uei>
         <event-label>ArrayManager-MIB defined trap event: vdReconfigStarted</event-label>
         <descr>
-&lt;p&gt;%s, virtual disk (%s) reconfiguration from 
+&lt;p&gt;%s, virtual disk (%s) reconfiguration from
 %s stripe size to %s stripe size started.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -608,10 +608,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdReconfigStarted trap received 
-			controllerNameEv=%parm[#1]% 
-			virtualDiskNameEv=%parm[#2]% 
-			oldVDConfigEv=%parm[#3]% 
+			Dell ArrayManager: vdReconfigStarted trap received
+			controllerNameEv=%parm[#1]%
+			virtualDiskNameEv=%parm[#2]%
+			oldVDConfigEv=%parm[#3]%
 			newVDConfigEv=%parm[#4]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -645,8 +645,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdRebuildStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdRebuildStarted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -680,8 +680,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adRebuildStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adRebuildStarted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -715,8 +715,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adDiagStarted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adDiagStarted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -750,8 +750,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: checkConsistencyCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: checkConsistencyCancelled trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -785,8 +785,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdFormatCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdFormatCancelled trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -820,8 +820,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adFormatCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adFormatCancelled trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -855,8 +855,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdInitializeCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdInitializeCancelled trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -890,8 +890,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adInitializeCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adInitializeCancelled trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -925,8 +925,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdReconfigCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdReconfigCancelled trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -960,8 +960,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdRebuildCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdRebuildCancelled trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -995,8 +995,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adRebuildCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adRebuildCancelled trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1030,8 +1030,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adDiagCancelled trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adDiagCancelled trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1065,8 +1065,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: checkConsistencyFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: checkConsistencyFailed trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1100,8 +1100,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdFormatFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdFormatFailed trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1135,8 +1135,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adFormatFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adFormatFailed trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1170,8 +1170,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdInitializeFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdInitializeFailed trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1205,8 +1205,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adInitializeFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adInitializeFailed trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1240,8 +1240,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdReconfigFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdReconfigFailed trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1275,8 +1275,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdRebuildFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdRebuildFailed trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1310,8 +1310,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adRebuildFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adRebuildFailed trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1345,8 +1345,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adDiagFailed trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adDiagFailed trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1380,8 +1380,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: checkConsistencyCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: checkConsistencyCompleted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1415,8 +1415,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdFormatCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdFormatCompleted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1450,8 +1450,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adFormatCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adFormatCompleted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1485,8 +1485,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdInitializeCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdInitializeCompleted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1520,8 +1520,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adInitializeCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adInitializeCompleted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1555,8 +1555,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdReconfigCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdReconfigCompleted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1590,8 +1590,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: vdRebuildCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: vdRebuildCompleted trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1625,8 +1625,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adRebuildCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adRebuildCompleted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1660,8 +1660,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: adDiagCompleted trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: adDiagCompleted trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1695,8 +1695,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: percPredictiveFailure trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: percPredictiveFailure trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1730,8 +1730,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: percSCSISenseData trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: percSCSISenseData trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1761,7 +1761,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: cntrlBatteryNeedsReconditioning trap received 
+			Dell ArrayManager: cntrlBatteryNeedsReconditioning trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1791,7 +1791,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: cntrlBatteryLow trap received 
+			Dell ArrayManager: cntrlBatteryLow trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1821,7 +1821,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: cntrlBatteryRecondition trap received 
+			Dell ArrayManager: cntrlBatteryRecondition trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1851,7 +1851,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: cntrlBatteryReconComplete trap received 
+			Dell ArrayManager: cntrlBatteryReconComplete trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1881,7 +1881,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: cntrlPauseIO trap received 
+			Dell ArrayManager: cntrlPauseIO trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -1911,7 +1911,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: cntrlResumeIO trap received 
+			Dell ArrayManager: cntrlResumeIO trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1945,8 +1945,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: perc2SmartFPTExceeded trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: perc2SmartFPTExceeded trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1980,8 +1980,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: perc2SmartConfigChange trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: perc2SmartConfigChange trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2015,8 +2015,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: perc2SmartWarning trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: perc2SmartWarning trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2050,8 +2050,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: perc2SmartWarningTemp trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: perc2SmartWarningTemp trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2085,8 +2085,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: perc2SmartWarningDegraded trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: perc2SmartWarningDegraded trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2120,8 +2120,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: perc2SmartFPTExceededTest trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: perc2SmartFPTExceededTest trap received
+			controllerNameEv=%parm[#1]%
 			arrayDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2159,9 +2159,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-ONLINE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-ONLINE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2199,9 +2199,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-HOTSPARE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-HOTSPARE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2239,9 +2239,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-HARD-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-HARD-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2279,9 +2279,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-PFA trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-PFA trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2319,9 +2319,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-AUTO-REBUILD-START trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-AUTO-REBUILD-START trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2359,9 +2359,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-MANUAL-REBUILD-START trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-MANUAL-REBUILD-START trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2399,9 +2399,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-DONE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-DONE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2439,9 +2439,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-CANCELED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-CANCELED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2479,9 +2479,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2519,9 +2519,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-NEWDEV-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-NEWDEV-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2559,9 +2559,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-SYSDEV-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-SYSDEV-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2599,9 +2599,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2639,9 +2639,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-FOUND trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-FOUND trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2679,9 +2679,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-GONE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-GONE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2719,9 +2719,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-UNCONFIGURED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-UNCONFIGURED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2759,9 +2759,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-EXPANDCAPACITY-START trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-EXPANDCAPACITY-START trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2799,9 +2799,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-EXPANDCAPACITY-DONE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-EXPANDCAPACITY-DONE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2839,9 +2839,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-EXPANDCAPACITY-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-EXPANDCAPACITY-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2879,9 +2879,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-COMMAND-TIMEOUT trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-COMMAND-TIMEOUT trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2919,9 +2919,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-COMMAND-ABORT trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-COMMAND-ABORT trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2959,9 +2959,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-COMMAND-RETRIED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-COMMAND-RETRIED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -2999,9 +2999,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-PARITY-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-PARITY-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -3039,9 +3039,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-SOFT-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-SOFT-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -3079,9 +3079,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-MISC-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-MISC-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -3119,9 +3119,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-RESET trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-RESET trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3159,9 +3159,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-ACTIVESPARE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-ACTIVESPARE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3199,9 +3199,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-WARMSPARE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-WARMSPARE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3239,9 +3239,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REQSENSE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REQSENSE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -3279,9 +3279,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-STARTED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-STARTED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3319,9 +3319,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-DONE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-DONE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3359,9 +3359,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -3399,9 +3399,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-CANCELED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-INIT-CANCELED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3439,9 +3439,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-WRITEREC-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-WRITEREC-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3479,9 +3479,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-RESET-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-RESET-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3519,9 +3519,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-DBLCC-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-DBLCC-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3559,9 +3559,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REMOVED-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REMOVED-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3599,9 +3599,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-GROSSERR-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-GROSSERR-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3639,9 +3639,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-BADTAG-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-BADTAG-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3679,9 +3679,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-SCSITMO-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-SCSITMO-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3719,9 +3719,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-SYSRESET-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-SYSRESET-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3759,9 +3759,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-BSYPAR-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-BSYPAR-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3799,9 +3799,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-BYCMD-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-BYCMD-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3839,9 +3839,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-SELTMO-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-SELTMO-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3879,9 +3879,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-SEQERR-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-SEQERR-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3919,9 +3919,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-UNKNOWNSTS-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-UNKNOWNSTS-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3959,9 +3959,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-NOTRDY-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-NOTRDY-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3999,9 +3999,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			pv660fEvent-PHYSDEV-MISSING-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			pv660fEvent-PHYSDEV-MISSING-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4039,9 +4039,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-CODWRFAIL-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-CODWRFAIL-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4079,9 +4079,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-BDTWRFAIL-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-BDTWRFAIL-DEAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4119,9 +4119,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-OFFLINE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-OFFLINE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4159,9 +4159,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-STANDBY trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-STANDBY trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4199,9 +4199,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4239,9 +4239,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-ID-MISMATCH trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-ID-MISMATCH trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4279,9 +4279,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-FAILED-START trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-FAILED-START trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4319,9 +4319,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-OFFSET-SET trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-OFFSET-SET trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4359,9 +4359,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-SET-BUS-WIDTH trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-SET-BUS-WIDTH trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4399,9 +4399,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-MISSING-ONSTARTUP trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-MISSING-ONSTARTUP trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4439,9 +4439,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-START-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-REBUILD-START-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4479,9 +4479,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-MOVING-TO-OTHER-CHN trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-MOVING-TO-OTHER-CHN trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4519,9 +4519,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-OFFLINE-DEVICE-MADE-ONLINE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-OFFLINE-DEVICE-MADE-ONLINE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -4559,9 +4559,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-PHYSDEV-STANDBY-REBUILD-START trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-PHYSDEV-STANDBY-REBUILD-START trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -4595,8 +4595,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FIBREDEV-LOOPID-SOFTADDR-OCCURRED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FIBREDEV-LOOPID-SOFTADDR-OCCURRED trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4630,8 +4630,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-START trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-START trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -4665,8 +4665,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-DONE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-DONE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -4700,8 +4700,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-CANCELED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-CANCELED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4735,8 +4735,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-ERROR trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -4770,8 +4770,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-SYSDEV-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-SYSDEV-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -4805,8 +4805,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-PHYSDEV-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CHECK-PHYSDEV-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4840,8 +4840,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-OFFLINE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-OFFLINE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -4875,8 +4875,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-CRITICAL trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-CRITICAL trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -4910,8 +4910,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-ONLINE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-ONLINE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -4945,8 +4945,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-AUTO-REBUILD-START trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-AUTO-REBUILD-START trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -4980,8 +4980,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-MANUAL-REBUILD-START trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-MANUAL-REBUILD-START trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5015,8 +5015,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-DONE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-DONE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5050,8 +5050,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-CANCELED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-CANCELED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -5085,8 +5085,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-ERROR trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5120,8 +5120,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-NEWDEV-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-NEWDEV-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5155,8 +5155,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-SYSDEV-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-REBUILD-SYSDEV-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5190,8 +5190,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-STARTED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-STARTED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5225,8 +5225,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-DONE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-DONE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5260,8 +5260,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-CANCELED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-CANCELED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -5295,8 +5295,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-INIT-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5330,8 +5330,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-FOUND trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-FOUND trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5365,8 +5365,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-GONE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-GONE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5400,8 +5400,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-EXPANDCAPACITY-START trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-EXPANDCAPACITY-START trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5435,8 +5435,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-EXPANDCAPACITY-DONE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-EXPANDCAPACITY-DONE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5470,8 +5470,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-EXPANDCAPACITY-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-EXPANDCAPACITY-ERROR trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5505,8 +5505,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-BADBLOCK trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-BADBLOCK trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -5540,8 +5540,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-SIZECHANGED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-SIZECHANGED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5575,8 +5575,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-TYPECHANGED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-TYPECHANGED trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5610,8 +5610,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-BADDATABLOCK trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-BADDATABLOCK trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -5641,7 +5641,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-WR-LUN-MAP trap received 
+			Dell ArrayManager: pv660fEvent-SYSDEV-WR-LUN-MAP trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -5675,8 +5675,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-DATAREAD-FROM-BLOCK-IN-BDT trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-DATAREAD-FROM-BLOCK-IN-BDT trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -5710,8 +5710,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-DATA-FOR-BLOCK-LOST trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-DATA-FOR-BLOCK-LOST trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5745,8 +5745,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-OFFLINE-DEVICE-MADE-AVAILABLE-WITH-DATALOSS trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-OFFLINE-DEVICE-MADE-AVAILABLE-WITH-DATALOSS trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5780,8 +5780,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-OFFLINE-DEVICE-MADE-AVAILABLE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-OFFLINE-DEVICE-MADE-AVAILABLE trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -5815,8 +5815,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-SYSDEV-STANDBY-REBUILD-START trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-SYSDEV-STANDBY-REBUILD-START trap received
+			controllerNameEv=%parm[#1]%
 			virtualDiskNameEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5854,9 +5854,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTFAN-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-FMTFAN-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -5894,9 +5894,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTFAN-OK trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-FMTFAN-OK trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -5938,10 +5938,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-AEMI-FAN-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
-			targetIDEv=%parm[#3]% 
+			Dell ArrayManager: pv660fEvent-AEMI-FAN-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
+			targetIDEv=%parm[#3]%
 			unitNumberEv=%parm[#4]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -5975,8 +5975,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTFAN-NOTPRESENT trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FMTFAN-NOTPRESENT trap received
+			controllerNameEv=%parm[#1]%
 			enclosureNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6014,9 +6014,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTPOWER-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-FMTPOWER-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6054,9 +6054,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTPOWER-OK trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-FMTPOWER-OK trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6098,10 +6098,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-AEMI-PWR-SUPPLY-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
-			targetIDEv=%parm[#3]% 
+			Dell ArrayManager: pv660fEvent-AEMI-PWR-SUPPLY-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
+			targetIDEv=%parm[#3]%
 			unitNumberEv=%parm[#4]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6135,8 +6135,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTPOWER-NOTPRESENT trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FMTPOWER-NOTPRESENT trap received
+			controllerNameEv=%parm[#1]%
 			enclosureNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6178,10 +6178,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTHEAT-BAD trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
-			targetIDEv=%parm[#3]% 
+			Dell ArrayManager: pv660fEvent-FMTHEAT-BAD trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
+			targetIDEv=%parm[#3]%
 			unitNumberEv=%parm[#4]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6219,9 +6219,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTHEAT-CRITICAL trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-FMTHEAT-CRITICAL trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -6259,9 +6259,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTHEAT-OK trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-FMTHEAT-OK trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6303,10 +6303,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-AEMI-OVER-TEMPERATURE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
-			targetIDEv=%parm[#3]% 
+			Dell ArrayManager: pv660fEvent-AEMI-OVER-TEMPERATURE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
+			targetIDEv=%parm[#3]%
 			unitNumberEv=%parm[#4]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6340,8 +6340,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTHEAT-NOTPRESENT trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FMTHEAT-NOTPRESENT trap received
+			controllerNameEv=%parm[#1]%
 			enclosureNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6375,8 +6375,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTSTWK-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FMTSTWK-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6410,8 +6410,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTSTWK-CRITICAL trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FMTSTWK-CRITICAL trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -6445,8 +6445,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMTSTWK-OK trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-FMTSTWK-OK trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6476,7 +6476,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMT-UPS-DISABLED trap received 
+			Dell ArrayManager: pv660fEvent-FMT-UPS-DISABLED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6506,7 +6506,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMT-UPS-AC-FAIL trap received 
+			Dell ArrayManager: pv660fEvent-FMT-UPS-AC-FAIL trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6536,7 +6536,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMT-UPS-BAT-LOW trap received 
+			Dell ArrayManager: pv660fEvent-FMT-UPS-BAT-LOW trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -6566,7 +6566,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMT-UPS-FAILED trap received 
+			Dell ArrayManager: pv660fEvent-FMT-UPS-FAILED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6596,7 +6596,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-FMT-UPS-OK trap received 
+			Dell ArrayManager: pv660fEvent-FMT-UPS-OK trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6634,9 +6634,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLFAN-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLFAN-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6674,9 +6674,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLFAN-OK trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLFAN-OK trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6714,9 +6714,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLFAN-NOTPRESENT trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLFAN-NOTPRESENT trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6754,9 +6754,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLPOWER-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLPOWER-FAILED trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6794,9 +6794,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLPOWER-OK trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLPOWER-OK trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6834,9 +6834,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLPOWER-NOTPRESENT trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLPOWER-NOTPRESENT trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6874,9 +6874,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLHEAT-BAD trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLHEAT-BAD trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -6914,9 +6914,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLHEAT-CRITICAL trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLHEAT-CRITICAL trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -6954,9 +6954,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLHEAT-OK trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLHEAT-OK trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -6994,9 +6994,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLHEAT-NOTPRESENT trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLHEAT-NOTPRESENT trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7030,8 +7030,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLACCESS-CRITICAL trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-ENCLACCESS-CRITICAL trap received
+			controllerNameEv=%parm[#1]%
 			enclosureNumberE=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -7065,8 +7065,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLACCESS-OK trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-ENCLACCESS-OK trap received
+			controllerNameEv=%parm[#1]%
 			enclosureNumberE=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7104,9 +7104,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLACCESS-OFFLINE trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLACCESS-OFFLINE trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7140,8 +7140,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLSES-SOFTADDR-OCCURRED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-ENCLSES-SOFTADDR-OCCURRED trap received
+			controllerNameEv=%parm[#1]%
 			enclosureNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7171,7 +7171,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLACCESS-READY trap received 
+			Dell ArrayManager: pv660fEvent-ENCLACCESS-READY trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7209,9 +7209,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLHEAT-UNKNOWN trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLHEAT-UNKNOWN trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7249,9 +7249,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLPOWER-UNKNOWN trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLPOWER-UNKNOWN trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7289,9 +7289,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-ENCLFAN-UNKNOWN trap received 
-			controllerNameEv=%parm[#1]% 
-			enclosureNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-ENCLFAN-UNKNOWN trap received
+			controllerNameEv=%parm[#1]%
+			enclosureNumberEv=%parm[#2]%
 			unitNumberEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7346,7 +7346,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-WRITEBACK-ERROR trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-WRITEBACK-ERROR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -7376,7 +7376,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-STATE-TABLE-FULL trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-STATE-TABLE-FULL trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -7406,7 +7406,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-DEAD trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-DEAD trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7436,7 +7436,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-RESET trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-RESET trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -7466,7 +7466,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-FOUND trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-FOUND trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7496,7 +7496,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-GONE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-GONE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7526,7 +7526,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-FOUND trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-FOUND trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7556,7 +7556,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-POWER-LOW trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-POWER-LOW trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -7586,7 +7586,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-POWER-OK trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-POWER-OK trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7616,7 +7616,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-POWER-OFF trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-POWER-OFF trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7646,7 +7646,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-POWER-ON trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-POWER-ON trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7676,7 +7676,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-ONLINE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-ONLINE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7706,7 +7706,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-OFFLINE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-OFFLINE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7736,7 +7736,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-CRITICAL trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-CRITICAL trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -7766,7 +7766,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-START trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-START trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7796,7 +7796,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-DONE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-DONE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7826,7 +7826,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-ABORT trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-ABORT trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -7856,7 +7856,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-INSTALLATION-ABORTED trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-INSTALLATION-ABORTED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7894,9 +7894,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-FIRMWARE-MISMATCH trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-CTLDEV-FIRMWARE-MISMATCH trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -7934,9 +7934,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-NORESPONSE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-NORESPONSE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -7974,9 +7974,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-WARM-BOOT-ERROR trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-CTLDEV-WARM-BOOT-ERROR trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8006,7 +8006,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-CONSERV-CACHE-MODE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-CONSERV-CACHE-MODE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8036,7 +8036,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-NORMAL-CACHE-MODE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-NORMAL-CACHE-MODE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8066,7 +8066,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-DEV-START-CMPLT trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-DEV-START-CMPLT trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8096,7 +8096,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-SOFT-ECC-CORRECTED trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-SOFT-ECC-CORRECTED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8134,9 +8134,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-HARD-ECC-CORRECTED trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-CTLDEV-HARD-ECC-CORRECTED trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8166,7 +8166,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-NEEDED trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-RECOND-NEEDED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8196,7 +8196,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-REMOVED-PTNR trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-REMOVED-PTNR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8226,7 +8226,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-OUT-OF-SERVICE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BBU-OUT-OF-SERVICE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8256,7 +8256,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-UPDATE-PTNR-STATUS trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-UPDATE-PTNR-STATUS trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8286,7 +8286,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-RELINQUISH-PTNR trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-RELINQUISH-PTNR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8316,7 +8316,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-INSERTED-PTNR trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-INSERTED-PTNR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8346,7 +8346,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-DUAL-ENABLED trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-DUAL-ENABLED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8376,7 +8376,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-KILL-PTNR trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-KILL-PTNR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8406,7 +8406,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-NEXUS trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-NEXUS trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8436,7 +8436,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BAD-BOOTROM-IMAGE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BAD-BOOTROM-IMAGE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8466,7 +8466,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-BAD-MAC-ADDRESS trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-BAD-MAC-ADDRESS trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8496,7 +8496,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-MIRROR-RACE-RECOVERY-FAILED trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-MIRROR-RACE-RECOVERY-FAILED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -8526,7 +8526,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CTLDEV-MIRROR-CRITICAL-DRIVE trap received 
+			Dell ArrayManager: pv660fEvent-CTLDEV-MIRROR-CRITICAL-DRIVE trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8706,7 +8706,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-AUTOBOOT-CHANGED trap received 
+			Dell ArrayManager: pv660fEvent-AUTOBOOT-CHANGED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -8740,8 +8740,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CHANNEL-FAILED trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-CHANNEL-FAILED trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8775,8 +8775,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CHANNEL-OK trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-CHANNEL-OK trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8810,8 +8810,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CHANNEL-SCSI-BUS-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-CHANNEL-SCSI-BUS-DEAD trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8845,8 +8845,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CHANNEL-SCSI-BUS-ALIVE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-CHANNEL-SCSI-BUS-ALIVE trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -8880,8 +8880,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CHANNEL-FIBER-DEAD trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-CHANNEL-FIBER-DEAD trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -8915,8 +8915,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CHANNEL-FIBER-ALIVE trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-CHANNEL-FIBER-ALIVE trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -8946,7 +8946,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-LOG-EMPTY trap received 
+			Dell ArrayManager: pv660fEvent-LOG-EMPTY trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -8976,7 +8976,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-LOG-OUT-SYNC trap received 
+			Dell ArrayManager: pv660fEvent-LOG-OUT-SYNC trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9014,9 +9014,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-LOG-REQUEST-SENSE trap received 
-			controllerNameEv=%parm[#1]% 
-			channelNumberEv=%parm[#2]% 
+			Dell ArrayManager: pv660fEvent-LOG-REQUEST-SENSE trap received
+			controllerNameEv=%parm[#1]%
+			channelNumberEv=%parm[#2]%
 			targetIDEv=%parm[#3]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9050,8 +9050,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-LOG-SET-RTC trap received 
-			controllerNameEv=%parm[#1]% 
+			Dell ArrayManager: pv660fEvent-LOG-SET-RTC trap received
+			controllerNameEv=%parm[#1]%
 			channelNumberEv=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9081,7 +9081,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CFG-NEW trap received 
+			Dell ArrayManager: pv660fEvent-CFG-NEW trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9111,7 +9111,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CFG-CLEAR trap received 
+			Dell ArrayManager: pv660fEvent-CFG-CLEAR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9141,7 +9141,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CFG-INVALID trap received 
+			Dell ArrayManager: pv660fEvent-CFG-INVALID trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9171,7 +9171,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CFG-COD-ACCESS-ERROR trap received 
+			Dell ArrayManager: pv660fEvent-CFG-COD-ACCESS-ERROR trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9201,7 +9201,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CFG-COD-CONVERTED trap received 
+			Dell ArrayManager: pv660fEvent-CFG-COD-CONVERTED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9231,7 +9231,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-CFG-COD-IMPORT-FAILED trap received 
+			Dell ArrayManager: pv660fEvent-CFG-COD-IMPORT-FAILED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Warning</severity>
@@ -9261,7 +9261,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-DEBUG-DUMP-GENERATED trap received 
+			Dell ArrayManager: pv660fEvent-DEBUG-DUMP-GENERATED trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -9291,7 +9291,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell ArrayManager: pv660fEvent-DEBUG-DUMP-GENERATED-PARTNER trap received 
+			Dell ArrayManager: pv660fEvent-DEBUG-DUMP-GENERATED-PARTNER trap received
 			controllerNameEv=%parm[#1]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>

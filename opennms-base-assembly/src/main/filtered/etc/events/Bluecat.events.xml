@@ -25,7 +25,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			trapDNSDaemon trap received 
+			trapDNSDaemon trap received
 			dnsDaemonRunning=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -55,7 +55,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			trapHAServiceFailOver trap received 
+			trapHAServiceFailOver trap received
 			haServiceNodeType=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -85,7 +85,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			trapCommandServerDaemon trap received 
+			trapCommandServerDaemon trap received
 			commandServerDaemonRunning=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -115,7 +115,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			trapDHCPDaemon trap received 
+			trapDHCPDaemon trap received
 			dhcpDaemonRunning=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>

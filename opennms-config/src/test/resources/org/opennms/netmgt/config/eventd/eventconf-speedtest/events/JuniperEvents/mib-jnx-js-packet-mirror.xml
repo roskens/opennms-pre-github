@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorMirroringFailure</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorMirroringFailure</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorMirroringFailure Trap indicates that 
+<p>The jnxJsPacketMirrorMirroringFailure Trap indicates that
 the packet mirroring operation failed.</p><table>
 	<tr><td><b>
 
@@ -96,17 +96,17 @@ the packet mirroring operation failed.</p><table>
 	%parm[#11]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorMirroringFailure trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorUserName=%parm[#6]% 
-			jnxJsPacketMirrorIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#8]% 
-			jnxJsPacketMirrorErrorCause=%parm[#9]% 
-			jnxJsPacketMirrorApplicationName=%parm[#10]% 
+			jnxJsPacketMirrorMirroringFailure trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorUserName=%parm[#6]%
+			jnxJsPacketMirrorIdentifier=%parm[#7]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#8]%
+			jnxJsPacketMirrorErrorCause=%parm[#9]%
+			jnxJsPacketMirrorApplicationName=%parm[#10]%
 			jnxJsPacketMirrorErrorString=%parm[#11]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -129,7 +129,7 @@ the packet mirroring operation failed.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorLiSubscriberLoggedIn</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorLiSubscriberLoggedIn</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorLiSubscriberLoggedIn Trap indicates that 
+<p>The jnxJsPacketMirrorLiSubscriberLoggedIn Trap indicates that
 the target has logged in.</p><table>
 	<tr><td><b>
 
@@ -196,17 +196,17 @@ the target has logged in.</p><table>
 	%parm[#11]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorLiSubscriberLoggedIn trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorIdentifier=%parm[#6]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorDirection=%parm[#8]% 
-			jnxJsPacketMirrorTargetIpAddress=%parm[#9]% 
-			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]% 
+			jnxJsPacketMirrorLiSubscriberLoggedIn trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorIdentifier=%parm[#6]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#7]%
+			jnxJsPacketMirrorDirection=%parm[#8]%
+			jnxJsPacketMirrorTargetIpAddress=%parm[#9]%
+			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]%
 			jnxJsPacketMirrorTargetIpv6Address=%parm[#11]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -229,7 +229,7 @@ the target has logged in.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorLiSubscriberLogInFailed</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorLiSubscriberLogInFailed</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorLiSubscriberLogInFailed Trap indicates that 
+<p>The jnxJsPacketMirrorLiSubscriberLogInFailed Trap indicates that
 a request for the subscriber log in request failed due to the
 reason in jnxJsPacketMirrorTerminationReason.</p><table>
 	<tr><td><b>
@@ -317,19 +317,19 @@ reason in jnxJsPacketMirrorTerminationReason.</p><table>
 	%parm[#13]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorLiSubscriberLogInFailed trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorIdentifier=%parm[#6]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorDirection=%parm[#8]% 
-			jnxJsPacketMirrorTargetIpAddress=%parm[#9]% 
-			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]% 
-			jnxJsPacketMirrorErrorCause=%parm[#11]% 
-			jnxJsPacketMirrorErrorString=%parm[#12]% 
+			jnxJsPacketMirrorLiSubscriberLogInFailed trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorIdentifier=%parm[#6]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#7]%
+			jnxJsPacketMirrorDirection=%parm[#8]%
+			jnxJsPacketMirrorTargetIpAddress=%parm[#9]%
+			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]%
+			jnxJsPacketMirrorErrorCause=%parm[#11]%
+			jnxJsPacketMirrorErrorString=%parm[#12]%
 			jnxJsPacketMirrorTargetIpv6Address=%parm[#13]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -352,8 +352,8 @@ reason in jnxJsPacketMirrorTerminationReason.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorLiSubscriberLoggedOut</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorLiSubscriberLoggedOut</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorLiSubscriberLoggedOut Trap indicates that 
-the target has logged out with one of the reasons in 
+<p>The jnxJsPacketMirrorLiSubscriberLoggedOut Trap indicates that
+the target has logged out with one of the reasons in
 jnxJsPacketMirrorTerminationReason.</p><table>
 	<tr><td><b>
 
@@ -450,18 +450,18 @@ jnxJsPacketMirrorTerminationReason.</p><table>
 	%parm[#12]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorLiSubscriberLoggedOut trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorIdentifier=%parm[#6]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorDirection=%parm[#8]% 
-			jnxJsPacketMirrorTargetIpAddress=%parm[#9]% 
-			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]% 
-			jnxJsPacketMirrorTerminationReason=%parm[#11]% 
+			jnxJsPacketMirrorLiSubscriberLoggedOut trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorIdentifier=%parm[#6]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#7]%
+			jnxJsPacketMirrorDirection=%parm[#8]%
+			jnxJsPacketMirrorTargetIpAddress=%parm[#9]%
+			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]%
+			jnxJsPacketMirrorTerminationReason=%parm[#11]%
 			jnxJsPacketMirrorTargetIpv6Address=%parm[#12]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -484,7 +484,7 @@ jnxJsPacketMirrorTerminationReason.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorLiServiceActivated</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorLiServiceActivated</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorLiServiceActivated Trap indicates that 
+<p>The jnxJsPacketMirrorLiServiceActivated Trap indicates that
 packet mirroring on an interface has been activated.</p><table>
 	<tr><td><b>
 
@@ -551,17 +551,17 @@ packet mirroring on an interface has been activated.</p><table>
 	%parm[#11]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorLiServiceActivated trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorIdentifier=%parm[#6]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorDirection=%parm[#8]% 
-			jnxJsPacketMirrorTargetIpAddress=%parm[#9]% 
-			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]% 
+			jnxJsPacketMirrorLiServiceActivated trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorIdentifier=%parm[#6]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#7]%
+			jnxJsPacketMirrorDirection=%parm[#8]%
+			jnxJsPacketMirrorTargetIpAddress=%parm[#9]%
+			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]%
 			jnxJsPacketMirrorTargetIpv6Address=%parm[#11]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -584,7 +584,7 @@ packet mirroring on an interface has been activated.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorLiServiceActivationFailed</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorLiServiceActivationFailed</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorLiServiceActivationFailed Trap indicates  
+<p>The jnxJsPacketMirrorLiServiceActivationFailed Trap indicates
 that the LI service on an interface has failed due to the reason
 in jnxJsPacketMirrorTerminationReason.</p><table>
 	<tr><td><b>
@@ -672,19 +672,19 @@ in jnxJsPacketMirrorTerminationReason.</p><table>
 	%parm[#13]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorLiServiceActivationFailed trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorIdentifier=%parm[#6]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorDirection=%parm[#8]% 
-			jnxJsPacketMirrorTargetIpAddress=%parm[#9]% 
-			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]% 
-			jnxJsPacketMirrorErrorCause=%parm[#11]% 
-			jnxJsPacketMirrorErrorString=%parm[#12]% 
+			jnxJsPacketMirrorLiServiceActivationFailed trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorIdentifier=%parm[#6]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#7]%
+			jnxJsPacketMirrorDirection=%parm[#8]%
+			jnxJsPacketMirrorTargetIpAddress=%parm[#9]%
+			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]%
+			jnxJsPacketMirrorErrorCause=%parm[#11]%
+			jnxJsPacketMirrorErrorString=%parm[#12]%
 			jnxJsPacketMirrorTargetIpv6Address=%parm[#13]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -707,8 +707,8 @@ in jnxJsPacketMirrorTerminationReason.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsPacketMirrorLiServiceDeactivated</uei>
     <event-label>JUNIPER-JS-PACKET-MIRROR-MIB defined trap event: jnxJsPacketMirrorLiServiceDeactivated</event-label>
     <descr><![CDATA[
-<p>The jnxJsPacketMirrorLiServiceDeactivated Trap indicates that 
-the LI service on an interface has been deactivated due to 
+<p>The jnxJsPacketMirrorLiServiceDeactivated Trap indicates that
+the LI service on an interface has been deactivated due to
 the reason in jnxJsPacketMirrorTerminationReason.</p><table>
 	<tr><td><b>
 
@@ -805,18 +805,18 @@ the reason in jnxJsPacketMirrorTerminationReason.</p><table>
 	%parm[#12]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsPacketMirrorLiServiceDeactivated trap received 
-			jnxJsPacketMirrorDateAndTime=%parm[#1]% 
-			jnxJsPacketMirrorConfigurationSource=%parm[#2]% 
-			jnxJsPacketMirrorTriggerType=%parm[#3]% 
-			jnxJsPacketMirrorTrigger=%parm[#4]% 
-			jnxJsPacketMirrorRouterId=%parm[#5]% 
-			jnxJsPacketMirrorIdentifier=%parm[#6]% 
-			jnxJsPacketMirrorSessionIdentifier=%parm[#7]% 
-			jnxJsPacketMirrorDirection=%parm[#8]% 
-			jnxJsPacketMirrorTargetIpAddress=%parm[#9]% 
-			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]% 
-			jnxJsPacketMirrorTerminationReason=%parm[#11]% 
+			jnxJsPacketMirrorLiServiceDeactivated trap received
+			jnxJsPacketMirrorDateAndTime=%parm[#1]%
+			jnxJsPacketMirrorConfigurationSource=%parm[#2]%
+			jnxJsPacketMirrorTriggerType=%parm[#3]%
+			jnxJsPacketMirrorTrigger=%parm[#4]%
+			jnxJsPacketMirrorRouterId=%parm[#5]%
+			jnxJsPacketMirrorIdentifier=%parm[#6]%
+			jnxJsPacketMirrorSessionIdentifier=%parm[#7]%
+			jnxJsPacketMirrorDirection=%parm[#8]%
+			jnxJsPacketMirrorTargetIpAddress=%parm[#9]%
+			jnxJsPacketMirrorAnalyzerAddress=%parm[#10]%
+			jnxJsPacketMirrorTerminationReason=%parm[#11]%
 			jnxJsPacketMirrorTargetIpv6Address=%parm[#12]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

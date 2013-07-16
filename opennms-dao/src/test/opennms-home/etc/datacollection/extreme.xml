@@ -13,5 +13,5 @@
           <includeGroup>mib2-X-interfaces</includeGroup>
         </collect>
       </systemDef>
-      
+
 </datacollection-group>

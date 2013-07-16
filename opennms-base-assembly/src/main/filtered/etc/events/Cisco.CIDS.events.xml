@@ -23,7 +23,7 @@
 	<uei>uei.opennms.org/vendor/Cisco/ciscoCidsMIB/traps/ciscoCidsAlertInfo</uei>
 	<event-label>CISCO-CIDS-MIB defined trap event: ciscoCidsAlert, Informational severity</event-label>
 	<descr>
-&lt;p&gt;Event indicating that some suspicious or malicious 
+&lt;p&gt;Event indicating that some suspicious or malicious
 activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -71,17 +71,17 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsAlert trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsAlertSeverity=%parm[#5]% 
-			cidsAlertSignatureSigName=%parm[#6]% 
-			cidsAlertSignatureSigId=%parm[#7]% 
-			cidsAlertSignatureSubSigId=%parm[#8]% 
-			cidsAlertAlarmTraits=%parm[#9]% 
-			cidsAlertAttackerAddress=%parm[#10]% 
+			ciscoCidsAlert trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsAlertSeverity=%parm[#5]%
+			cidsAlertSignatureSigName=%parm[#6]%
+			cidsAlertSignatureSigId=%parm[#7]%
+			cidsAlertSignatureSubSigId=%parm[#8]%
+			cidsAlertAlarmTraits=%parm[#9]%
+			cidsAlertAttackerAddress=%parm[#10]%
 			cidsAlertVictimAddress=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -109,7 +109,7 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Cisco/ciscoCidsMIB/traps/ciscoCidsAlertLow</uei>
 	<event-label>CISCO-CIDS-MIB defined trap event: ciscoCidsAlert, Low severity</event-label>
 	<descr>
-&lt;p&gt;Event indicating that some suspicious or malicious 
+&lt;p&gt;Event indicating that some suspicious or malicious
 activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -157,17 +157,17 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsAlert trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsAlertSeverity=%parm[#5]% 
-			cidsAlertSignatureSigName=%parm[#6]% 
-			cidsAlertSignatureSigId=%parm[#7]% 
-			cidsAlertSignatureSubSigId=%parm[#8]% 
-			cidsAlertAlarmTraits=%parm[#9]% 
-			cidsAlertAttackerAddress=%parm[#10]% 
+			ciscoCidsAlert trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsAlertSeverity=%parm[#5]%
+			cidsAlertSignatureSigName=%parm[#6]%
+			cidsAlertSignatureSigId=%parm[#7]%
+			cidsAlertSignatureSubSigId=%parm[#8]%
+			cidsAlertAlarmTraits=%parm[#9]%
+			cidsAlertAttackerAddress=%parm[#10]%
 			cidsAlertVictimAddress=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -195,7 +195,7 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Cisco/ciscoCidsMIB/traps/ciscoCidsAlertInfoMedium</uei>
 	<event-label>CISCO-CIDS-MIB defined trap event: ciscoCidsAlert, Medium severity</event-label>
 	<descr>
-&lt;p&gt;Event indicating that some suspicious or malicious 
+&lt;p&gt;Event indicating that some suspicious or malicious
 activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -243,17 +243,17 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsAlert trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsAlertSeverity=%parm[#5]% 
-			cidsAlertSignatureSigName=%parm[#6]% 
-			cidsAlertSignatureSigId=%parm[#7]% 
-			cidsAlertSignatureSubSigId=%parm[#8]% 
-			cidsAlertAlarmTraits=%parm[#9]% 
-			cidsAlertAttackerAddress=%parm[#10]% 
+			ciscoCidsAlert trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsAlertSeverity=%parm[#5]%
+			cidsAlertSignatureSigName=%parm[#6]%
+			cidsAlertSignatureSigId=%parm[#7]%
+			cidsAlertSignatureSubSigId=%parm[#8]%
+			cidsAlertAlarmTraits=%parm[#9]%
+			cidsAlertAttackerAddress=%parm[#10]%
 			cidsAlertVictimAddress=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -281,7 +281,7 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Cisco/ciscoCidsMIB/traps/ciscoCidsAlertInfoHigh</uei>
 	<event-label>CISCO-CIDS-MIB defined trap event: ciscoCidsAlert, High severity</event-label>
 	<descr>
-&lt;p&gt;Event indicating that some suspicious or malicious 
+&lt;p&gt;Event indicating that some suspicious or malicious
 activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -329,17 +329,17 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsAlert trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsAlertSeverity=%parm[#5]% 
-			cidsAlertSignatureSigName=%parm[#6]% 
-			cidsAlertSignatureSigId=%parm[#7]% 
-			cidsAlertSignatureSubSigId=%parm[#8]% 
-			cidsAlertAlarmTraits=%parm[#9]% 
-			cidsAlertAttackerAddress=%parm[#10]% 
+			ciscoCidsAlert trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsAlertSeverity=%parm[#5]%
+			cidsAlertSignatureSigName=%parm[#6]%
+			cidsAlertSignatureSigId=%parm[#7]%
+			cidsAlertSignatureSubSigId=%parm[#8]%
+			cidsAlertAlarmTraits=%parm[#9]%
+			cidsAlertAttackerAddress=%parm[#10]%
 			cidsAlertVictimAddress=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -363,7 +363,7 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Cisco/ciscoCidsMIB/traps/ciscoCidsAlertIndeterminate</uei>
 	<event-label>CISCO-CIDS-MIB defined trap event: ciscoCidsAlert, unknown severity '%parm[#5]%'</event-label>
 	<descr>
-&lt;p&gt;Event indicating that some suspicious or malicious 
+&lt;p&gt;Event indicating that some suspicious or malicious
 activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -411,17 +411,17 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsAlert trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsAlertSeverity=%parm[#5]% 
-			cidsAlertSignatureSigName=%parm[#6]% 
-			cidsAlertSignatureSigId=%parm[#7]% 
-			cidsAlertSignatureSubSigId=%parm[#8]% 
-			cidsAlertAlarmTraits=%parm[#9]% 
-			cidsAlertAttackerAddress=%parm[#10]% 
+			ciscoCidsAlert trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsAlertSeverity=%parm[#5]%
+			cidsAlertSignatureSigName=%parm[#6]%
+			cidsAlertSignatureSigId=%parm[#7]%
+			cidsAlertSignatureSubSigId=%parm[#8]%
+			cidsAlertAlarmTraits=%parm[#9]%
+			cidsAlertAttackerAddress=%parm[#10]%
 			cidsAlertVictimAddress=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -500,13 +500,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -581,13 +581,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -662,13 +662,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -743,13 +743,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -824,13 +824,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -905,13 +905,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -986,13 +986,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1067,13 +1067,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1148,13 +1148,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1229,13 +1229,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1310,13 +1310,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1391,13 +1391,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1472,13 +1472,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1553,13 +1553,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1630,13 +1630,13 @@ activity has been detected on a monitored network.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ciscoCidsError trap received 
-			cidsGeneralEventId=%parm[#1]% 
-			cidsGeneralLocalTime=%parm[#2]% 
-			cidsGeneralUTCTime=%parm[#3]% 
-			cidsGeneralOriginatorHostId=%parm[#4]% 
-			cidsErrorSeverity=%parm[#5]% 
-			cidsErrorName=%parm[#6]% 
+			ciscoCidsError trap received
+			cidsGeneralEventId=%parm[#1]%
+			cidsGeneralLocalTime=%parm[#2]%
+			cidsGeneralUTCTime=%parm[#3]%
+			cidsGeneralOriginatorHostId=%parm[#4]%
+			cidsErrorSeverity=%parm[#5]%
+			cidsErrorName=%parm[#6]%
 			cidsErrorMessage=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

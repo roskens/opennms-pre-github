@@ -26,7 +26,7 @@
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCosOutOfDedicatedQueues trap received 
+			jnxCosOutOfDedicatedQueues trap received
 			jnxCosInterfaceName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -56,7 +56,7 @@
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCosAlmostOutOfDedicatedQueues trap received 
+			jnxCosAlmostOutOfDedicatedQueues trap received
 			jnxCosInterfaceName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

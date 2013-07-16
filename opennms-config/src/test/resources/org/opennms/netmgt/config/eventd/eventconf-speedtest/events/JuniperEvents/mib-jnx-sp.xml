@@ -37,8 +37,8 @@ is identified by jnxSpSvcSetIfMemoryZone.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSpSvcSetZoneEntered trap received 
-			jnxSpSvcSetIfMemoryZone=%parm[#1]% 
+			jnxSpSvcSetZoneEntered trap received
+			jnxSpSvcSetIfMemoryZone=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -80,8 +80,8 @@ identified by jnxSpSvcSetIfMemoryZone.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSpSvcSetZoneExited trap received 
-			jnxSpSvcSetIfMemoryZone=%parm[#1]% 
+			jnxSpSvcSetZoneExited trap received
+			jnxSpSvcSetIfMemoryZone=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -117,8 +117,8 @@ for CPU utilization (85%).</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSpSvcSetCpuExceeded trap received 
-			jnxSpSvcSetIfCpuUtil=%parm[#1]% 
+			jnxSpSvcSetCpuExceeded trap received
+			jnxSpSvcSetIfCpuUtil=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -142,7 +142,7 @@ for CPU utilization (85%).</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxSpSvcSetCpuOk</uei>
     <event-label>JUNIPER-SP-MIB defined trap event: jnxSpSvcSetCpuOk</event-label>
     <descr><![CDATA[
-<p>This indicates a Service Pic has crossed below its internal 
+<p>This indicates a Service Pic has crossed below its internal
 threshold for CPU utilization (85%).</p><table>
 	<tr><td><b>
 
@@ -154,8 +154,8 @@ threshold for CPU utilization (85%).</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSpSvcSetCpuOk trap received 
-			jnxSpSvcSetIfCpuUtil=%parm[#1]% 
+			jnxSpSvcSetCpuOk trap received
+			jnxSpSvcSetIfCpuUtil=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>

@@ -18,7 +18,7 @@
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;GTPC Peer Down Notification. This trap is sent when a peer connection 
+&lt;p&gt;GTPC Peer Down Notification. This trap is sent when a peer connection
 goes down.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -38,10 +38,10 @@ goes down.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwGtpPeerGwDnNotif trap received 
-				jnxMbgSgwGtpGwIndex=%parm[#1]% 
-				jnxMbgSgwGtpGwName=%parm[#2]% 
-				jnxMbgSgwGtpInterfaceType=%parm[#3]% 
+			jnxMbgSgwGtpPeerGwDnNotif trap received
+				jnxMbgSgwGtpGwIndex=%parm[#1]%
+				jnxMbgSgwGtpGwName=%parm[#2]%
+				jnxMbgSgwGtpInterfaceType=%parm[#3]%
 				jnxMbgSgwGtpPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -88,10 +88,10 @@ or an existing peer goes down and comes back up.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwGtpPeerGwUpNotif trap received 
-				jnxMbgSgwGtpGwIndex=%parm[#1]% 
-				jnxMbgSgwGtpGwName=%parm[#2]% 
-				jnxMbgSgwGtpInterfaceType=%parm[#3]% 
+			jnxMbgSgwGtpPeerGwUpNotif trap received
+				jnxMbgSgwGtpGwIndex=%parm[#1]%
+				jnxMbgSgwGtpGwName=%parm[#2]%
+				jnxMbgSgwGtpInterfaceType=%parm[#3]%
 				jnxMbgSgwGtpPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -143,11 +143,11 @@ monitor interval.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwGtpPrDnTPerPrAlrmActv trap received 
-				jnxMbgSgwGtpGwIndex=%parm[#1]% 
-				jnxMbgSgwGtpGwName=%parm[#2]% 
-				jnxMbgSgwGtpInterfaceType=%parm[#3]% 
-				jnxMbgSgwGtpPeerName=%parm[#4]% 
+			jnxMbgSgwGtpPrDnTPerPrAlrmActv trap received
+				jnxMbgSgwGtpGwIndex=%parm[#1]%
+				jnxMbgSgwGtpGwName=%parm[#2]%
+				jnxMbgSgwGtpInterfaceType=%parm[#3]%
+				jnxMbgSgwGtpPeerName=%parm[#4]%
 				jnxMbgSgwGtpAlarmStatCounter=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -174,7 +174,7 @@ monitor interval.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;Peer down Threshold trap Cleared. This is sent when the number of 
+&lt;p&gt;Peer down Threshold trap Cleared. This is sent when the number of
 times a peer connection flaps in a monitor interval come down below
 the lower threshold.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -199,11 +199,11 @@ the lower threshold.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwGtpPrDnTPerPrAlrmClr trap received 
-				jnxMbgSgwGtpGwIndex=%parm[#1]% 
-				jnxMbgSgwGtpGwName=%parm[#2]% 
-				jnxMbgSgwGtpInterfaceType=%parm[#3]% 
-				jnxMbgSgwGtpPeerName=%parm[#4]% 
+			jnxMbgSgwGtpPrDnTPerPrAlrmClr trap received
+				jnxMbgSgwGtpGwIndex=%parm[#1]%
+				jnxMbgSgwGtpGwName=%parm[#2]%
+				jnxMbgSgwGtpInterfaceType=%parm[#3]%
+				jnxMbgSgwGtpPeerName=%parm[#4]%
 				jnxMbgSgwGtpAlarmStatCounter=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>

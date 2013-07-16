@@ -4,24 +4,24 @@
 
     <inherits name="com.vaadin.DefaultWidgetSet" />
     <inherits name="org.discotools.gwt.leaflet.Core" />
-    <!-- 
-          Compiler error: The Cross-Site-Iframe linker does not support <script> tags in the gwt.xml files, 
-          but the gwt.xml file (or the gwt.xml files which it includes) contains the following script tags: 
-    
+    <!--
+          Compiler error: The Cross-Site-Iframe linker does not support <script> tags in the gwt.xml files,
+          but the gwt.xml file (or the gwt.xml files which it includes) contains the following script tags:
+
             http://maps.google.com/maps/api/js?sensor=false
             openlayers/OpenLayers.js
             Google.js
             markercluster/leaflet.markercluster.js
             libs/leaflet/c1d410f2703f0832618c997225e7360f6a292c58/leaflet-src.js
-    
-          In order for your application to run correctly, you will need to include these tags in your host 
-          page directly. In order to avoid this error, you will need to remove the script tags from the 
+
+          In order for your application to run correctly, you will need to include these tags in your host
+          page directly. In order to avoid this error, you will need to remove the script tags from the
           gwt.xml file, or add this property to the gwt.xml file:
         -->
     <set-configuration-property name="xsiframe.failIfScriptTag" value="false"/>
-    
+
 <!--	<set-property name="user.agent" value="safari"/> -->
-	
+
     <inherits name="com.github.wolfie.refresher.RefresherWidgetset" />
 
     <inherits name="org.vaadin.peter.contextmenu.ContextmenuWidgetset" />

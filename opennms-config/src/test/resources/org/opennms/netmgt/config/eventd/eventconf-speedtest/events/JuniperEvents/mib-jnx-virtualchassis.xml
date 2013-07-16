@@ -20,7 +20,7 @@
     <event-label>JUNIPER-VIRTUALCHASSIS-MIB defined trap event: jnxVccpPortUp</event-label>
     <descr><![CDATA[
 <p>A PortUp trap signifies that the SNMP entity, acting in an
-agent role, has detected that the jnxVirtualChassisPortOperStatus 
+agent role, has detected that the jnxVirtualChassisPortOperStatus
 object for one of its communication links left the  down state
 and transitioned into some other state (but not into the
 notPresent state).  This other state is indicated by the
@@ -51,10 +51,10 @@ included value of jnxVirtualChassisPortOperStatus.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVccpPortUp trap received 
-			jnxVirtualChassisPortAdminStatus=%parm[#1]% 
-			jnxVirtualChassisPortOperStatus=%parm[#2]% 
-			jnxVirtualChassisMemberModel=%parm[#3]% 
+			jnxVccpPortUp trap received
+			jnxVirtualChassisPortAdminStatus=%parm[#1]%
+			jnxVirtualChassisPortOperStatus=%parm[#2]%
+			jnxVirtualChassisMemberModel=%parm[#3]%
 			jnxVirtualChassisMemberLocation=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -110,10 +110,10 @@ included value of jnxVirtualChassisPortOperStatus.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVccpPortDown trap received 
-			jnxVirtualChassisPortAdminStatus=%parm[#1]% 
-			jnxVirtualChassisPortOperStatus=%parm[#2]% 
-			jnxVirtualChassisMemberModel=%parm[#3]% 
+			jnxVccpPortDown trap received
+			jnxVirtualChassisPortAdminStatus=%parm[#1]%
+			jnxVirtualChassisPortOperStatus=%parm[#2]%
+			jnxVirtualChassisMemberModel=%parm[#3]%
 			jnxVirtualChassisMemberLocation=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -164,10 +164,10 @@ state (but not into the notPresent state).</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVccpMemberUp trap received 
-			jnxVirtualChassisMemberSerialnumber=%parm[#1]% 
-			jnxVirtualChassisMemberRole=%parm[#2]% 
-			jnxVirtualChassisMemberModel=%parm[#3]% 
+			jnxVccpMemberUp trap received
+			jnxVirtualChassisMemberSerialnumber=%parm[#1]%
+			jnxVirtualChassisMemberRole=%parm[#2]%
+			jnxVirtualChassisMemberModel=%parm[#3]%
 			jnxVirtualChassisMemberLocation=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -217,10 +217,10 @@ state).</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVccpMemberDown trap received 
-			jnxVirtualChassisMemberSerialnumber=%parm[#1]% 
-			jnxVirtualChassisMemberRole=%parm[#2]% 
-			jnxVirtualChassisMemberModel=%parm[#3]% 
+			jnxVccpMemberDown trap received
+			jnxVirtualChassisMemberSerialnumber=%parm[#1]%
+			jnxVirtualChassisMemberRole=%parm[#2]%
+			jnxVirtualChassisMemberModel=%parm[#3]%
 			jnxVirtualChassisMemberLocation=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

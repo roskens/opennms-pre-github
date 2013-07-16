@@ -24,7 +24,7 @@
     <property name="protocolCollectorRegistry" ref="protocolCollectorRegistry"/>
   </bean>
   <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer" init-method="initialize">
-    <!-- blueprint doesn't call initialize as the normal spring bean context 
+    <!-- blueprint doesn't call initialize as the normal spring bean context
 			http://static.springsource.org/osgi/docs/2.0.0.M1/reference/html/blueprint.html -->
     <property name="concurrentConsumers" value="16"/>
     <property name="maxConcurrentConsumers" value="16"/>

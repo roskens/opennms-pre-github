@@ -18,13 +18,13 @@
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;On assigning Diameter Network Element to a SPIC. If the SPIC 
-doesn't respond within Hard coded(300 seconds) 
-jnxMbgDBPSPICUnavailNotif trap is send indicating that this SPIC 
+&lt;p&gt;On assigning Diameter Network Element to a SPIC. If the SPIC
+doesn't respond within Hard coded(300 seconds)
+jnxMbgDBPSPICUnavailNotif trap is send indicating that this SPIC
 is unavailable to bring up the Diameter Network Element.
 
 If this SPIC is part of a Explicit Diameter Network element binding
-configuration, and if there are other SPICs in the same SPIC group 
+configuration, and if there are other SPICs in the same SPIC group
 then assignment is sent to other SPICs in the list in order of the
 configuration.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -45,10 +45,10 @@ configuration.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPSPICUnavailNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPSPICName=%parm[#3]% 
+			jnxMbgDBPSPICUnavailNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPSPICName=%parm[#3]%
 				jnxMbgDBPDNEName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Normal</severity>
@@ -75,7 +75,7 @@ configuration.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;A jnxMbgDBPPeerConnDownNotif notification is sent when 
+&lt;p&gt;A jnxMbgDBPPeerConnDownNotif notification is sent when
 jnxMbgDBPPeerState changes to closed(1).&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -95,10 +95,10 @@ jnxMbgDBPPeerState changes to closed(1).&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPPeerConnDownNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPSPICName=%parm[#3]% 
+			jnxMbgDBPPeerConnDownNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPSPICName=%parm[#3]%
 				jnxMbgDBPPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -146,10 +146,10 @@ either rOpen(5)or iOpen(6).&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPPeerConnUpNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPSPICName=%parm[#3]% 
+			jnxMbgDBPPeerConnUpNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPSPICName=%parm[#3]%
 				jnxMbgDBPPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -196,10 +196,10 @@ the connection to the peer fails.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPPeerConnFailNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPSPICName=%parm[#3]% 
+			jnxMbgDBPPeerConnFailNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPSPICName=%parm[#3]%
 				jnxMbgDBPPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Normal</severity>
@@ -227,10 +227,10 @@ the connection to the peer fails.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;A jnxMbgDBPPeerHiWMarkNotif Notification is sent when
-the outgoing queue size of the peer hits the configured 
+the outgoing queue size of the peer hits the configured
 High watermark size of Outgoing queue.
 
-High watermark size of Outgoing queue is configured as a 
+High watermark size of Outgoing queue is configured as a
 percentage of peer outgoing queue size.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -254,11 +254,11 @@ percentage of peer outgoing queue size.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPPeerOutQHiWMarkNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPSPICName=%parm[#3]% 
-				jnxMbgDBPPeerName=%parm[#4]% 
+			jnxMbgDBPPeerOutQHiWMarkNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPSPICName=%parm[#3]%
+				jnxMbgDBPPeerName=%parm[#4]%
 				jnxMbgDBPPeerOutQHiWaterMark=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -286,7 +286,7 @@ percentage of peer outgoing queue size.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;A jnxMbgDBPPeerLoWMarkNotif Notification is sent when
-the outgoing queue size of the peer hits the configured lower 
+the outgoing queue size of the peer hits the configured lower
 watermark size of Outgoing queue of peer.
 
 Low watermark size of Outgoing queue is configired as a
@@ -313,11 +313,11 @@ percentage of peer outgoing queue size.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPPeerOutQLoWMarkNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPSPICName=%parm[#3]% 
-				jnxMbgDBPPeerName=%parm[#4]% 
+			jnxMbgDBPPeerOutQLoWMarkNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPSPICName=%parm[#3]%
+				jnxMbgDBPPeerName=%parm[#4]%
 				jnxMbgDBPPeerOutQLoWaterMark=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -344,7 +344,7 @@ percentage of peer outgoing queue size.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;A jnxMbgDBPTargetDownNotif Notification is sent when a previously 
+&lt;p&gt;A jnxMbgDBPTargetDownNotif Notification is sent when a previously
 reachable target is not reachable anymore.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -372,11 +372,11 @@ reachable target is not reachable anymore.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPTargetDownNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPProfileName=%parm[#3]% 
-				jnxMbgDBPProfileType=%parm[#4]% 
+			jnxMbgDBPTargetDownNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPProfileName=%parm[#3]%
+				jnxMbgDBPProfileType=%parm[#4]%
 				jnxMbgDBPTargetName=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -431,11 +431,11 @@ target is reachable.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPTargetUpNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPProfileName=%parm[#3]% 
-				jnxMbgDBPProfileType=%parm[#4]% 
+			jnxMbgDBPTargetUpNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPProfileName=%parm[#3]%
+				jnxMbgDBPProfileType=%parm[#4]%
 				jnxMbgDBPTargetName=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -486,10 +486,10 @@ a previously reachable profile is not reachable anymore.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPProfileDownNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPProfileName=%parm[#3]% 
+			jnxMbgDBPProfileDownNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPProfileName=%parm[#3]%
 				jnxMbgDBPProfileType=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -540,10 +540,10 @@ profile is reachable.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgDBPProfileUpNotif trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgDBPProfileName=%parm[#3]% 
+			jnxMbgDBPProfileUpNotif trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgDBPProfileName=%parm[#3]%
 				jnxMbgDBPProfileType=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>

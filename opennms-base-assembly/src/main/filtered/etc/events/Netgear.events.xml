@@ -125,7 +125,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Netgear Event: vlanRequestFailureTrap trap received 
+			Netgear Event: vlanRequestFailureTrap trap received
 			dot1qVlanIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -155,7 +155,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Netgear Event: vlanDeleteLastTrap trap received 
+			Netgear Event: vlanDeleteLastTrap trap received
 			dot1qVlanIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -185,7 +185,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Netgear Event: vlanDefaultCfgFailureTrap trap received 
+			Netgear Event: vlanDefaultCfgFailureTrap trap received
 			dot1qVlanIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -215,7 +215,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Netgear Event: vlanRestoreFailureTrap trap received 
+			Netgear Event: vlanRestoreFailureTrap trap received
 			dot1qVlanIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -270,7 +270,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Netgear Event: stpInstanceNewRootTrap trap received 
+			Netgear Event: stpInstanceNewRootTrap trap received
 			agentStpMstId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -300,7 +300,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Netgear Event: stpInstanceTopologyChangeTrap trap received 
+			Netgear Event: stpInstanceTopologyChangeTrap trap received
 			agentStpMstId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

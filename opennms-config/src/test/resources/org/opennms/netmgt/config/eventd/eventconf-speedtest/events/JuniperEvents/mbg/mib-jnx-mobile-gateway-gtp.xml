@@ -38,10 +38,10 @@ goes down.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPeerGwDnNotify trap received 
-				jnxMbgPgwGtpGwIndex=%parm[#1]% 
-				jnxMbgPgwGtpGwName=%parm[#2]% 
-				jnxMbgPgwGtpInterfaceType=%parm[#3]% 
+			jnxMbgPgwGtpPeerGwDnNotify trap received
+				jnxMbgPgwGtpGwIndex=%parm[#1]%
+				jnxMbgPgwGtpGwName=%parm[#2]%
+				jnxMbgPgwGtpInterfaceType=%parm[#3]%
 				jnxMbgPgwGtpPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -88,10 +88,10 @@ or an existing peer goes down and comes back up.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPeerGwUpNotify trap received 
-				jnxMbgPgwGtpGwIndex=%parm[#1]% 
-				jnxMbgPgwGtpGwName=%parm[#2]% 
-				jnxMbgPgwGtpInterfaceType=%parm[#3]% 
+			jnxMbgPgwGtpPeerGwUpNotify trap received
+				jnxMbgPgwGtpGwIndex=%parm[#1]%
+				jnxMbgPgwGtpGwName=%parm[#2]%
+				jnxMbgPgwGtpInterfaceType=%parm[#3]%
 				jnxMbgPgwGtpPeerName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -143,11 +143,11 @@ monitor interval.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPrDnTPerPrAlrmActv trap received 
-				jnxMbgPgwGtpGwIndex=%parm[#1]% 
-				jnxMbgPgwGtpGwName=%parm[#2]% 
-				jnxMbgPgwGtpInterfaceType=%parm[#3]% 
-				jnxMbgPgwGtpPeerName=%parm[#4]% 
+			jnxMbgPgwGtpPrDnTPerPrAlrmActv trap received
+				jnxMbgPgwGtpGwIndex=%parm[#1]%
+				jnxMbgPgwGtpGwName=%parm[#2]%
+				jnxMbgPgwGtpInterfaceType=%parm[#3]%
+				jnxMbgPgwGtpPeerName=%parm[#4]%
 				jnxMbgPgwGtpAlarmStatCounter=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -199,11 +199,11 @@ the lower threshold.&lt;/p&gt;&lt;table&gt;
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPrDnTPerPrAlrmClr trap received 
-				jnxMbgPgwGtpGwIndex=%parm[#1]% 
-				jnxMbgPgwGtpGwName=%parm[#2]% 
-				jnxMbgPgwGtpInterfaceType=%parm[#3]% 
-				jnxMbgPgwGtpPeerName=%parm[#4]% 
+			jnxMbgPgwGtpPrDnTPerPrAlrmClr trap received
+				jnxMbgPgwGtpGwIndex=%parm[#1]%
+				jnxMbgPgwGtpGwName=%parm[#2]%
+				jnxMbgPgwGtpInterfaceType=%parm[#3]%
+				jnxMbgPgwGtpPeerName=%parm[#4]%
 				jnxMbgPgwGtpAlarmStatCounter=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -237,7 +237,7 @@ the lower threshold.&lt;/p&gt;&lt;table&gt;
 		%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPeerDownNotif trap received 
+			jnxMbgPgwGtpPeerDownNotif trap received
 				jnxMbgPgwGtpPeerName=%parm[#1]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -271,7 +271,7 @@ the lower threshold.&lt;/p&gt;&lt;table&gt;
 		%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPeerGWUpNotif trap received 
+			jnxMbgPgwGtpPeerGWUpNotif trap received
 				jnxMbgPgwGtpPeerName=%parm[#1]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -321,9 +321,9 @@ Number of GTP Peer Down.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPeerDNThresPerPeerNotif trap received 
-				jnxMbgPgwGtpPeerName=%parm[#1]% 
-				jnxMbgPgwGtpAlarmState=%parm[#2]% 
+			jnxMbgPgwGtpPeerDNThresPerPeerNotif trap received
+				jnxMbgPgwGtpPeerName=%parm[#1]%
+				jnxMbgPgwGtpAlarmState=%parm[#2]%
 				jnxMbgPgwGtpAlarmStatCounter=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -373,9 +373,9 @@ Number of GTP Peer Down.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGtpPeerDNThresPerPeerNotif trap received 
-				jnxMbgPgwGtpPeerName=%parm[#1]% 
-				jnxMbgPgwGtpAlarmState=%parm[#2]% 
+			jnxMbgPgwGtpPeerDNThresPerPeerNotif trap received
+				jnxMbgPgwGtpPeerName=%parm[#1]%
+				jnxMbgPgwGtpAlarmState=%parm[#2]%
 				jnxMbgPgwGtpAlarmStatCounter=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>

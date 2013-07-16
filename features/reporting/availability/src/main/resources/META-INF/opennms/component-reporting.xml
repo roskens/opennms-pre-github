@@ -33,12 +33,12 @@
 			<ref local="availabilityData"/>
 		</property>
 	</bean>
-	
+
 	<bean id="availabilityReportService"
 		class="org.opennms.reporting.availability.svclayer.AvailabilityReportService"
 		scope="prototype">
 		<property name="parameterConversionService" ref="parameterConversionService" />
-		<property name="configDao" ref="availabilityReportConfigDao" />  
+		<property name="configDao" ref="availabilityReportConfigDao" />
 		<property name="calendarCalculator">
 			<ref local="calendarAvailabilityCalculator" />
 		</property>
@@ -46,15 +46,15 @@
 			<ref local="classicAvailabilityCalculator" />
 		</property>
 	</bean>
-	
+
 	<bean id="legacyAvailabilityDataService" class="org.opennms.reporting.availability.svclayer.LegacyAvailabilityDataService" scope="prototype" />
-	
-    <bean id="availabilityData" 
+
+    <bean id="availabilityData"
     	class="org.opennms.reporting.availability.AvailabilityData"
     	scope="prototype">
 		<property name="availabilityDataService">
 			<ref local="legacyAvailabilityDataService" />
     	</property>
     </bean>
-    
+
 </beans>

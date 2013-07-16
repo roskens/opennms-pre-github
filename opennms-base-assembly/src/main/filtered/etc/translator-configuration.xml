@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <event-translator-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.opennms.org/xsd/translator-configuration http://www.opennms.org/xsd/config/translator-configuration.xsd ">
-  
+
   <!-- Improved LinkDown/LinkUp events.  Uses translator to add DB information to link status traps events -->
   <translation>
     <event-translation-spec uei="uei.opennms.org/generic/traps/SNMP_Link_Down">
@@ -58,7 +58,7 @@
         </mapping>
       </mappings>
     </event-translation-spec>
-    
+
     <!-- This translation is predifined for integration with Hyperic-HQ server and the OpenNMS integrations found in
          the $OPENNMS_HOME/contrib/hyperic-integration directory -->
     <event-translation-spec uei="uei.opennms.org/external/hyperic/alert">
@@ -76,7 +76,7 @@
         </mapping>
       </mappings>
     </event-translation-spec>
-  
+
     <!-- Translations for configuration management -->
     <event-translation-spec uei="uei.opennms.org/vendor/Cisco/traps/ciscoConfigManEvent" >
       <mappings>
@@ -109,7 +109,7 @@
         </mapping>
       </mappings>
     </event-translation-spec>
-  
+
   </translation>
 
 </event-translator-configuration>

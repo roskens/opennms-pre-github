@@ -24,7 +24,7 @@
             <entry key="label" value="VMware"/>
         </service-properties>
     </service>
-        
+
     <service interface="org.opennms.features.topology.api.topo.GraphProvider" ref="vmwareTopologyProvider">
         <service-properties>
             <entry key="label" value="VMware"/>

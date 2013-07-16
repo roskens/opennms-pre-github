@@ -36,9 +36,9 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgGtpGWDownNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgServerName=%parm[#2]% 
+			jnxMbgSgwCgGtpGWDownNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgServerName=%parm[#2]%
 				jnxMbgSgwCgServicePicName=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -83,9 +83,9 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgGtpGWUpNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgServerName=%parm[#2]% 
+			jnxMbgSgwCgGtpGWUpNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgServerName=%parm[#2]%
 				jnxMbgSgwCgServicePicName=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -112,7 +112,7 @@ notification.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This signifies change in the destination of the CDRs 
+&lt;p&gt;This signifies change in the destination of the CDRs
 (Charging Data Record)&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -136,10 +136,10 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgCDRDestNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgCDRDest=%parm[#2]% 
-				jnxMbgSgwCgTSPName=%parm[#3]% 
+			jnxMbgSgwCgCDRDestNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgCDRDest=%parm[#2]%
+				jnxMbgSgwCgTSPName=%parm[#3]%
 				jnxMbgSgwCgCgfIpAddress=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -177,8 +177,8 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgServiceUpNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
+			jnxMbgSgwCgServiceUpNotify trap received
+				jnxMbgGwName=%parm[#1]%
 				jnxMbgSgwCgServicePicName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Normal</severity>
@@ -233,10 +233,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgProfileName=%parm[#2]% 
-				jnxMbgSgwCgPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgProfileName=%parm[#2]%
+				jnxMbgSgwCgPrevMMState=%parm[#3]%
 				jnxMbgSgwCgNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -291,10 +291,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgProfileName=%parm[#2]% 
-				jnxMbgSgwCgPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgProfileName=%parm[#2]%
+				jnxMbgSgwCgPrevMMState=%parm[#3]%
 				jnxMbgSgwCgNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -349,10 +349,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgProfileName=%parm[#2]% 
-				jnxMbgSgwCgPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgProfileName=%parm[#2]%
+				jnxMbgSgwCgPrevMMState=%parm[#3]%
 				jnxMbgSgwCgNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -407,10 +407,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgProfileName=%parm[#2]% 
-				jnxMbgSgwCgPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgProfileName=%parm[#2]%
+				jnxMbgSgwCgPrevMMState=%parm[#3]%
 				jnxMbgSgwCgNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -465,10 +465,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgProfileName=%parm[#2]% 
-				jnxMbgSgwCgPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgProfileName=%parm[#2]%
+				jnxMbgSgwCgPrevMMState=%parm[#3]%
 				jnxMbgSgwCgNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -523,10 +523,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgProfileName=%parm[#2]% 
-				jnxMbgSgwCgPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgProfileName=%parm[#2]%
+				jnxMbgSgwCgPrevMMState=%parm[#3]%
 				jnxMbgSgwCgNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -581,10 +581,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgTMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTProfileName=%parm[#2]% 
-				jnxMbgSgwCgTPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgTMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTProfileName=%parm[#2]%
+				jnxMbgSgwCgTPrevMMState=%parm[#3]%
 				jnxMbgSgwCgTNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -639,10 +639,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgTMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTProfileName=%parm[#2]% 
-				jnxMbgSgwCgTPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgTMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTProfileName=%parm[#2]%
+				jnxMbgSgwCgTPrevMMState=%parm[#3]%
 				jnxMbgSgwCgTNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -697,10 +697,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgTMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTProfileName=%parm[#2]% 
-				jnxMbgSgwCgTPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgTMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTProfileName=%parm[#2]%
+				jnxMbgSgwCgTPrevMMState=%parm[#3]%
 				jnxMbgSgwCgTNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -755,10 +755,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgTMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTProfileName=%parm[#2]% 
-				jnxMbgSgwCgTPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgTMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTProfileName=%parm[#2]%
+				jnxMbgSgwCgTPrevMMState=%parm[#3]%
 				jnxMbgSgwCgTNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -813,10 +813,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgTMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTProfileName=%parm[#2]% 
-				jnxMbgSgwCgTPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgTMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTProfileName=%parm[#2]%
+				jnxMbgSgwCgTPrevMMState=%parm[#3]%
 				jnxMbgSgwCgTNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -871,10 +871,10 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgTMMStateChangeNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTProfileName=%parm[#2]% 
-				jnxMbgSgwCgTPrevMMState=%parm[#3]% 
+			jnxMbgSgwCgTMMStateChangeNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTProfileName=%parm[#2]%
+				jnxMbgSgwCgTPrevMMState=%parm[#3]%
 				jnxMbgSgwCgTNewMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -936,11 +936,11 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMemHighThresNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTSPName=%parm[#2]% 
-				jnxMbgSgwCgServicePicName=%parm[#3]% 
-				jnxMbgSgwCgMemLimit=%parm[#4]% 
+			jnxMbgSgwCgMemHighThresNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTSPName=%parm[#2]%
+				jnxMbgSgwCgServicePicName=%parm[#3]%
+				jnxMbgSgwCgMemLimit=%parm[#4]%
 				jnxMbgSgwCgAlarmStatus=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1002,11 +1002,11 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMemMediumThresNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTSPName=%parm[#2]% 
-				jnxMbgSgwCgServicePicName=%parm[#3]% 
-				jnxMbgSgwCgMemLimit=%parm[#4]% 
+			jnxMbgSgwCgMemMediumThresNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTSPName=%parm[#2]%
+				jnxMbgSgwCgServicePicName=%parm[#3]%
+				jnxMbgSgwCgMemLimit=%parm[#4]%
 				jnxMbgSgwCgAlarmStatus=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1068,11 +1068,11 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMemMediumThresNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTSPName=%parm[#2]% 
-				jnxMbgSgwCgServicePicName=%parm[#3]% 
-				jnxMbgSgwCgMemLimit=%parm[#4]% 
+			jnxMbgSgwCgMemMediumThresNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTSPName=%parm[#2]%
+				jnxMbgSgwCgServicePicName=%parm[#3]%
+				jnxMbgSgwCgMemLimit=%parm[#4]%
 				jnxMbgSgwCgAlarmStatus=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1134,11 +1134,11 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMemLowThresNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTSPName=%parm[#2]% 
-				jnxMbgSgwCgServicePicName=%parm[#3]% 
-				jnxMbgSgwCgMemLimit=%parm[#4]% 
+			jnxMbgSgwCgMemLowThresNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTSPName=%parm[#2]%
+				jnxMbgSgwCgServicePicName=%parm[#3]%
+				jnxMbgSgwCgMemLimit=%parm[#4]%
 				jnxMbgSgwCgAlarmStatus=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1200,11 +1200,11 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMemLowThresNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTSPName=%parm[#2]% 
-				jnxMbgSgwCgServicePicName=%parm[#3]% 
-				jnxMbgSgwCgMemLimit=%parm[#4]% 
+			jnxMbgSgwCgMemLowThresNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTSPName=%parm[#2]%
+				jnxMbgSgwCgServicePicName=%parm[#3]%
+				jnxMbgSgwCgMemLimit=%parm[#4]%
 				jnxMbgSgwCgAlarmStatus=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1266,11 +1266,11 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgMemHighThresNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgTSPName=%parm[#2]% 
-				jnxMbgSgwCgServicePicName=%parm[#3]% 
-				jnxMbgSgwCgMemLimit=%parm[#4]% 
+			jnxMbgSgwCgMemHighThresNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgTSPName=%parm[#2]%
+				jnxMbgSgwCgServicePicName=%parm[#3]%
+				jnxMbgSgwCgMemLimit=%parm[#4]%
 				jnxMbgSgwCgAlarmStatus=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -1319,9 +1319,9 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgLcsThresHighNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgAlarmStatus=%parm[#2]% 
+			jnxMbgSgwCgLcsThresHighNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgAlarmStatus=%parm[#2]%
 				jnxMbgSgwCgLcsUtil=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1370,9 +1370,9 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgLcsThresMediumNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgAlarmStatus=%parm[#2]% 
+			jnxMbgSgwCgLcsThresMediumNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgAlarmStatus=%parm[#2]%
 				jnxMbgSgwCgLcsUtil=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1421,9 +1421,9 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgLcsThresMediumNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgAlarmStatus=%parm[#2]% 
+			jnxMbgSgwCgLcsThresMediumNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgAlarmStatus=%parm[#2]%
 				jnxMbgSgwCgLcsUtil=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1472,9 +1472,9 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgLcsThresLowNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgAlarmStatus=%parm[#2]% 
+			jnxMbgSgwCgLcsThresLowNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgAlarmStatus=%parm[#2]%
 				jnxMbgSgwCgLcsUtil=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1523,9 +1523,9 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgLcsThresLowNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgAlarmStatus=%parm[#2]% 
+			jnxMbgSgwCgLcsThresLowNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgAlarmStatus=%parm[#2]%
 				jnxMbgSgwCgLcsUtil=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1574,9 +1574,9 @@ in the maintenance-mode.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwCgLcsThresHighNotify trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwCgAlarmStatus=%parm[#2]% 
+			jnxMbgSgwCgLcsThresHighNotify trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwCgAlarmStatus=%parm[#2]%
 				jnxMbgSgwCgLcsUtil=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>

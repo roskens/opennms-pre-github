@@ -49,8 +49,8 @@ c. Multiple interfaces are associated with this VRF, and the
         </p></td></tr></table>
         ]]></descr>
                 <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-                        mplsL3VpnVrfUp trap received 
-                        mplsL3VpnIfConfRowStatus=%parm[#1]% 
+                        mplsL3VpnVrfUp trap received
+                        mplsL3VpnIfConfRowStatus=%parm[#1]%
                         mplsL3VpnVrfOperStatus=%parm[#2]%
                         mplsL3VpnVrfName= %parm[name-#2]%</p>
                 ]]></logmsg>
@@ -107,10 +107,10 @@ c. The last interface with ifOperStatus equal to up(1)
         </p></td></tr></table>
         ]]></descr>
                 <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-                        mplsL3VpnVrfDown trap received 
-                        mplsL3VpnIfConfRowStatus=%parm[#1]% 
+                        mplsL3VpnVrfDown trap received
+                        mplsL3VpnIfConfRowStatus=%parm[#1]%
                         mplsL3VpnVrfOperStatus=%parm[#2]%
-                        mplsL3VpnVrfName= %parm[name-#2]%</p> 
+                        mplsL3VpnVrfName= %parm[name-#2]%</p>
                 ]]></logmsg>
         <severity>Major</severity>
         <alarm-data alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%:%parm[#2]%"/>
@@ -150,8 +150,8 @@ mplsL3VpnVrfConfMidRteThresh.</p><table>
         %parm[#2]%;</td><td><p></p></td></tr></table>
         ]]></descr>
                 <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-                        mplsL3VpnVrfRouteMidThreshExceeded trap received 
-                        mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]% 
+                        mplsL3VpnVrfRouteMidThreshExceeded trap received
+                        mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]%
                         mplsL3VpnVrfConfMidRteThresh=%parm[#2]%</p>
                 ]]></logmsg>
         <severity>Indeterminate</severity>
@@ -206,8 +206,8 @@ value.</p><table>
         %parm[#2]%;</td><td><p></p></td></tr></table>
         ]]></descr>
                 <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-                        mplsL3VpnVrfNumVrfRouteMaxThreshExceeded trap received 
-                        mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]% 
+                        mplsL3VpnVrfNumVrfRouteMaxThreshExceeded trap received
+                        mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]%
                         mplsL3VpnVrfConfHighRteThresh=%parm[#2]%</p>
                 ]]></logmsg>
         <severity>Indeterminate</severity>
@@ -243,7 +243,7 @@ the threshold at the time this notification is issued.</p><table>
         %parm[#1]%;</td><td><p></p></td></tr></table>
         ]]></descr>
                 <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-                        mplsL3VpnNumVrfSecIllglLblThrshExcd trap received 
+                        mplsL3VpnNumVrfSecIllglLblThrshExcd trap received
                         mplsL3VpnVrfSecIllegalLblVltns=%parm[#1]%</p>
                 ]]></logmsg>
         <severity>Indeterminate</severity>
@@ -303,8 +303,8 @@ whenever the maximum threshold has been cleared.</p><table>
         %parm[#2]%;</td><td><p></p></td></tr></table>
         ]]></descr>
                 <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-                        mplsL3VpnNumVrfRouteMaxThreshCleared trap received 
-                        mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]% 
+                        mplsL3VpnNumVrfRouteMaxThreshCleared trap received
+                        mplsL3VpnVrfPerfCurrNumRoutes=%parm[#1]%
                         mplsL3VpnVrfConfHighRteThresh=%parm[#2]%</p>
                 ]]></logmsg>
         <severity>Indeterminate</severity>

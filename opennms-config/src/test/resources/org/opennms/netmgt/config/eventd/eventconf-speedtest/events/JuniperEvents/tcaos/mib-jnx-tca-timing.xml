@@ -23,7 +23,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgTimingOscilDacRange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingOscilDacRange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the soscillator DAC value is 
+<p>This notification signifies that the soscillator DAC value is
 out of range where the value can be adjusted.</p><table>
 	<tr><td><b>
 
@@ -35,8 +35,8 @@ out of range where the value can be adjusted.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysConfigChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysConfigChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -64,7 +64,7 @@ out of range where the value can be adjusted.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgTimingOscilDacRange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingOscilDacRange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the soscillator DAC value is 
+<p>This notification signifies that the soscillator DAC value is
 out of range where the value can be adjusted.</p><table>
 	<tr><td><b>
 
@@ -76,8 +76,8 @@ out of range where the value can be adjusted.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingOscilDacRange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingOscilDacRange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -105,7 +105,7 @@ out of range where the value can be adjusted.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgTimingOscilDacRange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingOscilDacRange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the soscillator DAC value is 
+<p>This notification signifies that the soscillator DAC value is
 out of range where the value can be adjusted.</p><table>
 	<tr><td><b>
 
@@ -117,8 +117,8 @@ out of range where the value can be adjusted.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingOscilDacRange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingOscilDacRange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -146,7 +146,7 @@ out of range where the value can be adjusted.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgTimingOscilDacRange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingOscilDacRange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the soscillator DAC value is 
+<p>This notification signifies that the soscillator DAC value is
 out of range where the value can be adjusted.</p><table>
 	<tr><td><b>
 
@@ -158,8 +158,8 @@ out of range where the value can be adjusted.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingOscilDacRange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingOscilDacRange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -167,7 +167,7 @@ out of range where the value can be adjusted.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the soscillator DAC value is 
+<p>This notification signifies that the soscillator DAC value is
 out of range where the value can be adjusted.</p><table>
 	<tr><td><b>
 
@@ -180,8 +180,8 @@ out of range where the value can be adjusted.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingOscilDacRange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingOscilDacRange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingOscilDacRange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -208,7 +208,7 @@ out of range where the value can be adjusted.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system is no longer 
+<p>This notification signifies that the system is no longer
 providing a Stratum 1 reference.</p><table>
 	<tr><td><b>
 
@@ -221,8 +221,8 @@ providing a Stratum 1 reference.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingNonStratumOne</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingNonStratumOne trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingNonStratumOne trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -250,7 +250,7 @@ providing a Stratum 1 reference.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system is no longer 
+<p>This notification signifies that the system is no longer
 providing a Stratum 1 reference.</p><table>
 	<tr><td><b>
 
@@ -263,8 +263,8 @@ providing a Stratum 1 reference.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingNonStratumOne</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingNonStratumOne trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingNonStratumOne trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -292,7 +292,7 @@ providing a Stratum 1 reference.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system is no longer 
+<p>This notification signifies that the system is no longer
 providing a Stratum 1 reference.</p><table>
 	<tr><td><b>
 
@@ -305,8 +305,8 @@ providing a Stratum 1 reference.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingNonStratumOne</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingNonStratumOne trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingNonStratumOne trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -334,7 +334,7 @@ providing a Stratum 1 reference.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system is no longer 
+<p>This notification signifies that the system is no longer
 providing a Stratum 1 reference.</p><table>
 	<tr><td><b>
 
@@ -347,8 +347,8 @@ providing a Stratum 1 reference.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingNonStratumOne</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingNonStratumOne trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingNonStratumOne trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -376,7 +376,7 @@ providing a Stratum 1 reference.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system is no longer 
+<p>This notification signifies that the system is no longer
 providing a Stratum 1 reference.</p><table>
 	<tr><td><b>
 
@@ -389,8 +389,8 @@ providing a Stratum 1 reference.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTimingNonStratumOne</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTimingNonStratumOne trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTimingNonStratumOne trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -431,8 +431,8 @@ unreachable connectivity with PTP grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerUnreachable</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerUnreachable trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerUnreachable trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -473,8 +473,8 @@ unreachable connectivity with PTP grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerUnreachable</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerUnreachable trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerUnreachable trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -515,8 +515,8 @@ unreachable connectivity with PTP grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerUnreachable</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerUnreachable trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerUnreachable trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -557,8 +557,8 @@ unreachable connectivity with PTP grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerUnreachable</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerUnreachable trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerUnreachable trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -599,8 +599,8 @@ unreachable connectivity with PTP grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerUnreachable</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerUnreachable trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerUnreachable trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -628,7 +628,7 @@ unreachable connectivity with PTP grandmaster.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the PTP salve has switched 
+<p>This notification signifies that the PTP salve has switched
 to a new grandmaster.</p><table>
 	<tr><td><b>
 
@@ -641,8 +641,8 @@ to a new grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -670,7 +670,7 @@ to a new grandmaster.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the PTP salve has switched 
+<p>This notification signifies that the PTP salve has switched
 to a new grandmaster.</p><table>
 	<tr><td><b>
 
@@ -683,8 +683,8 @@ to a new grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -712,7 +712,7 @@ to a new grandmaster.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the PTP salve has switched 
+<p>This notification signifies that the PTP salve has switched
 to a new grandmaster.</p><table>
 	<tr><td><b>
 
@@ -725,8 +725,8 @@ to a new grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -754,7 +754,7 @@ to a new grandmaster.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the PTP salve has switched 
+<p>This notification signifies that the PTP salve has switched
 to a new grandmaster.</p><table>
 	<tr><td><b>
 
@@ -767,8 +767,8 @@ to a new grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -796,7 +796,7 @@ to a new grandmaster.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the PTP salve has switched 
+<p>This notification signifies that the PTP salve has switched
 to a new grandmaster.</p><table>
 	<tr><td><b>
 
@@ -809,8 +809,8 @@ to a new grandmaster.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgMsgPtpServerChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgMsgPtpServerChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgMsgPtpServerChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -838,7 +838,7 @@ to a new grandmaster.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system clock frequency 
+<p>This notification signifies that the system clock frequency
 goes to holdover state.</p><table>
 	<tr><td><b>
 
@@ -851,8 +851,8 @@ goes to holdover state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyHoldover</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyHoldover trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyHoldover trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -880,7 +880,7 @@ goes to holdover state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system clock frequency 
+<p>This notification signifies that the system clock frequency
 goes to holdover state.</p><table>
 	<tr><td><b>
 
@@ -893,8 +893,8 @@ goes to holdover state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyHoldover</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyHoldover trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyHoldover trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -922,7 +922,7 @@ goes to holdover state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system clock frequency 
+<p>This notification signifies that the system clock frequency
 goes to holdover state.</p><table>
 	<tr><td><b>
 
@@ -935,8 +935,8 @@ goes to holdover state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyHoldover</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyHoldover trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyHoldover trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -964,7 +964,7 @@ goes to holdover state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system clock frequency 
+<p>This notification signifies that the system clock frequency
 goes to holdover state.</p><table>
 	<tr><td><b>
 
@@ -977,8 +977,8 @@ goes to holdover state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyHoldover</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyHoldover trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyHoldover trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1006,7 +1006,7 @@ goes to holdover state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that the system clock frequency 
+<p>This notification signifies that the system clock frequency
 goes to holdover state.</p><table>
 	<tr><td><b>
 
@@ -1019,8 +1019,8 @@ goes to holdover state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyHoldover</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyHoldover trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyHoldover trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1047,7 +1047,7 @@ goes to holdover state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 goes to freerun state.</p><table>
 	<tr><td><b>
 
@@ -1060,8 +1060,8 @@ goes to freerun state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyFreerun</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyFreerun trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyFreerun trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1089,7 +1089,7 @@ goes to freerun state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 goes to freerun state.</p><table>
 	<tr><td><b>
 
@@ -1102,8 +1102,8 @@ goes to freerun state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyFreerun</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyFreerun trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyFreerun trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1131,7 +1131,7 @@ goes to freerun state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 goes to freerun state.</p><table>
 	<tr><td><b>
 
@@ -1144,8 +1144,8 @@ goes to freerun state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyFreerun</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyFreerun trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyFreerun trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1173,7 +1173,7 @@ goes to freerun state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 goes to freerun state.</p><table>
 	<tr><td><b>
 
@@ -1186,8 +1186,8 @@ goes to freerun state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyFreerun</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyFreerun trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyFreerun trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1215,7 +1215,7 @@ goes to freerun state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 goes to freerun state.</p><table>
 	<tr><td><b>
 
@@ -1228,8 +1228,8 @@ goes to freerun state.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyFreerun</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyFreerun trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyFreerun trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1256,7 +1256,7 @@ goes to freerun state.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 reference input has changed.</p><table>
 	<tr><td><b>
 
@@ -1269,8 +1269,8 @@ reference input has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyRefInputChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyRefInputChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyRefInputChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1298,7 +1298,7 @@ reference input has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 reference input has changed.</p><table>
 	<tr><td><b>
 
@@ -1311,8 +1311,8 @@ reference input has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyRefInputChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyRefInputChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyRefInputChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1340,7 +1340,7 @@ reference input has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 reference input has changed.</p><table>
 	<tr><td><b>
 
@@ -1353,8 +1353,8 @@ reference input has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyRefInputChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyRefInputChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyRefInputChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1382,7 +1382,7 @@ reference input has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 reference input has changed.</p><table>
 	<tr><td><b>
 
@@ -1395,8 +1395,8 @@ reference input has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyRefInputChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyRefInputChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyRefInputChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1424,7 +1424,7 @@ reference input has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 reference input has changed.</p><table>
 	<tr><td><b>
 
@@ -1437,8 +1437,8 @@ reference input has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyRefInputChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyRefInputChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyRefInputChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1465,7 +1465,7 @@ reference input has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 input quality has changed.</p><table>
 	<tr><td><b>
 
@@ -1478,8 +1478,8 @@ input quality has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyInputQualityChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyInputQualityChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyInputQualityChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1507,7 +1507,7 @@ input quality has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 input quality has changed.</p><table>
 	<tr><td><b>
 
@@ -1520,8 +1520,8 @@ input quality has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyInputQualityChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyInputQualityChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyInputQualityChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1549,7 +1549,7 @@ input quality has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 input quality has changed.</p><table>
 	<tr><td><b>
 
@@ -1562,8 +1562,8 @@ input quality has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyInputQualityChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyInputQualityChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyInputQualityChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1591,7 +1591,7 @@ input quality has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 input quality has changed.</p><table>
 	<tr><td><b>
 
@@ -1604,8 +1604,8 @@ input quality has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyInputQualityChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyInputQualityChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyInputQualityChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1633,7 +1633,7 @@ input quality has changed.</p><table>
   </event>
   <event>
     <descr><![CDATA[
-<p>This notification signifies that when system clock frequency 
+<p>This notification signifies that when system clock frequency
 input quality has changed.</p><table>
 	<tr><td><b>
 
@@ -1646,8 +1646,8 @@ input quality has changed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgFrequencyInputQualityChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgFrequencyInputQualityChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgFrequencyInputQualityChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>

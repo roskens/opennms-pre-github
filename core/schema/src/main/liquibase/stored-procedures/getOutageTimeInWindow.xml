@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -41,7 +41,7 @@ CREATE OR REPLACE FUNCTION getOutageTimeInWindow(integer,varchar(16),integer,tim
                 --
                 IF xtime &gt; lostTime THEN
                  --
-                 -- for any outage to be in window of 
+                 -- for any outage to be in window of
                  -- opportunity the lost time must ALWAYS be
                  -- less that the x time.
                  --
@@ -64,7 +64,7 @@ CREATE OR REPLACE FUNCTION getOutageTimeInWindow(integer,varchar(16),integer,tim
                      downtime := downtime + EXTRACT (EPOCH FROM (gainTime - ytime));
                     ELSE
                      downtime := downtime + EXTRACT (EPOCH FROM (gainTime - lostTime));
-                    END IF; 
+                    END IF;
                   ELSE
                    IF gainTime &gt; xtime THEN
                    --

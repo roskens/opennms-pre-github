@@ -45,8 +45,8 @@ mikew@isphone.net
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Cisco Event: demandNbrLayer2Change trap received 
-			ifIndex=%parm[#1]% 
+			Cisco Event: demandNbrLayer2Change trap received
+			ifIndex=%parm[#1]%
 			Line Status Down
 		</logmsg>
  <severity>Critical</severity>
@@ -91,8 +91,8 @@ mikew@isphone.net
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			demandNbrLayer2Change trap received 
-			ifIndex=%parm[#1]% 
+			demandNbrLayer2Change trap received
+			ifIndex=%parm[#1]%
 			Layer 1 UP
 		</logmsg>
  <severity>Indeterminate</severity>
@@ -137,8 +137,8 @@ mikew@isphone.net
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Cisco Event: demandNbrLayer2Change trap received 
-			ifIndex=%parm[#1]% 
+			Cisco Event: demandNbrLayer2Change trap received
+			ifIndex=%parm[#1]%
 			Layer 2 UP-PRI Up
 		</logmsg>
  <severity>Normal</severity>

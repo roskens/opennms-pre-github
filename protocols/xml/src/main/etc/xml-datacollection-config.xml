@@ -1,6 +1,6 @@
 <xml-datacollection-config rrdRepository="${install.share.dir}/rrd/snmp/" xmlns="http://xmlns.opennms.org/xsd/config/xml-datacollection">
 
-    <!-- 
+    <!--
     The following package will collect all available 3GPP Data from a network element.
     It is important to provision the node and assign the NE ID to the foreign ID, to
     simplify the configuration.
@@ -111,7 +111,7 @@
                 <!-- The XML Object Tag:
                      * xpath is the relative Xpath from resource-xpath to be used to retrieve variables.
                      * type is how the performance metric will be persisted (gauge, counter, string).
-                     * name is how the performance metric will be identified inside RRDs and graph templates. 
+                     * name is how the performance metric will be identified inside RRDs and graph templates.
                 -->
                 <xml-object name="VSCdrsXferSucc" type="GAUGE" xpath="r[@p=1]" /> <!-- VS.GTPP.CdrsXferSucc -->
                 <xml-object name="VSGtpMsgXferCgfSucc" type="GAUGE" xpath="r[@p=2]" /> <!-- VS.GTPP.GtpMsgXferCgfSucc -->

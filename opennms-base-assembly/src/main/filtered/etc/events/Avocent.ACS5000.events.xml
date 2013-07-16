@@ -27,7 +27,7 @@ in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsRebootStartedTrap trap received 
+			cyAcsRebootStartedTrap trap received
 			cyAcsTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -51,8 +51,8 @@ in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsUserLoginTrap</event-label>
 	<descr>
 &lt;p&gt;This trap is sent when user logged into the appliance.
-The name of the user who logged in is contained in 
-cyAcsTrapObjectUserName and the method used to log into appliance 
+The name of the user who logged in is contained in
+cyAcsTrapObjectUserName and the method used to log into appliance
 is contained in cyAcsTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -69,8 +69,8 @@ is contained in cyAcsTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsUserLoginTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsUserLoginTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectSessionType=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -94,8 +94,8 @@ is contained in cyAcsTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsUserLogoutTrap</event-label>
 	<descr>
 &lt;p&gt;A user logged out of the appliance.
-The name of the user who logged in is contained in 
-cyAcsTrapObjectUserName and the method used to log into appliance 
+The name of the user who logged in is contained in
+cyAcsTrapObjectUserName and the method used to log into appliance
 is contained in cyAcsTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -112,8 +112,8 @@ is contained in cyAcsTrapObjectSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsUserLogoutTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsUserLogoutTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectSessionType=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -144,7 +144,7 @@ The name of the user who failed to authenticate is contained in cyAcsTrapObjectU
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsAuthenticationFailureTrap trap received 
+			cyAcsAuthenticationFailureTrap trap received
 			cyAcsTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -171,7 +171,7 @@ The name of the user who failed to authenticate is contained in cyAcsTrapObjectU
 The name of the user who is connected to the session is contained in cyAcsTrapObjectUserName.
 The serial port number on the appliance is contained in cyAcsTrapObjectSerialPort.
 The serial port name on the appliance is contained in cyAcsTrapObjectSerialPortName
-The type of protocol running on this serial port is contained in 
+The type of protocol running on this serial port is contained in
 cyAcsTrapObjectSerialSessionType. &lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -197,10 +197,10 @@ cyAcsTrapObjectSerialSessionType. &lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsSerialSessionStartedTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPortName=%parm[#2]% 
-			cyAcsTrapObjectSerialPort=%parm[#3]% 
+			cyAcsSerialSessionStartedTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPortName=%parm[#2]%
+			cyAcsTrapObjectSerialPort=%parm[#3]%
 			cyAcsTrapObjectSerialSessionType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -227,7 +227,7 @@ cyAcsTrapObjectSerialSessionType. &lt;/p&gt;&lt;table&gt;
 The user who was connected to the session is contained in cyAcsTrapObjectUserName.
 The serial port number on the appliance is contained in cyAcsTrapObjectSerialPort.
 The serial port name on the appliance is contained in cyAcsTrapObjectSerialPortName
-The type of protocol running on this port is contained in 
+The type of protocol running on this port is contained in
 cyAcsTrapObjectSerialSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -253,10 +253,10 @@ cyAcsTrapObjectSerialSessionType.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsSerialSessionStoppedTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPortName=%parm[#2]% 
-			cyAcsTrapObjectSerialPort=%parm[#3]% 
+			cyAcsSerialSessionStoppedTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPortName=%parm[#2]%
+			cyAcsTrapObjectSerialPort=%parm[#3]%
 			cyAcsTrapObjectSerialSessionType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -308,10 +308,10 @@ The type of protocol configured on this port is contained in cyAcsTrapObjectSeri
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsPortAuthenticationFailureTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPortName=%parm[#2]% 
-			cyAcsTrapObjectSerialPort=%parm[#3]% 
+			cyAcsPortAuthenticationFailureTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPortName=%parm[#2]%
+			cyAcsTrapObjectSerialPort=%parm[#3]%
 			cyAcsTrapObjectSerialSessionType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -335,15 +335,15 @@ The type of protocol configured on this port is contained in cyAcsTrapObjectSeri
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsPortAlertTrap</event-label>
 	<descr>
 &lt;p&gt;The appliance detected a port alert on a serial port.
-The serial port number the port alert was detected on is 
+The serial port number the port alert was detected on is
 contained in cyAcsTrapObjectSerialPort.
-The serial port name the port alert was detected on is 
+The serial port name the port alert was detected on is
 contained in cyAcsTrapObjectSerialPortName.
  The index of the port alert that was detected is contained
  in cyAcsTrapObjectAlertIndex.
-The port alert that was detected is contained in 
+The port alert that was detected is contained in
  cyAcsTrapObjectAlertString.
-The line text where the port alert was detected is 
+The line text where the port alert was detected is
 contained in cyAcsTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -367,11 +367,11 @@ contained in cyAcsTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsPortAlertTrap trap received 
-			cyAcsTrapObjectSerialPortName=%parm[#1]% 
-			cyAcsTrapObjectSerialPort=%parm[#2]% 
-			cyAcsTrapObjectAlertIndex=%parm[#3]% 
-			cyAcsTrapObjectAlertString=%parm[#4]% 
+			cyAcsPortAlertTrap trap received
+			cyAcsTrapObjectSerialPortName=%parm[#1]%
+			cyAcsTrapObjectSerialPort=%parm[#2]%
+			cyAcsTrapObjectAlertIndex=%parm[#3]%
+			cyAcsTrapObjectAlertString=%parm[#4]%
 			cyAcsTrapObjectAlertMessage=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -412,8 +412,8 @@ The affected serial port name is contained in cyAcsTrapObjectSerialPortName.&lt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsPortPowerOnDetectTrap trap received 
-			cyAcsTrapObjectSerialPortName=%parm[#1]% 
+			cyAcsPortPowerOnDetectTrap trap received
+			cyAcsTrapObjectSerialPortName=%parm[#1]%
 			cyAcsTrapObjectSerialPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -454,8 +454,8 @@ The affected serial port name is contained in cyAcsTrapObjectSerialPortName.&lt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsPortPowerOffDetectTrap trap received 
-			cyAcsTrapObjectSerialPortName=%parm[#1]% 
+			cyAcsPortPowerOffDetectTrap trap received
+			cyAcsTrapObjectSerialPortName=%parm[#1]%
 			cyAcsTrapObjectSerialPort=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -491,8 +491,8 @@ The name of the user who start the daemon is contained in cyAcsTrapObjectUserNam
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsDaemonStarted trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsDaemonStarted trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectDaemonName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -529,8 +529,8 @@ The name of the user who stop the daemon is contained in cyAcsTrapObjectUserName
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsDaemonStoped trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsDaemonStoped trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectDaemonName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -553,10 +553,10 @@ The name of the user who stop the daemon is contained in cyAcsTrapObjectUserName
 	<uei>uei.opennms.org/vendor/avocent/traps/cyAcsAdminSessionTerminatedTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsAdminSessionTerminatedTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when one previous admin session is 
+&lt;p&gt;This trap is generated when one previous admin session is
 terminated by another admin user.
      The name of the user who terminated the session is contained in cyAcsTrapObjectUserName.
-The name of the user who was terminated from the session is contained 
+The name of the user who was terminated from the session is contained
 in cyAcsTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -568,8 +568,8 @@ in cyAcsTrapObjectTargetUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsAdminSessionTerminatedTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsAdminSessionTerminatedTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -600,7 +600,7 @@ cyAcsTrapObjectUserName is name of the user who executed saveconf.&lt;/p&gt;&lt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsConfigurationSavedTrap trap received 
+			cyAcsConfigurationSavedTrap trap received
 			cyAcsTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -631,7 +631,7 @@ cyAcsTrapObjectUserName is name of the user who activated new configuration.&lt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsConfigurationActivatedTrap trap received 
+			cyAcsConfigurationActivatedTrap trap received
 			cyAcsTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -667,8 +667,8 @@ The name of the new user is contained in cyAcsTrapObjectTargetUserName.&lt;/p&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsLocalUserAddedTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsLocalUserAddedTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -704,8 +704,8 @@ The name of the user who was deleted is contained in cyAcsTrapObjectTargetUserNa
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsLocalUserDeletedTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
+			cyAcsLocalUserDeletedTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
 			cyAcsTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -728,7 +728,7 @@ The name of the user who was deleted is contained in cyAcsTrapObjectTargetUserNa
 	<uei>uei.opennms.org/vendor/avocent/traps/cyAcsDataBufferFullThresholdLowTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsDataBufferFullThresholdLowTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 global data buffer has reached configured Low level Threshold.
 cyAcsTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -737,7 +737,7 @@ cyAcsTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsDataBufferFullThresholdLowTrap trap received 
+			cyAcsDataBufferFullThresholdLowTrap trap received
 			cyAcsTrapObjectDataBufferSize=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -760,7 +760,7 @@ cyAcsTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendor/avocent/traps/cyAcsDataBufferFullThresholdMedTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsDataBufferFullThresholdMedTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 global data buffer has reached configured Med level Threshold.
 cyAcsTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -769,7 +769,7 @@ cyAcsTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsDataBufferFullThresholdMedTrap trap received 
+			cyAcsDataBufferFullThresholdMedTrap trap received
 			cyAcsTrapObjectDataBufferSize=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -792,7 +792,7 @@ cyAcsTrapObjectDataBufferSize is current size of the buffer.&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendor/avocent/traps/cyAcsDataBufferFullLostDataTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsDataBufferFullLostDataTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 global data buffer has exceeded beyond the size of buffer and data lost has occurred.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -818,7 +818,7 @@ global data buffer has exceeded beyond the size of buffer and data lost has occu
 	<uei>uei.opennms.org/vendor/avocent/traps/cyAcsApplianceLostDataTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsApplianceLostDataTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when the appliance is managed by DsView and 
+&lt;p&gt;This trap is generated when the appliance is managed by DsView and
 Appliance data lost occurred on ssh or telnet session.
 cyAcsTrapObjectProcessID is process id of the telnet or ssh session.
 cyAcsTrapObjectUserName is name of user who session is active and data lost occurred.&lt;/p&gt;&lt;table&gt;
@@ -832,8 +832,8 @@ cyAcsTrapObjectUserName is name of user who session is active and data lost occu
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsApplianceLostDataTrap trap received 
-			cyAcsTrapObjectProcessID=%parm[#1]% 
+			cyAcsApplianceLostDataTrap trap received
+			cyAcsTrapObjectProcessID=%parm[#1]%
 			cyAcsTrapObjectUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -856,8 +856,8 @@ cyAcsTrapObjectUserName is name of user who session is active and data lost occu
 	<uei>uei.opennms.org/vendor/avocent/traps/cyPMOnlineTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyPMOnlineTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance is online. 
-The port number on the appliance that the power device is 
+&lt;p&gt;A power device attached to the appliance is online.
+The port number on the appliance that the power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The power device number in the chain is contained in cyAcsTrapObjectPMNumber.
 The power device ID is contained in cyAcsTrapObjectPMId.
@@ -889,11 +889,11 @@ The vendor of the power device is contained in cyAcsTrapObjectPMType&lt;/p&gt;&l
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOnlineTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketCount=%parm[#4]% 
+			cyPMOnlineTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketCount=%parm[#4]%
 			cyAcsTrapObjectPMType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -917,7 +917,7 @@ The vendor of the power device is contained in cyAcsTrapObjectPMType&lt;/p&gt;&l
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyPMOfflineTrap</event-label>
 	<descr>
 &lt;p&gt;A power device attached to the appliance is offline.
-The port number on the appliance that the power device is 
+The port number on the appliance that the power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The power device number in the chain is contained in cyAcsTrapObjectPMNumber.
 The power device ID is contained in cyAcsTrapObjectPMId.
@@ -949,11 +949,11 @@ The vendor of the power device is contained in cyAcsTrapObjectPMType&lt;/p&gt;&l
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOfflineTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketCount=%parm[#4]% 
+			cyPMOfflineTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketCount=%parm[#4]%
 			cyAcsTrapObjectPMType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -977,15 +977,15 @@ The vendor of the power device is contained in cyAcsTrapObjectPMType&lt;/p&gt;&l
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyPMOutletOnTrap</event-label>
 	<descr>
 &lt;p&gt;An outlet on a chain of power device has been issued the on command.
-The name of the user who issued the on command is contained 
-in cyAcsTrapObjectUserName.      
+The name of the user who issued the on command is contained
+in cyAcsTrapObjectUserName.
 The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The power device number in the chain is contained in cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that was issued the on command is contained 
+The socket number that was issued the on command is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that was issued the on command is contained in 
+The socket name that was issued the on command is contained in
 cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1013,12 +1013,12 @@ cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletOnTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPort=%parm[#2]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#3]% 
-			cyAcsTrapObjectPMNumber=%parm[#4]% 
-			cyAcsTrapObjectPMId=%parm[#5]% 
+			cyPMOutletOnTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPort=%parm[#2]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#3]%
+			cyAcsTrapObjectPMNumber=%parm[#4]%
+			cyAcsTrapObjectPMId=%parm[#5]%
 			cyAcsTrapObjectPMSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1046,11 +1046,11 @@ The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The power device number in the chain is contained in cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that was issued the off command is contained 
+The socket number that was issued the off command is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that was issued the off command is contained 
+The socket name that was issued the off command is contained
 in cyAcsTrapObjectPMSocketName.
-The name of the user who issued the off command is contained 
+The name of the user who issued the off command is contained
 in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1078,12 +1078,12 @@ in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletOffTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPort=%parm[#2]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#3]% 
-			cyAcsTrapObjectPMNumber=%parm[#4]% 
-			cyAcsTrapObjectPMId=%parm[#5]% 
+			cyPMOutletOffTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPort=%parm[#2]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#3]%
+			cyAcsTrapObjectPMNumber=%parm[#4]%
+			cyAcsTrapObjectPMId=%parm[#5]%
 			cyAcsTrapObjectPMSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1111,11 +1111,11 @@ The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The power device number in the chain is contained in cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that was issued the cycle command is contained 
+The socket number that was issued the cycle command is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that was issued the cycle command is contained 
+The socket name that was issued the cycle command is contained
 in cyAcsTrapObjectPMSocketName.
-The name of the user who issued the cycle command is contained 
+The name of the user who issued the cycle command is contained
 in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1143,12 +1143,12 @@ in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletCycleFinishedTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPort=%parm[#2]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#3]% 
-			cyAcsTrapObjectPMNumber=%parm[#4]% 
-			cyAcsTrapObjectPMId=%parm[#5]% 
+			cyPMOutletCycleFinishedTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPort=%parm[#2]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#3]%
+			cyAcsTrapObjectPMNumber=%parm[#4]%
+			cyAcsTrapObjectPMId=%parm[#5]%
 			cyAcsTrapObjectPMSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1175,11 +1175,11 @@ in cyAcsTrapObjectUserName.&lt;/p&gt;&lt;table&gt;
 maximum threshold.
 The port number on the appliance that the power device is attached
 to is contained in the cyAcsTrapObjectSerialPort.
-The IPDU# that exceeded the total load maximum threshold is 
+The IPDU# that exceeded the total load maximum threshold is
 contained in the cyAcsTrapObjectPMNumber.
-The ID of the IPDU that exceeded the total load maximum threshold is 
+The ID of the IPDU that exceeded the total load maximum threshold is
 contained in the cyAcsTrapObjectPMId.
-The Phase of the IPDU that detected the problem is contained in 
+The Phase of the IPDU that detected the problem is contained in
 the cyAcsTrapObjectPMPhase.
 The current value detected when this trap was originated is contained in
 cyAcsTrapObjectPMCurrentValue.&lt;/p&gt;&lt;table&gt;
@@ -1205,11 +1205,11 @@ cyAcsTrapObjectPMCurrentValue.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMMaxLoadThresholdReachedTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMPhase=%parm[#4]% 
+			cyPMMaxLoadThresholdReachedTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMPhase=%parm[#4]%
 			cyAcsTrapObjectPMCurrentValue=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1232,15 +1232,15 @@ cyAcsTrapObjectPMCurrentValue.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/cyPMMinLoadThresholdReachedTrap</uei>
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyPMMinLoadThresholdReachedTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance exceeded the total 
+&lt;p&gt;A power device attached to the appliance exceeded the total
 load minimum threshold.
-The port number on the appliance that the power device is attached 
+The port number on the appliance that the power device is attached
 to is contained in the cyAcsTrapObjectSerialPort.
-The IPDU# that exceeded the total load minimum threshold is contained 
+The IPDU# that exceeded the total load minimum threshold is contained
 in the cyAcsTrapObjectPMNumber.
-The ID of the IPDU that exceeded the total load maximum threshold is 
+The ID of the IPDU that exceeded the total load maximum threshold is
 contained in the cyAcsTrapObjectPMId.
- The Phase of the IPDU that detected the problem is contained in 
+ The Phase of the IPDU that detected the problem is contained in
 the cyAcsTrapObjectPMPhase.
 The current value detected when this trap was originated is contained in
 cyAcsTrapObjectPMCurrentValue.&lt;/p&gt;&lt;table&gt;
@@ -1266,11 +1266,11 @@ cyAcsTrapObjectPMCurrentValue.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMMinLoadThresholdReachedTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMPhase=%parm[#4]% 
+			cyPMMinLoadThresholdReachedTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMPhase=%parm[#4]%
 			cyAcsTrapObjectPMCurrentValue=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1294,12 +1294,12 @@ cyAcsTrapObjectPMCurrentValue.&lt;/p&gt;&lt;table&gt;
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsApplianceAlertTrap</event-label>
 	<descr>
 &lt;p&gt;An appliance alert was detected on a ssh or telnet session.
-The name of user who was logged into the appliance when 
+The name of user who was logged into the appliance when
 trap occurred is contained in cyAcsTrapObjectUserName.
-The index of the appliance alert that was detected in the message is 
+The index of the appliance alert that was detected in the message is
 contained in cyAcsTrapObjectAlertIndex.
 The appliance alert that was detected is contained in cyAcsTrapObjectAlertString.
-The line text where the appliance alert was detected is contained 
+The line text where the appliance alert was detected is contained
 in cyAcsTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1319,10 +1319,10 @@ in cyAcsTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsApplianceAlertTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectAlertIndex=%parm[#2]% 
-			cyAcsTrapObjectAlertString=%parm[#3]% 
+			cyAcsApplianceAlertTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectAlertIndex=%parm[#2]%
+			cyAcsTrapObjectAlertString=%parm[#3]%
 			cyAcsTrapObjectAlertMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1346,7 +1346,7 @@ in cyAcsTrapObjectAlertMessage.&lt;/p&gt;&lt;table&gt;
 	<event-label>CYCLADES-ACS5000-TRAP-MIB defined trap event: cyAcsFirmwareUpgradeStarted</event-label>
 	<descr>
 &lt;p&gt;The appliance has started an upgrade of a software image by DSView.
-The name of the user who initiate the process is contained 
+The name of the user who initiate the process is contained
 in cyAcsTrapObjectUserName.
 The current firmware version is contained in cyAcsTrapFirmwareVersion.
 The new firmware version is contained in cyAcsTrapNewFirmwareVersion.&lt;/p&gt;&lt;table&gt;
@@ -1364,9 +1364,9 @@ The new firmware version is contained in cyAcsTrapNewFirmwareVersion.&lt;/p&gt;&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsFirmwareUpgradeStarted trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapFirmwareVersion=%parm[#2]% 
+			cyAcsFirmwareUpgradeStarted trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapFirmwareVersion=%parm[#2]%
 			cyAcsTrapNewFirmwareVersion=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1405,8 +1405,8 @@ The result of the process is contained in cyAcsTrapFirmwareUpgradeResult.&lt;/p&
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsFirmwareUpgradeResultsTrap trap received 
-			cyAcsTrapFirmwareUpgradeResult=%parm[#1]% 
+			cyAcsFirmwareUpgradeResultsTrap trap received
+			cyAcsTrapFirmwareUpgradeResult=%parm[#1]%
 			cyAcsTrapNewFirmwareVersion=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1458,11 +1458,11 @@ The new firmware version is contained in cyAcsTrapNewFirmwareVersion.&lt;/p&gt;&
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsPMFirmwareUpgradeStarted trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPort=%parm[#2]% 
-			cyAcsTrapObjectPMNumber=%parm[#3]% 
-			cyAcsTrapFirmwareVersion=%parm[#4]% 
+			cyAcsPMFirmwareUpgradeStarted trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPort=%parm[#2]%
+			cyAcsTrapObjectPMNumber=%parm[#3]%
+			cyAcsTrapFirmwareVersion=%parm[#4]%
 			cyAcsTrapNewFirmwareVersion=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1512,10 +1512,10 @@ The result of the process is contained in cyAcsTrapFirmwareUpgradeResult.&lt;/p&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsPMFirmwareUpgradeResultsTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapFirmwareUpgradeResult=%parm[#3]% 
+			cyAcsPMFirmwareUpgradeResultsTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapFirmwareUpgradeResult=%parm[#3]%
 			cyAcsTrapNewFirmwareVersion=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1568,10 +1568,10 @@ The type of protocol running on this port is contained in cyAcsTrapObjectSerialS
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyAcsSerialSessionStoppedPortInUseTrap trap received 
-			cyAcsTrapObjectUserName=%parm[#1]% 
-			cyAcsTrapObjectSerialPortName=%parm[#2]% 
-			cyAcsTrapObjectSerialPort=%parm[#3]% 
+			cyAcsSerialSessionStoppedPortInUseTrap trap received
+			cyAcsTrapObjectUserName=%parm[#1]%
+			cyAcsTrapObjectSerialPortName=%parm[#2]%
+			cyAcsTrapObjectSerialPort=%parm[#3]%
 			cyAcsTrapObjectSerialSessionType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1598,10 +1598,10 @@ The type of protocol running on this port is contained in cyAcsTrapObjectSerialS
 The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that has changed to the on state is contained 
+The socket number that has changed to the on state is contained
 The number of the power device is contained in the cyAcsTrapObjectPMNumber.
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that has changed to the on state is contained in 
+The socket name that has changed to the on state is contained in
 cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1625,11 +1625,11 @@ cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletStatusOnTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#4]% 
+			cyPMOutletStatusOnTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#4]%
 			cyAcsTrapObjectPMSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1657,9 +1657,9 @@ The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The number of the power device is contained in the cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that has changed to the off state is contained 
+The socket number that has changed to the off state is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that has changed to the off state is contained in 
+The socket name that has changed to the off state is contained in
 cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1683,11 +1683,11 @@ cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletStatusOffTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#4]% 
+			cyPMOutletStatusOffTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#4]%
 			cyAcsTrapObjectPMSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1718,9 +1718,9 @@ The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The number of the power device is contained in the cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that has changed to the on state is contained 
+The socket number that has changed to the on state is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that has changed to the on state is contained in 
+The socket name that has changed to the on state is contained in
 cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1744,11 +1744,11 @@ cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletOnSenseFailTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#4]% 
+			cyPMOutletOnSenseFailTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#4]%
 			cyAcsTrapObjectPMSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1779,9 +1779,9 @@ The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The number of the power device is contained in the cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that has changed to the on state is contained 
+The socket number that has changed to the on state is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that has changed to the on state is contained in 
+The socket name that has changed to the on state is contained in
 cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1805,11 +1805,11 @@ cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletOffSenseFailTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#4]% 
+			cyPMOutletOffSenseFailTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#4]%
 			cyAcsTrapObjectPMSocketName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1837,9 +1837,9 @@ The port number on the appliance that the chain of power device is
 attached to is contained in cyAcsTrapObjectSerialPort.
 The number of the power device is contained in the cyAcsTrapObjectPMNumber.
 The ID of the power device is contained in cyAcsTrapObjectPMId.
-The socket number that has changed to the on state is contained 
+The socket number that has changed to the on state is contained
 in cyAcsTrapObjectPMSocketNumber.
-The socket name that has changed to the on state is contained in 
+The socket name that has changed to the on state is contained in
 cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1867,12 +1867,12 @@ cyAcsTrapObjectPMSocketName.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMOutletNameChangedTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
-			cyAcsTrapObjectPMSocketNumber=%parm[#4]% 
-			cyAcsTrapObjectPMSocketOldName=%parm[#5]% 
+			cyPMOutletNameChangedTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
+			cyAcsTrapObjectPMSocketNumber=%parm[#4]%
+			cyAcsTrapObjectPMSocketOldName=%parm[#5]%
 			cyAcsTrapObjectPMSocketName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1922,10 +1922,10 @@ The inlet of the power device is contained in the cyAcsTrapObjectPMPhase.&lt;/p&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMInletTotalLoadHighTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
+			cyPMInletTotalLoadHighTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
 			cyAcsTrapObjectPMPhase=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1975,10 +1975,10 @@ The inlet of the power device is contained in the cyAcsTrapObjectPMPhase.&lt;/p&
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cyPMInletTotalLoadLowTrap trap received 
-			cyAcsTrapObjectSerialPort=%parm[#1]% 
-			cyAcsTrapObjectPMNumber=%parm[#2]% 
-			cyAcsTrapObjectPMId=%parm[#3]% 
+			cyPMInletTotalLoadLowTrap trap received
+			cyAcsTrapObjectSerialPort=%parm[#1]%
+			cyAcsTrapObjectPMNumber=%parm[#2]%
+			cyAcsTrapObjectPMId=%parm[#3]%
 			cyAcsTrapObjectPMPhase=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>

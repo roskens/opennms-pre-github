@@ -47,8 +47,8 @@ This reporting of state transitions mirrors mplsTunnelUp.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMplsTeP2mpTunnelDestUp trap received 
-			jnxMplsTeP2mpTunnelDestAdminStatus=%parm[#1]% 
+			jnxMplsTeP2mpTunnelDestUp trap received
+			jnxMplsTeP2mpTunnelDestAdminStatus=%parm[#1]%
 			jnxMplsTeP2mpTunnelDestOperStatus=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -99,8 +99,8 @@ This reporting of state transitions mirrors mplsTunnelDown.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMplsTeP2mpTunnelDestDown trap received 
-			jnxMplsTeP2mpTunnelDestAdminStatus=%parm[#1]% 
+			jnxMplsTeP2mpTunnelDestDown trap received
+			jnxMplsTeP2mpTunnelDestAdminStatus=%parm[#1]%
 			jnxMplsTeP2mpTunnelDestOperStatus=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

@@ -18,9 +18,9 @@
  </mask>
  <uei>uei.opennms.org/traps/intel/snmpAuthViolation</uei>
  <event-label>INTEL-GEN-MIB defined trap event: snmpAuthViolation</event-label>
- <descr>&lt;p&gt;This trap is sent when a device attempting to access the device fails 
- to pass the snmpAuthTable for any of the supported protocols. 
- If it is the SNMP protocol that is violated then the device must also 
+ <descr>&lt;p&gt;This trap is sent when a device attempting to access the device fails
+ to pass the snmpAuthTable for any of the supported protocols.
+ If it is the SNMP protocol that is violated then the device must also
  send the 'Authentication failure' trap defined in MIB-2.
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  snmpAccessIP&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -33,7 +33,7 @@
  &lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  snmpAccessType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- noAccess(1) readOnly(2) writeOnly(3) readWrite(4) readOnlySecureSNMPObjects(5) 
+ noAccess(1) readOnly(2) writeOnly(3) readWrite(4) readOnlySecureSNMPObjects(5)
  readWriteSecureSNMPObjects(6)
  &lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;Intel Event: Snmp Authentication Violation.&lt;/p&gt;</logmsg>
@@ -276,12 +276,12 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  portConfSwitchMode&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- cutThrough(1) adaptiveCutThrough(2) fragmentFree(3) adaptiveFragmentFree(4) storeAndForward(5) 
+ cutThrough(1) adaptiveCutThrough(2) fragmentFree(3) adaptiveFragmentFree(4) storeAndForward(5)
  adaptiveStoreAndForward(6) notAvailable(99)
  &lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  portConfSwitchMode&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#5]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- cutThrough(1) adaptiveCutThrough(2) fragmentFree(3) adaptiveFragmentFree(4) storeAndForward(5) 
+ cutThrough(1) adaptiveCutThrough(2) fragmentFree(3) adaptiveFragmentFree(4) storeAndForward(5)
  adaptiveStoreAndForward(6) notAvailable(99)
  &lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;Intel Event: Forwarding Mode Changed.&lt;/p&gt;</logmsg>
@@ -401,8 +401,8 @@
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Loginfailed trap received 
-			userLoginName=%parm[#1]% 
+			Loginfailed trap received
+			userLoginName=%parm[#1]%
 			remoteHost=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -438,8 +438,8 @@
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Loginsuccess trap received 
-			userLoginName=%parm[#1]% 
+			Loginsuccess trap received
+			userLoginName=%parm[#1]%
 			remoteHost=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -475,8 +475,8 @@
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			SecurityViolation trap received 
-			userLoginName=%parm[#1]% 
+			SecurityViolation trap received
+			userLoginName=%parm[#1]%
 			remoteHost=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -512,8 +512,8 @@
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Generic trap received 
-			eventType=%parm[#1]% 
+			Generic trap received
+			eventType=%parm[#1]%
 			eventDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -549,8 +549,8 @@
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Logout trap received 
-			userLoginName=%parm[#1]% 
+			Logout trap received
+			userLoginName=%parm[#1]%
 			remoteHost=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -992,7 +992,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: presenceHeartbeat trap received 
+			Intel: presenceHeartbeat trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1022,7 +1022,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: coverTamper trap received 
+			Intel: coverTamper trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1052,7 +1052,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: voltage_Fan_Temperature trap received 
+			Intel: voltage_Fan_Temperature trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1082,7 +1082,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: lANLeash trap received 
+			Intel: lANLeash trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1112,7 +1112,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: temperature trap received 
+			Intel: temperature trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1142,7 +1142,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: processorMissing trap received 
+			Intel: processorMissing trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1172,7 +1172,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: processorTemperature trap received 
+			Intel: processorTemperature trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1202,7 +1202,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: watchdog trap received 
+			Intel: watchdog trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1232,7 +1232,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: p_O_S_T trap received 
+			Intel: p_O_S_T trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1262,7 +1262,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: unknownEvent trap received 
+			Intel: unknownEvent trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1292,7 +1292,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: processor_0_Missing trap received 
+			Intel: processor_0_Missing trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1322,7 +1322,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: processor_1_Missing trap received 
+			Intel: processor_1_Missing trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1352,7 +1352,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: voltage_Fan trap received 
+			Intel: voltage_Fan trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1382,7 +1382,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: voltage trap received 
+			Intel: voltage trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1412,7 +1412,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: fan trap received 
+			Intel: fan trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1442,7 +1442,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: fan_Temperature trap received 
+			Intel: fan_Temperature trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1472,7 +1472,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: voltage_Temperature trap received 
+			Intel: voltage_Temperature trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1502,7 +1502,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: undock trap received 
+			Intel: undock trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1532,7 +1532,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: eventClear trap received 
+			Intel: eventClear trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1562,7 +1562,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: clientAdded trap received 
+			Intel: clientAdded trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1592,7 +1592,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Intel: clientDeleted trap received 
+			Intel: clientDeleted trap received
 			systemName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

@@ -6,11 +6,11 @@
 	<section id="actiond-configuration.xml">
 		<title>actiond-configuration.xml</title>
 		<para>
-			Actions are external programs called based on events.  This file controls 
-			the number of concurrent actions allowed as well as a time out for waiting 
+			Actions are external programs called based on events.  This file controls
+			the number of concurrent actions allowed as well as a time out for waiting
 			on a return.
 		</para>
-		
+
 		<glosslist>
 			<glossentry>
 				<glossterm>outstanding-actions</glossterm>
@@ -34,7 +34,7 @@
 				</glossdef>
 			</glossentry>
 		</glosslist>
-		
+
 		<example>
 			<title>Example <code>actiond-configuration.xml</code></title>
 
@@ -70,7 +70,7 @@
 
 		<section id="capsd-configuration.xml-header">
 			<title>the <code>capsd-configuration</code> tag</title>
-			
+
 			<para>
 				The &lt;capsd-configuration&gt; tag at the top of
 				<filename>capsd-configuration.xml</filename> controls some basic behaviors
@@ -152,20 +152,20 @@
 		</section>
 		<section id="capsd-configuration.xml-protocol-plugins">
 			<title>Protocol Plugins</title>
-			
+
 			<para>
 				Protocol plugin entries define the services that are available for
 				Capsd to detect.  They can refer to any Java class that implements the
 				OpenNMS <code>org.opennms.netmgt.capsd.Plugin</code> interface.  A
 				large number of default plugins are provided as a part of OpenNMS.
 			</para>
-			
+
 			<section id="capsd-configuration.xml-protocol-plugins-attributes">
-			
+
 				<para>
 					The following attributes are a part of the &lt;protocol-plugin&gt; tag:
 				</para>
-			
+
 				<glosslist>
 					<glossentry>
 						<glossterm>protocol</glossterm>
@@ -200,7 +200,7 @@
 
 			<section id="capsd-configuration.xml-protocol-plugins-properties">
 				<title>Properties</title>
-				
+
 				<para>
 					A <code>protocol-plugin</code> entry can optionally contain zero or more
 					<code>property</code> entries which allow specifying configuration to be
@@ -210,19 +210,19 @@
 
 			<section id="capsd-configuration.xml-protocol-plugins-configuration">
 				<title>Protocol Configuration</title>
-				
+
 				<para>
 					A <code>protocol-plugin</code> entry can optionally contain zero or more
 					<code>protocol-configuration</code> tags which specify a subset of addresses
 					for which the protocol should apply.
 				</para>
-				
+
 				<para>
 					Each <code>protocol-configuration</code> entry can contain zero or more of
 					the following ways of specifying addresses and ranges and of overriding
 					other general <code>protocol-plugin</code> defaults:
 				</para>
-				
+
 				<glosslist>
 					<glossentry>
 						<glossterm>specific</glossterm>
@@ -259,7 +259,7 @@
 				</glosslist>
 
 			</section>
-			
+
 			<example>
 				<title>Example <code>capsd-configuration.xml</code></title>
 
@@ -270,9 +270,9 @@
 					it will use a timeout of 1000 instead.  Scanning is disabled for 192.168.1.2.
 
 					<programlisting>&lt;?xml version="1.0"?&gt;
-&lt;capsd-configuration 
-  rescan-frequency="86400000" 
-  initial-sleep-time="30000" 
+&lt;capsd-configuration
+  rescan-frequency="86400000"
+  initial-sleep-time="30000"
   max-suspect-thread-pool-size="6"
   max-rescan-thread-pool-size="3"&gt;
 
@@ -295,7 +295,7 @@
 &lt;/capsd-configuration&gt;</programlisting>
 				</para>
 			</example>
-			
+
 		</section>
 	</section>
 
@@ -308,10 +308,10 @@
 			affect availability reports, as well as how the categories are displayed,
 			if they are defined in <filename>viewsdisplay.xml</filename> as well.
 		</para>
-		
+
 		<section id="categories.xml-categorygroup">
 			<title>Category Groups</title>
-			
+
 			<para>
 				Technically, the <filename>categories.xml</filename> file can have
 				more than one "group" of categories.  However, the &lt;categorygroup&gt;
@@ -319,15 +319,15 @@
 				use more than one &lt;categorygroup&gt; tag.
 			</para>
 		</section>
-		
+
 		<section id="categories.xml-global">
 			<title>Global Options</title>
-			
+
 			<para>
 				Inside the category group, there are a number of options that can
 				apply to all categories in the group.
 			</para>
-			
+
 			<glosslist>
 				<glossentry>
 					<glossterm>name</glossterm>
@@ -367,7 +367,7 @@
 		</section>
 		<section id="categories.xml-categories">
 			<title>Categories</title>
-			
+
 			<para>
 				Inside the category group, there can be a &lt;categories&gt; tag which
 				can contain one or more &lt;category&gt; tags.  The following tags are
@@ -439,7 +439,7 @@
 				</glossentry>
 			</glosslist>
 		</section>
-		
+
 		<example>
 			<title>Example <filename>categories.xml</filename></title>
 
@@ -503,7 +503,7 @@
 			Configures various portions of data collection for RRD data.
 		</para>
 	</section>
-	
+
 	<section id="create.sql">
 		<title>create.sql, get*.sql, set*.sql</title>
 		<para>
@@ -522,7 +522,7 @@
 		</para>
 	</section>
 
-	<section id="datacollection-config.xml">		
+	<section id="datacollection-config.xml">
 		<title>datacollection-config.xml</title>
 		<para>
 			This file is used for collecting data into round-robin databases for use in
@@ -545,14 +545,14 @@
 			scanning and polling).
 		</para>
 	</section>
-	
+
 	<section id="discovery-configuration.xml">
 		<title>discovery-configuration.xml</title>
 		<para>
-		This file defines the ranges of addresses to discover, (ping sweep) as well as time-outs, 
-		number of retries, and number of threads to dedicate to discovery.  This file also provides 
-		initial-sleep-time and restart-sleep-time.  These values are in milliseconds and control 
-		how long after OpenNMS is started, that discovery should begin it's initial pass through 
+		This file defines the ranges of addresses to discover, (ping sweep) as well as time-outs,
+		number of retries, and number of threads to dedicate to discovery.  This file also provides
+		initial-sleep-time and restart-sleep-time.  These values are in milliseconds and control
+		how long after OpenNMS is started, that discovery should begin it's initial pass through
 		the addresses, and how long to wait between each additional pass.
 		</para>
 	</section>
@@ -560,7 +560,7 @@
 	<section id="eventconf.xml">
 		<title>eventconf.xml</title>
 		<para>
-		This file defines the Universal Event Identifiers or UEIs as well as their event masks, 
+		This file defines the Universal Event Identifiers or UEIs as well as their event masks,
 		descriptions, log messages, and severity levels.
 		</para>
 	</section>
@@ -568,7 +568,7 @@
 	<section id="eventd-configuration.xml">
 		<title>eventd-configuration.xml</title>
 		<para>
-		This file defines operating parameters for Eventd such as time outs and number of 
+		This file defines operating parameters for Eventd such as time outs and number of
 		listener threads.
 		</para>
 	</section>
@@ -579,14 +579,14 @@
 			Configuration for the event archiver daemon.
 		</para>
 	</section>
-	
+
 	<section id="events.archiver.properties">
 		<title>events.archiver.properties</title>
 		<para>
 			Logging configuration for the event archiver daemon.
 		</para>
 	</section>
-	
+
 	<section id="groups.xml">
 		<title>groups.xml</title>
 		<para>
@@ -601,7 +601,7 @@
 			This file defines configuration for collecting RRD data from HTTP and HTTPS.
 		</para>
 	</section>
-	
+
 	<section id="javamail-configuration.properties">
 		<title>javamail-configuration.properties</title>
 		<para>
@@ -609,7 +609,7 @@
 			notifications, as well as the mail transport monitor.
 		</para>
 	</section>
-	
+
 	<section id="jcifs.properties">
 		<title>jcifs.properties</title>
 		<para>
@@ -617,7 +617,7 @@
 			from OpenNMS.
 		</para>
 	</section>
-	
+
 	<section id="jmx-datacollection-config.xml">
 		<title>jmx-datacollection-config.xml</title>
 		<para>
@@ -625,14 +625,14 @@
 			eXtensions.
 		</para>
 	</section>
-	
+
 	<section id="ksc-performance-reports.xml">
 		<title>ksc-performance-reports.xml</title>
 		<para>
 			This file contains configuration for KSC reports.
 		</para>
 	</section>
-	
+
 	<section id="linkd-configuration.xml">
 		<title>linkd-configuration.xml</title>
 		<para>
@@ -640,7 +640,7 @@
 			from routers for use in maps.
 		</para>
 	</section>
-	
+
 	<section id="log4j.properties">
 		<title>log4j.properties</title>
 		<para>
@@ -657,8 +657,8 @@
 	<section id="magic-users.properties">
 		<title>magic-users.properties</title>
 		<para>
-		This file includes special users, and takes precedence over users.xml for the users 
-		that it has information about.  This is used internally to control permissions for 
+		This file includes special users, and takes precedence over users.xml for the users
+		that it has information about.  This is used internally to control permissions for
 		certain functions that interact with the web UI.
 		</para>
 	</section>
@@ -683,14 +683,14 @@
 			Information used by the model importer.
 		</para>
 	</section>
-	
+
 	<section id="monitoring-locations.xml">
 		<title>monitoring-locations.xml</title>
 		<para>
 			This file configures the monitoring locations used by the remote poller.
 		</para>
 	</section>
-	
+
 	<section id="notifd-configuration.xml">
 		<title>notifd-configuration.xml</title>
 		<para>
@@ -698,7 +698,7 @@
 			and notification queues.
 		</para>
 	</section>
-	
+
 	<section id="notificationCommands.xml">
 		<title>notificationCommands.xml</title>
 		<para>
@@ -724,7 +724,7 @@
 	&lt;/argument&gt;
 &lt;/command&gt;</programlisting>
 	</section>
-	
+
 	<section id="notifications.xml">
 		<title>notifications.xml</title>
 		<para>
@@ -746,14 +746,14 @@
 			Configure the NSClient poller.
 		</para>
 	</section>
-	
+
 	<section id="nsclient-datacollection-config.xml">
 		<title>nsclient-datacollection-config.xml</title>
 		<para>
 			Configure data collection through NSClient.
 		</para>
 	</section>
-	
+
 	<section id="opennms-datasources.xml">
 		<title>opennms-datasources.xml</title>
 		<para>
@@ -767,40 +767,40 @@
 			Defines information about the management server.
 		</para>
 	</section>
-	
+
 	<section id="opennms.properties">
 		<title>opennms.properties</title>
 		<para>
 			Sets global properties for the OpenNMS JVM.
 		</para>
 	</section>
-	
+
 	<section id="otrs.properties">
 		<title>otrs.properties</title>
 		<para>
 			Configures properties for the OTRS ticketing plugin.
 		</para>
 	</section>
-	
+
 	<section id="poll-outages.xml">
 		<title>poll-outages.xml</title>
 		<para>
 			Configures scheduled outages.
 		</para>
 	</section>
-	
+
 	<section id="poller-config.properties">
 		<title>poller-config.properties</title>
 		<para>
 			Configures various classes and settings used by the web UI relating to pollers.
 		</para>
 	</section>
-	
+
 	<section id="poller-configuration.xml">
 		<title>poller-configuration.xml</title>
 		<para>
-		This file is used to define packages as well as set up the various pollers.  A 
-		package includes several items such as address ranges, services, outage calendars, 
+		This file is used to define packages as well as set up the various pollers.  A
+		package includes several items such as address ranges, services, outage calendars,
 		and down time models.
 		</para>
 	</section>
@@ -811,7 +811,7 @@
 			Settings related to graphing adhoc reports.
 		</para>
 	</section>
-	
+
 	<section id="response-graph.properties">
 		<title>response-graph.properties</title>
 		<para>
@@ -826,12 +826,12 @@
 			for making round-robin files and graphing.
 		</para>
 	</section>
-		
+
 	<section id="rtc-configuration.xml">
 		<title>rtc-configuration.xml</title>
 		<para>
-			This file defines properties for RTC (Real Time Console) such as the rolling window 
-			used to calculate percentages of down time, web UI refresh interval and how often 
+			This file defines properties for RTC (Real Time Console) such as the rolling window
+			used to calculate percentages of down time, web UI refresh interval and how often
 			RTC sends updates to the web interface.
 		</para>
 	</section>
@@ -846,7 +846,7 @@
 	<section id="service-configuration.xml">
 		<title>service-configuration.xml</title>
 		<para>
-		This file defines opennms services to start.  This is VM specific and controls which 
+		This file defines opennms services to start.  This is VM specific and controls which
 		services are started in which VMs
 		</para>
 	</section>
@@ -862,11 +862,11 @@
 			Settings related to graphing adhoc SNMP reports.
 		</para>
 	</section>
-		
+
 	<section id="snmp-config.xml">
 		<title>snmp-config.xml</title>
 		<para>
-		This file is used to define community strings for addresses or address ranges, one 
+		This file is used to define community strings for addresses or address ranges, one
 		snmp-config entry per community.
 		</para>
 	</section>
@@ -884,19 +884,19 @@
 			Configuration for Statsd (Top N reports).
 		</para>
 	</section>
-	
+
 	<section id="surveillance-views.xml">
 		<title>surveillance-views.xml</title>
 		<para>How many freaking *-view things do we have?!?</para>
 	</section>
-	
+
 	<section id="syslogd-configuration.xml">
 		<title>syslogd-configuration.xml</title>
 		<para>
 			Configures the syslog daemon.
 		</para>
 	</section>
-	
+
 	<section id="threshd-configuration.xml">
 		<title>threshd-configuration.xml</title>
 		<para>
@@ -904,28 +904,28 @@
 			thresholds are reached.
 		</para>
 	</section>
-	
+
 	<section id="thresholds.xml">
 		<title>thresholds.xml</title>
 		<para>
 			Configure thresholding groups based on RRD data.
 		</para>
 	</section>
-	
+
 	<section id="tl1d-configuration.xml">
 		<title>tl1d-configuration.xml</title>
 		<para>
 			Configure the TL1 daemon for interacting with telecom devices.
 		</para>
 	</section>
-	
+
 	<section id="translator-configuration.xml">
 		<title>translator-configuration.xml</title>
 		<para>
 			Translate incoming events based on a set of criteria.
 		</para>
 	</section>
-	
+
 	<section id="trapd-configuration.xml">
 		<title>trapd-configuration.xml</title>
 		<para>
@@ -950,7 +950,7 @@
 			etc.)
 		</para>
 	</section>
-	
+
 	<section id="viewsdisplay.xml">
 		<title>viewsdisplay.xml</title>
 		<para>
@@ -973,5 +973,5 @@
 			Configure the XMPP (Jabber) notification strategy.
 		</para>
 	</section>
-	
+
 </chapter>

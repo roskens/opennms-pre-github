@@ -166,8 +166,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapHw trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapHw trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -338,8 +338,8 @@ been triggered.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapFw trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapFw trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -510,8 +510,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapSw trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapSw trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -682,8 +682,8 @@ been triggered.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapTrf trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapTrf trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -853,8 +853,8 @@ been triggered.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapVpn trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapVpn trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1024,8 +1024,8 @@ been triggered.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapNsrp trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapNsrp trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1196,8 +1196,8 @@ occurred.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapGPRO trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapGPRO trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1367,8 +1367,8 @@ occurred.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapDrp trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapDrp trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1539,8 +1539,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapIFFailover trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapIFFailover trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1710,8 +1710,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netscreenTrapIDPAttack trap received 
-			netscreenTrapType=%parm[#1]% 
+			netscreenTrapIDPAttack trap received
+			netscreenTrapType=%parm[#1]%
 			netscreenTrapDesc=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

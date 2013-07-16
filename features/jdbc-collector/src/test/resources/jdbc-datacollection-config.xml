@@ -22,6 +22,6 @@ AND CURRENT_TIMESTAMP;</queryString>
           </columns>
         </query>
       </queries>
-        
+
     </jdbc-collection>
 </jdbc-datacollection-config>

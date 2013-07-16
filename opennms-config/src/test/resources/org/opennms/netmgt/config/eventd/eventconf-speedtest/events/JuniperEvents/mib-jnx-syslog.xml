@@ -24,9 +24,9 @@
     <event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
     <descr><![CDATA[
 <p>Notification of a generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.</p><table>
 	<tr><td><b>
 
@@ -95,14 +95,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSyslogTrap trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -131,9 +131,9 @@ the jnxSyslogTrap objects, this notification can include
     <event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
     <descr><![CDATA[
 <p>Notification of a generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.</p><table>
 	<tr><td><b>
 
@@ -202,14 +202,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSyslogTrap trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -238,9 +238,9 @@ the jnxSyslogTrap objects, this notification can include
     <event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
     <descr><![CDATA[
 <p>Notification of a generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.</p><table>
 	<tr><td><b>
 
@@ -309,14 +309,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSyslogTrap trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -345,9 +345,9 @@ the jnxSyslogTrap objects, this notification can include
     <event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
     <descr><![CDATA[
 <p>Notification of a generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.</p><table>
 	<tr><td><b>
 
@@ -416,14 +416,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxSyslogTrap trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

@@ -26,7 +26,7 @@
       </storageStrategy>
     </resourceType>
 
-    <resourceType name="lmTempIndex" label="Hardware Sensors: Temperature (lmSensors MIB)" 
+    <resourceType name="lmTempIndex" label="Hardware Sensors: Temperature (lmSensors MIB)"
                   resourceLabel="${lms-tempdevice} (index ${index})">
       <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
       <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>

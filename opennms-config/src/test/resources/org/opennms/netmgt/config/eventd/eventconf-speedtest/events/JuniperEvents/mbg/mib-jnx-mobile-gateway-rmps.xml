@@ -33,7 +33,7 @@ service changed.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSServiceStatusChange trap received 
+			jnxMbgRMPSServiceStatusChange trap received
 				jnxMbgRMPSServiceStatus=%parm[#1]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -75,7 +75,7 @@ service changed.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSServiceStatusChange trap received 
+			jnxMbgRMPSServiceStatusChange trap received
 				jnxMbgRMPSServiceStatus=%parm[#1]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -138,10 +138,10 @@ of the specified Resource Manager client.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSClientStateChange trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgRMPSClientIdentifier=%parm[#2]% 
-				jnxMbgRMPSClientRedundancyRole=%parm[#3]% 
+			jnxMbgRMPSClientStateChange trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgRMPSClientIdentifier=%parm[#2]%
+				jnxMbgRMPSClientRedundancyRole=%parm[#3]%
 				jnxMbgRMPSClientStatus=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -204,10 +204,10 @@ of the specified Resource Manager client.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSClientStateChange trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgRMPSClientIdentifier=%parm[#2]% 
-				jnxMbgRMPSClientRedundancyRole=%parm[#3]% 
+			jnxMbgRMPSClientStateChange trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgRMPSClientIdentifier=%parm[#2]%
+				jnxMbgRMPSClientRedundancyRole=%parm[#3]%
 				jnxMbgRMPSClientStatus=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -270,10 +270,10 @@ of the specified Resource Manager client.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSClientStateChange trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgRMPSClientIdentifier=%parm[#2]% 
-				jnxMbgRMPSClientRedundancyRole=%parm[#3]% 
+			jnxMbgRMPSClientStateChange trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgRMPSClientIdentifier=%parm[#2]%
+				jnxMbgRMPSClientRedundancyRole=%parm[#3]%
 				jnxMbgRMPSClientStatus=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -332,10 +332,10 @@ of the specified Resource Manager client.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSClientStateChange trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgRMPSClientIdentifier=%parm[#2]% 
-				jnxMbgRMPSClientRedundancyRole=%parm[#3]% 
+			jnxMbgRMPSClientStateChange trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgRMPSClientIdentifier=%parm[#2]%
+				jnxMbgRMPSClientRedundancyRole=%parm[#3]%
 				jnxMbgRMPSClientStatus=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -394,10 +394,10 @@ of the specified Resource Manager client.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSClientStateChange trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgRMPSClientIdentifier=%parm[#2]% 
-				jnxMbgRMPSClientRedundancyRole=%parm[#3]% 
+			jnxMbgRMPSClientStateChange trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgRMPSClientIdentifier=%parm[#2]%
+				jnxMbgRMPSClientRedundancyRole=%parm[#3]%
 				jnxMbgRMPSClientStatus=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -452,10 +452,10 @@ of the specified Resource Manager client.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgRMPSClientStateChange trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgRMPSClientIdentifier=%parm[#2]% 
-				jnxMbgRMPSClientRedundancyRole=%parm[#3]% 
+			jnxMbgRMPSClientStateChange trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgRMPSClientIdentifier=%parm[#2]%
+				jnxMbgRMPSClientRedundancyRole=%parm[#3]%
 				jnxMbgRMPSClientStatus=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Normal</severity>

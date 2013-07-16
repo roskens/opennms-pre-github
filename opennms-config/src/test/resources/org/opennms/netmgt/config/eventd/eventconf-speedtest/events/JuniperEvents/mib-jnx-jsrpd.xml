@@ -46,12 +46,12 @@
 	%parm[#6]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsChassisClusterSwitchover trap received 
-			jnxJsChClusterSwitchoverInfoRedundancyGroup=%parm[#1]% 
-			jnxJsChClusterSwitchoverInfoClusterId=%parm[#2]% 
-			jnxJsChClusterSwitchoverInfoNodeId=%parm[#3]% 
-			jnxJsChClusterSwitchoverInfoPreviousState=%parm[#4]% 
-			jnxJsChClusterSwitchoverInfoCurrentState=%parm[#5]% 
+			jnxJsChassisClusterSwitchover trap received
+			jnxJsChClusterSwitchoverInfoRedundancyGroup=%parm[#1]%
+			jnxJsChClusterSwitchoverInfoClusterId=%parm[#2]%
+			jnxJsChClusterSwitchoverInfoNodeId=%parm[#3]%
+			jnxJsChClusterSwitchoverInfoPreviousState=%parm[#4]%
+			jnxJsChClusterSwitchoverInfoCurrentState=%parm[#5]%
 			jnxJsChClusterSwitchoverInfoReason=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Critical</severity>

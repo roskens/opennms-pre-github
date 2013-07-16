@@ -14,7 +14,7 @@
                 resource-xpath="/measCollecFile/measData/measInfo[@measInfoId='platform-system|resource']/measValue"
                 timestamp-xpath="/measCollecFile/fileFooter/measCollec/@endTime"
                 timestamp-format="yyyy-MM-dd'T'HH:mm:ssZ">
-                <xml-object name="cpuUtilization" type="GAUGE" xpath="r[@p=1]" /> 
+                <xml-object name="cpuUtilization" type="GAUGE" xpath="r[@p=1]" />
                 <xml-object name="memUtilization" type="GAUGE" xpath="r[@p=2]" />
                 <xml-object name="suspect" type="STRING" xpath="suspect" />
             </xml-group>

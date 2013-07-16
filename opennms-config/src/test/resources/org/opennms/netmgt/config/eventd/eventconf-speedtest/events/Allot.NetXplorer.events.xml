@@ -51,10 +51,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alAlarmRisingTrap trap received 
-			alSeverity=%parm[#1]% 
-			alDescription=%parm[#2]% 
-			alTimestamp=%parm[#3]% 
+			alAlarmRisingTrap trap received
+			alSeverity=%parm[#1]%
+			alDescription=%parm[#2]%
+			alTimestamp=%parm[#3]%
 			alIndex=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Critical</severity>
@@ -120,10 +120,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alAlarmRisingTrap trap received 
-			alSeverity=%parm[#1]% 
-			alDescription=%parm[#2]% 
-			alTimestamp=%parm[#3]% 
+			alAlarmRisingTrap trap received
+			alSeverity=%parm[#1]%
+			alDescription=%parm[#2]%
+			alTimestamp=%parm[#3]%
 			alIndex=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Major</severity>
@@ -189,10 +189,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alAlarmRisingTrap trap received 
-			alSeverity=%parm[#1]% 
-			alDescription=%parm[#2]% 
-			alTimestamp=%parm[#3]% 
+			alAlarmRisingTrap trap received
+			alSeverity=%parm[#1]%
+			alDescription=%parm[#2]%
+			alTimestamp=%parm[#3]%
 			alIndex=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Minor</severity>
@@ -258,10 +258,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alAlarmRisingTrap trap received 
-			alSeverity=%parm[#1]% 
-			alDescription=%parm[#2]% 
-			alTimestamp=%parm[#3]% 
+			alAlarmRisingTrap trap received
+			alSeverity=%parm[#1]%
+			alDescription=%parm[#2]%
+			alTimestamp=%parm[#3]%
 			alIndex=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Warning</severity>
@@ -323,10 +323,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alAlarmRisingTrap trap received 
-			alSeverity=%parm[#1]% 
-			alDescription=%parm[#2]% 
-			alTimestamp=%parm[#3]% 
+			alAlarmRisingTrap trap received
+			alSeverity=%parm[#1]%
+			alDescription=%parm[#2]%
+			alTimestamp=%parm[#3]%
 			alIndex=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -388,10 +388,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alAlarmFallingTrap trap received 
-			alSeverity=%parm[#1]% 
-			alDescription=%parm[#2]% 
-			alTimestamp=%parm[#3]% 
+			alAlarmFallingTrap trap received
+			alSeverity=%parm[#1]%
+			alDescription=%parm[#2]%
+			alTimestamp=%parm[#3]%
 			alIndex=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Cleared</severity>

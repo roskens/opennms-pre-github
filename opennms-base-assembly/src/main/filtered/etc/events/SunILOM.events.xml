@@ -46,12 +46,12 @@ has been created as defined in X.721, sec. 13.6.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatObjectCreation trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
+			sunPlatObjectCreation trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
 			sunPlatNotificationAdditionalText=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -102,12 +102,12 @@ has been deleted as defined in X.721, sec. 13.7.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatObjectDeletion trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
+			sunPlatObjectDeletion trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
 			sunPlatNotificationAdditionalText=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -349,16 +349,16 @@ in X.721, sec. 13.2.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatCommunicationsAlarm trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
-			sunPlatNotificationAdditionalText=%parm[#6]% 
-			sunPlatNotificationPerceivedSeverity=%parm[#7]% 
-			sunPlatNotificationProbableCause=%parm[#8]% 
-			sunPlatNotificationSpecificProblem=%parm[#9]% 
+			sunPlatCommunicationsAlarm trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
+			sunPlatNotificationAdditionalText=%parm[#6]%
+			sunPlatNotificationPerceivedSeverity=%parm[#7]%
+			sunPlatNotificationProbableCause=%parm[#8]%
+			sunPlatNotificationSpecificProblem=%parm[#9]%
 			sunPlatNotificationRepairAction=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -600,16 +600,16 @@ in X.721, sec. 13.3.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatEnvironmentalAlarm trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
-			sunPlatNotificationAdditionalText=%parm[#6]% 
-			sunPlatNotificationPerceivedSeverity=%parm[#7]% 
-			sunPlatNotificationProbableCause=%parm[#8]% 
-			sunPlatNotificationSpecificProblem=%parm[#9]% 
+			sunPlatEnvironmentalAlarm trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
+			sunPlatNotificationAdditionalText=%parm[#6]%
+			sunPlatNotificationPerceivedSeverity=%parm[#7]%
+			sunPlatNotificationProbableCause=%parm[#8]%
+			sunPlatNotificationSpecificProblem=%parm[#9]%
 			sunPlatNotificationRepairAction=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -851,16 +851,16 @@ in X.721, sec. 13.4.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatEquipmentAlarm trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
-			sunPlatNotificationAdditionalText=%parm[#6]% 
-			sunPlatNotificationPerceivedSeverity=%parm[#7]% 
-			sunPlatNotificationProbableCause=%parm[#8]% 
-			sunPlatNotificationSpecificProblem=%parm[#9]% 
+			sunPlatEquipmentAlarm trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
+			sunPlatNotificationAdditionalText=%parm[#6]%
+			sunPlatNotificationPerceivedSeverity=%parm[#7]%
+			sunPlatNotificationProbableCause=%parm[#8]%
+			sunPlatNotificationSpecificProblem=%parm[#9]%
 			sunPlatNotificationRepairAction=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1102,16 +1102,16 @@ in X.721, sec. 13.10.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatProcessingErrorAlarm trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
-			sunPlatNotificationAdditionalText=%parm[#6]% 
-			sunPlatNotificationPerceivedSeverity=%parm[#7]% 
-			sunPlatNotificationProbableCause=%parm[#8]% 
-			sunPlatNotificationSpecificProblem=%parm[#9]% 
+			sunPlatProcessingErrorAlarm trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
+			sunPlatNotificationAdditionalText=%parm[#6]%
+			sunPlatNotificationPerceivedSeverity=%parm[#7]%
+			sunPlatNotificationProbableCause=%parm[#8]%
+			sunPlatNotificationSpecificProblem=%parm[#9]%
 			sunPlatNotificationRepairAction=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1171,13 +1171,13 @@ This is as defined in X.721, sec. 13.14.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatStateChange trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationChangedOID=%parm[#5]% 
-			sunPlatNotificationOldInteger=%parm[#6]% 
+			sunPlatStateChange trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationChangedOID=%parm[#5]%
+			sunPlatNotificationOldInteger=%parm[#6]%
 			sunPlatNotificationNewInteger=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1235,13 +1235,13 @@ This is as defined in X.721, sec. 13.1.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatAttributeChangeInteger trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationChangedOID=%parm[#5]% 
-			sunPlatNotificationOldInteger=%parm[#6]% 
+			sunPlatAttributeChangeInteger trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationChangedOID=%parm[#5]%
+			sunPlatNotificationOldInteger=%parm[#6]%
 			sunPlatNotificationNewInteger=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1299,13 +1299,13 @@ This is as defined in X.721, sec. 13.1.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatAttributeChangeString trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationChangedOID=%parm[#5]% 
-			sunPlatNotificationOldString=%parm[#6]% 
+			sunPlatAttributeChangeString trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationChangedOID=%parm[#5]%
+			sunPlatNotificationOldString=%parm[#6]%
 			sunPlatNotificationNewString=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1363,13 +1363,13 @@ This is as defined in X.721, sec. 13.1.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatAttributeChangeOID trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationChangedOID=%parm[#5]% 
-			sunPlatNotificationOldOID=%parm[#6]% 
+			sunPlatAttributeChangeOID trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationChangedOID=%parm[#5]%
+			sunPlatNotificationOldOID=%parm[#6]%
 			sunPlatNotificationNewOID=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1611,16 +1611,16 @@ X.721, sec 13.11.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatQualityOfServiceAlarm trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
-			sunPlatNotificationAdditionalText=%parm[#6]% 
-			sunPlatNotificationPerceivedSeverity=%parm[#7]% 
-			sunPlatNotificationProbableCause=%parm[#8]% 
-			sunPlatNotificationSpecificProblem=%parm[#9]% 
+			sunPlatQualityOfServiceAlarm trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
+			sunPlatNotificationAdditionalText=%parm[#6]%
+			sunPlatNotificationPerceivedSeverity=%parm[#7]%
+			sunPlatNotificationProbableCause=%parm[#8]%
+			sunPlatNotificationSpecificProblem=%parm[#9]%
 			sunPlatNotificationRepairAction=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1861,16 +1861,16 @@ X.721, sec 13.11.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunPlatIndeterminateAlarm trap received 
-			sunPlatNotificationEventId=%parm[#1]% 
-			sunPlatNotificationTime=%parm[#2]% 
-			sunPlatNotificationObject=%parm[#3]% 
-			sunPlatNotificationCorrelatedNotifications=%parm[#4]% 
-			sunPlatNotificationAdditionalInfo=%parm[#5]% 
-			sunPlatNotificationAdditionalText=%parm[#6]% 
-			sunPlatNotificationPerceivedSeverity=%parm[#7]% 
-			sunPlatNotificationProbableCause=%parm[#8]% 
-			sunPlatNotificationSpecificProblem=%parm[#9]% 
+			sunPlatIndeterminateAlarm trap received
+			sunPlatNotificationEventId=%parm[#1]%
+			sunPlatNotificationTime=%parm[#2]%
+			sunPlatNotificationObject=%parm[#3]%
+			sunPlatNotificationCorrelatedNotifications=%parm[#4]%
+			sunPlatNotificationAdditionalInfo=%parm[#5]%
+			sunPlatNotificationAdditionalText=%parm[#6]%
+			sunPlatNotificationPerceivedSeverity=%parm[#7]%
+			sunPlatNotificationProbableCause=%parm[#8]%
+			sunPlatNotificationSpecificProblem=%parm[#9]%
 			sunPlatNotificationRepairAction=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1952,16 +1952,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapVoltageFatalThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapVoltageFatalThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2040,16 +2040,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapVoltageFatalThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapVoltageFatalThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2128,16 +2128,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapVoltageCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapVoltageCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2216,16 +2216,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapVoltageCritThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapVoltageCritThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2304,16 +2304,16 @@ was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapVoltageNonCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapVoltageNonCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2390,16 +2390,16 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapVoltageOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapVoltageOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2478,16 +2478,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTempFatalThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapTempFatalThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2566,16 +2566,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTempFatalThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapTempFatalThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2654,16 +2654,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTempCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapTempCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2742,16 +2742,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTempCritThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapTempCritThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2830,16 +2830,16 @@ the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTempNonCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapTempNonCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2916,16 +2916,16 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTempOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapTempOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3004,16 +3004,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapElectricalCurrentFatalThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapElectricalCurrentFatalThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3092,16 +3092,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapElectricalCurrentFatalThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapElectricalCurrentFatalThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3180,16 +3180,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapElectricalCurrentCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapElectricalCurrentCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3268,16 +3268,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapElectricalCurrentCritThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapElectricalCurrentCritThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3356,16 +3356,16 @@ the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapElectricalCurrentNonCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapElectricalCurrentNonCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3442,16 +3442,16 @@ the normal operating range.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapElectricalCurrentOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapElectricalCurrentOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3530,16 +3530,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanSpeedFatalThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanSpeedFatalThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3618,16 +3618,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanSpeedFatalThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanSpeedFatalThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3706,16 +3706,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanSpeedCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanSpeedCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3794,16 +3794,16 @@ an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanSpeedCritThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanSpeedCritThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3882,16 +3882,16 @@ threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanSpeedNonCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanSpeedNonCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3968,16 +3968,16 @@ the normal operating range.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanSpeedOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanSpeedOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4001,7 +4001,7 @@ the normal operating range.&lt;/p&gt;&lt;table&gt;
 	<event-label>SUN-HW-TRAP-MIB defined trap event: sunHwTrapSensorFatalThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;A sensor has reported that its value has gone above an upper fatal
-threshold setting or below a lower fatal threshold setting. The 
+threshold setting or below a lower fatal threshold setting. The
 generic 'sensor' trap is generated when the SNMP agent does not
 recognize the component type. The sunHwTrapThresholdType object
 indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
@@ -4057,16 +4057,16 @@ indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSensorFatalThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSensorFatalThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4146,16 +4146,16 @@ indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSensorFatalThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSensorFatalThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4179,7 +4179,7 @@ indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	<event-label>SUN-HW-TRAP-MIB defined trap event: sunHwTrapSensorCritThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;A sensor has reported that its value has gone above an upper critical
-threshold setting or below a lower critical threshold setting. The 
+threshold setting or below a lower critical threshold setting. The
 generic 'sensor' trap is generated when the SNMP agent does not
 recognize the component type. The sunHwTrapThresholdType object
 indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
@@ -4235,16 +4235,16 @@ indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSensorCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSensorCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4324,16 +4324,16 @@ indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSensorCritThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSensorCritThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4413,16 +4413,16 @@ object indicates whether the threshold was an upper or lower.&lt;/p&gt;&lt;table
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSensorNonCritThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSensorNonCritThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4500,16 +4500,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSensorThresholdOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSensorThresholdOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4575,16 +4575,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPowerSupplyFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapPowerSupplyFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4634,12 +4634,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPowerSupplyError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapPowerSupplyError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4689,12 +4689,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPowerSupplyOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapPowerSupplyOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4760,16 +4760,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapFanFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4819,12 +4819,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapFanError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4874,12 +4874,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapFanOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4945,16 +4945,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapProcessorFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapProcessorFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5004,12 +5004,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapProcessorError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapProcessorError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5059,12 +5059,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapProcessorOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapProcessorOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5130,16 +5130,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapMemoryFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapMemoryFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5189,12 +5189,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapMemoryError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapMemoryError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5244,12 +5244,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapMemoryOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapMemoryOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5332,17 +5332,17 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapHardDriveFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
-			sunHwTrapAdditionalInfo=%parm[#10]% 
+			sunHwTrapHardDriveFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
+			sunHwTrapAdditionalInfo=%parm[#10]%
 			sunHwTrapHardDriveProbableCause=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5409,13 +5409,13 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapHardDriveError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
-			sunHwTrapAssocObjectId=%parm[#6]% 
+			sunHwTrapHardDriveError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
+			sunHwTrapAssocObjectId=%parm[#6]%
 			sunHwTrapHardDriveProbableCause=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5465,12 +5465,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapHardDriveOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapHardDriveOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5536,16 +5536,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapIOFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapIOFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5595,12 +5595,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapIOError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapIOError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5650,12 +5650,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapIOOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapIOOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5721,16 +5721,16 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSlotOrConnectorFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapSlotOrConnectorFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5780,12 +5780,12 @@ recognize the component type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSlotOrConnectorError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapSlotOrConnectorError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5836,12 +5836,12 @@ to its normal state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSlotOrConnectorOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapSlotOrConnectorOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5909,16 +5909,16 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapComponentFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapComponentFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapAdditionalInfo=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5969,12 +5969,12 @@ generated when the SNMP agent does not recognize the component type.&lt;/p&gt;&l
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapComponentError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapComponentError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6026,12 +6026,12 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapComponentOk trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapComponentOk trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6077,11 +6077,11 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFruInserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
+			sunHwTrapFruInserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
 			sunHwTrapAssocObjectId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -6127,11 +6127,11 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFruRemoved trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
+			sunHwTrapFruRemoved trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
 			sunHwTrapAssocObjectId=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -6190,13 +6190,13 @@ to disabled.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapComponentDisabled trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapDisableReason=%parm[#5]% 
-			sunHwTrapAdditionalInfo=%parm[#6]% 
+			sunHwTrapComponentDisabled trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapDisableReason=%parm[#5]%
+			sunHwTrapAdditionalInfo=%parm[#6]%
 			sunHwTrapAssocObjectId=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -6247,12 +6247,12 @@ to enabled.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapComponentEnabled trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
+			sunHwTrapComponentEnabled trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
 			sunHwTrapAssocObjectId=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6295,10 +6295,10 @@ system has taken control of the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPreOSError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
+			sunHwTrapPreOSError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
 			sunHwTrapAdditionalInfo=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -6361,12 +6361,12 @@ has changed state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapHAStateChange trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapNewHAState=%parm[#4]% 
-			sunHwTrapOldHAState=%parm[#5]% 
+			sunHwTrapHAStateChange trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapNewHAState=%parm[#4]%
+			sunHwTrapOldHAState=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -6409,10 +6409,10 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSecurityIntrusion trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
+			sunHwTrapSecurityIntrusion trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
 			sunHwTrapAdditionalInfo=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -6469,11 +6469,11 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapHardDriveStatus trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
+			sunHwTrapHardDriveStatus trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
 			sunHwTrapHardDriveState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -6515,10 +6515,10 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapTestTrap trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
+			sunHwTrapTestTrap trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
 			sunHwTrapTestMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -6568,12 +6568,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPowerSupplyFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapPowerSupplyFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6623,12 +6623,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapFanFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapFanFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6678,12 +6678,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapProcessorFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapProcessorFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6733,12 +6733,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapMemoryFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapMemoryFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6788,12 +6788,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapHardDriveFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapHardDriveFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6843,12 +6843,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapIOFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapIOFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6898,12 +6898,12 @@ tampered with the system.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapSlotOrConnectorFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapSlotOrConnectorFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6955,12 +6955,12 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapComponentFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapComponentFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7036,16 +7036,16 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPowerConsumptionThresholdExceeded trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapPowerConsumptionThresholdExceeded trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -7121,16 +7121,16 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapPowerConsumptionThresholdDeasserted trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapThresholdType=%parm[#5]% 
-			sunHwTrapThresholdValue=%parm[#6]% 
-			sunHwTrapSensorValue=%parm[#7]% 
-			sunHwTrapAdditionalInfo=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
+			sunHwTrapPowerConsumptionThresholdDeasserted trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapThresholdType=%parm[#5]%
+			sunHwTrapThresholdValue=%parm[#6]%
+			sunHwTrapSensorValue=%parm[#7]%
+			sunHwTrapAdditionalInfo=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
 			sunHwTrapSeverity=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7206,17 +7206,17 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapDriveControllerFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
-			sunHwTrapAdditionalInfo=%parm[#10]% 
+			sunHwTrapDriveControllerFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
+			sunHwTrapAdditionalInfo=%parm[#10]%
 			sunHwTrapDriveControllerProbableCause=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -7266,12 +7266,12 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapDriveControllerFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapDriveControllerFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7331,13 +7331,13 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapDriveControllerError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
-			sunHwTrapAssocObjectId=%parm[#6]% 
+			sunHwTrapDriveControllerError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
+			sunHwTrapAssocObjectId=%parm[#6]%
 			sunHwTrapDriveControllerProbableCause=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7414,17 +7414,17 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapStorageVolumeFault trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapSuspectComponentName=%parm[#4]% 
-			sunHwTrapFaultClass=%parm[#5]% 
-			sunHwTrapFaultCertainty=%parm[#6]% 
-			sunHwTrapFaultMessageID=%parm[#7]% 
-			sunHwTrapFaultUUID=%parm[#8]% 
-			sunHwTrapAssocObjectId=%parm[#9]% 
-			sunHwTrapAdditionalInfo=%parm[#10]% 
+			sunHwTrapStorageVolumeFault trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapSuspectComponentName=%parm[#4]%
+			sunHwTrapFaultClass=%parm[#5]%
+			sunHwTrapFaultCertainty=%parm[#6]%
+			sunHwTrapFaultMessageID=%parm[#7]%
+			sunHwTrapFaultUUID=%parm[#8]%
+			sunHwTrapAssocObjectId=%parm[#9]%
+			sunHwTrapAdditionalInfo=%parm[#10]%
 			sunHwTrapStorageVolumeProbableCause=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -7474,12 +7474,12 @@ type.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapStorageVolumeFaultCleared trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAssocObjectId=%parm[#5]% 
+			sunHwTrapStorageVolumeFaultCleared trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAssocObjectId=%parm[#5]%
 			sunHwTrapAdditionalInfo=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7540,13 +7540,13 @@ type.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sunHwTrapStorageVolumeError trap received 
-			sunHwTrapSystemIdentifier=%parm[#1]% 
-			sunHwTrapChassisId=%parm[#2]% 
-			sunHwTrapProductName=%parm[#3]% 
-			sunHwTrapComponentName=%parm[#4]% 
-			sunHwTrapAdditionalInfo=%parm[#5]% 
-			sunHwTrapAssocObjectId=%parm[#6]% 
+			sunHwTrapStorageVolumeError trap received
+			sunHwTrapSystemIdentifier=%parm[#1]%
+			sunHwTrapChassisId=%parm[#2]%
+			sunHwTrapProductName=%parm[#3]%
+			sunHwTrapComponentName=%parm[#4]%
+			sunHwTrapAdditionalInfo=%parm[#5]%
+			sunHwTrapAssocObjectId=%parm[#6]%
 			sunHwTrapStorageVolumeProbableCause=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
@@ -11,7 +11,7 @@
        ">
 
   <context:annotation-config />
- 
+
   <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
     <property name="dataSource" ref="dataSource" />
     <property name="packagesToScan">
@@ -23,7 +23,7 @@
     <property name="hibernateProperties">
       <value>
         hibernate.dialect=org.hibernate.dialect.HSQLDialect
-      <!-- 
+      <!--
         hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
       -->
         hibernate.cache.use_second_level_cache=false
@@ -44,30 +44,30 @@
   <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
     <property name="transactionManager" ref="transactionManager" />
   </bean>
-  
+
   <bean id="distPollerDao" class="org.opennms.netmgt.dao.hibernate.DistPollerDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
-  
+
   <bean id="nodeDao" class="org.opennms.netmgt.dao.hibernate.NodeDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
-  
+
   <bean id="eventDao" class="org.opennms.netmgt.dao.hibernate.EventDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
-  
+
   <bean id="alarmDao" class="org.opennms.netmgt.dao.hibernate.AlarmDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
-  
+
   <bean id="ipInterfaceDao" class="org.opennms.netmgt.dao.hibernate.IpInterfaceDaoHibernate">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
-  
+
   <bean name="eventProxy" class="org.opennms.netmgt.dao.mock.MockEventIpcManager">
     <qualifier value="mock" />
     <property name="eventIpcManagerProxy" ref="eventIpcManager" />
   </bean>
-  
+
 </beans>

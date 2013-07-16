@@ -15,17 +15,17 @@
 			<ref local="mockReportServiceLocator" />
 		</property>
 	</bean>
-  
+
   <bean id="mockReportCatalogDao" class="org.easymock.EasyMock" factory-method="createStrictMock">
 	<constructor-arg value="org.opennms.netmgt.dao.api.ReportCatalogDao"/>
   </bean>
-  
+
   <bean id="mockDatabaseReportConfigDao" class="org.easymock.EasyMock" factory-method="createStrictMock">
 	<constructor-arg value="org.opennms.netmgt.dao.api.DatabaseReportConfigDao"/>
   </bean>
-  
+
   <bean id="mockReportServiceLocator" class="org.easymock.EasyMock" factory-method="createStrictMock">
 	<constructor-arg value="org.opennms.reporting.core.svclayer.ReportServiceLocator"/>
   </bean>
-  
+
 </beans>

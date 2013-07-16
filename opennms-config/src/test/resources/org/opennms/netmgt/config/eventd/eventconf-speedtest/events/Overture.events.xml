@@ -30,7 +30,7 @@ ovnFaultTrapId: the id of the fault.
 ovnFaultTrapTimeStamp: the time the fault occured.
 ovnFaultTrapSequenceTag: a unigue tag for each fault.
 ifIndex: the interface the fault occured on. Only applicaple for
-  interface specific faults. Will be 0 for non interface specific 
+  interface specific faults. Will be 0 for non interface specific
   faults.
 ovnFaultTrapCPType = CircuitPackType.
   For main board faults the setting will be ovnISGMainBoard.
@@ -246,15 +246,15 @@ ovnFaultChannel: the channel of the fault. Only applicaple for
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ovnFaultActive trap received 
-			ovnFaultTrapSeverity=%parm[#1]% 
-			ovnFaultTrapSlot=%parm[#2]% 
-			ovnFaultTrapDevice=%parm[#3]% 
-			ovnFaultTrapId=%parm[#4]% 
-			ovnFaultTrapTimeStamp=%parm[#5]% 
-			ovnFaultTrapSequenceTag=%parm[#6]% 
-			ifIndex=%parm[#7]% 
-			ovnFaultTrapCPType=%parm[#8]% 
+			ovnFaultActive trap received
+			ovnFaultTrapSeverity=%parm[#1]%
+			ovnFaultTrapSlot=%parm[#2]%
+			ovnFaultTrapDevice=%parm[#3]%
+			ovnFaultTrapId=%parm[#4]%
+			ovnFaultTrapTimeStamp=%parm[#5]%
+			ovnFaultTrapSequenceTag=%parm[#6]%
+			ifIndex=%parm[#7]%
+			ovnFaultTrapCPType=%parm[#8]%
 			ovnFaultTrapChannel=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -278,7 +278,7 @@ ovnFaultChannel: the channel of the fault. Only applicaple for
 	<event-label>OVERTURE-FAULTS-MIB defined trap event: ovnFaultCleared</event-label>
 	<descr>
 &lt;p&gt;The Active Fault Cleared. All the attributes will contain the same
-information as what they were when the ovnFaultActive trap was sent. 
+information as what they were when the ovnFaultActive trap was sent.
 ovnFaultTrapSeverity: The severity of the fault.
   See FaultSeverity ::= TEXTUAL-CONVENTION for all possible values.
 ovnFaultTrapSlot: the slot number where the fault occured.
@@ -292,7 +292,7 @@ ovnFaultTrapSequenceTag: a unigue tag for each fault. Will match
                          the tag generagted when the fault
                          became active.
 ifIndex: the interface the fault occured on. Only applicaple for
-  interface specific faults. Will be 0 for non interface specific 
+  interface specific faults. Will be 0 for non interface specific
   faults.
 ovnFaultTrapCPType = CircuitPackType.
   For main board faults the setting will be ovnISGMainBoard.
@@ -506,15 +506,15 @@ ovnFaultChannel: the channel of the fault. Only applicaple for
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ovnFaultCleared trap received 
-			ovnFaultTrapSeverity=%parm[#1]% 
-			ovnFaultTrapSlot=%parm[#2]% 
-			ovnFaultTrapDevice=%parm[#3]% 
-			ovnFaultTrapId=%parm[#4]% 
-			ovnFaultTrapTimeStamp=%parm[#5]% 
-			ovnFaultTrapSequenceTag=%parm[#6]% 
-			ifIndex=%parm[#7]% 
-			ovnFaultTrapCPType=%parm[#8]% 
+			ovnFaultCleared trap received
+			ovnFaultTrapSeverity=%parm[#1]%
+			ovnFaultTrapSlot=%parm[#2]%
+			ovnFaultTrapDevice=%parm[#3]%
+			ovnFaultTrapId=%parm[#4]%
+			ovnFaultTrapTimeStamp=%parm[#5]%
+			ovnFaultTrapSequenceTag=%parm[#6]%
+			ifIndex=%parm[#7]%
+			ovnFaultTrapCPType=%parm[#8]%
 			ovnFaultTrapChannel=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

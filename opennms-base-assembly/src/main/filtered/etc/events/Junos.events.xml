@@ -63,12 +63,12 @@ the BGP FSM enters the ESTABLISHED state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxBgpM2Established trap received 
-			jnxBgpM2PeerLocalAddrType=%parm[#1]% 
-			jnxBgpM2PeerLocalAddr=%parm[#2]% 
-			jnxBgpM2PeerRemoteAddrType=%parm[#3]% 
-			jnxBgpM2PeerRemoteAddr=%parm[#4]% 
-			jnxBgpM2PeerLastErrorReceived=%parm[#5]% 
+			jnxBgpM2Established trap received
+			jnxBgpM2PeerLocalAddrType=%parm[#1]%
+			jnxBgpM2PeerLocalAddr=%parm[#2]%
+			jnxBgpM2PeerRemoteAddrType=%parm[#3]%
+			jnxBgpM2PeerRemoteAddr=%parm[#4]%
+			jnxBgpM2PeerLastErrorReceived=%parm[#5]%
 			jnxBgpM2PeerState=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -142,13 +142,13 @@ state to a lower numbered state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxBgpM2BackwardTransition trap received 
-			jnxBgpM2PeerLocalAddrType=%parm[#1]% 
-			jnxBgpM2PeerLocalAddr=%parm[#2]% 
-			jnxBgpM2PeerRemoteAddrType=%parm[#3]% 
-			jnxBgpM2PeerRemoteAddr=%parm[#4]% 
-			jnxBgpM2PeerLastErrorReceived=%parm[#5]% 
-			jnxBgpM2PeerLastErrorReceivedText=%parm[#6]% 
+			jnxBgpM2BackwardTransition trap received
+			jnxBgpM2PeerLocalAddrType=%parm[#1]%
+			jnxBgpM2PeerLocalAddr=%parm[#2]%
+			jnxBgpM2PeerRemoteAddrType=%parm[#3]%
+			jnxBgpM2PeerRemoteAddr=%parm[#4]%
+			jnxBgpM2PeerLastErrorReceived=%parm[#5]%
+			jnxBgpM2PeerLastErrorReceivedText=%parm[#6]%
 			jnxBgpM2PeerState=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -207,11 +207,11 @@ recorded in jnxCmCfgChgEventTable.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCmCfgChange trap received 
-			jnxCmCfgChgEventTime=%parm[#1]% 
-			jnxCmCfgChgEventDate=%parm[#2]% 
-			jnxCmCfgChgEventSource=%parm[#3]% 
-			jnxCmCfgChgEventUser=%parm[#4]% 
+			jnxCmCfgChange trap received
+			jnxCmCfgChgEventTime=%parm[#1]%
+			jnxCmCfgChgEventDate=%parm[#2]%
+			jnxCmCfgChgEventSource=%parm[#3]%
+			jnxCmCfgChgEventUser=%parm[#4]%
 			jnxCmCfgChgEventLog=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -234,7 +234,7 @@ recorded in jnxCmCfgChgEventTable.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxCmRescueChange</uei>
 	<event-label>JUNIPER-CFGMGMT-MIB defined trap event: jnxCmRescueChange</event-label>
 	<descr>
-&lt;p&gt;Notification of the latest rescue configuration 
+&lt;p&gt;Notification of the latest rescue configuration
 change.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -270,11 +270,11 @@ change.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCmRescueChange trap received 
-			jnxCmRescueChgTime=%parm[#1]% 
-			jnxCmRescueChgDate=%parm[#2]% 
-			jnxCmRescueChgSource=%parm[#3]% 
-			jnxCmRescueChgUser=%parm[#4]% 
+			jnxCmRescueChange trap received
+			jnxCmRescueChgTime=%parm[#1]%
+			jnxCmRescueChgDate=%parm[#2]%
+			jnxCmRescueChgSource=%parm[#3]%
+			jnxCmRescueChgUser=%parm[#4]%
 			jnxCmRescueChgState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -302,7 +302,7 @@ change.&lt;/p&gt;&lt;table&gt;
 &lt;p&gt;A jnxPowerSupplyFailure trap signifies that
 the SNMP entity, acting in an agent role, has
 detected that the specified power supply in the
-chassis has been in the failure (bad DC output) 
+chassis has been in the failure (bad DC output)
 condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -338,12 +338,12 @@ condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPowerSupplyFailure trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxPowerSupplyFailure trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -369,8 +369,8 @@ condition.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A jnxFanFailure trap signifies that the SNMP
 entity, acting in an agent role, has detected
-that the specified cooling fan or impeller in 
-the chassis has been in the failure (not spinning) 
+that the specified cooling fan or impeller in
+the chassis has been in the failure (not spinning)
 condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -406,12 +406,12 @@ condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFanFailure trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxFanFailure trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -435,8 +435,8 @@ condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOverTemperature</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxOverTemperature</event-label>
 	<descr>
-&lt;p&gt;A jnxOverTemperature trap signifies that the 
-SNMP entity, acting in an agent role, has 
+&lt;p&gt;A jnxOverTemperature trap signifies that the
+SNMP entity, acting in an agent role, has
 detected that the specified hardware component
 in the chassis has experienced over temperature
 condition.&lt;/p&gt;&lt;table&gt;
@@ -466,12 +466,12 @@ condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOverTemperature trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxOverTemperature trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingTemp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -495,10 +495,10 @@ condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxRedundancySwitchover</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxRedundancySwitchover</event-label>
 	<descr>
-&lt;p&gt;A jnxRedundancySwitchover trap signifies that 
-the SNMP entity, acting in an agent role, has 
+&lt;p&gt;A jnxRedundancySwitchover trap signifies that
+the SNMP entity, acting in an agent role, has
 detected that the specified hardware component
-in the chassis has experienced a redundancy 
+in the chassis has experienced a redundancy
 switchover event defined as a change in state
 of jnxRedundancyState from master to backup or
 vice versa.&lt;/p&gt;&lt;table&gt;
@@ -560,16 +560,16 @@ vice versa.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxRedundancySwitchover trap received 
-			jnxRedundancyContentsIndex=%parm[#1]% 
-			jnxRedundancyL1Index=%parm[#2]% 
-			jnxRedundancyL2Index=%parm[#3]% 
-			jnxRedundancyL3Index=%parm[#4]% 
-			jnxRedundancyDescr=%parm[#5]% 
-			jnxRedundancyConfig=%parm[#6]% 
-			jnxRedundancyState=%parm[#7]% 
-			jnxRedundancySwitchoverCount=%parm[#8]% 
-			jnxRedundancySwitchoverTime=%parm[#9]% 
+			jnxRedundancySwitchover trap received
+			jnxRedundancyContentsIndex=%parm[#1]%
+			jnxRedundancyL1Index=%parm[#2]%
+			jnxRedundancyL2Index=%parm[#3]%
+			jnxRedundancyL3Index=%parm[#4]%
+			jnxRedundancyDescr=%parm[#5]%
+			jnxRedundancyConfig=%parm[#6]%
+			jnxRedundancyState=%parm[#7]%
+			jnxRedundancySwitchoverCount=%parm[#8]%
+			jnxRedundancySwitchoverTime=%parm[#9]%
 			jnxRedundancySwitchoverReason=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -592,8 +592,8 @@ vice versa.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxFruRemoval</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxFruRemoval</event-label>
 	<descr>
-&lt;p&gt;A jnxFruRemoval trap signifies that the SNMP 
-entity, acting in an agent role, has detected 
+&lt;p&gt;A jnxFruRemoval trap signifies that the SNMP
+entity, acting in an agent role, has detected
 that the specified FRU (Field Replaceable Unit)
 has been removed from the chassis.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -641,13 +641,13 @@ has been removed from the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruRemoval trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruRemoval trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -671,9 +671,9 @@ has been removed from the chassis.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxFruInsertion</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxFruInsertion</event-label>
 	<descr>
-&lt;p&gt;A jnxFruInsertion trap signifies that the SNMP 
+&lt;p&gt;A jnxFruInsertion trap signifies that the SNMP
 entity,	acting in an agent role, has detected that
-the specified FRU (Field Replaceable Unit) has been 
+the specified FRU (Field Replaceable Unit) has been
 inserted into the chassis.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -720,13 +720,13 @@ inserted into the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruInsertion trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruInsertion trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -750,8 +750,8 @@ inserted into the chassis.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxFruPowerOff</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxFruPowerOff</event-label>
 	<descr>
-&lt;p&gt;A jnxFruPowerOff trap signifies that the SNMP 
-entity, acting in an agent role, has detected 
+&lt;p&gt;A jnxFruPowerOff trap signifies that the SNMP
+entity, acting in an agent role, has detected
 that the specified FRU (Field Replaceable Unit)
 has been powered off in the chassis.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -836,16 +836,16 @@ has been powered off in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruPowerOff trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
-			jnxFruSlot=%parm[#7]% 
-			jnxFruOfflineReason=%parm[#8]% 
-			jnxFruLastPowerOff=%parm[#9]% 
+			jnxFruPowerOff trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
+			jnxFruSlot=%parm[#7]%
+			jnxFruOfflineReason=%parm[#8]%
+			jnxFruLastPowerOff=%parm[#9]%
 			jnxFruLastPowerOn=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -869,9 +869,9 @@ has been powered off in the chassis.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxFruPowerOn</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxFruPowerOn</event-label>
 	<descr>
-&lt;p&gt;A jnxFruPowerOn trap signifies that the SNMP 
+&lt;p&gt;A jnxFruPowerOn trap signifies that the SNMP
 entity,	acting in an agent role, has detected that
-the specified FRU (Field Replaceable Unit) has been 
+the specified FRU (Field Replaceable Unit) has been
 powered on in the chassis.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -955,16 +955,16 @@ powered on in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruPowerOn trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
-			jnxFruSlot=%parm[#7]% 
-			jnxFruOfflineReason=%parm[#8]% 
-			jnxFruLastPowerOff=%parm[#9]% 
+			jnxFruPowerOn trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
+			jnxFruSlot=%parm[#7]%
+			jnxFruOfflineReason=%parm[#8]%
+			jnxFruLastPowerOff=%parm[#9]%
 			jnxFruLastPowerOn=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1037,13 +1037,13 @@ able to load ukernel. In these cases, fru is replaced.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruFailed trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruFailed trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1153,16 +1153,16 @@ has gone offline in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruOffline trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
-			jnxFruSlot=%parm[#7]% 
-			jnxFruOfflineReason=%parm[#8]% 
-			jnxFruLastPowerOff=%parm[#9]% 
+			jnxFruOffline trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
+			jnxFruSlot=%parm[#7]%
+			jnxFruOfflineReason=%parm[#8]%
+			jnxFruLastPowerOff=%parm[#9]%
 			jnxFruLastPowerOn=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1235,13 +1235,13 @@ gone online in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruOnline trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruOnline trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1315,13 +1315,13 @@ check state in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruCheck trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruCheck trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1395,13 +1395,13 @@ switched over.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFEBSwitchover trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFEBSwitchover trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1477,13 +1477,13 @@ failed state in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxHardDiskFailed trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxHardDiskFailed trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1558,13 +1558,13 @@ from boot device list.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxHardDiskMissing trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxHardDiskMissing trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1588,10 +1588,10 @@ from boot device list.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxPowerSupplyOK</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxPowerSupplyOK</event-label>
 	<descr>
-&lt;p&gt;A jnxPowerSupplyOK trap signifies that the 
+&lt;p&gt;A jnxPowerSupplyOK trap signifies that the
 SNMP entity, acting in an agent role, has
 detected that the specified power supply in the
-chassis has recovered from the failure (bad DC output) 
+chassis has recovered from the failure (bad DC output)
 condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1627,12 +1627,12 @@ condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPowerSupplyOK trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxPowerSupplyOK trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1694,12 +1694,12 @@ has recovered from the failure (not spinning) condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFanOK trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxFanOK trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1723,8 +1723,8 @@ has recovered from the failure (not spinning) condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxTemperatureOK</uei>
 	<event-label>JUNIPER-MIB defined trap event: jnxTemperatureOK</event-label>
 	<descr>
-&lt;p&gt;A jnxTemperatureOK trap signifies that the 
-SNMP entity, acting in an agent role, has 
+&lt;p&gt;A jnxTemperatureOK trap signifies that the
+SNMP entity, acting in an agent role, has
 detected that the specified hardware component
 in the chassis has recovered from over temperature
 condition.&lt;/p&gt;&lt;table&gt;
@@ -1754,12 +1754,12 @@ condition.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxTemperatureOK trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxTemperatureOK trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingTemp=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1835,13 +1835,13 @@ is in ok state in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxFruOK trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruOK trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1886,10 +1886,10 @@ is in ok state in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxLdpLspUp trap received 
-			jnxLdpLspFec=%parm[#1]% 
-			jnxLdpRtrid=%parm[#2]% 
-			jnxLdpLspFecLen=%parm[#3]% 
+			jnxLdpLspUp trap received
+			jnxLdpLspFec=%parm[#1]%
+			jnxLdpRtrid=%parm[#2]%
+			jnxLdpLspFecLen=%parm[#3]%
 			jnxLdpInstanceName=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1941,11 +1941,11 @@ is in ok state in the chassis.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxLdpLspDown trap received 
-			jnxLdpLspFec=%parm[#1]% 
-			jnxLdpRtrid=%parm[#2]% 
-			jnxLdpLspDownReason=%parm[#3]% 
-			jnxLdpLspFecLen=%parm[#4]% 
+			jnxLdpLspDown trap received
+			jnxLdpLspFec=%parm[#1]%
+			jnxLdpRtrid=%parm[#2]%
+			jnxLdpLspDownReason=%parm[#3]%
+			jnxLdpLspFecLen=%parm[#4]%
 			jnxLdpInstanceName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1980,8 +1980,8 @@ enters the 'operational(5) state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxLdpSesUp trap received 
-			mplsLdpSesState=%parm[#1]% 
+			jnxLdpSesUp trap received
+			mplsLdpSesState=%parm[#1]%
 			jnxLdpSesUpIf=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2005,7 +2005,7 @@ enters the 'operational(5) state.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-LDP-MIB defined trap event: jnxLdpSesDown</event-label>
 	<descr>
 &lt;p&gt;The SNMP trap that is generated when the value of 'mplsLdpSesState'
-leaves the 'operational(5) state. The value of jnxLdpSesDownIf is 
+leaves the 'operational(5) state. The value of jnxLdpSesDownIf is
 one of the neighbor's interface. It is the interface associated with
 the last neighbor when jnxLdpSesDownReason is allAdjacenciesDown (3).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2037,9 +2037,9 @@ the last neighbor when jnxLdpSesDownReason is allAdjacenciesDown (3).&lt;/p&gt;&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxLdpSesDown trap received 
-			mplsLdpSesState=%parm[#1]% 
-			jnxLdpSesDownReason=%parm[#2]% 
+			jnxLdpSesDown trap received
+			mplsLdpSesState=%parm[#1]%
+			jnxLdpSesDownReason=%parm[#2]%
 			jnxLdpSesDownIf=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2064,7 +2064,7 @@ the last neighbor when jnxLdpSesDownReason is allAdjacenciesDown (3).&lt;/p&gt;&
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspInfoUp</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspInfoUp</event-label>
 	<descr>
-&lt;p&gt;An mplsLspInfoUp trap signifies that the 
+&lt;p&gt;An mplsLspInfoUp trap signifies that the
 specified LSP is up. The current active
 path for the LSP is mplsPathInfoName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2077,8 +2077,8 @@ path for the LSP is mplsPathInfoName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspInfoUp trap received 
-			mplsLspInfoName=%parm[#1]% 
+			mplsLspInfoUp trap received
+			mplsLspInfoName=%parm[#1]%
 			mplsPathInfoName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2101,7 +2101,7 @@ path for the LSP is mplsPathInfoName.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspInfoDown</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspInfoDown</event-label>
 	<descr>
-&lt;p&gt;An mplsLspInfoDown trap signifies that the 
+&lt;p&gt;An mplsLspInfoDown trap signifies that the
 specified LSP is down, because the current
 active path mplsPathInfoName went down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2114,8 +2114,8 @@ active path mplsPathInfoName went down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspInfoDown trap received 
-			mplsLspInfoName=%parm[#1]% 
+			mplsLspInfoDown trap received
+			mplsLspInfoName=%parm[#1]%
 			mplsPathInfoName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2139,7 +2139,7 @@ active path mplsPathInfoName went down.&lt;/p&gt;&lt;table&gt;
 	<event-label>MPLS-MIB defined trap event: mplsLspInfoChange</event-label>
 	<descr>
 &lt;p&gt;An mplsLspInfoChange trap signifies that the
-the specified LSP has switched traffic to 
+the specified LSP has switched traffic to
 	the new active path 'toLspPath'. The LSP maintains
 	up state before and after the switch over&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2152,8 +2152,8 @@ the specified LSP has switched traffic to
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspInfoChange trap received 
-			mplsLspInfoName=%parm[#1]% 
+			mplsLspInfoChange trap received
+			mplsLspInfoName=%parm[#1]%
 			mplsPathInfoName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2176,7 +2176,7 @@ the specified LSP has switched traffic to
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspInfoPathDown</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspInfoPathDown</event-label>
 	<descr>
-&lt;p&gt;An mplsLspInfoPathDown trap signifies that the 
+&lt;p&gt;An mplsLspInfoPathDown trap signifies that the
 specified path mplsPathName for the specified
 LSP mplsLspInfoName went down&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2189,8 +2189,8 @@ LSP mplsLspInfoName went down&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspInfoPathDown trap received 
-			mplsLspInfoName=%parm[#1]% 
+			mplsLspInfoPathDown trap received
+			mplsLspInfoName=%parm[#1]%
 			mplsPathInfoName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2213,7 +2213,7 @@ LSP mplsLspInfoName went down&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspInfoPathUp</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspInfoPathUp</event-label>
 	<descr>
-&lt;p&gt;An mplsLspInfoPathUp trap signifies that the 
+&lt;p&gt;An mplsLspInfoPathUp trap signifies that the
 specified path mplsPathName for the specified
 LSP mplsLspInfoName came up&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2226,8 +2226,8 @@ LSP mplsLspInfoName came up&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspInfoPathUp trap received 
-			mplsLspInfoName=%parm[#1]% 
+			mplsLspInfoPathUp trap received
+			mplsLspInfoName=%parm[#1]%
 			mplsPathInfoName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2250,7 +2250,7 @@ LSP mplsLspInfoName came up&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspUp</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspUp</event-label>
 	<descr>
-&lt;p&gt;An mplsLspUp trap signifies that the 
+&lt;p&gt;An mplsLspUp trap signifies that the
 specified LSP is up. The current active
 path for the LSP is mplsPathName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2263,8 +2263,8 @@ path for the LSP is mplsPathName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspUp trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspUp trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2287,7 +2287,7 @@ path for the LSP is mplsPathName.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspDown</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspDown</event-label>
 	<descr>
-&lt;p&gt;An mplsLspDown trap signifies that the 
+&lt;p&gt;An mplsLspDown trap signifies that the
 specified LSP is down, because the current
 active path mplsPathName went down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2300,8 +2300,8 @@ active path mplsPathName went down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspDown trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspDown trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2325,7 +2325,7 @@ active path mplsPathName went down.&lt;/p&gt;&lt;table&gt;
 	<event-label>MPLS-MIB defined trap event: mplsLspChange</event-label>
 	<descr>
 &lt;p&gt;An mplsLspChange trap signifies that the
-the specified LSP has switched traffic to 
+the specified LSP has switched traffic to
 	the new active path 'toLspPath'. The LSP maintains
 	up state before and after the switch over&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2338,8 +2338,8 @@ the specified LSP has switched traffic to
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspChange trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspChange trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2362,7 +2362,7 @@ the specified LSP has switched traffic to
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspPathDown</event-label>
 	<descr>
-&lt;p&gt;An mplsLspPathDown trap signifies that the 
+&lt;p&gt;An mplsLspPathDown trap signifies that the
 specified path mplsPathName for the specified
 LSP mplsLspName went down&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2375,8 +2375,8 @@ LSP mplsLspName went down&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspPathDown trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspPathDown trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2399,7 +2399,7 @@ LSP mplsLspName went down&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp</uei>
 	<event-label>MPLS-MIB defined trap event: mplsLspPathUp</event-label>
 	<descr>
-&lt;p&gt;An mplsLspPathUp trap signifies that the 
+&lt;p&gt;An mplsLspPathUp trap signifies that the
 specified path mplsPathName for the specified
 LSP mplsLspName came up&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2412,8 +2412,8 @@ LSP mplsLspName came up&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mplsLspPathUp trap received 
-			mplsLspName=%parm[#1]% 
+			mplsLspPathUp trap received
+			mplsLspName=%parm[#1]%
 			mplsPathName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2449,7 +2449,7 @@ of the 'jnxMplsLdpEntityInitSesThreshold' object.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMplsLdpInitSesThresholdExceeded trap received 
+			jnxMplsLdpInitSesThresholdExceeded trap received
 			jnxMplsLdpEntityInitSesThreshold=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2488,8 +2488,8 @@ a specific Entity.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMplsLdpPathVectorLimitMismatch trap received 
-			jnxMplsLdpEntityPathVectorLimit=%parm[#1]% 
+			jnxMplsLdpPathVectorLimitMismatch trap received
+			jnxMplsLdpEntityPathVectorLimit=%parm[#1]%
 			jnxMplsLdpPeerPathVectorLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2540,10 +2540,10 @@ the 'operational(5)' state.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMplsLdpSessionUp trap received 
-			jnxMplsLdpSesState=%parm[#1]% 
-			jnxMplsLdpSesDiscontinuityTime=%parm[#2]% 
-			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]% 
+			jnxMplsLdpSessionUp trap received
+			jnxMplsLdpSesState=%parm[#1]%
+			jnxMplsLdpSesDiscontinuityTime=%parm[#2]%
+			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]%
 			jnxMplsLdpSesStatsUnkTlvErrors=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2594,10 +2594,10 @@ the 'operational(5)' state.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMplsLdpSessionDown trap received 
-			jnxMplsLdpSesState=%parm[#1]% 
-			jnxMplsLdpSesDiscontinuityTime=%parm[#2]% 
-			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]% 
+			jnxMplsLdpSessionDown trap received
+			jnxMplsLdpSesState=%parm[#1]%
+			jnxMplsLdpSesDiscontinuityTime=%parm[#2]%
+			jnxMplsLdpSesStatsUnkMesTypeErrors=%parm[#3]%
 			jnxMplsLdpSesStatsUnkTlvErrors=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2622,7 +2622,7 @@ the 'operational(5)' state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxPingRttThresholdExceeded</uei>
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingRttThresholdExceeded</event-label>
 	<descr>
-&lt;p&gt;This notification is generated when the round trip time 
+&lt;p&gt;This notification is generated when the round trip time
 (jnxPingCtlRttThreshold) exceeds the configured
 threshold (jnxPingCtlRttThreshold) and the rttThreshold bit is
 set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
@@ -2684,20 +2684,20 @@ set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingRttThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinRttUs=%parm[#6]% 
-			jnxPingResultsMaxRttUs=%parm[#7]% 
-			jnxPingResultsAvgRttUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
-			pingResultsLastGoodProbe=%parm[#12]% 
-			jnxPingCtlRttThreshold=%parm[#13]% 
+			jnxPingRttThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinRttUs=%parm[#6]%
+			jnxPingResultsMaxRttUs=%parm[#7]%
+			jnxPingResultsAvgRttUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
+			pingResultsLastGoodProbe=%parm[#12]%
+			jnxPingCtlRttThreshold=%parm[#13]%
 			jnxPingResultsRttUs=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2721,7 +2721,7 @@ set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingRttStdDevThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the standard deviation of
-the round trip time (jnxPingResultsStdDevRttUs) exceeds the 
+the round trip time (jnxPingResultsStdDevRttUs) exceeds the
 configured threshold (jnxPingCtlRttStdDevThreshold) and the
 rttStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2782,20 +2782,20 @@ rttStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingRttStdDevThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinRttUs=%parm[#6]% 
-			jnxPingResultsMaxRttUs=%parm[#7]% 
-			jnxPingResultsAvgRttUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
-			pingResultsLastGoodProbe=%parm[#12]% 
-			jnxPingCtlRttStdDevThreshold=%parm[#13]% 
+			jnxPingRttStdDevThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinRttUs=%parm[#6]%
+			jnxPingResultsMaxRttUs=%parm[#7]%
+			jnxPingResultsAvgRttUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
+			pingResultsLastGoodProbe=%parm[#12]%
+			jnxPingCtlRttStdDevThreshold=%parm[#13]%
 			jnxPingResultsStdDevRttUs=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2819,7 +2819,7 @@ rttStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingRttJitterThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the round trip time jitter
-(jnxPingResultsMaxRttUs minus jnxPingResultsMinRttUs) exceeds the 
+(jnxPingResultsMaxRttUs minus jnxPingResultsMinRttUs) exceeds the
 configured threshold (jnxPingCtlRttJitterThreshold) and the
 rttJitterThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2876,19 +2876,19 @@ rttJitterThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingRttJitterThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinRttUs=%parm[#6]% 
-			jnxPingResultsMaxRttUs=%parm[#7]% 
-			jnxPingResultsAvgRttUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsRttSumOfSquares=%parm[#11]% 
-			pingResultsLastGoodProbe=%parm[#12]% 
+			jnxPingRttJitterThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinRttUs=%parm[#6]%
+			jnxPingResultsMaxRttUs=%parm[#7]%
+			jnxPingResultsAvgRttUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsRttSumOfSquares=%parm[#11]%
+			pingResultsLastGoodProbe=%parm[#12]%
 			jnxPingCtlRttJitterThreshold=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2911,9 +2911,9 @@ rttJitterThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxPingEgressThresholdExceeded</uei>
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingEgressThresholdExceeded</event-label>
 	<descr>
-&lt;p&gt;This notification is generated when the egress time 
+&lt;p&gt;This notification is generated when the egress time
 (jnxPingResultsEgressUs) exceeds the configured
-threshold (jnxPingCtlEgressTimeThreshold) and the 
+threshold (jnxPingCtlEgressTimeThreshold) and the
 egressThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2969,19 +2969,19 @@ egressThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingEgressThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinEgressUs=%parm[#6]% 
-			jnxPingResultsMaxEgressUs=%parm[#7]% 
-			jnxPingResultsAvgEgressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingCtlEgressTimeThreshold=%parm[#12]% 
+			jnxPingEgressThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinEgressUs=%parm[#6]%
+			jnxPingResultsMaxEgressUs=%parm[#7]%
+			jnxPingResultsAvgEgressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingCtlEgressTimeThreshold=%parm[#12]%
 			jnxPingResultsEgressUs=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3005,7 +3005,7 @@ egressThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingEgressStdDevThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the standard deviation of
-the egress time (jnxPingResultsStddevEgressUs) exceeds the 
+the egress time (jnxPingResultsStddevEgressUs) exceeds the
 configured threshold (jnxPingCtlEgressStdDevThreshold) and the
 egressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3066,20 +3066,20 @@ egressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingEgressStdDevThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinEgressUs=%parm[#6]% 
-			jnxPingResultsMaxEgressUs=%parm[#7]% 
-			jnxPingResultsAvgEgressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingResultsStddevEgressUs=%parm[#12]% 
-			jnxPingCtlEgressStdDevThreshold=%parm[#13]% 
+			jnxPingEgressStdDevThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinEgressUs=%parm[#6]%
+			jnxPingResultsMaxEgressUs=%parm[#7]%
+			jnxPingResultsAvgEgressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingResultsStddevEgressUs=%parm[#12]%
+			jnxPingCtlEgressStdDevThreshold=%parm[#13]%
 			jnxPingResultsStddevEgressUs=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3103,9 +3103,9 @@ egressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingEgressJitterThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the egress time jitter
-(jnxPingResultsMaxEgressUs minus jnxPingResultsMinEgressUs) 
+(jnxPingResultsMaxEgressUs minus jnxPingResultsMinEgressUs)
 exceeds the configured threshold (jnxPingCtlEgressJitterThreshold)
-and the egressJitterThreshold bit is set in 
+and the egressJitterThreshold bit is set in
 jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3157,18 +3157,18 @@ jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingEgressJitterThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinEgressUs=%parm[#6]% 
-			jnxPingResultsMaxEgressUs=%parm[#7]% 
-			jnxPingResultsAvgEgressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
+			jnxPingEgressJitterThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinEgressUs=%parm[#6]%
+			jnxPingResultsMaxEgressUs=%parm[#7]%
+			jnxPingResultsAvgEgressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
 			jnxPingCtlEgressJitterThreshold=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3191,9 +3191,9 @@ jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxPingIngressThresholdExceeded</uei>
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingIngressThresholdExceeded</event-label>
 	<descr>
-&lt;p&gt;This notification is generated when the ingress time 
+&lt;p&gt;This notification is generated when the ingress time
 (jnxPingResultsIngressUs) exceeds the configured
-threshold (jnxPingCtlIngressTimeThreshold) and the 
+threshold (jnxPingCtlIngressTimeThreshold) and the
 ingressThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3249,19 +3249,19 @@ ingressThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingIngressThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinIngressUs=%parm[#6]% 
-			jnxPingResultsMaxIngressUs=%parm[#7]% 
-			jnxPingResultsAvgIngressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingCtlIngressTimeThreshold=%parm[#12]% 
+			jnxPingIngressThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinIngressUs=%parm[#6]%
+			jnxPingResultsMaxIngressUs=%parm[#7]%
+			jnxPingResultsAvgIngressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingCtlIngressTimeThreshold=%parm[#12]%
 			jnxPingResultsIngressUs=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3285,7 +3285,7 @@ ingressThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingIngressStddevThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the standard deviation of
-the ingress time (jnxPingResultsStddevIngressUs) exceeds the 
+the ingress time (jnxPingResultsStddevIngressUs) exceeds the
 configured threshold (jnxPingCtlIngressStddevThreshold) and the
 ingressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3346,20 +3346,20 @@ ingressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;tabl
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingIngressStddevThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinIngressUs=%parm[#6]% 
-			jnxPingResultsMaxIngressUs=%parm[#7]% 
-			jnxPingResultsAvgIngressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
-			jnxPingResultsStddevIngressUs=%parm[#12]% 
-			jnxPingCtlIngressStddevThreshold=%parm[#13]% 
+			jnxPingIngressStddevThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinIngressUs=%parm[#6]%
+			jnxPingResultsMaxIngressUs=%parm[#7]%
+			jnxPingResultsAvgIngressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
+			jnxPingResultsStddevIngressUs=%parm[#12]%
+			jnxPingCtlIngressStddevThreshold=%parm[#13]%
 			jnxPingResultsStddevIngressUs=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3383,9 +3383,9 @@ ingressStdDevThreshold bit is set in jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;tabl
 	<event-label>JUNIPER-PING-MIB defined trap event: jnxPingIngressJitterThresholdExceeded</event-label>
 	<descr>
 &lt;p&gt;This notification is generated when the ingress time jitter
-(jnxPingResultsMaxIngressUs minus jnxPingResultsMinIngressUs) 
+(jnxPingResultsMaxIngressUs minus jnxPingResultsMinIngressUs)
 exceeds the configured threshold (jnxPingCtlIngressJitterThreshold)
-and the ingressJitterThreshold bit is set in 
+and the ingressJitterThreshold bit is set in
 jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3437,18 +3437,18 @@ jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPingIngressJitterThresholdExceeded trap received 
-			pingCtlTargetAddressType=%parm[#1]% 
-			pingCtlTargetAddress=%parm[#2]% 
-			pingResultsOperStatus=%parm[#3]% 
-			pingResultsIpTargetAddressType=%parm[#4]% 
-			pingResultsIpTargetAddress=%parm[#5]% 
-			jnxPingResultsMinIngressUs=%parm[#6]% 
-			jnxPingResultsMaxIngressUs=%parm[#7]% 
-			jnxPingResultsAvgIngressUs=%parm[#8]% 
-			pingResultsProbeResponses=%parm[#9]% 
-			pingResultsSentProbes=%parm[#10]% 
-			pingResultsLastGoodProbe=%parm[#11]% 
+			jnxPingIngressJitterThresholdExceeded trap received
+			pingCtlTargetAddressType=%parm[#1]%
+			pingCtlTargetAddress=%parm[#2]%
+			pingResultsOperStatus=%parm[#3]%
+			pingResultsIpTargetAddressType=%parm[#4]%
+			pingResultsIpTargetAddress=%parm[#5]%
+			jnxPingResultsMinIngressUs=%parm[#6]%
+			jnxPingResultsMaxIngressUs=%parm[#7]%
+			jnxPingResultsAvgIngressUs=%parm[#8]%
+			pingResultsProbeResponses=%parm[#9]%
+			pingResultsSentProbes=%parm[#10]%
+			pingResultsLastGoodProbe=%parm[#11]%
 			jnxPingCtlIngressJitterThreshold=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3473,7 +3473,7 @@ jnxPingCtlTrapGeneration.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxPMonOverloadSet</uei>
 	<event-label>JUNIPER-PMon-MIB defined trap event: jnxPMonOverloadSet</event-label>
 	<descr>
-&lt;p&gt;Notification of a new overload condition on a Passive 
+&lt;p&gt;Notification of a new overload condition on a Passive
 Monitoring interface.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3503,10 +3503,10 @@ Monitoring interface.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPMonOverloadSet trap received 
-			ifDescr=%parm[#1]% 
-			jnxPMonLastOverload=%parm[#2]% 
-			jnxPMonCurrentOverload=%parm[#3]% 
+			jnxPMonOverloadSet trap received
+			ifDescr=%parm[#1]%
+			jnxPMonLastOverload=%parm[#2]%
+			jnxPMonCurrentOverload=%parm[#3]%
 			jnxPMonLastOverloadDate=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3529,7 +3529,7 @@ Monitoring interface.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxPMonOverloadCleared</uei>
 	<event-label>JUNIPER-PMon-MIB defined trap event: jnxPMonOverloadCleared</event-label>
 	<descr>
-&lt;p&gt;Notification of a cleared overload condition on a Passive 
+&lt;p&gt;Notification of a cleared overload condition on a Passive
 Monitoring interface.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3559,10 +3559,10 @@ Monitoring interface.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxPMonOverloadCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxPMonLastOverload=%parm[#2]% 
-			jnxPMonCurrentOverload=%parm[#3]% 
+			jnxPMonOverloadCleared trap received
+			ifDescr=%parm[#1]%
+			jnxPMonLastOverload=%parm[#2]%
+			jnxPMonCurrentOverload=%parm[#3]%
 			jnxPMonLastOverloadDate=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3616,9 +3616,9 @@ jnxRmonAlarmGetFailReason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxRmonAlarmGetFailure trap received 
-			alarmIndex=%parm[#1]% 
-			alarmVariable=%parm[#2]% 
+			jnxRmonAlarmGetFailure trap received
+			alarmIndex=%parm[#1]%
+			alarmVariable=%parm[#2]%
 			jnxRmonAlarmGetFailReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3654,8 +3654,8 @@ were unsuccessful.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxRmonGetOk trap received 
-			alarmIndex=%parm[#1]% 
+			jnxRmonGetOk trap received
+			alarmIndex=%parm[#1]%
 			alarmVariable=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3777,10 +3777,10 @@ were unsuccessful.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSonetAlarmSet trap received 
-			ifDescr=%parm[#1]% 
-			jnxSonetLastAlarmId=%parm[#2]% 
-			jnxSonetCurrentAlarms=%parm[#3]% 
+			jnxSonetAlarmSet trap received
+			ifDescr=%parm[#1]%
+			jnxSonetLastAlarmId=%parm[#2]%
+			jnxSonetCurrentAlarms=%parm[#3]%
 			jnxSonetLastAlarmDate=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3900,10 +3900,10 @@ were unsuccessful.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSonetAlarmCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxSonetLastAlarmId=%parm[#2]% 
-			jnxSonetCurrentAlarms=%parm[#3]% 
+			jnxSonetAlarmCleared trap received
+			ifDescr=%parm[#1]%
+			jnxSonetLastAlarmId=%parm[#2]%
+			jnxSonetCurrentAlarms=%parm[#3]%
 			jnxSonetLastAlarmDate=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3946,8 +3946,8 @@ value of an instance of apsChanStatusSwitchovers increments.&lt;/p&gt;&lt;table&
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			apsEventSwitchover trap received 
-			apsChanStatusSwitchovers=%parm[#1]% 
+			apsEventSwitchover trap received
+			apsChanStatusSwitchovers=%parm[#1]%
 			apsChanStatusCurrent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3988,8 +3988,8 @@ value of an instance of apsStatusModeMismatches increments.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			apsEventModeMismatch trap received 
-			apsStatusModeMismatches=%parm[#1]% 
+			apsEventModeMismatch trap received
+			apsStatusModeMismatches=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4030,8 +4030,8 @@ value of an instance of apsStatusChannelMismatches increments.&lt;/p&gt;&lt;tabl
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			apsEventChannelMismatch trap received 
-			apsStatusChannelMismatches=%parm[#1]% 
+			apsEventChannelMismatch trap received
+			apsStatusChannelMismatches=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4072,8 +4072,8 @@ value of an instance of apsStatusPSBFs increments.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			apsEventPSBF trap received 
-			apsStatusPSBFs=%parm[#1]% 
+			apsEventPSBF trap received
+			apsStatusPSBFs=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4114,8 +4114,8 @@ value of an instance of apsStatusFEPLFs increments.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			apsEventFEPLF trap received 
-			apsStatusFEPLFs=%parm[#1]% 
+			apsEventFEPLF trap received
+			apsStatusFEPLFs=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4141,7 +4141,7 @@ value of an instance of apsStatusFEPLFs increments.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnIfUp</event-label>
 	<descr>
 &lt;p&gt;A jnxVpnIfUp notification is generated when the interface
-with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName 
+with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName
 of type jnxVpnIfVpnType transitions out of the 'down' state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4168,9 +4168,9 @@ of type jnxVpnIfVpnType transitions out of the 'down' state.&lt;/p&gt;&lt;table&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxVpnIfUp trap received 
-			jnxVpnIfVpnType=%parm[#1]% 
-			jnxVpnIfVpnName=%parm[#2]% 
+			jnxVpnIfUp trap received
+			jnxVpnIfVpnType=%parm[#1]%
+			jnxVpnIfVpnName=%parm[#2]%
 			jnxVpnIfIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4194,7 +4194,7 @@ of type jnxVpnIfVpnType transitions out of the 'down' state.&lt;/p&gt;&lt;table&
 	<event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnIfDown</event-label>
 	<descr>
 &lt;p&gt;A jnxVpnIfDown notification is generated when the interface
-with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName 
+with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName
 of type jnxVpnIfVpnType transitions to the 'down' state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4221,9 +4221,9 @@ of type jnxVpnIfVpnType transitions to the 'down' state.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxVpnIfDown trap received 
-			jnxVpnIfVpnType=%parm[#1]% 
-			jnxVpnIfVpnName=%parm[#2]% 
+			jnxVpnIfDown trap received
+			jnxVpnIfVpnType=%parm[#1]%
+			jnxVpnIfVpnName=%parm[#2]%
 			jnxVpnIfIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4247,7 +4247,7 @@ of type jnxVpnIfVpnType transitions to the 'down' state.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnPwUp</event-label>
 	<descr>
 &lt;p&gt;A jnxVpnPwUp notification is generated when the Pseudo-Wire
-with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName 
+with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName
 of type jnxVpnPwVpnType transitions out of the 'down' state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4274,9 +4274,9 @@ of type jnxVpnPwVpnType transitions out of the 'down' state.&lt;/p&gt;&lt;table&
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxVpnPwUp trap received 
-			jnxVpnPwVpnType=%parm[#1]% 
-			jnxVpnPwVpnName=%parm[#2]% 
+			jnxVpnPwUp trap received
+			jnxVpnPwVpnType=%parm[#1]%
+			jnxVpnPwVpnName=%parm[#2]%
 			jnxVpnPwIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4300,7 +4300,7 @@ of type jnxVpnPwVpnType transitions out of the 'down' state.&lt;/p&gt;&lt;table&
 	<event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnPwDown</event-label>
 	<descr>
 &lt;p&gt;A jnxVpnPwDown notification is generated when the Pseudo-Wire
-with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName 
+with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName
 of type jnxVpnPwVpnType transitions to the 'down' state.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4327,9 +4327,9 @@ of type jnxVpnPwVpnType transitions to the 'down' state.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxVpnPwDown trap received 
-			jnxVpnPwVpnType=%parm[#1]% 
-			jnxVpnPwVpnName=%parm[#2]% 
+			jnxVpnPwDown trap received
+			jnxVpnPwVpnType=%parm[#1]%
+			jnxVpnPwVpnName=%parm[#2]%
 			jnxVpnPwIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4354,7 +4354,7 @@ of type jnxVpnPwVpnType transitions to the 'down' state.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServiceUp</uei>
 	<event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServiceUp</event-label>
 	<descr>
-&lt;p&gt;An access authentication trap signifies that the 
+&lt;p&gt;An access authentication trap signifies that the
 specified service has started. &lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -4380,7 +4380,7 @@ specified service has started. &lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServiceDown</uei>
 	<event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServiceDown</event-label>
 	<descr>
-&lt;p&gt;An access authentication trap signifies that the 
+&lt;p&gt;An access authentication trap signifies that the
 specified service has been stopped.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -4406,7 +4406,7 @@ specified service has been stopped.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServerDisabled</uei>
 	<event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServerDisabled</event-label>
 	<descr>
-&lt;p&gt;An access authentication trap signifies that 
+&lt;p&gt;An access authentication trap signifies that
 the External authentication server is not responding.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4414,7 +4414,7 @@ the External authentication server is not responding.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxAccessAuthServerDisabled trap received 
+			jnxAccessAuthServerDisabled trap received
 			jnxUserAAAServerName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4437,7 +4437,7 @@ the External authentication server is not responding.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServerEnabled</uei>
 	<event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServerEnabled</event-label>
 	<descr>
-&lt;p&gt;An access authentication trap signifies that 
+&lt;p&gt;An access authentication trap signifies that
 the External authentication server started responding
 again.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4446,7 +4446,7 @@ again.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxAccessAuthServerEnabled trap received 
+			jnxAccessAuthServerEnabled trap received
 			jnxUserAAAServerName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4502,11 +4502,11 @@ while transferring a collector file.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollUnavailableDest trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyUrl=%parm[#3]% 
-			jnxCollNotifyInetType=%parm[#4]% 
+			jnxCollUnavailableDest trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyUrl=%parm[#3]%
+			jnxCollNotifyInetType=%parm[#4]%
 			jnxCollNotifyInetAddress=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4529,7 +4529,7 @@ while transferring a collector file.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxCollUnavailableDestCleared</uei>
 	<event-label>JUNIPER-COLLECTOR-MIB defined trap event: jnxCollUnavailableDestCleared</event-label>
 	<descr>
-&lt;p&gt;This indicates a previous unavailable destination failure 
+&lt;p&gt;This indicates a previous unavailable destination failure
 has been resolved.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4560,11 +4560,11 @@ has been resolved.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollUnavailableDestCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyUrl=%parm[#3]% 
-			jnxCollNotifyInetType=%parm[#4]% 
+			jnxCollUnavailableDestCleared trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyUrl=%parm[#3]%
+			jnxCollNotifyInetType=%parm[#4]%
 			jnxCollNotifyInetAddress=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4634,15 +4634,15 @@ a file transfer.&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollUnsuccessfulTransfer trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyFile=%parm[#3]% 
-			jnxCollNotifyUrl=%parm[#4]% 
-			jnxCollNotifyInetType=%parm[#5]% 
-			jnxCollNotifyInetAddress=%parm[#6]% 
-			jnxCollNotifyError=%parm[#7]% 
-			jnxCollNotifyFtpResultCode=%parm[#8]% 
+			jnxCollUnsuccessfulTransfer trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyFile=%parm[#3]%
+			jnxCollNotifyUrl=%parm[#4]%
+			jnxCollNotifyInetType=%parm[#5]%
+			jnxCollNotifyInetAddress=%parm[#6]%
+			jnxCollNotifyError=%parm[#7]%
+			jnxCollNotifyFtpResultCode=%parm[#8]%
 			jnxCollNotifyFtpErrorText=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4696,12 +4696,12 @@ triggered.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollFlowOverload trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyOverloadType=%parm[#3]% 
-			jnxCollNotifyNewRecordRate=%parm[#4]% 
-			jnxCollPicIfCreatedFiles=%parm[#5]% 
+			jnxCollFlowOverload trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyOverloadType=%parm[#3]%
+			jnxCollNotifyNewRecordRate=%parm[#4]%
+			jnxCollPicIfCreatedFiles=%parm[#5]%
 			jnxCollPicIfDestroyedFiles=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4755,12 +4755,12 @@ cleared.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollFlowOverloadCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyOverloadType=%parm[#3]% 
-			jnxCollNotifyNewRecordRate=%parm[#4]% 
-			jnxCollPicIfCreatedFiles=%parm[#5]% 
+			jnxCollFlowOverloadCleared trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyOverloadType=%parm[#3]%
+			jnxCollNotifyNewRecordRate=%parm[#4]%
+			jnxCollPicIfCreatedFiles=%parm[#5]%
 			jnxCollPicIfDestroyedFiles=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4807,11 +4807,11 @@ triggered.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollMemoryUnavailable trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyMemThresh=%parm[#3]% 
-			jnxCollNotifyMemUtil=%parm[#4]% 
+			jnxCollMemoryUnavailable trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyMemThresh=%parm[#3]%
+			jnxCollNotifyMemUtil=%parm[#4]%
 			jnxCollNotifyMemFree=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4858,11 +4858,11 @@ cleared.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollMemoryAvailable trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollPicIfStateChangeDate=%parm[#2]% 
-			jnxCollNotifyMemThresh=%parm[#3]% 
-			jnxCollNotifyMemUtil=%parm[#4]% 
+			jnxCollMemoryAvailable trap received
+			ifDescr=%parm[#1]%
+			jnxCollPicIfStateChangeDate=%parm[#2]%
+			jnxCollNotifyMemThresh=%parm[#3]%
+			jnxCollNotifyMemUtil=%parm[#4]%
 			jnxCollNotifyMemFree=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4947,15 +4947,15 @@ cleared.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxCollFtpSwitchover trap received 
-			ifDescr=%parm[#1]% 
-			jnxCollNotifyDate=%parm[#2]% 
-			jnxCollNotifyFromFtpServerInetType=%parm[#3]% 
-			jnxCollNotifyFromFtpServerInetAddress=%parm[#4]% 
-			jnxCollNotifyFromFtpServerType=%parm[#5]% 
-			jnxCollNotifyToFtpServerInetType=%parm[#6]% 
-			jnxCollNotifyToFtpServerInetAddress=%parm[#7]% 
-			jnxCollNotifyToFtpServerType=%parm[#8]% 
+			jnxCollFtpSwitchover trap received
+			ifDescr=%parm[#1]%
+			jnxCollNotifyDate=%parm[#2]%
+			jnxCollNotifyFromFtpServerInetType=%parm[#3]%
+			jnxCollNotifyFromFtpServerInetAddress=%parm[#4]%
+			jnxCollNotifyFromFtpServerType=%parm[#5]%
+			jnxCollNotifyToFtpServerInetType=%parm[#6]%
+			jnxCollNotifyToFtpServerInetAddress=%parm[#7]%
+			jnxCollNotifyToFtpServerType=%parm[#8]%
 			jnxCollNotifyInitiatedBy=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4998,8 +4998,8 @@ is identified by jnxSpSvcSetIfMemoryZone.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSpSvcSetZoneEntered trap received 
-			jnxSpSvcSetIfMemoryZone=%parm[#1]% 
+			jnxSpSvcSetZoneEntered trap received
+			jnxSpSvcSetIfMemoryZone=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5040,8 +5040,8 @@ identified by jnxSpSvcSetIfMemoryZone.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSpSvcSetZoneExited trap received 
-			jnxSpSvcSetIfMemoryZone=%parm[#1]% 
+			jnxSpSvcSetZoneExited trap received
+			jnxSpSvcSetIfMemoryZone=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5076,8 +5076,8 @@ for CPU utilization (85%).&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSpSvcSetCpuExceeded trap received 
-			jnxSpSvcSetIfCpuUtil=%parm[#1]% 
+			jnxSpSvcSetCpuExceeded trap received
+			jnxSpSvcSetIfCpuUtil=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5100,7 +5100,7 @@ for CPU utilization (85%).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxSpSvcSetCpuOk</uei>
 	<event-label>JUNIPER-SP-MIB defined trap event: jnxSpSvcSetCpuOk</event-label>
 	<descr>
-&lt;p&gt;This indicates a Service Pic has crossed below its internal 
+&lt;p&gt;This indicates a Service Pic has crossed below its internal
 threshold for CPU utilization (85%).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5112,8 +5112,8 @@ threshold for CPU utilization (85%).&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSpSvcSetCpuOk trap received 
-			jnxSpSvcSetIfCpuUtil=%parm[#1]% 
+			jnxSpSvcSetCpuOk trap received
+			jnxSpSvcSetIfCpuUtil=%parm[#1]%
 			jnxSpSvcSetIfTableName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -5138,12 +5138,12 @@ threshold for CPU utilization (85%).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3VirtIfStateChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3VirtIfStateChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3VirtIfStateChange notification signifies that there 
-has been a change in the state of an OSPFv3 virtual 
-interface. 
+&lt;p&gt;An ospfv3VirtIfStateChange notification signifies that there
+has been a change in the state of an OSPFv3 virtual
+interface.
 
-This notification should be generated when the interface 
-state regresses (e.g., goes from Point-to-Point to Down) 
+This notification should be generated when the interface
+state regresses (e.g., goes from Point-to-Point to Down)
 or progresses to a terminal state (i.e., Point-to-Point).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5158,8 +5158,8 @@ or progresses to a terminal state (i.e., Point-to-Point).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3VirtIfStateChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3VirtIfStateChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3VirtIfState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5182,17 +5182,17 @@ or progresses to a terminal state (i.e., Point-to-Point).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3NbrStateChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3NbrStateChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3NbrStateChange notification signifies that 
-there has been a change in the state of a 
-non-virtual OSPFv3 neighbor. This notification should be 
-generated when the neighbor state regresses 
-(e.g., goes from Attempt or Full to 1-Way or 
-Down) or progresses to a terminal state (e.g., 
-2-Way or Full). When an neighbor transitions 
-from or to Full on non-broadcast multi-access 
-and broadcast networks, the notification should be 
-generated by the designated router. A designated 
-router transitioning to Down will be noted by 
+&lt;p&gt;An ospfv3NbrStateChange notification signifies that
+there has been a change in the state of a
+non-virtual OSPFv3 neighbor. This notification should be
+generated when the neighbor state regresses
+(e.g., goes from Attempt or Full to 1-Way or
+Down) or progresses to a terminal state (e.g.,
+2-Way or Full). When an neighbor transitions
+from or to Full on non-broadcast multi-access
+and broadcast networks, the notification should be
+generated by the designated router. A designated
+router transitioning to Down will be noted by
 ospfIfStateChange.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5213,8 +5213,8 @@ ospfIfStateChange.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3NbrStateChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3NbrStateChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3NbrState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5237,11 +5237,11 @@ ospfIfStateChange.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3VirtNbrStateChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3VirtNbrStateChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3VirtNbrStateChange notification signifies 
-that there has been a change in the state of an OSPFv3 
-virtual neighbor. This notification should be generated 
-when the neighbor state regresses (e.g., goes 
-from Attempt or Full to 1-Way or Down) or 
+&lt;p&gt;An ospfv3VirtNbrStateChange notification signifies
+that there has been a change in the state of an OSPFv3
+virtual neighbor. This notification should be generated
+when the neighbor state regresses (e.g., goes
+from Attempt or Full to 1-Way or Down) or
 progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5262,8 +5262,8 @@ progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3VirtNbrStateChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3VirtNbrStateChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3VirtNbrState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5286,12 +5286,12 @@ progresses to a terminal state (e.g., Full).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3IfConfigError</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3IfConfigError</event-label>
 	<descr>
-&lt;p&gt;An ospfv3IfConfigError notification signifies that a 
-packet has been received on a non-virtual 
-interface from a router whose configuration 
-parameters conflict with this router's 
-configuration parameters. Note that the event 
-optionMismatch should cause a notification only if it 
+&lt;p&gt;An ospfv3IfConfigError notification signifies that a
+packet has been received on a non-virtual
+interface from a router whose configuration
+parameters conflict with this router's
+configuration parameters. Note that the event
+optionMismatch should cause a notification only if it
 prevents an adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5341,11 +5341,11 @@ prevents an adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3IfConfigError trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3IfState=%parm[#2]% 
-			jnxOspfv3PacketSrc=%parm[#3]% 
-			jnxOspfv3ConfigErrorType=%parm[#4]% 
+			jnxOspfv3IfConfigError trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3IfState=%parm[#2]%
+			jnxOspfv3PacketSrc=%parm[#3]%
+			jnxOspfv3ConfigErrorType=%parm[#4]%
 			jnxOspfv3PacketType=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5368,12 +5368,12 @@ prevents an adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3VirtIfConfigError</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3VirtIfConfigError</event-label>
 	<descr>
-&lt;p&gt;An ospfv3VirtIfConfigError notification signifies that a 
-packet has been received on a virtual interface 
-from a router whose configuration parameters 
-conflict with this router's configuration 
-parameters. Note that the event optionMismatch 
-should cause a notification only if it prevents an 
+&lt;p&gt;An ospfv3VirtIfConfigError notification signifies that a
+packet has been received on a virtual interface
+from a router whose configuration parameters
+conflict with this router's configuration
+parameters. Note that the event optionMismatch
+should cause a notification only if it prevents an
 adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5414,10 +5414,10 @@ adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3VirtIfConfigError trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3VirtIfState=%parm[#2]% 
-			jnxOspfv3ConfigErrorType=%parm[#3]% 
+			jnxOspfv3VirtIfConfigError trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3VirtIfState=%parm[#2]%
+			jnxOspfv3ConfigErrorType=%parm[#3]%
 			jnxOspfv3PacketType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5440,8 +5440,8 @@ adjacency from forming.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3IfRxBadPacket</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3IfRxBadPacket</event-label>
 	<descr>
-&lt;p&gt;An ospfv3IfRxBadPacket notification signifies that an 
-ospfv3 packet that cannot be parsed has been received on a 
+&lt;p&gt;An ospfv3IfRxBadPacket notification signifies that an
+ospfv3 packet that cannot be parsed has been received on a
 non-virtual interface.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5476,10 +5476,10 @@ non-virtual interface.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3IfRxBadPacket trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3IfState=%parm[#2]% 
-			jnxOspfv3PacketSrc=%parm[#3]% 
+			jnxOspfv3IfRxBadPacket trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3IfState=%parm[#2]%
+			jnxOspfv3PacketSrc=%parm[#3]%
 			jnxOspfv3PacketType=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5502,8 +5502,8 @@ non-virtual interface.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3VirtIfRxBadPacket</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3VirtIfRxBadPacket</event-label>
 	<descr>
-&lt;p&gt;An ospfv3VirtIfRxBadPacket notification signifies 
-that an OSPFv3 packet that cannot be parsed has been received 
+&lt;p&gt;An ospfv3VirtIfRxBadPacket notification signifies
+that an OSPFv3 packet that cannot be parsed has been received
 on a virtual interface.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5529,9 +5529,9 @@ on a virtual interface.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3VirtIfRxBadPacket trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3VirtIfState=%parm[#2]% 
+			jnxOspfv3VirtIfRxBadPacket trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3VirtIfState=%parm[#2]%
 			jnxOspfv3PacketType=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5554,8 +5554,8 @@ on a virtual interface.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3LsdbOverflow</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3LsdbOverflow</event-label>
 	<descr>
-&lt;p&gt;An ospfv3LsdbOverflow notification signifies that the 
-number of LSAs in the router's link-state 
+&lt;p&gt;An ospfv3LsdbOverflow notification signifies that the
+number of LSAs in the router's link-state
 database has exceeded ospfv3ExtAreaLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5567,8 +5567,8 @@ database has exceeded ospfv3ExtAreaLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3LsdbOverflow trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3LsdbOverflow trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3ExtAreaLsdbLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5591,9 +5591,9 @@ database has exceeded ospfv3ExtAreaLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3LsdbApproachingOverflow</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3LsdbApproachingOverflow</event-label>
 	<descr>
-&lt;p&gt;An ospfv3LsdbApproachingOverflow notification signifies 
-that the number of LSAs in the router's 
-link-state database has exceeded ninety percent of 
+&lt;p&gt;An ospfv3LsdbApproachingOverflow notification signifies
+that the number of LSAs in the router's
+link-state database has exceeded ninety percent of
 ospfv3ExtAreaLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5605,8 +5605,8 @@ ospfv3ExtAreaLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3LsdbApproachingOverflow trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3LsdbApproachingOverflow trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3ExtAreaLsdbLimit=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5629,12 +5629,12 @@ ospfv3ExtAreaLsdbLimit.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3IfStateChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3IfStateChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3IfStateChange notification signifies that there 
-has been a change in the state of a non-virtual 
-OSPFv3 interface. This notification should be generated 
-when the interface state regresses (e.g., goes 
-from Dr to Down) or progresses to a terminal 
-state (i.e., Point-to-Point, DR Other, Dr, or 
+&lt;p&gt;An ospfv3IfStateChange notification signifies that there
+has been a change in the state of a non-virtual
+OSPFv3 interface. This notification should be generated
+when the interface state regresses (e.g., goes
+from Dr to Down) or progresses to a terminal
+state (i.e., Point-to-Point, DR Other, Dr, or
 Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5654,8 +5654,8 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3IfStateChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3IfStateChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3IfState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5678,11 +5678,11 @@ Backup).&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3NssaTranslatorStatusChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3NssaTranslatorStatusChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3NssaTranslatorStatusChange notification 
-indicates that there has been a change in the router's 
-ability to translate OSPFv3 NSSA LSAs into OSPFv3 External 
-LSAs. This notification should be generated when the 
-Translator Status transitions from or to any defined 
+&lt;p&gt;An ospfv3NssaTranslatorStatusChange notification
+indicates that there has been a change in the router's
+ability to translate OSPFv3 NSSA LSAs into OSPFv3 External
+LSAs. This notification should be generated when the
+Translator Status transitions from or to any defined
 status on a per area basis.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5698,8 +5698,8 @@ status on a per area basis.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3NssaTranslatorStatusChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
+			jnxOspfv3NssaTranslatorStatusChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
 			jnxOspfv3AreaNssaTranslatorState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5722,10 +5722,10 @@ status on a per area basis.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3RestartStatusChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3RestartStatusChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3RestartStatusChange notification signifies that 
-there has been a change in the graceful restart 
-state for the router. This notification should be 
-generated when the router restart status 
+&lt;p&gt;An ospfv3RestartStatusChange notification signifies that
+there has been a change in the graceful restart
+state for the router. This notification should be
+generated when the router restart status
 changes.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5755,10 +5755,10 @@ changes.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3RestartStatusChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3RestartStatus=%parm[#2]% 
-			jnxOspfv3RestartInterval=%parm[#3]% 
+			jnxOspfv3RestartStatusChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3RestartStatus=%parm[#2]%
+			jnxOspfv3RestartInterval=%parm[#3]%
 			jnxOspfv3RestartExitRc=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5781,10 +5781,10 @@ changes.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3NbrRestartHelperStatusChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3NbrRestartHelperStatusChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3NbrRestartHelperStatusChange notification 
-signifies that there has been a change in the 
-graceful restart helper state for the neighbor. 
-This notification should be generated when the 
+&lt;p&gt;An ospfv3NbrRestartHelperStatusChange notification
+signifies that there has been a change in the
+graceful restart helper state for the neighbor.
+This notification should be generated when the
 neighbor restart helper status transitions for a neighbor.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5813,10 +5813,10 @@ neighbor restart helper status transitions for a neighbor.&lt;/p&gt;&lt;table&gt
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3NbrRestartHelperStatusChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3NbrRestartHelperStatus=%parm[#2]% 
-			jnxOspfv3NbrRestartHelperAge=%parm[#3]% 
+			jnxOspfv3NbrRestartHelperStatusChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3NbrRestartHelperStatus=%parm[#2]%
+			jnxOspfv3NbrRestartHelperAge=%parm[#3]%
 			jnxOspfv3NbrRestartHelperExitRc=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5839,11 +5839,11 @@ neighbor restart helper status transitions for a neighbor.&lt;/p&gt;&lt;table&gt
 	<uei>uei.opennms.org/vendor/Juniper/traps/jnxOspfv3VirtNbrRestartHelperStatusChange</uei>
 	<event-label>OSPFV3-MIB-JUNIPER defined trap event: jnxOspfv3VirtNbrRestartHelperStatusChange</event-label>
 	<descr>
-&lt;p&gt;An ospfv3VirtNbrRestartHelperStatusChange 
-notification signifies that there has been a 
-change in the graceful restart helper state for 
-the virtual neighbor. This notification should be 
-generated when the virtual neighbor restart helper status 
+&lt;p&gt;An ospfv3VirtNbrRestartHelperStatusChange
+notification signifies that there has been a
+change in the graceful restart helper state for
+the virtual neighbor. This notification should be
+generated when the virtual neighbor restart helper status
 transitions for a virtual neighbor.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5872,10 +5872,10 @@ transitions for a virtual neighbor.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxOspfv3VirtNbrRestartHelperStatusChange trap received 
-			jnxOspfv3RouterId=%parm[#1]% 
-			jnxOspfv3VirtNbrRestartHelperStatus=%parm[#2]% 
-			jnxOspfv3VirtNbrRestartHelperAge=%parm[#3]% 
+			jnxOspfv3VirtNbrRestartHelperStatusChange trap received
+			jnxOspfv3RouterId=%parm[#1]%
+			jnxOspfv3VirtNbrRestartHelperStatus=%parm[#2]%
+			jnxOspfv3VirtNbrRestartHelperAge=%parm[#3]%
 			jnxOspfv3VirtNbrRestartHelperExitRc=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -5905,9 +5905,9 @@ transitions for a virtual neighbor.&lt;/p&gt;&lt;table&gt;
 	<event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
 	<descr>
 &lt;p&gt;Notification of a emergency generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5976,14 +5976,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSyslogTrap emergency trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap emergency trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -6011,9 +6011,9 @@ the jnxSyslogTrap objects, this notification can include
 	<event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
 	<descr>
 &lt;p&gt;Notification of a alert generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6082,14 +6082,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSyslogTrap alert trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap alert trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6117,9 +6117,9 @@ the jnxSyslogTrap objects, this notification can include
 	<event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
 	<descr>
 &lt;p&gt;Notification of a critical generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6188,14 +6188,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSyslogTrap critical trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap critical trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6223,9 +6223,9 @@ the jnxSyslogTrap objects, this notification can include
 	<event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
 	<descr>
 &lt;p&gt;Notification of a error generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6294,14 +6294,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSyslogTrap error trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap error trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6325,9 +6325,9 @@ the jnxSyslogTrap objects, this notification can include
 	<event-label>JUNIPER-SYSLOG-MIB defined trap event: jnxSyslogTrap</event-label>
 	<descr>
 &lt;p&gt;Notification of a generated syslog message. Apart from
-the jnxSyslogTrap objects, this notification can include 
- one or more attribute-value pairs. The attribute-value 
- pairs shall be identified by objects jnxSyslogAvAttribute 
+the jnxSyslogTrap objects, this notification can include
+ one or more attribute-value pairs. The attribute-value
+ pairs shall be identified by objects jnxSyslogAvAttribute
  and jnxSyslogAvValue.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6396,14 +6396,14 @@ the jnxSyslogTrap objects, this notification can include
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxSyslogTrap trap received 
-			jnxSyslogEventName=%parm[#1]% 
-			jnxSyslogTimestamp=%parm[#2]% 
-			jnxSyslogSeverity=%parm[#3]% 
-			jnxSyslogFacility=%parm[#4]% 
-			jnxSyslogProcessId=%parm[#5]% 
-			jnxSyslogProcessName=%parm[#6]% 
-			jnxSyslogHostName=%parm[#7]% 
+			jnxSyslogTrap trap received
+			jnxSyslogEventName=%parm[#1]%
+			jnxSyslogTimestamp=%parm[#2]%
+			jnxSyslogSeverity=%parm[#3]%
+			jnxSyslogFacility=%parm[#4]%
+			jnxSyslogProcessId=%parm[#5]%
+			jnxSyslogProcessName=%parm[#6]%
+			jnxSyslogHostName=%parm[#7]%
 			jnxSyslogMessage=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -6487,13 +6487,13 @@ the jnxSyslogTrap objects, this notification can include
 	<event-label>JUNIPER-JS-AUTH-MIB defined trap event: jnxJsFwAuthFailure</event-label>
 	<descr>
 &lt;p&gt;A firewall user authentication status trap signifies whether a user
-using the pass-through firewall authentication mechanism 
-has been rejected due to reason specified in the trap. 
+using the pass-through firewall authentication mechanism
+has been rejected due to reason specified in the trap.
 
 jnxJsFwAuthUserName is the user.
 jnxClientIPAddress is the ip address the user came from.
-jnxJsFwAuthServiceDesc specifies the application by 
-which the authentication was performed. 
+jnxJsFwAuthServiceDesc specifies the application by
+which the authentication was performed.
 jnxJsFwAuthReason indicates the reason for failure.&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -6594,7 +6594,7 @@ jnxJsFwAuthServiceDown trap received&lt;/p&gt;
 		<descr>
 &lt;p&gt;Firewall user authentication maximum capacity has been exceeded.
 
-jnxJsFwAuthTotalUsers indicates the total number of users 
+jnxJsFwAuthTotalUsers indicates the total number of users
 being authenticated.  And it has exceeds the maximum allowable
 users. &lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>

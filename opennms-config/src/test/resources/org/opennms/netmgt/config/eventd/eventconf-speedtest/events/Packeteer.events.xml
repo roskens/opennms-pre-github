@@ -33,7 +33,7 @@ this trap provides more information.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psAlarmSiteRouter trap received 
+			psAlarmSiteRouter trap received
 			psAlarmSiteRouterStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -245,18 +245,18 @@ give more information on the event.&lt;/p&gt;&lt;table&gt;
 	%parm[#12]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psAlarmUserEvent trap received 
-			userEventTrapName=%parm[#1]% 
-			userEventTrapExpression=%parm[#2]% 
-			userEventTrapVariable=%parm[#3]% 
-			userEventTrapElementType=%parm[#4]% 
-			userEventTrapRegid=%parm[#5]% 
-			userEventTrapDate=%parm[#6]% 
-			userEventTrapValue=%parm[#7]% 
-			userEventTrapTarget=%parm[#8]% 
-			userEventTrapThreshold=%parm[#9]% 
-			userEventTrapRearm=%parm[#10]% 
-			userEventTrapDayCount=%parm[#11]% 
+			psAlarmUserEvent trap received
+			userEventTrapName=%parm[#1]%
+			userEventTrapExpression=%parm[#2]%
+			userEventTrapVariable=%parm[#3]%
+			userEventTrapElementType=%parm[#4]%
+			userEventTrapRegid=%parm[#5]%
+			userEventTrapDate=%parm[#6]%
+			userEventTrapValue=%parm[#7]%
+			userEventTrapTarget=%parm[#8]%
+			userEventTrapThreshold=%parm[#9]%
+			userEventTrapRearm=%parm[#10]%
+			userEventTrapDayCount=%parm[#11]%
 			userEventTrapDayLimit=%parm[#12]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -298,7 +298,7 @@ startup. &lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psAlarmMeasurementEngine trap received 
+			psAlarmMeasurementEngine trap received
 			psAlarmMeasurementEngineStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -341,7 +341,7 @@ this trap provides more information.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psAlarmStandby trap received 
+			psAlarmStandby trap received
 			psAlarmStandbyStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -387,9 +387,9 @@ is the router that went down, the interface name will not be specified.&lt;/p&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psFeatureHighAvDeviceDown trap received 
-			psFeatureHighAvDeviceDownStatus=%parm[#1]% 
-			psFeatureHighAvDeviceDownRouter=%parm[#2]% 
+			psFeatureHighAvDeviceDown trap received
+			psFeatureHighAvDeviceDownStatus=%parm[#1]%
+			psFeatureHighAvDeviceDownRouter=%parm[#2]%
 			psFeatureHighAvDeviceDownInterface=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -439,10 +439,10 @@ give more information on the event.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psAlarmAgentEvent trap received 
-			agentEventTrapName=%parm[#1]% 
-			agentEventTrapDate=%parm[#2]% 
-			agentEventTrapType=%parm[#3]% 
+			psAlarmAgentEvent trap received
+			agentEventTrapName=%parm[#1]%
+			agentEventTrapDate=%parm[#2]%
+			agentEventTrapType=%parm[#3]%
 			agentEventTrapDescription=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -545,7 +545,7 @@ voltage inputs are outside the proper range.&lt;/p&gt;&lt;table&gt;&lt;/table&gt
 	<descr>
 &lt;p&gt;A psAlarmExtendedUserEvent trap signifies that a user event, which has
 been registered by the user, has occurred.  The associated variables
-give more information on the event.  This trap is an extension to 
+give more information on the event.  This trap is an extension to
 the current psAlarmUserEvent trap as it now adds the status of the event.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -608,19 +608,19 @@ the current psAlarmUserEvent trap as it now adds the status of the event.&lt;/p&
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			psAlarmExtendedUserEvent trap received 
-			userEventTrapName=%parm[#1]% 
-			userEventTrapExpression=%parm[#2]% 
-			userEventTrapVariable=%parm[#3]% 
-			userEventTrapElementType=%parm[#4]% 
-			userEventTrapRegid=%parm[#5]% 
-			userEventTrapDate=%parm[#6]% 
-			userEventTrapValue=%parm[#7]% 
-			userEventTrapTarget=%parm[#8]% 
-			userEventTrapThreshold=%parm[#9]% 
-			userEventTrapRearm=%parm[#10]% 
-			userEventTrapDayCount=%parm[#11]% 
-			userEventTrapDayLimit=%parm[#12]% 
+			psAlarmExtendedUserEvent trap received
+			userEventTrapName=%parm[#1]%
+			userEventTrapExpression=%parm[#2]%
+			userEventTrapVariable=%parm[#3]%
+			userEventTrapElementType=%parm[#4]%
+			userEventTrapRegid=%parm[#5]%
+			userEventTrapDate=%parm[#6]%
+			userEventTrapValue=%parm[#7]%
+			userEventTrapTarget=%parm[#8]%
+			userEventTrapThreshold=%parm[#9]%
+			userEventTrapRearm=%parm[#10]%
+			userEventTrapDayCount=%parm[#11]%
+			userEventTrapDayLimit=%parm[#12]%
 			userEventTrapStatus=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

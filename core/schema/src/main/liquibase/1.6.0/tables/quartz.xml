@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_job_details">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_job_details" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_job_details">
 			<column name="job_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -29,7 +29,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_job_listeners">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_job_listeners" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_job_listeners">
 			<column name="job_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -45,7 +45,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_triggers">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_triggers" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_triggers">
 			<column name="trigger_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -73,7 +73,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_simple_triggers">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_simple_triggers" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_simple_triggers">
 			<column name="trigger_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -91,7 +91,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_cron_triggers">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_cron_triggers" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_cron_triggers">
 			<column name="trigger_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -108,7 +108,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_blob_triggers">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_blob_triggers" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_blob_triggers">
 			<column name="trigger_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -124,7 +124,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_trigger_listeners">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_trigger_listeners" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_trigger_listeners">
 			<column name="trigger_name" type="varchar(80)"><constraints nullable="false" /></column>
@@ -140,7 +140,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_calendars">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_calendars" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_calendars">
 			<column name="calendar_name" type="varchar(80)">
@@ -153,7 +153,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_paused_trigger_grps">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_paused_trigger_grps" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_paused_trigger_grps">
 			<column name="trigger_group" type="varchar(80)">
@@ -165,7 +165,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_fired_triggers">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_fired_triggers" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_fired_triggers">
 			<column name="entry_id" type="varchar(95)">
@@ -187,7 +187,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_scheduler_state">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_scheduler_state" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_scheduler_state">
 			<column name="instance_name" type="varchar(80)">
@@ -202,7 +202,7 @@
 	<changeSet author="rangerrick" id="1.6.0-qrtz_locks">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="qrtz_locks" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="qrtz_locks">
 			<column name="lock_name" type="varchar(40)">
@@ -221,7 +221,7 @@
 
 		<preConditions onFail="MARK_RAN">
 			<sqlCheck expectedResult="0">SELECT COUNT(*) FROM qrtz_locks WHERE lock_name='TRIGGER_ACCESS'</sqlCheck>
-		</preConditions> 
+		</preConditions>
 
 		<insert tableName="qrtz_locks"><column name="lock_name" value="TRIGGER_ACCESS" /></insert>
 		<insert tableName="qrtz_locks"><column name="lock_name" value="JOB_ACCESS" /></insert>

@@ -18,7 +18,7 @@
 	<uei>uei.opennms.org/vendors/MRV/invalidPassword</uei>
 	<event-label>DEV-CFG-MIB defined trap event: invalidPassword</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 invalid password was used in the current protocol session.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -43,9 +43,9 @@ invalid password was used in the current protocol session.&lt;/p&gt;&lt;table&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			invalidPassword trap received 
-			nbsDevSessionType=%parm[#1]% 
-			nbsDevAuthenticationRejectReason=%parm[#2]% 
+			invalidPassword trap received
+			nbsDevSessionType=%parm[#1]%
+			nbsDevAuthenticationRejectReason=%parm[#2]%
 			nbsTrapHostIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -69,7 +69,7 @@ invalid password was used in the current protocol session.&lt;/p&gt;&lt;table&gt
 	<uei>uei.opennms.org/vendors/MRV/wrongAccess</uei>
 	<event-label>DEV-CFG-MIB defined trap event: wrongAccess</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 wrong access attempt is occured.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -102,11 +102,11 @@ wrong access attempt is occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wrongAccess trap received 
-			nbsTrapWrongAccessDateTime=%parm[#1]% 
-			nbsDevSessionType=%parm[#2]% 
-			nbsDevAuthenticationRejectReason=%parm[#3]% 
-			nbsTrapLoginName=%parm[#4]% 
+			wrongAccess trap received
+			nbsTrapWrongAccessDateTime=%parm[#1]%
+			nbsDevSessionType=%parm[#2]%
+			nbsDevAuthenticationRejectReason=%parm[#3]%
+			nbsTrapLoginName=%parm[#4]%
 			nbsTrapHostIpAddress=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -138,7 +138,7 @@ state of the device is changed.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			deviceRCMredundancyState trap received 
+			deviceRCMredundancyState trap received
 			nbsTrapRCMredundancyState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -174,7 +174,7 @@ mode of the device is changed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snmpAccessMode trap received 
+			snmpAccessMode trap received
 			nbsDevSNMPAccessMode=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -210,7 +210,7 @@ is rejected due to SNMP Access Mode of the Device.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snmpRequestRejected trap received 
+			snmpRequestRejected trap received
 			nbsDevSNMPAccessMode=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -234,7 +234,7 @@ is rejected due to SNMP Access Mode of the Device.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/powerSupplyUp</uei>
 	<event-label>DEV-CFG-MIB defined trap event: powerSupplyUp</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 power supply unit changes it's state from notActive to active&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -242,7 +242,7 @@ power supply unit changes it's state from notActive to active&lt;/p&gt;&lt;table
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			powerSupplyUp trap received 
+			powerSupplyUp trap received
 			nbsDevPSIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -266,7 +266,7 @@ power supply unit changes it's state from notActive to active&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/MRV/powerSupplyDown</uei>
 	<event-label>DEV-CFG-MIB defined trap event: powerSupplyDown</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 power supply unit changes it's state from active to notActive&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -274,7 +274,7 @@ power supply unit changes it's state from active to notActive&lt;/p&gt;&lt;table
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			powerSupplyDown trap received 
+			powerSupplyDown trap received
 			nbsDevPSIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -313,8 +313,8 @@ table.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			unresolvedMAC trap received 
-			nbMacScrRunPort=%parm[#1]% 
+			unresolvedMAC trap received
+			nbMacScrRunPort=%parm[#1]%
 			nbMacScrRunPortLockingMAC=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -340,7 +340,7 @@ table.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/portMacLimitExceeded</uei>
 	<event-label>VLAN-MIB defined trap event: portMacLimitExceeded</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 the Maximum number of MAC Addresses
 for the Port is exceeded.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -357,9 +357,9 @@ for the Port is exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portMacLimitExceeded trap received 
-			nbVlansRunPortMacLimitPortNumber=%parm[#1]% 
-			nbVlansRunPortMacLimitValue=%parm[#2]% 
+			portMacLimitExceeded trap received
+			nbVlansRunPortMacLimitPortNumber=%parm[#1]%
+			nbVlansRunPortMacLimitValue=%parm[#2]%
 			nbVlansRunPortMacLimitActionDescription=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -385,7 +385,7 @@ for the Port is exceeded.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/specSlotLinkChanged</uei>
 	<event-label>NSTACK-MIB defined trap event: specSlotLinkChanged</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 Link status was changed on the GER Module.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -393,7 +393,7 @@ Link status was changed on the GER Module.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			specSlotLinkChanged trap received 
+			specSlotLinkChanged trap received
 			nbsStackSlotSpecNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -419,7 +419,7 @@ Link status was changed on the GER Module.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/powerSupplyUp</uei>
 	<event-label>OADWDM-MIB defined trap event: powerSupplyUp</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 power supply unit changes it's state from notActive to active&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -427,7 +427,7 @@ power supply unit changes it's state from notActive to active&lt;/p&gt;&lt;table
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			powerSupplyUp trap received 
+			powerSupplyUp trap received
 			oaLdDevPSIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -451,7 +451,7 @@ power supply unit changes it's state from notActive to active&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/MRV/powerSupplyDown</uei>
 	<event-label>OADWDM-MIB defined trap event: powerSupplyDown</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 power supply unit changes it's state from active to notActive&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -459,7 +459,7 @@ power supply unit changes it's state from active to notActive&lt;/p&gt;&lt;table
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			powerSupplyDown trap received 
+			powerSupplyDown trap received
 			oaLdDevPSIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -483,7 +483,7 @@ power supply unit changes it's state from active to notActive&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/MRV/fanUp</uei>
 	<event-label>OADWDM-MIB defined trap event: fanUp</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 Fan unit changes it's state from notActive or fail to active&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -491,7 +491,7 @@ Fan unit changes it's state from notActive or fail to active&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fanUp trap received 
+			fanUp trap received
 			oaLdDevFANIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -515,7 +515,7 @@ Fan unit changes it's state from notActive or fail to active&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendors/MRV/fanDown</uei>
 	<event-label>OADWDM-MIB defined trap event: fanDown</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 Fan unit changes it's state from active to notActive or fail&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -523,7 +523,7 @@ Fan unit changes it's state from active to notActive or fail&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fanDown trap received 
+			fanDown trap received
 			oaLdDevFANIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -547,7 +547,7 @@ Fan unit changes it's state from active to notActive or fail&lt;/p&gt;&lt;table&
 	<uei>uei.opennms.org/vendors/MRV/configChangeIn</uei>
 	<event-label>OADWDM-MIB defined trap event: configChangeIn</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a card is inserted into the chassis&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -555,7 +555,7 @@ a card is inserted into the chassis&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			configChangeIn trap received 
+			configChangeIn trap received
 			oaLdCardIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -583,7 +583,7 @@ a card is inserted into the chassis&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/transponderAccessRxOn</uei>
 	<event-label>OADWDM-MIB defined trap event: transponderAccessRx</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a transponder card changes it's Access receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -599,8 +599,8 @@ a transponder card changes it's Access receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			transponderAccessRx trap received 
-			oaLdCardIndex=%parm[#1]% 
+			transponderAccessRx trap received
+			oaLdCardIndex=%parm[#1]%
 			oaLdCardOptAccRx=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -624,7 +624,7 @@ a transponder card changes it's Access receive indication&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/transponderAccessRx</uei>
 	<event-label>OADWDM-MIB defined trap event: transponderAccessRx</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a transponder card changes it's Access receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -640,8 +640,8 @@ a transponder card changes it's Access receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			transponderAccessRx trap received 
-			oaLdCardIndex=%parm[#1]% 
+			transponderAccessRx trap received
+			oaLdCardIndex=%parm[#1]%
 			oaLdCardOptAccRx=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -669,7 +669,7 @@ a transponder card changes it's Access receive indication&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/transponderWdmRxOn</uei>
 	<event-label>OADWDM-MIB defined trap event: transponderWdmRx</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a transponder card changes it's WDM receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -685,8 +685,8 @@ a transponder card changes it's WDM receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			transponderWdmRx trap received 
-			oaLdCardIndex=%parm[#1]% 
+			transponderWdmRx trap received
+			oaLdCardIndex=%parm[#1]%
 			oaLdCardOptDwdmRx=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -710,7 +710,7 @@ a transponder card changes it's WDM receive indication&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/transponderWdmRx</uei>
 	<event-label>OADWDM-MIB defined trap event: transponderWdmRx</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a transponder card changes it's WDM receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -726,8 +726,8 @@ a transponder card changes it's WDM receive indication&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			transponderWdmRx trap received 
-			oaLdCardIndex=%parm[#1]% 
+			transponderWdmRx trap received
+			oaLdCardIndex=%parm[#1]%
 			oaLdCardOptDwdmRx=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -751,7 +751,7 @@ a transponder card changes it's WDM receive indication&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/configChangeOut</uei>
 	<event-label>OADWDM-MIB defined trap event: configChangeOut</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a card is taken out of the chassis&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -759,7 +759,7 @@ a card is taken out of the chassis&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			configChangeOut trap received 
+			configChangeOut trap received
 			oaLdCardIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -787,7 +787,7 @@ a card is taken out of the chassis&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/transponderCardLoopBackNormal</uei>
 	<event-label>OADWDM-MIB defined trap event: transponderCardLoopBack</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a transponder card changes it's LoopBack state&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -805,8 +805,8 @@ a transponder card changes it's LoopBack state&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			transponderCardLoopBack trap received 
-			oaLdCardIndex=%parm[#1]% 
+			transponderCardLoopBack trap received
+			oaLdCardIndex=%parm[#1]%
 			oaLdCardLoopBack=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -830,7 +830,7 @@ a transponder card changes it's LoopBack state&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/transponderCardLoopBack</uei>
 	<event-label>OADWDM-MIB defined trap event: transponderCardLoopBack</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 a transponder card changes it's LoopBack state&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -848,8 +848,8 @@ a transponder card changes it's LoopBack state&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			transponderCardLoopBack trap received 
-			oaLdCardIndex=%parm[#1]% 
+			transponderCardLoopBack trap received
+			oaLdCardIndex=%parm[#1]%
 			oaLdCardLoopBack=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -873,7 +873,7 @@ a transponder card changes it's LoopBack state&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/switchPrimary</uei>
 	<event-label>OADWDM-MIB defined trap event: switchPrimary</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 optical switch on redundant card changes it's state
 from Secondary to Primary&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
@@ -901,7 +901,7 @@ from Secondary to Primary&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendors/MRV/switchSecondary</uei>
 	<event-label>OADWDM-MIB defined trap event: switchSecondary</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 optical switch on redundant card changes it's state
 from Primary to Secondary&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
@@ -928,7 +928,7 @@ from Primary to Secondary&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendors/MRV/redundantCardPrimaryRx</uei>
 	<event-label>OADWDM-MIB defined trap event: redundantCardPrimaryRx</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 on redundant card the Primary fiber Receive status is changed&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -944,8 +944,8 @@ on redundant card the Primary fiber Receive status is changed&lt;/p&gt;&lt;table
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			redundantCardPrimaryRx trap received 
-			oaLdRedOptSlotNumber=%parm[#1]% 
+			redundantCardPrimaryRx trap received
+			oaLdRedOptSlotNumber=%parm[#1]%
 			oaLdRedOptPrimaryRx=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -969,7 +969,7 @@ on redundant card the Primary fiber Receive status is changed&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/MRV/redundantCardSecondaryRx</uei>
 	<event-label>OADWDM-MIB defined trap event: redundantCardSecondaryRx</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 on redundant card the Secondary fiber Receive status is changed&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -985,8 +985,8 @@ on redundant card the Secondary fiber Receive status is changed&lt;/p&gt;&lt;tab
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			redundantCardSecondaryRx trap received 
-			oaLdRedOptSlotNumber=%parm[#1]% 
+			redundantCardSecondaryRx trap received
+			oaLdRedOptSlotNumber=%parm[#1]%
 			oaLdRedOptSecondaryRx=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1013,7 +1013,7 @@ on redundant card the Secondary fiber Receive status is changed&lt;/p&gt;&lt;tab
 	<uei>uei.opennms.org/vendors/MRV/cardPortsLinkOn</uei>
 	<event-label>OADWDM-MIB defined trap event: cardPortsLink</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 the link status of a port at the card is changed&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1033,9 +1033,9 @@ the link status of a port at the card is changed&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cardPortsLink trap received 
-			oaLdCardPortsSlotNumber=%parm[#1]% 
-			oaLdCardPortsPortNumber=%parm[#2]% 
+			cardPortsLink trap received
+			oaLdCardPortsSlotNumber=%parm[#1]%
+			oaLdCardPortsPortNumber=%parm[#2]%
 			oaLdCardPortsLink=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1059,7 +1059,7 @@ the link status of a port at the card is changed&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/cardPortsLink</uei>
 	<event-label>OADWDM-MIB defined trap event: cardPortsLink</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 the link status of a port at the card is changed&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1079,9 +1079,9 @@ the link status of a port at the card is changed&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cardPortsLink trap received 
-			oaLdCardPortsSlotNumber=%parm[#1]% 
-			oaLdCardPortsPortNumber=%parm[#2]% 
+			cardPortsLink trap received
+			oaLdCardPortsSlotNumber=%parm[#1]%
+			oaLdCardPortsPortNumber=%parm[#2]%
 			oaLdCardPortsLink=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1127,10 +1127,10 @@ exceeds the value defined in oaVdslMaxOKBerValue.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vdslPortBer trap received 
-			ifIndex=%parm[#1]% 
-			oaVdslPortBER=%parm[#2]% 
-			oaVdslBerInterval=%parm[#3]% 
+			vdslPortBer trap received
+			ifIndex=%parm[#1]%
+			oaVdslPortBER=%parm[#2]%
+			oaVdslBerInterval=%parm[#3]%
 			oaVdslBerMinValueToReport=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1154,7 +1154,7 @@ exceeds the value defined in oaVdslMaxOKBerValue.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/vdslPortLinkUp</uei>
 	<event-label>OA-VDSL-MIB defined trap event: vdslPortLinkUp</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 VDSL Link changes it's state to UP.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1162,7 +1162,7 @@ VDSL Link changes it's state to UP.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vdslPortLinkUp trap received 
+			vdslPortLinkUp trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1186,7 +1186,7 @@ VDSL Link changes it's state to UP.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/MRV/vdslPortLinkDown</uei>
 	<event-label>OA-VDSL-MIB defined trap event: vdslPortLinkDown</event-label>
 	<descr>
-&lt;p&gt;The SNMP trap that is generated when 
+&lt;p&gt;The SNMP trap that is generated when
 VDSL Link changes it's state to DOWN.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1194,7 +1194,7 @@ VDSL Link changes it's state to DOWN.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vdslPortLinkDown trap received 
+			vdslPortLinkDown trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1237,9 +1237,9 @@ to specific sub-trunk.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaVoiceBrokenRtpConnection trap received 
-			oaVoiceSlotIndex=%parm[#1]% 
-			oaVoicePortIndex=%parm[#2]% 
+			oaVoiceBrokenRtpConnection trap received
+			oaVoiceSlotIndex=%parm[#1]%
+			oaVoicePortIndex=%parm[#2]%
 			oaVoiceSubTrunkIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1280,9 +1280,9 @@ to specific sub-trunk.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaVoiceRtpConnectionReastablished trap received 
-			oaVoiceSlotIndex=%parm[#1]% 
-			oaVoicePortIndex=%parm[#2]% 
+			oaVoiceRtpConnectionReastablished trap received
+			oaVoiceSlotIndex=%parm[#1]%
+			oaVoicePortIndex=%parm[#2]%
 			oaVoiceSubTrunkIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1310,7 +1310,7 @@ to specific sub-trunk.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;The SNMP trap that is generated when total laser power
 drops below the user set minimum value. This trap includes
-the total laser power measured by the transmit module. 
+the total laser power measured by the transmit module.
 total laser power = arg[0] / 100mW&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1318,7 +1318,7 @@ total laser power = arg[0] / 100mW&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaATerTxTotalLaserPowerAlarm trap received 
+			oaATerTxTotalLaserPowerAlarm trap received
 			oaATerTxTotalLaserPower=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1356,7 +1356,7 @@ not present.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaATerTxUserDataStatusAlarm trap received 
+			oaATerTxUserDataStatusAlarm trap received
 			oaATerTxUserDataStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1391,7 +1391,7 @@ not present.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaATerTxUserDataStatusAlarm trap received 
+			oaATerTxUserDataStatusAlarm trap received
 			oaATerTxUserDataStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1417,7 +1417,7 @@ not present.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;The SNMP trap that is generated when the APD current
 drops below the user set minimum value. This trap includes
-the measured APD current in microAmps (uA). 
+the measured APD current in microAmps (uA).
 APD current = arg[0] / 100uA&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1425,7 +1425,7 @@ APD current = arg[0] / 100uA&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaATerRxAPDCurrentAlarm trap received 
+			oaATerRxAPDCurrentAlarm trap received
 			oaATerRxAPDCurrent=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1450,8 +1450,8 @@ APD current = arg[0] / 100uA&lt;/p&gt;&lt;table&gt;
 	<event-label>OAATERESCOPE-MIB defined trap event: oaATerRxTempAlarm</event-label>
 	<descr>
 &lt;p&gt;The SNMP trap that is generated when the receiver board
-temperature rises above the user set maximum value. This 
-trap includes the measured temperature in degrees celcius. 
+temperature rises above the user set maximum value. This
+trap includes the measured temperature in degrees celcius.
 temperature = arg[0] / 100 degrees C&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1459,7 +1459,7 @@ temperature = arg[0] / 100 degrees C&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaATerRxTempAlarm trap received 
+			oaATerRxTempAlarm trap received
 			oaATerRxTemperature=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1484,8 +1484,8 @@ temperature = arg[0] / 100 degrees C&lt;/p&gt;&lt;table&gt;
 	<event-label>OAATERESCOPE-MIB defined trap event: oaATerTxTempAlarm</event-label>
 	<descr>
 &lt;p&gt;The SNMP trap that is generated when the transmitter board
-temperature rises above the user set maximum value. This 
-trap includes the measured temperature in degrees celcius. 
+temperature rises above the user set maximum value. This
+trap includes the measured temperature in degrees celcius.
 temperature = arg[0] / 100 degrees C&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1493,7 +1493,7 @@ temperature = arg[0] / 100 degrees C&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			oaATerTxTempAlarm trap received 
+			oaATerTxTempAlarm trap received
 			oaATerTxTemperature=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

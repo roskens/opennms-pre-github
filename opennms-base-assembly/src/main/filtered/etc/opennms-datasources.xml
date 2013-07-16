@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<datasource-configuration xmlns:this="http://xmlns.opennms.org/xsd/config/opennms-datasources" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/opennms-datasources 
+<datasource-configuration xmlns:this="http://xmlns.opennms.org/xsd/config/opennms-datasources"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/opennms-datasources
   http://www.opennms.org/xsd/config/opennms-datasources.xsd ">
 
-  <!-- 
+  <!--
     Available implementations:
 	   org.opennms.core.db.C3P0ConnectionFactory
 		  - Uses C3P0 (http://sourceforge.net/projects/c3p0/)  This is the default.
@@ -22,16 +22,16 @@
     maxPool="50"
     maxSize="500" />
 
-  <jdbc-data-source name="opennms" 
-                    database-name="${install.database.name}" 
-                    class-name="${install.database.driver}" 
+  <jdbc-data-source name="opennms"
+                    database-name="${install.database.name}"
+                    class-name="${install.database.driver}"
                     url="jdbc:postgresql://localhost:5432/${install.database.name}"
                     user-name="${install.database.user}"
                     password="${install.database.password}" />
 
-  <jdbc-data-source name="opennms-admin" 
-                    database-name="template1" 
-                    class-name="${install.database.driver}" 
+  <jdbc-data-source name="opennms-admin"
+                    database-name="template1"
+                    class-name="${install.database.driver}"
                     url="jdbc:postgresql://localhost:5432/template1"
                     user-name="${install.database.admin.user}"
                     password="${install.database.admin.password}" />

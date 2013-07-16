@@ -39,7 +39,7 @@
   <!-- Invalid acktypes should just be ignored -->
   <page virtual-host="${virtualHost}" path="/opennms/alarm/list.htm" query="acktype=jackson" port="${port}" response-range="200"/>
 
-  <!-- 
+  <!--
     Hmm there are like, 1 million possibilities here.
     Find them all inside the org.opennms.web.alarm.filter package.
   -->

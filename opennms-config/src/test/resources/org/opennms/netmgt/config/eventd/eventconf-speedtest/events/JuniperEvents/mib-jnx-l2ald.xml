@@ -20,7 +20,7 @@
     <event-label>JUNIPER-L2ALD-MIB defined trap event: jnxl2aldRoutingInstMacLimit</event-label>
     <descr><![CDATA[
 <p>This notification is generated when the MAC limit for
-given routing instance (jnxl2aldRoutingInst) is reached. 
+given routing instance (jnxl2aldRoutingInst) is reached.
 This trap is send only once we exceed the limit value.</p><table>
 	<tr><td><b>
 
@@ -40,10 +40,10 @@ This trap is send only once we exceed the limit value.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxl2aldRoutingInstMacLimit trap received 
-			jnxl2aldLogicalRouter=%parm[#1]% 
-			jnxl2aldRoutingInst=%parm[#2]% 
-			jnxl2aldBridgeDomain=%parm[#3]% 
+			jnxl2aldRoutingInstMacLimit trap received
+			jnxl2aldLogicalRouter=%parm[#1]%
+			jnxl2aldRoutingInst=%parm[#2]%
+			jnxl2aldBridgeDomain=%parm[#3]%
 			jnxl2aldMacLimit=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -67,7 +67,7 @@ This trap is send only once we exceed the limit value.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxl2aldInterfaceMacLimit</uei>
     <event-label>JUNIPER-L2ALD-MIB defined trap event: jnxl2aldInterfaceMacLimit</event-label>
     <descr><![CDATA[
-<p>This notification is generated when the MAC limit for 
+<p>This notification is generated when the MAC limit for
 the given physical interface (jnxl2aldInterfaceMacLimit) is reached.
 This trap is send only once we exceed the limit value.</p><table>
 	<tr><td><b>
@@ -92,11 +92,11 @@ This trap is send only once we exceed the limit value.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxl2aldInterfaceMacLimit trap received 
-			jnxl2aldIntfLogicalRouter=%parm[#1]% 
-			jnxl2aldIntfRoutingInst=%parm[#2]% 
-			jnxl2aldIntfBridgeDomain=%parm[#3]% 
-			ifDescr=%parm[#4]% 
+			jnxl2aldInterfaceMacLimit trap received
+			jnxl2aldIntfLogicalRouter=%parm[#1]%
+			jnxl2aldIntfRoutingInst=%parm[#2]%
+			jnxl2aldIntfBridgeDomain=%parm[#3]%
+			ifDescr=%parm[#4]%
 			jnxl2aldIntfMacLimit=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -129,7 +129,7 @@ This trap is send only once we exceed the limit value.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxl2aldGlobalMacLimit trap received 
+			jnxl2aldGlobalMacLimit trap received
 			jnxl2aldGbMacLimit=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Minor</severity>

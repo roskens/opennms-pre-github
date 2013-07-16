@@ -10,7 +10,7 @@
     <changeSet author="rangerrick" id="1.9.91-make-vlan-id-unique">
 		<preConditions onFail="MARK_RAN">
 			<not><indexExists tableName="vlan" indexName="vlan_id_key" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createIndex tableName="vlan" indexName="vlan_id_key" unique="true">
 			<column name="id" />
@@ -24,7 +24,7 @@
     <changeSet author="rangerrick" id="1.9.91-make-stpnode-id-unique">
 		<preConditions onFail="MARK_RAN">
 			<not><indexExists tableName="stpnode" indexName="stpnode_id_key" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createIndex tableName="stpnode" indexName="stpnode_id_key" unique="true">
 			<column name="id" />
@@ -38,7 +38,7 @@
     <changeSet author="rangerrick" id="1.9.91-make-stpinterface-id-unique">
 		<preConditions onFail="MARK_RAN">
 			<not><indexExists tableName="stpinterface" indexName="stpinterface_id_key" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createIndex tableName="stpinterface" indexName="stpinterface_id_key" unique="true">
 			<column name="id" />
@@ -52,7 +52,7 @@
     <changeSet author="rangerrick" id="1.9.91-make-iprouteinterface-id-unique">
 		<preConditions onFail="MARK_RAN">
 			<not><indexExists tableName="iprouteinterface" indexName="iprouteinterface_id_key" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createIndex tableName="iprouteinterface" indexName="iprouteinterface_id_key" unique="true">
 			<column name="id" />

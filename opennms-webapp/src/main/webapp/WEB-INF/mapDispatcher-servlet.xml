@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:aop="http://www.springframework.org/schema/aop" 
+	   xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
  	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
@@ -29,7 +29,7 @@
 	<property name="prefix" value="/WEB-INF/jsp/" />
 	<property name="suffix" value=".jsp" />
   </bean>
-  
+
 	<!-- Necessary to Client and Server to communicate and display correct informations -->
   <bean id="mapsPropertiesFactory" class="org.opennms.web.map.config.MapPropertiesFactory">
      <constructor-arg value="${opennms.home}/etc/map.properties"/>
@@ -45,14 +45,14 @@
     <!-- Enable these and configure if you want to get status, severity and avail from other sources -->
     <!-- This sources try to get info for node under filter-->
     <!-- property name="dataSource"><ref bean="dataSource"/></property-->
-    <!-- property name="filter" 
-    value="SELECT distinct assets.nodeid from assets left join ipinterface on asset.nodeid = ipinterface.nodeid 
+    <!-- property name="filter"
+    value="SELECT distinct assets.nodeid from assets left join ipinterface on asset.nodeid = ipinterface.nodeid
     where displaycategory='Server' and iplike(ipaddr,'10.*.*.*')"/-->
   </bean>
-  
+
     <!-- Enable this if you want to get status, severity and avail from other sources -->
     <!-- This sources try to get info for node under filter-->
-    
+
   <!-- bean id="dataSource" class="org.opennms.web.map.db.datasources.ServerDataSource">
   	<constructor-arg>
   		<map>
@@ -68,7 +68,7 @@
     		</entry>
     		<entry><key><value>password</value></key>
     			<value>password</value>
-    		</entry>	    			    		
+		</entry>
     	</map>
     </constructor-arg>
   </bean -->
@@ -84,7 +84,7 @@
   <bean name="/admin/ReloadConfig.map" class="org.opennms.web.map.ReloadConfigController">
     <property name="manager" ref="manager" />
   </bean>
- 
+
   <bean name="/OpenMap.map" class="org.opennms.web.map.OpenMapController">
     <property name="manager" ref="manager" />
   </bean>
@@ -96,7 +96,7 @@
   <bean name="/CloseMap.map" class="org.opennms.web.map.CloseMapController">
     <property name="manager" ref="manager" />
   </bean>
-  
+
   <bean name="/admin/DeleteMap.map" class="org.opennms.web.map.DeleteMapController">
     <property name="manager" ref="manager" />
   </bean>
@@ -108,7 +108,7 @@
   <bean name="/admin/SaveMap.map" class="org.opennms.web.map.SaveMapController">
     <property name="manager" ref="manager" />
   </bean>
-  
+
   <bean name="/LoadDefaultMap.map" class="org.opennms.web.map.LoadDefaultMapController">
     <property name="manager" ref="manager" />
   </bean>
@@ -133,23 +133,23 @@
   <bean name="/admin/AddNodes.map" class="org.opennms.web.map.AddNodesController">
     <property name="manager" ref="manager" />
   </bean>
-  
+
   <bean name="/admin/AddMaps.map" class="org.opennms.web.map.AddMapsController">
     <property name="manager" ref="manager" />
-  </bean> 
-  
+  </bean>
+
   <bean name="/admin/DeleteElements.map" class="org.opennms.web.map.DeleteElementsController">
     <property name="manager" ref="manager" />
-  </bean>  
-  
-  <bean name="/ExecCommand.map" class="org.opennms.web.map.ExecCommandController"/>   
+  </bean>
+
+  <bean name="/ExecCommand.map" class="org.opennms.web.map.ExecCommandController"/>
 
   <bean name="/ExecCommandAjax.map" class="org.opennms.web.map.ExecCommandAjaxController">
   	<property name="manager" ref="manager" />
-  </bean>   
-  
+  </bean>
+
   <bean name="/RefreshMap.map" class="org.opennms.web.map.RefreshMapController">
     <property name="manager" ref="manager" />
-  </bean>       
+  </bean>
 
 </beans>

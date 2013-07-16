@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -18,13 +18,13 @@ CREATE OR REPLACE FUNCTION getManagedServiceCountForIntf(integer,varchar(16))
         counter float8;
    BEGIN
         counter = 0;
-        FOR orec IN SELECT DISTINCT ifservices.nodeid, ifservices.ipaddr, ifservices.serviceid 
-                FROM ipinterface, ifservices 
-                WHERE ifservices.nodeid = nid 
-                        AND ifservices.ipaddr = ipid 
-                        AND ipinterface.nodeid = nid 
-                        AND ipinterface.ipaddr = ipid 
-                        AND ipinterface.ismanaged = ''M'' 
+        FOR orec IN SELECT DISTINCT ifservices.nodeid, ifservices.ipaddr, ifservices.serviceid
+                FROM ipinterface, ifservices
+                WHERE ifservices.nodeid = nid
+                        AND ifservices.ipaddr = ipid
+                        AND ipinterface.nodeid = nid
+                        AND ipinterface.ipaddr = ipid
+                        AND ipinterface.ismanaged = ''M''
                         AND ifservices.status = ''A''
         LOOP
                 BEGIN

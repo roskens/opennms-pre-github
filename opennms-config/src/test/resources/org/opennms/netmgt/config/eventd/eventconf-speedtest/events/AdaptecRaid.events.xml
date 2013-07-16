@@ -25,7 +25,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptOtherTrap trap received 
+			dptOtherTrap trap received
 			dptScsiEventInfo=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -67,8 +67,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaVoltageNormalTrap trap received 
-			dptScsiHbaVoltage=%parm[#1]% 
+			dptHbaVoltageNormalTrap trap received
+			dptScsiHbaVoltage=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -110,8 +110,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaTemperatureNormalTrap trap received 
-			dptScsiHbaTemperature=%parm[#1]% 
+			dptHbaTemperatureNormalTrap trap received
+			dptScsiHbaTemperature=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -146,8 +146,8 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaEccRAMErrorNotFoundTrap trap received 
-			dptScsiHbaBadMemoryAddress=%parm[#1]% 
+			dptHbaEccRAMErrorNotFoundTrap trap received
+			dptScsiHbaBadMemoryAddress=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -213,12 +213,12 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevStatusChangedTrap trap received 
-			dptScsiDevStatus=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptDevStatusChangedTrap trap received
+			dptScsiDevStatus=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -268,12 +268,12 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevReqSenseTrap trap received 
-			dptScsiDevLastReqSenseInfo=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptDevReqSenseTrap trap received
+			dptScsiDevLastReqSenseInfo=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -319,11 +319,11 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptArrayChangeTrap trap received 
-			dptScsiHbaNumber=%parm[#1]% 
-			dptScsiBusNumber=%parm[#2]% 
-			dptScsiDevId=%parm[#3]% 
-			dptScsiDevLun=%parm[#4]% 
+			dptArrayChangeTrap trap received
+			dptScsiHbaNumber=%parm[#1]%
+			dptScsiBusNumber=%parm[#2]%
+			dptScsiDevId=%parm[#3]%
+			dptScsiDevLun=%parm[#4]%
 			dptScsiDevLevel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -371,8 +371,8 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptBatteryChangeTrap trap received 
-			dptScsiHbaNumber=%parm[#1]% 
+			dptBatteryChangeTrap trap received
+			dptScsiHbaNumber=%parm[#1]%
 			dptScsiHbaBatteryStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -414,8 +414,8 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaAuxVoltageNormalTrap trap received 
-			dptScsiEventAuxVoltage=%parm[#1]% 
+			dptHbaAuxVoltageNormalTrap trap received
+			dptScsiEventAuxVoltage=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -445,7 +445,7 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaNoSparesTrap trap received 
+			dptHbaNoSparesTrap trap received
 			dptScsiHbaNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -515,13 +515,13 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevStatusChanged2Trap trap received 
-			dptScsiDevStatus=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
-			dptScsiDevLevel=%parm[#6]% 
+			dptDevStatusChanged2Trap trap received
+			dptScsiDevStatus=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
+			dptScsiDevLevel=%parm[#6]%
 			dptScsiEventStatusString=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -573,9 +573,9 @@ found when correction was attempted.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptBatteryChange2Trap trap received 
-			dptScsiHbaNumber=%parm[#1]% 
-			dptScsiHbaBatteryStatus=%parm[#2]% 
+			dptBatteryChange2Trap trap received
+			dptScsiHbaNumber=%parm[#1]%
+			dptScsiHbaBatteryStatus=%parm[#2]%
 			dptScsiEventStatusString=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -610,8 +610,8 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaEccRAMErrorCorrectedTrap trap received 
-			dptScsiHbaBadMemoryAddress=%parm[#1]% 
+			dptHbaEccRAMErrorCorrectedTrap trap received
+			dptScsiHbaBadMemoryAddress=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -662,12 +662,12 @@ contains the reassigned block number.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevBlockReassignedTrap trap received 
-			dptScsiDevBadBlockNumber=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptDevBlockReassignedTrap trap received
+			dptScsiDevBadBlockNumber=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -717,12 +717,12 @@ contains the reassigned block number.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevReqSenseErrorTrap trap received 
-			dptScsiDevLastReqSenseInfo=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptDevReqSenseErrorTrap trap received
+			dptScsiDevLastReqSenseInfo=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -764,8 +764,8 @@ contains the reassigned block number.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaVoltageChangeTrap trap received 
-			dptScsiHbaVoltage=%parm[#1]% 
+			dptHbaVoltageChangeTrap trap received
+			dptScsiHbaVoltage=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -807,8 +807,8 @@ contains the reassigned block number.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaTemperatureHighTrap trap received 
-			dptScsiHbaTemperature=%parm[#1]% 
+			dptHbaTemperatureHighTrap trap received
+			dptScsiHbaTemperature=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -843,8 +843,8 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaEccRAMErrorUncorrectableTrap trap received 
-			dptScsiHbaBadMemoryAddress=%parm[#1]% 
+			dptHbaEccRAMErrorUncorrectableTrap trap received
+			dptScsiHbaBadMemoryAddress=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -910,12 +910,12 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptArrayStatusChangeDegradedTrap trap received 
-			dptScsiDevStatus=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptArrayStatusChangeDegradedTrap trap received
+			dptScsiDevStatus=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -965,12 +965,12 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevReqSenseSeriousErrorTrap trap received 
-			dptScsiDevLastReqSenseInfo=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptDevReqSenseSeriousErrorTrap trap received
+			dptScsiDevLastReqSenseInfo=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1024,13 +1024,13 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevArrayDataInconsistencyTrap trap received 
-			dptScsiDevBadBlockNumber=%parm[#1]% 
-			dptScsiDevBadBlockCount=%parm[#2]% 
-			dptScsiHbaNumber=%parm[#3]% 
-			dptScsiBusNumber=%parm[#4]% 
-			dptScsiDevId=%parm[#5]% 
-			dptScsiDevLun=%parm[#6]% 
+			dptDevArrayDataInconsistencyTrap trap received
+			dptScsiDevBadBlockNumber=%parm[#1]%
+			dptScsiDevBadBlockCount=%parm[#2]%
+			dptScsiHbaNumber=%parm[#3]%
+			dptScsiBusNumber=%parm[#4]%
+			dptScsiDevId=%parm[#5]%
+			dptScsiDevLun=%parm[#6]%
 			dptScsiDevLevel=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1060,7 +1060,7 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaErrorTrap trap received 
+			dptHbaErrorTrap trap received
 			dptScsiHbaNumber=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1106,11 +1106,11 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevFailedTrap trap received 
-			dptScsiHbaNumber=%parm[#1]% 
-			dptScsiBusNumber=%parm[#2]% 
-			dptScsiDevId=%parm[#3]% 
-			dptScsiDevLun=%parm[#4]% 
+			dptDevFailedTrap trap received
+			dptScsiHbaNumber=%parm[#1]%
+			dptScsiBusNumber=%parm[#2]%
+			dptScsiDevId=%parm[#3]%
+			dptScsiDevLun=%parm[#4]%
 			dptScsiDevLevel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1156,11 +1156,11 @@ dptScsiHbaBadMemoryAddress contains the RAM address.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptDevSmartFailedTrap trap received 
-			dptScsiHbaNumber=%parm[#1]% 
-			dptScsiBusNumber=%parm[#2]% 
-			dptScsiDevId=%parm[#3]% 
-			dptScsiDevLun=%parm[#4]% 
+			dptDevSmartFailedTrap trap received
+			dptScsiHbaNumber=%parm[#1]%
+			dptScsiBusNumber=%parm[#2]%
+			dptScsiDevId=%parm[#3]%
+			dptScsiDevLun=%parm[#4]%
 			dptScsiDevLevel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1203,8 +1203,8 @@ normal range.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaAuxVoltageChangeTrap trap received 
-			dptScsiEventAuxVoltage=%parm[#1]% 
+			dptHbaAuxVoltageChangeTrap trap received
+			dptScsiEventAuxVoltage=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1250,9 +1250,9 @@ normal range.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaVoltageChange2Trap trap received 
-			dptScsiHbaVoltage=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
+			dptHbaVoltageChange2Trap trap received
+			dptScsiHbaVoltage=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
 			dptScsiEventStatusString=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1299,9 +1299,9 @@ normal range.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaAuxVoltageChange2Trap trap received 
-			dptScsiEventAuxVoltage=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
+			dptHbaAuxVoltageChange2Trap trap received
+			dptScsiEventAuxVoltage=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
 			dptScsiEventStatusString=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1343,8 +1343,8 @@ normal range.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptHbaTemperatureVeryHighTrap trap received 
-			dptScsiHbaTemperature=%parm[#1]% 
+			dptHbaTemperatureVeryHighTrap trap received
+			dptScsiHbaTemperature=%parm[#1]%
 			dptScsiHbaNumber=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1410,12 +1410,12 @@ normal range.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dptArrayStatusChangeFailedTrap trap received 
-			dptScsiDevStatus=%parm[#1]% 
-			dptScsiHbaNumber=%parm[#2]% 
-			dptScsiBusNumber=%parm[#3]% 
-			dptScsiDevId=%parm[#4]% 
-			dptScsiDevLun=%parm[#5]% 
+			dptArrayStatusChangeFailedTrap trap received
+			dptScsiDevStatus=%parm[#1]%
+			dptScsiHbaNumber=%parm[#2]%
+			dptScsiBusNumber=%parm[#3]%
+			dptScsiDevId=%parm[#4]%
+			dptScsiDevLun=%parm[#5]%
 			dptScsiDevLevel=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

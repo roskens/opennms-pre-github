@@ -29,8 +29,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsCritical trap received 
-			upsTrapCode=%parm[#1]% 
+			upsCritical trap received
+			upsTrapCode=%parm[#1]%
 			upsTrapDescription=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -64,8 +64,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsWarning trap received 
-			upsTrapCode=%parm[#1]% 
+			upsWarning trap received
+			upsTrapCode=%parm[#1]%
 			upsTrapDescription=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -99,8 +99,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsInformation trap received 
-			upsTrapCode=%parm[#1]% 
+			upsInformation trap received
+			upsTrapCode=%parm[#1]%
 			upsTrapDescription=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -134,8 +134,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsAlarmCleared trap received 
-			upsTrapCode=%parm[#1]% 
+			upsAlarmCleared trap received
+			upsTrapCode=%parm[#1]%
 			upsTrapDescription=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -169,8 +169,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsAgentStarted trap received 
-			upsTrapCode=%parm[#1]% 
+			upsAgentStarted trap received
+			upsTrapCode=%parm[#1]%
 			upsTrapDescription=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -204,8 +204,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsAgentStopped trap received 
-			upsTrapCode=%parm[#1]% 
+			upsAgentStopped trap received
+			upsTrapCode=%parm[#1]%
 			upsTrapDescription=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

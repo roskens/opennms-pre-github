@@ -158,21 +158,21 @@
                 <command>javaPagerEmail</command>
                 <command>javaEmail</command>
         </target>
-        
+
         <target interval="15m">
                 <name>Security</name>
                 <command>textPage</command>
                 <command>javaPagerEmail</command>
                 <command>javaEmail</command>
         </target>
-        
+
         <target interval="1h">
                 <name>Desktops</name>
                 <command>textPage</command>
                 <command>javaPagerEmail</command>
                 <command>javaEmail</command>
         </target>
-        
+
         <target interval="1d">
                 <name>Management</name>
                 <command>page</command>

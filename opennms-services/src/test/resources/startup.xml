@@ -5,7 +5,7 @@
   <bean id="testDaemon" class="org.opennms.netmgt.vmmgr.TestDaemon">
     <!-- collaborators and configuration for this bean go here -->
   </bean>
-  
+
   <bean id="serviceDaemons" class="org.springframework.beans.factory.config.ListFactoryBean">
     <property name="sourceList">
 		<list>

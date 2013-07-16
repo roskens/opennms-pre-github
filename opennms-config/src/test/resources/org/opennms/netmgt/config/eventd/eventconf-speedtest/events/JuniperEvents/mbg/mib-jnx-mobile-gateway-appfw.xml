@@ -27,7 +27,7 @@
 		</mask>
 		<descr>
 &lt;p&gt;This notification indicates that the Gateway identified by
-jnxMbgPgwGatewayName undergoes a change in the maintenance 
+jnxMbgPgwGatewayName undergoes a change in the maintenance
 mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -43,9 +43,9 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGatewayMMStateChange trap received 
-				jnxMbgPgwMMGatewayName=%parm[#1]% 
-				jnxMbgPgwPrevGatewayMMState=%parm[#2]% 
+			jnxMbgPgwGatewayMMStateChange trap received
+				jnxMbgPgwMMGatewayName=%parm[#1]%
+				jnxMbgPgwPrevGatewayMMState=%parm[#2]%
 				jnxMbgPgwNewGatewayMMState=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -81,7 +81,7 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification indicates that the Gateway identified by
-jnxMbgPgwGatewayName undergoes a change in the maintenance 
+jnxMbgPgwGatewayName undergoes a change in the maintenance
 mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -97,9 +97,9 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGatewayMMStateChange trap received 
-				jnxMbgPgwMMGatewayName=%parm[#1]% 
-				jnxMbgPgwPrevGatewayMMState=%parm[#2]% 
+			jnxMbgPgwGatewayMMStateChange trap received
+				jnxMbgPgwMMGatewayName=%parm[#1]%
+				jnxMbgPgwPrevGatewayMMState=%parm[#2]%
 				jnxMbgPgwNewGatewayMMState=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -135,7 +135,7 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification indicates that the Gateway identified by
-jnxMbgPgwGatewayName undergoes a change in the maintenance 
+jnxMbgPgwGatewayName undergoes a change in the maintenance
 mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -151,9 +151,9 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGatewayMMStateChange trap received 
-				jnxMbgPgwMMGatewayName=%parm[#1]% 
-				jnxMbgPgwPrevGatewayMMState=%parm[#2]% 
+			jnxMbgPgwGatewayMMStateChange trap received
+				jnxMbgPgwMMGatewayName=%parm[#1]%
+				jnxMbgPgwPrevGatewayMMState=%parm[#2]%
 				jnxMbgPgwNewGatewayMMState=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -189,7 +189,7 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification indicates that the Gateway identified by
-jnxMbgPgwGatewayName undergoes a change in the maintenance 
+jnxMbgPgwGatewayName undergoes a change in the maintenance
 mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -205,9 +205,9 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGatewayMMStateChange trap received 
-				jnxMbgPgwMMGatewayName=%parm[#1]% 
-				jnxMbgPgwPrevGatewayMMState=%parm[#2]% 
+			jnxMbgPgwGatewayMMStateChange trap received
+				jnxMbgPgwMMGatewayName=%parm[#1]%
+				jnxMbgPgwPrevGatewayMMState=%parm[#2]%
 				jnxMbgPgwNewGatewayMMState=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -243,7 +243,7 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification indicates that the Gateway identified by
-jnxMbgPgwGatewayName undergoes a change in the maintenance 
+jnxMbgPgwGatewayName undergoes a change in the maintenance
 mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -259,9 +259,9 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGatewayMMStateChange trap received 
-				jnxMbgPgwMMGatewayName=%parm[#1]% 
-				jnxMbgPgwPrevGatewayMMState=%parm[#2]% 
+			jnxMbgPgwGatewayMMStateChange trap received
+				jnxMbgPgwMMGatewayName=%parm[#1]%
+				jnxMbgPgwPrevGatewayMMState=%parm[#2]%
 				jnxMbgPgwNewGatewayMMState=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -297,7 +297,7 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification indicates that the Gateway identified by
-jnxMbgPgwGatewayName undergoes a change in the maintenance 
+jnxMbgPgwGatewayName undergoes a change in the maintenance
 mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -313,9 +313,9 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwGatewayMMStateChange trap received 
-				jnxMbgPgwMMGatewayName=%parm[#1]% 
-				jnxMbgPgwPrevGatewayMMState=%parm[#2]% 
+			jnxMbgPgwGatewayMMStateChange trap received
+				jnxMbgPgwMMGatewayName=%parm[#1]%
+				jnxMbgPgwPrevGatewayMMState=%parm[#2]%
 				jnxMbgPgwNewGatewayMMState=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -350,8 +350,8 @@ mode state.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification indicates that the APN identified by 
-jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes 
+&lt;p&gt;This notification indicates that the APN identified by
+jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes
 a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -371,10 +371,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNMMStateChange trap received 
-				jnxMbgPgwAPNMMGatewayName=%parm[#1]% 
-				jnxMbgPgwAPNMMAPNName=%parm[#2]% 
-				jnxMbgPgwPrevAPNMMState=%parm[#3]% 
+			jnxMbgPgwAPNMMStateChange trap received
+				jnxMbgPgwAPNMMGatewayName=%parm[#1]%
+				jnxMbgPgwAPNMMAPNName=%parm[#2]%
+				jnxMbgPgwPrevAPNMMState=%parm[#3]%
 				jnxMbgPgwNewAPNMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -409,8 +409,8 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification indicates that the APN identified by 
-jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes 
+&lt;p&gt;This notification indicates that the APN identified by
+jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes
 a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -430,10 +430,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNMMStateChange trap received 
-				jnxMbgPgwAPNMMGatewayName=%parm[#1]% 
-				jnxMbgPgwAPNMMAPNName=%parm[#2]% 
-				jnxMbgPgwPrevAPNMMState=%parm[#3]% 
+			jnxMbgPgwAPNMMStateChange trap received
+				jnxMbgPgwAPNMMGatewayName=%parm[#1]%
+				jnxMbgPgwAPNMMAPNName=%parm[#2]%
+				jnxMbgPgwPrevAPNMMState=%parm[#3]%
 				jnxMbgPgwNewAPNMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -468,8 +468,8 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification indicates that the APN identified by 
-jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes 
+&lt;p&gt;This notification indicates that the APN identified by
+jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes
 a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -489,10 +489,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNMMStateChange trap received 
-				jnxMbgPgwAPNMMGatewayName=%parm[#1]% 
-				jnxMbgPgwAPNMMAPNName=%parm[#2]% 
-				jnxMbgPgwPrevAPNMMState=%parm[#3]% 
+			jnxMbgPgwAPNMMStateChange trap received
+				jnxMbgPgwAPNMMGatewayName=%parm[#1]%
+				jnxMbgPgwAPNMMAPNName=%parm[#2]%
+				jnxMbgPgwPrevAPNMMState=%parm[#3]%
 				jnxMbgPgwNewAPNMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -527,8 +527,8 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification indicates that the APN identified by 
-jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes 
+&lt;p&gt;This notification indicates that the APN identified by
+jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes
 a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -548,10 +548,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNMMStateChange trap received 
-				jnxMbgPgwAPNMMGatewayName=%parm[#1]% 
-				jnxMbgPgwAPNMMAPNName=%parm[#2]% 
-				jnxMbgPgwPrevAPNMMState=%parm[#3]% 
+			jnxMbgPgwAPNMMStateChange trap received
+				jnxMbgPgwAPNMMGatewayName=%parm[#1]%
+				jnxMbgPgwAPNMMAPNName=%parm[#2]%
+				jnxMbgPgwPrevAPNMMState=%parm[#3]%
 				jnxMbgPgwNewAPNMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -586,8 +586,8 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification indicates that the APN identified by 
-jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes 
+&lt;p&gt;This notification indicates that the APN identified by
+jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes
 a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -607,10 +607,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNMMStateChange trap received 
-				jnxMbgPgwAPNMMGatewayName=%parm[#1]% 
-				jnxMbgPgwAPNMMAPNName=%parm[#2]% 
-				jnxMbgPgwPrevAPNMMState=%parm[#3]% 
+			jnxMbgPgwAPNMMStateChange trap received
+				jnxMbgPgwAPNMMGatewayName=%parm[#1]%
+				jnxMbgPgwAPNMMAPNName=%parm[#2]%
+				jnxMbgPgwPrevAPNMMState=%parm[#3]%
 				jnxMbgPgwNewAPNMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -645,8 +645,8 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification indicates that the APN identified by 
-jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes 
+&lt;p&gt;This notification indicates that the APN identified by
+jnxMbgPgwAPNMMGatewayName and jnxMbgPgwAPNMMAPNName undergoes
 a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -666,10 +666,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNMMStateChange trap received 
-				jnxMbgPgwAPNMMGatewayName=%parm[#1]% 
-				jnxMbgPgwAPNMMAPNName=%parm[#2]% 
-				jnxMbgPgwPrevAPNMMState=%parm[#3]% 
+			jnxMbgPgwAPNMMStateChange trap received
+				jnxMbgPgwAPNMMGatewayName=%parm[#1]%
+				jnxMbgPgwAPNMMAPNName=%parm[#2]%
+				jnxMbgPgwPrevAPNMMState=%parm[#3]%
 				jnxMbgPgwNewAPNMMState=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -715,10 +715,10 @@ a change in the maintenance mode state.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMGtpEvntNotif trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
-				jnxMbgPgwTrapGwName=%parm[#2]% 
-				jnxMbgPgwSMGTPEventType=%parm[#3]% 
+			jnxMbgPgwSMGtpEvntNotif trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
+				jnxMbgPgwTrapGwName=%parm[#2]%
+				jnxMbgPgwSMGTPEventType=%parm[#3]%
 				jnxMbgPgwSMGTPEventCause=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -758,8 +758,8 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosCPUThreshStatusHi trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosCPUThreshStatusHi trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -799,8 +799,8 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosCPUThreshStatusLow trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosCPUThreshStatusLow trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -827,7 +827,7 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the normal threshold 
+&lt;p&gt;This notification signifies that the normal threshold
 for CPU Utilization has been reached. The gateway name and id identifies the
 notifying gateway.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -840,8 +840,8 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosCPUThreshStatusClear trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosCPUThreshStatusClear trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -881,8 +881,8 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosMemThreshStatusHi trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosMemThreshStatusHi trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -922,8 +922,8 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosMemThreshStatusLow trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosMemThreshStatusLow trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -963,8 +963,8 @@ notifying gateway.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosMemThreshStatusClear trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosMemThreshStatusClear trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1004,8 +1004,8 @@ identifies the notifying gateway&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosBrThreshStatusHi trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosBrThreshStatusHi trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1045,8 +1045,8 @@ identifies the notifying gateway&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosBrThreshStatusLow trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosBrThreshStatusLow trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1073,7 +1073,7 @@ identifies the notifying gateway&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the normal threshold 
+&lt;p&gt;This notification signifies that the normal threshold
 for bearers at gateway level are reached. The gateway name and id
 identifies the notifying gateway&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1086,8 +1086,8 @@ identifies the notifying gateway&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosBrThreshStatusClear trap received 
-				jnxMbgPgwTrapGwIndex=%parm[#1]% 
+			jnxMbgPgwQosBrThreshStatusClear trap received
+				jnxMbgPgwTrapGwIndex=%parm[#1]%
 				jnxMbgPgwTrapGwName=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1142,9 +1142,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosBearersThresStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosBearersThresStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1203,9 +1203,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosBearersThresStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosBearersThresStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1264,9 +1264,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosBearersThresStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosBearersThresStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1321,9 +1321,9 @@ the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosCPUThresholdStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosCPUThresholdStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -1382,9 +1382,9 @@ the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosCPUThresholdStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosCPUThresholdStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1443,9 +1443,9 @@ the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosCPUThresholdStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosCPUThresholdStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1500,9 +1500,9 @@ the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosMemThresholdStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosMemThresholdStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -1561,9 +1561,9 @@ the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosMemThresholdStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosMemThresholdStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1622,9 +1622,9 @@ the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwQosMemThresholdStatus trap received 
-				jnxMbgPgwGatewayName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwQosMemThresholdStatus trap received
+				jnxMbgPgwGatewayName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1679,9 +1679,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNQosBearersThreStatus trap received 
-				jnxMbgPgwQosAPNName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwAPNQosBearersThreStatus trap received
+				jnxMbgPgwQosAPNName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -1740,9 +1740,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNQosBearersThreStatus trap received 
-				jnxMbgPgwQosAPNName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwAPNQosBearersThreStatus trap received
+				jnxMbgPgwQosAPNName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1801,9 +1801,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwAPNQosBearersThreStatus trap received 
-				jnxMbgPgwQosAPNName=%parm[#1]% 
-				jnxMbgPgwQosThreshold1Status=%parm[#2]% 
+			jnxMbgPgwAPNQosBearersThreStatus trap received
+				jnxMbgPgwQosAPNName=%parm[#1]%
+				jnxMbgPgwQosThreshold1Status=%parm[#2]%
 				jnxMbgPgwQosThreshold2Status=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -1841,8 +1841,8 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMGtpEventNotif trap received 
-				jnxMbgPgwSMGTPEventType=%parm[#1]% 
+			jnxMbgPgwSMGtpEventNotif trap received
+				jnxMbgPgwSMGTPEventType=%parm[#1]%
 				jnxMbgPgwSMGTPEventCause=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1880,8 +1880,8 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMSubscribersThresGblNotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
+			jnxMbgPgwSMSubscribersThresGblNotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
 				jnxMbgPgwSMAlarmState=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1923,9 +1923,9 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMSubscribersThresPerSPNotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
-				jnxMbgPgwSMAlarmState=%parm[#2]% 
+			jnxMbgPgwSMSubscribersThresPerSPNotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
+				jnxMbgPgwSMAlarmState=%parm[#2]%
 				jnxMbgPgwSMSPICName=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -1971,10 +1971,10 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMSessionEstFailThresPerSPNotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
-				jnxMbgPgwSMAlarmState=%parm[#2]% 
-				jnxMbgPgwSMSessionEstFailReason=%parm[#3]% 
+			jnxMbgPgwSMSessionEstFailThresPerSPNotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
+				jnxMbgPgwSMAlarmState=%parm[#2]%
+				jnxMbgPgwSMSessionEstFailReason=%parm[#3]%
 				jnxMbgPgwSMSPICName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2001,7 +2001,7 @@ fields would indicate the Thresholds.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;Session Establishment Failure Threshold 
+&lt;p&gt;Session Establishment Failure Threshold
 Per Traffic Class (GTPv1).&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2021,10 +2021,10 @@ Per Traffic Class (GTPv1).&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMSessionEstFailThresPerTCNotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
-				jnxMbgPgwSMAlarmState=%parm[#2]% 
-				jnxMbgPgwSMSessionEstFailReason=%parm[#3]% 
+			jnxMbgPgwSMSessionEstFailThresPerTCNotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
+				jnxMbgPgwSMAlarmState=%parm[#2]%
+				jnxMbgPgwSMSessionEstFailReason=%parm[#3]%
 				jnxMbgPgwSMTCName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2051,7 +2051,7 @@ Per Traffic Class (GTPv1).&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;Session Establishment Failure Threshold 
+&lt;p&gt;Session Establishment Failure Threshold
 per QoS Class Identifier.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2071,10 +2071,10 @@ per QoS Class Identifier.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMSessionEstFailThresPerQCINotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
-				jnxMbgPgwSMAlarmState=%parm[#2]% 
-				jnxMbgPgwSMSessionEstFailReason=%parm[#3]% 
+			jnxMbgPgwSMSessionEstFailThresPerQCINotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
+				jnxMbgPgwSMAlarmState=%parm[#2]%
+				jnxMbgPgwSMSessionEstFailReason=%parm[#3]%
 				jnxMbgPgwSMQCIName=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2112,8 +2112,8 @@ per QoS Class Identifier.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMBearersThresGblNotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
+			jnxMbgPgwSMBearersThresGblNotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
 				jnxMbgPgwSMAlarmState=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2155,9 +2155,9 @@ per QoS Class Identifier.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgPgwSMBearersThresPerSPNotif trap received 
-				jnxMbgPgwSMAlarmThrshld=%parm[#1]% 
-				jnxMbgPgwSMAlarmState=%parm[#2]% 
+			jnxMbgPgwSMBearersThresPerSPNotif trap received
+				jnxMbgPgwSMAlarmThrshld=%parm[#1]%
+				jnxMbgPgwSMAlarmState=%parm[#2]%
 				jnxMbgPgwSMSPICName=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>

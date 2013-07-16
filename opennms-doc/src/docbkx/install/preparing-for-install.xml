@@ -7,7 +7,7 @@
 
 		<section id="yum">
 			<title>Configure RPM-based Distributions with Yum</title>
-			
+
 			<para>
 				Before you begin installing, you will want to set up Yum to install from
 				the OpenNMS repositories.  This covers most RPM-based distributions, including
@@ -15,10 +15,10 @@
 				<ulink url="http://fedoraproject.org/">Fedora</ulink>, and
 				<ulink url="http://www.centos.org/">CentOS</ulink>.
 			</para>
-			
+
 			<section id="yum-fastestmirror">
 				<title>Preparation: Yum Fastest Mirror Plugin</title>
-				
+
 				<para>
 					Before you start, you may want to install the yum-fastestmirror RPM if your distro
 					supports it.  This can often speed up downloads of large packages.  See the
@@ -26,23 +26,23 @@
 					for more details.  This step is not strictly necessary, but can make your overall
 					yum experience better.
 				</para>
-				
+
 				<para>
 					<programlisting>[user@localhost]$ sudo yum install yum-fastestmirror
  Setting up Install Process
  ...
  Running Transaction
-   Installing: yum-fastestmirror            ######################### [1/1] 
- 
+   Installing: yum-fastestmirror            ######################### [1/1]
+
  Installed: yum-fastestmirror.noarch 0:1.1.9-2.fc8
  Complete!</programlisting>
  				</para>
-			
+
 			</section>
 
 			<section id="choose-a-release">
 				<title>Preparation: Determine Which Release to Install</title>
-				
+
 				<para>There are 4 types of releases available through yum.</para>
 
 				<itemizedlist>
@@ -75,14 +75,14 @@
 
 			<section id="install-repository-rpm">
 				<title>Install the OpenNMS Repository RPM</title>
-				
+
 				<para>
 					To simplify installation through Yum, we've created an RPM that contains the configuration
 					necessary for Yum to be able to find the other OpenNMS packages.  Based on the release you
 					chose in the section above, choose the approprate RPM from the <ulink
 					url="http://yum.opennms.org/">OpenNMS Yum Repository</ulink>.
 				</para>
-				
+
 				<para>
 					For example, to install the latest snapshot release on Fedora 7, you would run:
 					<programlisting>rpm -Uvh http://yum.opennms.org/repofiles/opennms-repo-snapshot-fc7.noarch.rpm</programlisting>
@@ -100,7 +100,7 @@
  Available Packages
  opennms.noarch                           1.5.96-1               opennms-unstable</programlisting>
  				</para>
- 				
+
  				<note>
  					<para>
  						If you are using older yum-based distributions (like CentOS 3, for example), you may
@@ -113,7 +113,7 @@
  				</note>
 			</section>
 
-		</section>		
+		</section>
 
 		<section id="urpmi">
 			<title>Configure RPM-based Distributions with URPMI (Mandriva)</title>
@@ -126,39 +126,39 @@
 					easiest way to do so is to follow the instructions at <ulink
 					url="http://easyurpmi.zarb.org/">EasyURPMI</ulink>.  For example, on Mandriva
 					Linux 2007, you would end up running something like this:
-					<programlisting>urpmi.addmedia main ftp://mirrors.usc.edu/pub/linux/distributions/mandrakelinux/official/2007.1/i586/media/main/release with media_info/hdlist.cz 
+					<programlisting>urpmi.addmedia main ftp://mirrors.usc.edu/pub/linux/distributions/mandrakelinux/official/2007.1/i586/media/main/release with media_info/hdlist.cz
  urpmi.addmedia --update main_updates ftp://mirrors.usc.edu/pub/linux/distributions/mandrakelinux/official/2007.1/i586/media/main/updates with media_info/hdlist.cz</programlisting>
  				</para>
 			</section>
 
 			<section id="urpmi-opennms">
 				<title>Enable the OpenNMS Mandriva Repositories</title>
-				
+
 				<para>
 					Now, you'll need to enable the OpenNMS Mandriva repositories.  First, add
 					the OpenNMS stable repository (replace mandriva2007 with your release):
 					<programlisting>urpmi.addmedia --probe-hdlist opennms-stable http://yum.opennms.org/stable/mandriva2007</programlisting>
 				</para>
-				
+
 				<para>
 					If you want OpenNMS stable snapshots, add the testing repository next
 					(replace mandriva2007 with your release):
 					<programlisting>urpmi.addmedia --probe-hdlist opennms-testing http://yum.opennms.org/testing/mandriva2007</programlisting>
 				</para>
-				
+
 				<para>
 					If you want the latest unstable version, add the unstable as well
 					(replace mandriva2007 with your release):
 					<programlisting>urpmi.addmedia --probe-hdlist opennms-unstable http://yum.opennms.org/unstable/mandriva2007</programlisting>
 				</para>
-				
+
 				<para>
 					And if you want to install nightly snapshots, then add the snapshot one
 					(replace mandriva2007 with your release):
 					<programlisting>urpmi.addmedia --probe-hdlist opennms-snapshot http://yum.opennms.org/snapshot/mandriva2007</programlisting>
 				</para>
 			</section>
-					
+
 		</section>
 
 		<section id="debian">
@@ -166,14 +166,14 @@
 
 			<section id="debian-sources-lst">
 				<title>Add the OpenNMS Repository to Your <filename>sources.list</filename></title>
-				
+
 				<para>
 					First, you need to tell apt-get how to find OpenNMS. Add the following
 					contents to your <filename>/etc/apt/sources.lists</filename> file:
 					<programlisting>deb http://debian.opennms.org stable main
 deb-src http://debian.opennms.org stable main</programlisting>
 				</para>
-				
+
 				<para>
 					If you wish to use the latest development version of OpenNMS, add
 					unstable instead:
@@ -185,7 +185,7 @@ deb-src http://debian.opennms.org unstable main</programlisting>
 
 			<section id="debian-pgp">
 				<title>Add the OpenNMS PGP Key to APT</title>
-				
+
 				<para>
 					The OpenNMS Debian repository is signed with a PGP key (fingerprint
 					<code>22EE DDA6 8698 B02F B2EC 50B7 062B 8A68 4C4C BBD9</code>).
@@ -221,7 +221,7 @@ deb-src http://debian.opennms.org unstable main</programlisting>
 				as specified above, you just need to run:
 				<programlisting>yum install jdk</programlisting>
 			</para>
-			
+
 			<para>
 				Because of a bug in the 64-bit RPM signing, if you are on x86_64, you will
 				need to disable GPG checking.  You can do so with the <code>--nogpgcheck</code>
@@ -239,7 +239,7 @@ deb-src http://debian.opennms.org unstable main</programlisting>
 				URPMI as specified above, you just need to run:
 				<programlisting>urpmi --auto jdk</programlisting>
 			</para>
-			
+
 		</section>
 
 		<section id="java-debian">
@@ -300,7 +300,7 @@ deb-src http://debian.opennms.org unstable main</programlisting>
 
 		<section id="postgresql-yum">
 			<title>Installing PostgreSQL on RPM-Based Distributions Using Yum</title>
-			
+
 			<para>
 				On modern versions of Red Hat Enterprise Linux, CentOS, and Fedora,
 				you should just need to install the <filename>postgresql-server</filename>
@@ -309,12 +309,12 @@ deb-src http://debian.opennms.org unstable main</programlisting>
 Setting up Install Process
 ...
 Running Transaction
-  Installing: postgresql-server            ######################### [1/1] 
+  Installing: postgresql-server            ######################### [1/1]
 
 Installed: postgresql-server.x86_64 0:8.2.5-1.fc8
 Complete!</programlisting>
 			</para>
-		
+
 			<note>
 				<para>
 					Red Hat Enterprise Linux 3 and CentOS 3 call their PostgreSQL
@@ -324,32 +324,32 @@ Complete!</programlisting>
 					<programlisting>sudo yum -y install rhdb-server</programlisting>
 				</para>
 			</note>
-			
+
 		</section>
 
 		<section id="postgresql-urpmi">
 			<title>Installing PostgreSQL on RPM-Based Distributions Using URPMI</title>
-			
+
 			<para>
 				On Mandriva, you use URPMI to install the PostgreSQL server:
 				<programlisting>sudo urpmi --auto postgresql-server</programlisting>
 			</para>
 		</section>
-		
+
 		<section id="postgresql-debian">
 			<title>Installing PostgreSQL on Debian-Based Distributions</title>
-			
+
 			<para>
 				On Debian or Ubuntu, use apt to install the PostgreSQL server:
 				<programlisting>sudo apt-get update
 sudo apt-get install postgresql-8.1</programlisting>
 			</para>
-			
+
 		</section>
 
 		<section id="postgresql-windows">
 			<title>Installing PostgreSQL on Windows</title>
-			
+
 			<para>
 				On Windows, all you should need to do is get the latest Windows installer
 				from <ulink url="http://www.postgresql.org/download/">PostgreSQL.org</ulink>.
@@ -362,7 +362,7 @@ sudo apt-get install postgresql-8.1</programlisting>
 					installation instructions on the wiki</ulink>.
 				</para>
 			</note>
-						
+
 			<para>
 				First, unpack the installer.  The installer does not run properly from
 				inside a zipped folder, so you will need to extract the ZIP file.  You
@@ -380,7 +380,7 @@ sudo apt-get install postgresql-8.1</programlisting>
 
 		<section id="postgresql-configure">
 			<title>Configure PostgreSQL</title>
-			
+
 			<para>
 				Once you have installed PostgreSQL, you will need to make two changes
 				to Postgres configuration files:
@@ -526,7 +526,7 @@ host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff trust</programlisting>
 		</section>
 
 	</section>
-	
+
 	<section id="installing-jicmp">
 		<title>Prerequisite Package: JICMP</title>
 
@@ -554,7 +554,7 @@ host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff trust</programlisting>
 
 		<section id="installing-jicmp-yum">
 			<title>Installing JICMP on RPM-Based Distributions Using Yum</title>
-			
+
 			<para>
 				On most RPM-Based Distributions, all you should need to run is:
 				<programlisting>yum install jicmp</programlisting>
@@ -564,16 +564,16 @@ host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff trust</programlisting>
 
 		<section id="installing-jicmp-urpmi">
 			<title>Installing JICMP on RPM-Based Distributions Using URPMI</title>
-		
+
 			<para>
 				On Mandriva, you can install JICMP with the command:
 				<programlisting>urpmi --auto jicmp</programlisting>
 			</para>
 		</section>
-	
+
 		<section id="installing-jicmp-rpm">
 			<title>Installing JICMP on RPM-Based Distributions from Source</title>
-			
+
 			<para>
 				If JICMP has not already been compiled on your RPM-based platform, you
 				can build a native RPM from the <ulink
@@ -581,17 +581,17 @@ host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff trust</programlisting>
 				tarball</ulink> like so:
 				<programlisting>rpmbuild -tb <filename>jicmp-X.X.X.tar.gz</filename></programlisting>
 			</para>
-			
+
 			<para>
 				If you are on a 64-bit platform, you can build a 64-bit RPM instead
 				like so:
 				<programlisting>rpmbuild --target=x86_64 <filename>jicmp-X.X.X.tar.gz</filename></programlisting>
 			</para>
 		</section>
-			
+
 		<section id="installing-jicmp-debian">
 			<title>Installing JICMP on Debian-Based Distributions</title>
-			
+
 			<para>
 				On Debian or Ubuntu, you can install JICMP through apt:
 				<programlisting>sudo apt-get install libicmp-jni</programlisting>
@@ -600,7 +600,7 @@ host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff trust</programlisting>
 
 		<section id="installing-jicmp-source">
 			<title>Installing JICMP from Source</title>
-			
+
 			<para>
 				To build from source, download the <ulink
 				url="http://sourceforge.net/project/showfiles.php?group_id=4141&amp;package_id=240236">latest
@@ -609,7 +609,7 @@ host all all ::1 ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff trust</programlisting>
 make
 make install</programlisting>
 			</para>
-			
+
 		</section>
 
 	</section>

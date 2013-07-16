@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -39,7 +39,7 @@ CREATE OR REPLACE FUNCTION getManagePercentAvailIntfWindow(integer,varchar(16), 
                 ELSE
                         RETURN -1;
                 END IF;
-        END IF;    
+        END IF;
    END;
 ' LANGUAGE 'plpgsql';
 </createProcedure>

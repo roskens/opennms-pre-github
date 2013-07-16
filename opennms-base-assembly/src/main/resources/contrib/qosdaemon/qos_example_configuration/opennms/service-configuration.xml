@@ -70,7 +70,7 @@ maintained
 		<class-name>org.opennms.netmgt.vmmgr.Manager</class-name>
 		<invoke at="stop" pass="1" method="doSystemExit"/>
 	</service>
-	
+
 	<service>
 		<name>OpenNMS:Name=TestLoadLibraries</name>
 		<class-name>org.opennms.netmgt.vmmgr.Manager</class-name>
@@ -118,7 +118,7 @@ maintained
 		<invoke at="status" pass="0" method="status"/>
 		<invoke at="stop" pass="0" method="stop"/>
 	</service>
-	
+
 	<service>
 		<name>OpenNMS:Name=Actiond</name>
 		<class-name>org.opennms.netmgt.actiond.jmx.Actiond</class-name>
@@ -127,7 +127,7 @@ maintained
 		<invoke at="status" pass="0" method="status"/>
 		<invoke at="stop" pass="0" method="stop"/>
 	</service>
-	
+
 <!-- cgallen capsd disabled as capabilities determined from importer
 	<service>
 		<name>OpenNMS:Name=Capsd</name>
@@ -163,7 +163,7 @@ maintained
 		<invoke at="stop" pass="0" method="stop"/>
 	</service>
 
-<!-- cgallen stopped since poller backend jndi conflicts with JBOSS	
+<!-- cgallen stopped since poller backend jndi conflicts with JBOSS
 	<service>
 		<name>OpenNMS:Name=Pollerd</name>
 		<class-name>org.opennms.netmgt.poller.jmx.Pollerd</class-name>
@@ -208,7 +208,7 @@ maintained
 		<invoke at="status" pass="0" method="status"/>
 		<invoke at="stop" pass="0" method="stop"/>
 	</service>
-	
+
 <!-- Discovery disabled as import from model importer
 	<service>
 		<name>OpenNMS:Name=Discovery</name>
@@ -310,7 +310,7 @@ maintained
 
 	<!-- Added: OpenNMS OSSJ QoSD TX interface daemon -->
 
-        <service>							     
+        <service>
                 <name>OpenNMS:Name=QoSD</name>
                 <class-name>org.openoss.opennms.spring.qosd.jmx.QoSD</class-name>
                 <invoke at="start" pass="0" method="init"/>
@@ -318,10 +318,10 @@ maintained
                 <invoke at="status" pass="0" method="status"/>
                 <invoke at="stop" pass="0" method="stop"/>
         </service>
-	
-        
+
+
     	<!-- CGallen added - OpenNMS OSSJ QoSDrx interface daemon -->
-   
+
         <service>
                 <name>OpenNMS:Name=QoSDrx</name>
                 <class-name>org.openoss.opennms.spring.qosdrx.jmx.QoSDrx</class-name>

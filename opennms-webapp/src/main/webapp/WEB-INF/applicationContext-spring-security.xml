@@ -3,8 +3,8 @@
   xmlns:beans="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd"> 
-  
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
   <!-- Only use BASIC auth for the RESTful APIs -->
   <http pattern="/rest/**" realm="OpenNMS Realm">
     <!-- Restrict access to SNMP configuration to ROLE_REST and ROLE_ADMIN only -->
@@ -20,7 +20,7 @@
 
     <custom-filter position="LAST" ref="authFilterEnabler"/>
   </http>
-  
+
   <!-- Only use BASIC auth for the RSS URL -->
   <http pattern="/rss.jsp*" access-denied-page="/accessDenied.jsp" realm="OpenNMS Realm">
     <intercept-url pattern="/rss.jsp*" access="ROLE_REST,ROLE_ADMIN,ROLE_USER"/>
@@ -29,7 +29,7 @@
 
     <custom-filter position="LAST" ref="authFilterEnabler"/>
   </http>
-  
+
   <!-- Allow anonymous access to the webstart portion of the app -->
   <http pattern="/webstart/**" security="none"/>
 
@@ -52,7 +52,7 @@
     <intercept-url pattern="/**/mib-compiler" access="ROLE_ADMIN" />
     <intercept-url pattern="/**/admin-*" access="ROLE_ADMIN" />
     <intercept-url pattern="/rtc/post/**" access="ROLE_RTC" />
-    
+
     <intercept-url pattern="/frontpage.htm" access="ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/dashboard.jsp" access="ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/gwt.js" access="ROLE_USER,ROLE_DASHBOARD" />
@@ -60,21 +60,21 @@
     <intercept-url pattern="/graph/graph.png" access="ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/dashboard/**" access="ROLE_USER,ROLE_DASHBOARD" />
     <intercept-url pattern="/coreweb/**" access="ROLE_USER,ROLE_DASHBOARD" />
-    
+
     <intercept-url pattern="/**" access="ROLE_USER" />
-    
-    
-    
+
+
+
     <!-- NrtCollection -->
     <intercept-url pattern="/amq/*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_DASHBOARD" />
-    
+
     <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />
     <http-basic />
     <logout logout-success-url="/logoff.jsp" />
-    
+
     <custom-filter position="LAST" ref="authFilterEnabler"/>
   </http>
-  
+
   <!--  This filter is used to setup the Hibernate query filtering to authorized nodes only -->
   <beans:bean id="authFilterEnabler" class="org.opennms.web.springframework.security.AuthFilterEnabler">
     <beans:property name="filterManager" ref="filterManager" />
@@ -128,7 +128,7 @@
        IMPORTANT: To use this feature the following package must be installed:
        opennms-plugin-protocols-radius
    -->
-  <!-- 
+  <!--
   <beans:bean id="radiusAuthenticationProvider" class="org.opennms.protocols.radius.springsecurity.RadiusAuthenticationProvider">
     <beans:constructor-arg value="%%% Radius Server %%%"/>
     <beans:constructor-arg value="%%% Shared Secret %%%"/>
@@ -139,7 +139,7 @@
     <!--<beans:property name="authTypeClass"><beans:bean class="net.jradius.client.auth.PAPAuthenticator"/></beans:property>-->
     <!--<beans:property name="defaultRoles" value="ROLE_USER"/>-->
     <!--<beans:property name="rolesAttribute" value="Unknown-VSAttribute(%%% Vendor ID %%%:%%% Attribute Number %%%)"/>-->
-  <!-- 
+  <!--
   </beans:bean>
   -->
 

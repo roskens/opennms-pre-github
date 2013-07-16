@@ -2,25 +2,25 @@
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
   xmlns:me='urn:import:org.opennms.features.poller.remote.gwt.client'>
-  
+
   <ui:style>
     .topLevelContainer{
         position: relative;
     }
-    
+
     .listsPanel{
-    	position: absolute; 
+	position: absolute;
     	left: 0px;
     	right: 0px;
     	bottom: 0px;
     }
-    
+
     .lists{
         /*position: absolute;*/
     }
-  
+
   </ui:style>
-  
+
   <g:FlowPanel styleName="{style.topLevelContainer}" ui:field="locationPanel">
     <g:FlowPanel>
         <g:HTMLPanel ui:field="filterOptionsPanel">
@@ -35,6 +35,6 @@
       <me:PageableLocationList ui:field="locationList" styleName="{style.lists}"/>
     </g:FlowPanel>
   </g:FlowPanel>
-  
+
 
 </ui:UiBinder>

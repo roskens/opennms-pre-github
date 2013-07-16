@@ -37,8 +37,8 @@ value of an instance of apsChanStatusSwitchovers increments.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			apsEventSwitchover trap received 
-			apsChanStatusSwitchovers=%parm[#1]% 
+			apsEventSwitchover trap received
+			apsChanStatusSwitchovers=%parm[#1]%
 			apsChanStatusCurrent=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Normal</severity>
@@ -80,8 +80,8 @@ value of an instance of apsStatusModeMismatches increments.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			apsEventModeMismatch trap received 
-			apsStatusModeMismatches=%parm[#1]% 
+			apsEventModeMismatch trap received
+			apsStatusModeMismatches=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Normal</severity>
@@ -123,8 +123,8 @@ value of an instance of apsStatusChannelMismatches increments.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			apsEventChannelMismatch trap received 
-			apsStatusChannelMismatches=%parm[#1]% 
+			apsEventChannelMismatch trap received
+			apsStatusChannelMismatches=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -166,8 +166,8 @@ value of an instance of apsStatusPSBFs increments.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			apsEventPSBF trap received 
-			apsStatusPSBFs=%parm[#1]% 
+			apsEventPSBF trap received
+			apsStatusPSBFs=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -209,8 +209,8 @@ value of an instance of apsStatusFEPLFs increments.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			apsEventFEPLF trap received 
-			apsStatusFEPLFs=%parm[#1]% 
+			apsEventFEPLF trap received
+			apsStatusFEPLFs=%parm[#1]%
 			apsStatusCurrent=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>

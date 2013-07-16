@@ -21,11 +21,11 @@
     <descr><![CDATA[
 <p>The Source NAT address pool utilization threshold status
 trap signifies that the address pool utilization
-is either exceeds certain percentage, or clear of 
+is either exceeds certain percentage, or clear of
 that percentage.
-				
+
 		  jnxNatTrapPoolName is the name of the resource pool
-		  jnxNatAddrPoolUtil is the percentage of utilization 
+		  jnxNatAddrPoolUtil is the percentage of utilization
 of the address pool.</p><table>
 	<tr><td><b>
 
@@ -37,8 +37,8 @@ of the address pool.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxNatAddrPoolThresholdStatus trap received 
-			jnxNatTrapSrcPoolName=%parm[#1]% 
+			jnxNatAddrPoolThresholdStatus trap received
+			jnxNatTrapSrcPoolName=%parm[#1]%
 			jnxNatAddrPoolUtil=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

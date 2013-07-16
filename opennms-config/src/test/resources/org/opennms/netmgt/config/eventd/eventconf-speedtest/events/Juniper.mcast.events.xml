@@ -27,7 +27,7 @@ OIFs are blocked due to exceded admission limit on the port.&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			juniMRoutePortBwExceded trap received 
+			juniMRoutePortBwExceded trap received
 			juniMRouteIfLocIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -53,7 +53,7 @@ OIFs are blocked due to exceded admission limit on the port.&lt;/p&gt;&lt;table&
 	<descr>
 &lt;p&gt; A juniMRoutePortBwReceded trap signifies the port max
 admission limit are receded. This trap should be generated when the
-the port admission limits fall below the configured hysteresis 
+the port admission limits fall below the configured hysteresis
 value on the port.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -61,7 +61,7 @@ value on the port.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			juniMRoutePortBwReceded trap received 
+			juniMRoutePortBwReceded trap received
 			juniMRouteIfLocIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -94,7 +94,7 @@ OIFs are blocked due to exceded admission limit on the port.&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			juniMRoutePortPriorityBwExceded trap received 
+			juniMRoutePortPriorityBwExceded trap received
 			juniMRouteIfLocIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -120,7 +120,7 @@ OIFs are blocked due to exceded admission limit on the port.&lt;/p&gt;&lt;table&
 	<descr>
 &lt;p&gt; A juniMRoutePortPriorityReceded trap signifies the port priority
 admission limit are receded. This trap should be generated when the
-the port admission limits fall below the configured hysteresis 
+the port admission limits fall below the configured hysteresis
 value on the port.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -128,7 +128,7 @@ value on the port.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			juniMRoutePortPriorityBwReceded trap received 
+			juniMRoutePortPriorityBwReceded trap received
 			juniMRouteIfLocIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

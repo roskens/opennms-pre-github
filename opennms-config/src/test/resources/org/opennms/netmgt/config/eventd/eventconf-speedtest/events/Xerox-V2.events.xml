@@ -161,11 +161,11 @@ by devices of interest.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmHrDevInfoV2Event trap received 
-			hrDeviceIndex=%parm[#1]% 
-			hrDeviceStatus=%parm[#2]% 
-			xcmHrDevInfoXStatus=%parm[#3]% 
-			xcmHrDevInfoConditions=%parm[#4]% 
+			xcmHrDevInfoV2Event trap received
+			hrDeviceIndex=%parm[#1]%
+			hrDeviceStatus=%parm[#2]%
+			xcmHrDevInfoXStatus=%parm[#3]%
+			xcmHrDevInfoConditions=%parm[#4]%
 			xcmHrDevInfoXConditions=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -204,7 +204,7 @@ This notification has the following special semantics:
         as a BER binary OID suffix.
 
 This trap OID qualifier allows device management/monitoring
-applications to limit the alerts they receive to ones generated 
+applications to limit the alerts they receive to ones generated
 by requests they have submitted.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -403,13 +403,13 @@ by requests they have submitted.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmHrDevMgmtV2Event trap received 
-			hrDeviceIndex=%parm[#1]% 
-			hrDeviceStatus=%parm[#2]% 
-			xcmHrDevInfoXStatus=%parm[#3]% 
-			xcmHrDevInfoConditions=%parm[#4]% 
-			xcmHrDevInfoXConditions=%parm[#5]% 
-			xcmHrDevMgmtCommandRequest=%parm[#6]% 
+			xcmHrDevMgmtV2Event trap received
+			hrDeviceIndex=%parm[#1]%
+			hrDeviceStatus=%parm[#2]%
+			xcmHrDevInfoXStatus=%parm[#3]%
+			xcmHrDevInfoConditions=%parm[#4]%
+			xcmHrDevInfoXConditions=%parm[#5]%
+			xcmHrDevMgmtCommandRequest=%parm[#6]%
 			xcmHrDevMgmtCommandStatus=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -600,9 +600,9 @@ by device details of interest.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmHrDevDetailV2Event trap received 
-			hrDeviceIndex=%parm[#1]% 
-			xcmHrDevDetailType=%parm[#2]% 
+			xcmHrDevDetailV2Event trap received
+			hrDeviceIndex=%parm[#1]%
+			xcmHrDevDetailType=%parm[#2]%
 			xcmHrDevDetailIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -674,11 +674,11 @@ Systems MAY add other variable-bindings from any MIB.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmHrDevAlertV2Event trap received 
-			xcmHrDevAlertRowStatus=%parm[#1]% 
-			xcmHrDevAlertSeverityLevel=%parm[#2]% 
-			xcmHrDevAlertTrainingLevel=%parm[#3]% 
-			xcmHrDevAlertCodeInteger=%parm[#4]% 
+			xcmHrDevAlertV2Event trap received
+			xcmHrDevAlertRowStatus=%parm[#1]%
+			xcmHrDevAlertSeverityLevel=%parm[#2]%
+			xcmHrDevAlertTrainingLevel=%parm[#3]%
+			xcmHrDevAlertCodeInteger=%parm[#4]%
 			xcmHrDevAlertCodeString=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -770,10 +770,10 @@ Additional variable-bindings MAY be appended to this trap:
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobOperationV2Trap trap received 
-			jmJobState=%parm[#1]% 
-			jmJobStateReasons1=%parm[#2]% 
-			xcmJmxJobAdminOperation=%parm[#3]% 
+			xcmJmxJobOperationV2Trap trap received
+			jmJobState=%parm[#1]%
+			jmJobStateReasons1=%parm[#2]%
+			xcmJmxJobAdminOperation=%parm[#3]%
 			xcmJmxJobAdminStatus=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -825,8 +825,8 @@ Additional variable-bindings MAY be appended to this trap:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobStateV2Trap trap received 
-			jmJobState=%parm[#1]% 
+			xcmJmxJobStateV2Trap trap received
+			jmJobState=%parm[#1]%
 			jmJobStateReasons1=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -872,9 +872,9 @@ Additional variable-bindings MAY be appended to this trap:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobCreatedV2Trap trap received 
-			jmJobState=%parm[#1]% 
-			jmJobStateReasons1=%parm[#2]% 
+			xcmJmxJobCreatedV2Trap trap received
+			jmJobState=%parm[#1]%
+			jmJobStateReasons1=%parm[#2]%
 			jmNumberOfInterveningJobs=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -924,10 +924,10 @@ Additional variable-bindings MAY be appended to this trap:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobCompletedV2Trap trap received 
-			jmJobState=%parm[#1]% 
-			jmJobStateReasons1=%parm[#2]% 
-			jmJobKOctetsProcessed=%parm[#3]% 
+			xcmJmxJobCompletedV2Trap trap received
+			jmJobState=%parm[#1]%
+			jmJobStateReasons1=%parm[#2]%
+			jmJobKOctetsProcessed=%parm[#3]%
 			jmJobImpressionsCompleted=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -977,10 +977,10 @@ Additional variable-bindings MAY be appended to this trap:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobStoppedV2Trap trap received 
-			jmJobState=%parm[#1]% 
-			jmJobStateReasons1=%parm[#2]% 
-			jmJobKOctetsProcessed=%parm[#3]% 
+			xcmJmxJobStoppedV2Trap trap received
+			jmJobState=%parm[#1]%
+			jmJobStateReasons1=%parm[#2]%
+			jmJobKOctetsProcessed=%parm[#3]%
 			jmJobImpressionsCompleted=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1026,9 +1026,9 @@ Additional variable-bindings MAY be appended to this trap:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobConfigV2Trap trap received 
-			jmJobState=%parm[#1]% 
-			jmJobStateReasons1=%parm[#2]% 
+			xcmJmxJobConfigV2Trap trap received
+			jmJobState=%parm[#1]%
+			jmJobStateReasons1=%parm[#2]%
 			jmNumberOfInterveningJobs=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1069,10 +1069,10 @@ Additional variable-bindings MAY be appended to this trap:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJmxJobProgressV2Trap trap received 
-			jmJobKOctetsPerCopyRequested=%parm[#1]% 
-			jmJobKOctetsProcessed=%parm[#2]% 
-			jmJobImpressionsPerCopyRequested=%parm[#3]% 
+			xcmJmxJobProgressV2Trap trap received
+			jmJobKOctetsPerCopyRequested=%parm[#1]%
+			jmJobKOctetsProcessed=%parm[#2]%
+			jmJobImpressionsPerCopyRequested=%parm[#3]%
 			jmJobImpressionsCompleted=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1197,8 +1197,8 @@ of the xcmJobClientId and xcmJobIdentifierOnSystem objects.&lt;/p&gt;&lt;table&g
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmJobV2AlertNew trap received 
-			hrDeviceIndex=%parm[#1]% 
+			xcmJobV2AlertNew trap received
+			hrDeviceIndex=%parm[#1]%
 			xcmJobIdentifierOnSystem=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1278,9 +1278,9 @@ of the xcmJobClientId and xcmJobIdentifierOnSystem objects.&lt;/p&gt;&lt;table&g
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmDocV2AlertNew trap received 
-			hrDeviceIndex=%parm[#1]% 
-			xcmJobIdentifierOnSystem=%parm[#2]% 
+			xcmDocV2AlertNew trap received
+			hrDeviceIndex=%parm[#1]%
+			xcmJobIdentifierOnSystem=%parm[#2]%
 			xcmDocSequenceNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1330,7 +1330,7 @@ between SNMP manager and SNMP agent implementers.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmRsrcV2Event trap received 
+			xcmRsrcV2Event trap received
 			xcmRsrcRowStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1368,7 +1368,7 @@ This notification has the following special semantics:
         as a BER binary OID suffix.
 
 This trap OID qualifier allows service management/monitoring
-applications to limit the alerts they receive to ones generated 
+applications to limit the alerts they receive to ones generated
 by associated queues of interest.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1413,13 +1413,13 @@ by associated queues of interest.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmSvcMonQueueExtV2Event trap received 
-			xcmSvcMonQueueIndex=%parm[#1]% 
-			xcmSvcMonQueueOnSystem=%parm[#2]% 
-			xcmSvcMonQueueState=%parm[#3]% 
-			xcmSvcMonQueueConditions=%parm[#4]% 
-			xcmSvcMonQueueFaultCount=%parm[#5]% 
-			xcmSvcMonQueueFaultCode=%parm[#6]% 
+			xcmSvcMonQueueExtV2Event trap received
+			xcmSvcMonQueueIndex=%parm[#1]%
+			xcmSvcMonQueueOnSystem=%parm[#2]%
+			xcmSvcMonQueueState=%parm[#3]%
+			xcmSvcMonQueueConditions=%parm[#4]%
+			xcmSvcMonQueueFaultCount=%parm[#5]%
+			xcmSvcMonQueueFaultCode=%parm[#6]%
 			xcmSvcMonQueueFaultString=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1456,7 +1456,7 @@ This notification has the following special semantics:
         as a BER binary OID suffix.
 
 This trap OID qualifier allows service management/monitoring
-applications to limit the alerts they receive to ones generated 
+applications to limit the alerts they receive to ones generated
 by services of interest.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1492,10 +1492,10 @@ by services of interest.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmSvcMonServiceV2Event trap received 
-			xcmSvcMonServiceIndex=%parm[#1]% 
-			xcmSvcMonServiceCurrentState=%parm[#2]% 
-			xcmSvcMonServicePreviousState=%parm[#3]% 
+			xcmSvcMonServiceV2Event trap received
+			xcmSvcMonServiceIndex=%parm[#1]%
+			xcmSvcMonServiceCurrentState=%parm[#2]%
+			xcmSvcMonServicePreviousState=%parm[#3]%
 			xcmSvcMonServiceConditions=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1534,7 +1534,7 @@ This notification has the following special semantics:
         as a BER binary OID suffix.
 
 This trap OID qualifier allows service management/monitoring
-applications to limit the alerts they receive to ones generated 
+applications to limit the alerts they receive to ones generated
 
 
 by requests they have submitted.&lt;/p&gt;&lt;table&gt;
@@ -1600,9 +1600,9 @@ by requests they have submitted.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmSvcMonServiceMgmtV2Event trap received 
-			xcmSvcMonServiceIndex=%parm[#1]% 
-			xcmSvcMonServiceMgmtOperation=%parm[#2]% 
+			xcmSvcMonServiceMgmtV2Event trap received
+			xcmSvcMonServiceIndex=%parm[#1]%
+			xcmSvcMonServiceMgmtOperation=%parm[#2]%
 			xcmSvcMonServiceMgmtStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1633,7 +1633,7 @@ goes from 'true' to 'false'.
 Note:  The 'hrDeviceIndex' is included for convenience, even
 though the IETF Printer MIB doesn't include 'hrDeviceIndex'
 in its traps.  Then the management station doesn't have to parse
-the received varBind OIDs on a trap in order to discover which 
+the received varBind OIDs on a trap in order to discover which
 device trapped.
 
 Note:   The variable-bindings of this trap have been chosen to
@@ -1655,7 +1655,7 @@ This notification has the following special semantics:
         BER length field in octets of the OID suffix.
 
 This trap OID qualifier allows job-submission and job-monitoring
-applications to limit the alerts they receive to ones generated 
+applications to limit the alerts they receive to ones generated
 by jobs which they have submitted.
 
 Note:   The sum of the trap varBind values must be less than
@@ -1722,10 +1722,10 @@ of the 'xcmJobClientId' and 'xcmJobIdentifierOnSystem' objects.&lt;/p&gt;&lt;tab
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmSimpleJobMgmtV2Event trap received 
-			hrDeviceIndex=%parm[#1]% 
-			xcmJobIdentifierOnSystem=%parm[#2]% 
-			xcmSimpleJobMgmtOperation=%parm[#3]% 
+			xcmSimpleJobMgmtV2Event trap received
+			hrDeviceIndex=%parm[#1]%
+			xcmJobIdentifierOnSystem=%parm[#2]%
+			xcmSimpleJobMgmtOperation=%parm[#3]%
 			xcmSimpleJobMgmtStatus=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1767,7 +1767,7 @@ This notification has the following special semantics:
         BER length field in octets of the OID suffix.
 
 This trap OID qualifier allows job-submission and job-monitoring
-applications to limit the alerts they receive to ones generated 
+applications to limit the alerts they receive to ones generated
 
 
 by jobs which they have submitted.
@@ -1832,9 +1832,9 @@ of the 'xcmJobClientId' and 'xcmJobIdentifierOnSystem' objects.&lt;/p&gt;&lt;tab
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			xcmSimpleJobInterceptV2Event trap received 
-			xcmSimpleJobInterceptClientId=%parm[#1]% 
-			xcmSimpleJobInterceptOperation=%parm[#2]% 
+			xcmSimpleJobInterceptV2Event trap received
+			xcmSimpleJobInterceptClientId=%parm[#1]%
+			xcmSimpleJobInterceptOperation=%parm[#2]%
 			xcmSimpleJobInterceptStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

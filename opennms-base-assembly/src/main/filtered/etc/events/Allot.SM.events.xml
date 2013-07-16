@@ -70,11 +70,11 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alSMPProvisionErrTrap trap received 
-			alIniatingProcess=%parm[#1]% 
-			alProvisioningType=%parm[#2]% 
-			alFailCause=%parm[#3]% 
-			alSubscriberName=%parm[#4]% 
+			alSMPProvisionErrTrap trap received
+			alIniatingProcess=%parm[#1]%
+			alProvisioningType=%parm[#2]%
+			alFailCause=%parm[#3]%
+			alSubscriberName=%parm[#4]%
 			alSubscriberIp=%parm[#5]%</p>
 ]]>		</logmsg>
 	<severity>Warning</severity>
@@ -133,8 +133,8 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alSMPMultiFailTrap trap received 
-			alIniatingProcess=%parm[#1]% 
+			alSMPMultiFailTrap trap received
+			alIniatingProcess=%parm[#1]%
 			alFailCause=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Major</severity>
@@ -189,8 +189,8 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alSmpHighAvailabilityTrap trap received 
-			alFailCause=%parm[#1]% 
+			alSmpHighAvailabilityTrap trap received
+			alFailCause=%parm[#1]%
 			alHighAvailabilityStatus=%parm[#2]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>
@@ -248,10 +248,10 @@
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			alSMPSystemTrap trap received 
-			alIniatingProcess=%parm[#1]% 
-			alSysSubject=%parm[#2]% 
-			alSysCause=%parm[#3]% 
+			alSMPSystemTrap trap received
+			alIniatingProcess=%parm[#1]%
+			alSysSubject=%parm[#2]%
+			alSysCause=%parm[#3]%
 			alSysInfo=%parm[#4]%</p>
 ]]>		</logmsg>
 	<severity>Indeterminate</severity>

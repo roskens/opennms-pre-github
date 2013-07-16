@@ -47,11 +47,11 @@ traps.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			risingAlarm trap received 
-			alarmIndex=%parm[#1]% 
-			alarmVariable=%parm[#2]% 
-			alarmSampleType=%parm[#3]% 
-			alarmValue=%parm[#4]% 
+			risingAlarm trap received
+			alarmIndex=%parm[#1]%
+			alarmVariable=%parm[#2]%
+			alarmSampleType=%parm[#3]%
+			alarmValue=%parm[#4]%
 			alarmRisingThreshold=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -104,11 +104,11 @@ traps.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fallingAlarm trap received 
-			alarmIndex=%parm[#1]% 
-			alarmVariable=%parm[#2]% 
-			alarmSampleType=%parm[#3]% 
-			alarmValue=%parm[#4]% 
+			fallingAlarm trap received
+			alarmIndex=%parm[#1]%
+			alarmVariable=%parm[#2]%
+			alarmSampleType=%parm[#3]%
+			alarmValue=%parm[#4]%
 			alarmFallingThreshold=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

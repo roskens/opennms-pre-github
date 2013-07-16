@@ -22,8 +22,8 @@
 	<uei>uei.opennms.org/vendors/ipUnity/asClearDataBaseError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asDataBaseError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
-that it is not able to connect to DataBase inorder to get 
+&lt;p&gt;This notification is generated whenever Application Server detects
+that it is not able to connect to DataBase inorder to get
 configuration information.
 The object asTrapInfoString gives the detailed description of the error
 occured.&lt;/p&gt;&lt;table&gt;
@@ -44,14 +44,14 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asDataBaseError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asDataBaseError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asDataBaseError:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asDataBaseError:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -72,8 +72,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asDataBaseError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asDataBaseError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
-that it is not able to connect to DataBase inorder to get 
+&lt;p&gt;This notification is generated whenever Application Server detects
+that it is not able to connect to DataBase inorder to get
 configuration information.
 The object asTrapInfoString gives the detailed description of the error
 occured.&lt;/p&gt;&lt;table&gt;
@@ -94,8 +94,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asDataBaseError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asDataBaseError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -123,7 +123,7 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asWrapperClearCriticalError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asWrapperCriticalError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server detects a Critical error.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -143,14 +143,14 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asWrapperCriticalError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asWrapperCriticalError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asWrapperCriticalError:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asWrapperCriticalError:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -171,7 +171,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asWrapperCriticalError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asWrapperCriticalError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server detects a Critical error.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -191,8 +191,8 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asWrapperCriticalError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asWrapperCriticalError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -220,7 +220,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asProcMgrClearCriticalError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcMgrCriticalError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Process Manager of application 
+&lt;p&gt;This notification is generated whenever the Process Manager of application
 server detects a Critical error.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -240,14 +240,14 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcMgrCriticalError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asProcMgrCriticalError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asProcMgrCriticalError:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asProcMgrCriticalError:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -268,7 +268,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asProcMgrCriticalError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcMgrCriticalError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Process Manager of application 
+&lt;p&gt;This notification is generated whenever the Process Manager of application
 server detects a Critical error.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -288,8 +288,8 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcMgrCriticalError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asProcMgrCriticalError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -344,16 +344,16 @@ for the current interval exceeds the threshold value fcOverloadThreshold1.&lt;/p
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asOverloadThreshold1Exceed trap received 
-			asTrapSeverity=%parm[#1]% 
-			fcOverloadThreshold1=%parm[#2]% 
-			fcCurrentLoad=%parm[#3]% 
+			asOverloadThreshold1Exceed trap received
+			asTrapSeverity=%parm[#1]%
+			fcOverloadThreshold1=%parm[#2]%
+			fcCurrentLoad=%parm[#3]%
 			asTrapInfoString=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asOverloadThreshold1Exceed:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asOverloadThreshold1Exceed:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -401,10 +401,10 @@ for the current interval exceeds the threshold value fcOverloadThreshold1.&lt;/p
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asOverloadThreshold1Exceed trap received 
-			asTrapSeverity=%parm[#1]% 
-			fcOverloadThreshold1=%parm[#2]% 
-			fcCurrentLoad=%parm[#3]% 
+			asOverloadThreshold1Exceed trap received
+			asTrapSeverity=%parm[#1]%
+			fcOverloadThreshold1=%parm[#2]%
+			fcCurrentLoad=%parm[#3]%
 			asTrapInfoString=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -459,16 +459,16 @@ for the current interval exceeds the threshold value fcOverloadThreshold2.&lt;/p
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asOverloadThreshold2Exceed trap received 
-			asTrapSeverity=%parm[#1]% 
-			fcOverloadThreshold2=%parm[#2]% 
-			fcCurrentLoad=%parm[#3]% 
+			asOverloadThreshold2Exceed trap received
+			asTrapSeverity=%parm[#1]%
+			fcOverloadThreshold2=%parm[#2]%
+			fcCurrentLoad=%parm[#3]%
 			asTrapInfoString=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asOverloadThreshold2Exceed:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asOverloadThreshold2Exceed:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -516,10 +516,10 @@ for the current interval exceeds the threshold value fcOverloadThreshold2.&lt;/p
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asOverloadThreshold2Exceed trap received 
-			asTrapSeverity=%parm[#1]% 
-			fcOverloadThreshold2=%parm[#2]% 
-			fcCurrentLoad=%parm[#3]% 
+			asOverloadThreshold2Exceed trap received
+			asTrapSeverity=%parm[#1]%
+			fcOverloadThreshold2=%parm[#2]%
+			fcCurrentLoad=%parm[#3]%
 			asTrapInfoString=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -574,16 +574,16 @@ for the current interval exceeds the threshold value fcOverloadThreshold3.&lt;/p
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asOverloadThreshold3Exceed trap received 
-			asTrapSeverity=%parm[#1]% 
-			fcOverloadThreshold3=%parm[#2]% 
-			fcCurrentLoad=%parm[#3]% 
+			asOverloadThreshold3Exceed trap received
+			asTrapSeverity=%parm[#1]%
+			fcOverloadThreshold3=%parm[#2]%
+			fcCurrentLoad=%parm[#3]%
 			asTrapInfoString=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asOverloadThreshold3Exceed:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asOverloadThreshold3Exceed:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -631,10 +631,10 @@ for the current interval exceeds the threshold value fcOverloadThreshold3.&lt;/p
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asOverloadThreshold3Exceed trap received 
-			asTrapSeverity=%parm[#1]% 
-			fcOverloadThreshold3=%parm[#2]% 
-			fcCurrentLoad=%parm[#3]% 
+			asOverloadThreshold3Exceed trap received
+			asTrapSeverity=%parm[#1]%
+			fcOverloadThreshold3=%parm[#2]%
+			fcCurrentLoad=%parm[#3]%
 			asTrapInfoString=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -682,14 +682,14 @@ the detail description of the disk path and freespace left etc.,&lt;/p&gt;&lt;ta
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoDiskSpace trap received 
-			asTrapSeverity=%parm[#1]% 
+			asNoDiskSpace trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNoDiskSpace:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNoDiskSpace:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -730,8 +730,8 @@ the detail description of the disk path and freespace left etc.,&lt;/p&gt;&lt;ta
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoDiskSpace trap received 
-			asTrapSeverity=%parm[#1]% 
+			asNoDiskSpace trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -759,7 +759,7 @@ the detail description of the disk path and freespace left etc.,&lt;/p&gt;&lt;ta
 	<uei>uei.opennms.org/vendors/ipUnity/asClearSnmpAgentDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asSnmpAgentDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Master SNMP Agent is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -778,14 +778,14 @@ that the Master SNMP Agent is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asSnmpAgentDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asSnmpAgentDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asSnmpAgentDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asSnmpAgentDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -806,7 +806,7 @@ that the Master SNMP Agent is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asSnmpAgentDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asSnmpAgentDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Master SNMP Agent is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -825,8 +825,8 @@ that the Master SNMP Agent is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asSnmpAgentDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asSnmpAgentDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -854,7 +854,7 @@ that the Master SNMP Agent is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearHeartBeatSWDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asHeartBeatSWDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that its heart beat software is down or not functioning.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -873,14 +873,14 @@ that its heart beat software is down or not functioning.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asHeartBeatSWDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asHeartBeatSWDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asHeartBeatSWDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asHeartBeatSWDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -901,7 +901,7 @@ that its heart beat software is down or not functioning.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asHeartBeatSWDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asHeartBeatSWDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that its heart beat software is down or not functioning.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -920,8 +920,8 @@ that its heart beat software is down or not functioning.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asHeartBeatSWDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asHeartBeatSWDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -949,7 +949,7 @@ that its heart beat software is down or not functioning.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearFipIfDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asFipIfDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that FIP interface is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -968,14 +968,14 @@ that FIP interface is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asFipIfDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asFipIfDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asFipIfDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asFipIfDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -996,7 +996,7 @@ that FIP interface is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asFipIfDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asFipIfDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that FIP interface is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1015,8 +1015,8 @@ that FIP interface is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asFipIfDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asFipIfDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1044,7 +1044,7 @@ that FIP interface is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearFwJVMOutOfMemory</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asFwJVMOutOfMemory</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the framework process JVM exceeds the 
+&lt;p&gt;This notification is generated whenever the framework process JVM exceeds the
 critical level of memory usage.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1064,14 +1064,14 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asFwJVMOutOfMemory trap received 
-			asTrapSeverity=%parm[#1]% 
+			asFwJVMOutOfMemory trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asFwJVMOutOfMemory:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asFwJVMOutOfMemory:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1092,7 +1092,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asFwJVMOutOfMemory</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asFwJVMOutOfMemory</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the framework process JVM exceeds the 
+&lt;p&gt;This notification is generated whenever the framework process JVM exceeds the
 critical level of memory usage.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1112,8 +1112,8 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asFwJVMOutOfMemory trap received 
-			asTrapSeverity=%parm[#1]% 
+			asFwJVMOutOfMemory trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1137,7 +1137,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asUserPwdExpireWarn</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asUserPwdExpireWarn</event-label>
 	<descr>
-&lt;p&gt;This notification is sent when the application server finds an user's password is 
+&lt;p&gt;This notification is sent when the application server finds an user's password is
 going to expire. This is a minor trap. asTrapInfoString gives the user name and in
 howmany days the password expires.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1157,8 +1157,8 @@ howmany days the password expires.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asUserPwdExpireWarn trap received 
-			asTrapSeverity=%parm[#1]% 
+			asUserPwdExpireWarn trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1182,7 +1182,7 @@ howmany days the password expires.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asUserPwdExpired</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asUserPwdExpired</event-label>
 	<descr>
-&lt;p&gt;This notification is sent when the application server finds an user's password is 
+&lt;p&gt;This notification is sent when the application server finds an user's password is
 expired. This is a major trap. asTrapInfoString gives the user name.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1201,8 +1201,8 @@ expired. This is a major trap. asTrapInfoString gives the user name.&lt;/p&gt;&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asUserPwdExpired trap received 
-			asTrapSeverity=%parm[#1]% 
+			asUserPwdExpired trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1230,7 +1230,7 @@ expired. This is a major trap. asTrapInfoString gives the user name.&lt;/p&gt;&l
 	<uei>uei.opennms.org/vendors/ipUnity/asClearMediaServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMediaServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Media Server it is interacting with is down or not responding.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1249,14 +1249,14 @@ that the Media Server it is interacting with is down or not responding.&lt;/p&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMediaServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asMediaServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asMediaServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asMediaServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1277,7 +1277,7 @@ that the Media Server it is interacting with is down or not responding.&lt;/p&gt
 	<uei>uei.opennms.org/vendors/ipUnity/asMediaServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMediaServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Media Server it is interacting with is down or not responding.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1296,8 +1296,8 @@ that the Media Server it is interacting with is down or not responding.&lt;/p&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMediaServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asMediaServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1325,7 +1325,7 @@ that the Media Server it is interacting with is down or not responding.&lt;/p&gt
 	<uei>uei.opennms.org/vendors/ipUnity/asClearEJBServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asEJBServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the EJB Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1344,14 +1344,14 @@ that the EJB Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asEJBServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asEJBServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asEJBServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asEJBServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1372,7 +1372,7 @@ that the EJB Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asEJBServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asEJBServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the EJB Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1391,8 +1391,8 @@ that the EJB Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asEJBServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asEJBServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1420,7 +1420,7 @@ that the EJB Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearTomcatServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asTomcatServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Tomcat Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1439,14 +1439,14 @@ that the Tomcat Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asTomcatServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asTomcatServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asTomcatServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asTomcatServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1467,7 +1467,7 @@ that the Tomcat Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asTomcatServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asTomcatServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Tomcat Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1486,8 +1486,8 @@ that the Tomcat Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asTomcatServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asTomcatServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1515,7 +1515,7 @@ that the Tomcat Server it is interacting with is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearLDAPServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asLDAPServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the LDAP Server it is interacting with is down or not responding.
 asTrapInfoString gives the detailed description.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1535,14 +1535,14 @@ asTrapInfoString gives the detailed description.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asLDAPServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asLDAPServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asLDAPServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asLDAPServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1563,7 +1563,7 @@ asTrapInfoString gives the detailed description.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asLDAPServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asLDAPServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the LDAP Server it is interacting with is down or not responding.
 asTrapInfoString gives the detailed description.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1583,8 +1583,8 @@ asTrapInfoString gives the detailed description.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asLDAPServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asLDAPServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1612,7 +1612,7 @@ asTrapInfoString gives the detailed description.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearWebServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asWebServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Web Server is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1631,14 +1631,14 @@ that the Web Server is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asWebServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asWebServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asWebServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asWebServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1659,7 +1659,7 @@ that the Web Server is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asWebServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asWebServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Web Server is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1678,8 +1678,8 @@ that the Web Server is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asWebServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asWebServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1707,7 +1707,7 @@ that the Web Server is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearNASServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asNASServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the NAS Server it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1722,13 +1722,13 @@ that the NAS Server it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNASServerDown trap received 
+			asNASServerDown trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNASServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNASServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1749,7 +1749,7 @@ that the NAS Server it is using is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asNASServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asNASServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the NAS Server it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1764,7 +1764,7 @@ that the NAS Server it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNASServerDown trap received 
+			asNASServerDown trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1792,7 +1792,7 @@ that the NAS Server it is using is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearDataBaseDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asDataBaseDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the database server it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1811,14 +1811,14 @@ that the database server it is using is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asDataBaseDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asDataBaseDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asDataBaseDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asDataBaseDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1839,7 +1839,7 @@ that the database server it is using is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asDataBaseDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asDataBaseDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the database server it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1858,8 +1858,8 @@ that the database server it is using is down.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asDataBaseDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asDataBaseDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1887,7 +1887,7 @@ that the database server it is using is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearVerityAppDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asVerityAppDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Verity Application it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1902,13 +1902,13 @@ that the Verity Application it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asVerityAppDown trap received 
+			asVerityAppDown trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asVerityAppDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asVerityAppDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -1929,7 +1929,7 @@ that the Verity Application it is using is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asVerityAppDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asVerityAppDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the Verity Application it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1944,7 +1944,7 @@ that the Verity Application it is using is down.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asVerityAppDown trap received 
+			asVerityAppDown trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1972,7 +1972,7 @@ that the Verity Application it is using is down.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearMessagingServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMessagingServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the messaging or mailservers are down or not responding. It includes
 imap, pop and smtp servers.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1992,14 +1992,14 @@ imap, pop and smtp servers.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMessagingServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asMessagingServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asMessagingServerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asMessagingServerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2020,7 +2020,7 @@ imap, pop and smtp servers.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMessagingServerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMessagingServerDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever Application Server detects 
+&lt;p&gt;This notification is generated whenever Application Server detects
 that the messaging or mailservers are down or not responding. It includes
 imap, pop and smtp servers.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2040,8 +2040,8 @@ imap, pop and smtp servers.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMessagingServerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asMessagingServerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2065,7 +2065,7 @@ imap, pop and smtp servers.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPTimeOut</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPTimeOut</event-label>
 	<descr>
-&lt;p&gt;Timeout of an MGCP Message. Indicates that media Server is not 
+&lt;p&gt;Timeout of an MGCP Message. Indicates that media Server is not
 responding.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2080,7 +2080,7 @@ responding.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPTimeOut trap received 
+			asMGCPTimeOut trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2131,14 +2131,14 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asAppError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asAppError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asAppError:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asAppError:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2182,8 +2182,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asAppError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asAppError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2226,13 +2226,13 @@ resources allocated on the Media Server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoResources trap received 
+			asNoResources trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNoResources:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNoResources:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2268,7 +2268,7 @@ resources allocated on the Media Server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoResources trap received 
+			asNoResources trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2300,7 +2300,7 @@ status changes from up(1) to down(2).&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asAppDown trap received 
+			asAppDown trap received
 			asAppName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2338,7 +2338,7 @@ status changes from up(1) to down(2).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPDown trap received 
+			asMGCPDown trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2381,13 +2381,13 @@ app server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoAlarmLog trap received 
+			asNoAlarmLog trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNoAlarmLog:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNoAlarmLog:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2423,7 +2423,7 @@ app server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoAlarmLog trap received 
+			asNoAlarmLog trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2466,13 +2466,13 @@ app server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoDebugLog trap received 
+			asNoDebugLog trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNoDebugLog:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNoDebugLog:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2508,7 +2508,7 @@ app server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoDebugLog trap received 
+			asNoDebugLog trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2551,13 +2551,13 @@ app server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoCDRLog trap received 
+			asNoCDRLog trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNoCDRLog:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNoCDRLog:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2593,7 +2593,7 @@ app server.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNoCDRLog trap received 
+			asNoCDRLog trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2621,7 +2621,7 @@ app server.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/umClearNotResponding</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: umNotResponding</event-label>
 	<descr>
-&lt;p&gt;This notification is generated by UM Application whenever it 
+&lt;p&gt;This notification is generated by UM Application whenever it
 detects that it is not getting response from the servers it is
 using.
 These servers include
@@ -2647,14 +2647,14 @@ Object umTrapDescr object gives the description of the notification.&lt;/p&gt;&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			umNotResponding trap received 
-			asTrapSeverity=%parm[#1]% 
+			umNotResponding trap received
+			asTrapSeverity=%parm[#1]%
 			umTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/umNotResponding:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/umNotResponding:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2675,7 +2675,7 @@ Object umTrapDescr object gives the description of the notification.&lt;/p&gt;&l
 	<uei>uei.opennms.org/vendors/ipUnity/umNotResponding</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: umNotResponding</event-label>
 	<descr>
-&lt;p&gt;This notification is generated by UM Application whenever it 
+&lt;p&gt;This notification is generated by UM Application whenever it
 detects that it is not getting response from the servers it is
 using.
 These servers include
@@ -2701,8 +2701,8 @@ Object umTrapDescr object gives the description of the notification.&lt;/p&gt;&l
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			umNotResponding trap received 
-			asTrapSeverity=%parm[#1]% 
+			umNotResponding trap received
+			asTrapSeverity=%parm[#1]%
 			umTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2751,14 +2751,14 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			umMajorException trap received 
-			asTrapSeverity=%parm[#1]% 
+			umMajorException trap received
+			asTrapSeverity=%parm[#1]%
 			umTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/umMajorException:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/umMajorException:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2800,8 +2800,8 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			umMajorException trap received 
-			asTrapSeverity=%parm[#1]% 
+			umMajorException trap received
+			asTrapSeverity=%parm[#1]%
 			umTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2829,7 +2829,7 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearProcessStateChange</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcessStateChange</event-label>
 	<descr>
-&lt;p&gt;This notification indicates that the state of asProcessName is 
+&lt;p&gt;This notification indicates that the state of asProcessName is
 changed to asProcessState.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2858,15 +2858,15 @@ changed to asProcessState.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcessStateChange trap received 
-			asTrapSeverity=%parm[#1]% 
-			asProcessName=%parm[#2]% 
+			asProcessStateChange trap received
+			asTrapSeverity=%parm[#1]%
+			asProcessName=%parm[#2]%
 			asProcessState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asProcessStateChange:%dpname%:%nodeid%:%interface%:%parm[#2]%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asProcessStateChange:%dpname%:%nodeid%:%interface%:%parm[#2]%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2887,7 +2887,7 @@ changed to asProcessState.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asProcessStateChange</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcessStateChange</event-label>
 	<descr>
-&lt;p&gt;This notification indicates that the state of asProcessName is 
+&lt;p&gt;This notification indicates that the state of asProcessName is
 changed to asProcessState.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2916,9 +2916,9 @@ changed to asProcessState.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcessStateChange trap received 
-			asTrapSeverity=%parm[#1]% 
-			asProcessName=%parm[#2]% 
+			asProcessStateChange trap received
+			asTrapSeverity=%parm[#1]%
+			asProcessName=%parm[#2]%
 			asProcessState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2946,7 +2946,7 @@ changed to asProcessState.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asClearProcessManagerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcessManagerDown</event-label>
 	<descr>
-&lt;p&gt;This notification indicates that the Process Manager on the 
+&lt;p&gt;This notification indicates that the Process Manager on the
 Application Server is down. Please check the logs for more
 information.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2966,14 +2966,14 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcessManagerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asProcessManagerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asProcessManagerDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asProcessManagerDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -2994,7 +2994,7 @@ information.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asProcessManagerDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcessManagerDown</event-label>
 	<descr>
-&lt;p&gt;This notification indicates that the Process Manager on the 
+&lt;p&gt;This notification indicates that the Process Manager on the
 Application Server is down. Please check the logs for more
 information.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3014,8 +3014,8 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcessManagerDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asProcessManagerDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3039,8 +3039,8 @@ information.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asDBTaskError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asDBTaskError</event-label>
 	<descr>
-&lt;p&gt;This notification indicates that Cron Tasks on the Application server 
-encountered an error while executing. Please check the logs for more 
+&lt;p&gt;This notification indicates that Cron Tasks on the Application server
+encountered an error while executing. Please check the logs for more
 information.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3059,8 +3059,8 @@ information.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asDBTaskError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asDBTaskError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3106,8 +3106,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asLicensedHardLimitCrossed trap received 
-			asTrapSeverity=%parm[#1]% 
+			asLicensedHardLimitCrossed trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3131,7 +3131,7 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asSplitBrainDetected</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asSplitBrainDetected</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server detects the split brain condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3146,7 +3146,7 @@ server detects the split brain condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asSplitBrainDetected trap received 
+			asSplitBrainDetected trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3170,7 +3170,7 @@ server detects the split brain condition.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asNodeDown</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asNodeDown</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server detects that a node in the cluster goes down. asTrapInfoString gives
 the details like name of the node that wentdown.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3190,8 +3190,8 @@ the details like name of the node that wentdown.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNodeDown trap received 
-			asTrapSeverity=%parm[#1]% 
+			asNodeDown trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3215,7 +3215,7 @@ the details like name of the node that wentdown.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asRestartingProcMgr</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asRestartingProcMgr</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server restarts the process manager of the node. asTrapInfoString gives
 the detailed information and the actual reason for restarting.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3235,8 +3235,8 @@ the detailed information and the actual reason for restarting.&lt;/p&gt;&lt;tabl
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asRestartingProcMgr trap received 
-			asTrapSeverity=%parm[#1]% 
+			asRestartingProcMgr trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3281,8 +3281,8 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			confMajorException trap received 
-			asTrapSeverity=%parm[#1]% 
+			confMajorException trap received
+			asTrapSeverity=%parm[#1]%
 			confTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3310,7 +3310,7 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asFwClearJVMHighMemUsage</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asFwJVMHighMemUsage</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the framework process JVM reaches the 
+&lt;p&gt;This notification is generated whenever the framework process JVM reaches the
 first threshold level of memory usage.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3330,14 +3330,14 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asFwJVMHighMemUsage trap received 
-			asTrapSeverity=%parm[#1]% 
+			asFwJVMHighMemUsage trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asFwJVMHighMemUsage:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asFwJVMHighMemUsage:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -3358,7 +3358,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asFwJVMHighMemUsage</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asFwJVMHighMemUsage</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the framework process JVM reaches the 
+&lt;p&gt;This notification is generated whenever the framework process JVM reaches the
 first threshold level of memory usage.
 asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3378,8 +3378,8 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asFwJVMHighMemUsage trap received 
-			asTrapSeverity=%parm[#1]% 
+			asFwJVMHighMemUsage trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3403,7 +3403,7 @@ asTrapInfoString gives the detailed description of the error.&lt;/p&gt;&lt;table
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPPktLossCrossed</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPPktLossCrossed</event-label>
 	<descr>
-&lt;p&gt;Notification which specifies that Packet loss is exceeded 
+&lt;p&gt;Notification which specifies that Packet loss is exceeded
 ipuMGCPHigherBoundForPacketLoss.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3418,7 +3418,7 @@ ipuMGCPHigherBoundForPacketLoss.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPPktLossCrossed trap received 
+			asMGCPPktLossCrossed trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3442,7 +3442,7 @@ ipuMGCPHigherBoundForPacketLoss.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPJitterCrossed</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPJitterCrossed</event-label>
 	<descr>
-&lt;p&gt;Notification which specifies that Jitter is exceeding 
+&lt;p&gt;Notification which specifies that Jitter is exceeding
 ipuMGCPHigherBoundForJitter.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3457,7 +3457,7 @@ ipuMGCPHigherBoundForJitter.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPJitterCrossed trap received 
+			asMGCPJitterCrossed trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3481,7 +3481,7 @@ ipuMGCPHigherBoundForJitter.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPLatencyCrossed</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPLatencyCrossed</event-label>
 	<descr>
-&lt;p&gt;Notification which specifies that Latency is exceeding 
+&lt;p&gt;Notification which specifies that Latency is exceeding
 ipuMGCPHigherBoundForLatency.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3496,7 +3496,7 @@ ipuMGCPHigherBoundForLatency.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPLatencyCrossed trap received 
+			asMGCPLatencyCrossed trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3541,8 +3541,8 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			umMinorException trap received 
-			asTrapSeverity=%parm[#1]% 
+			umMinorException trap received
+			asTrapSeverity=%parm[#1]%
 			umTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3581,7 +3581,7 @@ a call with no Application.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asCallWithNoApp trap received 
+			asCallWithNoApp trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3627,8 +3627,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asLicensedSoftLimitCrossed trap received 
-			asTrapSeverity=%parm[#1]% 
+			asLicensedSoftLimitCrossed trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3652,7 +3652,7 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asProcMgrMinorError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asProcMgrMinorError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Process Manager of the 
+&lt;p&gt;This notification is generated whenever the Process Manager of the
 Application Server detects a minor error.
 The object asTrapInfoString gives the detailed description of the error
 occured.&lt;/p&gt;&lt;table&gt;
@@ -3673,8 +3673,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asProcMgrMinorError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asProcMgrMinorError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3698,7 +3698,7 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asWrapperMinorError</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asWrapperMinorError</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program of the 
+&lt;p&gt;This notification is generated whenever the Wrapper program of the
 Application Server detects a minor error.
 The object asTrapInfoString gives the detailed description of the error
 occured.&lt;/p&gt;&lt;table&gt;
@@ -3719,8 +3719,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asWrapperMinorError trap received 
-			asTrapSeverity=%parm[#1]% 
+			asWrapperMinorError trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3744,7 +3744,7 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asDbSwitch</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asDbSwitch</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the DB is switched from 
+&lt;p&gt;This notification is generated whenever the DB is switched from
 PRIMARY to SECONDARY or vice-versa.
 The object asTrapInfoString gives the detailed description of the error
 occured.&lt;/p&gt;&lt;table&gt;
@@ -3765,8 +3765,8 @@ occured.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asDbSwitch trap received 
-			asTrapSeverity=%parm[#1]% 
+			asDbSwitch trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3790,7 +3790,7 @@ occured.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/confMinorException</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: confMinorException</event-label>
 	<descr>
-&lt;p&gt;This notification is generated by Conference Bridge Application 
+&lt;p&gt;This notification is generated by Conference Bridge Application
 whenever it encounters a minor exception.
 Object confTrapDescr object gives the detail description of
 the actual notification.&lt;/p&gt;&lt;table&gt;
@@ -3811,8 +3811,8 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			confMinorException trap received 
-			asTrapSeverity=%parm[#1]% 
+			confMinorException trap received
+			asTrapSeverity=%parm[#1]%
 			confTrapDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3850,13 +3850,13 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPUp trap received 
+			asMGCPUp trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -3877,7 +3877,7 @@ the actual notification.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPPktLossFalls</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPPktLossFalls</event-label>
 	<descr>
-&lt;p&gt;Notification which specifies that Packet loss is below 
+&lt;p&gt;Notification which specifies that Packet loss is below
 ipuMGCPLowerBoundForPacketLoss.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3892,13 +3892,13 @@ ipuMGCPLowerBoundForPacketLoss.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPPktLossFalls trap received 
+			asMGCPPktLossFalls trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPPktLossCrossed:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPPktLossCrossed:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="true" />
 </event>
 <event>
@@ -3919,7 +3919,7 @@ ipuMGCPLowerBoundForPacketLoss.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPJitterFalls</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPJitterFalls</event-label>
 	<descr>
-&lt;p&gt;Notification which specifies that Jitter is below 
+&lt;p&gt;Notification which specifies that Jitter is below
 ipuMGCPLowerBoundForJitter.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3934,13 +3934,13 @@ ipuMGCPLowerBoundForJitter.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPJitterFalls trap received 
+			asMGCPJitterFalls trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPJitterCrossed:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPJitterCrossed:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="true" />
 </event>
 <event>
@@ -3961,7 +3961,7 @@ ipuMGCPLowerBoundForJitter.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asMGCPLatencyFalls</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asMGCPLatencyFalls</event-label>
 	<descr>
-&lt;p&gt;Notification which specifies that Latency is below 
+&lt;p&gt;Notification which specifies that Latency is below
 ipuMGCPLowerBoundForLatency.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3976,13 +3976,13 @@ ipuMGCPLowerBoundForLatency.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asMGCPLatencyFalls trap received 
+			asMGCPLatencyFalls trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPLatencyCrossed:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asMGCPLatencyCrossed:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="true" />
 </event>
 <event>
@@ -4021,14 +4021,14 @@ ipuMGCPLowerBoundForLatency.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asAppUp trap received 
-			asTrapSeverity=%parm[#1]% 
+			asAppUp trap received
+			asTrapSeverity=%parm[#1]%
 			asAppName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asAppDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asAppDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="false" />
 </event>
 <event>
@@ -4049,7 +4049,7 @@ ipuMGCPLowerBoundForLatency.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asSwitchover</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asSwitchover</event-label>
 	<descr>
-&lt;p&gt;Notification that is generated when the Active and the Standby App 
+&lt;p&gt;Notification that is generated when the Active and the Standby App
 Servers are switched over.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4071,8 +4071,8 @@ Servers are switched over.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asSwitchover trap received 
-			asTrapSeverity=%parm[#1]% 
+			asSwitchover trap received
+			asTrapSeverity=%parm[#1]%
 			asMode=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4096,7 +4096,7 @@ Servers are switched over.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/ipUnity/asSplitBrainCorrected</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asSplitBrainCorrected</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server corrects the split brain condition.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4111,13 +4111,13 @@ server corrects the split brain condition.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asSplitBrainCorrected trap received 
+			asSplitBrainCorrected trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asSplitBrainDetected:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asSplitBrainDetected:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="true" />
 </event>
 <event>
@@ -4153,7 +4153,7 @@ becomes the Captain of the cluster. This is informational.&lt;/p&gt;&lt;table&gt
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asBecameCaptain trap received 
+			asBecameCaptain trap received
 			asTrapSeverity=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -4177,7 +4177,7 @@ becomes the Captain of the cluster. This is informational.&lt;/p&gt;&lt;table&gt
 	<uei>uei.opennms.org/vendors/ipUnity/asNodeUp</uei>
 	<event-label>IPUNITY-SES-MIB defined trap event: asNodeUp</event-label>
 	<descr>
-&lt;p&gt;This notification is generated whenever the Wrapper program in application 
+&lt;p&gt;This notification is generated whenever the Wrapper program in application
 server detects that the operStatus of a node in the cluster changes to UP.
 asTrapInfoString gives the details like name of the node that wentdown.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4197,14 +4197,14 @@ asTrapInfoString gives the details like name of the node that wentdown.&lt;/p&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			asNodeUp trap received 
-			asTrapSeverity=%parm[#1]% 
+			asNodeUp trap received
+			asTrapSeverity=%parm[#1]%
 			asTrapInfoString=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                clear-key="uei.opennms.org/vendors/ipUnity/asNodeDown:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                clear-key="uei.opennms.org/vendors/ipUnity/asNodeDown:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
                 auto-clean="true" />
 </event>
 </events>

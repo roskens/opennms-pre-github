@@ -40,9 +40,9 @@ frame was sent and the reason for the disassociation.
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IEEE 802.11 Event: dot11Disassociate trap received 
-			ifIndex=%parm[#1]% 
-			dot11DisassociateReason=%parm[#2]% 
+			IEEE 802.11 Event: dot11Disassociate trap received
+			ifIndex=%parm[#1]%
+			dot11DisassociateReason=%parm[#2]%
 			dot11DisassociateStation=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -87,9 +87,9 @@ frame was sent and the reason for the deauthentication.
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IEEE 802.11 Event: dot11Deauthenticate trap received 
-			ifIndex=%parm[#1]% 
-			dot11DeauthenticateReason=%parm[#2]% 
+			IEEE 802.11 Event: dot11Deauthenticate trap received
+			ifIndex=%parm[#1]%
+			dot11DeauthenticateReason=%parm[#2]%
 			dot11DeauthenticateStation=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -113,7 +113,7 @@ frame was sent and the reason for the deauthentication.
 	<event-label>IEEE802dot11-MIB defined trap event: dot11AuthenticateFail</event-label>
 	<descr>
 &lt;p&gt;The authenticate failure notification shall be sent when the STA
-sends an Authentication frame with a status code other than 
+sends an Authentication frame with a status code other than
 successful. The value of the notification
 shall include the MAC address of the MAC to which the Authentication
 frame was sent and the reason for the authentication failure.
@@ -135,9 +135,9 @@ frame was sent and the reason for the authentication failure.
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			IEEE 802.11 Event: dot11AuthenticateFail trap received 
-			ifIndex=%parm[#1]% 
-			dot11AuthenticateFailStatus=%parm[#2]% 
+			IEEE 802.11 Event: dot11AuthenticateFail trap received
+			ifIndex=%parm[#1]%
+			dot11AuthenticateFailStatus=%parm[#2]%
 			dot11AuthenticateFailStation=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

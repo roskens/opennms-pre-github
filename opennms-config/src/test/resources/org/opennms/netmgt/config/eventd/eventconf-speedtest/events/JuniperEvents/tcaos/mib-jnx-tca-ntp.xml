@@ -34,8 +34,8 @@
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStratumChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStratumChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -74,8 +74,8 @@
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStratumChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStratumChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -114,8 +114,8 @@
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStratumChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStratumChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -154,8 +154,8 @@
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStratumChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStratumChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -176,8 +176,8 @@
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpStratumChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStratumChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStratumChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -223,7 +223,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpLeapChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpLeapChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the GPS receiver detects an 
+<p>This notification signifies that the GPS receiver detects an
 under-current condition on the GPS antenna cable.</p><table>
 	<tr><td><b>
 
@@ -235,8 +235,8 @@ under-current condition on the GPS antenna cable.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpLeapChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpLeapChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -264,7 +264,7 @@ under-current condition on the GPS antenna cable.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpLeapChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpLeapChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the GPS receiver detects an 
+<p>This notification signifies that the GPS receiver detects an
 under-current condition on the GPS antenna cable.</p><table>
 	<tr><td><b>
 
@@ -276,8 +276,8 @@ under-current condition on the GPS antenna cable.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpLeapChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpLeapChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -305,7 +305,7 @@ under-current condition on the GPS antenna cable.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpLeapChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpLeapChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the GPS receiver detects an 
+<p>This notification signifies that the GPS receiver detects an
 under-current condition on the GPS antenna cable.</p><table>
 	<tr><td><b>
 
@@ -317,8 +317,8 @@ under-current condition on the GPS antenna cable.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpLeapChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpLeapChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -346,7 +346,7 @@ under-current condition on the GPS antenna cable.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpLeapChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpLeapChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the GPS receiver detects an 
+<p>This notification signifies that the GPS receiver detects an
 under-current condition on the GPS antenna cable.</p><table>
 	<tr><td><b>
 
@@ -358,8 +358,8 @@ under-current condition on the GPS antenna cable.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpLeapChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpLeapChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -368,7 +368,7 @@ under-current condition on the GPS antenna cable.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpLeapChange:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the GPS receiver detects an 
+<p>This notification signifies that the GPS receiver detects an
 under-current condition on the GPS antenna cable.</p><table>
 	<tr><td><b>
 
@@ -381,8 +381,8 @@ under-current condition on the GPS antenna cable.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpLeapChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpLeapChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpLeapChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -428,7 +428,7 @@ under-current condition on the GPS antenna cable.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpStopped</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpStopped</event-label>
     <descr><![CDATA[
-<p>This notification signifies that there is no usable 
+<p>This notification signifies that there is no usable
 satellites are available for system to track.</p><table>
 	<tr><td><b>
 
@@ -440,8 +440,8 @@ satellites are available for system to track.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStopped trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStopped trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -469,7 +469,7 @@ satellites are available for system to track.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpStopped</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpStopped</event-label>
     <descr><![CDATA[
-<p>This notification signifies that there is no usable 
+<p>This notification signifies that there is no usable
 satellites are available for system to track.</p><table>
 	<tr><td><b>
 
@@ -481,8 +481,8 @@ satellites are available for system to track.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStopped trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStopped trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -510,7 +510,7 @@ satellites are available for system to track.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpStopped</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpStopped</event-label>
     <descr><![CDATA[
-<p>This notification signifies that there is no usable 
+<p>This notification signifies that there is no usable
 satellites are available for system to track.</p><table>
 	<tr><td><b>
 
@@ -522,8 +522,8 @@ satellites are available for system to track.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStopped trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStopped trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -551,7 +551,7 @@ satellites are available for system to track.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpStopped</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpStopped</event-label>
     <descr><![CDATA[
-<p>This notification signifies that there is no usable 
+<p>This notification signifies that there is no usable
 satellites are available for system to track.</p><table>
 	<tr><td><b>
 
@@ -563,8 +563,8 @@ satellites are available for system to track.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStopped trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStopped trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -573,7 +573,7 @@ satellites are available for system to track.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpStopped:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that there is no usable 
+<p>This notification signifies that there is no usable
 satellites are available for system to track.</p><table>
 	<tr><td><b>
 
@@ -586,8 +586,8 @@ satellites are available for system to track.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpStopped</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpStopped trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpStopped trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -633,8 +633,8 @@ satellites are available for system to track.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpAuthFail</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpAuthFail</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the when GPS indicates 
-there is a leap second announcement ( leap sec is either 
+<p>This notification signifies that the when GPS indicates
+there is a leap second announcement ( leap sec is either
 add /del ).</p><table>
 	<tr><td><b>
 
@@ -646,8 +646,8 @@ add /del ).</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpAuthFail trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpAuthFail trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -675,8 +675,8 @@ add /del ).</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpAuthFail</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpAuthFail</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the when GPS indicates 
-there is a leap second announcement ( leap sec is either 
+<p>This notification signifies that the when GPS indicates
+there is a leap second announcement ( leap sec is either
 add /del )./p><table>
 	<tr><td><b>
 
@@ -688,8 +688,8 @@ add /del )./p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpAuthFail trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpAuthFail trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -717,8 +717,8 @@ add /del )./p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpAuthFail</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpAuthFail</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the when GPS indicates 
-there is a leap second announcement ( leap sec is either 
+<p>This notification signifies that the when GPS indicates
+there is a leap second announcement ( leap sec is either
 add /del ).</p><table>
 	<tr><td><b>
 
@@ -730,8 +730,8 @@ add /del ).</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpAuthFail trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpAuthFail trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -759,8 +759,8 @@ add /del ).</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpAuthFail</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpAuthFail</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the when GPS indicates 
-there is a leap second announcement ( leap sec is either 
+<p>This notification signifies that the when GPS indicates
+there is a leap second announcement ( leap sec is either
 add /del ).</p><table>
 	<tr><td><b>
 
@@ -772,8 +772,8 @@ add /del ).</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpAuthFail trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpAuthFail trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -782,8 +782,8 @@ add /del ).</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgNtpAuthFail:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the when GPS indicates 
-there is a leap second announcement ( leap sec is either 
+<p>This notification signifies that the when GPS indicates
+there is a leap second announcement ( leap sec is either
 add /del ).</p><table>
 	<tr><td><b>
 
@@ -796,8 +796,8 @@ add /del ).</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgNtpAuthFail</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgNtpAuthFail trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgNtpAuthFail trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>

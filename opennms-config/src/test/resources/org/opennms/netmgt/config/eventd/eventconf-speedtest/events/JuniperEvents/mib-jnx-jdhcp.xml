@@ -39,10 +39,10 @@ changed interfaces.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpLocalServerDuplicateClient trap received 
-			jnxJdhcpRouterName=%parm[#1]% 
-			jnxJdhcpLocalServerMacAddress=%parm[#2]% 
-			jnxJdhcpLocalServerInterfaceName=%parm[#3]% 
+			jnxJdhcpLocalServerDuplicateClient trap received
+			jnxJdhcpRouterName=%parm[#1]%
+			jnxJdhcpLocalServerMacAddress=%parm[#2]%
+			jnxJdhcpLocalServerInterfaceName=%parm[#3]%
 			jnxJdhcpLocalServerLastDetected=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -80,9 +80,9 @@ changed interfaces.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpLocalServerInterfaceLimitExceeded trap received 
-			jnxJdhcpRouterName=%parm[#1]% 
-			jnxJdhcpLocalServerInterfaceName=%parm[#2]% 
+			jnxJdhcpLocalServerInterfaceLimitExceeded trap received
+			jnxJdhcpRouterName=%parm[#1]%
+			jnxJdhcpLocalServerInterfaceName=%parm[#2]%
 			jnxJdhcpLocalServerInterfaceLimit=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -121,9 +121,9 @@ below the limit allowed on that interface.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpLocalServerInterfaceLimitAbated trap received 
-			jnxJdhcpRouterName=%parm[#1]% 
-			jnxJdhcpLocalServerInterfaceName=%parm[#2]% 
+			jnxJdhcpLocalServerInterfaceLimitAbated trap received
+			jnxJdhcpRouterName=%parm[#1]%
+			jnxJdhcpLocalServerInterfaceName=%parm[#2]%
 			jnxJdhcpLocalServerInterfaceLimit=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -146,7 +146,7 @@ below the limit allowed on that interface.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJdhcpLocalServerHealth</uei>
     <event-label>JUNIPER-JDHCP-MIB defined trap event: jnxJdhcpLocalServerHealth</event-label>
     <descr><![CDATA[
-<p>Reports when a health event occurs in the Local Server 
+<p>Reports when a health event occurs in the Local Server
 application.</p><table>
 	<tr><td><b>
 
@@ -166,9 +166,9 @@ application.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpLocalServerHealth trap received 
-			jnxJdhcpRouterName=%parm[#1]% 
-			jnxJdhcpLocalServerEventSeverity=%parm[#2]% 
+			jnxJdhcpLocalServerHealth trap received
+			jnxJdhcpRouterName=%parm[#1]%
+			jnxJdhcpLocalServerEventSeverity=%parm[#2]%
 			jnxJdhcpLocalServerEventString=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -206,9 +206,9 @@ application.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpRelayInterfaceLimitExceeded trap received 
-			jnxJdhcpRelayRouterName=%parm[#1]% 
-			jnxJdhcpRelayInterfaceName=%parm[#2]% 
+			jnxJdhcpRelayInterfaceLimitExceeded trap received
+			jnxJdhcpRelayRouterName=%parm[#1]%
+			jnxJdhcpRelayInterfaceName=%parm[#2]%
 			jnxJdhcpRelayInterfaceLimit=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -247,9 +247,9 @@ below the limit allowed on that interface.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJdhcpRelayInterfaceLimitAbated trap received 
-			jnxJdhcpRelayRouterName=%parm[#1]% 
-			jnxJdhcpRelayInterfaceName=%parm[#2]% 
+			jnxJdhcpRelayInterfaceLimitAbated trap received
+			jnxJdhcpRelayRouterName=%parm[#1]%
+			jnxJdhcpRelayInterfaceName=%parm[#2]%
 			jnxJdhcpRelayInterfaceLimit=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

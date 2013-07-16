@@ -44,7 +44,7 @@
       <appender-ref ref="events">
         <ThreadContextMapFilter>
           <KeyValuePair key="prefix" value="events" />
-        </ThreadContextMapFilter>        
+        </ThreadContextMapFilter>
       </appender-ref>
 
     </root>

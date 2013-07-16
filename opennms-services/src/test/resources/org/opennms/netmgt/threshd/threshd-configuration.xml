@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <?castor class-name="org.opennms.netmgt.threshd.ThreshdConfiguration"?>
-<threshd-configuration 
+<threshd-configuration
    threads="5">
-   
+
    <package name="example1">
-       <filter>IPADDR IPLIKE *.*.*.*</filter>   
+       <filter>IPADDR IPLIKE *.*.*.*</filter>
        <specific>0.0.0.0</specific>
-       
+
        <service name="SNMP" interval="3000" user-defined="false" status="on">
            <parameter key="thresholding-group" value="default-snmp"/>
        </service>
-       
+
         <service name="ICMP" interval="3000" user-defined="false" status="on">
                         <parameter key="thresholding-group" value="icmp-latency"/>
                 </service>
@@ -37,7 +37,7 @@
 
        <outage-calendar>zzz from poll-outages.xml zzz</outage-calendar>
    </package>
-   
+
    <thresholder service="SNMP"   class-name="org.opennms.netmgt.threshd.SnmpThresholder"/>
    <thresholder service="ICMP"     class-name="org.opennms.netmgt.threshd.LatencyThresholder"/>
         <thresholder service="HTTP"     class-name="org.opennms.netmgt.threshd.LatencyThresholder"/>

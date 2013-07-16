@@ -14,14 +14,14 @@
   <bean id="rancidAdapterConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.RancidAdapterConfigFactory.init</value></property>
   </bean>
-  
+
   <bean id="rancidAdapterConfig" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="rancidAdapterConfig-init">
     <property name="staticMethod"><value>org.opennms.netmgt.config.RancidAdapterConfigFactory.getInstance</value></property>
   </bean>
-  
+
   <bean id="rancidEventListenerAdapter" class="org.opennms.netmgt.model.events.AnnotationBasedEventListenerAdapter">
   	<property name="annotatedListener" ref="rancidProvisioningAdapter" />
   	<property name="eventSubscriptionService" ref="eventSubscriptionService" />
   </bean>
- 
+
 </beans>

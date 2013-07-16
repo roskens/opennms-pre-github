@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-lazy-init="true">
-        
+
    <bean id="commonContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -11,7 +11,7 @@
      </constructor-arg>
      <constructor-arg ref="daemonContext" />
    </bean>
-   
+
    <bean id="collectdContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -20,7 +20,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
+
    <bean id="capsdContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -29,7 +29,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
+
    <bean id="pollerdContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -38,7 +38,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
+
    <bean id="provisionerContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -47,7 +47,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
+
    <bean id="snmpinterfacepollerdContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -67,7 +67,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
+
     <bean id="statisticsDaemonContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -76,7 +76,7 @@
      </constructor-arg>
      <constructor-arg ref="daemonContext" />
    </bean>
-   
+
     <bean id="troubleTicketerContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -85,7 +85,7 @@
      </constructor-arg>
      <constructor-arg ref="daemonContext" />
    </bean>
-   
+
     <bean id="queuedContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -94,7 +94,7 @@
      </constructor-arg>
      <constructor-arg ref="daemonContext" />
    </bean>
-        
+
     <bean id="linkdContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -103,7 +103,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-        
+
     <bean id="eventDaemonContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -112,7 +112,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-        
+
     <bean id="trapDaemonContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -121,7 +121,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-   
+
    <bean id="tl1DaemonContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -130,7 +130,7 @@
      </constructor-arg>
      <constructor-arg ref="commonContext" />
    </bean>
-    
+
    <bean id="discoveryContext" class="org.springframework.context.support.ClassPathXmlApplicationContext">
      <constructor-arg>
        <list>
@@ -138,5 +138,5 @@
        </list>
      </constructor-arg>
      <constructor-arg ref="commonContext" />
-   </bean> 
+   </bean>
 </beans>

@@ -2,7 +2,7 @@
 <datasource-configuration
   xmlns:this="http://xmlns.opennms.org/xsd/config/opennms-datasources"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/opennms-datasources 
+  xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/opennms-datasources
                       http://www.opennms.org/xsd/config/opennms-datasources.xsd ">
   <jdbc-data-source name="opennms"
       class-name="org.postgresql.Driver"

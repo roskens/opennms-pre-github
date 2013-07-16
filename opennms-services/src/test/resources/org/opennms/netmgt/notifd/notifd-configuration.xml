@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<notifd-configuration 
+<notifd-configuration
         status="on"
         pages-sent="SELECT * FROM notifications"
         next-notif-id="SELECT nextval('notifynxtid')"
@@ -11,32 +11,32 @@
         acknowledge-update-sql="UPDATE notifications SET answeredby=?, respondtime=? WHERE notifyId=?"
         email-address-command="javaEmail"
    match-all="true">
-        
-   <auto-acknowledge notify = "true" uei="uei.opennms.org/nodes/serviceResponsive" 
+
+   <auto-acknowledge notify = "true" uei="uei.opennms.org/nodes/serviceResponsive"
                           acknowledge="uei.opennms.org/nodes/serviceUnresponsive">
                           <match>nodeid</match>
                           <match>interfaceid</match>
                           <match>serviceid</match>
         </auto-acknowledge>
-   
-        <auto-acknowledge uei="uei.opennms.org/nodes/nodeRegainedService" 
+
+        <auto-acknowledge uei="uei.opennms.org/nodes/nodeRegainedService"
                           acknowledge="uei.opennms.org/nodes/nodeLostService">
                           <match>nodeid</match>
                           <match>interfaceid</match>
                           <match>serviceid</match>
         </auto-acknowledge>
-        
-        <auto-acknowledge uei="uei.opennms.org/nodes/interfaceUp" 
+
+        <auto-acknowledge uei="uei.opennms.org/nodes/interfaceUp"
                           acknowledge="uei.opennms.org/nodes/interfaceDown">
                           <match>nodeid</match>
                           <match>interfaceid</match>
         </auto-acknowledge>
-        
-        <auto-acknowledge uei="uei.opennms.org/nodes/nodeUp" 
+
+        <auto-acknowledge uei="uei.opennms.org/nodes/nodeUp"
                           acknowledge="uei.opennms.org/nodes/nodeDown">
                           <match>nodeid</match>
         </auto-acknowledge>
-        
+
         <queue>
                 <queue-id>default</queue-id>
                 <interval>100ms</interval>

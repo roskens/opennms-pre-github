@@ -20,7 +20,7 @@
 	<!-- *********************************** -->
 	<!-- OpenNMS OSS/J interface test events -->
 	<!-- *********************************** -->
-		
+
 	<event>
 		<mask>
 			<maskelement>
@@ -49,14 +49,14 @@
 		<!-- severity maps to OSS/J PerceivedSeverity -->
 		<severity>Critical</severity>
 
-		<!-- operinstruct maps to OSS/J ProposedRepairActions -->		
+		<!-- operinstruct maps to OSS/J ProposedRepairActions -->
 		<operinstruct>Test1 ProposedRepairActions</operinstruct>
-		
+
 			<!-- (int) x733-probable-cause maps to OSS/J ProbableCause -->
 			<!-- (string) x733-alarm-type maps to OSS/J AlarmType -->
 			<!-- CommunicationsAlarm|ProcessingErrorAlarm|EnvironmentalAlarm|QualityOfServiceAlarm|EquipmentAlarm|IntegrityViolation|SecurityViolation|TimeDomainViolation|OperationalViolation|PhysicalViolation -->
 		<alarm-data reduction-key="%uei%:%dpname%:%nodeid%"
-			alarm-type="1" 
+			alarm-type="1"
 			x733-probable-cause="1"
 			x733-alarm-type="CommunicationsAlarm" />
 	</event>
@@ -89,7 +89,7 @@
 		<!-- severity maps to OSS/J PerceivedSeverity -->
 		<severity>Cleared</severity>
 
-		<!-- operinstruct maps to OSS/J ProposedRepairActions -->		
+		<!-- operinstruct maps to OSS/J ProposedRepairActions -->
 		<operinstruct>Test1 Cleared ProposedRepairActions</operinstruct>
 
 		<alarm-data reduction-key="%uei%:%dpname%:%nodeid%"

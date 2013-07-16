@@ -93,7 +93,7 @@ maintained
   </service>
   <!--  Dhcpd is now distributed separately. You will need to ensure
         it is installed before you enable it here. -->
-  <!-- 
+  <!--
   <service>
     <name>OpenNMS:Name=Dhcpd</name>
     <class-name>org.opennms.netmgt.dhcpd.jmx.Dhcpd</class-name>

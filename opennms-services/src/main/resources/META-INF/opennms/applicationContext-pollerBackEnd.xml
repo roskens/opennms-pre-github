@@ -24,7 +24,7 @@
     <property name="eventIpcManager" ref="eventIpcManager" />
     <property name="disconnectedTimeout" ref="monitorDisconnectedTimeout" />
   </bean>
-  
+
   <bean name="backend" class="org.opennms.netmgt.poller.remote.support.ExceptionProtectedPollerBackEnd">
     <property name="delegate" ref="daemon" />
   </bean>

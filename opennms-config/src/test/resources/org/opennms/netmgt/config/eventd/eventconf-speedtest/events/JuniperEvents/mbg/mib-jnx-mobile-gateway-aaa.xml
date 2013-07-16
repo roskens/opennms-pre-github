@@ -19,7 +19,7 @@
 		</mask>
 		<descr>
 &lt;p&gt;This notification signifies that the specified server has been
-marked dead. The ServerName identifies the server and the 
+marked dead. The ServerName identifies the server and the
 SPIdentfier identifies the session-pic which originated this
 notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -40,10 +40,10 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusServerDown trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAAServerName=%parm[#3]% 
+			jnxMbgAAARadiusServerDown trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAAServerName=%parm[#3]%
 				jnxMbgSPIdentifier=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -72,7 +72,7 @@ notification.&lt;/p&gt;&lt;table&gt;
 		<descr>
 &lt;p&gt;This notification signifies that the specified server has been
 marked active again. This could be because the server started to
-respond again. The ServerName identifies the server and the 
+respond again. The ServerName identifies the server and the
 SPIdentfier identifies the session-pic which originated this
 notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -93,10 +93,10 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusServerUp trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAAServerName=%parm[#3]% 
+			jnxMbgAAARadiusServerUp trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAAServerName=%parm[#3]%
 				jnxMbgSPIdentifier=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -123,9 +123,9 @@ notification.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the specified Network Element has 
-been marked DOWN. This could be because none of the servers  in the 
-network element is active.  SPIdentfier identifies the session-pic 
+&lt;p&gt;This notification signifies that the specified Network Element has
+been marked DOWN. This could be because none of the servers  in the
+network element is active.  SPIdentfier identifies the session-pic
 which originated this notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -145,10 +145,10 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusNetworkElementDown trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAANetworkElementName=%parm[#3]% 
+			jnxMbgAAARadiusNetworkElementDown trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAANetworkElementName=%parm[#3]%
 				jnxMbgSPIdentifier=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -176,8 +176,8 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification signifies that the specified Network Element
-has been marked UP. This could be because atleast one server in 
-the network element is active. SPIdentfier identifies the session-pic 
+has been marked UP. This could be because atleast one server in
+the network element is active. SPIdentfier identifies the session-pic
 which originated this notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -197,10 +197,10 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusNetworkElementUp trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAANetworkElementName=%parm[#3]% 
+			jnxMbgAAARadiusNetworkElementUp trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAANetworkElementName=%parm[#3]%
 				jnxMbgSPIdentifier=%parm[#4]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -231,11 +231,11 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending authentication queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending authentication queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -272,13 +272,13 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusNEPendAuthQStatus trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAANetworkElementName=%parm[#3]% 
-				jnxMbgSPIdentifier=%parm[#4]% 
-				jnxMbgPendQWaterMarkType=%parm[#5]% 
-				jnxMbgPendQWaterMarkValue=%parm[#6]% 
+			jnxMbgAAARadiusNEPendAuthQStatus trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAANetworkElementName=%parm[#3]%
+				jnxMbgSPIdentifier=%parm[#4]%
+				jnxMbgPendQWaterMarkType=%parm[#5]%
+				jnxMbgPendQWaterMarkValue=%parm[#6]%
 				jnxMbgPendQLength=%parm[#7]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -309,11 +309,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending authentication queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending authentication queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -350,13 +350,13 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusNEPendAuthQStatus trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAANetworkElementName=%parm[#3]% 
-				jnxMbgSPIdentifier=%parm[#4]% 
-				jnxMbgPendQWaterMarkType=%parm[#5]% 
-				jnxMbgPendQWaterMarkValue=%parm[#6]% 
+			jnxMbgAAARadiusNEPendAuthQStatus trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAANetworkElementName=%parm[#3]%
+				jnxMbgSPIdentifier=%parm[#4]%
+				jnxMbgPendQWaterMarkType=%parm[#5]%
+				jnxMbgPendQWaterMarkValue=%parm[#6]%
 				jnxMbgPendQLength=%parm[#7]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -387,11 +387,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending accounting queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending accounting queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -428,13 +428,13 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusNEPendAcctQStatus trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAANetworkElementName=%parm[#3]% 
-				jnxMbgSPIdentifier=%parm[#4]% 
-				jnxMbgPendQWaterMarkType=%parm[#5]% 
-				jnxMbgPendQWaterMarkValue=%parm[#6]% 
+			jnxMbgAAARadiusNEPendAcctQStatus trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAANetworkElementName=%parm[#3]%
+				jnxMbgSPIdentifier=%parm[#4]%
+				jnxMbgPendQWaterMarkType=%parm[#5]%
+				jnxMbgPendQWaterMarkValue=%parm[#6]%
 				jnxMbgPendQLength=%parm[#7]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -465,11 +465,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending accounting queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending accounting queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -506,13 +506,13 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAARadiusNEPendAcctQStatus trap received 
-				jnxMbgGwIndex=%parm[#1]% 
-				jnxMbgGwName=%parm[#2]% 
-				jnxMbgAAANetworkElementName=%parm[#3]% 
-				jnxMbgSPIdentifier=%parm[#4]% 
-				jnxMbgPendQWaterMarkType=%parm[#5]% 
-				jnxMbgPendQWaterMarkValue=%parm[#6]% 
+			jnxMbgAAARadiusNEPendAcctQStatus trap received
+				jnxMbgGwIndex=%parm[#1]%
+				jnxMbgGwName=%parm[#2]%
+				jnxMbgAAANetworkElementName=%parm[#3]%
+				jnxMbgSPIdentifier=%parm[#4]%
+				jnxMbgPendQWaterMarkType=%parm[#5]%
+				jnxMbgPendQWaterMarkValue=%parm[#6]%
 				jnxMbgPendQLength=%parm[#7]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -540,7 +540,7 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</mask>
 		<descr>
 &lt;p&gt;This notification signifies that the specified server has been
-marked dead. The ServerName identifies the server and the 
+marked dead. The ServerName identifies the server and the
 SPIdentfier identifies the session-pic which originated this
 notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -553,8 +553,8 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAAServerDown trap received 
-				jnxMbgAAAServerName=%parm[#1]% 
+			jnxMbgAAAServerDown trap received
+				jnxMbgAAAServerName=%parm[#1]%
 				jnxMbgSPIdentifier=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Major</severity>
@@ -583,7 +583,7 @@ notification.&lt;/p&gt;&lt;table&gt;
 		<descr>
 &lt;p&gt;This notification signifies that the specified server has been
 marked active again. This could be because the server started to
-respond again. The ServerName identifies the server and the 
+respond again. The ServerName identifies the server and the
 SPIdentfier identifies the session-pic which originated this
 notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -596,8 +596,8 @@ notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAAServerUp trap received 
-				jnxMbgAAAServerName=%parm[#1]% 
+			jnxMbgAAAServerUp trap received
+				jnxMbgAAAServerName=%parm[#1]%
 				jnxMbgSPIdentifier=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -624,9 +624,9 @@ notification.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the specified Network Element has 
-been marked DOWN. This could be because none of the servers  in the 
-network element is active.  SPIdentfier identifies the session-pic 
+&lt;p&gt;This notification signifies that the specified Network Element has
+been marked DOWN. This could be because none of the servers  in the
+network element is active.  SPIdentfier identifies the session-pic
 which originated this notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -638,8 +638,8 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAANetworkElementDown trap received 
-				jnxMbgAAANetworkElementName=%parm[#1]% 
+			jnxMbgAAANetworkElementDown trap received
+				jnxMbgAAANetworkElementName=%parm[#1]%
 				jnxMbgSPIdentifier=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Critical</severity>
@@ -667,8 +667,8 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		</mask>
 		<descr>
 &lt;p&gt;This notification signifies that the specified Network Element
-has been marked UP. This could be because atleast one server in 
-the network element is active. SPIdentfier identifies the session-pic 
+has been marked UP. This could be because atleast one server in
+the network element is active. SPIdentfier identifies the session-pic
 which originated this notification.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -680,8 +680,8 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAANetworkElementUp trap received 
-				jnxMbgAAANetworkElementName=%parm[#1]% 
+			jnxMbgAAANetworkElementUp trap received
+				jnxMbgAAANetworkElementName=%parm[#1]%
 				jnxMbgSPIdentifier=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -712,11 +712,11 @@ which originated this notification.&lt;/p&gt;&lt;table&gt;
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending authentication queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending authentication queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -745,11 +745,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAANEPendAuthQStatus trap received 
-				jnxMbgAAANetworkElementName=%parm[#1]% 
-				jnxMbgSPIdentifier=%parm[#2]% 
-				jnxMbgPendQWaterMarkType=%parm[#3]% 
-				jnxMbgPendQWaterMarkValue=%parm[#4]% 
+			jnxMbgAAANEPendAuthQStatus trap received
+				jnxMbgAAANetworkElementName=%parm[#1]%
+				jnxMbgSPIdentifier=%parm[#2]%
+				jnxMbgPendQWaterMarkType=%parm[#3]%
+				jnxMbgPendQWaterMarkValue=%parm[#4]%
 				jnxMbgPendQLength=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -780,11 +780,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending authentication queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending authentication queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -813,11 +813,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAANEPendAuthQStatus trap received 
-				jnxMbgAAANetworkElementName=%parm[#1]% 
-				jnxMbgSPIdentifier=%parm[#2]% 
-				jnxMbgPendQWaterMarkType=%parm[#3]% 
-				jnxMbgPendQWaterMarkValue=%parm[#4]% 
+			jnxMbgAAANEPendAuthQStatus trap received
+				jnxMbgAAANetworkElementName=%parm[#1]%
+				jnxMbgSPIdentifier=%parm[#2]%
+				jnxMbgPendQWaterMarkType=%parm[#3]%
+				jnxMbgPendQWaterMarkValue=%parm[#4]%
 				jnxMbgPendQLength=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -848,11 +848,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending accounting queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending accounting queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -881,11 +881,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAANEPendAcctQStatus trap received 
-				jnxMbgAAANetworkElementName=%parm[#1]% 
-				jnxMbgSPIdentifier=%parm[#2]% 
-				jnxMbgPendQWaterMarkType=%parm[#3]% 
-				jnxMbgPendQWaterMarkValue=%parm[#4]% 
+			jnxMbgAAANEPendAcctQStatus trap received
+				jnxMbgAAANetworkElementName=%parm[#1]%
+				jnxMbgSPIdentifier=%parm[#2]%
+				jnxMbgPendQWaterMarkType=%parm[#3]%
+				jnxMbgPendQWaterMarkValue=%parm[#4]%
 				jnxMbgPendQLength=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -916,11 +916,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		</varbind>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies the crossing-over of a  watermark 
-(High or Low) of the pending accounting queue length of network 
-element. The NetworkElementName identifies the network element and 
+&lt;p&gt;This notification signifies the crossing-over of a  watermark
+(High or Low) of the pending accounting queue length of network
+element. The NetworkElementName identifies the network element and
 SPIdentfier identifies the session-pic which originated this notification.
-jnxMbgPendQWaterMarkType identifies the water mark type (High/Low). 
+jnxMbgPendQWaterMarkType identifies the water mark type (High/Low).
 jnxMbgPendQWaterMarkValue is the value that has been crossed over.
 jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -949,11 +949,11 @@ jnxMbgPendQLength is the size of the queue after crossing over.&lt;/p&gt;&lt;tab
 		%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgAAANEPendAcctQStatus trap received 
-				jnxMbgAAANetworkElementName=%parm[#1]% 
-				jnxMbgSPIdentifier=%parm[#2]% 
-				jnxMbgPendQWaterMarkType=%parm[#3]% 
-				jnxMbgPendQWaterMarkValue=%parm[#4]% 
+			jnxMbgAAANEPendAcctQStatus trap received
+				jnxMbgAAANetworkElementName=%parm[#1]%
+				jnxMbgSPIdentifier=%parm[#2]%
+				jnxMbgPendQWaterMarkType=%parm[#3]%
+				jnxMbgPendQWaterMarkValue=%parm[#4]%
 				jnxMbgPendQLength=%parm[#5]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>

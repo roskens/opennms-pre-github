@@ -50,7 +50,7 @@
       <type>tar.gz</type>
     </dependency>
     -->
-    <!-- 
+    <!--
       This test-jar contains the org.apache.karaf.itests.KarafTestSupport class
       which provides useful utility functions when running Pax Exam testing inside
       Karaf.

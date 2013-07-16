@@ -33,9 +33,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpCardInserted trap received 
-			adTrapInformSeqNum=%parm[#1]% 
-			sysName=%parm[#2]% 
+			adCtrpCardInserted trap received
+			adTrapInformSeqNum=%parm[#1]%
+			sysName=%parm[#2]%
 			adGenSlotInfoIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -74,9 +74,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpCardRemoved trap received 
-			adTrapInformSeqNum=%parm[#1]% 
-			sysName=%parm[#2]% 
+			adCtrpCardRemoved trap received
+			adTrapInformSeqNum=%parm[#1]%
+			sysName=%parm[#2]%
 			adGenSlotInfoIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -115,9 +115,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpBlownFuse trap received 
-			adTrapInformSeqNum=%parm[#1]% 
-			sysName=%parm[#2]% 
+			adCtrpBlownFuse trap received
+			adTrapInformSeqNum=%parm[#1]%
+			sysName=%parm[#2]%
 			adGenSlotInfoIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -152,14 +152,14 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpRmtAlmClear trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpRmtAlmClear trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adCtrpRmtAlm:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -191,8 +191,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpRmtAlm trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpRmtAlm trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -227,14 +227,14 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpExt1AlmClear trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpExt1AlmClear trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adCtrpExt1Alm:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -266,8 +266,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpExt1Alm trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpExt1Alm trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -302,14 +302,14 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpExt2AlmClear trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpExt2AlmClear trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adCtrpExt2Alm:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -341,8 +341,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpExt2Alm trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpExt2Alm trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -377,14 +377,14 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpBusApwrAlmClear trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpBusApwrAlmClear trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adCtrpBusApowerAlm:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -416,8 +416,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpBusApowerAlm trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpBusApowerAlm trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -452,14 +452,14 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpBusBpwrAlmClear trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpBusBpwrAlmClear trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adCtrpBusBpowerAlm:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -491,8 +491,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpBusBpowerAlm trap received 
-			adTrapInformSeqNum=%parm[#1]% 
+			adCtrpBusBpowerAlm trap received
+			adTrapInformSeqNum=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -531,15 +531,15 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpInService trap received 
-			adTrapInformSeqNum=%parm[#1]% 
-			sysName=%parm[#2]% 
+			adCtrpInService trap received
+			adTrapInformSeqNum=%parm[#1]%
+			sysName=%parm[#2]%
 			adGenSlotInfoIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adCtrpOutOfService:%dpname%:%nodeid%:%interface%:%parm[#3]%" />
 </event>
 <event>
@@ -575,9 +575,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adCtrpOutOfService trap received 
-			adTrapInformSeqNum=%parm[#1]% 
-			sysName=%parm[#2]% 
+			adCtrpOutOfService trap received
+			adTrapInformSeqNum=%parm[#1]%
+			sysName=%parm[#2]%
 			adGenSlotInfoIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

@@ -29,7 +29,7 @@
           <includeGroup>brocade-switch-fctable</includeGroup>
         </collect>
       </systemDef>
-      
+
     </systems>
   </snmp-collection>
 </datacollection-config>

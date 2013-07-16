@@ -18,9 +18,9 @@
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the high memory buffering threshold 
-for MFWD has reached at the SPIC level. 
-The gateway name, SPIC name and memory buffer threshold will be 
+&lt;p&gt;This notification signifies that the high memory buffering threshold
+for MFWD has reached at the SPIC level.
+The gateway name, SPIC name and memory buffer threshold will be
 displayed.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -36,9 +36,9 @@ displayed.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwMfwdBufMemThresRaise trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwMfwdServicePicName=%parm[#2]% 
+			jnxMbgSgwMfwdBufMemThresRaise trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwMfwdServicePicName=%parm[#2]%
 				jnxMbgSgwMfwdBufMemLimit=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -65,9 +65,9 @@ displayed.&lt;/p&gt;&lt;table&gt;
 		</maskelement>
 		</mask>
 		<descr>
-&lt;p&gt;This notification signifies that the low memory buffering threshold 
-for MFWD has reached at the SPIC level. 
-The gateway name, SPIC name and memory buffer threshold will be 
+&lt;p&gt;This notification signifies that the low memory buffering threshold
+for MFWD has reached at the SPIC level.
+The gateway name, SPIC name and memory buffer threshold will be
 displayed.&lt;/p&gt;&lt;table&gt;
 		&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -83,9 +83,9 @@ displayed.&lt;/p&gt;&lt;table&gt;
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-			jnxMbgSgwMfwdBufMemThresClear trap received 
-				jnxMbgGwName=%parm[#1]% 
-				jnxMbgSgwMfwdServicePicName=%parm[#2]% 
+			jnxMbgSgwMfwdBufMemThresClear trap received
+				jnxMbgGwName=%parm[#1]%
+				jnxMbgSgwMfwdServicePicName=%parm[#2]%
 				jnxMbgSgwMfwdBufMemLimit=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>

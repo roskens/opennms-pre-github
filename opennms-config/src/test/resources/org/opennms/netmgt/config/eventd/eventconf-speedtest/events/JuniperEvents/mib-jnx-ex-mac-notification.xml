@@ -40,8 +40,8 @@ will be generated.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxMacChangedNotification trap received 
-			jnxHistMacChangedMsg=%parm[#1]% 
+			jnxMacChangedNotification trap received
+			jnxHistMacChangedMsg=%parm[#1]%
 			jnxHistTimestamp=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

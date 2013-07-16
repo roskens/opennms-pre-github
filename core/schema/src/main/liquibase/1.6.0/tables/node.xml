@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-node">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="node" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- Contains information on nodes discovered and potentially managed by OpenNMS.
 			nodeSys* fields map to SNMP MIB 2 system table information. -->

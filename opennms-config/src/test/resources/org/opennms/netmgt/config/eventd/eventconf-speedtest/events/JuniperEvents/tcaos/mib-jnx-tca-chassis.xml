@@ -23,7 +23,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgSysConfigChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysConfigChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the system configuration 
+<p>This notification signifies that the system configuration
 has been modified.</p><table>
 	<tr><td><b>
 
@@ -35,8 +35,8 @@ has been modified.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysConfigChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysConfigChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -64,7 +64,7 @@ has been modified.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgSysConfigChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysConfigChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the system configuration 
+<p>This notification signifies that the system configuration
 has been modified.</p><table>
 	<tr><td><b>
 
@@ -76,8 +76,8 @@ has been modified.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysConfigChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysConfigChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -105,7 +105,7 @@ has been modified.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgSysConfigChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysConfigChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the system configuration 
+<p>This notification signifies that the system configuration
 has been modified.</p><table>
 	<tr><td><b>
 
@@ -117,8 +117,8 @@ has been modified.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysConfigChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysConfigChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -146,7 +146,7 @@ has been modified.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgSysConfigChange</uei>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysConfigChange</event-label>
     <descr><![CDATA[
-<p>This notification signifies that the system configuration 
+<p>This notification signifies that the system configuration
 has been modified.</p><table>
 	<tr><td><b>
 
@@ -158,8 +158,8 @@ has been modified.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysConfigChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysConfigChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -168,7 +168,7 @@ has been modified.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgSysConfigChange:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the system configuration 
+<p>This notification signifies that the system configuration
 has been modified.</p><table>
 	<tr><td><b>
 
@@ -181,8 +181,8 @@ has been modified.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysConfigChange</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysConfigChange trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysConfigChange trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -209,7 +209,7 @@ has been modified.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -222,8 +222,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeHigh</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeHigh trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeHigh trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -251,7 +251,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -264,8 +264,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeHigh</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeHigh trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeHigh trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -293,7 +293,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -306,8 +306,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeHigh</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeHigh trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeHigh trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -335,7 +335,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -348,8 +348,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeHigh</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeHigh trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeHigh trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -377,7 +377,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgTempRangeHigh:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -390,8 +390,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeHigh</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeHigh trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeHigh trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -419,7 +419,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -432,8 +432,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeLow</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeLow trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeLow trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -461,7 +461,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -474,8 +474,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeLow</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeLow trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeLow trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -503,7 +503,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -516,8 +516,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeLow</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeLow trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeLow trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -545,7 +545,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -558,8 +558,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeLow</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeLow trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeLow trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -587,7 +587,7 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgTempRangeLow:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the oven temperature deviation 
+<p>This notification signifies that the oven temperature deviation
 exceeds the maximum high threshold level.</p><table>
 	<tr><td><b>
 
@@ -600,8 +600,8 @@ exceeds the maximum high threshold level.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgTempRangeLow</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgTempRangeLow trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgTempRangeLow trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -629,8 +629,8 @@ exceeds the maximum high threshold level.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the sys diag program fails 
-during the the routine checking due to some system defective condition 
+<p>This notification signifies that the sys diag program fails
+during the the routine checking due to some system defective condition
 Ex I2C interface has failure.</p><table>
 	<tr><td><b>
 
@@ -643,8 +643,8 @@ Ex I2C interface has failure.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysDiagFailure</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysDiagFailure trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysDiagFailure trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -672,8 +672,8 @@ Ex I2C interface has failure.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the sys diag program fails 
-during the the routine checking due to some system defective condition 
+<p>This notification signifies that the sys diag program fails
+during the the routine checking due to some system defective condition
 Ex I2C interface has failure.</p><table>
 	<tr><td><b>
 
@@ -686,8 +686,8 @@ Ex I2C interface has failure.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysDiagFailure</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysDiagFailure trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysDiagFailure trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -715,8 +715,8 @@ Ex I2C interface has failure.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the sys diag program fails 
-during the the routine checking due to some system defective condition 
+<p>This notification signifies that the sys diag program fails
+during the the routine checking due to some system defective condition
 Ex I2C interface has failure.</p><table>
 	<tr><td><b>
 
@@ -729,8 +729,8 @@ Ex I2C interface has failure.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysDiagFailure</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysDiagFailure trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysDiagFailure trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -758,8 +758,8 @@ Ex I2C interface has failure.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the sys diag program fails 
-during the the routine checking due to some system defective condition 
+<p>This notification signifies that the sys diag program fails
+during the the routine checking due to some system defective condition
 Ex I2C interface has failure.</p><table>
 	<tr><td><b>
 
@@ -772,8 +772,8 @@ Ex I2C interface has failure.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysDiagFailure</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysDiagFailure trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysDiagFailure trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -801,8 +801,8 @@ Ex I2C interface has failure.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgSysDiagFailure:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the sys diag program fails 
-during the the routine checking due to some system defective condition 
+<p>This notification signifies that the sys diag program fails
+during the the routine checking due to some system defective condition
 Ex I2C interface has failure.</p><table>
 	<tr><td><b>
 
@@ -815,8 +815,8 @@ Ex I2C interface has failure.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgSysDiagFailure</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgSysDiagFailure trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgSysDiagFailure trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -844,7 +844,7 @@ Ex I2C interface has failure.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the system losses the redundant 
+<p>This notification signifies that the system losses the redundant
 power feed.</p><table>
 	<tr><td><b>
 
@@ -857,8 +857,8 @@ power feed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgLossOfPowerFeed</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgLossOfPowerFeed trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgLossOfPowerFeed trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -886,7 +886,7 @@ power feed.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the system losses the redundant 
+<p>This notification signifies that the system losses the redundant
 power feed.</p><table>
 	<tr><td><b>
 
@@ -899,8 +899,8 @@ power feed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgLossOfPowerFeed</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgLossOfPowerFeed trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgLossOfPowerFeed trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -928,7 +928,7 @@ power feed.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the system losses the redundant 
+<p>This notification signifies that the system losses the redundant
 power feed.</p><table>
 	<tr><td><b>
 
@@ -941,8 +941,8 @@ power feed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgLossOfPowerFeed</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgLossOfPowerFeed trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgLossOfPowerFeed trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -970,7 +970,7 @@ power feed.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="1" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the system losses the redundant 
+<p>This notification signifies that the system losses the redundant
 power feed.</p><table>
 	<tr><td><b>
 
@@ -983,8 +983,8 @@ power feed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgLossOfPowerFeed</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgLossOfPowerFeed trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgLossOfPowerFeed trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>
@@ -1012,7 +1012,7 @@ power feed.</p><table>
   <event>
     <alarm-data auto-clean="true" alarm-type="2" reduction-key="%uei%:%dpname%:%nodeid%:%parm[names-all]%" clear-key="uei.opennms.org/vendor/Juniper/traps/jnxTcaTrapMsgLossOfPowerFeed:%dpname%:%nodeid%:%parm[names-all]%"/>
     <descr><![CDATA[
-<p>This notification signifies that the system losses the redundant 
+<p>This notification signifies that the system losses the redundant
 power feed.</p><table>
 	<tr><td><b>
 
@@ -1025,8 +1025,8 @@ power feed.</p><table>
 	]]></descr>
     <event-label>JUNIPER-TCA-TIMING-MIB defined trap event: jnxTcaTrapMsgLossOfPowerFeed</event-label>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTcaTrapMsgLossOfPowerFeed trap received 
-			jnxTcaTrapAttrSource=%parm[#1]% 
+			jnxTcaTrapMsgLossOfPowerFeed trap received
+			jnxTcaTrapAttrSource=%parm[#1]%
 			jnxTcaTrapAttrSeverity=%parm[#2]%</p>
 		]]></logmsg>
     <mask>

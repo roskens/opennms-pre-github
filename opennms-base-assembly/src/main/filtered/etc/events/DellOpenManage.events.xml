@@ -379,7 +379,7 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			DellOpenManage Event: Temperature Probe Error: non-recoverable value.	
+			DellOpenManage Event: Temperature Probe Error: non-recoverable value.
 			&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

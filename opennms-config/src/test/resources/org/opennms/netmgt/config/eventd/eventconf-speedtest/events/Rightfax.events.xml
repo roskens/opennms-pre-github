@@ -37,10 +37,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rfSvrCriticalTrap trap received 
-			rfSvrTrapComputer=%parm[#1]% 
-			rfSvrTrapSource=%parm[#2]% 
-			rfSvrTrapSeverity=%parm[#3]% 
+			rfSvrCriticalTrap trap received
+			rfSvrTrapComputer=%parm[#1]%
+			rfSvrTrapSource=%parm[#2]%
+			rfSvrTrapSeverity=%parm[#3]%
 			rfSvrTrapMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -82,10 +82,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rfSvrErrorTrap trap received 
-			rfSvrTrapComputer=%parm[#1]% 
-			rfSvrTrapSource=%parm[#2]% 
-			rfSvrTrapSeverity=%parm[#3]% 
+			rfSvrErrorTrap trap received
+			rfSvrTrapComputer=%parm[#1]%
+			rfSvrTrapSource=%parm[#2]%
+			rfSvrTrapSeverity=%parm[#3]%
 			rfSvrTrapMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -127,10 +127,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rfSvrWarningTrap trap received 
-			rfSvrTrapComputer=%parm[#1]% 
-			rfSvrTrapSource=%parm[#2]% 
-			rfSvrTrapSeverity=%parm[#3]% 
+			rfSvrWarningTrap trap received
+			rfSvrTrapComputer=%parm[#1]%
+			rfSvrTrapSource=%parm[#2]%
+			rfSvrTrapSeverity=%parm[#3]%
 			rfSvrTrapMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -172,10 +172,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rfSvrInformationalTrap trap received 
-			rfSvrTrapComputer=%parm[#1]% 
-			rfSvrTrapSource=%parm[#2]% 
-			rfSvrTrapSeverity=%parm[#3]% 
+			rfSvrInformationalTrap trap received
+			rfSvrTrapComputer=%parm[#1]%
+			rfSvrTrapSource=%parm[#2]%
+			rfSvrTrapSeverity=%parm[#3]%
 			rfSvrTrapMessage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

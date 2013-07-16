@@ -52,11 +52,11 @@ recorded in jnxCmCfgChgEventTable.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCmCfgChange trap received 
-			jnxCmCfgChgEventTime=%parm[#1]% 
-			jnxCmCfgChgEventDate=%parm[#2]% 
-			jnxCmCfgChgEventSource=%parm[#3]% 
-			jnxCmCfgChgEventUser=%parm[#4]% 
+			jnxCmCfgChange trap received
+			jnxCmCfgChgEventTime=%parm[#1]%
+			jnxCmCfgChgEventDate=%parm[#2]%
+			jnxCmCfgChgEventSource=%parm[#3]%
+			jnxCmCfgChgEventUser=%parm[#4]%
 			jnxCmCfgChgEventLog=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Normal</severity>
@@ -80,7 +80,7 @@ recorded in jnxCmCfgChgEventTable.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxCmRescueChange</uei>
     <event-label>JUNIPER-CFGMGMT-MIB defined trap event: jnxCmRescueChange</event-label>
     <descr><![CDATA[
-<p>Notification of the latest rescue configuration 
+<p>Notification of the latest rescue configuration
 change.</p><table>
 	<tr><td><b>
 
@@ -116,11 +116,11 @@ change.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxCmRescueChange trap received 
-			jnxCmRescueChgTime=%parm[#1]% 
-			jnxCmRescueChgDate=%parm[#2]% 
-			jnxCmRescueChgSource=%parm[#3]% 
-			jnxCmRescueChgUser=%parm[#4]% 
+			jnxCmRescueChange trap received
+			jnxCmRescueChgTime=%parm[#1]%
+			jnxCmRescueChgDate=%parm[#2]%
+			jnxCmRescueChgSource=%parm[#3]%
+			jnxCmRescueChgUser=%parm[#4]%
 			jnxCmRescueChgState=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

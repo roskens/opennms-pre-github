@@ -7,7 +7,7 @@
 
 		<section id="performance-ram">
 			<title>Lots of RAM</title>
-			
+
 			<para>
 				OpenNMS is not terribly heavy on CPU usage, but is <emphasis>extremely</emphasis>
 				I/O-bound, and will also take advantage of as much RAM as you can give it.
@@ -15,7 +15,7 @@
 				cache filesystem interaction makes a very large performance difference.
 			</para>
 		</section>
-		
+
 		<section id="battery-backed-write-cache">
 			<title>Battery-Backed Write Cache</title>
 
@@ -29,7 +29,7 @@
 
 		<section id="multiple-spindles">
 			<title>Multiple Spindles</title>
-			
+
 			<para>
 				You will get the most out of OpenNMS if you spread your I/O out into multiple
 				spindles and/or separate disks/channels.
@@ -37,11 +37,11 @@
 
 			<section id="multiple-spindles-postgresql">
 				<title>PostgreSQL</title>
-				
+
 				<para>
 					PostgreSQL writes primarly to 2 classes of files and directories.
 				</para>
-				
+
 				<glosslist>
 					<glossentry>
 						<glossterm>the database</glossterm>
@@ -63,7 +63,7 @@
 						</glossdef>
 					</glossentry>
 				</glosslist>
-				
+
 				<para>
 					If you can separate the pg_xlog directory onto another spindle or mount
 					point, you will increase your PostgreSQL performance considerably.  To do
@@ -75,10 +75,10 @@ sudo ln -s /mnt/xlogspindle/pg_xlog /var/lib/pgsql/data/pg_xlog
 sudo /etc/init.d/postgresql start</programlisting>
 				</para>
 			</section>
-			
+
 			<section id="multiple-spindles-rrd">
 				<title>Round-Robin (Collection and Performance) Data</title>
-				
+
 				<para>
 					The RRD data is the single heaviest source of I/O in most OpenNMS
 					installations.  Making sure that it is on a different spindle from
@@ -98,7 +98,7 @@ sudo /etc/init.d/postgresql start</programlisting>
 						<para>Normally, there will be 2-3 writes for each update: one for
 						the file header, one for the previous RRA, one for the next RRA.</para>
 					</listitem>
-					
+
 					<listitem>
 						<para>When multiple samples are consolidated into a single stored
 						data point in the RRA, there will be additional writes.  By
@@ -116,12 +116,12 @@ sudo rm -f /opt/opennms/share
 sudo ln -s /mnt/rrdspindle/opennms /opt/opennms/share</programlisting>
 				</para>
 			</section>
-			
+
 		</section>
 
 		<section id="performance-noatime">
 			<title>Use <varname>noatime</varname> on OpenNMS Data Spindles on Linux and Solaris</title>
-			
+
 			<para>
 				If you are dedicating spindles or drives to OpenNMS, you can mount them
 				with the <varname>noatime</varname> option on Linux or Solaris for an
@@ -129,7 +129,7 @@ sudo ln -s /mnt/rrdspindle/opennms /opt/opennms/share</programlisting>
 				file access time on individual RRD and database files every time they
 				are used.
 			</para>
-			
+
 			<para>
 				On Linux, you do so by editing <filename>/etc/fstab</filename> and adding
 				<varname>noatime</varname> to the options section of the filesystem.  For example:
@@ -150,31 +150,31 @@ LABEL=/var/lib/pgsql/data/pg_xlog /var/lib/pgsql/data/pg_xlog ext3    defaults,n
 			</para>
 
 		</section>
-		
+
 		<section id="performance-raid">
 			<title>RAID Drives</title>
-			
+
 			<para>
 				Use a mirrored stripe (RAID-10), with enough disks to handle the amount of data
 				you need to collect.  A single disk, a pair of mirrored disks (RAID-1), or a
 				RAID-5 is only appropriate for an installation doing a small amount of data
 				collection.
 			</para>
-			
+
 		</section>
-		
+
 		<section id="performance-postgresql">
 			<title>PostgreSQL Performance Tuning</title>
-			
+
 			<para>
 				There are a number of other things you can do to tune PostgreSQL.  For a good
 				writeup on PostgreSQL performance tuning, see <ulink
 				url="http://revsys.com/writings/postgresql-performance.html">this page at revsys.com</ulink>.
 			</para>
-			
+
 			<section id="performance-postgresql-8.1">
 				<title>PostgreSQL 8.1-specific Recommendations</title>
-				
+
 				<para>
 					If you have a reasonable amount of RAM (2GB+), the following settings should
 					give much better performance than the defaults that come with the PostgreSQL
@@ -191,10 +191,10 @@ stats_row_level = on
 autovacuum = on</programlisting>
 				</para>
 			</section>
-			
+
 			<section id="performance-postgresql-8.2">
 				<title>PostgreSQL 8.2+ Recommendations</title>
-				
+
 				<para>
 					On systems with 4GB or more of RAM, we've found that changing the
 					max_fsm_pages and max_fsm_releations, as well as work_mem and
@@ -222,10 +222,10 @@ max_fsm_relations = 10000</programlisting>
 					adjust that value.
 				</para>
 			</note>
-	
+
 		</section>
 	</section>
-	
+
 	<section id="performance-donts">
 		<title>Performance "Don't"s</title>
 
@@ -233,7 +233,7 @@ max_fsm_relations = 10000</programlisting>
 			Because of OpenNMS's high-I/O profile, there are a number of things that will
 			cause performance issues on reasonably large installs.
 		</para>
-		
+
 		<itemizedlist>
 			<listitem>
 				<para>Don't run in a VM (although some pseudo-VMs like <ulink

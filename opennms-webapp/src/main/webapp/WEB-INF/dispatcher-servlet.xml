@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:onmsgi="http://xmlns.opennms.org/xsd/spring/onms-osgi" 
+       xmlns:onmsgi="http://xmlns.opennms.org/xsd/spring/onms-osgi"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -305,7 +305,7 @@
     <bean name="/alarm/saveStickyMemo.htm" class="org.opennms.web.controller.alarm.AlarmDetailController">
         <property name="alarmRepository" ref="alarmRepository"/>
     </bean>
-    
+
     <bean name="/alarm/removeStickyMemo.htm" class="org.opennms.web.controller.alarm.AlarmDetailController">
         <property name="alarmRepository" ref="alarmRepository"/>
     </bean>
@@ -313,16 +313,16 @@
     <bean name="/alarm/saveJournalMemo.htm" class="org.opennms.web.controller.alarm.AlarmDetailController">
         <property name="alarmRepository" ref="alarmRepository"/>
     </bean>
-    
+
     <bean name="/alarm/removeJournalMemo.htm" class="org.opennms.web.controller.alarm.AlarmDetailController">
         <property name="alarmRepository" ref="alarmRepository"/>
     </bean>
-    
+
     <bean name="/alarm/summary-box.htm" class="org.opennms.web.controller.alarm.AlarmBoxController">
         <property name="successView" value="alarm/summary-box"/>
         <property name="alarmRepository" ref="alarmRepository"/>
     </bean>
- 
+
     <alias name="/event/detail.htm" alias="/event/detail.jsp"/>
     <bean name="/event/detail.htm" class="org.opennms.web.controller.event.EventFilterController">
         <property name="successView" value="event/detail"/>
@@ -589,7 +589,7 @@
             </list>
         </property>
     </bean>
-    
+
   <onmsgi:service interface="org.opennms.web.api.OnmsHeaderProvider" ref="headerProvider"/>
 
     <bean name="/includes/nodeCategory-box.htm" class="org.opennms.web.controller.NodeCategoryBoxController">

@@ -7,7 +7,7 @@
 	<bean id="reportServiceLocator" class="org.opennms.reporting.core.svclayer.support.DefaultReportServiceLocator">
         <property name="globalReportRepository" ref="defaultGlobalReportRepository" />
 	</bean>
-	
+
 	<bean id="reportWrapperService" class="org.opennms.reporting.core.svclayer.support.DefaultReportWrapperService">
 		<property name="reportServiceLocator">
 			<ref local="reportServiceLocator" />

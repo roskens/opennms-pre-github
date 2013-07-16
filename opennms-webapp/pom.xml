@@ -417,7 +417,7 @@
       <artifactId>opennms-web-dependencies</artifactId>
       <type>pom</type>
       <scope>${onmsLibScope}</scope>
-      <!-- 
+      <!--
         We have to exclude this Java compiler from the classpath because it
         conflicts with one bundled inside gwt-dev that is used when GWT compiles
         code into Javascript.

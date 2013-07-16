@@ -3,19 +3,19 @@
 <beans>
 
   <bean id="daemonMgr" class="org.opennms.netmgt.vmmgr.DaemonManagerDefault">
-    <property name="serviceDaemons"><ref bean="serviceDaemons"/></property> 
+    <property name="serviceDaemons"><ref bean="serviceDaemons"/></property>
   </bean>
-  
+
   <bean id="exporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
-		<!-- does not necessarily have to be the same name as the bean to be exported -->	
+		<!-- does not necessarily have to be the same name as the bean to be exported -->
 		<property name="serviceName" value="daemonMgr"/>
 		<property name="service" ref="daemonMgr"/>
-		<property name="serviceInterface" value="org.opennms.netmgt.vmmgr.DaemonManager"/>	
-		<!-- defaults to 1099 
+		<property name="serviceInterface" value="org.opennms.netmgt.vmmgr.DaemonManager"/>
+		<!-- defaults to 1099
 		<property name="registryPort" value="1199"/>
 		-->
 	</bean>
-  
+
   <!--
     this bean needs to be eagerly pre-instantiated in order for the exporting to occur;
     this means that it must not be marked as lazily initialized
@@ -27,9 +27,9 @@
     </property>
     <property name="server" ref="mbeanServer"/>
   </bean>
-  
+
   <bean id="serverConnector" class="org.springframework.jmx.support.ConnectorServerFactoryBean"/>
-  
+
   <bean id="clientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
 	  <property name="serviceUrl" value="service:jmx:jmxmp://localhost:9875"/>
 	</bean>

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<http-datacollection-config 
-                xmlns:http-dc="http://xmlns.opennms.org/xsd/config/http-datacollection" 
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                xsi:schemaLocation="http://www.opennms.org/xsd/config/http-datacollection-config.xsd" 
-                rrdRepository="%rrdRepository%" > 
+<?xml version="1.0" encoding="UTF-8"?>
+<http-datacollection-config
+                xmlns:http-dc="http://xmlns.opennms.org/xsd/config/http-datacollection"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.opennms.org/xsd/config/http-datacollection-config.xsd"
+                rrdRepository="%rrdRepository%" >
                 <http-collection name="default">
-                   <rrd step="1"> 
-                     <rra>RRA:AVERAGE:0.5:1:8928</rra> 
-                   </rrd> 
+                   <rrd step="1">
+                     <rra>RRA:AVERAGE:0.5:1:8928</rra>
+                   </rrd>
                    <uris>
                      <uri name="test-document-count">
                        <url scheme="https" port="10342"  path="/HttpCollector_UnitTest_${ipaddr}.txt"

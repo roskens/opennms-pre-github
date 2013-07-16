@@ -22,7 +22,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <!-- 
+              <!--
               <filter>
                 <artifact>*:*</artifact>
                 <excludes>

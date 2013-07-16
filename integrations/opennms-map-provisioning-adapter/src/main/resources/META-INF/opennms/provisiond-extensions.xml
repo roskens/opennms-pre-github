@@ -8,14 +8,14 @@
 	    <property name="onmsNodeDao" ref="nodeDao" />
 	    <property name="onmsMapDao" ref="onmsMapDao" />
 	    <property name="onmsMapElementDao" ref="onmsMapElementDao" />
-	    <property name="mapsAdapterConfig" ref="mapsAdapterConfig" />	    
+	    <property name="mapsAdapterConfig" ref="mapsAdapterConfig" />
 	    <property name="template" ref="transactionTemplate" />
 	  </bean>
-  
+
       <bean id="mapsAdapterConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
       <property name="staticMethod"><value>org.opennms.netmgt.config.MapsAdapterConfigFactory.init</value></property>
     </bean>
-  
+
     <bean id="mapsAdapterConfig" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="mapsAdapterConfig-init">
       <property name="staticMethod"><value>org.opennms.netmgt.config.MapsAdapterConfigFactory.getInstance</value></property>
      </bean>
@@ -24,5 +24,5 @@
       <property name="annotatedListener" ref="mapAdapter" />
        <property name="eventSubscriptionService" ref="eventSubscriptionService" />
      </bean>
-  
+
 </beans>

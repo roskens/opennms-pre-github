@@ -59,7 +59,7 @@
 			<value>${opennms.report.dir}/</value>
 		</property>
 	</bean>
-    
+
 	<bean id="configurationReportCalculator"
 		class="org.opennms.report.configuration.ConfigurationReportCalculator">
 		<property name="baseDir">
@@ -73,10 +73,10 @@
 		<property name="configurationReportCalculator" ref="configurationReportCalculator" />
 		<property name="htmlReportRenderer">
 			<ref local="htmlConfigurationReportRenderer" />
-		</property>		
+		</property>
 		<property name="nullReportRenderer">
 			<ref local="nullConfigurationReportRenderer" />
-		</property>		
+		</property>
 	</bean>
 
 	<bean id="configurationReportService"
@@ -97,10 +97,10 @@
 		<property name="inventoryReportCalculator" ref="inventoryReportCalculator" />
 		<property name="htmlReportRenderer">
 			<ref local="htmlInventoryReportRenderer" />
-		</property>		
+		</property>
 		<property name="nullReportRenderer">
 			<ref local="nullInventoryReportRenderer" />
-		</property>		
+		</property>
 	</bean>
 
 	<bean id="inventoryReportService"

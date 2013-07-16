@@ -181,19 +181,19 @@ order to realize value from this trap.&lt;/p&gt;&lt;table&gt;
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			tl1AutonomousMessageTrap trap received 
-			nodeid=%parm[#1]% 
-			time=%parm[#2]% 
-			host=%parm[#3]% 
-			interface=%parm[#4]% 
-			service=%parm[#5]% 
-			severity=%parm[#6]% 
-			tl1amRawMessage=%parm[#7]% 
-			tl1amAlarmCode=%parm[#8]% 
-			tl1amAutonomousTag=%parm[#9]% 
-			tl1amVerb=%parm[#10]% 
-			tl1amAutoBlock=%parm[#11]% 
-			tl1amAID=%parm[#12]% 
+			tl1AutonomousMessageTrap trap received
+			nodeid=%parm[#1]%
+			time=%parm[#2]%
+			host=%parm[#3]%
+			interface=%parm[#4]%
+			service=%parm[#5]%
+			severity=%parm[#6]%
+			tl1amRawMessage=%parm[#7]%
+			tl1amAlarmCode=%parm[#8]%
+			tl1amAutonomousTag=%parm[#9]%
+			tl1amVerb=%parm[#10]%
+			tl1amAutoBlock=%parm[#11]%
+			tl1amAID=%parm[#12]%
 			tl1amAdditionalParams=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

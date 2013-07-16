@@ -36,9 +36,9 @@ battery.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsTrapOnBattery trap received 
-			upsEstimatedMinutesRemaining=%parm[#1]% 
-			upsSecondsOnBattery=%parm[#2]% 
+			upsTrapOnBattery trap received
+			upsEstimatedMinutesRemaining=%parm[#1]%
+			upsSecondsOnBattery=%parm[#2]%
 			upsConfigLowBattTime=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -96,12 +96,12 @@ test.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsTrapTestCompleted trap received 
-			upsTestId=%parm[#1]% 
-			upsTestSpinLock=%parm[#2]% 
-			upsTestResultsSummary=%parm[#3]% 
-			upsTestResultsDetail=%parm[#4]% 
-			upsTestStartTime=%parm[#5]% 
+			upsTrapTestCompleted trap received
+			upsTestId=%parm[#1]%
+			upsTestSpinLock=%parm[#2]%
+			upsTestResultsSummary=%parm[#3]%
+			upsTestResultsDetail=%parm[#4]%
+			upsTestStartTime=%parm[#5]%
 			upsTestElapsedTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -138,8 +138,8 @@ upsAlarmTestInProgress.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsTrapAlarmEntryAdded trap received 
-			upsAlarmId=%parm[#1]% 
+			upsTrapAlarmEntryAdded trap received
+			upsAlarmId=%parm[#1]%
 			upsAlarmDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -175,8 +175,8 @@ alarms except for upsAlarmTestInProgress.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			upsTrapAlarmEntryRemoved trap received 
-			upsAlarmId=%parm[#1]% 
+			upsTrapAlarmEntryRemoved trap received
+			upsAlarmId=%parm[#1]%
 			upsAlarmDescr=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

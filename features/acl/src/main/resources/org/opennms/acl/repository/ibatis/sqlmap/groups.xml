@@ -21,9 +21,9 @@
 		<result column="id" property="id" jdbcType="BIGINT" />
 		<result column="group_name" property="name" jdbcType="VARCHAR" />
 	</resultMap>
-	
+
 	<resultMap class="group" id="resultGroupComplete" extends="resultGroup">
-        <result column="id" property="authorities" select="getGroupAuthorities" javaType="list" />        
+        <result column="id" property="authorities" select="getGroupAuthorities" javaType="list" />
     </resultMap>
 
 
@@ -35,17 +35,17 @@
 		WHERE id = #id:BIGINT#
 		AND id > 0;
     </select>
-        
+
     <select id="getFreeGroups" resultMap="resultGroup" cacheModel="group-cache">
     SELECT DISTINCT groups.id, groups.group_name
     FROM groups, group_members
     WHERE groups.id NOT IN (
-        SELECT group_members.group_id 
-        FROM group_members 
-        WHERE group_members.username = #username:VARCHAR#) 
+        SELECT group_members.group_id
+        FROM group_members
+        WHERE group_members.username = #username:VARCHAR#)
     AND groups.id > 0;
     </select>
-    
+
 	<select id="getGroupsNumber" resultClass="int" cacheModel="group-cache">
 		SELECT count(*) FROM groups ;
     </select>
@@ -71,7 +71,7 @@
 		WHERE groups.id = group_members.group_id
 		AND group_members.username = #username:VARCHAR# ;
     </select>
-    
+
     <select id="getUserGroupsComplete" resultMap="resultGroupComplete" cacheModel="group-cache">
         SELECT groups.id, groups.group_name
         FROM groups, group_members

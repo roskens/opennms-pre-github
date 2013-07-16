@@ -56,7 +56,7 @@
       <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- 
+    <!--
       Doesn't work properly with urllib2 requests; see
       TcpRrdStrategyTest.java for more details.
     <dependency>

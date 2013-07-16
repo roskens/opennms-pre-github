@@ -11,7 +11,7 @@
   <name>OpenNMS Integration Tests</name>
   <build>
     <plugins>
-      <!-- 
+      <!--
         Generate the META-INF/maven/dependencies.properties that is required by the
         org.apache.karaf.testing.AbstractIntegrationTest Maven URL resolver.
       -->

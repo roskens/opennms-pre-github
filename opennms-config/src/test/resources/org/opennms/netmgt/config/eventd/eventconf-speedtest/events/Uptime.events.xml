@@ -48,11 +48,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -105,11 +105,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -162,11 +162,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -219,11 +219,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -276,11 +276,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor1Normal trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -333,11 +333,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -390,11 +390,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -447,11 +447,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -504,11 +504,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -561,11 +561,11 @@
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: sh2Sensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			sh2SensorName=%parm[#2]% 
-			sh2SensorType=%parm[#3]% 
-			sh2SensorCurrentValue=%parm[#4]% 
+			Uptime Devices: sh2Sensor2Normal trap received
+			sysDescr=%parm[#1]%
+			sh2SensorName=%parm[#2]%
+			sh2SensorType=%parm[#3]%
+			sh2SensorCurrentValue=%parm[#4]%
 			sh2SensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -621,11 +621,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -678,11 +678,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -735,11 +735,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -792,11 +792,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -849,11 +849,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -906,11 +906,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -963,11 +963,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1020,11 +1020,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1077,11 +1077,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1134,11 +1134,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1191,11 +1191,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1248,11 +1248,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1305,11 +1305,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1362,11 +1362,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1419,11 +1419,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1476,11 +1476,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor4HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor4HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1533,11 +1533,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor4HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor4HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1590,11 +1590,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor4LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor4LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1647,11 +1647,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor4LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor4LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1704,11 +1704,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproSensor4Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproSensor4Normal trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -1761,11 +1761,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBHumdiditySensorHighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBHumdiditySensorHighCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1818,11 +1818,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBHumdiditySensorHighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBHumdiditySensorHighWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1875,11 +1875,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBHumdiditySensorLowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBHumdiditySensorLowWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1932,11 +1932,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBHumdiditySensorLowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBHumdiditySensorLowCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1989,11 +1989,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBHumdiditySensorNormal trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBHumdiditySensorNormal trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2046,11 +2046,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBTemperatureSensorHighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBTemperatureSensorHighCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2103,11 +2103,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBTemperatureSensorHighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBTemperatureSensorHighWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2160,11 +2160,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBTemperatureSensorLowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBTemperatureSensorLowWarning trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -2217,11 +2217,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBTemperatureSensorLowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBTemperatureSensorLowCritical trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2274,11 +2274,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBTemperatureSensorNormal trap received 
-			sysDescr=%parm[#1]% 
-			shproSensorName=%parm[#2]% 
-			shproSensorType=%parm[#3]% 
-			shproSensorCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBTemperatureSensorNormal trap received
+			sysDescr=%parm[#1]%
+			shproSensorName=%parm[#2]%
+			shproSensorType=%parm[#3]%
+			shproSensorCurrentValue=%parm[#4]%
 			shproSensorState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2330,11 +2330,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2386,11 +2386,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2442,11 +2442,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2498,11 +2498,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2554,11 +2554,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2610,11 +2610,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2666,11 +2666,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor4Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor4Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2722,11 +2722,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor4HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor4HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2778,11 +2778,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor5Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor5Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2834,11 +2834,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor5HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor5HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2890,11 +2890,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor6Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor6Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2946,11 +2946,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor6HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor6HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3002,11 +3002,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor7Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor7Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3058,11 +3058,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor7HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor7HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3114,11 +3114,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor8Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor8Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3170,11 +3170,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor8HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor8HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3226,11 +3226,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor9Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor9Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3282,11 +3282,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor9HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor9HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3338,11 +3338,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor10Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor10Normal trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3394,11 +3394,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproOBContactSensor10HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproContactName=%parm[#2]% 
-			shproContactIndex=%parm[#3]% 
-			shproContactCurrentValue=%parm[#4]% 
+			Uptime Devices: shproOBContactSensor10HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproContactName=%parm[#2]%
+			shproContactIndex=%parm[#3]%
+			shproContactCurrentValue=%parm[#4]%
 			shproContactState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3451,11 +3451,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3508,11 +3508,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3565,11 +3565,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3622,11 +3622,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3679,11 +3679,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3736,11 +3736,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3793,11 +3793,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3850,11 +3850,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3907,11 +3907,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -3964,11 +3964,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4021,11 +4021,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4078,11 +4078,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4135,11 +4135,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4192,11 +4192,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4249,11 +4249,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4306,11 +4306,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4363,11 +4363,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4420,11 +4420,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4477,11 +4477,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4534,11 +4534,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4591,11 +4591,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4648,11 +4648,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4705,11 +4705,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4762,11 +4762,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4819,11 +4819,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -4876,11 +4876,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -4933,11 +4933,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -4990,11 +4990,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5047,11 +5047,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5104,11 +5104,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5161,11 +5161,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5218,11 +5218,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5275,11 +5275,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5332,11 +5332,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5389,11 +5389,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5446,11 +5446,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5503,11 +5503,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5560,11 +5560,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5617,11 +5617,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5674,11 +5674,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -5731,11 +5731,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5788,11 +5788,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5845,11 +5845,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -5902,11 +5902,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -5959,11 +5959,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1PowerSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort1PowerSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6016,11 +6016,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6073,11 +6073,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6130,11 +6130,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6187,11 +6187,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6244,11 +6244,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1VoltageSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort1VoltageSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6301,11 +6301,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6358,11 +6358,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6415,11 +6415,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6472,11 +6472,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6529,11 +6529,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1CurrentSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort1CurrentSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6586,11 +6586,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6643,11 +6643,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6700,11 +6700,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6757,11 +6757,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6814,11 +6814,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort1TemperatureSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort1TemperatureSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -6871,11 +6871,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -6928,11 +6928,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -6985,11 +6985,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7042,11 +7042,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7099,11 +7099,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7156,11 +7156,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7213,11 +7213,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7270,11 +7270,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7327,11 +7327,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7384,11 +7384,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7441,11 +7441,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7498,11 +7498,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7555,11 +7555,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7612,11 +7612,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7669,11 +7669,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -7726,11 +7726,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor1HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor1HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7783,11 +7783,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor1HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor1HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7840,11 +7840,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor1LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor1LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -7897,11 +7897,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor1LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor1LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -7954,11 +7954,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor1Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor1Normal trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -8011,11 +8011,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8068,11 +8068,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8125,11 +8125,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8182,11 +8182,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8239,11 +8239,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -8296,11 +8296,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8353,11 +8353,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8410,11 +8410,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8467,11 +8467,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8524,11 +8524,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -8581,11 +8581,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8638,11 +8638,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8695,11 +8695,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8752,11 +8752,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8809,11 +8809,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -8866,11 +8866,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor2HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor2HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -8923,11 +8923,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor2HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor2HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -8980,11 +8980,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor2LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor2LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9037,11 +9037,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor2LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor2LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9094,11 +9094,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor2Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor2Normal trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -9151,11 +9151,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9208,11 +9208,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9265,11 +9265,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9322,11 +9322,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9379,11 +9379,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2PowerSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproPowerIPCIndex=%parm[#2]% 
-			shproPowerIndex=%parm[#3]% 
-			shproPowerValue=%parm[#4]% 
+			Uptime Devices: shproPort2PowerSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproPowerIPCIndex=%parm[#2]%
+			shproPowerIndex=%parm[#3]%
+			shproPowerValue=%parm[#4]%
 			shproPowerState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -9436,11 +9436,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9493,11 +9493,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9550,11 +9550,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9607,11 +9607,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9664,11 +9664,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2VoltageSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproVoltageIPCIndex=%parm[#2]% 
-			shproVoltageIndex=%parm[#3]% 
-			shproVoltageValue=%parm[#4]% 
+			Uptime Devices: shproPort2VoltageSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproVoltageIPCIndex=%parm[#2]%
+			shproVoltageIndex=%parm[#3]%
+			shproVoltageValue=%parm[#4]%
 			shproVoltageState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -9721,11 +9721,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9778,11 +9778,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9835,11 +9835,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -9892,11 +9892,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -9949,11 +9949,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2CurrentSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproCurrentIPCIndex=%parm[#2]% 
-			shproCurrentIndex=%parm[#3]% 
-			shproCurrentValue=%parm[#4]% 
+			Uptime Devices: shproPort2CurrentSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproCurrentIPCIndex=%parm[#2]%
+			shproCurrentIndex=%parm[#3]%
+			shproCurrentValue=%parm[#4]%
 			shproCurrentState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -10006,11 +10006,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor3HighCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor3HighCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -10063,11 +10063,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor3HighWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor3HighWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -10120,11 +10120,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor3LowWarning trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor3LowWarning trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -10177,11 +10177,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor3LowCritical trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor3LowCritical trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -10234,11 +10234,11 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Uptime Devices: shproPort2TemperatureSensor3Normal trap received 
-			sysDescr=%parm[#1]% 
-			shproTemperatureIPCIndex=%parm[#2]% 
-			shproTemperatureIndex=%parm[#3]% 
-			shproTemperatureValue=%parm[#4]% 
+			Uptime Devices: shproPort2TemperatureSensor3Normal trap received
+			sysDescr=%parm[#1]%
+			shproTemperatureIPCIndex=%parm[#2]%
+			shproTemperatureIndex=%parm[#3]%
+			shproTemperatureValue=%parm[#4]%
 			shproTemperatureState=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>

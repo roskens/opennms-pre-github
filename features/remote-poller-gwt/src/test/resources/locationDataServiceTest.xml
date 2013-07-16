@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
@@ -15,11 +15,11 @@
   </bean>
 
   <bean id="geocoder" class="org.opennms.features.poller.remote.gwt.server.geocoding.NullGeocoder" />
-  
+
   <bean id="locationMonitorConfigResourceLocation" class="java.lang.String">
     <constructor-arg value="classpath:rdu-only-monitoring-locations.xml" />
   </bean>
-  
+
   <bean id="locationDataService" class="org.opennms.features.poller.remote.gwt.server.DefaultLocationDataService">
     <property name="save" value="false" />
   </bean>
@@ -38,7 +38,7 @@
   <bean name="monitorDisconnectedTimeout" class="java.lang.Integer">
     <constructor-arg><value>3000</value></constructor-arg>
   </bean>
-  
+
   <bean name="monitorCheckInterval" class="java.lang.Long">
     <constructor-arg><value>500</value></constructor-arg>
   </bean>

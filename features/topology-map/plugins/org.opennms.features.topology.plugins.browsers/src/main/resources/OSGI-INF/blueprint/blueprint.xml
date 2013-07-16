@@ -12,7 +12,7 @@ xsi:schemaLocation="
   <bean id="alarmDaoContainer" class="org.opennms.features.topology.plugins.browsers.AlarmDaoContainer" scope="prototype">
     <argument ref="alarmDao" />
   </bean>
-  
+
   <bean id="alarmTable" class="org.opennms.features.topology.plugins.browsers.AlarmTable" scope="prototype">
     <argument value="Alarms"/>
     <argument ref="alarmDaoContainer"/>
@@ -82,14 +82,14 @@ xsi:schemaLocation="
         <value>Log Message</value>
       </array>
     </property>
-    
+
     <property name="nonCollapsibleColumns">
     	<list>
    			<value>selection</value>
     	</list>
     </property>
   </bean>
-  
+
   <bean id="alarmViewContribution" class="org.opennms.features.topology.api.support.BlueprintIViewContribution">
     <argument ref="blueprintContainer" />
     <argument value="alarmTable" />

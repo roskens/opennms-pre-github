@@ -7,7 +7,7 @@
 <!-- changed from localhost:8080 to localhost:8081 in order to allow JBOSS to run on port 8080 -->
 <!-- added filter to make refresh of alarms jsp every 10 secs-->
 <!-- IF THIS FILE IS UPDATED IN FUTURE RELEASE  - ADD BACK THESE CHANGES FOR ALARM MANAGEMENT -->
-		 
+
   <display-name>opennms</display-name>
   <!-- Set this for JRobin graphs and Availablity Reporting -->
   <context-param>
@@ -30,7 +30,7 @@
     <param-value>/WEB-INF/classes/log4j.properties</param-value>
   </context-param>
 
-  <!-- RTC Subscription parameters -->  
+  <!-- RTC Subscription parameters -->
   <context-param>
     <description>The username the RTC uses when authenticating itself in an HTTP POST.</description>
     <param-name>opennms.rtc-client.http-post.username</param-name>
@@ -56,8 +56,8 @@
       The base of a URL that RTC clients use when creating a RTC subscription URL. IMPORTANT: This URL must NOT contain a slash at the end.
     </description>
     <param-name>opennms.rtc-client.http-post.base-url</param-name>
-    
-    <!--****************** CG Modified to 8081 to allow Jboss on 8080-->    
+
+    <!--****************** CG Modified to 8081 to allow Jboss on 8080-->
     <param-value>http://localhost:8081/opennms/rtc/post</param-value>
   </context-param>
 
@@ -91,7 +91,7 @@
       <param-value>120</param-value>
     </init-param>
   </filter>
-  
+
   <!-- ****************** Added CG to refresh alarms list every 10 seconds -->
   <filter>
     <description>Adds the refresh HTTP header to a servlet's or JSP's output so it will be automatically reloaded.</description>
@@ -104,7 +104,7 @@
     </init-param>
   </filter>
 
-  
+
   <filter>
     <description>Stores HTTP request parameters in request attributes for later access</description>
     <filter-name>StoreRequestProperties</filter-name>
@@ -115,18 +115,18 @@
       <param-value>relativeRequestPath</param-value>
     </init-param>
   </filter>
-  
+
   <filter>
     <filter-name>eXtremeExport</filter-name>
     <filter-class>org.extremecomponents.table.filter.ExportFilter</filter-class>
   </filter>
-  
+
 
   <filter-mapping>
     <filter-name>Acegi Filter Chain Proxy</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
+
   <filter-mapping>
     <filter-name>StoreRequestProperties</filter-name>
     <url-pattern>/*</url-pattern>
@@ -164,12 +164,12 @@
     <filter-name>AddRefreshHeader-120</filter-name>
     <url-pattern>/event/list</url-pattern>
   </filter-mapping>
-  
+
   <!--******************* cgallen  added to refresh alarms display every 10 secs -->
   <filter-mapping>
     <filter-name>AddRefreshHeader-10</filter-name>
     <url-pattern>/alarm/list</url-pattern>
-  </filter-mapping> 
+  </filter-mapping>
 
   <filter-mapping>
     <filter-name>eXtremeExport</filter-name>
@@ -296,7 +296,7 @@
       <param-value>browse</param-value>
     </init-param>
   </servlet>
-  
+
   <servlet>
     <servlet-name>importAssets</servlet-name>
     <servlet-class>org.opennms.web.asset.ImportAssetsServlet</servlet-class>
@@ -330,7 +330,7 @@
       <description>Redirect to this sibling URL after changing the parameter set.</description>
       <param-name>redirect.url</param-name>
       <param-value>list</param-value>
-    </init-param>    
+    </init-param>
   </servlet>
   <servlet>
     <servlet-name>filterAlarm</servlet-name>
@@ -343,10 +343,10 @@
       <description>Redirect to this sibling URL after changing the parameter set.</description>
       <param-name>redirect.url</param-name>
       <param-value>list</param-value>
-    </init-param>    
+    </init-param>
   </servlet>
-  
-  
+
+
   <servlet>
     <servlet-name>queryNotice</servlet-name>
     <servlet-class>org.opennms.web.notification.NoticeQueryServlet</servlet-class>
@@ -355,25 +355,25 @@
     <servlet-name>queryOutage</servlet-name>
     <servlet-class>org.opennms.web.outage.OutageQueryServlet</servlet-class>
   </servlet>
-  
+
   <!-- Servlet for updating the notification status -->
   <servlet>
     <servlet-name>updateNotificationStatus</servlet-name>
     <servlet-class>org.opennms.web.admin.notification.UpdateNotifdStatusServlet</servlet-class>
   </servlet>
-  
+
   <!-- Servlet for building destination paths from a wizard -->
   <servlet>
     <servlet-name>destinationWizard</servlet-name>
     <servlet-class>org.opennms.web.admin.notification.DestinationWizardServlet</servlet-class>
   </servlet>
-  
+
   <!-- Servlet for building notifications from a wizard -->
   <servlet>
     <servlet-name>notificationWizard</servlet-name>
     <servlet-class>org.opennms.web.admin.notification.noticeWizard.NotificationWizardServlet</servlet-class>
   </servlet>
-  
+
   <!-- Servlets for configuration of users groups and views -->
   <servlet>
     <!-- servlet for passing parameters to the user modify jsp -->
@@ -430,7 +430,7 @@
     <servlet-name>removeGroupDutySchedules</servlet-name>
     <servlet-class>org.opennms.web.admin.groups.RemoveGroupDutySchedulesServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for passing parameters to the group modify jsp -->
     <servlet-name>modifyGroup</servlet-name>
@@ -461,17 +461,17 @@
     <servlet-name>deleteGroup</servlet-name>
     <servlet-class>org.opennms.web.admin.groups.DeleteGroupServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
   	<servlet-name>admin-roles</servlet-name>
   	<servlet-class>org.opennms.web.admin.roles.AdminRoleServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
   	<servlet-name>user-roles</servlet-name>
   	<servlet-class>org.opennms.web.admin.roles.UserRoleServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for passing parameters to the view modify jsp -->
     <servlet-name>modifyView</servlet-name>
@@ -502,7 +502,7 @@
     <servlet-name>deleteView</servlet-name>
     <servlet-class>org.opennms.web.admin.views.DeleteViewServlet</servlet-class>
   </servlet>
-  
+
   <!-- Servlets for the editing of the eventconf.xml file -->
   <servlet>
     <servlet-name>deleteEvent</servlet-name>
@@ -513,7 +513,7 @@
       <param-value>index.jsp</param-value>
     </init-param>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for passing parameters to the event conf modify jsp -->
     <servlet-name>modifyParam</servlet-name>
@@ -544,7 +544,7 @@
     <servlet-name>copyEvent</servlet-name>
     <servlet-class>org.opennms.web.eventconf.CopyEventServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for rearranging event configurations -->
     <servlet-name>rearrangeEvents</servlet-name>
@@ -574,7 +574,7 @@
     <!-- servlet for intializing parameters for editing an event mask-->
     <servlet-name>maskEditing</servlet-name>
     <servlet-class>org.opennms.web.eventconf.masks.MaskEditingServlet</servlet-class>
-  </servlet> 
+  </servlet>
   <servlet>
     <!-- servlet for intializing parameters for editing the event auto actions-->
     <servlet-name>autoActionEditing</servlet-name>
@@ -600,7 +600,7 @@
     <servlet-name>deleteAutoAction</servlet-name>
     <servlet-class>org.opennms.web.eventconf.autoActions.DeleteAutoActionServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for intializing parameters for editing the event operator actions-->
     <servlet-name>operActionEditing</servlet-name>
@@ -626,7 +626,7 @@
     <servlet-name>deleteOperAction</servlet-name>
     <servlet-class>org.opennms.web.eventconf.operActions.DeleteOperActionServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for intializing parameters for editing the event forwards-->
     <servlet-name>forwardsEditing</servlet-name>
@@ -725,7 +725,7 @@
     <servlet-name>snmpConfig</servlet-name>
     <servlet-class>org.opennms.web.admin.nodeManagement.SnmpConfigServlet</servlet-class>
   </servlet>
-  
+
   <!-- servlets for editing the poller configuration files -->
   <servlet>
     <servlet-name>pollerConfig</servlet-name>
@@ -740,7 +740,7 @@
     <servlet-name>finishPollerConfig</servlet-name>
     <servlet-class>org.opennms.web.admin.pollerConfig.FinishPollerConfigServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <!-- servlet for managing and unmanaging interfaces and services -->
     <servlet-name>addPollerConfig</servlet-name>
@@ -757,7 +757,7 @@
         <servlet-name>updateServiceNotify</servlet-name>
         <servlet-class>org.opennms.web.admin.notification.ServiceNoticeUpdateServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <servlet-name>rtcPost</servlet-name>
     <servlet-class>org.opennms.web.category.RTCPostServlet</servlet-class>
@@ -766,7 +766,7 @@
     <servlet-name>rtcRaw</servlet-name>
     <servlet-class>org.opennms.web.category.RTCDebugServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
     <servlet-name>sendMail</servlet-name>
     <servlet-class>org.opennms.web.mail.MailerServlet</servlet-class>
@@ -779,7 +779,7 @@
       <description>Redirect to this sibling URL on success.</description>
       <param-name>mail.program</param-name>
       <param-value>/bin/mail</param-value>
-    </init-param>    
+    </init-param>
   </servlet>
 
   <servlet>
@@ -815,12 +815,12 @@
     <servlet-name>modifyParent</servlet-name>
     <servlet-class>org.opennms.web.map.ModifyParentServlet</servlet-class>
   </servlet>
-  
+
   <servlet>
   	<servlet-name>scheduleEditor</servlet-name>
   	<servlet-class>org.opennms.web.admin.schedule.ScheduleEditorServlet</servlet-class>
   </servlet>
-  
+
   <!-- ********************* servlet for map management ****************** -->
   <servlet>
      <servlet-name>InitMapsApplication</servlet-name>
@@ -858,18 +858,18 @@
   <servlet>
      <servlet-name>OpenMap</servlet-name>
     <servlet-class>org.opennms.web.map.OpenMapServlet</servlet-class>
-  </servlet>  
-  
+  </servlet>
+
   <servlet>
     <servlet-name>NewMap</servlet-name>
     <servlet-class>org.opennms.web.map.NewMapServlet</servlet-class>
-  </servlet> 
+  </servlet>
 
   <servlet>
      <servlet-name>CloseMap</servlet-name>
     <servlet-class>org.opennms.web.map.CloseMapServlet</servlet-class>
-  </servlet>   
-  
+  </servlet>
+
   <servlet>
   	<servlet-name>purdyChart</servlet-name>
   	<servlet-class>org.opennms.web.graph.PurdyChartServlet</servlet-class>
@@ -913,7 +913,7 @@
   </servlet-mapping>
   <!-- python servlet for testing purposes -->
 
-  <!-- ******************* servlet for map management ******************--> 
+  <!-- ******************* servlet for map management ******************-->
   <servlet-mapping>
     <servlet-name>InitMapsApplication</servlet-name>
     <url-pattern>/map/InitMapsApplication</url-pattern>
@@ -923,7 +923,7 @@
     <servlet-name>SaveMap</servlet-name>
     <url-pattern>/map/SaveMap</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>LoadMaps</servlet-name>
     <url-pattern>/map/LoadMaps</url-pattern>
@@ -948,30 +948,30 @@
     <servlet-name>LoadInfos</servlet-name>
     <url-pattern>/map/LoadInfos</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>OpenMap</servlet-name>
     <url-pattern>/map/OpenMap</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>CloseMap</servlet-name>
     <url-pattern>/map/CloseMap</url-pattern>
-  </servlet-mapping>  
-  
+  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>NewMap</servlet-name>
     <url-pattern>/map/NewMap</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
 
   <!-- desktop graph servlet mapping -->
-  <!-- desktop survey report servlet mapping -->  
-  
+  <!-- desktop survey report servlet mapping -->
+
   <servlet-mapping>
   	<servlet-name>purdyChart</servlet-name>
   	<url-pattern>/charts</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
   	<servlet-name>scheduleEditor</servlet-name>
   	<url-pattern>/admin/schedule/schedule-editor</url-pattern>
@@ -992,11 +992,11 @@
   <servlet-mapping>
     <servlet-name>acknowledgeEventByFilter</servlet-name>
     <url-pattern>/event/acknowledgeByFilter</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>filterEvent</servlet-name>
     <url-pattern>/event/list</url-pattern>
-  </servlet-mapping>    
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>queryEvent</servlet-name>
     <url-pattern>/event/query</url-pattern>
@@ -1008,11 +1008,11 @@
   <servlet-mapping>
     <servlet-name>acknowledgeAlarmByFilter</servlet-name>
     <url-pattern>/alarm/acknowledgeByFilter</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>filterAlarm</servlet-name>
     <url-pattern>/alarm/list</url-pattern>
-  </servlet-mapping>    
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>queryAlarm</servlet-name>
     <url-pattern>/alarm/query</url-pattern>
@@ -1033,25 +1033,25 @@
     <servlet-name>queryOutage</servlet-name>
     <url-pattern>/outage/browse</url-pattern>
   </servlet-mapping>
-  
+
   <!--servlet mapping for update notification status servlet -->
   <servlet-mapping>
     <servlet-name>updateNotificationStatus</servlet-name>
     <url-pattern>/admin/updateNotificationStatus</url-pattern>
   </servlet-mapping>
-  
+
   <!-- servlet mapping for the destination wizard servlet -->
   <servlet-mapping>
     <servlet-name>destinationWizard</servlet-name>
     <url-pattern>/admin/notification/destinationWizard</url-pattern>
   </servlet-mapping>
-  
+
   <!-- servlet mapping for the notification wizard servlet -->
   <servlet-mapping>
     <servlet-name>notificationWizard</servlet-name>
     <url-pattern>/admin/notification/noticeWizard/notificationWizard</url-pattern>
   </servlet-mapping>
-    
+
   <!-- servlet mapping for configuring users groups and views -->
   <!-- user configuration servlets -->
   <servlet-mapping>
@@ -1099,7 +1099,7 @@
     <url-pattern>/admin/userGroupView/groups/removeDutySchedules</url-pattern>
   </servlet-mapping>
   <!-- end of user configuration servlets -->
-  
+
   <!-- group configuration servlets -->
   <servlet-mapping>
     <servlet-name>modifyGroup</servlet-name>
@@ -1126,7 +1126,7 @@
     <url-pattern>/admin/userGroupView/groups/deleteGroup</url-pattern>
   </servlet-mapping>
   <!-- end of group configuration servlets -->
-  
+
   <servlet-mapping>
     <servlet-name>admin-roles</servlet-name>
     <url-pattern>/admin/userGroupView/roles</url-pattern>
@@ -1163,9 +1163,9 @@
     <url-pattern>/admin/userGroupView/views/deleteView</url-pattern>
   </servlet-mapping>
   <!-- end of group configuration servlets -->
-  
+
   <!-- end of user groups and views configuration servlets -->
-  
+
   <!-- servlet mapping for event conf editing -->
   <servlet-mapping>
     <servlet-name>deleteEvent</servlet-name>
@@ -1199,8 +1199,8 @@
     <servlet-name>rearrangeEvents</servlet-name>
     <url-pattern>/admin/eventconf/rearrangeEvents</url-pattern>
   </servlet-mapping>
-  
-  
+
+
   <!-- event mask servlet mappings -->
   <servlet-mapping>
     <servlet-name>newMaskElement</servlet-name>
@@ -1243,7 +1243,7 @@
     <servlet-name>deleteAutoAction</servlet-name>
     <url-pattern>/admin/eventconf/autoActions/deleteAutoAction</url-pattern>
   </servlet-mapping>
-  
+
   <!-- operator action servlet mappings -->
   <servlet-mapping>
     <servlet-name>operActionEditing</servlet-name>
@@ -1265,7 +1265,7 @@
     <servlet-name>deleteOperAction</servlet-name>
     <url-pattern>/admin/eventconf/operActions/deleteOperAction</url-pattern>
   </servlet-mapping>
-  
+
   <!-- forwards servlet mappings -->
   <servlet-mapping>
     <servlet-name>forwardsEditing</servlet-name>
@@ -1303,7 +1303,7 @@
     <servlet-name>exportAssets</servlet-name>
     <url-pattern>/admin/asset/assets.csv</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>getInterfaces</servlet-name>
     <url-pattern>/admin/nodemanagement/getInterfaces</url-pattern>
@@ -1377,7 +1377,7 @@
         <servlet-name>updateServiceNotify</servlet-name>
         <url-pattern>/admin/updateServiceNotify</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>rtcPost</servlet-name>
     <url-pattern>/rtc/post/*</url-pattern>
@@ -1396,12 +1396,12 @@
     <servlet-name>nodeRescan</servlet-name>
     <url-pattern>/element/rescan</url-pattern>
   </servlet-mapping>
-  
+
    <servlet-mapping>
     <servlet-name>ManageSnmpIntf</servlet-name>
     <url-pattern>/element/ManageSnmpIntf</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>filterOutage</servlet-name>
     <url-pattern>/outage/list</url-pattern>
@@ -1432,7 +1432,7 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/graph/graph.png</url-pattern>
@@ -1469,9 +1469,9 @@
   <error-page>
     <exception-type>org.opennms.netmgt.model.events.EventProxyException</exception-type>
     <location>/errors/eventproxyexception.jsp</location>
-  </error-page>  
+  </error-page>
   <error-page>
     <exception-type>java.lang.Throwable</exception-type>
     <location>/errors/unknownexception.jsp</location>
-  </error-page>  
+  </error-page>
 </web-app>

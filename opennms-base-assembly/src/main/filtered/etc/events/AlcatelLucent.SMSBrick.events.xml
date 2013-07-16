@@ -50,13 +50,13 @@ An internal error has been reported on	the Brick.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickError trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmTriggerName=%parm[#6]% 
+			lsmsBrickError trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmTriggerName=%parm[#6]%
 			lsmsAlarmLastErrorCodeNumber=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -112,13 +112,13 @@ Security Management Server.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsSMSError trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmSMSSubsystemName=%parm[#6]% 
+			lsmsSMSError trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmSMSSubsystemName=%parm[#6]%
 			lsmsAlarmLastErrorCodeNumber=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -180,14 +180,14 @@ password.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsUnauthSMSConn trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmUserSourceIpAddress=%parm[#6]% 
-			lsmsAlarmSMSUserId=%parm[#7]% 
+			lsmsUnauthSMSConn trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmUserSourceIpAddress=%parm[#6]%
+			lsmsAlarmSMSUserId=%parm[#7]%
 			lsmsAlarmUnauthSMSConnReason=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -238,12 +238,12 @@ password.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickLost trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
+			lsmsBrickLost trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
 			lsmsAlarmTriggerName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -327,20 +327,20 @@ Check the SMS for further details.&lt;/p&gt;&lt;table&gt;
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsZoneAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
-			lsmsAlarmCodeNumber=%parm[#8]% 
-			lsmsAlarmZoneRuleNumber=%parm[#9]% 
-			lsmsAlarmZoneRuleSourceIpAddress=%parm[#10]% 
-			lsmsAlarmZoneRuleSourcePort=%parm[#11]% 
-			lsmsAlarmZoneRuleDestIpAddress=%parm[#12]% 
-			lsmsAlarmZoneRuleDestPort=%parm[#13]% 
+			lsmsZoneAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
+			lsmsAlarmCodeNumber=%parm[#8]%
+			lsmsAlarmZoneRuleNumber=%parm[#9]%
+			lsmsAlarmZoneRuleSourceIpAddress=%parm[#10]%
+			lsmsAlarmZoneRuleSourcePort=%parm[#11]%
+			lsmsAlarmZoneRuleDestIpAddress=%parm[#12]%
+			lsmsAlarmZoneRuleDestPort=%parm[#13]%
 			lsmsAlarmZoneRuleProtocol=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -431,22 +431,22 @@ a message from the RealSecure Internet Security System (ISS).&lt;/p&gt;&lt;table
 	%parm[#16]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsISSAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmTriggerName=%parm[#6]% 
-			lsmsAlarmISSEvent=%parm[#7]% 
-			lsmsAlarmISSRealSecureEngineName=%parm[#8]% 
-			lsmsAlarmISSEventSourceIpAddress=%parm[#9]% 
-			lsmsAlarmISSEventSourcePort=%parm[#10]% 
-			lsmsAlarmISSEventSourceGroupName=%parm[#11]% 
-			lsmsAlarmISSEventDestIpAddress=%parm[#12]% 
-			lsmsAlarmISSEventDestPort=%parm[#13]% 
-			lsmsAlarmISSEventDestGroupName=%parm[#14]% 
-			lsmsAlarmISSEventProtocol=%parm[#15]% 
+			lsmsISSAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmTriggerName=%parm[#6]%
+			lsmsAlarmISSEvent=%parm[#7]%
+			lsmsAlarmISSRealSecureEngineName=%parm[#8]%
+			lsmsAlarmISSEventSourceIpAddress=%parm[#9]%
+			lsmsAlarmISSEventSourcePort=%parm[#10]%
+			lsmsAlarmISSEventSourceGroupName=%parm[#11]%
+			lsmsAlarmISSEventDestIpAddress=%parm[#12]%
+			lsmsAlarmISSEventDestPort=%parm[#13]%
+			lsmsAlarmISSEventDestGroupName=%parm[#14]%
+			lsmsAlarmISSEventProtocol=%parm[#15]%
 			lsmsAlarmISSEventSeverity=%parm[#16]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -503,13 +503,13 @@ the threshold. Check the SMS for further details.&lt;/p&gt;&lt;table&gt;
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickPMAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmTriggerName=%parm[#6]% 
+			lsmsBrickPMAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmTriggerName=%parm[#6]%
 			lsmsAlarmBrickPMFirstExceededParameter=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -562,12 +562,12 @@ the threshold. Check the SMS for further details.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsSMSPMAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
+			lsmsSMSPMAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
 			lsmsAlarmSMSPMFirstExceededParameter=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -651,20 +651,20 @@ further details.&lt;/p&gt;&lt;table&gt;
 	%parm[#14]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsUserAuthAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmUserAuthGroupName=%parm[#6]% 
-			lsmsAlarmUserAuthSourceIpAddress=%parm[#7]% 
-			lsmsAlarmUserAuthSourcePort=%parm[#8]% 
-			lsmsAlarmUserAuthDestIpAddress=%parm[#9]% 
-			lsmsAlarmUserAuthDestPort=%parm[#10]% 
-			lsmsAlarmUserAuthProtocol=%parm[#11]% 
-			lsmsAlarmUserAuthUserId=%parm[#12]% 
-			lsmsAlarmUserAuthAuthType=%parm[#13]% 
+			lsmsUserAuthAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmUserAuthGroupName=%parm[#6]%
+			lsmsAlarmUserAuthSourceIpAddress=%parm[#7]%
+			lsmsAlarmUserAuthSourcePort=%parm[#8]%
+			lsmsAlarmUserAuthDestIpAddress=%parm[#9]%
+			lsmsAlarmUserAuthDestPort=%parm[#10]%
+			lsmsAlarmUserAuthProtocol=%parm[#11]%
+			lsmsAlarmUserAuthUserId=%parm[#12]%
+			lsmsAlarmUserAuthAuthType=%parm[#13]%
 			lsmsAlarmUserAuthReason=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -724,14 +724,14 @@ Check SMS for further details.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsVGCLocalMapPoolAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
+			lsmsVGCLocalMapPoolAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
 			lsmsAlarmLocalTEPIpAddress=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -789,14 +789,14 @@ Check SMS for further details.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickInterfaceDown trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmTriggerName=%parm[#6]% 
-			lsmsAlarmBrkIfDesc=%parm[#7]% 
+			lsmsBrickInterfaceDown trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmTriggerName=%parm[#6]%
+			lsmsAlarmBrkIfDesc=%parm[#7]%
 			lsmsAlarmBrkIfIndex=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -847,12 +847,12 @@ Brick failover occured. Active Brick switched over to standby.&lt;/p&gt;&lt;tabl
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickFailoverEvent trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
+			lsmsBrickFailoverEvent trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
 			lsmsAlarmTriggerName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -915,15 +915,15 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsLanToLanTunnelDown trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmLocalTEPDeviceName=%parm[#6]% 
-			lsmsAlarmLocalTEPIpAddress=%parm[#7]% 
-			lsmsAlarmRemoteTEPDeviceName=%parm[#8]% 
+			lsmsLanToLanTunnelDown trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmLocalTEPDeviceName=%parm[#6]%
+			lsmsAlarmLocalTEPIpAddress=%parm[#7]%
+			lsmsAlarmRemoteTEPDeviceName=%parm[#8]%
 			lsmsAlarmRemoteTEPIpAddress=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -987,14 +987,14 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsLSMSStatusChange trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmLSMSPeerType=%parm[#6]% 
-			lsmsAlarmLSMSName=%parm[#7]% 
+			lsmsLSMSStatusChange trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmLSMSPeerType=%parm[#6]%
+			lsmsAlarmLSMSName=%parm[#7]%
 			lsmsAlarmLSMSPeerStatus=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1045,12 +1045,12 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickFound trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
+			lsmsBrickFound trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
 			lsmsAlarmTriggerName=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1108,14 +1108,14 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickInterfaceUp trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmTriggerName=%parm[#6]% 
-			lsmsAlarmBrkIfDesc=%parm[#7]% 
+			lsmsBrickInterfaceUp trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmTriggerName=%parm[#6]%
+			lsmsAlarmBrkIfDesc=%parm[#7]%
 			lsmsAlarmBrkIfIndex=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1208,20 +1208,20 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsQosBWExceeded trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
-			lsmsAlarmBrkIfDesc=%parm[#8]% 
-			lsmsAlarmBrkIfIndex=%parm[#9]% 
-			lsmsAlarmZoneRuleNumber=%parm[#10]% 
-			lsmsAlarmQosDirection=%parm[#11]% 
-			lsmsAlarmQosType=%parm[#12]% 
-			lsmsAlarmQosValue=%parm[#13]% 
+			lsmsQosBWExceeded trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
+			lsmsAlarmBrkIfDesc=%parm[#8]%
+			lsmsAlarmBrkIfIndex=%parm[#9]%
+			lsmsAlarmZoneRuleNumber=%parm[#10]%
+			lsmsAlarmQosDirection=%parm[#11]%
+			lsmsAlarmQosType=%parm[#12]%
+			lsmsAlarmQosValue=%parm[#13]%
 			lsmsAlarmQosUnits=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1314,20 +1314,20 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsQosRuleLimitThrottle trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
-			lsmsAlarmBrkIfDesc=%parm[#8]% 
-			lsmsAlarmBrkIfIndex=%parm[#9]% 
-			lsmsAlarmZoneRuleNumber=%parm[#10]% 
-			lsmsAlarmQosDirection=%parm[#11]% 
-			lsmsAlarmQosType=%parm[#12]% 
-			lsmsAlarmQosValue=%parm[#13]% 
+			lsmsQosRuleLimitThrottle trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
+			lsmsAlarmBrkIfDesc=%parm[#8]%
+			lsmsAlarmBrkIfIndex=%parm[#9]%
+			lsmsAlarmZoneRuleNumber=%parm[#10]%
+			lsmsAlarmQosDirection=%parm[#11]%
+			lsmsAlarmQosType=%parm[#12]%
+			lsmsAlarmQosValue=%parm[#13]%
 			lsmsAlarmQosUnits=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1416,19 +1416,19 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsQosZoneLimitThrottle trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
-			lsmsAlarmBrkIfDesc=%parm[#8]% 
-			lsmsAlarmBrkIfIndex=%parm[#9]% 
-			lsmsAlarmQosDirection=%parm[#10]% 
-			lsmsAlarmQosType=%parm[#11]% 
-			lsmsAlarmQosValue=%parm[#12]% 
+			lsmsQosZoneLimitThrottle trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
+			lsmsAlarmBrkIfDesc=%parm[#8]%
+			lsmsAlarmBrkIfIndex=%parm[#9]%
+			lsmsAlarmQosDirection=%parm[#10]%
+			lsmsAlarmQosType=%parm[#11]%
+			lsmsAlarmQosValue=%parm[#12]%
 			lsmsAlarmQosUnits=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1521,20 +1521,20 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsQosRuleGuaranteeUnmet trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
-			lsmsAlarmBrkIfDesc=%parm[#8]% 
-			lsmsAlarmBrkIfIndex=%parm[#9]% 
-			lsmsAlarmZoneRuleNumber=%parm[#10]% 
-			lsmsAlarmQosDirection=%parm[#11]% 
-			lsmsAlarmQosType=%parm[#12]% 
-			lsmsAlarmQosValue=%parm[#13]% 
+			lsmsQosRuleGuaranteeUnmet trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
+			lsmsAlarmBrkIfDesc=%parm[#8]%
+			lsmsAlarmBrkIfIndex=%parm[#9]%
+			lsmsAlarmZoneRuleNumber=%parm[#10]%
+			lsmsAlarmQosDirection=%parm[#11]%
+			lsmsAlarmQosType=%parm[#12]%
+			lsmsAlarmQosValue=%parm[#13]%
 			lsmsAlarmQosUnits=%parm[#14]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1623,19 +1623,19 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsQosZoneGuaranteeUnmet trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmZoneName=%parm[#6]% 
-			lsmsAlarmTriggerName=%parm[#7]% 
-			lsmsAlarmBrkIfDesc=%parm[#8]% 
-			lsmsAlarmBrkIfIndex=%parm[#9]% 
-			lsmsAlarmQosDirection=%parm[#10]% 
-			lsmsAlarmQosType=%parm[#11]% 
-			lsmsAlarmQosValue=%parm[#12]% 
+			lsmsQosZoneGuaranteeUnmet trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmZoneName=%parm[#6]%
+			lsmsAlarmTriggerName=%parm[#7]%
+			lsmsAlarmBrkIfDesc=%parm[#8]%
+			lsmsAlarmBrkIfIndex=%parm[#9]%
+			lsmsAlarmQosDirection=%parm[#10]%
+			lsmsAlarmQosType=%parm[#11]%
+			lsmsAlarmQosValue=%parm[#12]%
 			lsmsAlarmQosUnits=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1693,14 +1693,14 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsSLARoundTripDelayAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmSLAProbeID=%parm[#6]% 
-			lsmsAlarmSLAPercentAboveThreshold=%parm[#7]% 
+			lsmsSLARoundTripDelayAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmSLAProbeID=%parm[#6]%
+			lsmsAlarmSLAPercentAboveThreshold=%parm[#7]%
 			lsmsAlarmSLAConfiguredThreshold=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1762,15 +1762,15 @@ for this tunnel&lt;/p&gt;&lt;table&gt;
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsLanToLanTunnelUp trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmTriggerName=%parm[#5]% 
-			lsmsAlarmLocalTEPDeviceName=%parm[#6]% 
-			lsmsAlarmLocalTEPIpAddress=%parm[#7]% 
-			lsmsAlarmRemoteTEPDeviceName=%parm[#8]% 
+			lsmsLanToLanTunnelUp trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmTriggerName=%parm[#5]%
+			lsmsAlarmLocalTEPDeviceName=%parm[#6]%
+			lsmsAlarmLocalTEPIpAddress=%parm[#7]%
+			lsmsAlarmRemoteTEPDeviceName=%parm[#8]%
 			lsmsAlarmRemoteTEPIpAddress=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1838,16 +1838,16 @@ in brick ICM configuration.&lt;/p&gt;&lt;table&gt;
 	%parm[#10]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lsmsBrickICMAlarm trap received 
-			lsmsAlarmIndex=%parm[#1]% 
-			lsmsAlarmTriggerTime=%parm[#2]% 
-			lsmsAlarmDetails=%parm[#3]% 
-			lsmsAlarmLogEntry=%parm[#4]% 
-			lsmsAlarmBrkName=%parm[#5]% 
-			lsmsAlarmTriggerName=%parm[#6]% 
-			lsmsAlarmPercentBrkCacheUsedBeforeICM=%parm[#7]% 
-			lsmsAlarmPercentBrkCacheUsedAfterICM=%parm[#8]% 
-			lsmsAlarmBrkSessionsBeforeICM=%parm[#9]% 
+			lsmsBrickICMAlarm trap received
+			lsmsAlarmIndex=%parm[#1]%
+			lsmsAlarmTriggerTime=%parm[#2]%
+			lsmsAlarmDetails=%parm[#3]%
+			lsmsAlarmLogEntry=%parm[#4]%
+			lsmsAlarmBrkName=%parm[#5]%
+			lsmsAlarmTriggerName=%parm[#6]%
+			lsmsAlarmPercentBrkCacheUsedBeforeICM=%parm[#7]%
+			lsmsAlarmPercentBrkCacheUsedAfterICM=%parm[#8]%
+			lsmsAlarmBrkSessionsBeforeICM=%parm[#9]%
 			lsmsAlarmBrkSessionsAfterICM=%parm[#10]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>

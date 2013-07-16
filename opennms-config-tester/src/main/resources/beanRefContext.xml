@@ -10,5 +10,5 @@
         <value>META-INF/opennms/applicationContext-configTester.xml</value>
       </list>
     </constructor-arg>
-  </bean> 
+  </bean>
 </beans>

@@ -26,7 +26,7 @@ has changed to the inactive state.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portInactive trap received 
+			portInactive trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -59,7 +59,7 @@ close succession.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portDualDelay trap received 
+			portDualDelay trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -91,7 +91,7 @@ for an HDLC controller to come on line.  CTS is off.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portWaitSerial trap received 
+			portWaitSerial trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -122,7 +122,7 @@ is ready to accept V.25bis commands.  CTS is on.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portHaveSerial trap received 
+			portHaveSerial trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -153,7 +153,7 @@ is has been notified of an incoming call.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portRinging trap received 
+			portRinging trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -185,7 +185,7 @@ interface.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portCollectDigits trap received 
+			portCollectDigits trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -217,7 +217,7 @@ after dialing or answer notification has been issued.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portWaiting trap received 
+			portWaiting trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -249,7 +249,7 @@ flow has not yet been enabled.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portConnected trap received 
+			portConnected trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -281,7 +281,7 @@ flow.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portCarrier trap received 
+			portCarrier trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -312,7 +312,7 @@ has been placed in local loopback mode.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portLoopback trap received 
+			portLoopback trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -344,7 +344,7 @@ waiting for the host device to detect the transition.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portAcrPending trap received 
+			portAcrPending trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -376,7 +376,7 @@ when performing X.21 dialing.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portDteNotReady trap received 
+			portDteNotReady trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -412,8 +412,8 @@ can be read to see what its current state is.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			consoleStateChange trap received 
-			consoleIndex=%parm[#1]% 
+			consoleStateChange trap received
+			consoleIndex=%parm[#1]%
 			ssnStatusUserIPAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -444,7 +444,7 @@ exceeded the number of DS0 minutes allocated to it.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			portUseExceeded trap received 
+			portUseExceeded trap received
 			ifIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -500,7 +500,7 @@ session has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			maxTelnetAttempts trap received 
+			maxTelnetAttempts trap received
 			ssnStatusUserIPAddress=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -564,8 +564,8 @@ This trap is sent only for systems which
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			radiusServerChange trap received 
-			radAuthServerIndex=%parm[#1]% 
+			radiusServerChange trap received
+			radAuthServerIndex=%parm[#1]%
 			radAuthHostIPAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -613,11 +613,11 @@ heartBeat servers&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			multicastHeartBeatMonitor trap received 
-			heartBeatMulticastGroupAddress=%parm[#1]% 
-			heartBeatSourceAddress=%parm[#2]% 
-			heartBeatSlotTimeInterval=%parm[#3]% 
-			heartBeatSlotCount=%parm[#4]% 
+			multicastHeartBeatMonitor trap received
+			heartBeatMulticastGroupAddress=%parm[#1]%
+			heartBeatSourceAddress=%parm[#2]%
+			heartBeatSlotTimeInterval=%parm[#3]%
+			heartBeatSlotCount=%parm[#4]%
 			heartBeatPacketCount=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -667,11 +667,11 @@ description.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lanModemMovedToSuspectList trap received 
-			suspectLanModemSlotIndex=%parm[#1]% 
-			suspectLanModemPortIndex=%parm[#2]% 
-			suspectLanModemUsedCount=%parm[#3]% 
-			suspectLanModemBadCount=%parm[#4]% 
+			lanModemMovedToSuspectList trap received
+			suspectLanModemSlotIndex=%parm[#1]%
+			suspectLanModemPortIndex=%parm[#2]%
+			suspectLanModemUsedCount=%parm[#3]%
+			suspectLanModemBadCount=%parm[#4]%
 			suspectLanModemLast32=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -695,7 +695,7 @@ description.&lt;/p&gt;&lt;table&gt;
 	<event-label>ASCEND-TRAP defined trap event: dirdoListFailure</event-label>
 	<descr>
 &lt;p&gt;This trap is sent to all the managers in the
-alarm group when a T_ONLINE call comes in and 
+alarm group when a T_ONLINE call comes in and
 no answer/subaddresses have been received.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -703,7 +703,7 @@ no answer/subaddresses have been received.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dirdoListFailure trap received 
+			dirdoListFailure trap received
 			sysName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -753,8 +753,8 @@ slotTable.slotStatus descriptions.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sysSlotStateChange trap received 
-			slotIndex=%parm[#1]% 
+			sysSlotStateChange trap received
+			slotIndex=%parm[#1]%
 			slotStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -790,7 +790,7 @@ added or removed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			powerSupplyStateChange trap received 
+			powerSupplyStateChange trap received
 			powerSupplyState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -826,7 +826,7 @@ failure(s).&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			powerSupplyOperationalStateChange trap received 
+			powerSupplyOperationalStateChange trap received
 			powerSupplyOperationalState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -864,7 +864,7 @@ configuration.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			multiShelfStateChange trap received 
+			multiShelfStateChange trap received
 			multiShelfState=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1074,9 +1074,9 @@ is not unknown (value of 0).&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sysLastRestartReasonTrap trap received 
-			sysLastRestartReason=%parm[#1]% 
-			fatalLogIndex=%parm[#2]% 
+			sysLastRestartReasonTrap trap received
+			sysLastRestartReason=%parm[#1]%
+			fatalLogIndex=%parm[#2]%
 			sysAbsoluteCurrentTime=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1109,7 +1109,7 @@ connection profile.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			atmpMaxTunnelExceeded trap received 
+			atmpMaxTunnelExceeded trap received
 			atmpHNProfileName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1155,8 +1155,8 @@ with Tunnel creation.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			atmpAgentErrorSentTrap trap received 
-			atmpLastErrorGenerated=%parm[#1]% 
+			atmpAgentErrorSentTrap trap received
+			atmpLastErrorGenerated=%parm[#1]%
 			atmpAgentSentErrorTo=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1200,8 +1200,8 @@ agent.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			atmpAgentErrorRecvTrap trap received 
-			atmpLastErrorRecv=%parm[#1]% 
+			atmpAgentErrorRecvTrap trap received
+			atmpLastErrorRecv=%parm[#1]%
 			atmpAgentRecvErrorFrom=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1231,7 +1231,7 @@ agent.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sysConfigChangeTrap trap received 
+			sysConfigChangeTrap trap received
 			sysConfigChange=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1254,7 +1254,7 @@ agent.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Ascend/traps/sdtnPrimaryListEmptyTrap</uei>
 	<event-label>ASCEND-TRAP defined trap event: sdtnPrimaryListEmptyTrap</event-label>
 	<descr>
-&lt;p&gt;This trap indicates that the Transaction Server 
+&lt;p&gt;This trap indicates that the Transaction Server
 Primary list has become empty.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -1280,7 +1280,7 @@ Primary list has become empty.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/Ascend/traps/sdtnSecondaryListEmptyTrap</uei>
 	<event-label>ASCEND-TRAP defined trap event: sdtnSecondaryListEmptyTrap</event-label>
 	<descr>
-&lt;p&gt;This trap indicates that the Transaction Server 
+&lt;p&gt;This trap indicates that the Transaction Server
 Secondary list has become empty.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -1337,9 +1337,9 @@ persists, the trap will only be sent every
 	<uei>uei.opennms.org/vendor/Ascend/traps/suspectAccessResource</uei>
 	<event-label>ASCEND-TRAP defined trap event: suspectAccessResource</event-label>
 	<descr>
-&lt;p&gt;The access resource suspected trap is sent to  
-all the managers in the alarm group when a 
-terminating resource such as modem become suspect. 
+&lt;p&gt;The access resource suspected trap is sent to
+all the managers in the alarm group when a
+terminating resource such as modem become suspect.
 The suspected resource(s) are not assigned to
 terminate calls until the resource in the available
 pool exhausted.&lt;/p&gt;&lt;table&gt;
@@ -1365,11 +1365,11 @@ pool exhausted.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			suspectAccessResource trap received 
-			resourceSlotIndex=%parm[#1]% 
-			resourcePortIndex=%parm[#2]% 
-			resourceUsedCounts=%parm[#3]% 
-			resourceBadCounts=%parm[#4]% 
+			suspectAccessResource trap received
+			resourceSlotIndex=%parm[#1]%
+			resourcePortIndex=%parm[#2]%
+			resourceUsedCounts=%parm[#3]%
+			resourceBadCounts=%parm[#4]%
 			resourceLast32=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1416,10 +1416,10 @@ occurred.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			watchdogWarningTrap trap received 
-			watchdogIndex=%parm[#1]% 
-			watchdogName=%parm[#2]% 
-			watchdogState=%parm[#3]% 
+			watchdogWarningTrap trap received
+			watchdogIndex=%parm[#1]%
+			watchdogName=%parm[#2]%
+			watchdogState=%parm[#3]%
 			sysAbsoluteCurrentTime=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1632,10 +1632,10 @@ alarm condition enabled&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			slotCardResetTrap trap received 
-			fatalLogIndex=%parm[#1]% 
-			fatalLogReason=%parm[#2]% 
-			sysAbsoluteCurrentTime=%parm[#3]% 
+			slotCardResetTrap trap received
+			fatalLogIndex=%parm[#1]%
+			fatalLogReason=%parm[#2]%
+			sysAbsoluteCurrentTime=%parm[#3]%
 			slotIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1684,10 +1684,10 @@ to cntrReduCurrentIndex.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			controllerSwitchoverTrap trap received 
-			sysAbsoluteCurrentTime=%parm[#1]% 
-			cntrReduSwitchReason=%parm[#2]% 
-			cntrReduSwitchIndex=%parm[#3]% 
+			controllerSwitchoverTrap trap received
+			sysAbsoluteCurrentTime=%parm[#1]%
+			cntrReduSwitchReason=%parm[#2]%
+			cntrReduSwitchIndex=%parm[#3]%
 			cntrReduCurrentIndex=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1710,7 +1710,7 @@ to cntrReduCurrentIndex.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Ascend/traps/callLogServChange</uei>
 	<event-label>ASCEND-TRAP defined trap event: callLogServChange</event-label>
 	<descr>
-&lt;p&gt;This trap is sent to indicate that the call 
+&lt;p&gt;This trap is sent to indicate that the call
 logging server has changed.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1726,9 +1726,9 @@ logging server has changed.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			callLogServChange trap received 
-			callLoggingServerIndex=%parm[#1]% 
-			callLoggingServerIPAddress=%parm[#2]% 
+			callLogServChange trap received
+			callLoggingServerIndex=%parm[#1]%
+			callLoggingServerIPAddress=%parm[#2]%
 			sysAbsoluteCurrentTime=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1751,7 +1751,7 @@ logging server has changed.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/Ascend/traps/voipGkChange</uei>
 	<event-label>ASCEND-TRAP defined trap event: voipGkChange</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when there is a change in the 
+&lt;p&gt;This trap is sent when there is a change in the
 gatekeeper which is registered with the gateway
 in a VOIP configuration.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1768,9 +1768,9 @@ in a VOIP configuration.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			voipGkChange trap received 
-			voipCfgGkIndex=%parm[#1]% 
-			voipCfgGkIpAddress=%parm[#2]% 
+			voipGkChange trap received
+			voipCfgGkIndex=%parm[#1]%
+			voipCfgGkIpAddress=%parm[#2]%
 			sysAbsoluteCurrentTime=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1819,9 +1819,9 @@ of a T1/E1 line : trunk, quiesced or disabled&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wanLineStateChange trap received 
-			wanLineIfIndex=%parm[#1]% 
-			wanLineUsage=%parm[#2]% 
+			wanLineStateChange trap received
+			wanLineIfIndex=%parm[#1]%
+			wanLineUsage=%parm[#2]%
 			sysAbsoluteCurrentTime=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1854,7 +1854,7 @@ of 0 indicates that all is well again.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			callLogDroppedPkt trap received 
+			callLogDroppedPkt trap received
 			callLoggingDroppedPacketCount=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1893,8 +1893,8 @@ of a media gateway control link has changed.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			megacoLinkStatusTrap trap received 
-			mgLinkName=%parm[#1]% 
+			megacoLinkStatusTrap trap received
+			mgLinkName=%parm[#1]%
 			mgOperStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1952,11 +1952,11 @@ The slot affected is sparingSlotPrimaryIndex.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sparingSlotStatusChange trap received 
-			sparingSlotPrimaryIndex=%parm[#1]% 
-			sparingSlotSparingIndex=%parm[#2]% 
-			sparingSlotStatus=%parm[#3]% 
-			sparingSlotLastStatusChange=%parm[#4]% 
+			sparingSlotStatusChange trap received
+			sparingSlotPrimaryIndex=%parm[#1]%
+			sparingSlotSparingIndex=%parm[#2]%
+			sparingSlotStatus=%parm[#3]%
+			sparingSlotLastStatusChange=%parm[#4]%
 			sparingSlotLastChangeReason=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2013,11 +2013,11 @@ The slot affected is sparingIfPrimaryIndex.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sparingIfStatusChange trap received 
-			sparingIfPrimaryIndex=%parm[#1]% 
-			sparingIfSparingIndex=%parm[#2]% 
-			sparingIfStatus=%parm[#3]% 
-			sparingIfLastStatusChange=%parm[#4]% 
+			sparingIfStatusChange trap received
+			sparingIfPrimaryIndex=%parm[#1]%
+			sparingIfSparingIndex=%parm[#2]%
+			sparingIfStatus=%parm[#3]%
+			sparingIfLastStatusChange=%parm[#4]%
 			sparingIfLastChangeReason=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2061,10 +2061,10 @@ to cntrReduAvailCurrState at cntrReduAvailLastTime.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cntrReduAvailTrap trap received 
-			cntrReduAvailLastTime=%parm[#1]% 
-			cntrReduAvailSlotIndex=%parm[#2]% 
-			cntrReduAvailPrevState=%parm[#3]% 
+			cntrReduAvailTrap trap received
+			cntrReduAvailLastTime=%parm[#1]%
+			cntrReduAvailSlotIndex=%parm[#2]%
+			cntrReduAvailPrevState=%parm[#3]%
 			cntrReduAvailCurrState=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

@@ -1,4 +1,4 @@
-<!-- vacuumd-configuration.xml 
+<!-- vacuumd-configuration.xml
 
 This vacuumd configuration shows the configuration used to drive the QoSD OSS/J interface.
 v0.9 13-06-08 cgallen - added field action-events to make run with new vacuumd-daemon
@@ -15,89 +15,89 @@ V0.2 Original working version
  -->
 <VacuumdConfiguration period="900000" >
     <!-- v0.4 These automations have been speeded up - were set to daily 86400000 now set to every 15 minutes 900000 -->
- 
+
    <statement>
        <!-- this deletes all the nodes that have been marked as deleted - it relies on cascading deletes -->
        DELETE FROM node WHERE node.nodeType = 'D';
    </statement>
-   
+
    <statement>
        <!-- this deletes all the interfaces that have been marked as deleted - it relies on cascading deletes -->
        DELETE FROM ipInterface WHERE ipInterface.isManaged = 'D';
    </statement>
-   
+
    <statement>
       <!-- this deletes all the services that have been marked as deleted - it relies on cascading deletes -->
       DELETE FROM ifServices WHERE ifServices.status = 'D';
    </statement>
-   
+
     <statement>
        <!-- this deletes any events that are not associated with outages - Thanks to Chris Fedde for this -->
        <!-- changed by Craig Gallen to delete events more than 2 hours old - avoids build up ( was '6 weeks' )-->
-      DELETE FROM events WHERE NOT EXISTS 
-          (SELECT svclosteventid FROM outages WHERE svclosteventid = events.eventid  
-        UNION 
-          SELECT svcregainedeventid FROM outages WHERE svcregainedeventid = events.eventid 
-        UNION 
-          SELECT eventid FROM notifications WHERE eventid = events.eventid) 
+      DELETE FROM events WHERE NOT EXISTS
+          (SELECT svclosteventid FROM outages WHERE svclosteventid = events.eventid
+        UNION
+          SELECT svcregainedeventid FROM outages WHERE svcregainedeventid = events.eventid
+        UNION
+          SELECT eventid FROM notifications WHERE eventid = events.eventid)
        AND eventtime &lt; now() - interval '2 hours';
     </statement>
-    
+
    <statement>
       <!-- This deletes all but the last 100 alarms acked and cleared in the alarm list to avoid performance issues with
-           a build up of dead alarms. This is an issue for QosDrx which does not delete cleared alarms in its list. 
+           a build up of dead alarms. This is an issue for QosDrx which does not delete cleared alarms in its list.
            Ideally the alarms would be archived to a seperate table but at present they are deleted.
       -->
       DELETE FROM alarms WHERE alarmid &lt;= ( SELECT  max(alarmid)-100  from alarms WHERE severity=2 AND alarmAckUser IS NOT NULL )
    </statement>
-    
-    
+
+
    <automations>
-    
+
      <!--Description
-     	 All alarms are created with NULL or '' value in qosalarmstate 
-         We use this field to tell the QoSD daemon that there is a change to the alarms list by generating an 
+	 All alarms are created with NULL or '' value in qosalarmstate
+         We use this field to tell the QoSD daemon that there is a change to the alarms list by generating an
          alarmlistchanged event every time one or more alarms are found. This should ensure that new alarms are
          always detected.
       -->
-         
+
     	<!--notifyOSSJnewAlarm - automation to check for new alarms runs every 5 seconds  -->
-    	<automation name="notifyOSSJnewAlarm" 
+	<automation name="notifyOSSJnewAlarm"
     				interval="5000"
-    				trigger-name="selectNewAlarms" 
-    				auto-event-name="alarmListChangedEvent" 
-    				action-name="initialiseTroubleTicketID" 
+				trigger-name="selectNewAlarms"
+				auto-event-name="alarmListChangedEvent"
+				action-name="initialiseTroubleTicketID"
     				active="true" />
 
      	<!--ossjClear - automation to check for clearing alarms -  runs every 5 seconds  -->
-    	<automation name="ossjClear" 
-    				interval="5000" 
-    				trigger-name="ossjResolvers" 
-    				auto-event-name="alarmListChangedEvent" 
-    				action-name="clearossjProblems" 
+	<automation name="ossjClear"
+				interval="5000"
+				trigger-name="ossjResolvers"
+				auto-event-name="alarmListChangedEvent"
+				action-name="clearossjProblems"
     				active="true" />
- 
+
     </automations>
-    
+
     <triggers>
-    
+
            <!-- trigger for notifyOSSJnewAlarm - Note -  before clear trigger -->
            <!-- Version 0.8 - trigger must happen on new alarm and on changed alarm. qosalamstate=''
-    	        or 'clearing' forces new event trigger  -->  
+	        or 'clearing' forces new event trigger  -->
     	   <trigger name="selectNewAlarms" operator="&gt;=" row-count="1" >
-	
+
         	   <statement>SELECT * FROM alarms WHERE (qosalarmstate IS NULL) OR (qosalarmstate=&#39;&#39;) OR (qosalarmstate=&#39;clearing&#39;)</statement>
             </trigger>
-           
+
            <!-- trigger for ossjResolvers- resolver triggered if an alarm is found with tticketid='clear_type' -->
     	   <trigger name="ossjResolvers" operator="&gt;=" row-count="1" >
-        	      <statement>SELECT * FROM alarms WHERE alarmType=2 </statement>       	      
+		      <statement>SELECT * FROM alarms WHERE alarmType=2 </statement>
            </trigger>
-           
+
     </triggers>
-    
+
     <actions>
-           
+
         <!-- Version 0.8 7-10-06- using qosalarmstate. Note &#39; is the ' character -->
         <action name="clearossjProblems" >
 	        <statement>
@@ -107,31 +107,31 @@ V0.2 Original working version
             </statement>
 
       	</action>
-            
+
        	<!-- Version 0.8 using qosalarmstate. Note &#39; is the ' character -->
         <action name="initialiseTroubleTicketID" >
-              <statement>             
+              <statement>
 	            UPDATE alarms SET qosalarmstate=
                      CASE
 		                WHEN ( (qosalarmstate!= &#39;external_type&#39;) AND (alarmType=1)  ) THEN &#39;raise_type&#39;
                         WHEN (alarmType=2) THEN &#39;clear_type&#39;
-			            ELSE &#39;not_set&#39; 
+			            ELSE &#39;not_set&#39;
                      END
                  WHERE alarmid = ${alarmid}
 	      </statement>
         </action>
-           
+
     </actions>
-     
+
     <auto-events>
         <!-- this event fires QoSD when the alarm list changes-->
         <auto-event name="alarmListChangedEvent" >
             <uei>uei.opennms.org/vacuumd/alarmListChanged</uei>
         </auto-event>
     </auto-events>
-    
+
     <action-events>
         <!-- included because auto-events now depreciated but not yet used-->
     </action-events>
-    
+
 </VacuumdConfiguration>

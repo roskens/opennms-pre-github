@@ -44,7 +44,7 @@ succefully started&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolInformation</uei>
 	<event-label>PATROL-MIB defined trap event: patrolInformation</event-label>
 	<descr>
-&lt;p&gt;A patrolInformation is sent when a corresponding event  
+&lt;p&gt;A patrolInformation is sent when a corresponding event
 which may cause to that trap occured.
 The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -61,9 +61,9 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolInformation trap received 
-			patrolTrapText=%parm[#1]% 
-			patrolTrapOrigin=%parm[#2]% 
+			PATROL Event: patrolInformation trap received
+			patrolTrapText=%parm[#1]%
+			patrolTrapOrigin=%parm[#2]%
 			patrolTrapExtra=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -86,7 +86,7 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolChangeStatus</uei>
 	<event-label>PATROL-MIB defined trap event: patrolChangeStatus</event-label>
 	<descr>
-&lt;p&gt;A patrolChangeStatus is sent when a corresponding event  
+&lt;p&gt;A patrolChangeStatus is sent when a corresponding event
 which may cause to that trap occured.
 The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -103,9 +103,9 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolChangeStatus trap received 
-			patrolTrapText=%parm[#1]% 
-			patrolTrapOrigin=%parm[#2]% 
+			PATROL Event: patrolChangeStatus trap received
+			patrolTrapText=%parm[#1]%
+			patrolTrapOrigin=%parm[#2]%
 			patrolTrapExtra=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -128,7 +128,7 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolError</uei>
 	<event-label>PATROL-MIB defined trap event: patrolError</event-label>
 	<descr>
-&lt;p&gt;A patrolError is sent when a corresponding event  
+&lt;p&gt;A patrolError is sent when a corresponding event
 which may cause to that trap occured.
 The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -145,9 +145,9 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolError trap received 
-			patrolTrapText=%parm[#1]% 
-			patrolTrapOrigin=%parm[#2]% 
+			PATROL Event: patrolError trap received
+			patrolTrapText=%parm[#1]%
+			patrolTrapOrigin=%parm[#2]%
 			patrolTrapExtra=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -170,7 +170,7 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolWarning</uei>
 	<event-label>PATROL-MIB defined trap event: patrolWarning</event-label>
 	<descr>
-&lt;p&gt;A patrolWarning is sent when a corresponding event  
+&lt;p&gt;A patrolWarning is sent when a corresponding event
 which may cause to that trap occured.
 The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -187,9 +187,9 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolWarning trap received 
-			patrolTrapText=%parm[#1]% 
-			patrolTrapOrigin=%parm[#2]% 
+			PATROL Event: patrolWarning trap received
+			patrolTrapText=%parm[#1]%
+			patrolTrapOrigin=%parm[#2]%
 			patrolTrapExtra=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -212,7 +212,7 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolAlarm</uei>
 	<event-label>PATROL-MIB defined trap event: patrolAlarm</event-label>
 	<descr>
-&lt;p&gt;A patrolAlarm is sent when a corresponding event  
+&lt;p&gt;A patrolAlarm is sent when a corresponding event
 which may cause to that trap occured.
 The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -229,9 +229,9 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolAlarm trap received 
-			patrolTrapText=%parm[#1]% 
-			patrolTrapOrigin=%parm[#2]% 
+			PATROL Event: patrolAlarm trap received
+			patrolTrapText=%parm[#1]%
+			patrolTrapOrigin=%parm[#2]%
 			patrolTrapExtra=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -254,8 +254,8 @@ The trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&g
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolTrapV1Raised</uei>
 	<event-label>PATROL-MIB defined trap event: patrolTrapV1Raised</event-label>
 	<descr>
-&lt;p&gt;A patrolTrapV2Raised trap is sent when one 
-opf the PSL scripts  calls snmp_trap() function. 
+&lt;p&gt;A patrolTrapV2Raised trap is sent when one
+opf the PSL scripts  calls snmp_trap() function.
 This trap is sent to SNMP V1
 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -264,7 +264,7 @@ entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolTrapV1Raised trap received 
+			PATROL Event: patrolTrapV1Raised trap received
 			patrolTrapText=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -287,7 +287,7 @@ entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendors/BMC/traps/patrolTrapV1StateChanged</uei>
 	<event-label>PATROL-MIB defined trap event: patrolTrapV1StateChanged</event-label>
 	<descr>
-&lt;p&gt;A patrolTrapV1StateChanged is sent when Patrol Agent 
+&lt;p&gt;A patrolTrapV1StateChanged is sent when Patrol Agent
 changes state of of of the discovered application instanses.
 This trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -296,7 +296,7 @@ This trap is sent to SNMP V1 entity according to piV1mTable.&lt;/p&gt;&lt;table&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			PATROL Event: patrolTrapV1StateChanged trap received 
+			PATROL Event: patrolTrapV1StateChanged trap received
 			patrolTrapText=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

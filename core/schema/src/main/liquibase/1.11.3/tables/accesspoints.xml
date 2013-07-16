@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="jwhite" id="1.11.3-SNAPSHOT-accesspoints">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="accesspoints" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="accesspoints">
 			<!-- Physical address of the access point - unique identifier -->
@@ -28,7 +28,7 @@
 
 			<!-- Last known status -->
 			<column name="status" type="integer" />
-			
+
 			<!-- Last seen on this controller -->
 			<column name="controlleripaddr" type="varchar(40)" />
 		</createTable>

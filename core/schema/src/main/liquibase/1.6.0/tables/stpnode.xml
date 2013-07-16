@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-stpnode">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="stpnode" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- This table maintains a record of general bridge interface.  It reflects information
 			from the mib-2 bridge mib  support .iso.org.dod.internet.mgmt.mib-2.dot1dBridge
@@ -38,7 +38,7 @@
 			 -->
 			<column name="basetype" type="integer" />
 
-			<!-- An indication of what version of the Spanning Tree Protocol is being run. 
+			<!-- An indication of what version of the Spanning Tree Protocol is being run.
 				'1' unknown
 				'2' decLb100
 				'3' ieee8011d -->

@@ -78,10 +78,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDomAlarmSet trap received 
-			ifDescr=%parm[#1]% 
-			jnxDomLastAlarms=%parm[#2]% 
-			jnxDomCurrentAlarms=%parm[#3]% 
+			jnxDomAlarmSet trap received
+			ifDescr=%parm[#1]%
+			jnxDomLastAlarms=%parm[#2]%
+			jnxDomCurrentAlarms=%parm[#3]%
 			jnxDomCurrentAlarmDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -163,10 +163,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDomAlarmCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxDomLastAlarms=%parm[#2]% 
-			jnxDomCurrentAlarms=%parm[#3]% 
+			jnxDomAlarmCleared trap received
+			ifDescr=%parm[#1]%
+			jnxDomLastAlarms=%parm[#2]%
+			jnxDomCurrentAlarms=%parm[#3]%
 			jnxDomCurrentAlarmDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

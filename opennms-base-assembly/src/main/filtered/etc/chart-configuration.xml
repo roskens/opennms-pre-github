@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:chart-configuration xmlns:tns="http://xmlns.opennms.org/xsd/config/charts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/charts ../src/services/org/opennms/netmgt/config/chart-configuration.xsd ">
 
-  <tns:bar-chart name="sample-bar-chart" 
-  	variation="2d" 
-  	domain-axis-label="Severity" 
-  	show-legend="true" 
-  	plot-orientation="vertical" 
-  	draw-bar-outline="true" 
+  <tns:bar-chart name="sample-bar-chart"
+	variation="2d"
+	domain-axis-label="Severity"
+	show-legend="true"
+	plot-orientation="vertical"
+	draw-bar-outline="true"
   	range-axis-label="Count"
-  	sub-label-class="org.opennms.netmgt.charts.SeveritySubLabels" 
+	sub-label-class="org.opennms.netmgt.charts.SeveritySubLabels"
   	show-urls="false"
     show-tool-tips="false">
-      
+
     <tns:title font="SansSerif" style="" value="Alarms" pitch="12" />
     <tns:image-size>
       <tns:hz-size>
@@ -69,16 +69,16 @@
 
 
 
-  <tns:bar-chart name="sample-bar-chart2" 
-  	variation="2d" 
-  	domain-axis-label="Service" 
-  	show-legend="true" 
-  	plot-orientation="vertical" 
-  	draw-bar-outline="true" 
-  	range-axis-label="Count" 
+  <tns:bar-chart name="sample-bar-chart2"
+	variation="2d"
+	domain-axis-label="Service"
+	show-legend="true"
+	plot-orientation="vertical"
+	draw-bar-outline="true"
+	range-axis-label="Count"
   	show-urls="false"
     show-tool-tips="false">
-      
+
     <tns:title font="SansSerif" style="" value="Last 7 Days Outages" pitch="12" />
     <tns:image-size>
       <tns:hz-size>
@@ -134,16 +134,16 @@
     </tns:series-def>
   </tns:bar-chart>
 
-  <tns:bar-chart name="sample-bar-chart3" 
-  	variation="2d" 
-  	domain-axis-label="Nodes/Interfaces/Services" 
-  	show-legend="true" 
-  	plot-orientation="vertical" 
-  	draw-bar-outline="true" 
+  <tns:bar-chart name="sample-bar-chart3"
+	variation="2d"
+	domain-axis-label="Nodes/Interfaces/Services"
+	show-legend="true"
+	plot-orientation="vertical"
+	draw-bar-outline="true"
   	range-axis-label="Count"
   	show-urls="false"
     show-tool-tips="false">
-      
+
     <tns:title font="SansSerif" style="" value="Node Inventory" pitch="12" />
     <tns:image-size>
       <tns:hz-size>

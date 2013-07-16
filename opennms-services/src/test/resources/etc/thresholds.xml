@@ -35,5 +35,5 @@
     <group name="icmp-latency" rrdRepository = "/usr/local/opennms/share/rrd/response/">
         <threshold type="high" ds-name="icmp" ds-type="if" value="80" rearm="50" trigger="1"/>
     </group>
-    
+
 </thresholding-config>

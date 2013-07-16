@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -9,10 +9,10 @@
 
 	<changeSet author="brozow" id="ncs-initialize">
 
-		<!-- 
-		
+		<!--
+
 		This is the generated hibernate DDL... I have change the hash name to more real names below
-		
+
     create table ncscomponent (
         id int8 not null,
         depsRequired varchar(255),
@@ -41,32 +41,32 @@
         primary key (component_id, subcomponent_id)
     )
 
-    alter table ncs_attributes 
-        add constraint FK17D16ED891FC1352 
-        foreign key (ncscomponent_id) 
+    alter table ncs_attributes
+        add constraint FK17D16ED891FC1352
+        foreign key (ncscomponent_id)
         references ncscomponent
 
-    alter table subcomponents 
-        add constraint FK8DED7156781386F4 
-        foreign key (component_id) 
+    alter table subcomponents
+        add constraint FK8DED7156781386F4
+        foreign key (component_id)
         references ncscomponent
 
-    alter table subcomponents 
-        add constraint FK8DED71565E29E534 
-        foreign key (subcomponent_id) 
+    alter table subcomponents
+        add constraint FK8DED71565E29E534
+        foreign key (subcomponent_id)
         references ncscomponent
 
 
 		 -->
-		
-		
+
+
 		<createTable tableName="ncscomponent">
 			<column name="id" type="integer">
 				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_ncsid" />
 			</column>
-			
+
 			<column name="version" type="integer" />
-			
+
 			<column name="name" type="varchar(255)" />
 
 			<column name="type" type="varchar(255)" />
@@ -74,15 +74,15 @@
 			<column name="foreignid" type="varchar(255)" />
 
 			<column name="depsrequired" type="varchar(12)" />
-			
+
 			<column name="nodeforeignsource" type="varchar(64)" />
 			<column name="nodeforeignid" type="varchar(64)" />
 
 			<column name="upeventuei" type="varchar(255)"/>
 			<column name="downeventuei" type="varchar(255)"/>
-			
+
 		</createTable>
-		
+
 		<createTable tableName="ncs_attributes" >
 
 			<column name="ncscomponent_id" type="integer">
@@ -96,14 +96,14 @@
 			<column name="value" type="varchar(255)">
 			  <constraints nullable="false"/>
 			</column>
-			
+
 		</createTable>
-		
+
 		<addPrimaryKey tableName="ncs_attributes" columnNames="ncscomponent_id, key" />
-		
-		
+
+
 		<createTable tableName="subcomponents" >
-		
+
 			<column name="component_id" type="integer">
 			  <constraints nullable="false"/>
 			</column>
@@ -114,13 +114,13 @@
 
         </createTable>
 
-		<addPrimaryKey tableName="subcomponents" columnNames="component_id, subcomponent_id" />		
-		
+		<addPrimaryKey tableName="subcomponents" columnNames="component_id, subcomponent_id" />
+
 
 		<addForeignKeyConstraint constraintName="fk_ncs_attr_comp_id"
 			baseTableName="ncs_attributes" baseColumnNames="ncscomponent_id"
 			referencedTableName="ncscomponent" referencedColumnNames="id" />
-			
+
 		<addForeignKeyConstraint constraintName="fk_subcomp_comp_id"
 			baseTableName="subcomponents" baseColumnNames="component_id"
 			referencedTableName="ncscomponent" referencedColumnNames="id" />

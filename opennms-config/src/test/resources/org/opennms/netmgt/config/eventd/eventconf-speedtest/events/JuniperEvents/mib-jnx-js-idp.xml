@@ -38,10 +38,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsIdpSignatureUpdate trap received 
-			jnxJsIdpRunningDetectorVersion=%parm[#1]% 
-			jnxJsIdpSecurityPackageVersion=%parm[#2]% 
-			jnxJsIdpLastSignatureUpdateTime=%parm[#3]% 
+			jnxJsIdpSignatureUpdate trap received
+			jnxJsIdpRunningDetectorVersion=%parm[#1]%
+			jnxJsIdpSecurityPackageVersion=%parm[#2]%
+			jnxJsIdpLastSignatureUpdateTime=%parm[#3]%
 			jnxJsIdpSignatureUpdateStatus=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -80,8 +80,8 @@ been detected.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsIdpAttackLog trap received 
-			jnxJsIdpAttackName=%parm[#1]% 
+			jnxJsIdpAttackLog trap received
+			jnxJsIdpAttackName=%parm[#1]%
 			jnxJsIdpAttackHits=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

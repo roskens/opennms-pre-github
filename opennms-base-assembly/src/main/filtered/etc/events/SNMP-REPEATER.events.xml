@@ -54,7 +54,7 @@ configured recipients.)&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rptrHealth trap received 
+			rptrHealth trap received
 			rptrOperStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -101,7 +101,7 @@ recipients.)&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rptrGroupChange trap received 
+			rptrGroupChange trap received
 			rptrGroupIndex=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -168,7 +168,7 @@ well.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rptrResetEvent trap received 
+			rptrResetEvent trap received
 			rptrOperStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -191,7 +191,7 @@ well.&lt;/p&gt;&lt;table&gt;
             <vbnumber>1</vbnumber>
             <vbvalue>1</vbvalue>
             <vbvalue>3</vbvalue>
-        </varbind>	
+        </varbind>
     </mask>
 	<uei>uei.opennms.org/standard/rfc2108/traps/rptrInfoHealthFailure</uei>
 	<event-label>SNMP-REPEATER-MIB defined trap event: rptrInfoHealth</event-label>
@@ -220,7 +220,7 @@ to all configured recipients.)&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rptrInfoHealth trap received 
+			rptrInfoHealth trap received
 			rptrInfoOperStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -243,7 +243,7 @@ to all configured recipients.)&lt;/p&gt;&lt;table&gt;
         <varbind>
             <vbnumber>1</vbnumber>
             <vbvalue>2</vbvalue>
-        </varbind>	
+        </varbind>
     </mask>
 	<uei>uei.opennms.org/standard/rfc2108/traps/rptrInfoHealthOk</uei>
 	<event-label>SNMP-REPEATER-MIB defined trap event: rptrInfoHealth</event-label>
@@ -272,7 +272,7 @@ to all configured recipients.)&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rptrInfoHealth trap received 
+			rptrInfoHealth trap received
 			rptrInfoOperStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -333,7 +333,7 @@ and warmStart trap PDUs.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			rptrInfoResetEvent trap received 
+			rptrInfoResetEvent trap received
 			rptrInfoOperStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

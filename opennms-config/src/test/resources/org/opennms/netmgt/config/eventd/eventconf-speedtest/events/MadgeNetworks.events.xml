@@ -18,7 +18,7 @@
 	<uei>uei.opennms.org/vendor/madge/traps/backupPathStateChange</uei>
 	<event-label>MADGECAU-MIB defined trap event: backupPathStateChange</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the state of the backup 
+&lt;p&gt;This trap is sent when the state of the backup
 ring changes.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -30,7 +30,7 @@ ring changes.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			backupPathStateChange trap received 
+			backupPathStateChange trap received
 			madgeCauTopBackupRing=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -53,7 +53,7 @@ ring changes.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/madge/traps/backupPathStateUse</uei>
 	<event-label>MADGECAU-MIB defined trap event: backupPathStateUse</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the state of the backup 
+&lt;p&gt;This trap is sent when the state of the backup
 usage changes.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -64,7 +64,7 @@ usage changes.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			backupPathStateUse trap received 
+			backupPathStateUse trap received
 			madgeCauTopBackupUsed=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -87,7 +87,7 @@ usage changes.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/madge/traps/wrapStateChange</uei>
 	<event-label>MADGECAU-MIB defined trap event: wrapStateChange</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the wrap state of the cau  
+&lt;p&gt;This trap is sent when the wrap state of the cau
 changes.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -100,7 +100,7 @@ changes.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			wrapStateChange trap received 
+			wrapStateChange trap received
 			madgeCauTopWrap=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -157,7 +157,7 @@ being detected.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			mCaufanSpeedFailed trap received 
+			mCaufanSpeedFailed trap received
 			madgeCauInfoFanSpeed=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -180,7 +180,7 @@ being detected.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/madge/traps/temperatureExceeded</uei>
 	<event-label>MADGECAU-MIB defined trap event: temperatureExceeded</event-label>
 	<descr>
-&lt;p&gt;This trap is sent when the temperature of the 
+&lt;p&gt;This trap is sent when the temperature of the
 device has exceeded safe limits.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -188,7 +188,7 @@ device has exceeded safe limits.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			temperatureExceeded trap received 
+			temperatureExceeded trap received
 			madgeCauInfoTherm=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -245,9 +245,9 @@ reinserted onto the ring.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			killInformation trap received 
-			madgeCauKillNodeAddress=%parm[#1]% 
-			madgeCauKillReason=%parm[#2]% 
+			killInformation trap received
+			madgeCauKillNodeAddress=%parm[#1]%
+			madgeCauKillReason=%parm[#2]%
 			madgeCauKillStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -313,11 +313,11 @@ but with extra information.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			killInformation2 trap received 
-			madgeCauKillNodeAddress=%parm[#1]% 
-			madgeCauKillReason=%parm[#2]% 
-			madgeCauKillStatus=%parm[#3]% 
-			madgeCauKillLamNo=%parm[#4]% 
+			killInformation2 trap received
+			madgeCauKillNodeAddress=%parm[#1]%
+			madgeCauKillReason=%parm[#2]%
+			madgeCauKillStatus=%parm[#3]%
+			madgeCauKillLamNo=%parm[#4]%
 			madgeCauKillPortNo=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -362,9 +362,9 @@ being detected.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lamPortDisabled2 trap received 
-			madgeCauTrapInfoLamNo=%parm[#1]% 
-			madgeCauTrapInfoPortNo=%parm[#2]% 
+			lamPortDisabled2 trap received
+			madgeCauTrapInfoLamNo=%parm[#1]%
+			madgeCauTrapInfoPortNo=%parm[#2]%
 			madgeCauTrapInfoState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -403,8 +403,8 @@ being detected.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lamStateChanged trap received 
-			madgeCauTrapInfoLamNo=%parm[#1]% 
+			lamStateChanged trap received
+			madgeCauTrapInfoLamNo=%parm[#1]%
 			madgeCauTrapInfoState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

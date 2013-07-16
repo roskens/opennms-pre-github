@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPMonOverloadSet</uei>
     <event-label>JUNIPER-PMon-MIB defined trap event: jnxPMonOverloadSet</event-label>
     <descr><![CDATA[
-<p>Notification of a new overload condition on a Passive 
+<p>Notification of a new overload condition on a Passive
 Monitoring interface.</p><table>
 	<tr><td><b>
 
@@ -49,10 +49,10 @@ Monitoring interface.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPMonOverloadSet trap received 
-			ifDescr=%parm[#1]% 
-			jnxPMonLastOverload=%parm[#2]% 
-			jnxPMonCurrentOverload=%parm[#3]% 
+			jnxPMonOverloadSet trap received
+			ifDescr=%parm[#1]%
+			jnxPMonLastOverload=%parm[#2]%
+			jnxPMonCurrentOverload=%parm[#3]%
 			jnxPMonLastOverloadDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -76,7 +76,7 @@ Monitoring interface.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPMonOverloadCleared</uei>
     <event-label>JUNIPER-PMon-MIB defined trap event: jnxPMonOverloadCleared</event-label>
     <descr><![CDATA[
-<p>Notification of a cleared overload condition on a Passive 
+<p>Notification of a cleared overload condition on a Passive
 Monitoring interface.</p><table>
 	<tr><td><b>
 
@@ -106,10 +106,10 @@ Monitoring interface.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPMonOverloadCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxPMonLastOverload=%parm[#2]% 
-			jnxPMonCurrentOverload=%parm[#3]% 
+			jnxPMonOverloadCleared trap received
+			ifDescr=%parm[#1]%
+			jnxPMonLastOverload=%parm[#2]%
+			jnxPMonCurrentOverload=%parm[#3]%
 			jnxPMonLastOverloadDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>

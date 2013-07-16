@@ -171,19 +171,19 @@ Varbind list:
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: linkDown trap received 
-			ifIndex=%parm[#1]% 
-			ifAdminStatus=%parm[#2]% 
-			ifOperStatus=%parm[#3]% 
-			ifDescr=%parm[#4]% 
-			ifType=%parm[#5]% 
-			ifReasonForStatus-ces=%parm[#6]% 
-			ifPhysLocation-ces=%parm[#7]% 
-			ifPhysRelPos-ces=%parm[#8]% 
-			ifIpAddr-ces=%parm[#9]% 
-			ifName-ces=%parm[#10]% 
-			ifTunnelRemoteIpAddr-ces=%parm[#11]% 
-			sysObjectID=%parm[#12]% 
+			NORTEL Event: linkDown trap received
+			ifIndex=%parm[#1]%
+			ifAdminStatus=%parm[#2]%
+			ifOperStatus=%parm[#3]%
+			ifDescr=%parm[#4]%
+			ifType=%parm[#5]%
+			ifReasonForStatus-ces=%parm[#6]%
+			ifPhysLocation-ces=%parm[#7]%
+			ifPhysRelPos-ces=%parm[#8]%
+			ifIpAddr-ces=%parm[#9]%
+			ifName-ces=%parm[#10]%
+			ifTunnelRemoteIpAddr-ces=%parm[#11]%
+			sysObjectID=%parm[#12]%
 			sysName=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -205,7 +205,7 @@ Varbind list:
 &lt;p&gt;A linkUp trap signifies that the sending
 protocol entity recognizes that one of the
 communication links represented in the agent's
-configuration has come up. 
+configuration has come up.
 Varbind list:
  ifIndex                                -- ifIndex of the interface.
  ifAdminStatus                  -- ifAdminStatus of the interface.
@@ -334,19 +334,19 @@ Varbind list:
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: linkUp trap received 
-			ifIndex=%parm[#1]% 
-			ifAdminStatus=%parm[#2]% 
-			ifOperStatus=%parm[#3]% 
-			ifDescr=%parm[#4]% 
-			ifType=%parm[#5]% 
-			ifReasonForStatus-ces=%parm[#6]% 
-			ifPhysLocation-ces=%parm[#7]% 
-			ifPhysRelPos-ces=%parm[#8]% 
-			ifIpAddr-ces=%parm[#9]% 
-			ifName-ces=%parm[#10]% 
-			ifTunnelRemoteIpAddr-ces=%parm[#11]% 
-			sysObjectID=%parm[#12]% 
+			NORTEL Event: linkUp trap received
+			ifIndex=%parm[#1]%
+			ifAdminStatus=%parm[#2]%
+			ifOperStatus=%parm[#3]%
+			ifDescr=%parm[#4]%
+			ifType=%parm[#5]%
+			ifReasonForStatus-ces=%parm[#6]%
+			ifPhysLocation-ces=%parm[#7]%
+			ifPhysRelPos-ces=%parm[#8]%
+			ifIpAddr-ces=%parm[#9]%
+			ifName-ces=%parm[#10]%
+			ifTunnelRemoteIpAddr-ces=%parm[#11]%
+			sysObjectID=%parm[#12]%
 			sysName=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -367,13 +367,13 @@ Varbind list:
 	<descr>
 &lt;p&gt;An authenticationFailure trap signifies that the SNMPv2
 entity, acting in an agent role, has received a protocol
-message that is not properly authenticated. 
+message that is not properly authenticated.
 The snmpEnableAuthenTraps object indicates
 whether this trap will be generated.
 
-snmpAuthenOperation-ces identifies the operation( ie. GetRequest, 
+snmpAuthenOperation-ces identifies the operation( ie. GetRequest,
         GetNextRequest,... ) was being attempted.
-snmpAuthenIpAddress-ces identifies the source IP address of 
+snmpAuthenIpAddress-ces identifies the source IP address of
         the operation.
 snmpAuthenCommString-ces identifies the community string that
         was used in the operation.&lt;/p&gt;&lt;table&gt;
@@ -404,11 +404,11 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: authenticationFailure trap received 
-			snmpAuthenOperation-ces=%parm[#1]% 
-			snmpAuthenIpAddress-ces=%parm[#2]% 
-			snmpAuthenCommString-ces=%parm[#3]% 
-			sysObjectID=%parm[#4]% 
+			NORTEL Event: authenticationFailure trap received
+			snmpAuthenOperation-ces=%parm[#1]%
+			snmpAuthenIpAddress-ces=%parm[#2]%
+			snmpAuthenCommString-ces=%parm[#3]%
+			sysObjectID=%parm[#4]%
 			sysName=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -464,12 +464,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: powerUpTrapEntry trap received 
-			severityLevel=%parm[#1]% 
-			powerUpTrap=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: powerUpTrapEntry trap received
+			severityLevel=%parm[#1]%
+			powerUpTrap=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -525,12 +525,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: periodicHeartbeatTrap trap received 
-			severityLevel=%parm[#1]% 
-			periodicHeartbeat=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: periodicHeartbeatTrap trap received
+			severityLevel=%parm[#1]%
+			periodicHeartbeat=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -586,12 +586,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: hardDisk1StatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			hardDisk1Status=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: hardDisk1StatusTrap trap received
+			severityLevel=%parm[#1]%
+			hardDisk1Status=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -647,12 +647,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: hardDisk0StatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			hardDisk0Status=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: hardDisk0StatusTrap trap received
+			severityLevel=%parm[#1]%
+			hardDisk0Status=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -708,12 +708,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: memoryUsageTrap trap received 
-			severityLevel=%parm[#1]% 
-			memoryUsage=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: memoryUsageTrap trap received
+			severityLevel=%parm[#1]%
+			memoryUsage=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -814,15 +814,15 @@ snmpAuthenCommString-ces identifies the community string that
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: lanCardStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			lanCardStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
-			systemUpTime=%parm[#6]% 
-			ifIndex=%parm[#7]% 
-			ifDescr=%parm[#8]% 
+			NORTEL Event: lanCardStatusTrap trap received
+			severityLevel=%parm[#1]%
+			lanCardStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
+			systemUpTime=%parm[#6]%
+			ifIndex=%parm[#7]%
+			ifDescr=%parm[#8]%
 			ifType=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -878,12 +878,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: cpuTwoStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			cpuTwoStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: cpuTwoStatusTrap trap received
+			severityLevel=%parm[#1]%
+			cpuTwoStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -939,12 +939,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: fanOneStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			fanOneStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: fanOneStatusTrap trap received
+			severityLevel=%parm[#1]%
+			fanOneStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1000,12 +1000,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: fanTwoStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			fanTwoStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: fanTwoStatusTrap trap received
+			severityLevel=%parm[#1]%
+			fanTwoStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1061,12 +1061,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: chassisFanStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			chassisFanStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: chassisFanStatusTrap trap received
+			severityLevel=%parm[#1]%
+			chassisFanStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1122,12 +1122,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: fiveVoltsPosStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			fiveVoltsPositive=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: fiveVoltsPosStatusTrap trap received
+			severityLevel=%parm[#1]%
+			fiveVoltsPositive=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1183,12 +1183,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: fiveVoltsMinusTrap trap received 
-			severityLevel=%parm[#1]% 
-			fiveVoltsMinus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: fiveVoltsMinusTrap trap received
+			severityLevel=%parm[#1]%
+			fiveVoltsMinus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1244,12 +1244,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: threeVoltsPositiveTrap trap received 
-			severityLevel=%parm[#1]% 
-			threeVoltsPositive=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: threeVoltsPositiveTrap trap received
+			severityLevel=%parm[#1]%
+			threeVoltsPositive=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1305,12 +1305,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: twoDotFiveVATrap trap received 
-			severityLevel=%parm[#1]% 
-			twoDotFiveVA=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: twoDotFiveVATrap trap received
+			severityLevel=%parm[#1]%
+			twoDotFiveVA=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1366,12 +1366,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: twoDotFiveVBTrap trap received 
-			severityLevel=%parm[#1]% 
-			twoDotFiveVB=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: twoDotFiveVBTrap trap received
+			severityLevel=%parm[#1]%
+			twoDotFiveVB=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1427,12 +1427,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: twelveVoltsPositveTrap trap received 
-			severityLevel=%parm[#1]% 
-			twelveVoltsPositive=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: twelveVoltsPositveTrap trap received
+			severityLevel=%parm[#1]%
+			twelveVoltsPositive=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1488,12 +1488,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: twelveVoltsMinsTrap trap received 
-			severityLevel=%parm[#1]% 
-			twelveVoltsMinus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: twelveVoltsMinsTrap trap received
+			severityLevel=%parm[#1]%
+			twelveVoltsMinus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1549,12 +1549,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: normalTemperatureTrap trap received 
-			severityLevel=%parm[#1]% 
-			normalTemperature=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: normalTemperatureTrap trap received
+			severityLevel=%parm[#1]%
+			normalTemperature=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1610,12 +1610,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: criticalTemperatureTrap trap received 
-			severityLevel=%parm[#1]% 
-			criticalTemperature=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: criticalTemperatureTrap trap received
+			severityLevel=%parm[#1]%
+			criticalTemperature=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1671,12 +1671,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: chassisIntrusionTrap trap received 
-			severityLevel=%parm[#1]% 
-			chassisIntrusion=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: chassisIntrusionTrap trap received
+			severityLevel=%parm[#1]%
+			chassisIntrusion=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1732,12 +1732,12 @@ snmpAuthenCommString-ces identifies the community string that
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: dualPowerSupplyTrap trap received 
-			severityLevel=%parm[#1]% 
-			dualPowerSupply=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: dualPowerSupplyTrap trap received
+			severityLevel=%parm[#1]%
+			dualPowerSupply=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1858,15 +1858,15 @@ Possible Values:
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: t1WANStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			t1WANStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
-			systemUpTime=%parm[#6]% 
-			ifIndex=%parm[#7]% 
-			ifDescr=%parm[#8]% 
+			NORTEL Event: t1WANStatusTrap trap received
+			severityLevel=%parm[#1]%
+			t1WANStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
+			systemUpTime=%parm[#6]%
+			ifIndex=%parm[#7]%
+			ifDescr=%parm[#8]%
 			ifType=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1974,15 +1974,15 @@ Warning: Device HSSIX PP initializing&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: t3WANStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			t3WANStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
-			systemUpTime=%parm[#6]% 
-			ifIndex=%parm[#7]% 
-			ifDescr=%parm[#8]% 
+			NORTEL Event: t3WANStatusTrap trap received
+			severityLevel=%parm[#1]%
+			t3WANStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
+			systemUpTime=%parm[#6]%
+			ifIndex=%parm[#7]%
+			ifDescr=%parm[#8]%
 			ifType=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2048,12 +2048,12 @@ Invalid hardware accelerator unit %d;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: hwAccelTrap trap received 
-			severityLevel=%parm[#1]% 
-			hwAccelStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: hwAccelTrap trap received
+			severityLevel=%parm[#1]%
+			hwAccelStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2084,7 +2084,7 @@ Disabled: Device IntModem-X disabled
 Healthy: Device IntModem-X: PPP is UP.
 Alert: Device IntModem-X down
 Warning: Device IntModem-X not initialized
-Alert: Device IntModem-X: Call is UP. Internal Error. 
+Alert: Device IntModem-X: Call is UP. Internal Error.
 Warning: Device IntModem-X is Down. Last dial-out attempt FAILED.
 Healthy: Device IntModem-X is Down (No Active calls)
 Warning: Device IntModem-X is in an UNKNOWN state&lt;/p&gt;&lt;table&gt;
@@ -2120,12 +2120,12 @@ Warning: Device IntModem-X is in an UNKNOWN state&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: v90WANStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			v90WANStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: v90WANStatusTrap trap received
+			severityLevel=%parm[#1]%
+			v90WANStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2193,12 +2193,12 @@ Alert: Device BRI-X is in an UNKNOWN state&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: briWANStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			briWANStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: briWANStatusTrap trap received
+			severityLevel=%parm[#1]%
+			briWANStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2265,12 +2265,12 @@ Alert: Device COMX is in an UNKNOWN state&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: serUartStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			serUartStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: serUartStatusTrap trap received
+			severityLevel=%parm[#1]%
+			serUartStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2334,12 +2334,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: adslWANStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			adslWANStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: adslWANStatusTrap trap received
+			severityLevel=%parm[#1]%
+			adslWANStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2395,12 +2395,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: radiusAcctServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			radiusAcctServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: radiusAcctServerTrap trap received
+			severityLevel=%parm[#1]%
+			radiusAcctServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2456,12 +2456,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: backupServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			backupServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: backupServerTrap trap received
+			severityLevel=%parm[#1]%
+			backupServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2517,12 +2517,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: diskRedundencyTrap trap received 
-			severityLevel=%parm[#1]% 
-			diskRedundency=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: diskRedundencyTrap trap received
+			severityLevel=%parm[#1]%
+			diskRedundency=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2578,12 +2578,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: intLDAPServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			intLDAPServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: intLDAPServerTrap trap received
+			severityLevel=%parm[#1]%
+			intLDAPServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2639,12 +2639,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: loadBalancingServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			loadBalancingServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: loadBalancingServerTrap trap received
+			severityLevel=%parm[#1]%
+			loadBalancingServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2700,12 +2700,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: dnsServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			dnsServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: dnsServerTrap trap received
+			severityLevel=%parm[#1]%
+			dnsServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2761,12 +2761,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: snmpServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			snmpServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: snmpServerTrap trap received
+			severityLevel=%parm[#1]%
+			snmpServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2822,12 +2822,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: ipAddressPoolTrap trap received 
-			severityLevel=%parm[#1]% 
-			ipAddressPool=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: ipAddressPoolTrap trap received
+			severityLevel=%parm[#1]%
+			ipAddressPool=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2883,12 +2883,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: extLDAPServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			extLDAPServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: extLDAPServerTrap trap received
+			severityLevel=%parm[#1]%
+			extLDAPServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2944,12 +2944,12 @@ Healthy: Device ADIADSLX up&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: radiusAuthServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			radiusAuthServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: radiusAuthServerTrap trap received
+			severityLevel=%parm[#1]%
+			radiusAuthServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3011,12 +3011,12 @@ Possible Values:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: certificateServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			certificateServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: certificateServerTrap trap received
+			severityLevel=%parm[#1]%
+			certificateServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3075,12 +3075,12 @@ Alert: External LDAP Authentication Server: Server is down(indicates all servers
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: extLDAPAuthServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			certificateServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: extLDAPAuthServerTrap trap received
+			severityLevel=%parm[#1]%
+			certificateServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3140,12 +3140,12 @@ No Certificate Requests submitted: there is no request sent;&lt;/p&gt;&lt;table&
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: cmpServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			cmpServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: cmpServerTrap trap received
+			severityLevel=%parm[#1]%
+			cmpServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3211,12 +3211,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: dhcpServerTrap trap received 
-			severityLevel=%parm[#1]% 
-			dhcpServer=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: dhcpServerTrap trap received
+			severityLevel=%parm[#1]%
+			dhcpServer=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3272,12 +3272,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: netBuffersTrap trap received 
-			severityLevel=%parm[#1]% 
-			netBuffers=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: netBuffersTrap trap received
+			severityLevel=%parm[#1]%
+			netBuffers=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3333,12 +3333,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: fireWallTrap trap received 
-			severityLevel=%parm[#1]% 
-			fireWall=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: fireWallTrap trap received
+			severityLevel=%parm[#1]%
+			fireWall=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3394,12 +3394,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: fipsStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			fipsStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: fipsStatusTrap trap received
+			severityLevel=%parm[#1]%
+			fipsStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3455,12 +3455,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: licensingStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			licensingStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: licensingStatusTrap trap received
+			severityLevel=%parm[#1]%
+			licensingStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3516,12 +3516,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: natStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			natStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: natStatusTrap trap received
+			severityLevel=%parm[#1]%
+			natStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3577,12 +3577,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: antiSpoofingStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			antiSpoofingStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: antiSpoofingStatusTrap trap received
+			severityLevel=%parm[#1]%
+			antiSpoofingStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3638,12 +3638,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: sslVpnStatusTrap trap received 
-			severityLevel=%parm[#1]% 
-			sslVpnStatus=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: sslVpnStatusTrap trap received
+			severityLevel=%parm[#1]%
+			sslVpnStatus=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3699,12 +3699,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: failedLoginTrap trap received 
-			severityLevel=%parm[#1]% 
-			failedLogin=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: failedLoginTrap trap received
+			severityLevel=%parm[#1]%
+			failedLogin=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3760,12 +3760,12 @@ Warning: DHCP Server is Enabled, but status Unknown cannot be determined&lt;/p&g
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: securityIntrusionTrap trap received 
-			severityLevel=%parm[#1]% 
-			securityIntrusion=%parm[#2]% 
-			systemName=%parm[#3]% 
-			systemDate=%parm[#4]% 
-			systemTime=%parm[#5]% 
+			NORTEL Event: securityIntrusionTrap trap received
+			severityLevel=%parm[#1]%
+			securityIntrusion=%parm[#2]%
+			systemName=%parm[#3]%
+			systemDate=%parm[#4]%
+			systemTime=%parm[#5]%
 			systemUpTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -3869,19 +3869,19 @@ firewallRuleAction-ces  -- Action defined for the triggered rule.&lt;/p&gt;&lt;t
 	%parm[#13]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			NORTEL Event: firewallRuleTriggeredTrap trap received 
-			firewallPolicyType-ces=%parm[#1]% 
-			firewallRuleType-ces=%parm[#2]% 
-			firewallRuleNumber-ces=%parm[#3]% 
-			ifIndex=%parm[#4]% 
-			ifName-ces=%parm[#5]% 
-			firewallSrcAddr-ces=%parm[#6]% 
-			firewallSrcPort-ces=%parm[#7]% 
-			firewallDestAddr-ces=%parm[#8]% 
-			firewallDestPort-ces=%parm[#9]% 
-			firewallProtocolID-ces=%parm[#10]% 
-			firewallRuleAction-ces=%parm[#11]% 
-			sysObjectID=%parm[#12]% 
+			NORTEL Event: firewallRuleTriggeredTrap trap received
+			firewallPolicyType-ces=%parm[#1]%
+			firewallRuleType-ces=%parm[#2]%
+			firewallRuleNumber-ces=%parm[#3]%
+			ifIndex=%parm[#4]%
+			ifName-ces=%parm[#5]%
+			firewallSrcAddr-ces=%parm[#6]%
+			firewallSrcPort-ces=%parm[#7]%
+			firewallDestAddr-ces=%parm[#8]%
+			firewallDestPort-ces=%parm[#9]%
+			firewallProtocolID-ces=%parm[#10]%
+			firewallRuleAction-ces=%parm[#11]%
+			sysObjectID=%parm[#12]%
 			sysName=%parm[#13]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

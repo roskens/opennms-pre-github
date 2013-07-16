@@ -23,8 +23,8 @@ mikew@isphone.net
    <mevalue>4</mevalue>
   </maskelement>
  <varbind>
-  <vbnumber>2</vbnumber> 
-  <vbvalue>.1.3.6.1.4.1.6618.2.0.1</vbvalue> 
+  <vbnumber>2</vbnumber>
+  <vbvalue>.1.3.6.1.4.1.6618.2.0.1</vbvalue>
   </varbind>
 </mask>
  <uei>uei.opennms.org/vendor/Quintum/traps/QuintumCriticalAlarm</uei>
@@ -57,8 +57,8 @@ mikew@isphone.net
    <mevalue>4</mevalue>
   </maskelement>
  <varbind>
-  <vbnumber>2</vbnumber> 
-  <vbvalue>.1.3.6.1.4.1.6618.2.0.2</vbvalue> 
+  <vbnumber>2</vbnumber>
+  <vbvalue>.1.3.6.1.4.1.6618.2.0.2</vbvalue>
   </varbind>
 </mask>
  <uei>uei.opennms.org/vendor/Quintum/traps/QuintumMajorAlarm</uei>
@@ -91,8 +91,8 @@ mikew@isphone.net
    <mevalue>4</mevalue>
   </maskelement>
  <varbind>
-  <vbnumber>2</vbnumber> 
-  <vbvalue>.1.3.6.1.4.1.6618.2.0.3</vbvalue> 
+  <vbnumber>2</vbnumber>
+  <vbvalue>.1.3.6.1.4.1.6618.2.0.3</vbvalue>
   </varbind>
 </mask>
  <uei>uei.opennms.org/vendor/Quintum/traps/QuintumMinorAlarm</uei>
@@ -125,8 +125,8 @@ mikew@isphone.net
    <mevalue>4</mevalue>
   </maskelement>
  <varbind>
-  <vbnumber>2</vbnumber> 
-  <vbvalue>.1.3.6.1.4.1.6618.2.0.4</vbvalue> 
+  <vbnumber>2</vbnumber>
+  <vbvalue>.1.3.6.1.4.1.6618.2.0.4</vbvalue>
   </varbind>
 </mask>
  <uei>uei.opennms.org/vendor/Quintum/traps/QuintumWarningStatus</uei>
@@ -159,8 +159,8 @@ mikew@isphone.net
    <mevalue>4</mevalue>
   </maskelement>
  <varbind>
-  <vbnumber>2</vbnumber> 
-  <vbvalue>.1.3.6.1.4.1.6618.2.0.0</vbvalue> 
+  <vbnumber>2</vbnumber>
+  <vbvalue>.1.3.6.1.4.1.6618.2.0.0</vbvalue>
   </varbind>
 </mask>
  <uei>uei.opennms.org/vendor/Quintum/traps/QuintumNormalStatus</uei>

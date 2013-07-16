@@ -14,11 +14,11 @@
 	<on-start>
 		<evaluate expression="reportWrapperService.getParameters(reportId)" result="flowScope.parameters" />
 	</on-start>
-	
+
 	<decision-state id="hasParameters">
     	<if test="reportWrapperService.hasParameters(reportId)" then="reportParameters" else="deliveryOptions" />
 	</decision-state>
-	
+
 	<view-state id="reportParameters" model="parameters">
 		<on-render>
         	<evaluate expression="categoryConfigService.getCategoriesList()"
@@ -33,7 +33,7 @@
 	<view-state id="deliveryOptions" model="deliveryOptions">
 
 		<on-render>
-			<evaluate expression="reportWrapperService.getDeliveryOptions(reportId, currentUser.name)" 
+			<evaluate expression="reportWrapperService.getDeliveryOptions(reportId, currentUser.name)"
 				result="flowScope.deliveryOptions" />
 			<evaluate expression="reportWrapperService.getFormats(reportId)"
 				result="viewScope.formats" />
@@ -42,7 +42,7 @@
 		<transition on="revise" to="reportParameters" />
 		<transition on="cancel" to="reportCancelled" />
 	</view-state>
-	
+
 	<decision-state id="scheduleOrExecute">
     	<if test="schedule" then="cronExpression" else="executeReport" />
 	</decision-state>
@@ -52,31 +52,31 @@
 		<transition on="success" to="reportRunning" />
 		<transition on="error" to="reportError" />
 	</action-state>
-	
+
 	<view-state id="cronExpression" model="triggerDetails">
 		<transition on="revise" to="deliveryOptions" />
 		<transition on="cancel" to="reportCancelled" />
 		<transition on="proceed" to="scheduleReport" />
 	</view-state>
-	
+
 	<action-state id="scheduleReport">
 		<evaluate expression="reportSchedulerService.addCronTrigger(reportId,
-			parameters, 
+			parameters,
 			deliveryOptions,
         	triggerDetails.getCronExpression(),
         	flowRequestContext)" />
 		<transition on="success" to="reportScheduled" />
 		<transition on="error" to="reportError" />
 	</action-state>
-		
+
 	<view-state id="reportError">
 		<transition on="proceed" to="reportCancelled" />
 	</view-state>
-	
+
 	<view-state id="reportRunning">
 		<transition on="proceed" to="reportComplete" />
 	</view-state>
-	
+
 	<view-state id="reportScheduled">
 		<transition on="proceed" to="reportComplete" />
 	</view-state>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <jmx-datacollection-config rrdRepository="/opt/opennms/share/rrd/snmp/">
-    
+
     <jmx-collection name="collectSingleMbeanWithSingleAttribute">
         <rrd step="300">
             <rra>RRA:AVERAGE:0.5:1:2016</rra>
@@ -16,7 +16,7 @@
             </mbean>
         </mbeans>
     </jmx-collection>
-    
+
     <jmx-collection name="collectSingleMbeanWithOneNotAvailableAttribute">
         <rrd step="300">
             <rra>RRA:AVERAGE:0.5:1:2016</rra>
@@ -32,7 +32,7 @@
             </mbean>
         </mbeans>
     </jmx-collection>
-    
+
     <jmx-collection name="collectSingleMbeanWithOneNotAvailableAttributesAndOneAvailableAttributes">
         <rrd step="300">
             <rra>RRA:AVERAGE:0.5:1:2016</rra>
@@ -48,7 +48,7 @@
                 <attrib name="TotalCompilationTime" alias="JvmTotalCompilTime" type="counter"/>
             </mbean>
         </mbeans>
-    </jmx-collection> 
+    </jmx-collection>
 
     <jmx-collection name="collectSingleMbeanWithManyNotAvailableAttributesAndManyAvailableAttributes">
         <rrd step="300">
@@ -62,34 +62,34 @@
   <!-- JVM Operating System -->
             <mbean name="OperatingSystem by JVM" objectname="java.lang:type=OperatingSystem">
                 <attrib name="FreePhysicalMemorySize" alias="OsFreeMemory" type="gauge"/>
-                
+
                 <attrib name="Foo0" alias="Foo0" type="gauge"/>
-                
+
                 <attrib name="TotalPhysicalMemorySize" alias="OsTotalMemory" type="gauge"/>
                 <attrib name="FreeSwapSpaceSize" alias="OsFreeSwapSpace" type="gauge"/>
-                
+
                 <attrib name="Foo1" alias="Foo1" type="gauge"/>
-                
+
                 <attrib name="TotalSwapSpaceSize" alias="OsTotalSwapSpace" type="gauge"/>
                 <!-- <attrib name="MaxFileDescriptorCount" alias="OsMaxFileDescCo" type="gauge"/> -->
-                
+
                 <attrib name="Foo2" alias="Foo2" type="gauge"/>
-                
+
                 <!-- <attrib name="OpenFileDescriptorCount" alias="OsOpenFileDescCo" type="gauge"/> -->
                 <attrib name="CommittedVirtualMemorySize" alias="OsCommittVMemSize" type="gauge"/>
-                
+
                 <attrib name="Foo3" alias="Foo3" type="gauge"/>
-                
+
                 <attrib name="ProcessCpuTime" alias="OsProcessCpuTime" type="gauge"/>
                 <attrib name="AvailableProcessors" alias="OsAvailableCpus" type="gauge"/>
-                
+
                 <attrib name="Foo4" alias="Foo4" type="gauge"/>
-                
+
                 <attrib name="SystemLoadAverage" alias="OsSysLoadAverage" type="gauge"/>
             </mbean>
         </mbeans>
     </jmx-collection>
-    
+
     <jmx-collection name="collectSingleMbeanWithOneCompAttribWithAllItsCompMembers">
         <rrd step="300">
             <rra>RRA:AVERAGE:0.5:1:2016</rra>
@@ -109,7 +109,7 @@
             </mbean>
         </mbeans>
     </jmx-collection>
-    
+
         <jmx-collection name="collectSingleMbeanWithOneCompAttribWithOneIgnoredCompMembers">
         <rrd step="300">
             <rra>RRA:AVERAGE:0.5:1:2016</rra>
@@ -131,7 +131,7 @@
             </mbean>
         </mbeans>
     </jmx-collection>
-    
+
     <jmx-collection name="collectBasicJvmValues">
         <rrd step="300">
             <rra>RRA:AVERAGE:0.5:1:2016</rra>

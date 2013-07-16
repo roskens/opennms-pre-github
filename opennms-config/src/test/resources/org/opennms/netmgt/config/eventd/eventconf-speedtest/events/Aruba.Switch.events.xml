@@ -44,7 +44,7 @@
         </mask>
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxSwitchRoleChange</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxSwitchRoleChange</event-label>
-        <descr>&lt;p&gt;A trap which indicates that the role of the switch has changed in 
+        <descr>&lt;p&gt;A trap which indicates that the role of the switch has changed in
 			the Domain.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -259,7 +259,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxAuthServerReqTimedOut</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxAuthServerReqTimedOut</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that the authentication server request 
+			A trap which indicates that the authentication server request
 			timed out.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -289,7 +289,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxAuthServerTimedOut</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxAuthServerTimedOut</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that the authentication server 
+			A trap which indicates that the authentication server
 			timed out.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -481,7 +481,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxOutOfRangeVoltage</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxOutOfRangeVoltage</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that the switch received out of range 
+			A trap which indicates that the switch received out of range
 			voltage.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -603,7 +603,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxGBICInserted</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxGBICInserted</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that a GBIC is inserted in a line card. 
+			A trap which indicates that a GBIC is inserted in a line card.
 			&lt;/p&gt;&lt;table&gt;&lt;/table&gt;</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
 	wlsxGBICInserted trap received&lt;/p&gt;</logmsg>
@@ -864,7 +864,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxAccessPointIsUp</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxAccessPointIsUp</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that an Access point at Location 
+			A trap which indicates that an Access point at Location
 			apLocation and Address apIpAddress is up.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -899,7 +899,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxAccessPointIsDown</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxAccessPointIsDown</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that an Access point at Location 
+			A trap which indicates that an Access point at Location
 			apLocation and Address apIpAddress is down.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -974,8 +974,8 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxChannelChanged</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxChannelChanged</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that an Access point at Location 
-			apLocation and Address apIpAddress has changed the channel to 
+			A trap which indicates that an Access point at Location
+			apLocation and Address apIpAddress has changed the channel to
 			apCurrentChannel.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1016,7 +1016,7 @@
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxStationAddedToBlackList</event-label>
         <descr>&lt;p&gt;
 			A trap which indicates that a station with address
-			wlsxStationMacAddress is black listed for 
+			wlsxStationMacAddress is black listed for
 			wlsxStationBlackListReason reason.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1243,9 +1243,9 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxAPRadioAttributesChanged</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxAPRadioAttributesChanged</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates changes in the Radio attributes of an 
+			A trap which indicates changes in the Radio attributes of an
 			Access Point at location apLocation and address apIpAddress.
-			Ap channel is apCurrentChannel, and Transmit power is 
+			Ap channel is apCurrentChannel, and Transmit power is
 			apTxPower.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1290,7 +1290,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxESIServerUp</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxESIServerUp</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that a ESI server &lt;wlsxESIServerName&gt; in 
+			A trap which indicates that a ESI server &lt;wlsxESIServerName&gt; in
 			group &lt;wlsxESIServerGrpName&gt; with &lt;wlsxESIServerIpaddress&gt; is up
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1330,7 +1330,7 @@
         <uei>uei.opennms.org/vendor/aruba/switch/traps/wlsxESIServerDown</uei>
         <event-label>WLSX-SWITCH-MIB defined trap event: wlsxESIServerDown</event-label>
         <descr>&lt;p&gt;
-			A trap which indicates that a ESI server &lt;wlsxESIServerName&gt; in 
+			A trap which indicates that a ESI server &lt;wlsxESIServerName&gt; in
 			group &lt;wlsxESIServerGrpName&gt; with &lt;wlsxESIServerIpaddress&gt; is down
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;

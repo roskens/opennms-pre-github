@@ -8,7 +8,7 @@
       <value>file:${opennms.home}/etc/model-importer.properties</value>
     </property>
   </bean>
-  
+
   <bean id="importResource" class="org.springframework.core.io.UrlResource">
     <constructor-arg><value>${importer.importURL}</value></constructor-arg>
   </bean>
@@ -16,15 +16,15 @@
   <bean id="scanThreads" class="java.lang.Integer">
     <constructor-arg><value>${importer.scanThreads}</value></constructor-arg>
   </bean>
-  
+
   <bean id="writeThreads" class="java.lang.Integer">
     <constructor-arg><value>${importer.writeThreads}</value></constructor-arg>
   </bean>
-  
+
   <bean id="cronExpression" class="java.lang.String">
     <constructor-arg><value>${importer.importSchedule}</value></constructor-arg>
   </bean>
-  
+
   <bean id="snmpPeerFactory-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.SnmpPeerFactory.init</value></property>
   </bean>

@@ -14,4 +14,4 @@
             <g:Button ui:field="m_goButton" width="53px" height="25px">Search</g:Button>
         </g:layer>
 	</g:LayoutPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

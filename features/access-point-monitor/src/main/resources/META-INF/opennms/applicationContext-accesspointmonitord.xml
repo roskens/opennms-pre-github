@@ -20,7 +20,7 @@
       <property name="nodeDao" ref="nodeDao" />
       <property name="ipInterfaceDao" ref="ipInterfaceDao" />
     </bean>
-    
+
     <bean id="init-accesspointmonitorConfig-factory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
       <property name="staticMethod"><value>org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfigFactory.init</value></property>
     </bean>

@@ -4,16 +4,16 @@
 	xmlns:opennms="urn:import:org.opennms.features.node.list.gwt.client">
 	<ui:style >
 		.tabLayoutStyle{
-			
+
 		}
-		
+
 		.selectBox{
 		  margin-top: 3px;
 		}
-		
+
 		.tableDiv{
 		   width: 300px;
-		   
+
 		}
 	</ui:style>
 	<g:TabLayoutPanel barUnit='EM' barHeight='1.25' ui:field="m_tabLayoutPanel" >
@@ -62,4 +62,4 @@
             </g:LayoutPanel>
         </g:tab>
 	</g:TabLayoutPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

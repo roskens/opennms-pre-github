@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:opennms="urn:import:org.opennms.features.gwt.graph.resource.list.client.view">
 	<ui:style>
-		
+
 	</ui:style>
 	<g:LayoutPanel ui:field="m_layoutPanel">
        <g:layer top="0" right="0" left="0" bottom="27px">
@@ -15,4 +15,4 @@
            <g:Button ui:field="m_searchBtn" width="100%">Search</g:Button>
        </g:layer>
     </g:LayoutPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

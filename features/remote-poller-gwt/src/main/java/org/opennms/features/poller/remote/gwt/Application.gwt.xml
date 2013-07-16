@@ -11,7 +11,7 @@
   <!--  inherit css based theme -->
   <inherits name='com.google.gwt.user.theme.standard.Standard'/>
 
-  <!-- Loading Maps -->  
+  <!-- Loading Maps -->
   <inherits name='com.google.gwt.ajaxloader.AjaxLoader' />
   <inherits name='com.google.gwt.maps.GoogleMaps' />
   <inherits name='com.google.gwt.maps.utility.GoogleMapsUtility' />

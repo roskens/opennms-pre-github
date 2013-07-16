@@ -22,7 +22,7 @@
 <p>A jnxPowerSupplyFailure trap signifies that
 the SNMP entity, acting in an agent role, has
 detected that the specified power supply in the
-chassis has been in the failure (bad DC output) 
+chassis has been in the failure (bad DC output)
 condition.</p><table>
 	<tr><td><b>
 
@@ -58,12 +58,12 @@ condition.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPowerSupplyFailure trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxPowerSupplyFailure trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -89,8 +89,8 @@ condition.</p><table>
     <descr><![CDATA[
 <p>A jnxFanFailure trap signifies that the SNMP
 entity, acting in an agent role, has detected
-that the specified cooling fan or impeller in 
-the chassis has been in the failure (not spinning) 
+that the specified cooling fan or impeller in
+the chassis has been in the failure (not spinning)
 condition.</p><table>
 	<tr><td><b>
 
@@ -126,12 +126,12 @@ condition.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFanFailure trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxFanFailure trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -155,8 +155,8 @@ condition.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxOverTemperature</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxOverTemperature</event-label>
     <descr><![CDATA[
-<p>A jnxOverTemperature trap signifies that the 
-SNMP entity, acting in an agent role, has 
+<p>A jnxOverTemperature trap signifies that the
+SNMP entity, acting in an agent role, has
 detected that the specified hardware component
 in the chassis has experienced over temperature
 condition.</p><table>
@@ -186,12 +186,12 @@ condition.</p><table>
 	%parm[#6]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxOverTemperature trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxOverTemperature trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingTemp=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -215,10 +215,10 @@ condition.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxRedundancySwitchover</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxRedundancySwitchover</event-label>
     <descr><![CDATA[
-<p>A jnxRedundancySwitchover trap signifies that 
-the SNMP entity, acting in an agent role, has 
+<p>A jnxRedundancySwitchover trap signifies that
+the SNMP entity, acting in an agent role, has
 detected that the specified hardware component
-in the chassis has experienced a redundancy 
+in the chassis has experienced a redundancy
 switchover event defined as a change in state
 of jnxRedundancyState from master to backup or
 vice versa.</p><table>
@@ -280,16 +280,16 @@ vice versa.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxRedundancySwitchover trap received 
-			jnxRedundancyContentsIndex=%parm[#1]% 
-			jnxRedundancyL1Index=%parm[#2]% 
-			jnxRedundancyL2Index=%parm[#3]% 
-			jnxRedundancyL3Index=%parm[#4]% 
-			jnxRedundancyDescr=%parm[#5]% 
-			jnxRedundancyConfig=%parm[#6]% 
-			jnxRedundancyState=%parm[#7]% 
-			jnxRedundancySwitchoverCount=%parm[#8]% 
-			jnxRedundancySwitchoverTime=%parm[#9]% 
+			jnxRedundancySwitchover trap received
+			jnxRedundancyContentsIndex=%parm[#1]%
+			jnxRedundancyL1Index=%parm[#2]%
+			jnxRedundancyL2Index=%parm[#3]%
+			jnxRedundancyL3Index=%parm[#4]%
+			jnxRedundancyDescr=%parm[#5]%
+			jnxRedundancyConfig=%parm[#6]%
+			jnxRedundancyState=%parm[#7]%
+			jnxRedundancySwitchoverCount=%parm[#8]%
+			jnxRedundancySwitchoverTime=%parm[#9]%
 			jnxRedundancySwitchoverReason=%parm[#10]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -312,8 +312,8 @@ vice versa.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxFruRemoval</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxFruRemoval</event-label>
     <descr><![CDATA[
-<p>A jnxFruRemoval trap signifies that the SNMP 
-entity, acting in an agent role, has detected 
+<p>A jnxFruRemoval trap signifies that the SNMP
+entity, acting in an agent role, has detected
 that the specified FRU (Field Replaceable Unit)
 has been removed from the chassis.</p><table>
 	<tr><td><b>
@@ -363,13 +363,13 @@ has been removed from the chassis.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruRemoval trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruRemoval trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -393,9 +393,9 @@ has been removed from the chassis.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxFruInsertion</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxFruInsertion</event-label>
     <descr><![CDATA[
-<p>A jnxFruInsertion trap signifies that the SNMP 
+<p>A jnxFruInsertion trap signifies that the SNMP
 entity,	acting in an agent role, has detected that
-the specified FRU (Field Replaceable Unit) has been 
+the specified FRU (Field Replaceable Unit) has been
 inserted into the chassis.</p><table>
 	<tr><td><b>
 
@@ -444,13 +444,13 @@ inserted into the chassis.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruInsertion trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruInsertion trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -474,8 +474,8 @@ inserted into the chassis.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxFruPowerOff</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxFruPowerOff</event-label>
     <descr><![CDATA[
-<p>A jnxFruPowerOff trap signifies that the SNMP 
-entity, acting in an agent role, has detected 
+<p>A jnxFruPowerOff trap signifies that the SNMP
+entity, acting in an agent role, has detected
 that the specified FRU (Field Replaceable Unit)
 has been powered off in the chassis.</p><table>
 	<tr><td><b>
@@ -604,16 +604,16 @@ has been powered off in the chassis.</p><table>
 	%parm[#10]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruPowerOff trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
-			jnxFruSlot=%parm[#7]% 
-			jnxFruOfflineReason=%parm[#8]% 
-			jnxFruLastPowerOff=%parm[#9]% 
+			jnxFruPowerOff trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
+			jnxFruSlot=%parm[#7]%
+			jnxFruOfflineReason=%parm[#8]%
+			jnxFruLastPowerOff=%parm[#9]%
 			jnxFruLastPowerOn=%parm[#10]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -637,9 +637,9 @@ has been powered off in the chassis.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxFruPowerOn</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxFruPowerOn</event-label>
     <descr><![CDATA[
-<p>A jnxFruPowerOn trap signifies that the SNMP 
+<p>A jnxFruPowerOn trap signifies that the SNMP
 entity,	acting in an agent role, has detected that
-the specified FRU (Field Replaceable Unit) has been 
+the specified FRU (Field Replaceable Unit) has been
 powered on in the chassis.</p><table>
 	<tr><td><b>
 
@@ -767,16 +767,16 @@ powered on in the chassis.</p><table>
 	%parm[#10]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruPowerOn trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
-			jnxFruSlot=%parm[#7]% 
-			jnxFruOfflineReason=%parm[#8]% 
-			jnxFruLastPowerOff=%parm[#9]% 
+			jnxFruPowerOn trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
+			jnxFruSlot=%parm[#7]%
+			jnxFruOfflineReason=%parm[#8]%
+			jnxFruLastPowerOff=%parm[#9]%
 			jnxFruLastPowerOn=%parm[#10]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -851,13 +851,13 @@ able to load ukernel. In these cases, fru is replaced.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruFailed trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruFailed trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -1011,16 +1011,16 @@ has gone offline in the chassis.</p><table>
 	%parm[#10]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruOffline trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
-			jnxFruSlot=%parm[#7]% 
-			jnxFruOfflineReason=%parm[#8]% 
-			jnxFruLastPowerOff=%parm[#9]% 
+			jnxFruOffline trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
+			jnxFruSlot=%parm[#7]%
+			jnxFruOfflineReason=%parm[#8]%
+			jnxFruLastPowerOff=%parm[#9]%
 			jnxFruLastPowerOn=%parm[#10]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -1095,13 +1095,13 @@ gone online in the chassis.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruOnline trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruOnline trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -1177,13 +1177,13 @@ check state in the chassis.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruCheck trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruCheck trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Minor</severity>
@@ -1258,13 +1258,13 @@ switched over.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFEBSwitchover trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFEBSwitchover trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -1340,13 +1340,13 @@ failed state in the chassis.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxHardDiskFailed trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxHardDiskFailed trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -1421,13 +1421,13 @@ from boot device list.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxHardDiskMissing trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxHardDiskMissing trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Critical</severity>
@@ -1451,10 +1451,10 @@ from boot device list.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxPowerSupplyOK</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxPowerSupplyOK</event-label>
     <descr><![CDATA[
-<p>A jnxPowerSupplyOK trap signifies that the 
+<p>A jnxPowerSupplyOK trap signifies that the
 SNMP entity, acting in an agent role, has
 detected that the specified power supply in the
-chassis has recovered from the failure (bad DC output) 
+chassis has recovered from the failure (bad DC output)
 condition.</p><table>
 	<tr><td><b>
 
@@ -1490,12 +1490,12 @@ condition.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxPowerSupplyOK trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxPowerSupplyOK trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -1557,12 +1557,12 @@ has recovered from the failure (not spinning) condition.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFanOK trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxFanOK trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingState=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -1586,8 +1586,8 @@ has recovered from the failure (not spinning) condition.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxTemperatureOK</uei>
     <event-label>JUNIPER-MIB defined trap event: jnxTemperatureOK</event-label>
     <descr><![CDATA[
-<p>A jnxTemperatureOK trap signifies that the 
-SNMP entity, acting in an agent role, has 
+<p>A jnxTemperatureOK trap signifies that the
+SNMP entity, acting in an agent role, has
 detected that the specified hardware component
 in the chassis has recovered from over temperature
 condition.</p><table>
@@ -1617,12 +1617,12 @@ condition.</p><table>
 	%parm[#6]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxTemperatureOK trap received 
-			jnxContentsContainerIndex=%parm[#1]% 
-			jnxContentsL1Index=%parm[#2]% 
-			jnxContentsL2Index=%parm[#3]% 
-			jnxContentsL3Index=%parm[#4]% 
-			jnxContentsDescr=%parm[#5]% 
+			jnxTemperatureOK trap received
+			jnxContentsContainerIndex=%parm[#1]%
+			jnxContentsL1Index=%parm[#2]%
+			jnxContentsL2Index=%parm[#3]%
+			jnxContentsL3Index=%parm[#4]%
+			jnxContentsDescr=%parm[#5]%
 			jnxOperatingTemp=%parm[#6]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -1698,13 +1698,13 @@ is in ok state in the chassis.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxFruOK trap received 
-			jnxFruContentsIndex=%parm[#1]% 
-			jnxFruL1Index=%parm[#2]% 
-			jnxFruL2Index=%parm[#3]% 
-			jnxFruL3Index=%parm[#4]% 
-			jnxFruName=%parm[#5]% 
-			jnxFruType=%parm[#6]% 
+			jnxFruOK trap received
+			jnxFruContentsIndex=%parm[#1]%
+			jnxFruL1Index=%parm[#2]%
+			jnxFruL2Index=%parm[#3]%
+			jnxFruL3Index=%parm[#4]%
+			jnxFruName=%parm[#5]%
+			jnxFruType=%parm[#6]%
 			jnxFruSlot=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

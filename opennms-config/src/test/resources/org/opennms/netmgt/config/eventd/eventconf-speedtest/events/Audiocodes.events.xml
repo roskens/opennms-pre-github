@@ -155,17 +155,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardFatalError trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardFatalError trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -325,17 +325,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardConfigurationError trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardConfigurationError trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -495,17 +495,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardTemperatureAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardTemperatureAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -665,17 +665,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardEvBoardStarted trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardEvBoardStarted trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -835,17 +835,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardEvResettingBoard trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardEvResettingBoard trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1005,17 +1005,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acFeatureKeyError trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acFeatureKeyError trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1175,17 +1175,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acgwAdminStateChange trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acgwAdminStateChange trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1345,17 +1345,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardCallResourcesAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardCallResourcesAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1515,17 +1515,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardControllerFailureAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardControllerFailureAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1685,17 +1685,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardEthernetLinkAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardEthernetLinkAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1855,17 +1855,17 @@
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acBoardOverloadAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acBoardOverloadAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1888,12 +1888,12 @@
 	<uei>uei.opennms.org/vendor/Audiocodes/traps/acActiveAlarmTableOverflow</uei>
 	<event-label>AcBoard defined trap event: acActiveAlarmTableOverflow</event-label>
 	<descr>
-&lt;p&gt;An active alarm could not be placed in the active alarm table because the table is full. 
+&lt;p&gt;An active alarm could not be placed in the active alarm table because the table is full.
 This alarm will not clear. Reboot is the only way to completely clear the Active Alarm table overflow problem.
 Any alarm raised at this state will not be Carrier Grade compatible. Therefore, Updates will not clear the alarm
-before changing the bindings and re-raising alarms. The History tables remain unaffected. 
-All Alarms raised prior to overflow will remain Carrier Grade compatible. 
-Other alarms, raised after this alarm was raised, that are placed in the Active Alarm table will be Carrier Grade 
+before changing the bindings and re-raising alarms. The History tables remain unaffected.
+All Alarms raised prior to overflow will remain Carrier Grade compatible.
+Other alarms, raised after this alarm was raised, that are placed in the Active Alarm table will be Carrier Grade
 compatible. (This is for when after the alarm was raised there were some clears, clearing alarms off the Active Alarm table).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2031,17 +2031,17 @@ compatible. (This is for when after the alarm was raised there were some clears,
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acActiveAlarmTableOverflow trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acActiveAlarmTableOverflow trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2201,17 +2201,17 @@ compatible. (This is for when after the alarm was raised there were some clears,
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acAtmPortAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acAtmPortAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2371,17 +2371,17 @@ compatible. (This is for when after the alarm was raised there were some clears,
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acAudioProvisioningAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acAudioProvisioningAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2541,17 +2541,17 @@ compatible. (This is for when after the alarm was raised there were some clears,
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acOperationalStateChange trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acOperationalStateChange trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2574,7 +2574,7 @@ compatible. (This is for when after the alarm was raised there were some clears,
 	<uei>uei.opennms.org/vendor/Audiocodes/traps/acKeepAlive</uei>
 	<event-label>AcBoard defined trap event: acKeepAlive</event-label>
 	<descr>
-&lt;p&gt;This trap is the NAT Traversal keep alive trap. 
+&lt;p&gt;This trap is the NAT Traversal keep alive trap.
 If the STUN application in the device detects a NAT then this trap will be sent out on a regular time laps - 9/10 of the acSysSTUNBindingLifeTime object. The AdditionalInfo1 varbind has the MAC address of the device.
 Note that all traps are sent out from the SNMP Port (usually 161).&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2713,17 +2713,17 @@ Note that all traps are sent out from the SNMP Port (usually 161).&lt;/p&gt;&lt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acKeepAlive trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acKeepAlive trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2883,17 +2883,17 @@ Note that all traps are sent out from the SNMP Port (usually 161).&lt;/p&gt;&lt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acNATTraversalAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acNATTraversalAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3055,17 +3055,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acEnhancedBITStatus trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acEnhancedBITStatus trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3225,17 +3225,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7LinkStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7LinkStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3395,17 +3395,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7LinkInhibitStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7LinkInhibitStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3565,17 +3565,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7LinkBlockStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7LinkBlockStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3735,17 +3735,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7LinkCongestionStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7LinkCongestionStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -3905,17 +3905,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7LinkSetStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7LinkSetStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4075,17 +4075,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7RouteSetStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7RouteSetStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4245,17 +4245,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7SNSetStateChangeAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7SNSetStateChangeAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4415,17 +4415,17 @@ The information is presented in the additional info fields.&lt;/p&gt;&lt;table&g
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSS7RedundancyAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSS7RedundancyAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4590,17 +4590,17 @@ for which the threshold is being crossed.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acPerformanceMonitoringThresholdCrossing trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acPerformanceMonitoringThresholdCrossing trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4760,17 +4760,17 @@ for which the threshold is being crossed.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acHTTPDownloadResult trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acHTTPDownloadResult trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -4932,17 +4932,17 @@ If more then one and less the X fans are faulty the severity will be Major.&lt;/
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acFanTrayAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acFanTrayAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5102,17 +5102,17 @@ If more then one and less the X fans are faulty the severity will be Major.&lt;/
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acPowerSupplyAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acPowerSupplyAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5272,17 +5272,17 @@ If more then one and less the X fans are faulty the severity will be Major.&lt;/
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acPEMAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acPEMAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5443,17 +5443,17 @@ Note - relevant only for M3K.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSAMissingAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSAMissingAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5477,7 +5477,7 @@ Note - relevant only for M3K.&lt;/p&gt;&lt;table&gt;
 	<event-label>AcBoard defined trap event: acHASystemFaultAlarm</event-label>
 	<descr>
 &lt;p&gt;This alarm is raised when the HA (High Availability) feature is active and the system is NOT HA.
-Critical severity - 
+Critical severity -
 1.Wrong HW Configuration.
 2. Redundant module is missing (not in slot).
 3. The redundant module is non operable.
@@ -5618,17 +5618,17 @@ Minor severity -  waiting for redunadant to connect (after reset!). &lt;/p&gt;&l
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acHASystemFaultAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acHASystemFaultAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5788,17 +5788,17 @@ Minor severity -  waiting for redunadant to connect (after reset!). &lt;/p&gt;&l
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acHASystemConfigMismatchAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acHASystemConfigMismatchAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -5958,17 +5958,17 @@ Minor severity -  waiting for redunadant to connect (after reset!). &lt;/p&gt;&l
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acHASystemSwitchOverAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acHASystemSwitchOverAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6128,17 +6128,17 @@ Minor severity -  waiting for redunadant to connect (after reset!). &lt;/p&gt;&l
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acUserInputAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acUserInputAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6301,17 +6301,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acDChannelStatus trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acDChannelStatus trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6471,17 +6471,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSonetSectionLOFAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSonetSectionLOFAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6641,17 +6641,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSonetSectionLOSAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSonetSectionLOSAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6811,17 +6811,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSonetLineAISAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSonetLineAISAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -6981,17 +6981,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSonetLineRDIAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSonetLineRDIAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7151,17 +7151,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acSonetIfHwFailureAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acSonetIfHwFailureAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7321,17 +7321,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acHwFailureAlarm trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acHwFailureAlarm trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7491,17 +7491,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acH248LostConnectionWithCA trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acH248LostConnectionWithCA trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7661,17 +7661,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acDialPlanFileReplaced trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acDialPlanFileReplaced trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -7831,17 +7831,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acAnalogPortSPIOutOfService trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acAnalogPortSPIOutOfService trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8001,17 +8001,17 @@ D-channel not-synchronized&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acAnalogPortHighTemperature trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acAnalogPortHighTemperature trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8173,17 +8173,17 @@ Relevant to HA systems only.&lt;/p&gt;&lt;table&gt;
 	%parm[#11]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: acHitlessUpdateStatus trap received 
-			acBoardTrapGlobalsName=%parm[#1]% 
-			acBoardTrapGlobalsTextualDescription=%parm[#2]% 
-			acBoardTrapGlobalsSource=%parm[#3]% 
-			acBoardTrapGlobalsSeverity=%parm[#4]% 
-			acBoardTrapGlobalsUniqID=%parm[#5]% 
-			acBoardTrapGlobalsType=%parm[#6]% 
-			acBoardTrapGlobalsProbableCause=%parm[#7]% 
-			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]% 
-			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]% 
-			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]% 
+			Audiocodes Event: acHitlessUpdateStatus trap received
+			acBoardTrapGlobalsName=%parm[#1]%
+			acBoardTrapGlobalsTextualDescription=%parm[#2]%
+			acBoardTrapGlobalsSource=%parm[#3]%
+			acBoardTrapGlobalsSeverity=%parm[#4]%
+			acBoardTrapGlobalsUniqID=%parm[#5]%
+			acBoardTrapGlobalsType=%parm[#6]%
+			acBoardTrapGlobalsProbableCause=%parm[#7]%
+			acBoardTrapGlobalsAdditionalInfo1=%parm[#8]%
+			acBoardTrapGlobalsAdditionalInfo2=%parm[#9]%
+			acBoardTrapGlobalsAdditionalInfo3=%parm[#10]%
 			acBoardTrapGlobalsDateAndTime=%parm[#11]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8234,8 +8234,8 @@ due to throttling or transmission loss.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: alarmActiveState trap received 
-			alarmActiveModelPointer=%parm[#1]% 
+			Audiocodes Event: alarmActiveState trap received
+			alarmActiveModelPointer=%parm[#1]%
 			alarmActiveResourceId=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8286,8 +8286,8 @@ due to throttling or transmission loss.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: alarmClearState trap received 
-			alarmActiveModelPointer=%parm[#1]% 
+			Audiocodes Event: alarmClearState trap received
+			alarmActiveModelPointer=%parm[#1]%
 			alarmActiveResourceId=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8328,8 +8328,8 @@ the ds1 are sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dsx1LineStatusChange trap received 
-			dsx1LineStatus=%parm[#1]% 
+			dsx1LineStatusChange trap received
+			dsx1LineStatus=%parm[#1]%
 			dsx1LineStatusLastChange=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8435,9 +8435,9 @@ of ifOperStatus.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: linkDown trap received 
-			ifIndex=%parm[#1]% 
-			ifAdminStatus=%parm[#2]% 
+			Audiocodes Event: linkDown trap received
+			ifIndex=%parm[#1]%
+			ifAdminStatus=%parm[#2]%
 			ifOperStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8492,9 +8492,9 @@ included value of ifOperStatus.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: linkUp trap received 
-			ifIndex=%parm[#1]% 
-			ifAdminStatus=%parm[#2]% 
+			Audiocodes Event: linkUp trap received
+			ifIndex=%parm[#1]%
+			ifAdminStatus=%parm[#2]%
 			ifOperStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8548,11 +8548,11 @@ traps.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: risingAlarm trap received 
-			alarmIndex=%parm[#1]% 
-			alarmVariable=%parm[#2]% 
-			alarmSampleType=%parm[#3]% 
-			alarmValue=%parm[#4]% 
+			Audiocodes Event: risingAlarm trap received
+			alarmIndex=%parm[#1]%
+			alarmVariable=%parm[#2]%
+			alarmSampleType=%parm[#3]%
+			alarmValue=%parm[#4]%
 			alarmRisingThreshold=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8604,11 +8604,11 @@ traps.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: fallingAlarm trap received 
-			alarmIndex=%parm[#1]% 
-			alarmVariable=%parm[#2]% 
-			alarmSampleType=%parm[#3]% 
-			alarmValue=%parm[#4]% 
+			Audiocodes Event: fallingAlarm trap received
+			alarmIndex=%parm[#1]%
+			alarmVariable=%parm[#2]%
+			alarmSampleType=%parm[#3]%
+			alarmValue=%parm[#4]%
 			alarmFallingThreshold=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -8657,10 +8657,10 @@ Sent immediately when the condition is detected.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Audiocodes Event: rtcpXrVoipThresholdViolation trap received 
-			rtcpXrVoipAlertSeverity=%parm[#1]% 
-			rtcpXrVoipAlertType=%parm[#2]% 
-			rtcpXrVoipAlertInfoType=%parm[#3]% 
+			Audiocodes Event: rtcpXrVoipThresholdViolation trap received
+			rtcpXrVoipAlertSeverity=%parm[#1]%
+			rtcpXrVoipAlertType=%parm[#2]%
+			rtcpXrVoipAlertInfoType=%parm[#3]%
 			rtcpXrVoipAlertPointer=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

@@ -17,10 +17,10 @@
   <name>OpenNMS Features NRTG Commander</name>
   <description>
      The Commander is a dummy implementation to generate CollectionJobs
-     and publish them via JMS-Queues. It's able to run in parallel and 
-     in multiple instances. A appropriate implementation would be a schedule 
-     based system. That interpretes the datacollection configuration and 
-     generates corresponding CollectionJobs. The CollectionJobs would be 
+     and publish them via JMS-Queues. It's able to run in parallel and
+     in multiple instances. A appropriate implementation would be a schedule
+     based system. That interpretes the datacollection configuration and
+     generates corresponding CollectionJobs. The CollectionJobs would be
      published in the same way this dummy implementation does.
   </description>
   <dependencies>

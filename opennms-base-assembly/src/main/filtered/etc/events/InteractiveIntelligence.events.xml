@@ -20,7 +20,7 @@
 	<uei>uei.opennms.org/vendor/inin/traps/i3IcTrapRestart</uei>
 	<event-label>I3IC-MIB defined trap event: i3IcTrapRestart</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when an Interaction Center subsystem has 
+&lt;p&gt;This trap is generated when an Interaction Center subsystem has
 been restarted. See accompanying MIB variable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -67,8 +67,8 @@ been restarted. See accompanying MIB variable.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTrapRestart trap received 
-			i3IcTrapInfoSubsys=%parm[#1]% 
+			Interactive Intelligence: i3IcTrapRestart trap received
+			i3IcTrapInfoSubsys=%parm[#1]%
 			i3IcTrapInfoRestartReason=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -91,7 +91,7 @@ been restarted. See accompanying MIB variable.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/inin/traps/i3IcTrapInformationalEventLog</uei>
 	<event-label>I3IC-MIB defined trap event: i3IcTrapInformationalEventLog</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when Interaction Center has 
+&lt;p&gt;This trap is generated when Interaction Center has
 written an informational entry to the Event Log on the Interaction Center server
 		 See accompanying MIB variable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -108,9 +108,9 @@ written an informational entry to the Event Log on the Interaction Center server
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTrapInformationalEventLog trap received 
-			i3IcTrapInfoEventLogSubsys=%parm[#1]% 
-			i3IcTrapInfoEventLogMsgID=%parm[#2]% 
+			Interactive Intelligence: i3IcTrapInformationalEventLog trap received
+			i3IcTrapInfoEventLogSubsys=%parm[#1]%
+			i3IcTrapInfoEventLogMsgID=%parm[#2]%
 			i3IcTrapInfoEventLogMsg=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -133,7 +133,7 @@ written an informational entry to the Event Log on the Interaction Center server
 	<uei>uei.opennms.org/vendor/inin/traps/i3IcTrapWarningEventLog</uei>
 	<event-label>I3IC-MIB defined trap event: i3IcTrapWarningEventLog</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when Interaction Center has 
+&lt;p&gt;This trap is generated when Interaction Center has
 written a warning entry to the Event Log on the Interaction Center server
 		 See accompanying MIB variable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -150,9 +150,9 @@ written a warning entry to the Event Log on the Interaction Center server
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTrapWarningEventLog trap received 
-			i3IcTrapWarningEventLogSubsys=%parm[#1]% 
-			i3IcTrapWarningEventLogMsgID=%parm[#2]% 
+			Interactive Intelligence: i3IcTrapWarningEventLog trap received
+			i3IcTrapWarningEventLogSubsys=%parm[#1]%
+			i3IcTrapWarningEventLogMsgID=%parm[#2]%
 			i3IcTrapWarningEventLogMsg=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -175,7 +175,7 @@ written a warning entry to the Event Log on the Interaction Center server
 	<uei>uei.opennms.org/vendor/inin/traps/i3IcTrapErrorEventLog</uei>
 	<event-label>I3IC-MIB defined trap event: i3IcTrapErrorEventLog</event-label>
 	<descr>
-&lt;p&gt;This trap is generated when Interaction Center has 
+&lt;p&gt;This trap is generated when Interaction Center has
 written an error entry to the Event Log on the Interaction Center server
 		 See accompanying MIB variable.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -192,9 +192,9 @@ written an error entry to the Event Log on the Interaction Center server
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTrapErrorEventLog trap received 
-			i3IcTrapErrorEventLogSubsys=%parm[#1]% 
-			i3IcTrapErrorEventLogMsgID=%parm[#2]% 
+			Interactive Intelligence: i3IcTrapErrorEventLog trap received
+			i3IcTrapErrorEventLogSubsys=%parm[#1]%
+			i3IcTrapErrorEventLogMsgID=%parm[#2]%
 			i3IcTrapErrorEventLogMsg=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -249,7 +249,7 @@ written an error entry to the Event Log on the Interaction Center server
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTSInterfaceYellowAlarm trap received 
+			Interactive Intelligence: i3IcTSInterfaceYellowAlarm trap received
 			i3IcTrapYellowAlarmTSInterface=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -279,7 +279,7 @@ written an error entry to the Event Log on the Interaction Center server
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTSInterfaceRedAlarm trap received 
+			Interactive Intelligence: i3IcTSInterfaceRedAlarm trap received
 			i3IcTrapRedAlarmTSInterface=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -309,7 +309,7 @@ written an error entry to the Event Log on the Interaction Center server
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTSInterfaceAlarmCleared trap received 
+			Interactive Intelligence: i3IcTSInterfaceAlarmCleared trap received
 			i3IcTrapAlarmClearedTSInterface=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -339,7 +339,7 @@ written an error entry to the Event Log on the Interaction Center server
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Interactive Intelligence: i3IcTSInterfaceDChannelDown trap received 
+			Interactive Intelligence: i3IcTSInterfaceDChannelDown trap received
 			i3IcTrapDChannelDownTSInterface=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>

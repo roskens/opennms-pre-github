@@ -20,13 +20,13 @@
     <event-label>JUNIPER-JS-AUTH-MIB defined trap event: jnxJsFwAuthFailure</event-label>
     <descr><![CDATA[
 <p>A firewall user authentication status trap signifies whether a user
-using the pass-through firewall authentication mechanism 
-has been rejected due to reason specified in the trap. 
+using the pass-through firewall authentication mechanism
+has been rejected due to reason specified in the trap.
 
 jnxJsFwAuthUserName is the user.
 jnxClientIPAddress is the ip address the user came from.
-jnxJsFwAuthServiceDesc specifies the application by 
-which the authentication was performed. 
+jnxJsFwAuthServiceDesc specifies the application by
+which the authentication was performed.
 jnxJsFwAuthReason indicates the reason for failure.</p><table>
 	<tr><td><b>
 
@@ -46,10 +46,10 @@ jnxJsFwAuthReason indicates the reason for failure.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsFwAuthFailure trap received 
-			jnxJsFwAuthUserName=%parm[#1]% 
-			jnxJsFwAuthClientIpAddr=%parm[#2]% 
-			jnxJsFwAuthServiceDesc=%parm[#3]% 
+			jnxJsFwAuthFailure trap received
+			jnxJsFwAuthUserName=%parm[#1]%
+			jnxJsFwAuthClientIpAddr=%parm[#2]%
+			jnxJsFwAuthServiceDesc=%parm[#3]%
 			jnxJsFwAuthReason=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -125,9 +125,9 @@ jnxJsFwAuthReason indicates the reason for failure.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsFwAuthCapacityExceeded</uei>
     <event-label>JUNIPER-JS-AUTH-MIB defined trap event: jnxJsFwAuthCapacityExceeded</event-label>
     <descr><![CDATA[
-<p>Firewall user authentication maximum capacity has been exceeded. 
+<p>Firewall user authentication maximum capacity has been exceeded.
 
-jnxJsFwAuthTotalUsers indicates the total number of users 
+jnxJsFwAuthTotalUsers indicates the total number of users
 being authenticated.  And it has exceeds the maximum allowable
 users. </p><table></table>
 	]]></descr>

@@ -24,7 +24,7 @@
       <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
       <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
-    
+
     <resourceType name="ciscoMemoryPoolType" label="Cisco Memory Pool"
                   resourceLabel="${cscoMemoryPoolName} (index ${index})">
       <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
@@ -1024,11 +1024,11 @@
         </collect>
       </systemDef>
 
-      <systemDef name="Cisco TelePresence MCU 4501"> 
-         <sysoid>.1.2.826.0.1.4616240.1.1.4501</sysoid> 
-         <collect> 
-          <includeGroup>mib2-interfaces</includeGroup> 
-        </collect> 
-      </systemDef> 
+      <systemDef name="Cisco TelePresence MCU 4501">
+         <sysoid>.1.2.826.0.1.4616240.1.1.4501</sysoid>
+         <collect>
+          <includeGroup>mib2-interfaces</includeGroup>
+        </collect>
+      </systemDef>
 
 </datacollection-group>

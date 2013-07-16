@@ -30,8 +30,8 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertStorageManagementInformation trap received 
-			messageIDEvent=%parm[#1]% 
+			Dell Storage Management: alertStorageManagementInformation trap received
+			messageIDEvent=%parm[#1]%
 			descriptionEvent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -65,8 +65,8 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertStorageManagementNormal trap received 
-			messageIDEvent=%parm[#1]% 
+			Dell Storage Management: alertStorageManagementNormal trap received
+			messageIDEvent=%parm[#1]%
 			descriptionEvent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -101,8 +101,8 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertStorageManagementWarning trap received 
-			messageIDEvent=%parm[#1]% 
+			Dell Storage Management: alertStorageManagementWarning trap received
+			messageIDEvent=%parm[#1]%
 			descriptionEvent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -137,8 +137,8 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertStorageManagementFailure trap received 
-			messageIDEvent=%parm[#1]% 
+			Dell Storage Management: alertStorageManagementFailure trap received
+			messageIDEvent=%parm[#1]%
 			descriptionEvent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -173,8 +173,8 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertStorageManagementNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
+			Dell Storage Management: alertStorageManagementNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
 			descriptionEvent=%parm[#2]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -246,14 +246,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertControllerInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertControllerInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -325,14 +325,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertControllerNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertControllerNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -404,14 +404,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertControllerWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertControllerWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -483,14 +483,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertControllerFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertControllerFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -562,14 +562,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertControllerNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertControllerNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -641,14 +641,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertChannelInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertChannelInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -720,14 +720,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertChannelNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertChannelNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -799,14 +799,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertChannelWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertChannelWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -878,14 +878,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertChannelFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertChannelFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -957,14 +957,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertChannelNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertChannelNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1036,14 +1036,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEnclosureInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEnclosureInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1115,14 +1115,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEnclosureNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEnclosureNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -1194,14 +1194,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEnclosureWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEnclosureWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1273,14 +1273,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEnclosureFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEnclosureFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1352,14 +1352,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEnclosureNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEnclosureNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1431,14 +1431,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertArrayDiskInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertArrayDiskInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1510,14 +1510,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertArrayDiskNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertArrayDiskNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -1589,14 +1589,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertArrayDiskWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertArrayDiskWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -1668,14 +1668,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertArrayDiskFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertArrayDiskFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1747,14 +1747,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertArrayDiskNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertArrayDiskNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1826,14 +1826,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEMMInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEMMInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -1905,14 +1905,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEMMNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEMMNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -1984,14 +1984,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEMMWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEMMWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2063,14 +2063,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEMMFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEMMFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2142,14 +2142,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertEMMNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertEMMNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2221,14 +2221,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertPowerSupplyInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertPowerSupplyInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -2300,14 +2300,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertPowerSupplyNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertPowerSupplyNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -2379,14 +2379,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertPowerSupplyWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertPowerSupplyWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2458,14 +2458,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertPowerSupplyFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertPowerSupplyFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2537,14 +2537,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertPowerSupplyNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertPowerSupplyNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2616,14 +2616,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertTemperatureProbeInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertTemperatureProbeInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -2695,14 +2695,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertTemperatureProbeNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertTemperatureProbeNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -2774,14 +2774,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertTemperatureProbeWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertTemperatureProbeWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -2853,14 +2853,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertTemperatureProbeFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertTemperatureProbeFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -2932,14 +2932,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertTemperatureProbeNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertTemperatureProbeNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3011,14 +3011,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertFanInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertFanInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3090,14 +3090,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertFanNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertFanNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -3169,14 +3169,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertFanWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertFanWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -3248,14 +3248,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertFanFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertFanFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3327,14 +3327,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertFanNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertFanNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3406,14 +3406,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertBatteryInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertBatteryInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3485,14 +3485,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertBatteryNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertBatteryNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -3564,14 +3564,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertBatteryWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertBatteryWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -3643,14 +3643,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertBatteryFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertBatteryFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3722,14 +3722,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertBatteryNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertBatteryNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -3801,14 +3801,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertVirtualDiskInformation trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertVirtualDiskInformation trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -3880,14 +3880,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertVirtualDiskNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertVirtualDiskNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -3959,14 +3959,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertVirtualDiskWarning trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertVirtualDiskWarning trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -4038,14 +4038,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertVirtualDiskFailure trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertVirtualDiskFailure trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4117,14 +4117,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertVirtualDiskNonRecoverable trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertVirtualDiskNonRecoverable trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -4196,14 +4196,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertRedundancyNormal trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertRedundancyNormal trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Cleared</severity>
@@ -4275,14 +4275,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertRedundancyDegraded trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertRedundancyDegraded trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -4354,14 +4354,14 @@ There is no global status change associated with this trap.&lt;/p&gt;&lt;table&g
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			Dell Storage Management: alertRedundancyLost trap received 
-			messageIDEvent=%parm[#1]% 
-			descriptionEvent=%parm[#2]% 
-			locationEvent=%parm[#3]% 
-			objectNameEvent=%parm[#4]% 
-			objectOIDEvent=%parm[#5]% 
-			objectNexusEvent=%parm[#6]% 
-			currentStatusEvent=%parm[#7]% 
+			Dell Storage Management: alertRedundancyLost trap received
+			messageIDEvent=%parm[#1]%
+			descriptionEvent=%parm[#2]%
+			locationEvent=%parm[#3]%
+			objectNameEvent=%parm[#4]%
+			objectOIDEvent=%parm[#5]%
+			objectNexusEvent=%parm[#6]%
+			currentStatusEvent=%parm[#7]%
 			previousStatusEvent=%parm[#8]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>

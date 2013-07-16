@@ -19,9 +19,9 @@
 	<event-label>VMWARE-VMINFO-MIB defined trap event: vmwVmPoweredOn</event-label>
 	<descr>
 <![CDATA[
-<p>This trap is sent when a virtual machine is powered on from a suspended 
+<p>This trap is sent when a virtual machine is powered on from a suspended
 or a powered off state. The origin of this event can be several:
-for instance may be operator initiated, existing vmx process reconnects to control subsystem. 
+for instance may be operator initiated, existing vmx process reconnects to control subsystem.
 NOTE: vms powered up due to VMotion are not reported. Upon receiving this notification client applications should
 poll the vmwVmTable to obtain current status.</p><table>
 	<tr><td><b>
@@ -39,9 +39,9 @@ poll the vmwVmTable to obtain current status.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmwVmPoweredOn trap received 
-			vmwVmID=%parm[#1]% 
-			vmwVmConfigFilePath=%parm[#2]% 
+			vmwVmPoweredOn trap received
+			vmwVmID=%parm[#1]%
+			vmwVmConfigFilePath=%parm[#2]%
 			vmwVmDisplayName=%parm[#3]%</p>
 ]]>		</logmsg>
 	<severity>Normal</severity>
@@ -85,9 +85,9 @@ poll the vmwVmTable to obtain current status.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmwVmPoweredOff trap received 
-			vmwVmID=%parm[#1]% 
-			vmwVmConfigFilePath=%parm[#2]% 
+			vmwVmPoweredOff trap received
+			vmwVmID=%parm[#1]%
+			vmwVmConfigFilePath=%parm[#2]%
 			vmwVmDisplayName=%parm[#3]%</p>
 ]]>		</logmsg>
 	<severity>Minor</severity>
@@ -113,8 +113,8 @@ poll the vmwVmTable to obtain current status.</p><table>
 	<descr>
 <![CDATA[
 <p>This trap is sent when a virtual machine detects a loss in guest heartbeat. The Guest heartbeat
-is only sent if VMware Tools are installed in the Guest OS. Control process will send this event whenever it 
-determines the number of guest heartbeats for a given period of time have not been received. 
+is only sent if VMware Tools are installed in the Guest OS. Control process will send this event whenever it
+determines the number of guest heartbeats for a given period of time have not been received.
 Upon receiving this notification client applications should
 poll the vmwVmTable to obtain current status.</p><table>
 	<tr><td><b>
@@ -132,9 +132,9 @@ poll the vmwVmTable to obtain current status.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmwVmHBLost trap received 
-			vmwVmID=%parm[#1]% 
-			vmwVmConfigFilePath=%parm[#2]% 
+			vmwVmHBLost trap received
+			vmwVmID=%parm[#1]%
+			vmwVmConfigFilePath=%parm[#2]%
 			vmwVmDisplayName=%parm[#3]%</p>
 ]]>		</logmsg>
 	<severity>Warning</severity>
@@ -178,9 +178,9 @@ poll the vmwVmTable to obtain current status.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmwVmHBDetected trap received 
-			vmwVmID=%parm[#1]% 
-			vmwVmConfigFilePath=%parm[#2]% 
+			vmwVmHBDetected trap received
+			vmwVmID=%parm[#1]%
+			vmwVmConfigFilePath=%parm[#2]%
 			vmwVmDisplayName=%parm[#3]%</p>
 ]]>		</logmsg>
 	<severity>Normal</severity>
@@ -224,9 +224,9 @@ poll the vmwVmTable to obtain current status.</p><table>
 ]]>
 	</descr>
 		<logmsg dest='logndisplay'><![CDATA[<p>
-			vmwVmSuspended trap received 
-			vmwVmID=%parm[#1]% 
-			vmwVmConfigFilePath=%parm[#2]% 
+			vmwVmSuspended trap received
+			vmwVmID=%parm[#1]%
+			vmwVmConfigFilePath=%parm[#2]%
 			vmwVmDisplayName=%parm[#3]%</p>
 ]]>		</logmsg>
 	<severity>Normal</severity>

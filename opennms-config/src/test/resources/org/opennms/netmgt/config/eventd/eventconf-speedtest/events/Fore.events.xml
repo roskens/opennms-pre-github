@@ -385,7 +385,7 @@
  portName was configured up, but its underlying physical
  layer has lost its carrier (or the framing bit) and
  is currently down.
- &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt; 
+ &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  portNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  portName&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
@@ -3622,7 +3622,7 @@
  <logmsg dest='logndisplay'>&lt;p&gt;Fore Event: P-bit PRBS Pattern on DS1.&lt;/p&gt;</logmsg>
  <severity>Warning</severity>
 </event>
- 
+
 <event>
  <mask>
   <maskelement>
@@ -4410,7 +4410,7 @@
  and rebooting the rebooted.
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  moduleBoard&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
- &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt; 
+ &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  moduleNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  trapLogIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
@@ -5653,7 +5653,7 @@
  signalling interface for the following reasons.&lt;br&gt;
  * Carrier loss&lt;br&gt;
  * SONET alarms in case of SONET&lt;br&gt;
- * VP failure 
+ * VP failure
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  portName&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6282,8 +6282,8 @@
  </mask>
  <uei>uei.opennms.org/traps/fore/pnniSpvxRGroupSwover</uei>
  <event-label>Fore-Switch-MIB defined trap event: pnniSpvxRGroupSwover</event-label>
- <descr>&lt;p&gt;This trap is sent when a automatic switch over 
- occurs in a SPVC Redundancy group that has 
+ <descr>&lt;p&gt;This trap is sent when a automatic switch over
+ occurs in a SPVC Redundancy group that has
  automatic PVC switch over enabled.
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  pnniSpvxcRGroupSwitchoverCmd&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6318,7 +6318,7 @@
  <descr>&lt;p&gt;This trap is sent when the SVx/SPVx Preservation module
  is unable to transfer call and interface state information
  to the Standby SCP, due either to temporary unavailablility
- of system resources or to a permanent system error 
+ of system resources or to a permanent system error
  requiring a system reboot.
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  dualScpSlot&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6349,8 +6349,8 @@
  <uei>uei.opennms.org/traps/fore/asxSVXCPStateTransferRestarted</uei>
  <event-label>Fore-Switch-MIB defined trap event: asxSVXCPStateTransferRestarted</event-label>
  <descr>&lt;p&gt;This trap is sent when the SVx/SPVx Preservation module
- has restarted its transfer of call and interface state 
- information to the Standby SCP, which transfer was 
+ has restarted its transfer of call and interface state
+ information to the Standby SCP, which transfer was
  halted due to unavailablility of system resources.
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  dualScpSlot&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6380,15 +6380,15 @@
  </mask>
  <uei>uei.opennms.org/traps/fore/asxSVXCPStateDroppedCall</uei>
  <event-label>Fore-Switch-MIB defined trap event: asxSVXCPStateDroppedCall</event-label>
- <descr>&lt;p&gt;This trap is sent when the SVx/SPVx Preservation module 
- has insufficient memory to store one or more calls during 
- its transfer of call and interface state information to 
+ <descr>&lt;p&gt;This trap is sent when the SVx/SPVx Preservation module
+ has insufficient memory to store one or more calls during
+ its transfer of call and interface state information to
  the Standby SCP.
  Such calls therefore will be lost (not preserved on
  switchover).  This trap is sent only once, no matter how
  many calls suffer this fate.  Recovering any lost calls is
- possible only by disabling and then re-enabling 
- SVx/SPVx Preservation, in order to provoke a complete 
+ possible only by disabling and then re-enabling
+ SVx/SPVx Preservation, in order to provoke a complete
  retrial of the transfer process.
  &lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  trapLogIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%

@@ -5,4 +5,4 @@
 		.toolbar { position: absolute; top:0px; right:50%; }
 	</ui:style>
    <g:FlowPanel ui:field="m_componentHolder"></g:FlowPanel>
-</ui:UiBinder> 
+</ui:UiBinder>

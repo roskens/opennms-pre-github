@@ -18,7 +18,7 @@
 	<uei>uei.opennms.org/vendor/crossbeamSystems/cbsTraps/cbsHwTraps/cbsHwPowerSupplyFailed</uei>
 	<event-label>Crossbeam Hardware Event: cbsHwPowerSupplyFailed</event-label>
 	<descr>
-&lt;p&gt;One of the redundent power supplies or DC filters has 
+&lt;p&gt;One of the redundent power supplies or DC filters has
 failed or been removed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -44,7 +44,7 @@ failed or been removed.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/crossbeamSystems/cbsTraps/cbsHwTraps/cbsHwPowerSupplyRecovered</uei>
 	<event-label>Crossbeam Hardware Event: cbsHwPowerSupplyRecovered</event-label>
 	<descr>
-&lt;p&gt;A redundent power supply or DC filter that was previously 
+&lt;p&gt;A redundent power supply or DC filter that was previously
 failed or missing has been replaced.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -232,7 +232,7 @@ working has become operational.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwFanFailed trap received 
+			cbsHwFanFailed trap received
 			cbsFanStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -266,7 +266,7 @@ working has become operational.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwFanRecovered trap received 
+			cbsHwFanRecovered trap received
 			cbsFanStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -301,7 +301,7 @@ working has become operational.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwSystemAlarmTrap trap received 
+			cbsHwSystemAlarmTrap trap received
 			cbsHwSystemAlarm=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -332,7 +332,7 @@ has exceeded the maximum.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwChassisTempExceeded trap received 
+			cbsHwChassisTempExceeded trap received
 			cbsHwSystemChassisTemp=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -363,7 +363,7 @@ has returned to normal.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwChassisTempNormal trap received 
+			cbsHwChassisTempNormal trap received
 			cbsHwSystemChassisTemp=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -403,7 +403,7 @@ the module that has changed is reported.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwModuleStatusChanged trap received 
+			cbsHwModuleStatusChanged trap received
 			cbsHwModuleStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -434,7 +434,7 @@ number of the module that has been inserted.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwModuleInserted trap received 
+			cbsHwModuleInserted trap received
 			cbsHwModuleID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -465,7 +465,7 @@ number of the module that has been removed.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsHwModuleRemoved trap received 
+			cbsHwModuleRemoved trap received
 			cbsHwModuleID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -495,7 +495,7 @@ number of the module that has been removed.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleTempExceeded trap received 
+			cbsModuleTempExceeded trap received
 			cbsHwModuleCpuTemp=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -518,7 +518,7 @@ number of the module that has been removed.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/crossbeamSystems/cbsTraps/cbsHwTraps/cbsModuleTempNormal</uei>
 	<event-label>Crossbeam Hardware Event: cbsModuleTempNormal</event-label>
 	<descr>
-&lt;p&gt;Indicates that the module CPU temperature has returned to the normal 
+&lt;p&gt;Indicates that the module CPU temperature has returned to the normal
 operating range.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -526,7 +526,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleTempNormal trap received 
+			cbsModuleTempNormal trap received
 			cbsHwModuleCpuTemp=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -556,7 +556,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsDbhaLinkUp trap received 
+			cbsDbhaLinkUp trap received
 			cbsHwModuleID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -586,7 +586,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsDbhaLinkDown trap received 
+			cbsDbhaLinkDown trap received
 			cbsHwModuleID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -616,7 +616,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleCpu2TempExceeded trap received 
+			cbsModuleCpu2TempExceeded trap received
 			cbsHwModuleCpu2Temp=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -646,7 +646,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleCpu2TempNormal trap received 
+			cbsModuleCpu2TempNormal trap received
 			cbsHwModuleCpu2Temp=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -676,7 +676,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsAFTUsageHigh trap received 
+			cbsAFTUsageHigh trap received
 			cbsHwModuleID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -699,7 +699,7 @@ operating range.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/crossbeamSystems/cbsTraps/cbsHwTraps/cbsAFTUsageNormal</uei>
 	<event-label>Crossbeam Hardware Event: cbsAFTUsageNormal</event-label>
 	<descr>
-&lt;p&gt;The Active Flow Table's usage on this NPM, that was previously 
+&lt;p&gt;The Active Flow Table's usage on this NPM, that was previously
 excessive, has returned to normal level.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -707,7 +707,7 @@ excessive, has returned to normal level.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsAFTUsageNormal trap received 
+			cbsAFTUsageNormal trap received
 			cbsHwModuleID=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -741,7 +741,7 @@ that is experinceing excessive load is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleCPULoadExceeded trap received 
+			cbsModuleCPULoadExceeded trap received
 			cbsModuleCPULoad1=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -773,7 +773,7 @@ that has returned to normal is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleCPULoadNormal trap received 
+			cbsModuleCPULoadNormal trap received
 			cbsModuleCPULoad1=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -809,8 +809,8 @@ sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleMemoryUsageExceeded trap received 
-			cbsModuleMemoryTotal=%parm[#1]% 
+			cbsModuleMemoryUsageExceeded trap received
+			cbsModuleMemoryTotal=%parm[#1]%
 			cbsModuleMemoryUsed=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -846,8 +846,8 @@ memory for the module are sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleMemoryUsageNormal trap received 
-			cbsModuleMemoryTotal=%parm[#1]% 
+			cbsModuleMemoryUsageNormal trap received
+			cbsModuleMemoryTotal=%parm[#1]%
 			cbsModuleMemoryUsed=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -879,7 +879,7 @@ that is experinceing excessive load is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleCPUUtilExceeded trap received 
+			cbsModuleCPUUtilExceeded trap received
 			cbsModuleCPUUtil1=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -911,7 +911,7 @@ that has returned to normal is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsModuleCPUUtilNormal trap received 
+			cbsModuleCPUUtilNormal trap received
 			cbsModuleCPUUtil1=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -956,8 +956,8 @@ that has returned to normal is sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsVapStatusChanged trap received 
-			cbsVmVapStatus=%parm[#1]% 
+			cbsVapStatusChanged trap received
+			cbsVmVapStatus=%parm[#1]%
 			cbsVmVapName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1010,11 +1010,11 @@ has transitioned to 'Master' state.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsVrrpTrapNewMaster trap received 
-			cbsVrrpTrapNewMasterFailGrName=%parm[#1]% 
-			cbsVrrpTrapNewMasterVrId=%parm[#2]% 
-			cbsVrrpTrapNewMasterCirId=%parm[#3]% 
-			cbsVrrpTrapNewMasterCirName=%parm[#4]% 
+			cbsVrrpTrapNewMaster trap received
+			cbsVrrpTrapNewMasterFailGrName=%parm[#1]%
+			cbsVrrpTrapNewMasterVrId=%parm[#2]%
+			cbsVrrpTrapNewMasterCirId=%parm[#3]%
+			cbsVrrpTrapNewMasterCirName=%parm[#4]%
 			cbsVrrpTrapNewMasterReason=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1051,7 +1051,7 @@ vrrpTrapProtoErrorReason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cbsVrrpTrapProtoError trap received 
+			cbsVrrpTrapProtoError trap received
 			cbsVrrpTrapProtoErrReason=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

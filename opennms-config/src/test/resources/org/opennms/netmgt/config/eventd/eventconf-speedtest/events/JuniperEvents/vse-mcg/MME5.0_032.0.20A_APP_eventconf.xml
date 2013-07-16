@@ -3,7 +3,7 @@
   OpenNMS eventconf.xml alarm/log definition file for MME/SGSN (VSE layer)
   Copyright  2012 Hitachi Limited.  All Rights Reserved.
   Generated on Feb 14, 2012
-  Baseline: MME5.0_032.0__Patch16 
+  Baseline: MME5.0_032.0__Patch16
 -->
 <events xmlns="http://xmlns.opennms.org/xsd/eventconf">
 

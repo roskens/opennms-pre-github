@@ -476,28 +476,28 @@ opennms=# </computeroutput><command>ALTER TABLE node_old_11033991291234 RENAME T
 
         <glossentry>
           <glossterm><ulink url="http://lists.sourceforge.net/mailman/listinfo/opennms-windows">opennms-windows</ulink></glossterm>
-          
+
           <glossdef>
             <para>A discussion list for people running OpenNMS on Windows.</para>
           </glossdef>
         </glossentry>
-        
+
         <glossentry>
           <glossterm><ulink url="http://lists.sourceforge.net/mailman/listinfo/opennms-francais">opennms-francais</ulink></glossterm>
-          
+
           <glossdef>
             <para>A list for discussion of OpenNMS in French.</para>
           </glossdef>
         </glossentry>
-        
+
         <glossentry>
           <glossterm><ulink url="http://lists.sourceforge.net/mailman/listinfo/opennms-italia">opennms-italia</ulink></glossterm>
-          
+
           <glossdef>
             <para>A list for discussion of OpenNMS in Italian.</para>
           </glossdef>
         </glossentry>
-        
+
         <glossentry>
           <glossterm><ulink url="http://lists.sourceforge.net/mailman/listinfo/opennms-ug-tokyo">opennms-ug-tokyo</ulink></glossterm>
 
@@ -506,17 +506,17 @@ opennms=# </computeroutput><command>ALTER TABLE node_old_11033991291234 RENAME T
             general discussion among the Tokyo OpenNMS Users Group.</para>
           </glossdef>
         </glossentry>
-        
+
         <glossentry>
           <glossterm><ulink url="http://lists.sourceforge.net/mailman/listinfo/opennms-ug-uk">opennms-ug-uk</ulink></glossterm>
-          
+
           <glossdef>
-            <para>A list for discussion of OpenNMS in UK English for those 
+            <para>A list for discussion of OpenNMS in UK English for those
             who don't speak American English (OK, just kidding).  Actually,
             a discussion list for the UK OpenNMS Users Group.  ;)</para>
           </glossdef>
         </glossentry>
-        
+
       </glosslist>
 
       <para>The OpenNMS mailing lists are also archived at <ulink

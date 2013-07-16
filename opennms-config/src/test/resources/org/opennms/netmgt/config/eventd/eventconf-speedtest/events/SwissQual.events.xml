@@ -14,10 +14,10 @@
 			<mename>specific</mename>
 			<mevalue>1</mevalue>
 		</maskelement>
-		<varbind> 
+		<varbind>
       		<vbnumber>1</vbnumber>
-      		<vbvalue>5</vbvalue> 
-  		</varbind> 	
+		<vbvalue>5</vbvalue>
+		</varbind>
 	</mask>
 	<uei>uei.opennms.org/vendor/swissqual/traps/nqAgentAlarmClear</uei>
 	<event-label>SWISSQUAL-NQAGENT-MIB defined trap event: nqAgentAlarm</event-label>
@@ -308,13 +308,13 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			nqAgentAlarm trap received 
-			nqaaPerceivedSeverity=%parm[#1]% 
-			nqaaProbableCause=%parm[#2]% 
-			nqaaAdditionalText=%parm[#3]% 
-			nqaaSpecificProblem=%parm[#4]% 
-			nqaaManagedUnit=%parm[#5]% 
-			nqaaJobType=%parm[#6]% 
+			nqAgentAlarm trap received
+			nqaaPerceivedSeverity=%parm[#1]%
+			nqaaProbableCause=%parm[#2]%
+			nqaaAdditionalText=%parm[#3]%
+			nqaaSpecificProblem=%parm[#4]%
+			nqaaManagedUnit=%parm[#5]%
+			nqaaJobType=%parm[#6]%
 			nqaaTestType=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -334,10 +334,10 @@
 			<mename>specific</mename>
 			<mevalue>1</mevalue>
 		</maskelement>
-		<varbind> 
+		<varbind>
       		<vbnumber>1</vbnumber>
-      		<vbvalue>4</vbvalue> 
-  		</varbind> 	
+		<vbvalue>4</vbvalue>
+		</varbind>
 	</mask>
 	<uei>uei.opennms.org/vendor/swissqual/traps/nqAgentAlarm</uei>
 	<event-label>SWISSQUAL-NQAGENT-MIB defined trap event: nqAgentAlarm</event-label>
@@ -628,13 +628,13 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			nqAgentAlarm trap received 
-			nqaaPerceivedSeverity=%parm[#1]% 
-			nqaaProbableCause=%parm[#2]% 
-			nqaaAdditionalText=%parm[#3]% 
-			nqaaSpecificProblem=%parm[#4]% 
-			nqaaManagedUnit=%parm[#5]% 
-			nqaaJobType=%parm[#6]% 
+			nqAgentAlarm trap received
+			nqaaPerceivedSeverity=%parm[#1]%
+			nqaaProbableCause=%parm[#2]%
+			nqaaAdditionalText=%parm[#3]%
+			nqaaSpecificProblem=%parm[#4]%
+			nqaaManagedUnit=%parm[#5]%
+			nqaaJobType=%parm[#6]%
 			nqaaTestType=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -944,13 +944,13 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			nqAgentAlarm trap received 
-			nqaaPerceivedSeverity=%parm[#1]% 
-			nqaaProbableCause=%parm[#2]% 
-			nqaaAdditionalText=%parm[#3]% 
-			nqaaSpecificProblem=%parm[#4]% 
-			nqaaManagedUnit=%parm[#5]% 
-			nqaaJobType=%parm[#6]% 
+			nqAgentAlarm trap received
+			nqaaPerceivedSeverity=%parm[#1]%
+			nqaaProbableCause=%parm[#2]%
+			nqaaAdditionalText=%parm[#3]%
+			nqaaSpecificProblem=%parm[#4]%
+			nqaaManagedUnit=%parm[#5]%
+			nqaaJobType=%parm[#6]%
 			nqaaTestType=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

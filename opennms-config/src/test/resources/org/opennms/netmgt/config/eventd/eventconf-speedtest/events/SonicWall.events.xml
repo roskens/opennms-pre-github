@@ -18,28 +18,28 @@
  </mask>
  <uei>uei.opennms.org/vendor/SonicWall/traps/swFwTrapAttack</uei>
  <event-label>SONICWALL-FIREWALL-TRAP-MIB defined trap event: swFwTrapAttack</event-label>
- <descr>&lt;p&gt;This trap indicates that the firewall have detected a attack. 
+ <descr>&lt;p&gt;This trap indicates that the firewall have detected a attack.
  The bound objects provide more detailed information about this problem.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swTrapInfoTrapType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- trapTypePingOfDeathBlocked(501) trapTypeIPSpoofDetected(502) trapTypePossibleSynFlood(503) trapTypeProbableSynFlood(504) 
- trapTypeLandAttack(505) trapTypeAttemptedAdminLoginFromWAN(506) trapTypeLogUnknownSpi(507) trapTypeLogIpsecAuthFailure(508) 
- trapTypeLogIpsecDecryptFailure(509) trapTypeLogIllegalIpsecPeer(510) trapTypeNetBusDropped(511) trapTypeBackOrificeDropped(512) 
- trapTypeNetSpyDropped(513) trapTypeSub7Dropped(514) trapTypeRipperDropped(515) trapTypeStrikerDropped(516) 
- trapTypeSennaSpyDropped(517) trapTypePriorityDropped(518) trapTypeIniKillerDropped(519) trapTypeSmurfDropped(520) 
- trapTypePortScanPossible(521) trapTypePortScanProbable(522) trapTypeLogIkeProposalReject(523) trapTypeAVReceivedAlert(524) 
- trapTypeLogAddTest(525) trapTypeAVExpiredMsg(526) trapTypeForbiddenAttachment(527) trapTypeTcpFinScanDropped(528) 
- trapTypeTcpXmasScanDropped(529) trapTypeTcpNullScanDropped(530) trapTypeReplayDetected(531) trapTypeLogFull(601) 
- trapTypeLogProblemLoadingCheckSettings(602) trapTypeLogProblemLoadingCheckDNS(603) trapTypeLogProblemEmailingCheckSettings(604) 
- trapTypeIllegalLanAddressInUse(605) trapTypeNATCouldntRemap(606) trapTypeCacheFull(607) trapTypeConnDroppedTooManyIP(608) 
- trapTypeLogOutOfMemory(609) trapTypeInternalErr(610) trapTypeLogSuspendReboot(611) trapTypeLogDeadlockReboot(612) 
- trapTypeLogLowMemReboot(613) trapTypeHaIdlePrimary(614) trapTypeHaMissedHeartbeatPrimary(615) trapTypeHaMissedHeartbeatBackup(616) 
- trapTypeHaErrorReceivedPrimary(617) trapTypeHaErrorReceivedBackup(618) trapTypeHaBackupPreempt(619) trapTypeHaPrimaryPreempt(620) 
- trapTypeLogHttpServerReboot(621) trapTypeBackupActivePreempt(622) trapTypeCflUpdateApplianceNotRegistered(623) 
- trapTypeCflUpdateSubscriptionExpired(624) trapTypeCflUpdateErrorTransient(625) trapTypeCflUpdateErrorTransientAuto(626) 
- trapTypeCflUpdateErrorInternal(627) trapTypeCflApplianceCflExpired(628) trapTypeHaSetError(629) trapTypeHaSyncError(630) 
- trapTypeWebSiteBlocked(701) trapTypeNewsgroupBlocked(702) trapTypeWebSiteAccessed(703) trapTypeNewsgroupAccessed(704) 
+ trapTypePingOfDeathBlocked(501) trapTypeIPSpoofDetected(502) trapTypePossibleSynFlood(503) trapTypeProbableSynFlood(504)
+ trapTypeLandAttack(505) trapTypeAttemptedAdminLoginFromWAN(506) trapTypeLogUnknownSpi(507) trapTypeLogIpsecAuthFailure(508)
+ trapTypeLogIpsecDecryptFailure(509) trapTypeLogIllegalIpsecPeer(510) trapTypeNetBusDropped(511) trapTypeBackOrificeDropped(512)
+ trapTypeNetSpyDropped(513) trapTypeSub7Dropped(514) trapTypeRipperDropped(515) trapTypeStrikerDropped(516)
+ trapTypeSennaSpyDropped(517) trapTypePriorityDropped(518) trapTypeIniKillerDropped(519) trapTypeSmurfDropped(520)
+ trapTypePortScanPossible(521) trapTypePortScanProbable(522) trapTypeLogIkeProposalReject(523) trapTypeAVReceivedAlert(524)
+ trapTypeLogAddTest(525) trapTypeAVExpiredMsg(526) trapTypeForbiddenAttachment(527) trapTypeTcpFinScanDropped(528)
+ trapTypeTcpXmasScanDropped(529) trapTypeTcpNullScanDropped(530) trapTypeReplayDetected(531) trapTypeLogFull(601)
+ trapTypeLogProblemLoadingCheckSettings(602) trapTypeLogProblemLoadingCheckDNS(603) trapTypeLogProblemEmailingCheckSettings(604)
+ trapTypeIllegalLanAddressInUse(605) trapTypeNATCouldntRemap(606) trapTypeCacheFull(607) trapTypeConnDroppedTooManyIP(608)
+ trapTypeLogOutOfMemory(609) trapTypeInternalErr(610) trapTypeLogSuspendReboot(611) trapTypeLogDeadlockReboot(612)
+ trapTypeLogLowMemReboot(613) trapTypeHaIdlePrimary(614) trapTypeHaMissedHeartbeatPrimary(615) trapTypeHaMissedHeartbeatBackup(616)
+ trapTypeHaErrorReceivedPrimary(617) trapTypeHaErrorReceivedBackup(618) trapTypeHaBackupPreempt(619) trapTypeHaPrimaryPreempt(620)
+ trapTypeLogHttpServerReboot(621) trapTypeBackupActivePreempt(622) trapTypeCflUpdateApplianceNotRegistered(623)
+ trapTypeCflUpdateSubscriptionExpired(624) trapTypeCflUpdateErrorTransient(625) trapTypeCflUpdateErrorTransientAuto(626)
+ trapTypeCflUpdateErrorInternal(627) trapTypeCflApplianceCflExpired(628) trapTypeHaSetError(629) trapTypeHaSyncError(630)
+ trapTypeWebSiteBlocked(701) trapTypeNewsgroupBlocked(702) trapTypeWebSiteAccessed(703) trapTypeNewsgroupAccessed(704)
  trapTypeProxyAccessBlocked(705)
  &lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swTrapInfoTrapDescription&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
@@ -66,28 +66,28 @@
  </mask>
  <uei>uei.opennms.org/vendor/SonicWall/traps/swFwTrapSysError</uei>
  <event-label>SONICWALL-FIREWALL-TRAP-MIB defined trap event: swFwTrapSysError</event-label>
- <descr>&lt;p&gt;This trap indicates that there is a system problem with the SonicWALL appliance. 
+ <descr>&lt;p&gt;This trap indicates that there is a system problem with the SonicWALL appliance.
  The bound objects provide more detailed information about this problem.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swTrapInfoTrapType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- trapTypePingOfDeathBlocked(501) trapTypeIPSpoofDetected(502) trapTypePossibleSynFlood(503) trapTypeProbableSynFlood(504) 
+ trapTypePingOfDeathBlocked(501) trapTypeIPSpoofDetected(502) trapTypePossibleSynFlood(503) trapTypeProbableSynFlood(504)
  trapTypeLandAttack(505) trapTypeAttemptedAdminLoginFromWAN(506) trapTypeLogUnknownSpi(507) trapTypeLogIpsecAuthFailure(508)
- trapTypeLogIpsecDecryptFailure(509) trapTypeLogIllegalIpsecPeer(510) trapTypeNetBusDropped(511) trapTypeBackOrificeDropped(512) 
- trapTypeNetSpyDropped(513) trapTypeSub7Dropped(514) trapTypeRipperDropped(515) trapTypeStrikerDropped(516) 
- trapTypeSennaSpyDropped(517) trapTypePriorityDropped(518) trapTypeIniKillerDropped(519) trapTypeSmurfDropped(520) 
- trapTypePortScanPossible(521) trapTypePortScanProbable(522) trapTypeLogIkeProposalReject(523) trapTypeAVReceivedAlert(524) 
- trapTypeLogAddTest(525) trapTypeAVExpiredMsg(526) trapTypeForbiddenAttachment(527) trapTypeTcpFinScanDropped(528) 
- trapTypeTcpXmasScanDropped(529) trapTypeTcpNullScanDropped(530) trapTypeReplayDetected(531) trapTypeLogFull(601) 
- trapTypeLogProblemLoadingCheckSettings(602) trapTypeLogProblemLoadingCheckDNS(603) trapTypeLogProblemEmailingCheckSettings(604) 
- trapTypeIllegalLanAddressInUse(605) trapTypeNATCouldntRemap(606) trapTypeCacheFull(607) trapTypeConnDroppedTooManyIP(608) 
- trapTypeLogOutOfMemory(609) trapTypeInternalErr(610) trapTypeLogSuspendReboot(611) trapTypeLogDeadlockReboot(612) 
- trapTypeLogLowMemReboot(613) trapTypeHaIdlePrimary(614) trapTypeHaMissedHeartbeatPrimary(615) trapTypeHaMissedHeartbeatBackup(616) 
- trapTypeHaErrorReceivedPrimary(617) trapTypeHaErrorReceivedBackup(618) trapTypeHaBackupPreempt(619) trapTypeHaPrimaryPreempt(620) 
- trapTypeLogHttpServerReboot(621) trapTypeBackupActivePreempt(622) trapTypeCflUpdateApplianceNotRegistered(623) 
- trapTypeCflUpdateSubscriptionExpired(624) trapTypeCflUpdateErrorTransient(625) trapTypeCflUpdateErrorTransientAuto(626) 
- trapTypeCflUpdateErrorInternal(627) trapTypeCflApplianceCflExpired(628) trapTypeHaSetError(629) trapTypeHaSyncError(630) 
- trapTypeWebSiteBlocked(701) trapTypeNewsgroupBlocked(702) trapTypeWebSiteAccessed(703) trapTypeNewsgroupAccessed(704) 
+ trapTypeLogIpsecDecryptFailure(509) trapTypeLogIllegalIpsecPeer(510) trapTypeNetBusDropped(511) trapTypeBackOrificeDropped(512)
+ trapTypeNetSpyDropped(513) trapTypeSub7Dropped(514) trapTypeRipperDropped(515) trapTypeStrikerDropped(516)
+ trapTypeSennaSpyDropped(517) trapTypePriorityDropped(518) trapTypeIniKillerDropped(519) trapTypeSmurfDropped(520)
+ trapTypePortScanPossible(521) trapTypePortScanProbable(522) trapTypeLogIkeProposalReject(523) trapTypeAVReceivedAlert(524)
+ trapTypeLogAddTest(525) trapTypeAVExpiredMsg(526) trapTypeForbiddenAttachment(527) trapTypeTcpFinScanDropped(528)
+ trapTypeTcpXmasScanDropped(529) trapTypeTcpNullScanDropped(530) trapTypeReplayDetected(531) trapTypeLogFull(601)
+ trapTypeLogProblemLoadingCheckSettings(602) trapTypeLogProblemLoadingCheckDNS(603) trapTypeLogProblemEmailingCheckSettings(604)
+ trapTypeIllegalLanAddressInUse(605) trapTypeNATCouldntRemap(606) trapTypeCacheFull(607) trapTypeConnDroppedTooManyIP(608)
+ trapTypeLogOutOfMemory(609) trapTypeInternalErr(610) trapTypeLogSuspendReboot(611) trapTypeLogDeadlockReboot(612)
+ trapTypeLogLowMemReboot(613) trapTypeHaIdlePrimary(614) trapTypeHaMissedHeartbeatPrimary(615) trapTypeHaMissedHeartbeatBackup(616)
+ trapTypeHaErrorReceivedPrimary(617) trapTypeHaErrorReceivedBackup(618) trapTypeHaBackupPreempt(619) trapTypeHaPrimaryPreempt(620)
+ trapTypeLogHttpServerReboot(621) trapTypeBackupActivePreempt(622) trapTypeCflUpdateApplianceNotRegistered(623)
+ trapTypeCflUpdateSubscriptionExpired(624) trapTypeCflUpdateErrorTransient(625) trapTypeCflUpdateErrorTransientAuto(626)
+ trapTypeCflUpdateErrorInternal(627) trapTypeCflApplianceCflExpired(628) trapTypeHaSetError(629) trapTypeHaSyncError(630)
+ trapTypeWebSiteBlocked(701) trapTypeNewsgroupBlocked(702) trapTypeWebSiteAccessed(703) trapTypeNewsgroupAccessed(704)
  trapTypeProxyAccessBlocked(705)
  &lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swTrapInfoTrapDescription&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
@@ -119,23 +119,23 @@
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swTrapInfoTrapType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- trapTypePingOfDeathBlocked(501) trapTypeIPSpoofDetected(502) trapTypePossibleSynFlood(503) trapTypeProbableSynFlood(504) 
- trapTypeLandAttack(505) trapTypeAttemptedAdminLoginFromWAN(506) trapTypeLogUnknownSpi(507) trapTypeLogIpsecAuthFailure(508) 
- trapTypeLogIpsecDecryptFailure(509) trapTypeLogIllegalIpsecPeer(510) trapTypeNetBusDropped(511) trapTypeBackOrificeDropped(512) 
- trapTypeNetSpyDropped(513) trapTypeSub7Dropped(514) trapTypeRipperDropped(515) trapTypeStrikerDropped(516) 
- trapTypeSennaSpyDropped(517) trapTypePriorityDropped(518) trapTypeIniKillerDropped(519) trapTypeSmurfDropped(520) 
- trapTypePortScanPossible(521) trapTypePortScanProbable(522) trapTypeLogIkeProposalReject(523) trapTypeAVReceivedAlert(524) 
- trapTypeLogAddTest(525) trapTypeAVExpiredMsg(526) trapTypeForbiddenAttachment(527) trapTypeTcpFinScanDropped(528) 
- trapTypeTcpXmasScanDropped(529) trapTypeTcpNullScanDropped(530) trapTypeReplayDetected(531) trapTypeLogFull(601) 
- trapTypeLogProblemLoadingCheckSettings(602) trapTypeLogProblemLoadingCheckDNS(603) trapTypeLogProblemEmailingCheckSettings(604) 
- trapTypeIllegalLanAddressInUse(605) trapTypeNATCouldntRemap(606) trapTypeCacheFull(607) trapTypeConnDroppedTooManyIP(608) 
- trapTypeLogOutOfMemory(609) trapTypeInternalErr(610) trapTypeLogSuspendReboot(611) trapTypeLogDeadlockReboot(612) 
- trapTypeLogLowMemReboot(613) trapTypeHaIdlePrimary(614) trapTypeHaMissedHeartbeatPrimary(615) trapTypeHaMissedHeartbeatBackup(616) 
- trapTypeHaErrorReceivedPrimary(617) trapTypeHaErrorReceivedBackup(618) trapTypeHaBackupPreempt(619) trapTypeHaPrimaryPreempt(620) 
- trapTypeLogHttpServerReboot(621) trapTypeBackupActivePreempt(622) trapTypeCflUpdateApplianceNotRegistered(623) 
- trapTypeCflUpdateSubscriptionExpired(624) trapTypeCflUpdateErrorTransient(625) trapTypeCflUpdateErrorTransientAuto(626) 
- trapTypeCflUpdateErrorInternal(627) trapTypeCflApplianceCflExpired(628) trapTypeHaSetError(629) trapTypeHaSyncError(630) 
- trapTypeWebSiteBlocked(701) trapTypeNewsgroupBlocked(702) trapTypeWebSiteAccessed(703) trapTypeNewsgroupAccessed(704) 
+ trapTypePingOfDeathBlocked(501) trapTypeIPSpoofDetected(502) trapTypePossibleSynFlood(503) trapTypeProbableSynFlood(504)
+ trapTypeLandAttack(505) trapTypeAttemptedAdminLoginFromWAN(506) trapTypeLogUnknownSpi(507) trapTypeLogIpsecAuthFailure(508)
+ trapTypeLogIpsecDecryptFailure(509) trapTypeLogIllegalIpsecPeer(510) trapTypeNetBusDropped(511) trapTypeBackOrificeDropped(512)
+ trapTypeNetSpyDropped(513) trapTypeSub7Dropped(514) trapTypeRipperDropped(515) trapTypeStrikerDropped(516)
+ trapTypeSennaSpyDropped(517) trapTypePriorityDropped(518) trapTypeIniKillerDropped(519) trapTypeSmurfDropped(520)
+ trapTypePortScanPossible(521) trapTypePortScanProbable(522) trapTypeLogIkeProposalReject(523) trapTypeAVReceivedAlert(524)
+ trapTypeLogAddTest(525) trapTypeAVExpiredMsg(526) trapTypeForbiddenAttachment(527) trapTypeTcpFinScanDropped(528)
+ trapTypeTcpXmasScanDropped(529) trapTypeTcpNullScanDropped(530) trapTypeReplayDetected(531) trapTypeLogFull(601)
+ trapTypeLogProblemLoadingCheckSettings(602) trapTypeLogProblemLoadingCheckDNS(603) trapTypeLogProblemEmailingCheckSettings(604)
+ trapTypeIllegalLanAddressInUse(605) trapTypeNATCouldntRemap(606) trapTypeCacheFull(607) trapTypeConnDroppedTooManyIP(608)
+ trapTypeLogOutOfMemory(609) trapTypeInternalErr(610) trapTypeLogSuspendReboot(611) trapTypeLogDeadlockReboot(612)
+ trapTypeLogLowMemReboot(613) trapTypeHaIdlePrimary(614) trapTypeHaMissedHeartbeatPrimary(615) trapTypeHaMissedHeartbeatBackup(616)
+ trapTypeHaErrorReceivedPrimary(617) trapTypeHaErrorReceivedBackup(618) trapTypeHaBackupPreempt(619) trapTypeHaPrimaryPreempt(620)
+ trapTypeLogHttpServerReboot(621) trapTypeBackupActivePreempt(622) trapTypeCflUpdateApplianceNotRegistered(623)
+ trapTypeCflUpdateSubscriptionExpired(624) trapTypeCflUpdateErrorTransient(625) trapTypeCflUpdateErrorTransientAuto(626)
+ trapTypeCflUpdateErrorInternal(627) trapTypeCflApplianceCflExpired(628) trapTypeHaSetError(629) trapTypeHaSyncError(630)
+ trapTypeWebSiteBlocked(701) trapTypeNewsgroupBlocked(702) trapTypeWebSiteAccessed(703) trapTypeNewsgroupAccessed(704)
  trapTypeProxyAccessBlocked(705)&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swTrapInfoTrapDescription&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;

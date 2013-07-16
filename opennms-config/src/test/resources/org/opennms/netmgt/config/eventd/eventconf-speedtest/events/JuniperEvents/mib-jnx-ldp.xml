@@ -38,10 +38,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLdpLspUp trap received 
-			jnxLdpLspFec=%parm[#1]% 
-			jnxLdpRtrid=%parm[#2]% 
-			jnxLdpLspFecLen=%parm[#3]% 
+			jnxLdpLspUp trap received
+			jnxLdpLspFec=%parm[#1]%
+			jnxLdpRtrid=%parm[#2]%
+			jnxLdpLspFecLen=%parm[#3]%
 			jnxLdpInstanceName=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -96,11 +96,11 @@
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLdpLspDown trap received 
-			jnxLdpLspFec=%parm[#1]% 
-			jnxLdpRtrid=%parm[#2]% 
-			jnxLdpLspDownReason=%parm[#3]% 
-			jnxLdpLspFecLen=%parm[#4]% 
+			jnxLdpLspDown trap received
+			jnxLdpLspFec=%parm[#1]%
+			jnxLdpRtrid=%parm[#2]%
+			jnxLdpLspDownReason=%parm[#3]%
+			jnxLdpLspFecLen=%parm[#4]%
 			jnxLdpInstanceName=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -142,8 +142,8 @@ enters the 'operational(5) state.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLdpSesUp trap received 
-			jnxMplsLdpSesState=%parm[#1]% 
+			jnxLdpSesUp trap received
+			jnxMplsLdpSesState=%parm[#1]%
 			jnxLdpSesUpIf=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -168,7 +168,7 @@ enters the 'operational(5) state.</p><table>
     <event-label>JUNIPER-LDP-MIB defined trap event: jnxLdpSesDown</event-label>
     <descr><![CDATA[
 <p>The SNMP trap that is generated when the value of 'jnxMplsLdpSesState'
-leaves the 'operational(5) state. The value of jnxLdpSesDownIf is 
+leaves the 'operational(5) state. The value of jnxLdpSesDownIf is
 one of the neighbor's interface. It is the interface associated with
 the last neighbor when jnxLdpSesDownReason is allAdjacenciesDown (3).</p><table>
 	<tr><td><b>
@@ -207,9 +207,9 @@ the last neighbor when jnxLdpSesDownReason is allAdjacenciesDown (3).</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLdpSesDown trap received 
-			jnxMplsLdpSesState=%parm[#1]% 
-			jnxLdpSesDownReason=%parm[#2]% 
+			jnxLdpSesDown trap received
+			jnxMplsLdpSesState=%parm[#1]%
+			jnxLdpSesDownReason=%parm[#2]%
 			jnxLdpSesDownIf=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Critical</severity>

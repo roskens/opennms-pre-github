@@ -10,5 +10,5 @@
                 	<resource-filter field='domain'>myDomain</resource-filter>
                 </threshold>
         </group>
- 
+
 </thresholding-config>

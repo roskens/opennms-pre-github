@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:tx="http://www.springframework.org/schema/tx" 
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:tx="http://www.springframework.org/schema/tx"
 xmlns:context="http://www.springframework.org/schema/context"
-xmlns:onmsgi="http://xmlns.opennms.org/xsd/spring/onms-osgi" 
+xmlns:onmsgi="http://xmlns.opennms.org/xsd/spring/onms-osgi"
 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -63,7 +63,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
   <bean id="daemonStatusDao" class="org.opennms.netmgt.dao.jmx.JmxDaemonStatusDao">
     <property name="mbeanServer" ref="mbeanServer" />
   </bean>
-  
+
   <bean id="daemonStatusService" class="org.opennms.web.svclayer.daemonstatus.support.DefaultDaemonStatusService">
     <property name="daemonStatusDao" ref="daemonStatusDao" />
   </bean>
@@ -101,10 +101,10 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
       </map>
     </property>
   </bean>
-  
+
   <onmsgi:service interface="org.opennms.netmgt.dao.api.GraphDao" ref="graphDao"/>
-  
-  
+
+
 
   <!-- Admin applications bean -->
   <bean id="adminApplicationService" class="org.opennms.web.svclayer.support.DefaultAdminApplicationService">

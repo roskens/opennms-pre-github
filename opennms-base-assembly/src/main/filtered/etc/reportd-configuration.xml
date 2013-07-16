@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<reportd-configuration 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<reportd-configuration
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.opennms.org/xsd/config/reportd-configuration"
   storage-location="${install.share.dir}/reports/"
   persist-reports="yes"
-> 
-  <!--  
+>
+  <!--
     http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html
         Field Name     Allowed Values      Allowed Special Characters
         Seconds        0-59                , - * /
@@ -19,6 +19,6 @@
    <!-- Below is an example configuration using the sample report and will run daily, at midnight
     <report report-name="sample-report" report-template="sample-report.jrxml" report-engine="jdbc">
         <cron-schedule>0 0 0 * * ? *</cron-schedule>
-    </report> 
-    --> 
+    </report>
+    -->
 </reportd-configuration>

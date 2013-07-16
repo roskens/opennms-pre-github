@@ -20,7 +20,7 @@
                 <attrib name="ConnectionCreatedCount" alias="DefDS_CreatedConns" type="counter"/>
                 <attrib name="ConnectionDestroyedCount" alias="DefDS_DestroyConns" type="counter"/>
             </mbean>
-    
+
             <mbean name="GlobalRequestProcessor" objectname="jboss.web:type=GlobalRequestProcessor,name=http-0.0.0.0-8080">
                 <attrib name="requestCount" alias="GRP_requests" type="counter"/>
                 <attrib name="maxTime" alias="GRP_maxTime" type="gauge"/>

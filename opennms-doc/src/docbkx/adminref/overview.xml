@@ -2,12 +2,12 @@
 <chapter id="overview">
 	<title>Overview</title>
 	<subtitle>Admin Reference Overview</subtitle>
-	
+
 	<section id="about">
 		<title>About This Document</title>
-		
+
 		<para>
-			This document covers the configuration of OpenNMS.  In the following 
+			This document covers the configuration of OpenNMS.  In the following
 			chapter we will cover each file and what it affects.
 		</para>
 	</section>

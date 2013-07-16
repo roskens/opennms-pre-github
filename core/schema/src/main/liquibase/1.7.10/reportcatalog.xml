@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="jsartin" id="1.7.10-reportcatalog">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="reportcatalog" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- This table contains a record of  reports and their location on disk -->
 		<createTable tableName="reportcatalog">
@@ -29,7 +29,7 @@
 			<column name="title" type="varchar(256)">
 				<constraints nullable="false" />
 			</column>
-			
+
 			<!-- Date that the report was run -->
 			<column name="date" type="DATETIME">
 				<constraints nullable="false" />

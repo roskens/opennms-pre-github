@@ -21,7 +21,7 @@
       <binaries>
         <outputDirectory>/</outputDirectory>
         <unpack>true</unpack>
-      </binaries>      
+      </binaries>
     </moduleSet>
     <moduleSet>
       <includes>
@@ -30,7 +30,7 @@
       <binaries>
         <outputDirectory>/</outputDirectory>
         <unpack>true</unpack>
-      </binaries>      
+      </binaries>
     </moduleSet>
   </moduleSets>
 </assembly>

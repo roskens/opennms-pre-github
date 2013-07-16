@@ -21,21 +21,21 @@
   <property name="userDetailsService"><ref bean="openNMSUserDaoImpl"/></property>
   <property name="passwordEncoder"><ref bean="upperCaseMd5PasswordEncoder"/></property>
  </bean>
- -->        
+ -->
 
  <bean id="hybridAuthenticationProvider" class="org.opennms.web.springframework.security.HybridOpenNMSUserAuthenticationProvider">
   <property name="userDao" ref="userDao" />
   <property name="userManager" ref="userManager" />
  </bean>
- 
+
  <!--
  <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
   <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
  </bean>
- 
+
  <bean id="locationMonitorConfigResourceLocation" class="java.lang.String">
   <constructor-arg value="file:src/test/resources/monitoring-locations.xml" />
  </bean>
  -->
- 
+
 </beans>

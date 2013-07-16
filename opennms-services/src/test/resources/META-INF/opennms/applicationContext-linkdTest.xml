@@ -32,7 +32,7 @@
       <property name="annotatedListener" ref="receiver" />
       <property name="eventSubscriptionService" ref="eventSubscriptionService" />
     </bean>
-    
+
     <bean name="daemon" class="org.opennms.netmgt.linkd.Linkd">
       <property name="eventForwarder" ref="eventForwarder" />
     </bean>
@@ -40,6 +40,6 @@
    <bean id="linkdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
       <property name="staticMethod"><value>org.opennms.netmgt.config.LinkdConfigFactory.init</value></property>
     </bean>
- 
+
     <bean id="linkdConfig" class="org.opennms.netmgt.config.LinkdConfigFactory" depends-on="linkdConfig-init" factory-method="getInstance"/>
 </beans>

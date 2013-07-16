@@ -49,7 +49,7 @@ Supported by the following appliance types:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrRebootStartedTrap trap received 
+			avctDsrRebootStartedTrap trap received
 			avctDsrTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -127,11 +127,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrVideoSessionStartedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
+			avctDsrVideoSessionStartedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
 			avctDsrTrapObjectSwitchChannel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -216,12 +216,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrVideoSessionStoppedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#5]% 
+			avctDsrVideoSessionStoppedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
+			avctDsrTrapObjectSwitchChannel=%parm[#5]%
 			avctDsrTrapObjectActiveSessions=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -318,13 +318,13 @@ Supported by the following appliance types:
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrVideoSessionTerminatedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectTargetUserName=%parm[#2]% 
-			avctDsrTrapObjectServerName=%parm[#3]% 
-			avctDsrTrapObjectInputPort=%parm[#4]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#5]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#6]% 
+			avctDsrVideoSessionTerminatedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectTargetUserName=%parm[#2]%
+			avctDsrTrapObjectServerName=%parm[#3]%
+			avctDsrTrapObjectInputPort=%parm[#4]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#5]%
+			avctDsrTrapObjectSwitchChannel=%parm[#6]%
 			avctDsrTrapObjectActiveSessions=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -404,11 +404,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrLocalPortViewingStartedTrap trap received 
-			avctDsrTrapObjectServerName=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
+			avctDsrLocalPortViewingStartedTrap trap received
+			avctDsrTrapObjectServerName=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
 			avctDsrTrapObjectSwitchChannel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -495,12 +495,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrLocalPortViewingStoppedTrap trap received 
-			avctDsrTrapObjectServerName=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#5]% 
+			avctDsrLocalPortViewingStoppedTrap trap received
+			avctDsrTrapObjectServerName=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
+			avctDsrTrapObjectSwitchChannel=%parm[#5]%
 			avctDsrTrapObjectActiveSessions=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -596,13 +596,13 @@ Supported by the following appliance types:
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrLocalPortViewingTerminatedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectTargetUserName=%parm[#3]% 
-			avctDsrTrapObjectInputPort=%parm[#4]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#5]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#6]% 
+			avctDsrLocalPortViewingTerminatedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectTargetUserName=%parm[#3]%
+			avctDsrTrapObjectInputPort=%parm[#4]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#5]%
+			avctDsrTrapObjectSwitchChannel=%parm[#6]%
 			avctDsrTrapObjectActiveSessions=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -673,10 +673,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrIqAdaptorAddedTrap trap received 
-			avctDsrTrapObjectIqAdaptorId=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
+			avctDsrIqAdaptorAddedTrap trap received
+			avctDsrTrapObjectIqAdaptorId=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
 			avctDsrTrapObjectSwitchChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -747,10 +747,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrIqAdaptorRemovedTrap trap received 
-			avctDsrTrapObjectIqAdaptorId=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
+			avctDsrIqAdaptorRemovedTrap trap received
+			avctDsrTrapObjectIqAdaptorId=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
 			avctDsrTrapObjectSwitchChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -845,13 +845,13 @@ Supported by the following appliance types:
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrScreenResolutionChangedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectPreviousScreenResolution=%parm[#3]% 
-			avctDsrTrapObjectCurrentScreenResolution=%parm[#4]% 
-			avctDsrTrapObjectInputPort=%parm[#5]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#6]% 
+			avctDsrScreenResolutionChangedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectPreviousScreenResolution=%parm[#3]%
+			avctDsrTrapObjectCurrentScreenResolution=%parm[#4]%
+			avctDsrTrapObjectInputPort=%parm[#5]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#6]%
 			avctDsrTrapObjectSwitchChannel=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -906,7 +906,7 @@ Supported by the following appliance types:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrAggregatedServerStatusChangedTrap trap received 
+			avctDsrAggregatedServerStatusChangedTrap trap received
 			avctDsrTrapObjectAggregatedServerStatusChanged=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -980,10 +980,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrImageFileUpgradeStarted trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectTypeOfImage=%parm[#2]% 
-			avctDsrTrapObjectImageNewVersion=%parm[#3]% 
+			avctDsrImageFileUpgradeStarted trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectTypeOfImage=%parm[#2]%
+			avctDsrTrapObjectImageNewVersion=%parm[#3]%
 			avctDsrTrapObjectImageCurrentVersion=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1065,11 +1065,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrImageFileUpgradeResultTrap trap received 
-			avctDsrTrapObjectImageFileUpgradeResult=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectTypeOfImage=%parm[#3]% 
-			avctDsrTrapObjectImageNewVersion=%parm[#4]% 
+			avctDsrImageFileUpgradeResultTrap trap received
+			avctDsrTrapObjectImageFileUpgradeResult=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectTypeOfImage=%parm[#3]%
+			avctDsrTrapObjectImageNewVersion=%parm[#4]%
 			avctDsrTrapObjectImageCurrentVersion=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1172,14 +1172,14 @@ Supported by the following appliance types:
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrIqAdaptorImageUpgradeStarted trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectTypeOfImage=%parm[#2]% 
-			avctDsrTrapObjectImageNewVersion=%parm[#3]% 
-			avctDsrTrapObjectImageCurrentVersion=%parm[#4]% 
-			avctDsrTrapObjectServerName=%parm[#5]% 
-			avctDsrTrapObjectInputPort=%parm[#6]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#7]% 
+			avctDsrIqAdaptorImageUpgradeStarted trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectTypeOfImage=%parm[#2]%
+			avctDsrTrapObjectImageNewVersion=%parm[#3]%
+			avctDsrTrapObjectImageCurrentVersion=%parm[#4]%
+			avctDsrTrapObjectServerName=%parm[#5]%
+			avctDsrTrapObjectInputPort=%parm[#6]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#7]%
 			avctDsrTrapObjectSwitchChannel=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1291,15 +1291,15 @@ Supported by the following appliance types:
 	%parm[#9]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrIqAdaptorImageUpgradeResultTrap trap received 
-			avctDsrTrapObjectIqAdaptorImageUpgradeResult=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectTypeOfImage=%parm[#3]% 
-			avctDsrTrapObjectImageNewVersion=%parm[#4]% 
-			avctDsrTrapObjectImageCurrentVersion=%parm[#5]% 
-			avctDsrTrapObjectServerName=%parm[#6]% 
-			avctDsrTrapObjectInputPort=%parm[#7]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#8]% 
+			avctDsrIqAdaptorImageUpgradeResultTrap trap received
+			avctDsrTrapObjectIqAdaptorImageUpgradeResult=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectTypeOfImage=%parm[#3]%
+			avctDsrTrapObjectImageNewVersion=%parm[#4]%
+			avctDsrTrapObjectImageCurrentVersion=%parm[#5]%
+			avctDsrTrapObjectServerName=%parm[#6]%
+			avctDsrTrapObjectInputPort=%parm[#7]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#8]%
 			avctDsrTrapObjectSwitchChannel=%parm[#9]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1371,10 +1371,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrIqAdaptorRestartedTrap trap received 
-			avctDsrTrapObjectServerName=%parm[#1]% 
-			avctDsrTrapObjectInputPort=%parm[#2]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#3]% 
+			avctDsrIqAdaptorRestartedTrap trap received
+			avctDsrTrapObjectServerName=%parm[#1]%
+			avctDsrTrapObjectInputPort=%parm[#2]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#3]%
 			avctDsrTrapObjectSwitchChannel=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1424,7 +1424,7 @@ Supported by the following appliance types:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserAuthFailureTrap trap received 
+			avctDsrUserAuthFailureTrap trap received
 			avctDsrTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1480,8 +1480,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserAddedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
+			avctDsrUserAddedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
 			avctDsrTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1537,8 +1537,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserDeletedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
+			avctDsrUserDeletedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
 			avctDsrTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1594,8 +1594,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserModifiedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
+			avctDsrUserModifiedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
 			avctDsrTrapObjectTargetUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1644,7 +1644,7 @@ Supported by the following appliance types:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserLoginTrap trap received 
+			avctDsrUserLoginTrap trap received
 			avctDsrTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1693,7 +1693,7 @@ Supported by the following appliance types:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserLogoutTrap trap received 
+			avctDsrUserLogoutTrap trap received
 			avctDsrTrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1750,8 +1750,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrConfigurationFileLoadedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
+			avctDsrConfigurationFileLoadedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
 			avctDsrTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1808,8 +1808,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrUserDatabaseFileLoadedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
+			avctDsrUserDatabaseFileLoadedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
 			avctDsrTrapObjectFileName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1918,9 +1918,9 @@ Supported by the following appliance types:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrServerNameChangedTrap trap received 
-			avctDsrTrapObjectOldServerName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
+			avctDsrServerNameChangedTrap trap received
+			avctDsrTrapObjectOldServerName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
 			avctDsrTrapObjectIqAdaptorId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1983,9 +1983,9 @@ Supported by the following appliance types:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrCascadeSwitchNameChangedTrap trap received 
-			avctDsrTrapObjectOldCascadeSwitchName=%parm[#1]% 
-			avctDsrTrapObjectCascadeSwitchName=%parm[#2]% 
+			avctDsrCascadeSwitchNameChangedTrap trap received
+			avctDsrTrapObjectOldCascadeSwitchName=%parm[#1]%
+			avctDsrTrapObjectCascadeSwitchName=%parm[#2]%
 			avctDsrTrapObjectIqAdaptorId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2041,8 +2041,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrCascadeSwitchAddedTrap trap received 
-			avctDsrTrapObjectCascadeSwitchName=%parm[#1]% 
+			avctDsrCascadeSwitchAddedTrap trap received
+			avctDsrTrapObjectCascadeSwitchName=%parm[#1]%
 			avctDsrTrapObjectIqAdaptorId=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2098,8 +2098,8 @@ Supported by the following appliance types:
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrCascadeSwitchRemovedTrap trap received 
-			avctDsrTrapObjectCascadeSwitchName=%parm[#1]% 
+			avctDsrCascadeSwitchRemovedTrap trap received
+			avctDsrTrapObjectCascadeSwitchName=%parm[#1]%
 			avctDsrTrapObjectIqAdaptorId=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2124,17 +2124,17 @@ Supported by the following appliance types:
 	<descr>
 &lt;p&gt;A power device attached to the appliance is detected to be online.
 
-This trap is sent upon initialization of the power device if it is 
+This trap is sent upon initialization of the power device if it is
 online and responding. Subsequent traps are sent if the power device
 transitions from offline to online.
 
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2166,9 +2166,9 @@ Supported by the following appliance types:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcDeviceOnlineTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
+			avctDsrSpcDeviceOnlineTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2200,10 +2200,10 @@ from online to offline.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2235,9 +2235,9 @@ Supported by the following appliance types:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcDeviceOfflineTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
+			avctDsrSpcDeviceOfflineTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2268,13 +2268,13 @@ power device using the user name configured in the appliance.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The user name attempting to login to the power device is contained in
 avctDsrTrapObjectSpcDeviceLogin.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2310,10 +2310,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcLoginErrTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceLogin=%parm[#3]% 
+			avctDsrSpcLoginErrTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceLogin=%parm[#3]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2341,16 +2341,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that was issued the on command is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2394,12 +2394,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketOnCommandTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#3]% 
-			avctDsrTrapObjectSpcSocket=%parm[#4]% 
-			avctDsrTrapObjectServerName=%parm[#5]% 
+			avctDsrSpcSocketOnCommandTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#3]%
+			avctDsrTrapObjectSpcSocket=%parm[#4]%
+			avctDsrTrapObjectServerName=%parm[#5]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2427,16 +2427,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that was issued the off command is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2480,12 +2480,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketOffCommandTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#3]% 
-			avctDsrTrapObjectSpcSocket=%parm[#4]% 
-			avctDsrTrapObjectServerName=%parm[#5]% 
+			avctDsrSpcSocketOffCommandTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#3]%
+			avctDsrTrapObjectSpcSocket=%parm[#4]%
+			avctDsrTrapObjectServerName=%parm[#5]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2513,16 +2513,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that was issued the reboot command is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2566,12 +2566,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketRebootCommandTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#3]% 
-			avctDsrTrapObjectSpcSocket=%parm[#4]% 
-			avctDsrTrapObjectServerName=%parm[#5]% 
+			avctDsrSpcSocketRebootCommandTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#3]%
+			avctDsrTrapObjectSpcSocket=%parm[#4]%
+			avctDsrTrapObjectServerName=%parm[#5]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2594,7 +2594,7 @@ Supported by the following appliance types:
 	<uei>uei.opennms.org/vendor/avocent/traps/avctDsrSpcSocketOnSenseFailTrap</uei>
 	<event-label>DSR-TRAP-MIB defined trap event: avctDsrSpcSocketOnSenseFailTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has detected an on sense 
+&lt;p&gt;A power device attached to the appliance has detected an on sense
 failure for a socket.
 
 An on sense failure occurs when a socket should be in the on state
@@ -2603,16 +2603,16 @@ but is actually in the off state.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that has the failure is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2652,11 +2652,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketOnSenseFailTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcSocket=%parm[#3]% 
-			avctDsrTrapObjectServerName=%parm[#4]% 
+			avctDsrSpcSocketOnSenseFailTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcSocket=%parm[#3]%
+			avctDsrTrapObjectServerName=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2679,7 +2679,7 @@ Supported by the following appliance types:
 	<uei>uei.opennms.org/vendor/avocent/traps/avctDsrSpcSocketOffSenseFailTrap</uei>
 	<event-label>DSR-TRAP-MIB defined trap event: avctDsrSpcSocketOffSenseFailTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has detected an off sense 
+&lt;p&gt;A power device attached to the appliance has detected an off sense
 failure for a socket.
 
 An off sense failure occurs when a socket should be in the off state
@@ -2688,16 +2688,16 @@ but is actually in the on state.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that has the failure is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2737,11 +2737,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketOffSenseFailTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcSocket=%parm[#3]% 
-			avctDsrTrapObjectServerName=%parm[#4]% 
+			avctDsrSpcSocketOffSenseFailTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcSocket=%parm[#3]%
+			avctDsrTrapObjectServerName=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2764,16 +2764,16 @@ Supported by the following appliance types:
 	<uei>uei.opennms.org/vendor/avocent/traps/avctDsrSpcTotalLoadHighTrap</uei>
 	<event-label>DSR-TRAP-MIB defined trap event: avctDsrSpcTotalLoadHighTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has exceeded the maximum 
+&lt;p&gt;A power device attached to the appliance has exceeded the maximum
 threshold for total load.
 
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2805,9 +2805,9 @@ Supported by the following appliance types:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcTotalLoadHighTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
+			avctDsrSpcTotalLoadHighTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -2836,10 +2836,10 @@ threshold for total load.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2871,9 +2871,9 @@ Supported by the following appliance types:
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcTotalLoadLowTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
+			avctDsrSpcTotalLoadLowTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -2901,16 +2901,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that has changed to the on state is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -2950,11 +2950,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcStatusSocketOnTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcSocket=%parm[#3]% 
-			avctDsrTrapObjectServerName=%parm[#4]% 
+			avctDsrSpcStatusSocketOnTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcSocket=%parm[#3]%
+			avctDsrTrapObjectServerName=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -2982,16 +2982,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that has changed to the off state is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -3031,11 +3031,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcStatusSocketOffTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcSocket=%parm[#3]% 
-			avctDsrTrapObjectServerName=%parm[#4]% 
+			avctDsrSpcStatusSocketOffTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcSocket=%parm[#3]%
+			avctDsrTrapObjectServerName=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3108,11 +3108,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrVirtualMediaSessionStartedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
+			avctDsrVirtualMediaSessionStartedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
 			avctDsrTrapObjectSwitchChannel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3190,12 +3190,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrVirtualMediaSessionStoppedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#5]% 
+			avctDsrVirtualMediaSessionStoppedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
+			avctDsrTrapObjectSwitchChannel=%parm[#5]%
 			avctDsrTrapObjectActiveSessions=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3285,13 +3285,13 @@ Supported by the following appliance types:
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrVirtualMediaSessionTerminatedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectTargetUserName=%parm[#2]% 
-			avctDsrTrapObjectServerName=%parm[#3]% 
-			avctDsrTrapObjectInputPort=%parm[#4]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#5]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#6]% 
+			avctDsrVirtualMediaSessionTerminatedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectTargetUserName=%parm[#2]%
+			avctDsrTrapObjectServerName=%parm[#3]%
+			avctDsrTrapObjectInputPort=%parm[#4]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#5]%
+			avctDsrTrapObjectSwitchChannel=%parm[#6]%
 			avctDsrTrapObjectActiveSessions=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3364,11 +3364,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrLocalPortVirtualMediaSessionStartedTrap trap received 
-			avctDsrTrapObjectServerName=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
+			avctDsrLocalPortVirtualMediaSessionStartedTrap trap received
+			avctDsrTrapObjectServerName=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
 			avctDsrTrapObjectSwitchChannel=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3448,12 +3448,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrLocalPortVirtualMediaSessionStoppedTrap trap received 
-			avctDsrTrapObjectServerName=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#4]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#5]% 
+			avctDsrLocalPortVirtualMediaSessionStoppedTrap trap received
+			avctDsrTrapObjectServerName=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#4]%
+			avctDsrTrapObjectSwitchChannel=%parm[#5]%
 			avctDsrTrapObjectActiveSessions=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3542,13 +3542,13 @@ Supported by the following appliance types:
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrLocalPortVirtualMediaSessionTerminatedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectTargetUserName=%parm[#3]% 
-			avctDsrTrapObjectInputPort=%parm[#4]% 
-			avctDsrTrapObjectIqAdaptorId=%parm[#5]% 
-			avctDsrTrapObjectSwitchChannel=%parm[#6]% 
+			avctDsrLocalPortVirtualMediaSessionTerminatedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectTargetUserName=%parm[#3]%
+			avctDsrTrapObjectInputPort=%parm[#4]%
+			avctDsrTrapObjectIqAdaptorId=%parm[#5]%
+			avctDsrTrapObjectSwitchChannel=%parm[#6]%
 			avctDsrTrapObjectActiveSessions=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3582,10 +3582,10 @@ avctDsrTrapObjectItemName.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -3625,11 +3625,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcPortNameChangedTrap trap received 
-			avctDsrTrapObjectOldName=%parm[#1]% 
-			avctDsrTrapObjectItemName=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#4]% 
+			avctDsrSpcPortNameChangedTrap trap received
+			avctDsrTrapObjectOldName=%parm[#1]%
+			avctDsrTrapObjectItemName=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3663,10 +3663,10 @@ avctDsrTrapObjectItemName.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 The socket number of the power device is contained in
@@ -3713,12 +3713,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketNameChangedTrap trap received 
-			avctDsrTrapObjectOldName=%parm[#1]% 
-			avctDsrTrapObjectItemName=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#4]% 
-			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctDsrSpcSocketNameChangedTrap trap received
+			avctDsrTrapObjectOldName=%parm[#1]%
+			avctDsrTrapObjectItemName=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#4]%
+			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%
 			avctDsrTrapObjectSpcSocket=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3741,19 +3741,19 @@ Supported by the following appliance types:
 	<uei>uei.opennms.org/vendor/avocent/traps/avctDsrSpcInletTotalLoadHighTrap</uei>
 	<event-label>DSR-TRAP-MIB defined trap event: avctDsrSpcInletTotalLoadHighTrap</event-label>
 	<descr>
-&lt;p&gt;A power device attached to the appliance has exceeded the maximum 
+&lt;p&gt;A power device attached to the appliance has exceeded the maximum
 threshold for total load of an inlet.
 
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
-The inlet of the power device is contained in 
+The inlet of the power device is contained in
 avctDsrTrapObjectSpcDeviceInlet.
 
 Supported by the following appliance types:
@@ -3789,10 +3789,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcInletTotalLoadHighTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]% 
+			avctDsrSpcInletTotalLoadHighTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]%
 			avctDsrTrapObjectSpcDeviceInlet=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -3821,13 +3821,13 @@ threshold for total load.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
-The inlet of the power device is contained in 
+The inlet of the power device is contained in
 avctDsrTrapObjectSpcDeviceInlet.
 
 Supported by the following appliance types:
@@ -3863,10 +3863,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcInletTotalLoadLowTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]% 
+			avctDsrSpcInletTotalLoadLowTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceNumber=%parm[#3]%
 			avctDsrTrapObjectSpcDeviceInlet=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
@@ -3900,10 +3900,10 @@ avctDsrTrapObjectItemName.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -3943,11 +3943,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcDeviceNameChangedTrap trap received 
-			avctDsrTrapObjectOldName=%parm[#1]% 
-			avctDsrTrapObjectItemName=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#4]% 
+			avctDsrSpcDeviceNameChangedTrap trap received
+			avctDsrTrapObjectOldName=%parm[#1]%
+			avctDsrTrapObjectItemName=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -3981,13 +3981,13 @@ avctDsrTrapObjectItemName.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
-The inlet of the power device is contained in 
+The inlet of the power device is contained in
 avctDsrTrapObjectSpcDeviceInlet.
 
 Supported by the following appliance types:
@@ -4031,12 +4031,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcInletNameChangedTrap trap received 
-			avctDsrTrapObjectOldName=%parm[#1]% 
-			avctDsrTrapObjectItemName=%parm[#2]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#4]% 
-			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]% 
+			avctDsrSpcInletNameChangedTrap trap received
+			avctDsrTrapObjectOldName=%parm[#1]%
+			avctDsrTrapObjectItemName=%parm[#2]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#3]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#4]%
+			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%
 			avctDsrTrapObjectSpcDeviceInlet=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4070,8 +4070,8 @@ avctDsrTrapObjectServerName.
 The input port number on the appliance that the IQ Adaptor is now
 connected to is contained in avctDsrTrapObjectInputPort.
 
-The input port number on the appliance that the IQ Adaptor 
-was previously connected to is contained in 
+The input port number on the appliance that the IQ Adaptor
+was previously connected to is contained in
 avctDsrTrapObjectOldInputPort.
 
 Supported by the following appliance types:
@@ -4107,10 +4107,10 @@ Supported by the following appliance types:
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrIqAdaptorMovedTrap trap received 
-			avctDsrTrapObjectIqAdaptorId=%parm[#1]% 
-			avctDsrTrapObjectServerName=%parm[#2]% 
-			avctDsrTrapObjectInputPort=%parm[#3]% 
+			avctDsrIqAdaptorMovedTrap trap received
+			avctDsrTrapObjectIqAdaptorId=%parm[#1]%
+			avctDsrTrapObjectServerName=%parm[#2]%
+			avctDsrTrapObjectInputPort=%parm[#3]%
 			avctDsrTrapObjectOldInputPort=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4137,21 +4137,21 @@ Supported by the following appliance types:
 
 The name of the user who originally started the image upgrade is
 contained in avctDsrTrapObjectUserName if available. An empty
-string is reported if a user name is not available. 
+string is reported if a user name is not available.
 
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that was issued the lock command is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -4195,12 +4195,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketLockCommandTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#3]% 
-			avctDsrTrapObjectSpcSocket=%parm[#4]% 
-			avctDsrTrapObjectServerName=%parm[#5]% 
+			avctDsrSpcSocketLockCommandTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#3]%
+			avctDsrTrapObjectSpcSocket=%parm[#4]%
+			avctDsrTrapObjectServerName=%parm[#5]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4227,21 +4227,21 @@ Supported by the following appliance types:
 
 The name of the user who originally started the image upgrade is
 contained in avctDsrTrapObjectUserName if available. An empty
-string is reported if a user name is not available. 
+string is reported if a user name is not available.
 
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that was issued the unlock command is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -4285,12 +4285,12 @@ Supported by the following appliance types:
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcSocketUnlockCommandTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#3]% 
-			avctDsrTrapObjectSpcSocket=%parm[#4]% 
-			avctDsrTrapObjectServerName=%parm[#5]% 
+			avctDsrSpcSocketUnlockCommandTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#2]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#3]%
+			avctDsrTrapObjectSpcSocket=%parm[#4]%
+			avctDsrTrapObjectServerName=%parm[#5]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4318,16 +4318,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that has changed to the lock state is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -4367,11 +4367,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcStatusSocketLockTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcSocket=%parm[#3]% 
-			avctDsrTrapObjectServerName=%parm[#4]% 
+			avctDsrSpcStatusSocketLockTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcSocket=%parm[#3]%
+			avctDsrTrapObjectServerName=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4399,16 +4399,16 @@ Supported by the following appliance types:
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
 The socket number that has changed to the unlock state is contained
 in avctDsrTrapObjectSpcSocket.
 
-The name of the server connected to the power device socket is 
+The name of the server connected to the power device socket is
 contained in avctDsrTrapObjectServerName.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 Supported by the following appliance types:
@@ -4448,11 +4448,11 @@ Supported by the following appliance types:
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctDsrSpcStatusSocketUnlockTrap trap received 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#2]% 
-			avctDsrTrapObjectSpcSocket=%parm[#3]% 
-			avctDsrTrapObjectServerName=%parm[#4]% 
+			avctDsrSpcStatusSocketUnlockTrap trap received
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#1]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#2]%
+			avctDsrTrapObjectSpcSocket=%parm[#3]%
+			avctDsrTrapObjectServerName=%parm[#4]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4479,7 +4479,7 @@ Supported by the following appliance types:
 
 
 The name of the user who initiated the image upgrade is contained
-in avctDsrTrapObjectUserName if available. 
+in avctDsrTrapObjectUserName if available.
 
 The type of software image being upgraded is contained in
 avctDsrTrapObjectTypeOfImage.
@@ -4493,10 +4493,10 @@ is contained in avctDsrTrapObjectImageCurrentVersion.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 
@@ -4545,13 +4545,13 @@ Supported by the following appliance types:
 	%parm[#7]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctSpcImageFileUpgradeStartedTrap trap received 
-			avctDsrTrapObjectUserName=%parm[#1]% 
-			avctDsrTrapObjectTypeOfImage=%parm[#2]% 
-			avctDsrTrapObjectImageNewVersion=%parm[#3]% 
-			avctDsrTrapObjectImageCurrentVersion=%parm[#4]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#5]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#6]% 
+			avctSpcImageFileUpgradeStartedTrap trap received
+			avctDsrTrapObjectUserName=%parm[#1]%
+			avctDsrTrapObjectTypeOfImage=%parm[#2]%
+			avctDsrTrapObjectImageNewVersion=%parm[#3]%
+			avctDsrTrapObjectImageCurrentVersion=%parm[#4]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#5]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#6]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#7]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -4574,13 +4574,13 @@ Supported by the following appliance types:
 	<uei>uei.opennms.org/vendor/avocent/traps/avctSpcImageFileUpgradeResultTrap</uei>
 	<event-label>DSR-TRAP-MIB defined trap event: avctSpcImageFileUpgradeResultTrap</event-label>
 	<descr>
-&lt;p&gt;The result of a software image file upgrade for a power device. 
+&lt;p&gt;The result of a software image file upgrade for a power device.
 
 The result is contained in avctDsrTrapObjectImageFileUpgradeResult.
 
 The name of the user who originally started the image upgrade is
 contained in avctDsrTrapObjectUserName if available. An empty
-string is reported if a user name is not available. 
+string is reported if a user name is not available.
 
 The type of software image the upgrade result is for is contained in
 avctDsrTrapObjectTypeOfImage.
@@ -4596,10 +4596,10 @@ reported in avctDsrTrapObjectImageNewVersion.
 The location of the power device is contained in
 avctDsrTrapObjectSpcDeviceLocation.
 
-The port number on the appliance that the power device is attached to 
+The port number on the appliance that the power device is attached to
 is contained in avctDsrTrapObjectSpcDevicePort.
 
-The number of the power device that is connected to a port of the 
+The number of the power device that is connected to a port of the
 appliance is contained in avctDsrTrapObjectSpcDeviceNumber.
 
 
@@ -4652,14 +4652,14 @@ Supported by the following appliance types:
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			avctSpcImageFileUpgradeResultTrap trap received 
-			avctDsrTrapObjectImageFileUpgradeResult=%parm[#1]% 
-			avctDsrTrapObjectUserName=%parm[#2]% 
-			avctDsrTrapObjectTypeOfImage=%parm[#3]% 
-			avctDsrTrapObjectImageNewVersion=%parm[#4]% 
-			avctDsrTrapObjectImageCurrentVersion=%parm[#5]% 
-			avctDsrTrapObjectSpcDeviceLocation=%parm[#6]% 
-			avctDsrTrapObjectSpcDevicePort=%parm[#7]% 
+			avctSpcImageFileUpgradeResultTrap trap received
+			avctDsrTrapObjectImageFileUpgradeResult=%parm[#1]%
+			avctDsrTrapObjectUserName=%parm[#2]%
+			avctDsrTrapObjectTypeOfImage=%parm[#3]%
+			avctDsrTrapObjectImageNewVersion=%parm[#4]%
+			avctDsrTrapObjectImageCurrentVersion=%parm[#5]%
+			avctDsrTrapObjectSpcDeviceLocation=%parm[#6]%
+			avctDsrTrapObjectSpcDevicePort=%parm[#7]%
 			avctDsrTrapObjectSpcDeviceNumber=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

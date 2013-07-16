@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,9 +10,9 @@
 	<changeSet author="rangerrick" id="1.6.0-datalinkinterface">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="datalinkinterface" /></not>
-		</preConditions> 
+		</preConditions>
 
-		<!-- This table maintains a record of data link info among the interfaces. 
+		<!-- This table maintains a record of data link info among the interfaces.
 				Data is calculated using info from other tables -->
 		<createTable tableName="datalinkinterface">
 

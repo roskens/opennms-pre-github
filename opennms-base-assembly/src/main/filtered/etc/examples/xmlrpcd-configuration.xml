@@ -25,7 +25,7 @@
         </subscription>
         <subscription name="extraEvents">
                 <subscribed-event uei="uei.opennms.org/internal/capsd/forceRescan"/>
-                <subscribed-event uei="uei.opennms.org/nodes/nodeGainedService"/> 
+                <subscribed-event uei="uei.opennms.org/nodes/nodeGainedService"/>
                 <subscribed-event uei="uei.opennms.org/nodes/nodeGainedInterface"/>
                 <subscribed-event uei="uei.opennms.org/generic/traps/EnterpriseDefault"/>
                 <subscribed-event uei="uei.opennms.org/generic/traps/SNMP_Link_Down"/>

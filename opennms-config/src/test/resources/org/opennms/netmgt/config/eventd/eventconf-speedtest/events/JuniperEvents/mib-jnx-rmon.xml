@@ -49,9 +49,9 @@ jnxRmonAlarmGetFailReason.</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxRmonAlarmGetFailure trap received 
-			alarmIndex=%parm[#1]% 
-			alarmVariable=%parm[#2]% 
+			jnxRmonAlarmGetFailure trap received
+			alarmIndex=%parm[#1]%
+			alarmVariable=%parm[#2]%
 			jnxRmonAlarmGetFailReason=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -88,8 +88,8 @@ were unsuccessful.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxRmonGetOk trap received 
-			alarmIndex=%parm[#1]% 
+			jnxRmonGetOk trap received
+			alarmIndex=%parm[#1]%
 			alarmVariable=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>

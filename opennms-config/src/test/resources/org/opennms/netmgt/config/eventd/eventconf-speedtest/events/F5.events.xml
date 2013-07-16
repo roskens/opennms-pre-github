@@ -50,9 +50,9 @@
 			threednsTrapVSRedToGreen trap received&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/f5/traps/threednsTrapVSGreenToRed:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -79,9 +79,9 @@
 			threednsTrapServerRedToGreen trap received&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/f5/traps/threednsTrapServerGreenToRed:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -163,7 +163,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapMisc trap received 
+			loadBalTrapMisc trap received
 			loadBalTrapMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -202,9 +202,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapServiceDown trap received 
-			loadBalTrapMessage=%parm[#1]% 
-			ipAddressString=%parm[#2]% 
+			loadBalTrapServiceDown trap received
+			loadBalTrapMessage=%parm[#1]%
+			ipAddressString=%parm[#2]%
 			memberPort=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -243,15 +243,15 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapServiceUP trap received 
-			loadBalTrapMessage=%parm[#1]% 
-			ipAddressString=%parm[#2]% 
+			loadBalTrapServiceUP trap received
+			loadBalTrapMessage=%parm[#1]%
+			ipAddressString=%parm[#2]%
 			memberPort=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/f5/traps/loadBalTrapServiceDown`:%dpname%:%nodeid%:%interface%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -279,7 +279,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapReset trap received 
+			loadBalTrapReset trap received
 			loadBalTrapMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -310,7 +310,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapDenial trap received 
+			loadBalTrapDenial trap received
 			loadBalTrapMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -341,7 +341,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapLogin trap received 
+			loadBalTrapLogin trap received
 			loadBalTrapMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -372,7 +372,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapRemoveUnit trap received 
+			loadBalTrapRemoveUnit trap received
 			loadBalTrapMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -403,13 +403,13 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			loadBalTrapAddUnit trap received 
+			loadBalTrapAddUnit trap received
 			loadBalTrapMessage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/f5/traps/loadBalTrapRemoveUnit:%dpname%:%nodeid%:%interface%" />
 </event>
 <!-- End of auto generated data from MIB: LOAD-BAL-SYSTEM-MIB -->
@@ -438,9 +438,9 @@
 			bigipAgentStart trap received&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/F5/traps/bigipAgentShutdown:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -522,7 +522,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipCpuTempHigh trap received 
+			bigipCpuTempHigh trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -553,7 +553,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipCpuFanSpeedLow trap received 
+			bigipCpuFanSpeedLow trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -584,7 +584,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipCpuFanSpeedBad trap received 
+			bigipCpuFanSpeedBad trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -615,7 +615,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipChassisTempHigh trap received 
+			bigipChassisTempHigh trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -646,7 +646,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipChassisFanBad trap received 
+			bigipChassisFanBad trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -677,7 +677,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipChassisPowerSupplyBad trap received 
+			bigipChassisPowerSupplyBad trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -716,9 +716,9 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipServiceDown trap received 
-			bigipNotifyObjMsg=%parm[#1]% 
-			bigipNotifyObjNode=%parm[#2]% 
+			bigipServiceDown trap received
+			bigipNotifyObjMsg=%parm[#1]%
+			bigipNotifyObjNode=%parm[#2]%
 			bigipNotifyObjPort=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -757,15 +757,15 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipServiceUp trap received 
-			bigipNotifyObjMsg=%parm[#1]% 
-			bigipNotifyObjNode=%parm[#2]% 
+			bigipServiceUp trap received
+			bigipNotifyObjMsg=%parm[#1]%
+			bigipNotifyObjNode=%parm[#2]%
 			bigipNotifyObjPort=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/F5/traps/bigipServiceDown:%dpname%:%nodeid%:%interface%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -797,8 +797,8 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipNodeDown trap received 
-			bigipNotifyObjMsg=%parm[#1]% 
+			bigipNodeDown trap received
+			bigipNotifyObjMsg=%parm[#1]%
 			bigipNotifyObjNode=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -833,14 +833,14 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipNodeUp trap received 
-			bigipNotifyObjMsg=%parm[#1]% 
+			bigipNodeUp trap received
+			bigipNotifyObjMsg=%parm[#1]%
 			bigipNotifyObjNode=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#2]%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/F5/traps/bigipNodeDown:%dpname%:%nodeid%:%interface%:%parm[#2]%" />
 </event>
 <event>
@@ -868,7 +868,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipStandby trap received 
+			bigipStandby trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -899,7 +899,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipActive trap received 
+			bigipActive trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -930,7 +930,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipActiveActive trap received 
+			bigipActiveActive trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -961,7 +961,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipFeatureFailed trap received 
+			bigipFeatureFailed trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -992,13 +992,13 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipFeatureOnline trap received 
+			bigipFeatureOnline trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="false" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="false"
                 clear-key="uei.opennms.org/vendor/F5/traps/bigipFeatureFailed:%dpname%:%nodeid%:%interface%" />
 </event>
 <event>
@@ -1026,7 +1026,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLicenseFailed trap received 
+			bigipLicenseFailed trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1057,7 +1057,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLicenseExpired trap received 
+			bigipLicenseExpired trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1088,7 +1088,7 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipTamdAlert trap received 
+			bigipTamdAlert trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1112,8 +1112,8 @@ changed (unlike the standard coldStart or warmStart traps)&lt;/p&gt;&lt;table&gt
 	<uei>uei.opennms.org/vendor/F5/traps/bigipAggrReaperStateChange</uei>
 	<event-label>F5-BIGIP-COMMON-MIB defined trap event: bigipAggrReaperStateChange</event-label>
 	<descr>
-&lt;p&gt;The aggressive reaper state changed. Aggressive reaper 
-state changes indicate the system is moving into distress-mode 
+&lt;p&gt;The aggressive reaper state changed. Aggressive reaper
+state changes indicate the system is moving into distress-mode
 for DOS prevention.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1121,7 +1121,7 @@ for DOS prevention.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipAggrReaperStateChange trap received 
+			bigipAggrReaperStateChange trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1152,7 +1152,7 @@ for DOS prevention.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipARPConflict trap received 
+			bigipARPConflict trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1176,9 +1176,9 @@ for DOS prevention.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/F5/traps/bigipNetLinkDown</uei>
 	<event-label>F5-BIGIP-COMMON-MIB defined trap event: bigipNetLinkDown</event-label>
 	<descr>
-&lt;p&gt;An internal interface link is down. This is for L1 and L2. 
-These are internal links within the box connecting the CPU 
-and Switch subsystems, which should never lose link. 
+&lt;p&gt;An internal interface link is down. This is for L1 and L2.
+These are internal links within the box connecting the CPU
+and Switch subsystems, which should never lose link.
 If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1186,7 +1186,7 @@ If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipNetLinkDown trap received 
+			bigipNetLinkDown trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1217,7 +1217,7 @@ If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipDiskPartitionWarn trap received 
+			bigipDiskPartitionWarn trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1248,7 +1248,7 @@ If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipDiskPartitionGrowth trap received 
+			bigipDiskPartitionGrowth trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1279,7 +1279,7 @@ If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipAuthFailed trap received 
+			bigipAuthFailed trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1310,7 +1310,7 @@ If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipConfigLoaded trap received 
+			bigipConfigLoaded trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1341,7 +1341,7 @@ If they do, it indicates a serious problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLogEmerg trap received 
+			bigipLogEmerg trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1373,7 +1373,7 @@ properly.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLogAlert trap received 
+			bigipLogAlert trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1404,7 +1404,7 @@ properly.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLogCrit trap received 
+			bigipLogCrit trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1435,7 +1435,7 @@ properly.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLogErr trap received 
+			bigipLogErr trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1466,7 +1466,7 @@ properly.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipLogWarning trap received 
+			bigipLogWarning trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1497,7 +1497,7 @@ properly.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipPacketRejected trap received 
+			bigipPacketRejected trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1528,7 +1528,7 @@ properly.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			bigipCompLimitExceeded trap received 
+			bigipCompLimitExceeded trap received
 			bigipNotifyObjMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>

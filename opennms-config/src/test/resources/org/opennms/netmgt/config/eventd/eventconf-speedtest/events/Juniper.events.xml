@@ -45,11 +45,11 @@ juniSystemMemKBytesCapacity.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemHighMemUtil trap received 
-			juniSystemMemCapacity=%parm[#1]% 
-			juniSystemMemUtilPct=%parm[#2]% 
-			juniSystemAbatedMemUtilThreshold=%parm[#3]% 
-			juniSystemHighMemUtilThreshold=%parm[#4]% 
+			Juniper Event: juniSystemHighMemUtil trap received
+			juniSystemMemCapacity=%parm[#1]%
+			juniSystemMemUtilPct=%parm[#2]%
+			juniSystemAbatedMemUtilThreshold=%parm[#3]%
+			juniSystemHighMemUtilThreshold=%parm[#4]%
 			juniSystemMemKBytesCapacity=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -99,11 +99,11 @@ juniSystemMemKBytesCapacity.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemAbatedMemUtil trap received 
-			juniSystemMemCapacity=%parm[#1]% 
-			juniSystemMemUtilPct=%parm[#2]% 
-			juniSystemAbatedMemUtilThreshold=%parm[#3]% 
-			juniSystemHighMemUtilThreshold=%parm[#4]% 
+			Juniper Event: juniSystemAbatedMemUtil trap received
+			juniSystemMemCapacity=%parm[#1]%
+			juniSystemMemUtilPct=%parm[#2]%
+			juniSystemAbatedMemUtilThreshold=%parm[#3]%
+			juniSystemHighMemUtilThreshold=%parm[#4]%
 			juniSystemMemKBytesCapacity=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -293,11 +293,11 @@ are also included in the notification.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemModuleOperStatusChange trap received 
-			juniSystemModuleCurrentType=%parm[#1]% 
-			juniSystemModuleAdminStatus=%parm[#2]% 
-			juniSystemModuleOperStatus=%parm[#3]% 
-			juniSystemModuleDisableReason=%parm[#4]% 
+			Juniper Event: juniSystemModuleOperStatusChange trap received
+			juniSystemModuleCurrentType=%parm[#1]%
+			juniSystemModuleAdminStatus=%parm[#2]%
+			juniSystemModuleOperStatus=%parm[#3]%
+			juniSystemModuleDisableReason=%parm[#4]%
 			juniSystemModuleDescr=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -338,8 +338,8 @@ are also included in the notification.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemPowerStatusChange trap received 
-			entPhysicalDescr=%parm[#1]% 
+			Juniper Event: juniSystemPowerStatusChange trap received
+			entPhysicalDescr=%parm[#1]%
 			juniSystemPowerStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -379,8 +379,8 @@ Protection hold off time begins.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemFanStatusChange trap received 
-			entPhysicalDescr=%parm[#1]% 
+			Juniper Event: juniSystemFanStatusChange trap received
+			entPhysicalDescr=%parm[#1]%
 			juniSystemFanStatus=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -420,7 +420,7 @@ mode.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemTempStatusChange trap received 
+			Juniper Event: juniSystemTempStatusChange trap received
 			juniSystemTempStatus=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -462,8 +462,8 @@ sent when the holdOffTimeRemaining is 50% of the holdOffTime.&lt;/p&gt;&lt;table
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemTempProtectionStatusChange trap received 
-			juniSystemTempProtectionStatus=%parm[#1]% 
+			Juniper Event: juniSystemTempProtectionStatusChange trap received
+			juniSystemTempProtectionStatus=%parm[#1]%
 			juniSystemTempProtectionHoldOffTimeRemaining=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -548,12 +548,12 @@ what conditions trigger a resource utilization notification.&lt;/p&gt;&lt;table&
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			Juniper Event: juniSystemUtilizationThreshold trap received 
-			juniSystemUtilizationThresholdDirection=%parm[#1]% 
-			juniSystemUtilizationMaxCapacity=%parm[#2]% 
-			juniSystemUtilizationCurrentValue=%parm[#3]% 
-			juniSystemUtilizationThresholdRising=%parm[#4]% 
-			juniSystemUtilizationThresholdFalling=%parm[#5]% 
+			Juniper Event: juniSystemUtilizationThreshold trap received
+			juniSystemUtilizationThresholdDirection=%parm[#1]%
+			juniSystemUtilizationMaxCapacity=%parm[#2]%
+			juniSystemUtilizationCurrentValue=%parm[#3]%
+			juniSystemUtilizationThresholdRising=%parm[#4]%
+			juniSystemUtilizationThresholdFalling=%parm[#5]%
 			juniSystemUtilizationHoldDownTime=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2037,16 +2037,16 @@ utilization threshold.&lt;/p&gt;&lt;table&gt;
         juniAddressPoolInUse&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
         %parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;
         &lt;tr&gt;&lt;td&gt;&lt;b&gt;
-        
+
         juniAddressPoolUtilPct&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
         %parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        juniAddressPoolHighAddrUtil trap received 
-                        juniRouterName=%parm[#1]% 
-                        juniAddressPoolName=%parm[#2]% 
-                        juniAddressPoolSize=%parm[#3]% 
-                        juniAddressPoolInUse=%parm[#4]% 
+                        juniAddressPoolHighAddrUtil trap received
+                        juniRouterName=%parm[#1]%
+                        juniAddressPoolName=%parm[#2]%
+                        juniAddressPoolSize=%parm[#3]%
+                        juniAddressPoolInUse=%parm[#4]%
                         juniAddressPoolUtilPct=%parm[#5]%&lt;/p&gt;
                 </logmsg>
         <severity>Minor</severity>
@@ -2094,15 +2094,15 @@ threshold level.&lt;/p&gt;&lt;table&gt;
         %parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        juniAddressPoolAbatedAddrUtil trap received 
-                        juniRouterName=%parm[#1]% 
-                        juniAddressPoolName=%parm[#2]% 
-                        juniAddressPoolSize=%parm[#3]% 
-                        juniAddressPoolInUse=%parm[#4]% 
+                        juniAddressPoolAbatedAddrUtil trap received
+                        juniRouterName=%parm[#1]%
+                        juniAddressPoolName=%parm[#2]%
+                        juniAddressPoolSize=%parm[#3]%
+                        juniAddressPoolInUse=%parm[#4]%
                         juniAddressPoolUtilPct=%parm[#5]%&lt;/p&gt;
                 </logmsg>
         <severity>Normal</severity>
-        <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%:%parm[#2]%" alarm-type="2" auto-clean="false" clear-key="uei.opennms.org/vendor/juniper/traps/juniAddressPoolHighAddrUtil:%dpname%:%nodeid%:%parm[#1]%:%parm[#2]%"/>  
+        <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%:%parm[#2]%" alarm-type="2" auto-clean="false" clear-key="uei.opennms.org/vendor/juniper/traps/juniAddressPoolHighAddrUtil:%dpname%:%nodeid%:%parm[#1]%:%parm[#2]%"/>
 </event>
 <event>
         <mask>
@@ -2139,15 +2139,15 @@ fully utilized pool.&lt;/p&gt;&lt;table&gt;
         %parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        juniAddressPoolNoAddresses trap received 
-                        juniRouterName=%parm[#1]% 
-                        juniAddressPoolName=%parm[#2]% 
+                        juniAddressPoolNoAddresses trap received
+                        juniRouterName=%parm[#1]%
+                        juniAddressPoolName=%parm[#2]%
                         juniAddressPoolSize=%parm[#3]%&lt;/p&gt;
                 </logmsg>
         <severity>Warning</severity>
 	    <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%:%parm[#2]%" alarm-type="3" auto-clean="false" />
 </event>
-<!-- End of auto generated data from MIB: Juniper-ADDRESS-POOL-MIB -->        
+<!-- End of auto generated data from MIB: Juniper-ADDRESS-POOL-MIB -->
 <!-- Start of auto generated data from MIB: Juniper-REDUNDANCY-MIB -->
 <event>
   <mask>

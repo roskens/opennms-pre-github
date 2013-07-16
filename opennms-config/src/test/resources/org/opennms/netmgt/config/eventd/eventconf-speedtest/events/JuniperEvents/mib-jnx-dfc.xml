@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxDfcSoftPpsThresholdExceeded</uei>
     <event-label>JUNIPER-DFC-MIB defined trap event: jnxDfcSoftPpsThresholdExceeded</event-label>
     <descr><![CDATA[
-<p>Notification of input packet rate (in packet per second) 
+<p>Notification of input packet rate (in packet per second)
 going beyond the configured limit.</p><table>
 	<tr><td><b>
 
@@ -39,10 +39,10 @@ going beyond the configured limit.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcSoftPpsThresholdExceeded trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcInputPktRate=%parm[#2]% 
-			jnxDfcPpsSoftOverloadLowWatermark=%parm[#3]% 
+			jnxDfcSoftPpsThresholdExceeded trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcInputPktRate=%parm[#2]%
+			jnxDfcPpsSoftOverloadLowWatermark=%parm[#3]%
 			jnxDfcPpsSoftOverloadHighWatermark=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -86,10 +86,10 @@ dropping back to below the configured limit.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcSoftPpsUnderThreshold trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcInputPktRate=%parm[#2]% 
-			jnxDfcPpsSoftOverloadLowWatermark=%parm[#3]% 
+			jnxDfcSoftPpsUnderThreshold trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcInputPktRate=%parm[#2]%
+			jnxDfcPpsSoftOverloadLowWatermark=%parm[#3]%
 			jnxDfcPpsSoftOverloadHighWatermark=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -133,10 +133,10 @@ going beyond the recommended limit.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcHardPpsThresholdExceeded trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcInputPktRate=%parm[#2]% 
-			jnxDfcPpsHardOverloadLowWatermark=%parm[#3]% 
+			jnxDfcHardPpsThresholdExceeded trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcInputPktRate=%parm[#2]%
+			jnxDfcPpsHardOverloadLowWatermark=%parm[#3]%
 			jnxDfcPpsHardOverloadHighWatermark=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -180,10 +180,10 @@ dropping back to below the recommended limit.</p><table>
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcHardPpsUnderThreshold trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcInputPktRate=%parm[#2]% 
-			jnxDfcPpsHardOverloadLowWatermark=%parm[#3]% 
+			jnxDfcHardPpsUnderThreshold trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcInputPktRate=%parm[#2]%
+			jnxDfcPpsHardOverloadLowWatermark=%parm[#3]%
 			jnxDfcPpsHardOverloadHighWatermark=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -206,7 +206,7 @@ dropping back to below the recommended limit.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxDfcSoftMemThresholdExceeded</uei>
     <event-label>JUNIPER-DFC-MIB defined trap event: jnxDfcSoftMemThresholdExceeded</event-label>
     <descr><![CDATA[
-<p>Notification of memory overload condition i.e memory usage 
+<p>Notification of memory overload condition i.e memory usage
 is going beyond the configured limit.</p><table>
 	<tr><td><b>
 
@@ -230,11 +230,11 @@ is going beyond the configured limit.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcSoftMemThresholdExceeded trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcFlowsUsage=%parm[#2]% 
-			jnxDfcCriteriaUsage=%parm[#3]% 
-			jnxDfcMemSoftOverloadLowWatermark=%parm[#4]% 
+			jnxDfcSoftMemThresholdExceeded trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcFlowsUsage=%parm[#2]%
+			jnxDfcCriteriaUsage=%parm[#3]%
+			jnxDfcMemSoftOverloadLowWatermark=%parm[#4]%
 			jnxDfcMemSoftOverloadHighWatermark=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -258,7 +258,7 @@ is going beyond the configured limit.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxDfcSoftMemUnderThreshold</uei>
     <event-label>JUNIPER-DFC-MIB defined trap event: jnxDfcSoftMemUnderThreshold</event-label>
     <descr><![CDATA[
-<p>Notification of memory usage dropping back to below the 
+<p>Notification of memory usage dropping back to below the
 configured limit.</p><table>
 	<tr><td><b>
 
@@ -282,11 +282,11 @@ configured limit.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcSoftMemUnderThreshold trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcFlowsUsage=%parm[#2]% 
-			jnxDfcCriteriaUsage=%parm[#3]% 
-			jnxDfcMemSoftOverloadLowWatermark=%parm[#4]% 
+			jnxDfcSoftMemUnderThreshold trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcFlowsUsage=%parm[#2]%
+			jnxDfcCriteriaUsage=%parm[#3]%
+			jnxDfcMemSoftOverloadLowWatermark=%parm[#4]%
 			jnxDfcMemSoftOverloadHighWatermark=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -342,13 +342,13 @@ is going beyond the recommended limit.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcHardMemThresholdExceeded trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcFlowsUsage=%parm[#2]% 
-			jnxDfcFlowLowWatermark=%parm[#3]% 
-			jnxDfcFlowHighWatermark=%parm[#4]% 
-			jnxDfcCriteriaUsage=%parm[#5]% 
-			jnxDfcCriteriaLowWatermark=%parm[#6]% 
+			jnxDfcHardMemThresholdExceeded trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcFlowsUsage=%parm[#2]%
+			jnxDfcFlowLowWatermark=%parm[#3]%
+			jnxDfcFlowHighWatermark=%parm[#4]%
+			jnxDfcCriteriaUsage=%parm[#5]%
+			jnxDfcCriteriaLowWatermark=%parm[#6]%
 			jnxDfcCriteriaHighWatermark=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -404,13 +404,13 @@ recommended limit.</p><table>
 	%parm[#7]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxDfcHardMemUnderThreshold trap received 
-			jnxDfcInterfaceName=%parm[#1]% 
-			jnxDfcFlowsUsage=%parm[#2]% 
-			jnxDfcFlowLowWatermark=%parm[#3]% 
-			jnxDfcFlowHighWatermark=%parm[#4]% 
-			jnxDfcCriteriaUsage=%parm[#5]% 
-			jnxDfcCriteriaLowWatermark=%parm[#6]% 
+			jnxDfcHardMemUnderThreshold trap received
+			jnxDfcInterfaceName=%parm[#1]%
+			jnxDfcFlowsUsage=%parm[#2]%
+			jnxDfcFlowLowWatermark=%parm[#3]%
+			jnxDfcFlowHighWatermark=%parm[#4]%
+			jnxDfcCriteriaUsage=%parm[#5]%
+			jnxDfcCriteriaLowWatermark=%parm[#6]%
 			jnxDfcCriteriaHighWatermark=%parm[#7]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>

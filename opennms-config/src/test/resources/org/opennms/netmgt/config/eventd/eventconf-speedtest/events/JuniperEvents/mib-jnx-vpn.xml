@@ -20,7 +20,7 @@
     <event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnIfUp</event-label>
     <descr><![CDATA[
 <p>A jnxVpnIfUp notification is generated when the interface
-with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName 
+with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName
 of type jnxVpnIfVpnType transitions out of the 'down' state.</p><table>
 	<tr><td><b>
 
@@ -47,9 +47,9 @@ of type jnxVpnIfVpnType transitions out of the 'down' state.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVpnIfUp trap received 
-			jnxVpnIfVpnType=%parm[#1]% 
-			jnxVpnIfVpnName=%parm[#2]% 
+			jnxVpnIfUp trap received
+			jnxVpnIfVpnType=%parm[#1]%
+			jnxVpnIfVpnName=%parm[#2]%
 			jnxVpnIfIndex=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -74,7 +74,7 @@ of type jnxVpnIfVpnType transitions out of the 'down' state.</p><table>
     <event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnIfDown</event-label>
     <descr><![CDATA[
 <p>A jnxVpnIfDown notification is generated when the interface
-with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName 
+with index jnxVpnIfIndex belonging to the VPN named jnxVpnIfVpnName
 of type jnxVpnIfVpnType transitions to the 'down' state.</p><table>
 	<tr><td><b>
 
@@ -101,9 +101,9 @@ of type jnxVpnIfVpnType transitions to the 'down' state.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVpnIfDown trap received 
-			jnxVpnIfVpnType=%parm[#1]% 
-			jnxVpnIfVpnName=%parm[#2]% 
+			jnxVpnIfDown trap received
+			jnxVpnIfVpnType=%parm[#1]%
+			jnxVpnIfVpnName=%parm[#2]%
 			jnxVpnIfIndex=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -128,7 +128,7 @@ of type jnxVpnIfVpnType transitions to the 'down' state.</p><table>
     <event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnPwUp</event-label>
     <descr><![CDATA[
 <p>A jnxVpnPwUp notification is generated when the Pseudo-Wire
-with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName 
+with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName
 of type jnxVpnPwVpnType transitions out of the 'down' state.</p><table>
 	<tr><td><b>
 
@@ -155,9 +155,9 @@ of type jnxVpnPwVpnType transitions out of the 'down' state.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVpnPwUp trap received 
-			jnxVpnPwVpnType=%parm[#1]% 
-			jnxVpnPwVpnName=%parm[#2]% 
+			jnxVpnPwUp trap received
+			jnxVpnPwVpnType=%parm[#1]%
+			jnxVpnPwVpnName=%parm[#2]%
 			jnxVpnPwIndex=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -182,7 +182,7 @@ of type jnxVpnPwVpnType transitions out of the 'down' state.</p><table>
     <event-label>JUNIPER-VPN-MIB defined trap event: jnxVpnPwDown</event-label>
     <descr><![CDATA[
 <p>A jnxVpnPwDown notification is generated when the Pseudo-Wire
-with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName 
+with index jnxVpnPwIndex belonging to the VPN named jnxVpnPwVpnName
 of type jnxVpnPwVpnType transitions to the 'down' state.</p><table>
 	<tr><td><b>
 
@@ -209,9 +209,9 @@ of type jnxVpnPwVpnType transitions to the 'down' state.</p><table>
 	%parm[#3]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxVpnPwDown trap received 
-			jnxVpnPwVpnType=%parm[#1]% 
-			jnxVpnPwVpnName=%parm[#2]% 
+			jnxVpnPwDown trap received
+			jnxVpnPwVpnType=%parm[#1]%
+			jnxVpnPwVpnName=%parm[#2]%
 			jnxVpnPwIndex=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Major</severity>

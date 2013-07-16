@@ -98,10 +98,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxOtnAlarmSet trap received 
-			ifDescr=%parm[#1]% 
-			jnxOtnLastAlarmId=%parm[#2]% 
-			jnxOtnCurrentAlarms=%parm[#3]% 
+			jnxOtnAlarmSet trap received
+			ifDescr=%parm[#1]%
+			jnxOtnLastAlarmId=%parm[#2]%
+			jnxOtnCurrentAlarms=%parm[#3]%
 			jnxOtnLastAlarmDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Warning</severity>
@@ -204,10 +204,10 @@
 	%parm[#4]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxOtnAlarmCleared trap received 
-			ifDescr=%parm[#1]% 
-			jnxOtnLastAlarmId=%parm[#2]% 
-			jnxOtnCurrentAlarms=%parm[#3]% 
+			jnxOtnAlarmCleared trap received
+			ifDescr=%parm[#1]%
+			jnxOtnLastAlarmId=%parm[#2]%
+			jnxOtnCurrentAlarms=%parm[#3]%
 			jnxOtnLastAlarmDate=%parm[#4]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

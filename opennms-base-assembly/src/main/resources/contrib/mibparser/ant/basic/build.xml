@@ -23,7 +23,7 @@
 
   <target name="jar" depends="compile"
           description="Generates oreilly.jar in the 'dist' directory.">
-    <jar jarfile="${dir.dist}/oreilly.jar" 
+    <jar jarfile="${dir.dist}/oreilly.jar"
          basedir="${dir.build}"/>
   </target>
 </project>

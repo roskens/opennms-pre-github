@@ -37,10 +37,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnFMTrapIfChange trap received 
-			fnManSysSerial=%parm[#1]% 
-			fnManIfName=%parm[#2]% 
-			fnManIfIp=%parm[#3]% 
+			fnFMTrapIfChange trap received
+			fnManSysSerial=%parm[#1]%
+			fnManIfName=%parm[#2]%
+			fnManIfIp=%parm[#3]%
 			fnManIfMask=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -74,8 +74,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapCpuHigh trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapCpuHigh trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -109,8 +109,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapMemLow trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapMemLow trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -144,8 +144,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapLogFull trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapLogFull trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -179,8 +179,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapTempHigh trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapTempHigh trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -214,8 +214,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapVoltageOutOfRange trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapVoltageOutOfRange trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -249,8 +249,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapPowerSupplyFailure trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapPowerSupplyFailure trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -280,7 +280,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnFMTrapConfChange trap received 
+			fnFMTrapConfChange trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -320,9 +320,9 @@ changed&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapIpChange trap received 
-			fnSysSerial=%parm[#1]% 
-			sysName=%parm[#2]% 
+			fnTrapIpChange trap received
+			fnSysSerial=%parm[#1]%
+			sysName=%parm[#2]%
 			ifIndex=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -352,7 +352,7 @@ changed&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnFMTrapDeployComplete trap received 
+			fnFMTrapDeployComplete trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -382,7 +382,7 @@ changed&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnFMTrapDeployInProgress trap received 
+			fnFMTrapDeployInProgress trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -424,10 +424,10 @@ changed&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapVpnTunUp trap received 
-			fnSysSerial=%parm[#1]% 
-			sysName=%parm[#2]% 
-			fnVpnTrapLocalGateway=%parm[#3]% 
+			fnTrapVpnTunUp trap received
+			fnSysSerial=%parm[#1]%
+			sysName=%parm[#2]%
+			fnVpnTrapLocalGateway=%parm[#3]%
 			fnVpnTrapRemoteGateway=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -469,10 +469,10 @@ changed&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapVpnTunDown trap received 
-			fnSysSerial=%parm[#1]% 
-			sysName=%parm[#2]% 
-			fnVpnTrapLocalGateway=%parm[#3]% 
+			fnTrapVpnTunDown trap received
+			fnSysSerial=%parm[#1]%
+			sysName=%parm[#2]%
+			fnVpnTrapLocalGateway=%parm[#3]%
 			fnVpnTrapRemoteGateway=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -506,8 +506,8 @@ changed&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapHaSwitch trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapHaSwitch trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -538,7 +538,7 @@ member changes its state&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapHaStateChange trap received 
+			fnTrapHaStateChange trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -568,7 +568,7 @@ member changes its state&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapHaHBFail trap received 
+			fnTrapHaHBFail trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -598,7 +598,7 @@ member changes its state&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapHaMemberDown trap received 
+			fnTrapHaMemberDown trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -628,7 +628,7 @@ member changes its state&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapHaMemberUp trap received 
+			fnTrapHaMemberUp trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -659,7 +659,7 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapIdsSynFlood trap received 
+			fnTrapIdsSynFlood trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -690,7 +690,7 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapIdsPortScan trap received 
+			fnTrapIdsPortScan trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -732,10 +732,10 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapIpsSignature trap received 
-			fnSysSerial=%parm[#1]% 
-			sysName=%parm[#2]% 
-			fnIpsTrapSigId=%parm[#3]% 
+			fnTrapIpsSignature trap received
+			fnSysSerial=%parm[#1]%
+			sysName=%parm[#2]%
+			fnIpsTrapSigId=%parm[#3]%
 			fnIpsTrapSrcIp=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -777,10 +777,10 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapIpsAnomaly trap received 
-			fnSysSerial=%parm[#1]% 
-			sysName=%parm[#2]% 
-			fnIpsTrapSigId=%parm[#3]% 
+			fnTrapIpsAnomaly trap received
+			fnSysSerial=%parm[#1]%
+			sysName=%parm[#2]%
+			fnIpsTrapSigId=%parm[#3]%
 			fnIpsTrapSrcIp=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -814,8 +814,8 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapIpsPkgUpdate trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapIpsPkgUpdate trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -853,9 +853,9 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvVirus trap received 
-			fnSysSerial=%parm[#1]% 
-			sysName=%parm[#2]% 
+			fnTrapAvVirus trap received
+			fnSysSerial=%parm[#1]%
+			sysName=%parm[#2]%
 			fnAvTrapVirName=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -889,8 +889,8 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvOversize trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvOversize trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -924,8 +924,8 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvPattern trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvPattern trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -959,8 +959,8 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvFragmented trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvFragmented trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -994,8 +994,8 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvEnterConserve trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvEnterConserve trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1029,8 +1029,8 @@ is detected&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvBypass trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvBypass trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1065,8 +1065,8 @@ but has been passed due to configuration&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvOversizePass trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvOversizePass trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1101,8 +1101,8 @@ and has been blocked&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapAvOversizeBlock trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapAvOversizeBlock trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1137,8 +1137,8 @@ detecting a FortiGate failure&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapBridge trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapBridge trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1169,7 +1169,7 @@ white/black list table is full&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapImTableFull trap received 
+			fnTrapImTableFull trap received
 			fnSysSerial=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1201,7 +1201,7 @@ included in trap.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapFlgEventCount trap received 
+			fnTrapFlgEventCount trap received
 			fnGenTrapMsg=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1235,8 +1235,8 @@ included in trap.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fnTrapTest trap received 
-			fnSysSerial=%parm[#1]% 
+			fnTrapTest trap received
+			fnSysSerial=%parm[#1]%
 			sysName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

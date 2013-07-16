@@ -1,6 +1,6 @@
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
@@ -11,7 +11,7 @@
 
 	<bean id="endPointConfigResourceLocation" class="java.lang.String">
 		<constructor-arg value="file:${opennms.home}/etc/endpoint-configuration.xml" />
-	</bean>	
+	</bean>
 
 	<bean id="endPointConfigDao" class="org.opennms.netmgt.provision.adapters.link.endpoint.dao.DefaultEndPointConfigurationDao">
 		<property name="configResource" ref="endPointConfigResourceLocation" />

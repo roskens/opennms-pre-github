@@ -87,10 +87,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			APC-Best Power event: upsTrapUPSOnBattery trap received 
-			upsBatteryTimeOnBattery=%parm[#1]% 
-			upsBatteryRuntimeRemaining=%parm[#2]% 
-			upsConfigLowRuntimeSetpoint=%parm[#3]% 
+			APC-Best Power event: upsTrapUPSOnBattery trap received
+			upsBatteryTimeOnBattery=%parm[#1]%
+			upsBatteryRuntimeRemaining=%parm[#2]%
+			upsConfigLowRuntimeSetpoint=%parm[#3]%
 			upsBatteryVoltage=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -199,7 +199,7 @@ to 'sleep' and immediately cut power to the load.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			APC-Best Power event: upsTrapNearLowBattery trap received 
+			APC-Best Power event: upsTrapNearLowBattery trap received
 			upsBatteryVoltage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -230,7 +230,7 @@ value that is too high for safe battery maintenance.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			APC-Best Power event: upsTrapHighBattery trap received 
+			APC-Best Power event: upsTrapHighBattery trap received
 			upsBatteryVoltage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -287,7 +287,7 @@ put itself to sleep to prevent a complete discharge of the batteries.&lt;/p&gt;&
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			APC-Best Power event: upsTrapLowBattery trap received 
+			APC-Best Power event: upsTrapLowBattery trap received
 			upsBatteryVoltage=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>

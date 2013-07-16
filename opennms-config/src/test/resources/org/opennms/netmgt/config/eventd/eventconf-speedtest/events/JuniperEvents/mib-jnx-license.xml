@@ -27,7 +27,7 @@ feature identified by jnxLicenseFeatureName is expired</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLicenseGraceExpired trap received 
+			jnxLicenseGraceExpired trap received
 			jnxLicenseFeatureName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -58,7 +58,7 @@ feature identified by jnxLicenseFeatureName is about to expire</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLicenseGraceAboutToExpire trap received 
+			jnxLicenseGraceAboutToExpire trap received
 			jnxLicenseFeatureName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -89,7 +89,7 @@ feature identified by jnxLicenseFeatureName is about to expire</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLicenseAboutToExpire trap received 
+			jnxLicenseAboutToExpire trap received
 			jnxLicenseFeatureName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -121,7 +121,7 @@ as identified by jnxLicenseFeatureName</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLicenseInfringeCumulative trap received 
+			jnxLicenseInfringeCumulative trap received
 			jnxLicenseFeatureName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -153,7 +153,7 @@ not available.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxLicenseInfringeSingle trap received 
+			jnxLicenseInfringeSingle trap received
 			jnxLicenseFeatureName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

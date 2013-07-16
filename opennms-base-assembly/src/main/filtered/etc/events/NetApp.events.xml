@@ -602,7 +602,7 @@ repaired.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 &lt;p&gt;CPU utilization exceeds 90%.
 This trap is not enabled by default.
 To enable this trap set the registry
-entry options.monitor.cpu.enable to on. 
+entry options.monitor.cpu.enable to on.
 Note that as the threshold for this trap is
 checked once a minute it is possible to receive
 multiple instances of this trap in a short time.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
@@ -1349,7 +1349,7 @@ situation and requires an immediate response.&lt;/p&gt;&lt;table&gt;&lt;/table&g
 	<uei>uei.opennms.org/vendor/networkappliance/traps/appAlert</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: appAlert</event-label>
 	<descr>
-&lt;p&gt;The application is in a condition that should 
+&lt;p&gt;The application is in a condition that should
 be corrected immediately.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -1425,7 +1425,7 @@ be corrected immediately.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/appWarning</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: appWarning</event-label>
 	<descr>
-&lt;p&gt;The application is in a condition which is not an 
+&lt;p&gt;The application is in a condition which is not an
 error, but which may require special handling.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -1476,7 +1476,7 @@ error, but which may require special handling.&lt;/p&gt;&lt;table&gt;&lt;/table&
 	<uei>uei.opennms.org/vendor/networkappliance/traps/appInfo</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: appInfo</event-label>
 	<descr>
-&lt;p&gt;The application's message is meant for informational 
+&lt;p&gt;The application's message is meant for informational
 purposes.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -1579,7 +1579,7 @@ Notifying the user.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/alfFileNearlyFull</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: alfFileNearlyFull</event-label>
 	<descr>
-&lt;p&gt;The internal audit log file is nearly full. The file is going to 
+&lt;p&gt;The internal audit log file is nearly full. The file is going to
 wrap. Notifying the user&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2089,10 +2089,10 @@ to this message.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeRestrictedByMirrorBigIo</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeRestrictedByMirrorBigIo</event-label>
 	<descr>
-&lt;p&gt;A volume that experienced a medium error during reconstruction 
-is restricted and marked wafl-inconsistent, but starting 
-wafliron has failed. This trap is issued to alert operator 
-that a volume is not accessible and wafliron must be started 
+&lt;p&gt;A volume that experienced a medium error during reconstruction
+is restricted and marked wafl-inconsistent, but starting
+wafliron has failed. This trap is issued to alert operator
+that a volume is not accessible and wafliron must be started
 to allow access to it.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2118,7 +2118,7 @@ to allow access to it.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeInconsistentUmount</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeInconsistentUmount</event-label>
 	<descr>
-&lt;p&gt;This trap is issued when we unmount a volume due to an 
+&lt;p&gt;This trap is issued when we unmount a volume due to an
 inconsistency.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2144,8 +2144,8 @@ inconsistency.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeStateChanged</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeStateChanged</event-label>
 	<descr>
-&lt;p&gt;Volume is being taken offline or being restricted. 
-The string sent with trap specifies name of affected volume 
+&lt;p&gt;Volume is being taken offline or being restricted.
+The string sent with trap specifies name of affected volume
 and its state.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2171,7 +2171,7 @@ and its state.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeOnline</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeOnline</event-label>
 	<descr>
-&lt;p&gt;Volume is online now. The string sent with trap specifies 
+&lt;p&gt;Volume is online now. The string sent with trap specifies
 name of volume which is online now.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2197,7 +2197,7 @@ name of volume which is online now.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/rmcCardNeedsReplacement</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: rmcCardNeedsReplacement</event-label>
 	<descr>
-&lt;p&gt;Remote Management Controller card needs replacement. The trap 
+&lt;p&gt;Remote Management Controller card needs replacement. The trap
 includes a string specifying the reason for replacement&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2223,8 +2223,8 @@ includes a string specifying the reason for replacement&lt;/p&gt;&lt;table&gt;&l
 	<uei>uei.opennms.org/vendor/networkappliance/traps/rmcCardMissingCables</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: rmcCardMissingCables</event-label>
 	<descr>
-&lt;p&gt;Remote Management Controller card is missing its internal 
-cable, or LAN cable or power supply cable. The trap includes 
+&lt;p&gt;Remote Management Controller card is missing its internal
+cable, or LAN cable or power supply cable. The trap includes
 a string specifing the missing component.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2250,8 +2250,8 @@ a string specifing the missing component.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeRestrictedRootConflict</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeRestrictedRootConflict</event-label>
 	<descr>
-&lt;p&gt;Volume is restricted due to a root volume conflict. The 
-string sent with trap specifies name of conflicting volume 
+&lt;p&gt;Volume is restricted due to a root volume conflict. The
+string sent with trap specifies name of conflicting volume
 which is being restricted.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2277,9 +2277,9 @@ which is being restricted.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeOfflineTooBig</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeOfflineTooBig</event-label>
 	<descr>
-&lt;p&gt;Volume can not be brought online because its raw size is 
-larger than maximum allowed size. The string sent with trap 
-specifies name of affected volume and its raw size, and 
+&lt;p&gt;Volume can not be brought online because its raw size is
+larger than maximum allowed size. The string sent with trap
+specifies name of affected volume and its raw size, and
 maximum allowed size.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2305,8 +2305,8 @@ maximum allowed size.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeOffline</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeOffline</event-label>
 	<descr>
-&lt;p&gt;Volume is being taken offline. The string sent with trap 
-specifies name of affected volume and reason for being 
+&lt;p&gt;Volume is being taken offline. The string sent with trap
+specifies name of affected volume and reason for being
 taken offline.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2332,8 +2332,8 @@ taken offline.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeRestricted</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeRestricted</event-label>
 	<descr>
-&lt;p&gt;Volume is being restricted. The string sent with trap 
-specifies name of affected volume and reason for being 
+&lt;p&gt;Volume is being restricted. The string sent with trap
+specifies name of affected volume and reason for being
 restricted.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
@@ -2359,7 +2359,7 @@ restricted.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeDegradedDirty</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeDegradedDirty</event-label>
 	<descr>
-&lt;p&gt;Volume is degraded and has dirty parity. WAFL_check must be 
+&lt;p&gt;Volume is degraded and has dirty parity. WAFL_check must be
 run on this volume before it can be brought online. The string
 sent with trap specifies name of affected volume.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
@@ -2386,8 +2386,8 @@ sent with trap specifies name of affected volume.&lt;/p&gt;&lt;table&gt;&lt;/tab
 	<uei>uei.opennms.org/vendor/networkappliance/traps/volumeError</uei>
 	<event-label>NETWORK-APPLIANCE-MIB defined trap event: volumeError</event-label>
 	<descr>
-&lt;p&gt;This trap is issued when a volume can not be brought online 
-due to an error.  The string sent with trap specifies name of 
+&lt;p&gt;This trap is issued when a volume can not be brought online
+due to an error.  The string sent with trap specifies name of
 affected volume and error description.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;

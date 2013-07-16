@@ -105,14 +105,14 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <!-- 
+  <!--
        This project builds an OSS/J interface for OpenNMS.
        It is released with OpenNMS under the GPL liscence
        It uses code contributed by the University of Southampton
-       
+
        This project leverages the OSSbeans project.
        See http://sourceforge.net/projects/openoss
-       OSSbeans are released under the Apache-2 liscence by the 
+       OSSbeans are released under the Apache-2 liscence by the
        University of Southampton
     -->
   <build>
@@ -309,7 +309,7 @@
       <artifactId>stax-api</artifactId>
       <scope>compile</scope>
     </dependency>
-    <!-- 
+    <!--
       <dependency>
         <groupId>xmlbeans</groupId>
         <artifactId>xmlbeans-jsr173-api</artifactId>
@@ -398,7 +398,7 @@
         <artifactId>OSSbeans-xml</artifactId>
         <version>2.1.0</version>
       </dependency>
-      <!-- recommended to try stax api instead of jsr173 
+      <!-- recommended to try stax api instead of jsr173
            see: http://www.mail-archive.com/dev@xmlbeans.apache.org/msg00926.html -->
       <dependency>
         <groupId>stax</groupId>
@@ -410,14 +410,14 @@
         <artifactId>xbean</artifactId>
         <version>2.1.0</version>
       </dependency>
-      <!-- needs downloaded manually from bea site 
+      <!-- needs downloaded manually from bea site
            <dependency>
              <groupId>javax.xml</groupId>
              <artifactId>jsr173</artifactId>
              <version>1.0</version>
            </dependency>
            -->
-      <!-- needs downloaded manually from xmlbeans site 
+      <!-- needs downloaded manually from xmlbeans site
            <dependency>
              <groupId>xmlbeans</groupId>
              <artifactId>xmlbeans-jsr173-api</artifactId>

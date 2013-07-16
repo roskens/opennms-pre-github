@@ -36,7 +36,7 @@ conservation mode.&lt;/p&gt;&lt;table&gt;
         &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: resourceConservationMode trap received 
+                        IronPort Event: resourceConservationMode trap received
                         resourceConservationReason=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Cleared</severity>
@@ -73,7 +73,7 @@ conservation mode.&lt;/p&gt;&lt;table&gt;
         &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: resourceConservationMode trap received 
+                        IronPort Event: resourceConservationMode trap received
                         resourceConservationReason=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Major</severity>
@@ -113,7 +113,7 @@ powerSupplyStatusChange</event-label>
         &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: powerSupplyStatusChange trap received 
+                        IronPort Event: powerSupplyStatusChange trap received
                         powerSupplyStatus=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Cleared</severity>
@@ -149,7 +149,7 @@ powerSupplyStatusChange</event-label>
         &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: powerSupplyStatusChange trap received 
+                        IronPort Event: powerSupplyStatusChange trap received
                         powerSupplyStatus=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Minor</severity>
@@ -178,11 +178,11 @@ threshold.&lt;/p&gt;&lt;table&gt;
         &lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
         temperatureName&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
-       
+
 %parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: highTemperature trap received 
+                        IronPort Event: highTemperature trap received
                         temperatureName=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Minor</severity>
@@ -210,11 +210,11 @@ fanFailure</event-label>
         &lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
         fanName&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
-       
+
 %parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: fanFailure trap received 
+                        IronPort Event: fanFailure trap received
                         fanName=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Major</severity>
@@ -242,11 +242,11 @@ keyExpiration</event-label>
         &lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
         keyDescription&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
-       
+
 %parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: keyExpiration trap received 
+                        IronPort Event: keyExpiration trap received
                         keyDescription=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Minor</severity>
@@ -275,11 +275,11 @@ etc.)&lt;/p&gt;&lt;table&gt;
         &lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
         updateServiceName&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
-       
+
 %parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: updateFailure trap received 
+                        IronPort Event: updateFailure trap received
                         updateServiceName=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Minor</severity>
@@ -307,11 +307,11 @@ raidStatusChange</event-label>
         &lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
         raidID&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
-       
+
 %parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        IronPort Event: raidStatusChange trap received 
+                        IronPort Event: raidStatusChange trap received
                         raidID=%parm[#1]%&lt;/p&gt;
                 </logmsg>
         <severity>Major</severity>

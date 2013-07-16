@@ -13,7 +13,7 @@
   <property name="MAKEDEBUGPARSER" value="" />
   <!-- you can pass in a list of MIBS to testmibs task -->
   <property name="MIBS" value="" />
-  
+
   <!-- Creates the output directories -->
   <target name="prepare">
     <mkdir dir="${dir.build}"/>
@@ -30,20 +30,20 @@
   <!-- This always fails, so I have something wrong TBD-->
   <target name="checkjjtreeproperties" >
     <fail unless="env.JJTREE_EXE" >
-    
-    Set where jjtree is. 
-    ant -DJJTREE_EXE=fullpath/jjtree runjjtree 
+
+    Set where jjtree is.
+    ant -DJJTREE_EXE=fullpath/jjtree runjjtree
     </fail>
   </target>
-  
+
   <!-- this builds a file (from *.jjt to *.jj) for the parser generator -->
-  <target name="runjjtree" 
+  <target name="runjjtree"
           description="Remove all generated files."  >
     <echo message="Make sure you want the following jjtree:" />
     <echo message="  JJTREE_EXE=${JJTREE_EXE}" />
     <echo message="To set where jjtree is:" />
     <echo message="  ant -DJJTREE_EXE=/fullpath/jjtree runjjtree" />
-    
+
     <apply executable="${JJTREE_EXE}" parallel="false"
            dir="${dir.src}" output="${dir.log}/jjtree.log" >
         <fileset dir="${dir.src}" >
@@ -53,18 +53,18 @@
   </target>
 
   <!-- this is the parser generator -->
-  <target name="runjavacc" 
+  <target name="runjavacc"
           description="Remove all generated files."  >
     <echo message="Make sure you want the following JavaCC:" />
     <echo message="  JAVACC_EXE=${JAVACC_EXE}" />
     <echo message="To set where JavaCC is:" />
     <echo message="  ant -DJAVACC_EXE=/fullpath/JavaCC runjavacc" />
-    <echo> 
+    <echo>
         ant runjavacc
       To get lots of debug from the parser itself use
         ant -DMAKEDEBUGPARSER=-debug_parser runjavaccdebug
     </echo>
-    
+
     <apply executable="${JAVACC_EXE}" parallel="false"
            dir="${dir.src}" output="${dir.log}/javacc.log" >
         <fileset dir="${dir.src}" >
@@ -84,7 +84,7 @@
       To get lots of debug from the parser itself use
         ant -DMAKEDEBUGPARSER=-debug_parser runjavacc
     </echo>
-                                                                                                 
+
     <apply executable="${JAVACC_EXE}" parallel="false"
            dir="${dir.src}" output="${dir.log}/javacc.log" >
         <arg value="${MAKEDEBUGPARSER}" />
@@ -102,13 +102,13 @@
 
   <target name="jar" depends="compile"
           description="Generates mibparser.jar in the 'dist' directory.">
-    <jar jarfile="${dir.dist}/mibparser.jar" 
+    <jar jarfile="${dir.dist}/mibparser.jar"
          basedir="${dir.build}"/>
   </target>
-  
-  <target name="showversion" depends="jar" 
+
+  <target name="showversion" depends="jar"
           description="Parse some MIBs and output XML.">
-    <echo> 
+    <echo>
       Prints the version of the MIB parser
     </echo>
     <java dir="${dir.mibs}" classname="ParseMib" fork="true" >
@@ -118,13 +118,13 @@
     </java>
   </target>
 
-  <target name="test" depends="jar" 
+  <target name="test" depends="jar"
           description="Parse some MIBs and output XML.">
-    <echo> 
+    <echo>
       To get lots of debug use
         ant -DFLAGS=-debug test
     </echo>
-    <java dir="${dir.mibs}" classname="ParseMib" output="${dir.log}/test.xml" 
+    <java dir="${dir.mibs}" classname="ParseMib" output="${dir.log}/test.xml"
         fork="true" failonerror="true" >
         <arg value="${FLAGS}"/>
         <arg value="RFC1213-MIB"/>
@@ -137,19 +137,19 @@
 
   <!-- this provides a general facility to parse 1 or more MIBS
        by passing the full MIB path names in -DMIBS="A-MIB B-MIB C-MIB" -->
-  <target name="testmibs" depends="jar" 
+  <target name="testmibs" depends="jar"
           description="Parse some MIBs and output XML.">
-    <echo> 
+    <echo>
       To specifiy your MIBS use:
         ant -DMIBS="A-MIB B-MIB C-MIB" testmibs
         Full path to each MIB or just the file name if in mibs dir
-        
+
       To get lots of debug use
         ant -DMIBS="A-MIB B-MIB C-MIB" -DFLAGS=-debug testmibs
-        
+
       Parsing ${MIBS}
     </echo>
-    <java dir="${dir.mibs}" classname="ParseMib" output="${dir.log}/test.xml" 
+    <java dir="${dir.mibs}" classname="ParseMib" output="${dir.log}/test.xml"
         fork="true" failonerror="true" >
         <arg value="${FLAGS}"/>
         <arg line="${MIBS}"/>

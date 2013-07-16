@@ -83,9 +83,9 @@ of the Atlas 550.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;
 			adATLAS550ExtAlarmInactive trap received&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAS550ExtAlarmActive:%dpname%:%nodeid%:%interface%" />
 </event>
 <!-- End of auto generated data from MIB: ADTRAN-ATLAS-550-MIB -->
@@ -133,11 +133,11 @@ user-defined threshold value.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASHSSIV35IfceDeact trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASHSSIV35IfceDeact trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -187,17 +187,17 @@ manually reactivated it.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASHSSIV35IfceReact trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASHSSIV35IfceReact trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASHSSIV35IfceDeact:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <!-- End of auto generated data from MIB: ADTRAN-ATLAS-HSSI-V35-MIB -->
@@ -235,9 +235,9 @@ manually reactivated it.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASModuleOffline trap received 
-			adATLASModuleInfoIndex=%parm[#1]% 
-			adATLASModuleInfoFPStatus=%parm[#2]% 
+			adATLASModuleOffline trap received
+			adATLASModuleInfoIndex=%parm[#1]%
+			adATLASModuleInfoFPStatus=%parm[#2]%
 			adATLASUnitFPStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -276,15 +276,15 @@ manually reactivated it.&lt;/p&gt;&lt;table&gt;
 	%parm[#3]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASModuleOnline trap received 
-			adATLASModuleInfoIndex=%parm[#1]% 
-			adATLASModuleInfoFPStatus=%parm[#2]% 
+			adATLASModuleOnline trap received
+			adATLASModuleInfoIndex=%parm[#1]%
+			adATLASModuleInfoFPStatus=%parm[#2]%
 			adATLASUnitFPStatus=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASModuleOffline:%dpname%:%nodeid%:%interface%:%parm[#1]%" />
 </event>
 <event>
@@ -329,11 +329,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuBackupAttempt trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuBackupAttempt trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -380,11 +380,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuBackupAttemptFailed trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuBackupAttemptFailed trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -431,11 +431,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuBackupActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuBackupActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -482,17 +482,17 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuPrimaryRestored trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuPrimaryRestored trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASCbuBackupActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -536,11 +536,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuTestCallOriginated trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuTestCallOriginated trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -587,11 +587,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuTestCallConnected trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuTestCallConnected trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -638,11 +638,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuTestCallPassed trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuTestCallPassed trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -689,11 +689,11 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#5]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASCbuTestCallFailed trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
+			adATLASCbuTestCallFailed trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
 			adATLASUnitFPStatus=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -746,12 +746,12 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1RxYellowActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1RxYellowActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -802,18 +802,18 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1RxYellowInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1RxYellowInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAST1RxYellowActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -861,12 +861,12 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1RxAISActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1RxAISActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -917,18 +917,18 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1RxAISInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1RxAISInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAST1RxAISActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -976,12 +976,12 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1RedAlarmActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1RedAlarmActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1032,18 +1032,18 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1RedAlarmInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1RedAlarmInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAST1RedAlarmActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -1091,12 +1091,12 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1LOSActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1LOSActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1147,18 +1147,18 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1LOSInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1LOSInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAST1LOSActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -1206,12 +1206,12 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TxAISActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TxAISActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1262,18 +1262,18 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TxAISInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TxAISInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAST1TxAISActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -1321,12 +1321,12 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TxYellowActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TxYellowActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1377,18 +1377,18 @@ and is attempting a backup call.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TxYellowInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TxYellowInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLAST1TxYellowActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -1437,12 +1437,12 @@ threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentES trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentES trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1494,12 +1494,12 @@ threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentSES trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentSES trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1551,12 +1551,12 @@ framing second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentSEFS trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentSEFS trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1660,12 +1660,12 @@ second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentCSS trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentCSS trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1717,12 +1717,12 @@ threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentPCV trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentPCV trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1774,12 +1774,12 @@ second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentLES trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentLES trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1831,12 +1831,12 @@ violations threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1CurrentLCV trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1CurrentLCV trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1888,12 +1888,12 @@ threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalES trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalES trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1945,12 +1945,12 @@ threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalSES trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalSES trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2002,12 +2002,12 @@ framing second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalSEFS trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalSEFS trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2059,12 +2059,12 @@ second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalUAS trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalUAS trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2116,12 +2116,12 @@ second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalCSS trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalCSS trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2173,12 +2173,12 @@ threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalPCV trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalPCV trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2230,12 +2230,12 @@ second threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalLES trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalLES trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2287,12 +2287,12 @@ violations threshold has been exceeded.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLAST1TotalLCV trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLAST1TotalLCV trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			dsx1LineStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2330,8 +2330,8 @@ Circuit has switched to a backup state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASFrSwToBkup trap received 
-			frCircuitIfIndex=%parm[#1]% 
+			adATLASFrSwToBkup trap received
+			frCircuitIfIndex=%parm[#1]%
 			frCircuitDlci=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2367,14 +2367,14 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASFrSwToPrimary trap received 
-			frCircuitIfIndex=%parm[#1]% 
+			adATLASFrSwToPrimary trap received
+			frCircuitIfIndex=%parm[#1]%
 			frCircuitDlci=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASFrSwToBkup:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%" />
 </event>
 <!-- End of auto generated data from MIB: ADTRAN-ATLAS-UNIT-MIB -->
@@ -2424,12 +2424,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxSlipAlarmActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxSlipAlarmActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2480,18 +2480,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxSlipAlarmInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxSlipAlarmInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxSlipAlarmActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -2539,12 +2539,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxPLLAlarmActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxPLLAlarmActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2595,18 +2595,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxPLLAlarmInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxPLLAlarmInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxPLLAlarmActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -2654,12 +2654,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxZeroAlarmActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxZeroAlarmActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2710,18 +2710,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxZeroAlarmInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxZeroAlarmInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxZeroAlarmActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -2769,12 +2769,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxExtClkAlarmActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxExtClkAlarmActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -2825,18 +2825,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxExtClkAlarmInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxExtClkAlarmInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfAlarmStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxExtClkAlarmActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -2884,18 +2884,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxRTSActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxRTSActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxRTSInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -2943,12 +2943,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxRTSInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxRTSInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -2999,18 +2999,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxCTSActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxCTSActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxCTSInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3058,12 +3058,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxCTSInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxCTSInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3114,18 +3114,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxDTRActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxDTRActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxDTRInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3173,12 +3173,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxDTRInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxDTRInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3229,18 +3229,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxDSRActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxDSRActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxDSRInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3288,12 +3288,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxDSRInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxDSRInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3344,18 +3344,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxDCDActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxDCDActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxDCDInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3403,12 +3403,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxDCDInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxDCDInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3459,18 +3459,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxRIActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxRIActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxRIInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3518,12 +3518,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxRIInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxRIInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3574,18 +3574,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxTDActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxTDActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxTDInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3633,12 +3633,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxTDInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxTDInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3689,18 +3689,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxRDActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxRDActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxRDInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3748,12 +3748,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxRDInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxRDInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -3804,18 +3804,18 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxECActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxECActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" 
-                alarm-type="2" 
-                auto-clean="true" 
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%"
+                alarm-type="2"
+                auto-clean="true"
                 clear-key="uei.opennms.org/vendor/adtran/traps/adATLASV35NxECInActive:%dpname%:%nodeid%:%interface%:%parm[#1]%:%parm[#2]%:%parm[#3]%" />
 </event>
 <event>
@@ -3863,12 +3863,12 @@ Circuit has been restored to the primary state.&lt;/p&gt;&lt;table&gt;
 	%parm[#6]%&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			adATLASV35NxECInActive trap received 
-			ifIndex=%parm[#1]% 
-			adATLASUnitSlotAddress=%parm[#2]% 
-			adATLASUnitPortAddress=%parm[#3]% 
-			adATLASModuleInfoFPStatus=%parm[#4]% 
-			adATLASUnitFPStatus=%parm[#5]% 
+			adATLASV35NxECInActive trap received
+			ifIndex=%parm[#1]%
+			adATLASUnitSlotAddress=%parm[#2]%
+			adATLASUnitPortAddress=%parm[#3]%
+			adATLASModuleInfoFPStatus=%parm[#4]%
+			adATLASUnitFPStatus=%parm[#5]%
 			adATLASV35NxIfDTEStatus=%parm[#6]%&lt;/p&gt;
 		</logmsg>
 	<severity>Cleared</severity>

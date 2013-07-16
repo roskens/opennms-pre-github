@@ -18,7 +18,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComFddiSMTHoldCondition</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiSMTHoldCondition</event-label>
- <descr>&lt;p&gt;This event is generated when the Hold function 
+ <descr>&lt;p&gt;This event is generated when the Hold function
  assumes the state holding-prm or holding-sec. The current state is: %parm[#2]%, where
  1 indicates holding is not implemented, 2 indicates not holding, 3 indicates
  holding on primary and 4 indicates holding on secondary. The station ID is: %parm[#1]%.&lt;/p&gt;
@@ -51,7 +51,7 @@
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiSMTPeerWrapCondition</event-label>
  <descr>&lt;p&gt;This event is generated when the FDDI SMT Peer Wrap Flag is set.
  The current state is: %parm[#2]%, where 1 = isolated, 2 = local_a, 3 = local_b,
- 4 = local_ab, 5 = local_s, 6 = wrap_a, 7 = wrap_b, 8 = wrap_ab, 9 = wrap_s, 
+ 4 = local_ab, 5 = local_s, 6 = wrap_a, 7 = wrap_b, 8 = wrap_ab, 9 = wrap_s,
  10 = c_wrap_a, 11 = c_wrap_b, 12 = c_wrap_s, 13 = thru.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -84,7 +84,7 @@
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiMACDuplicateAddressCondition</event-label>
  <descr>&lt;p&gt;This event occurs when a duplicate MAC address is found
  by the SMT or the upstream neighbor. True = 1 and False = 2. The value
- for the SMT is: fddimibMACDaFlag=%parm[#4]%, and the upstream neighbor 
+ for the SMT is: fddimibMACDaFlag=%parm[#4]%, and the upstream neighbor
  is: fddimibMACDaFlag=%parm[#5]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -190,7 +190,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComFddiMACNeighborChangeEvent</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiMACNeighborChangeEvent</event-label>
- <descr>&lt;p&gt;This event is generated when a change in a MAC's upstream neighbor 
+ <descr>&lt;p&gt;This event is generated when a change in a MAC's upstream neighbor
  address or downstream neighbor address is detected.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -228,7 +228,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComFddiMACPathChangeEvent</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiMACPathChangeEvent</event-label>
- <descr>&lt;p&gt;This event is generated when the value of the  
+ <descr>&lt;p&gt;This event is generated when the value of the
  Current Path changes.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -298,7 +298,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComFddiPORTUndesiredConnAttemptEvent</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiPORTUndesiredConnAttemptEvent</event-label>
- <descr>&lt;p&gt;This event is generated when an undesired connection attempt has 
+ <descr>&lt;p&gt;This event is generated when an undesired connection attempt has
  been made.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -362,7 +362,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComFddiPORTPathChangeEvent</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-FDDI-MIB defined trap event: a3ComFddiPORTPathChangeEvent</event-label>
- <descr>&lt;p&gt;This event is generated when the value of the  
+ <descr>&lt;p&gt;This event is generated when the value of the
  FDDI Port Current Path changes.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -433,7 +433,7 @@
  <logmsg dest='logndisplay'>3Com Event: User has logged out of the AccessBuilder.&lt;/p&gt;</logmsg>
  <severity>Normal</severity>
 </event>
- 
+
 <event>
  <mask>
   <maskelement>
@@ -886,8 +886,8 @@
  ecsInfoPortIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsPortErrorState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
- &lt;/td&gt;&lt;td&gt;&lt;p;&gt;none(1) normal(2) hi-collision(3) partition(4) high-crc-errorrate(5) 
- high-alignment-errorrate(6) high-traffic-rate(7) high-jabber-errorrate(8) high-carriersense-errorrate(9) 
+ &lt;/td&gt;&lt;td&gt;&lt;p;&gt;none(1) normal(2) hi-collision(3) partition(4) high-crc-errorrate(5)
+ high-alignment-errorrate(6) high-traffic-rate(7) high-jabber-errorrate(8) high-carriersense-errorrate(9)
  unpartitioned(10) linkstatechange-up(11) linkstatechange-down(12) acknowledged(255)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A Port has changed state.&lt;/p&gt;</logmsg>
@@ -927,7 +927,7 @@
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsResLinkState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#6]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- invalid(1) operational(2) non-operational(3) switchlink(4) standby-jumperfault(5) main-absent(6) 
+ invalid(1) operational(2) non-operational(3) switchlink(4) standby-jumperfault(5) main-absent(6)
  standby-absent(7) main-failed(8) standby-failed(9) both-failed(10)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: The LinkBuilder ECS Resilient Link system has operated.&lt;/p&gt;</logmsg>
@@ -960,8 +960,8 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsPortErrorState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- none(1) normal(2) hi-collision(3) partition(4) high-crc-errorrate(5) high-alignment-errorrate(6) 
- high-traffic-rate(7) high-jabber-errorrate(8) high-carriersense-errorrate(9) unpartitioned(10) 
+ none(1) normal(2) hi-collision(3) partition(4) high-crc-errorrate(5) high-alignment-errorrate(6)
+ high-traffic-rate(7) high-jabber-errorrate(8) high-carriersense-errorrate(9) unpartitioned(10)
  linkstatechange-up(11) linkstatechange-down(12) acknowledged(255)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A threshold has been exceeded on a port.&lt;/p&gt;</logmsg>
@@ -1018,7 +1018,7 @@
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsAgentSecureManagementStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- enabled(1) disabled(2) secure-menu-entered(3) secure-password-violation(4) 
+ enabled(1) disabled(2) secure-menu-entered(3) secure-password-violation(4)
  secure-config-update(5)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: Security menus have been accessed.&lt;/p&gt;</logmsg>
@@ -1043,7 +1043,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/secureRLCportTrap</uei>
  <event-label>LBHUB-ECS-MIB defined trap event: secureRLCportTrap</event-label>
  <descr>&lt;p&gt;A secure port has either detected an authorised port and taken
- appropriate action or has learnt an authorised station on 
+ appropriate action or has learnt an authorised station on
  Slot %parm[#1]% and Port %parm[#2]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsSecRLCSlotIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1052,7 +1052,7 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsSecRLCPortState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- other(1) disabled(2) enabled(3) unauthorised-station-seen(4) unauthorised-station-port-disabled(5) 
+ other(1) disabled(2) enabled(3) unauthorised-station-seen(4) unauthorised-station-port-disabled(5)
  authorised-station-learnt(6)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ecsSecRLCMACAddress&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
@@ -1223,7 +1223,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lanStatusChanged</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: lanStatusChanged</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated LAN Port has 
+ <descr>&lt;p&gt;This trap indicates that the indicated LAN Port has
  changed statei to %parm[#2]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1288,7 +1288,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/puStatusChanged</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: puStatusChanged</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated PU has 
+ <descr>&lt;p&gt;This trap indicates that the indicated PU has
  changed state to %parm[#2]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1324,7 +1324,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/puConnectionStatusChanged</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: puConnectionStatusChanged</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated PU has 
+ <descr>&lt;p&gt;This trap indicates that the indicated PU has
  changed connection state to %parm[#2]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1356,7 +1356,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/netviewConnectionStatusChanged</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: netviewConnectionStatusChanged</event-label>
- <descr>&lt;p&gt;This trap indicates that the NetView PU has 
+ <descr>&lt;p&gt;This trap indicates that the NetView PU has
  changed connection statei to %parm[#2]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1388,7 +1388,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/netviewAltConnectionStatusChanged</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: netviewAltConnectionStatusChanged</event-label>
- <descr>&lt;p&gt;This trap indicates that the Alternate NetView PU has 
+ <descr>&lt;p&gt;This trap indicates that the Alternate NetView PU has
  changed connection state to %parm[#2]%.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1419,7 +1419,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/puConnectionStatusUp</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: puConnectionStatusUp</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated PU has 
+ <descr>&lt;p&gt;This trap indicates that the indicated PU has
  changed its connection state.  The connection had been established.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1449,7 +1449,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/puConnectionStatusDown</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: puConnectionStatusDown</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated PU has 
+ <descr>&lt;p&gt;This trap indicates that the indicated PU has
  changed connection state.  Its connection has been disconnected.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1481,7 +1481,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/netviewConnectionStatusUp</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: netviewConnectionStatusUp</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated NetView PU has 
+ <descr>&lt;p&gt;This trap indicates that the indicated NetView PU has
  changed connection state.  Its connection has been established.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1507,7 +1507,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/netviewConnectionStatusDown</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: netviewConnectionStatusDown</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated NetView PU has 
+ <descr>&lt;p&gt;This trap indicates that the indicated NetView PU has
  changed connection state.  Its connection had been disconnected.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1535,8 +1535,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/netviewAltConnectionStatusUp</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: netviewAltConnectionStatusUp</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated Alternate  
- NetView PU has changed connection state.  Its connection has been 
+ <descr>&lt;p&gt;This trap indicates that the indicated Alternate
+ NetView PU has changed connection state.  Its connection has been
  established.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1562,8 +1562,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/netviewAltConnectionStatusDown</uei>
  <event-label>SYNC-RESEARCH-MIB defined trap event: netviewAltConnectionStatusDown</event-label>
- <descr>&lt;p&gt;This trap indicates that the indicated Alternate 
- NetView PU has changed connection state.  Its connection had been 
+ <descr>&lt;p&gt;This trap indicates that the indicated Alternate
+ NetView PU has changed connection state.  Its connection had been
  disconnected.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lastTrapSeqNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1645,7 +1645,7 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  sdlcLSOperLastFailCause&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#6]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- undefined(1) rxFRMR(2) txFRMR(3) noResponse(4) protocolErr(5) noActivity(6) rnrLimit(7) 
+ undefined(1) rxFRMR(2) txFRMR(3) noResponse(4) protocolErr(5) noActivity(6) rnrLimit(7)
  retriesExpired(8)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  sdlcLSOperLastFailFRMRInfo&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#7]%
@@ -1679,8 +1679,8 @@
  <uei>uei.opennms.org/vendor/3Com/traps/secureAddressLearned</uei>
  <event-label>SECURITY-MIB defined trap event: secureAddressLearned</event-label>
  <descr>&lt;p&gt;This trap is sent when a new station has been learned.
- The slot and port on which the address was 
- received are in the first and second index of secureAddrRowStatus, and the 
+ The slot and port on which the address was
+ received are in the first and second index of secureAddrRowStatus, and the
  MAC address of the learned station is in the third index.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  secureAddrRowStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1708,9 +1708,9 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/secureViolation</uei>
  <event-label>SECURITY-MIB defined trap event: secureViolation</event-label>
- <descr>&lt;p&gt;This trap is sent whenever a security violation has occurred. 
- The slot and port on which the 
- violation occurred are in the first and second index of secureAddrRowStatus, and the MAC address of the offending 
+ <descr>&lt;p&gt;This trap is sent whenever a security violation has occurred.
+ The slot and port on which the
+ violation occurred are in the first and second index of secureAddrRowStatus, and the MAC address of the offending
  station is in the third index. mrmPortAdminStatus indicates if the port has been disabled because of the violation.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  secureAddrRowStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -1768,11 +1768,11 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComPollResponseReceived</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-POLL-MIB defined trap event: a3ComPollResponseReceived</event-label>
- <descr>&lt;p&gt;This trap is generated when the PollTable in the managed agent  
- receives replies to a poll after a sequence of unsuccessful polls.  
+ <descr>&lt;p&gt;This trap is generated when the PollTable in the managed agent
+ receives replies to a poll after a sequence of unsuccessful polls.
  The address of the device polled: %parm[#1]%,
- the type of the address above: %parm[#2]%, 
- the number of replies before this trap was triggered: %parm[#3]%, 
+ the type of the address above: %parm[#2]%,
+ the number of replies before this trap was triggered: %parm[#3]%,
  the rate at which device is being polled: %parm[#4]%,
  the total number of frames sent: %parm[#5]%, and
  the total number of frames received: %parm[#6]%.&lt;/p&gt;
@@ -1812,8 +1812,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComPollResponseNotReceived</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-POLL-MIB defined trap event: a3ComPollResponseNotReceived</event-label>
- <descr>&lt;p&gt;This trap is generated when the PollTable in the managed agent  
- receives no replies to a poll after a sequence of successful polls.  
+ <descr>&lt;p&gt;This trap is generated when the PollTable in the managed agent
+ receives no replies to a poll after a sequence of successful polls.
  The address of the device polled: %parm[#1]%,
  the type of the address above: %parm[#2]%,
  the number of replies before this trap was triggered: %parm[#3]%,
@@ -1890,7 +1890,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComSysBridgeAddressThresholdEvent</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-BRIDGE-MIB defined trap event: a3ComSysBridgeAddressThresholdEvent</event-label>
- <descr>&lt;p&gt;The trap that is generated when the number of addresses 
+ <descr>&lt;p&gt;The trap that is generated when the number of addresses
  stored in the bridge reaches its threshold.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  a3ComSysBridgeIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -2180,7 +2180,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/a3ComSysModuleCardSysOverTemperatureEvent</uei>
  <event-label>A3COM-SWITCHING-SYSTEMS-MIB defined trap event: a3ComSysModuleCardSysOverTemperatureEvent</event-label>
- <descr>&lt;p&gt;This trap is generated when the temperature of 
+ <descr>&lt;p&gt;This trap is generated when the temperature of
  the system exceeds a certain threshold.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  a3ComSysModuleCardInfoIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -2191,8 +2191,8 @@
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  a3ComSysModuleCardInfoGenericType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- backplaneOrMotherboard(1) processorBoard(2) enet10-100MbAdapter(3) adapterCard-1Port(4) adapterCard-0Port(7) 
- adapterCard-3Port(8) mezzanine-1Port(9) mezzanine-2Port(10) mezzanine-1-2Port(11) mezzanine-3Port(12) 
+ backplaneOrMotherboard(1) processorBoard(2) enet10-100MbAdapter(3) adapterCard-1Port(4) adapterCard-0Port(7)
+ adapterCard-3Port(8) mezzanine-1Port(9) mezzanine-2Port(10) mezzanine-1-2Port(11) mezzanine-3Port(12)
  systemDaughterCard-9Port(13)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: System has exceeded temperature.&lt;/p&gt;</logmsg>
@@ -2223,21 +2223,21 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  a3ComSysModuleCardInfoFamily&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- coreBuilder3500(1) superStack3900-24(2) superStack3900-36(3) superStack3900-DT(4) superStack9300(5) 
+ coreBuilder3500(1) superStack3900-24(2) superStack3900-36(3) superStack3900-DT(4) superStack9300(5)
  coreBuilder9400(6)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  a3ComSysModuleCardInfoGenericType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- backplaneOrMotherboard(1) processorBoard(2) enet10-100MbAdapter(3) adapterCard-1Port(4) adapterCard-0Port(7) 
- adapterCard-3Port(8) mezzanine-1Port(9) mezzanine-2Port(10) mezzanine-1-2Port(11) mezzanine-3Port(12) 
+ backplaneOrMotherboard(1) processorBoard(2) enet10-100MbAdapter(3) adapterCard-1Port(4) adapterCard-0Port(7)
+ adapterCard-3Port(8) mezzanine-1Port(9) mezzanine-2Port(10) mezzanine-1-2Port(11) mezzanine-3Port(12)
  systemDaughterCard-9Port(13)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  a3ComSysModuleCardInfoSpecificType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- nonApplicable(1) atmOC3MultiModeFiberSC(161) atmOC123MultiModeFiberSC(162) atmOC3SingleModeFiberSC(165) 
- atmOC12SingleModeFiberSC(166) atmNoMedia(167) enet1000BaseSXMultiModeFiberSC(177) enet1000BaseLXSingleModeFiberSC(178) 
- enet1000BaseCXHSSDC(179) enetGBIC(181) enet1000BaseSxMMFand1000BaseLxSMFSC(182) enet10BaseTxRJ45(209) 
- enet10or100BaseTxRJ45(225) enet100BaseFXMultiModeFiberSC(227) enet100BaseFXSingleModeFiberSC(228) 
+ nonApplicable(1) atmOC3MultiModeFiberSC(161) atmOC123MultiModeFiberSC(162) atmOC3SingleModeFiberSC(165)
+ atmOC12SingleModeFiberSC(166) atmNoMedia(167) enet1000BaseSXMultiModeFiberSC(177) enet1000BaseLXSingleModeFiberSC(178)
+ enet1000BaseCXHSSDC(179) enetGBIC(181) enet1000BaseSxMMFand1000BaseLxSMFSC(182) enet10BaseTxRJ45(209)
+ enet10or100BaseTxRJ45(225) enet100BaseFXMultiModeFiberSC(227) enet100BaseFXSingleModeFiberSC(228)
  fddiMultiModeFiberSC(241) fddiSingleModeFiberSC(242)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A board has been inserted.&lt;/p&gt;</logmsg>
@@ -2315,7 +2315,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/chipSlotDown</uei>
  <event-label>CHIPCOMMIB defined trap event: chipSlotDown</event-label>
  <descr>&lt;p&gt;A chipSlotDown trap indicates that management communications
- with slot %parm[#1]% has been 
+ with slot %parm[#1]% has been
  broken.  This event usually occurs when a module has been
  physically removed from the concentrator.  However, it
  is possible for this event to occur when the particular
@@ -2354,12 +2354,12 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olModType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- module-unmanageable(1) module-unknown(2) module-50nnM-CTL(3) module-51nnM-MGT(4) module-51nnM-FIB(5) 
- module-51nnM-UTP(6) module-51nnM-TP(7) module-51nnM-BNC(8) module-51nnB-EE(9) module-51nnR-ES(10) 
- module-51nnR-EE(11) module-51nnM-AUIF(12) module-51nnM-AUIM(13) module-5208M-TP(14) module-51nnM-FP(15) 
- module-51nnM-FBP(16) module-51nnM-TPL(17) module-51nnM-TPPL(18) module-52nnM-TP(19) module-52nnM-FR(20) 
- module-51nnM-TS(21) module-51nnM-FL(22) module-50nnM-RCTL(23) module-51nnM-FB(24) module-53nnM-MGT(25) 
- module-53nnM-FIBLC(26) module-53nnM-FIBST(27) module-53nnM-STP(28) module-51nnM-TPCL(29) module-52nnB-TT(30) 
+ module-unmanageable(1) module-unknown(2) module-50nnM-CTL(3) module-51nnM-MGT(4) module-51nnM-FIB(5)
+ module-51nnM-UTP(6) module-51nnM-TP(7) module-51nnM-BNC(8) module-51nnB-EE(9) module-51nnR-ES(10)
+ module-51nnR-EE(11) module-51nnM-AUIF(12) module-51nnM-AUIM(13) module-5208M-TP(14) module-51nnM-FP(15)
+ module-51nnM-FBP(16) module-51nnM-TPL(17) module-51nnM-TPPL(18) module-52nnM-TP(19) module-52nnM-FR(20)
+ module-51nnM-TS(21) module-51nnM-FL(22) module-50nnM-RCTL(23) module-51nnM-FB(24) module-53nnM-MGT(25)
+ module-53nnM-FIBLC(26) module-53nnM-FIBST(27) module-53nnM-STP(28) module-51nnM-TPCL(29) module-52nnB-TT(30)
  module-52nnM-MGT(32) module-50nnM-HCTL(33)&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: Communication gained with slot.%&lt;/p&gt;</logmsg>
  <severity>Normal</severity>
@@ -2382,7 +2382,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/chipEnvironment</uei>
  <event-label>CHIPCOMMIB defined trap event: chipEnvironment</event-label>
- <descr>&lt;p&gt;A chipEnvironment trap indicates a change in the 
+ <descr>&lt;p&gt;A chipEnvironment trap indicates a change in the
  concentrator's environment has occurred.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;</descr>
 <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: An environment change has occurred.&lt;/p&gt;</logmsg>
  <severity>Warning</severity>
@@ -2477,7 +2477,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/chipFatal</uei>
  <event-label>CHIPCOMMIB defined trap event: chipFatal</event-label>
- <descr>&lt;p&gt;A chipFatal trap is used to indicate that a fatal 
+ <descr>&lt;p&gt;A chipFatal trap is used to indicate that a fatal
  error has occurred.  This is an indication to get
  the unit serviced.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: Fatal Error has occurred.&lt;/p&gt;</logmsg>
@@ -2515,7 +2515,7 @@
  enabled(1) disabled(2)&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olTrunkStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- okay(1) linkFailure(2) fatalError(10) noCable(13) noSquelch(14) lostLock(16) upstreamNeighborLost(17) 
+ okay(1) linkFailure(2) fatalError(10) noCable(13) noSquelch(14) lostLock(16) upstreamNeighborLost(17)
  invalidConfig(18)&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A Trunk has experienced an error.&lt;/p&gt;</logmsg>
  <severity>Warning</severity>
@@ -2551,7 +2551,7 @@
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olTrunkStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- okay(1) linkFailure(2) fatalError(10) noCable(13) noSquelch(14) lostLock(16) upstreamNeighborLost(17) 
+ okay(1) linkFailure(2) fatalError(10) noCable(13) noSquelch(14) lostLock(16) upstreamNeighborLost(17)
  invalidConfig(18)&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A Trunk has returned to normal operation.&lt;/p&gt;</logmsg>
  <severity>Normal</severity>
@@ -2584,13 +2584,13 @@
  olPortIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olPortAdminState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
- &lt;/td&gt;&lt;td&gt;&lt;p;&gt;enabled(1) disabled(2) redundant-primary(3) redundant-backup(4) 
+ &lt;/td&gt;&lt;td&gt;&lt;p;&gt;enabled(1) disabled(2) redundant-primary(3) redundant-backup(4)
  redundant-rfs(5) local(6) remote(7) remote-diagnostics(8) unknown(9)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olPortStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
- &lt;/td&gt;&lt;td&gt;&lt;p;&gt;okay(1) linkFailure(2) jabber(3) remoteLinkFailure(4) remoteJabber(5) 
- invalidData(6) lowLight(7) fifoOverrun(8) fifoUnderrun(9) fatalError(10) partition(11) mjlp(12) 
- noCable(13) noSquelch(14) noPhantom(15) okay-standby(19) off(22) connecting(23) backup-link(24) 
+ &lt;/td&gt;&lt;td&gt;&lt;p;&gt;okay(1) linkFailure(2) jabber(3) remoteLinkFailure(4) remoteJabber(5)
+ invalidData(6) lowLight(7) fifoOverrun(8) fifoUnderrun(9) fatalError(10) partition(11) mjlp(12)
+ noCable(13) noSquelch(14) noPhantom(15) okay-standby(19) off(22) connecting(23) backup-link(24)
  security-breach(25) beacon(27) wireFault(28) macRemoved(29) notInserted(30) speedMismatch(31)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A Port is experiencing an error condition.&lt;/p&gt;</logmsg>
@@ -2622,14 +2622,14 @@
  olPortIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olPortAdminState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#3]%
- &lt;/td&gt;&lt;td&gt;&lt;p;&gt;enabled(1) disabled(2) redundant-primary(3) redundant-backup(4) 
+ &lt;/td&gt;&lt;td&gt;&lt;p;&gt;enabled(1) disabled(2) redundant-primary(3) redundant-backup(4)
  redundant-rfs(5) local(6) remote(7) remote-diagnostics(8) unknown(9)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  olPortStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- okay(1) linkFailure(2) jabber(3) remoteLinkFailure(4) remoteJabber(5) invalidData(6) lowLight(7) fifoOverrun(8) 
- fifoUnderrun(9) fatalError(10) partition(11) mjlp(12) noCable(13) noSquelch(14) noPhantom(15) okay-standby(19) 
- off(22) connecting(23) backup-link(24) security-breach(25) beacon(27) wireFault(28) macRemoved(29) notInserted(30) 
+ okay(1) linkFailure(2) jabber(3) remoteLinkFailure(4) remoteJabber(5) invalidData(6) lowLight(7) fifoOverrun(8)
+ fifoUnderrun(9) fatalError(10) partition(11) mjlp(12) noCable(13) noSquelch(14) noPhantom(15) okay-standby(19)
+ off(22) connecting(23) backup-link(24) security-breach(25) beacon(27) wireFault(28) macRemoved(29) notInserted(30)
  speedMismatch(31)&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A Port has returned to normal operation.&lt;/p&gt;</logmsg>
  <severity>Normal</severity>
@@ -2685,7 +2685,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/chipAboveThreshold</uei>
  <event-label>CHIPCOMMIB defined trap event: chipAboveThreshold</event-label>
- <descr>&lt;p&gt;This trap indicates that a variable 
+ <descr>&lt;p&gt;This trap indicates that a variable
 	that is being thresholded as specified by an entry in
 	olThreshTable has exceeded its threshold.
 	Another chipAboveThreshold trap will not be sent until
@@ -2729,8 +2729,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/chipBelowThreshold</uei>
  <event-label>CHIPCOMMIB defined trap event: chipBelowThreshold</event-label>
- <descr>&lt;p&gt;A chipBelowThreshold trap indicates that a Counter or 
- Gauge variable had exceeded its threshold but is now 
+ <descr>&lt;p&gt;A chipBelowThreshold trap indicates that a Counter or
+ Gauge variable had exceeded its threshold but is now
  below its threshold.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;</descr>
 <logmsg dest='logndisplay'>&lt;p&gt;3com Event: A gauge variable is now below threshold.&lt;/p&gt;</logmsg>
  <severity>Normal</severity>
@@ -3511,9 +3511,9 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/localManagementUpdate</uei>
  <event-label>PRODUCTMIB defined trap event: localManagementUpdate</event-label>
- <descr>&lt;p&gt;A local management update trap indicates that  
+ <descr>&lt;p&gt;A local management update trap indicates that
  the configuration of the device has been modified
- via the ascii agent. This may be through Telnet or 
+ via the ascii agent. This may be through Telnet or
  the V24 port.&lt;/p&gt;
  &lt;table&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: Device configuration has changed.&lt;/p&gt;</logmsg>
@@ -3545,9 +3545,9 @@
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  ascLoginStatus&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- loginOKFromTelnet(1) loginOKFromSerialPort(2) deniedAccessFromTelnet(3) deniedAccessFromSerialPort(4) 
- unknownUserFromTelnet(5) unknownUserFromSerialPort(6) incorrectPasswordFromTelnet(7) 
- incorrectPasswordFromSerialPort(8) securityViolationFromTelnet(9) securityViolationFromSerialPort(10) 
+ loginOKFromTelnet(1) loginOKFromSerialPort(2) deniedAccessFromTelnet(3) deniedAccessFromSerialPort(4)
+ unknownUserFromTelnet(5) unknownUserFromSerialPort(6) incorrectPasswordFromTelnet(7)
+ incorrectPasswordFromSerialPort(8) securityViolationFromTelnet(9) securityViolationFromSerialPort(10)
  nologin(11)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: Three login failures received on device.&lt;/p&gt;</logmsg>
@@ -4118,7 +4118,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/pollTableSuccessTrap</uei>
  <event-label>PRODUCTMIB defined trap event: pollTableSuccessTrap</event-label>
  <descr>&lt;p&gt;This trap is generated when the PollTable in the
- managed agent receives a reply to a poll after a 
+ managed agent receives a reply to a poll after a
  sequence of four or more un-successful polls.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  pollAddress&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -4187,7 +4187,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/powerStackBackupFault</uei>
  <event-label>PRODUCTMIB defined trap event: powerStackBackupFault</event-label>
- <descr>&lt;p&gt;This trap indicates that a Resilient Backup Power Supply 
+ <descr>&lt;p&gt;This trap indicates that a Resilient Backup Power Supply
  connected to this repeater has developed a fault. This fault has
  not stopped the RBS from functioning e.g. fan failed, unit
  overheating, or unit has switched to resilient power supply.&lt;/p&gt;
@@ -4213,7 +4213,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/powerStackBackupRecovered</uei>
  <event-label>PRODUCTMIB defined trap event: powerStackBackupRecovered</event-label>
- <descr>&lt;p&gt;This trap indicates that a Resilient Backup Power Supply 
+ <descr>&lt;p&gt;This trap indicates that a Resilient Backup Power Supply
  connected to this repeater has recovered from an outstanding
  fault.&lt;/p&gt;
  &lt;table&gt;&lt;/table&gt;</descr>
@@ -4496,7 +4496,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/lpBridgeAddressThresholdEvent</uei>
  <event-label>LANPLEX-MIB-1-2-9 defined trap event: lpBridgeAddressThresholdEvent</event-label>
  <descr>&lt;p&gt;The SNMP trap that is generated when the number of
- addresses stored in the bridge reaches 
+ addresses stored in the bridge reaches
  lpBridgeAddressThreshold.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lpBridgeIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -4524,7 +4524,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lpSystemOverTemperatureEvent</uei>
  <event-label>LANPLEX-MIB-1-2-9 defined trap event: lpSystemOverTemperatureEvent</event-label>
- <descr>&lt;p&gt;The SNMP trap that is generated when the system 
+ <descr>&lt;p&gt;The SNMP trap that is generated when the system
  temperature exceeds a certain threshold.&lt;/p&gt;&lt;table&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: System temperature has reached threshold.&lt;/p&gt;</logmsg>
  <severity>Minor</severity>
@@ -4736,9 +4736,9 @@
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  phyServiceType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- dumb8023Repeater(1) ieee8023Repeater(2) ieee8025MauModule(3) ieee8025Ringbuilder(4) fddiConcentrator(5) 
- managementModule(6) standardBackplane(12) extendedBackplane(13) displayPanel(14) fan(17) powerSupply(18) 
- standardBridge(19) bridgePerPort(20) terminalServer(21) remoteBridge(22) fddiMIC(23) notAllocated(24) 
+ dumb8023Repeater(1) ieee8023Repeater(2) ieee8025MauModule(3) ieee8025Ringbuilder(4) fddiConcentrator(5)
+ managementModule(6) standardBackplane(12) extendedBackplane(13) displayPanel(14) fan(17) powerSupply(18)
+ standardBridge(19) bridgePerPort(20) terminalServer(21) remoteBridge(22) fddiMIC(23) notAllocated(24)
  fddiLinkSwitch(25)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  phyEntityType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#2]%
@@ -4841,7 +4841,7 @@
  sent, regardless of how the card addition occurred. There are two situations
  in which a card is added to a service. The first is where a new card is
  inserted and is attached to a service. The second is where an existing card
- is removed from one service and added to another. 
+ is removed from one service and added to another.
  &lt;/p&gt;&lt;p&gt;
  Note that the transmission of this trap may imply the creation of a new
  service.&lt;/p&gt;
@@ -5025,7 +5025,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/mrmStationLearnTrap</uei>
  <event-label>LBHUB-MSH-MIB defined trap event: mrmStationLearnTrap</event-label>
  <descr>&lt;p&gt;
- This trap indicates that this port has autolearnt 
+ This trap indicates that this port has autolearnt
  an end station address.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  mrmSecLearnMode&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5056,7 +5056,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/mrmSecurityTrap</uei>
  <event-label>LBHUB-MSH-MIB defined trap event: mrmSecurityTrap</event-label>
  <descr>&lt;p&gt;
- This trap indicates that this port has detected a 
+ This trap indicates that this port has detected a
  security violation.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  mrmSecPortState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5281,7 +5281,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/rbMauPortStateChange</uei>
  <event-label>LBHUB-MSH-MIB defined trap event: rbMauPortStateChange</event-label>
- <descr>&lt;p&gt;This trap is sent if the MAU port changes state 
+ <descr>&lt;p&gt;This trap is sent if the MAU port changes state
  due to operation of ZDL or DRI.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  rbMauPortAdminState&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5344,7 +5344,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lbOptSMTPeerWrapCondition</uei>
  <event-label>LINKB-OPT-FDDI-MIB-1-1-2 defined trap event: lbOptSMTPeerWrapCondition</event-label>
- <descr>&lt;p&gt;This condition is active when fddiSMTPeerWrapFlag 
+ <descr>&lt;p&gt;This condition is active when fddiSMTPeerWrapFlag
  (fddimibSMTPeerWrapFlag) is set.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5513,7 +5513,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lbOptMACPathChangeEvent</uei>
  <event-label>LINKB-OPT-FDDI-MIB-1-1-2 defined trap event: lbOptMACPathChangeEvent</event-label>
- <descr>&lt;p&gt;This event is generated when the value of the 
+ <descr>&lt;p&gt;This event is generated when the value of the
  FDDI MAC Current Path changes.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5644,7 +5644,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lbOptPORTPathChangeEvent</uei>
  <event-label>LINKB-OPT-FDDI-MIB-1-1-2 defined trap event: lbOptPORTPathChangeEvent</event-label>
- <descr>&lt;p&gt;This event is generated when the value of the 
+ <descr>&lt;p&gt;This event is generated when the value of the
  FDDI Port Current Path changes.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5681,8 +5681,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lbSlotInsertEvent</uei>
  <event-label>LB3GH-1-0-7 defined trap event: lbSlotInsertEvent</event-label>
- <descr>&lt;p&gt;The SNMP trap that is generated when a 
- board is inserted into a particular 
+ <descr>&lt;p&gt;The SNMP trap that is generated when a
+ board is inserted into a particular
  slot in the chassis.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lbSlotIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5714,8 +5714,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lbSlotExtractEvent</uei>
  <event-label>LB3GH-1-0-7 defined trap event: lbSlotExtractEvent</event-label>
- <descr>&lt;p&gt;The SNMP trap that is generated when a 
- board is extracted from a particular 
+ <descr>&lt;p&gt;The SNMP trap that is generated when a
+ board is extracted from a particular
  slot in the chassis.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lbSlotIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5742,7 +5742,7 @@
  <uei>uei.opennms.org/vendor/3Com/traps/lbBridgeAddressThresholdEvent</uei>
  <event-label>LB3GH-1-0-7 defined trap event: lbBridgeAddressThresholdEvent</event-label>
  <descr>&lt;p&gt;The SNMP trap that is generated when the number of
- addresses stored in the bridge reaches 
+ addresses stored in the bridge reaches
  lbBridgeAddressThreshold.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  lbBridgeIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -5770,7 +5770,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lbSystemOverTemperatureEvent</uei>
  <event-label>LB3GH-1-0-7 defined trap event: lbSystemOverTemperatureEvent</event-label>
- <descr>&lt;p&gt;The SNMP trap that is generated when the system 
+ <descr>&lt;p&gt;The SNMP trap that is generated when the system
  temperature exceeds a certain threshold.&lt;/p&gt;
  &lt;table&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: Device temperature has reached threshold.&lt;/p&gt;</logmsg>
@@ -5865,7 +5865,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/swSysFddiSMTHoldCondition</uei>
  <event-label>LANPLEX-OPT-FDDI-MIB-1-2-2 defined trap event: swSysFddiSMTHoldCondition</event-label>
- <descr>&lt;p&gt;Generated when the FDDI SMT Hold State changes to 
+ <descr>&lt;p&gt;Generated when the FDDI SMT Hold State changes to
  holding-prm or holding-sec.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  fddimibSMTStationId&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6277,7 +6277,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/swModuleCardSysOverTemperatureEvent</uei>
  <event-label>SWITCHING-SYSTEMS-MIB defined trap event: swModuleCardSysOverTemperatureEvent</event-label>
- <descr>&lt;p&gt;The trap that is generated when the temperature of 
+ <descr>&lt;p&gt;The trap that is generated when the temperature of
  the system exceeds a certain threshold.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swSysModuleCardInfoIndex&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6326,9 +6326,9 @@
  &lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  swSysModuleCardInfoSpecificType&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#4]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;
- notApplicable(1) atmSonetOC3Fiber(161) atmSonetOC12Fiber(162) atmSonetOC3Copper(163) atmSonetOC12Copper(164) 
- enet1Gb850nMMultimodeFiber(177) enet1Gb1300nMFiber(178) enet1GbCoax(179) enet1Gb1000BaseTx(180) 
- enet100Mb100BaseTx(225) enet100Mb100BaseT2(226) enet100Mb100BaseFx(227) enet100Mb100BaseT4(228) 
+ notApplicable(1) atmSonetOC3Fiber(161) atmSonetOC12Fiber(162) atmSonetOC3Copper(163) atmSonetOC12Copper(164)
+ enet1Gb850nMMultimodeFiber(177) enet1Gb1300nMFiber(178) enet1GbCoax(179) enet1Gb1000BaseTx(180)
+ enet100Mb100BaseTx(225) enet100Mb100BaseT2(226) enet100Mb100BaseFx(227) enet100Mb100BaseT4(228)
  enet100Mb100BaseTxSTP(229) fddiMultimodeSC(241) fddiSingleModeSC(242) fddiCopperUTP(243) fddiCopperSTP(244)&lt;/p&gt;
  &lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;</descr>
  <logmsg dest='logndisplay'>&lt;p&gt;3Com Event: A card has been inserted into the device.&lt;/p&gt;</logmsg>
@@ -6611,7 +6611,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/entityMgtBusFailure</uei>
  <event-label>USR-TRAP-MIB defined trap event: entityMgtBusFailure</event-label>
- <descr>&lt;p&gt;Management bus failure.  Entity fails to respond to 
+ <descr>&lt;p&gt;Management bus failure.  Entity fails to respond to
  Managment Card.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6828,7 +6828,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/connectTimerExpired</uei>
  <event-label>USR-TRAP-MIB defined trap event: connectTimerExpired</event-label>
- <descr>&lt;p&gt;Modem's connection time limit expired.  The connection was 
+ <descr>&lt;p&gt;Modem's connection time limit expired.  The connection was
  terminated.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6865,8 +6865,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/dteTransmitDataIdle</uei>
  <event-label>USR-TRAP-MIB defined trap event: dteTransmitDataIdle</event-label>
- <descr>&lt;p&gt;The DTE connected to this modem has not transmitted 
- anything to this modem for a period longer than its idle 
+ <descr>&lt;p&gt;The DTE connected to this modem has not transmitted
+ anything to this modem for a period longer than its idle
  time threshold.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6903,7 +6903,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/dtrTrue</uei>
  <event-label>USR-TRAP-MIB defined trap event: dtrTrue</event-label>
- <descr>&lt;p&gt;The attached DTE is asserting the DTR signal in a 'true' 
+ <descr>&lt;p&gt;The attached DTE is asserting the DTR signal in a 'true'
  condition.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6940,7 +6940,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/dtrFalse</uei>
  <event-label>USR-TRAP-MIB defined trap event: dtrFalse</event-label>
- <descr>&lt;p&gt;The DTE attached to this modem is asserting DTR in a 
+ <descr>&lt;p&gt;The DTE attached to this modem is asserting DTR in a
  'false' condition.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -6977,7 +6977,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/blerCountAtThreshold</uei>
  <event-label>USR-TRAP-MIB defined trap event: blerCountAtThreshold</event-label>
- <descr>&lt;p&gt;This modem's block error counter has exceeded the defined 
+ <descr>&lt;p&gt;This modem's block error counter has exceeded the defined
  'good' threshold during the current call.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7014,7 +7014,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/fallbackCountAtThreshold</uei>
  <event-label>USR-TRAP-MIB defined trap event: fallbackCountAtThreshold</event-label>
- <descr>&lt;p&gt;This modem's fallback counter has exceeded the normal 
+ <descr>&lt;p&gt;This modem's fallback counter has exceeded the normal
  'good' threshold during the current call.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7051,7 +7051,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/noDialtone</uei>
  <event-label>USR-TRAP-MIB defined trap event: noDialtone</event-label>
- <descr>&lt;p&gt;The modem has detected a lack of dial tone when it went off 
+ <descr>&lt;p&gt;The modem has detected a lack of dial tone when it went off
  hook to dial.&lt;/p&gt;&lt;table&gt;
  &lt;/table&gt;
  </descr>
@@ -7076,7 +7076,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/noLoopCurrent</uei>
  <event-label>USR-TRAP-MIB defined trap event: noLoopCurrent</event-label>
- <descr>&lt;p&gt;The modem has detected a lack of loop current on the phone 
+ <descr>&lt;p&gt;The modem has detected a lack of loop current on the phone
  line when it went off hook to dial.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7113,7 +7113,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/yellowAlarm</uei>
  <event-label>USR-TRAP-MIB defined trap event: yellowAlarm</event-label>
- <descr>&lt;p&gt;A yellow alarm condition exists when the remote end of a 
+ <descr>&lt;p&gt;A yellow alarm condition exists when the remote end of a
  DS1 is experiencing an 'out-of-frame' or 'OOF' condition.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7150,7 +7150,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/redAlarm</uei>
  <event-label>USR-TRAP-MIB defined trap event: redAlarm</event-label>
- <descr>&lt;p&gt;The framing pattern has been lost on the DS1's receiver.  
+ <descr>&lt;p&gt;The framing pattern has been lost on the DS1's receiver.
  This is also known as an 'out-of-frame' or 'OOF' condition.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7187,7 +7187,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/lossOfSignal</uei>
  <event-label>USR-TRAP-MIB defined trap event: lossOfSignal</event-label>
- <descr>&lt;p&gt;The DS1 receiver has received 175 consecutive 0's.  The DS1 
+ <descr>&lt;p&gt;The DS1 receiver has received 175 consecutive 0's.  The DS1
  is unable to recover a receive signal.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7224,8 +7224,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/alarmIndicationSignal</uei>
  <event-label>USR-TRAP-MIB defined trap event: alarmIndicationSignal</event-label>
- <descr>&lt;p&gt;The DS1 is receiving an all ones pattern.  This is an 
- indication that the remote end has lost its receive signal. 
+ <descr>&lt;p&gt;The DS1 is receiving an all ones pattern.  This is an
+ indication that the remote end has lost its receive signal.
  This condition is also known as blue alarm.&lt;/p&gt;i
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7262,7 +7262,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/transmitTimingSourceSwitch</uei>
  <event-label>USR-TRAP-MIB defined trap event: transmitTimingSourceSwitch</event-label>
- <descr>&lt;p&gt;The specified Dual T1 card has switched to an alternate 
+ <descr>&lt;p&gt;The specified Dual T1 card has switched to an alternate
  transmit timing source.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7297,7 +7297,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/modemResetByDte</uei>
  <event-label>USR-TRAP-MIB defined trap event: modemResetByDte</event-label>
- <descr>&lt;p&gt;This specific trap is generated when modem is reset by 
+ <descr>&lt;p&gt;This specific trap is generated when modem is reset by
  DTE.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7334,8 +7334,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/modemRingNoAnswer</uei>
  <event-label>USR-TRAP-MIB defined trap event: modemRingNoAnswer</event-label>
- <descr>&lt;p&gt;If the DTR is present and s0 register on the NAC is not 
- equal to zero, then the Modem Ring No Answer event is 
+ <descr>&lt;p&gt;If the DTR is present and s0 register on the NAC is not
+ equal to zero, then the Modem Ring No Answer event is
  generated.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7372,8 +7372,8 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/dteRingNoAnswer</uei>
  <event-label>USR-TRAP-MIB defined trap event: dteRingNoAnswer</event-label>
- <descr>&lt;p&gt;The DTE Ring No Answer event is generated when the DTR is 
- not present and the s0 register on the NAC is not equal to 
+ <descr>&lt;p&gt;The DTE Ring No Answer event is generated when the DTR is
+ not present and the s0 register on the NAC is not equal to
  zero.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7585,7 +7585,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/gwWanPortOutOfService</uei>
  <event-label>USR-TRAP-MIB defined trap event: gwWanPortOutOfService</event-label>
- <descr>&lt;p&gt;A gateway WAN port has changed from Link Active to Out of 
+ <descr>&lt;p&gt;A gateway WAN port has changed from Link Active to Out of
  Service.&lt;/p&gt;
  &lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7620,7 +7620,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/gwWanPortLinkActive</uei>
  <event-label>USR-TRAP-MIB defined trap event: gwWanPortLinkActive</event-label>
- <descr>&lt;p&gt;A gateway WAN port has changed from Out of Service to Link 
+ <descr>&lt;p&gt;A gateway WAN port has changed from Out of Service to Link
  Active.&lt;/p&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
  &lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -7726,7 +7726,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/dialOutRestrictedNum</uei>
  <event-label>USR-TRAP-MIB defined trap event: dialOutRestrictedNum</event-label>
- <descr>&lt;p&gt;A dial out security session has failed as a result of 
+ <descr>&lt;p&gt;A dial out security session has failed as a result of
  attempting to dial a restricted phone number.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7763,7 +7763,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/dialBackRestrictedNum</uei>
  <event-label>USR-TRAP-MIB defined trap event: dialBackRestrictedNum</event-label>
- <descr>&lt;p&gt;A dial back security session has failed as a result of 
+ <descr>&lt;p&gt;A dial back security session has failed as a result of
  attempting to dial a restricted phone number.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7800,7 +7800,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/userBlacklisted</uei>
  <event-label>USR-TRAP-MIB defined trap event: userBlacklisted</event-label>
- <descr>&lt;p&gt;A security user has reached their final failed login 
+ <descr>&lt;p&gt;A security user has reached their final failed login
  attempt number and is now being blacklisted.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7837,7 +7837,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/loginAttemptByBlacklistedUser</uei>
  <event-label>USR-TRAP-MIB defined trap event: loginAttemptByBlacklistedUser</event-label>
- <descr>&lt;p&gt;A security login attempt by a currently blacklisted user 
+ <descr>&lt;p&gt;A security login attempt by a currently blacklisted user
  has occurred.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7874,7 +7874,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/responseAttemptLimExceeded</uei>
  <event-label>USR-TRAP-MIB defined trap event: responseAttemptLimExceeded</event-label>
- <descr>&lt;p&gt;A security user has failed to issue a valid response to a 
+ <descr>&lt;p&gt;A security user has failed to issue a valid response to a
  particular security prompt before the configured limit.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%
@@ -7911,7 +7911,7 @@
  </mask>
  <uei>uei.opennms.org/vendor/3Com/traps/mdmLoginAttemptLimExceeded</uei>
  <event-label>USR-TRAP-MIB defined trap event: mdmLoginAttemptLimExceeded</event-label>
- <descr>&lt;p&gt;This signals a security session failure when the indicated 
+ <descr>&lt;p&gt;This signals a security session failure when the indicated
  user does not appear in the security user database.&lt;/p&gt;&lt;table&gt;
  &lt;tr&gt;&lt;td&gt;&lt;b&gt;
  nmcTrapSequenceNumber&lt;/b&gt;&lt;/td&gt;&lt;td&gt;%parm[#1]%

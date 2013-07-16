@@ -38,7 +38,7 @@
     <attribute name="ChunkSize">1000000</attribute>
   </mbean>
 
-  <!-- Aliases UIL -> UIL2 for backwards compatibility 
+  <!-- Aliases UIL -> UIL2 for backwards compatibility
        the deprecated UIL deployment can be found in docs/examples/jca -->
    <mbean code="org.jboss.naming.NamingAlias" name="jboss.mq:service=InvocationLayer,type=UIL">
       <attribute name="FromName">UILConnectionFactory</attribute>

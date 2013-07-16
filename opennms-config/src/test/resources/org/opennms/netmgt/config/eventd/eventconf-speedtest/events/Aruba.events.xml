@@ -18,7 +18,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxVlanLinkUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxVlanLinkUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a VLAN interface is up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -83,7 +83,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxVlanLinkDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxVlanLinkDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a VLAN interface is down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -148,7 +148,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignatureMatch</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignatureMatch</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a signature match was detected.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -205,8 +205,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNodeRateAnomaly</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNodeRateAnomaly</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that a node is exceeding the threshold set for 
+&lt;p&gt;
+            This trap indicates that a node is exceeding the threshold set for
             the frame type.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -289,8 +289,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNormalTemperature</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNormalTemperature</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that the Temperature has returned to 
+&lt;p&gt;
+            This trap indicates that the Temperature has returned to
             an acceptable range.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -327,7 +327,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxProcessRestart</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxProcessRestart</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the named process has been restarted.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -364,8 +364,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFlashSpaceOK</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFlashSpaceOK</event-label>
         <descr>
-&lt;p&gt;			
-            This trap which indicates that the system flash space is back 
+&lt;p&gt;
+            This trap which indicates that the system flash space is back
             to a sufficient level.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -397,8 +397,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMemoryUsageOK</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMemoryUsageOK</event-label>
         <descr>
-&lt;p&gt;			
-            This trap which indicates that the free memory usage is back 
+&lt;p&gt;
+            This trap which indicates that the free memory usage is back
             to a sufficient level.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -430,7 +430,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxPowerSupplyOK</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxPowerSupplyOK</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the system power supply condition have
             returned to normal operation status.
         	&lt;/p&gt;&lt;table&gt;
@@ -463,7 +463,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFanOK</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFanOK</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the fan has returned to normal.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -500,7 +500,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxInRangeVoltage</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxInRangeVoltage</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the controller Voltage is back within range.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -542,8 +542,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxCoverageHoleResolved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxCoverageHoleResolved</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that a coverage hole at location 
+&lt;p&gt;
+            This trap indicates that a coverage hole at location
             wlsxTrapAPLocation has been resolved.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -595,7 +595,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSwitchIPChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSwitchIPChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the controller IP address has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -632,8 +632,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSwitchRoleChange</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSwitchRoleChange</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that the role of the controller IP address has 
+&lt;p&gt;
+            This trap indicates that the role of the controller IP address has
             changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -680,7 +680,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNUserEntryCreated</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNUserEntryCreated</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a new user was created.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -722,7 +722,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNUserEntryDeleted</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNUserEntryDeleted</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a user was deleted.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -764,7 +764,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNUserEntryAuthenticated</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNUserEntryAuthenticated</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a user is Authenticated.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -849,7 +849,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNUserEntryDeAuthenticated</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNUserEntryDeAuthenticated</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a user is Deauthenticated.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -891,7 +891,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNUserAuthenticationFailed</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNUserAuthenticationFailed</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a user authentication has failed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -933,7 +933,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthServerReqTimedOut</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthServerReqTimedOut</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the authentication server request timed out.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -970,7 +970,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthServerTimedOut</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthServerTimedOut</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the authentication server timed out.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1012,7 +1012,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthServerIsUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthServerIsUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that an authentication server is up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1049,8 +1049,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthMaxUserEntries</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthMaxUserEntries</event-label>
         <descr>
-&lt;p&gt;			
-            A trap which indicates that the user entries table is full and 
+&lt;p&gt;
+            A trap which indicates that the user entries table is full and
             cannot add any more entries.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1082,8 +1082,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthMaxAclEntries</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthMaxAclEntries</event-label>
         <descr>
-&lt;p&gt;			
-            A trap which indicates that the ACL Entries table is full and 
+&lt;p&gt;
+            A trap which indicates that the ACL Entries table is full and
             cannot add any more entries.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1115,9 +1115,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthMaxBWContracts</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthMaxBWContracts</event-label>
         <descr>
-&lt;p&gt;			
-            A trap which indicates that the controller reached the maximum number 
-            of configurable Bandwidth contracts. 
+&lt;p&gt;
+            A trap which indicates that the controller reached the maximum number
+            of configurable Bandwidth contracts.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1148,7 +1148,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNPowerSupplyFailure</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNPowerSupplyFailure</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the power supply has failed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1180,7 +1180,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNFanFailure</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNFanFailure</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the fan has failed or is missing.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1217,7 +1217,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNOutOfRangeVoltage</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNOutOfRangeVoltage</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the controller voltage is out of range.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1259,9 +1259,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNOutOfRangeTemperature</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNOutOfRangeTemperature</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the controller internal temperature is
-            out of range. 
+            out of range.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1297,7 +1297,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNLCInserted</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNLCInserted</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a line card is inserted.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1334,7 +1334,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSCInserted</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSCInserted</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             a Trap which indicates that a supervisor card is inserted.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1371,7 +1371,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNGBICInserted</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNGBICInserted</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a GBIC is inserted in a Line Card.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1403,7 +1403,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNProcessDied</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNProcessDied</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a process has died.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1440,7 +1440,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNProcessExceedsMemoryLimits</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNProcessExceedsMemoryLimits</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a process is consuming Large
             amounts of memory.
         	&lt;/p&gt;&lt;table&gt;
@@ -1478,7 +1478,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNLowOnFlashSpace</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNLowOnFlashSpace</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that the controller is running low on flash space.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1510,7 +1510,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNLowMemory</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNLowMemory</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that the system free memory is low.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1542,7 +1542,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNFanTrayRemoved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNFanTrayRemoved</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a fan tray is removed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1574,7 +1574,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNFanTrayInserted</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNFanTrayInserted</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a fan tray is inserted.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1606,7 +1606,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNLCRemoved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNLCRemoved</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a Line card is removed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1643,7 +1643,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNPowerSupplyMissing</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNPowerSupplyMissing</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that the power supply is missing.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1675,7 +1675,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAccessPointIsUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAccessPointIsUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that an access point up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1712,7 +1712,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAccessPointIsDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAccessPointIsDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that an access point down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1749,8 +1749,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNCoverageHoleDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNCoverageHoleDetected</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that an access point at Location 
+&lt;p&gt;
+            This trap indicates that an access point at Location
             wlsxTrapAPLocation has detected a Coverage Hole.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1802,8 +1802,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNChannelChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNChannelChanged</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that an access point at Location 
+&lt;p&gt;
+            This trap indicates that an access point at Location
             wlsxTrapAPLocation has changed the channel.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1850,8 +1850,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNStationAddedToBlackList</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNStationAddedToBlackList</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that the station is black listed. 
+&lt;p&gt;
+            This trap indicates that the station is black listed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1916,8 +1916,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNStationRemovedFromBlackList</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNStationRemovedFromBlackList</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that the station is removed from the black list. 
+&lt;p&gt;
+            This trap indicates that the station is removed from the black list.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1953,8 +1953,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNIpSpoofingDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNIpSpoofingDetected</event-label>
         <descr>
-&lt;p&gt;			
-            A trap indicating that the controller detected IP Spoofing. 
+&lt;p&gt;
+            A trap indicating that the controller detected IP Spoofing.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2000,8 +2000,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNDBCommunicationFailure</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNDBCommunicationFailure</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that communication with Database failed. 
+&lt;p&gt;
+            This trap indicates that communication with Database failed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2060,8 +2060,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNVrrpStateChange</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNVrrpStateChange</event-label>
         <descr>
-&lt;p&gt;			
-            This trap indicates that VRRP state has changed on the controller. 
+&lt;p&gt;
+            This trap indicates that VRRP state has changed on the controller.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2117,8 +2117,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNRadioAttributesChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNRadioAttributesChanged</event-label>
         <descr>
-&lt;p&gt;			
-            A Trap which indicates changes in the Radio attributes of an 
+&lt;p&gt;
+            A Trap which indicates changes in the Radio attributes of an
             access point.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2175,7 +2175,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNESIServerUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNESIServerUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a ESI server is up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2222,7 +2222,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNESIServerDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNESIServerDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that a ESI server is down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2269,7 +2269,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNLicenseExpiry</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNLicenseExpiry</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that one or more licenses on the controller will expire in wlsxTrapLicenseDaysRemaining days.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2381,7 +2381,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxUnsecureAPResolved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxUnsecureAPResolved</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
                 This trap indicates that a previously detected access point, classified as Rogue,
                 is no longer present in the network.
 			&lt;/p&gt;&lt;table&gt;
@@ -2444,7 +2444,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaImpersonation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaImpersonation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM detected Station Impersonation.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2496,7 +2496,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxReservedChannelViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxReservedChannelViolation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 				This trap indicates that an AM detected an access point
 				which is violating the Reserved Channel configuration.
 			&lt;/p&gt;&lt;table&gt;
@@ -2559,9 +2559,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxValidSSIDViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxValidSSIDViolation</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP has detected an access point is violating 
-            Valid SSID configuration by using an SSID that is reserved for use by a valid AP only. 
+&lt;p&gt;
+			This trap indicates that an AP has detected an access point is violating
+            Valid SSID configuration by using an SSID that is reserved for use by a valid AP only.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2622,9 +2622,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelMisconfiguration</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelMisconfiguration</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected an access point that has a channel misconfiguration 
-            because it is using a channel that is not valid.   
+&lt;p&gt;
+			This trap indicates that an AP detected an access point that has a channel misconfiguration
+            because it is using a channel that is not valid.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -2685,7 +2685,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxOUIMisconfiguration</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxOUIMisconfiguration</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an access point that has an OUI misconfiguration because
             it is using an OUI that is not valid.
 			&lt;/p&gt;&lt;table&gt;
@@ -2748,7 +2748,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSSIDMisconfiguration</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSSIDMisconfiguration</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an access point that has an SSID misconfiguration because it is using
             an SSID that is not valid.
 			&lt;/p&gt;&lt;table&gt;
@@ -2811,7 +2811,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxShortPreableMisconfiguration</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxShortPreableMisconfiguration</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an access point has bad Short preamble
 			configuration.
 			&lt;/p&gt;&lt;table&gt;
@@ -2874,7 +2874,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWPAMisconfiguration</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWPAMisconfiguration</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an access point that is misconfigured because it is not using WPA.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2936,7 +2936,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocNetworkDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocNetworkDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM has detected an Ad hoc
 			network.
 			&lt;/p&gt;&lt;table&gt;
@@ -2999,7 +2999,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocNetworkRemoved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocNetworkRemoved</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that a previously detected Ad hoc Network is no
             longer present in the network.
 			&lt;/p&gt;&lt;table&gt;
@@ -3062,7 +3062,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaPolicyViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaPolicyViolation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that Protection was enforced because a valid station's association to a non-valid access point violated Valid Station policy.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0008
  			http://www.wve.org/entries/show/WVE-2005-0019
@@ -3126,7 +3126,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxRepeatWEPIVViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxRepeatWEPIVViolation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 		    This trap indicates that an AP detected that a valid access point is using the same WEP initialization vector in consecutive packets.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3188,7 +3188,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWeakWEPIVViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWeakWEPIVViolation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that a valid access point is using a Weak WEP initialization vector.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0021
 	&lt;/p&gt;&lt;table&gt;
@@ -3251,7 +3251,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelInterferenceDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelInterferenceDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP has detected channel interference.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3303,9 +3303,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelInterferenceCleared</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelInterferenceCleared</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that a previously detected channel interference
-            is no longer present. 
+            is no longer present.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3356,7 +3356,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPInterferenceDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPInterferenceDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP has detected interference for an access point.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3418,9 +3418,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPInterferenceCleared</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPInterferenceCleared</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that the previously detected interference for an access point
-            is no longer present. 
+            is no longer present.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3481,7 +3481,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaInterferenceDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaInterferenceDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP has detected interference for a station.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3548,9 +3548,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaInterferenceCleared</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaInterferenceCleared</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that the previously detected interference for a station
-            is no longer present. 
+            is no longer present.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3616,7 +3616,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFrameRetryRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFrameRetryRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that an access point has exceeded the configured upper threshold for Frame Retry Rate.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3678,7 +3678,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFrameReceiveErrorRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFrameReceiveErrorRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that an access point has exceeded the configured upper threshold for Frame Receive Error Rate.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3740,7 +3740,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFrameFragmentationRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFrameFragmentationRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that an access point exceeded the configured upper threshold for Frame Fragmentation Rate.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -3802,8 +3802,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFrameBandWidthRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFrameBandWidthRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected that a station or access point has exceeded the configured upper threshold for Bandwidth rate. 
+&lt;p&gt;
+			This trap indicates that an AP detected that a station or access point has exceeded the configured upper threshold for Bandwidth rate.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3869,8 +3869,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFrameLowSpeedRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFrameLowSpeedRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected that a station has exceeded the configured upper threshold for Low speed rate. 
+&lt;p&gt;
+			This trap indicates that an AP detected that a station has exceeded the configured upper threshold for Low speed rate.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -3936,8 +3936,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFrameNonUnicastRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFrameNonUnicastRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected that a station has exceeded the configured upper threshold for Non Unicast traffic rate. 
+&lt;p&gt;
+			This trap indicates that an AP detected that a station has exceeded the configured upper threshold for Non Unicast traffic rate.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4003,8 +4003,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxLoadbalancingEnabled</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxLoadbalancingEnabled</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AM is reporting that an AP 
+&lt;p&gt;
+			This trap indicates that an AM is reporting that an AP
 			has enabled Load balancing.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4066,7 +4066,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxLoadbalancingDisabled</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxLoadbalancingDisabled</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM is reporting that an AP
 			has enabled Load balancing.
 			&lt;/p&gt;&lt;table&gt;
@@ -4129,8 +4129,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelFrameRetryRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelFrameRetryRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP has detected that the configured upper threshold for Frame Retry Rate was exceeded on a channel. 
+&lt;p&gt;
+			This trap indicates that an AP has detected that the configured upper threshold for Frame Retry Rate was exceeded on a channel.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4181,8 +4181,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelFrameFragmentationRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelFrameFragmentationRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP has detected that the configured upper threshold for Frame Fragmentation Rate was exceeded on a channel. 
+&lt;p&gt;
+			This trap indicates that an AP has detected that the configured upper threshold for Frame Fragmentation Rate was exceeded on a channel.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4233,8 +4233,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelFrameErrorRateExceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelFrameErrorRateExceeded</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP has detected that the configured upper threshold for Frame Receive Error Rate was exceeded on a channel. 
+&lt;p&gt;
+			This trap indicates that an AP has detected that the configured upper threshold for Frame Receive Error Rate was exceeded on a channel.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -4285,7 +4285,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignatureMatchAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignatureMatchAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match in a frame from an access point.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4352,7 +4352,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignatureMatchSta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignatureMatchSta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match in a frame from a Station.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4414,8 +4414,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChannelRateAnomaly</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChannelRateAnomaly</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected frames on a channel which 
+&lt;p&gt;
+			This trap indicates that an AP detected frames on a channel which
             exceed the configured IDS rate threshold.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0052
  			http://www.wve.org/entries/show/WVE-2005-0045
@@ -4503,8 +4503,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNodeRateAnomalyAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNodeRateAnomalyAP</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected frames transmitted or received by an 
+&lt;p&gt;
+			This trap indicates that an AP detected frames transmitted or received by an
             access point, which exceed the configured IDS rate threshold.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0052
  			http://www.wve.org/entries/show/WVE-2005-0045
@@ -4602,8 +4602,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNodeRateAnomalySta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNodeRateAnomalySta</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected frames transmitted or received by a 
+&lt;p&gt;
+			This trap indicates that an AP detected frames transmitted or received by a
             node, which exceed the configured IDS rate threshold.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4691,8 +4691,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxEAPRateAnomaly</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxEAPRateAnomaly</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that the rate of EAP Handshake packets 
+&lt;p&gt;
+			This trap indicates that the rate of EAP Handshake packets
             received by an AP has exceeded the configured IDS EAP Handshake rate threshold.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0049
 	&lt;/p&gt;&lt;table&gt;
@@ -4745,7 +4745,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignalAnomaly</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignalAnomaly</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 		    This trap indicates that an AM detected a Signal Anomaly.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -4797,10 +4797,10 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSequenceNumberAnomalyAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSequenceNumberAnomalyAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM received packets from an AP
-			which exceeds the acceptable sequence number difference. 
-            The acceptable sequence number difference is an IDS configuration 
+			which exceeds the acceptable sequence number difference.
+            The acceptable sequence number difference is an IDS configuration
             object.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0061
  			http://www.wve.org/entries/show/WVE-2005-0019
@@ -4869,10 +4869,10 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSequenceNumberAnomalySta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSequenceNumberAnomalySta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM received packets from a Node
-			which exceeds the acceptable sequence number difference. 
-            The acceptable sequence number difference is an IDS configuration 
+			which exceeds the acceptable sequence number difference.
+            The acceptable sequence number difference is an IDS configuration
             object.
                 	For more info check: http://www.wve.org/entries/show/WVE-2005-0061
  			http://www.wve.org/entries/show/WVE-2005-0019
@@ -4936,8 +4936,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxDisconnectStationAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxDisconnectStationAttack</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AM detected a station Disconnect 
+&lt;p&gt;
+			This trap indicates that an AM detected a station Disconnect
             attack.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0045
  			http://www.wve.org/entries/show/WVE-2005-0046
@@ -5028,8 +5028,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxApFloodAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxApFloodAttack</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that the number of potential fake APs detected by 
+&lt;p&gt;
+			This trap indicates that the number of potential fake APs detected by
 			an AP has exceeded the configured IDS threshold. This is the total number of fake APs observed across all bands.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0056
 	&lt;/p&gt;&lt;table&gt;
@@ -5077,8 +5077,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocNetwork</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocNetwork</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AM detected an Ad hoc 
+&lt;p&gt;
+			This trap indicates that an AM detected an Ad hoc
 			Network. An Station is connected to an ad hoc AP.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5145,7 +5145,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWirelessBridge</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWirelessBridge</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a Wireless Bridge when a WDS frame was seen between the transmitter and receiver addresses.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5207,7 +5207,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxInvalidMacOUIAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxInvalidMacOUIAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an invalid MAC OUI in the BSSID of a frame.  An invalid MAC OUI suggests that the frame may be spoofed.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5284,7 +5284,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxInvalidMacOUISta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxInvalidMacOUISta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an invalid MAC OUI in the SRC or DST address of a frame. An invalid MAC OUI suggests that the frame may be spoofed.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5356,7 +5356,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWEPMisconfiguration</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWEPMisconfiguration</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an access point that is misconfigured because it does not have Privacy enabled.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5418,7 +5418,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaRepeatWEPIVViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaRepeatWEPIVViolation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that a valid station is using the same WEP initialization vector in consecutive packets.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5485,7 +5485,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaWeakWEPIVViolation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaWeakWEPIVViolation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that a valid station is using a Weak WEP initialization vector.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5552,7 +5552,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaAssociatedToUnsecureAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaAssociatedToUnsecureAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM detected a client associated
 			with a Rogue access point.
 			&lt;/p&gt;&lt;table&gt;
@@ -5625,8 +5625,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxStaUnAssociatedFromUnsecureAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxStaUnAssociatedFromUnsecureAP</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that a previously detected rogue access point 
+&lt;p&gt;
+			This trap indicates that a previously detected rogue access point
             association is no longer present.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5683,7 +5683,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocNetworkBridgeDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocNetworkBridgeDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM has detected an Ad hoc
 			network that is bridging to a wired network
 			&lt;/p&gt;&lt;table&gt;
@@ -5751,9 +5751,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxInterferingApDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxInterferingApDetected</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected an access point classified as Interfering. The access point 
-            is declared Interfering because it is neither authorized or classified as Rogue. 
+&lt;p&gt;
+			This trap indicates that an AP detected an access point classified as Interfering. The access point
+            is declared Interfering because it is neither authorized or classified as Rogue.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -5819,7 +5819,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxPortUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxPortUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a Physical port is up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5889,7 +5889,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxPortDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxPortDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a Physical port is Down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -5959,7 +5959,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxBSSIDIsUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxBSSIDIsUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that an access point up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6006,7 +6006,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxBSSIDIsDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxBSSIDIsDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A Trap which indicates that an access point down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6053,7 +6053,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxColdStart</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxColdStart</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             An enterprise version of cold start trap, which contains the controller time stamp.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6085,7 +6085,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWarmStart</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWarmStart</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             An enterprise version of warm start trap, which contains the controller time stamp.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6117,7 +6117,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPImpersonation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPImpersonation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected AP Impersonation because the number of beacons seen has exceeded the expected number by the configured percentage threshold.
             The expected number is calculated based on the Beacon Interval Field in the Beacon frame.
 			&lt;/p&gt;&lt;table&gt;
@@ -6180,7 +6180,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxInformQueueOverFlow</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxInformQueueOverFlow</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an Inform queue overflow condition occurred.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6222,7 +6222,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthServerIsDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthServerIsDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that an authentication server is down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6259,7 +6259,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxCTSTransferError</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxCTSTransferError</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates the status of the configuration transfer from the management station.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6301,7 +6301,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxCTSTransferSucceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxCTSTransferSucceeded</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates the status of the configuration transfer from the management station.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6343,7 +6343,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxConfigurationUpdateError</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxConfigurationUpdateError</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates the configuration update status.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6390,7 +6390,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxConfigurationUpdateSucceeded</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxConfigurationUpdateSucceeded</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates the configuration update status.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6427,7 +6427,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxGlobalConfigurationChangeNotification</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxGlobalConfigurationChangeNotification</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that global configuration was modified on the controller.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6469,7 +6469,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxUserEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxUserEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the user configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6531,7 +6531,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPBssidEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPBssidEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the BSSID configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6598,7 +6598,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPRadioEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPRadioEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the Radio configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6660,7 +6660,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the AP configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6717,7 +6717,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSwitchListEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSwitchListEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the controller list has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6774,7 +6774,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxPortEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxPortEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the port configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6836,7 +6836,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxVlanEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxVlanEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the VLAN configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6893,7 +6893,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxVlanInterfaceEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxVlanInterfaceEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the VLAN Interface configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -6950,9 +6950,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWindowsBridgeDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWindowsBridgeDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM has detected a station
-		        that is bridging from a wireless network 
+		        that is bridging from a wireless network
                         to a wired network
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -7019,7 +7019,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxLicenseEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxLicenseEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the license table has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -7076,7 +7076,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxEsiServerChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxEsiServerChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the ESI server table has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -7133,7 +7133,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMonAPEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMonAPEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a monitored AP entry changed
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -7200,7 +7200,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMonStationEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMonStationEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a monitored station entry changed
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -7267,7 +7267,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignAPNetstumbler</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignAPNetstumbler</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Netstumbler from an access point.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0025
 	&lt;/p&gt;&lt;table&gt;
@@ -7335,7 +7335,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignStaNetstumbler</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignStaNetstumbler</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Netstumbler from a Station.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0025
 	&lt;/p&gt;&lt;table&gt;
@@ -7398,7 +7398,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignAPAsleap</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignAPAsleap</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for ASLEAP from an access point.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0027
 	&lt;/p&gt;&lt;table&gt;
@@ -7466,7 +7466,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignStaAsleap</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignStaAsleap</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for ASLEAP from a Station.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0027
 	&lt;/p&gt;&lt;table&gt;
@@ -7529,7 +7529,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignAPAirjack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignAPAirjack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for AirJack from an access point.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0018
 	&lt;/p&gt;&lt;table&gt;
@@ -7597,7 +7597,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignStaAirjack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignStaAirjack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for AirJack from a Station.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0018
 	&lt;/p&gt;&lt;table&gt;
@@ -7660,7 +7660,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignAPNullProbeResp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignAPNullProbeResp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Null-Probe-Response from an access point.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0064
 	&lt;/p&gt;&lt;table&gt;
@@ -7728,7 +7728,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignStaNullProbeResp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignStaNullProbeResp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Null-Probe-Response from a Station.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0064
 	&lt;/p&gt;&lt;table&gt;
@@ -7791,7 +7791,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignAPDeauthBcast</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignAPDeauthBcast</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Deauth-Broadcast from an access point.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0019
  			http://www.wve.org/entries/show/WVE-2005-0045
@@ -7860,7 +7860,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSignStaDeauthBcast</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSignStaDeauthBcast</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Deauth-Broadcast from a Station.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0019
  			http://www.wve.org/entries/show/WVE-2005-0045
@@ -7924,7 +7924,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWindowsBridgeDetectedAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWindowsBridgeDetectedAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP is detecting an access point that is bridging from a wireless network
             to a wired network.
 			&lt;/p&gt;&lt;table&gt;
@@ -7987,7 +7987,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxWindowsBridgeDetectedSta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxWindowsBridgeDetectedSta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP is detecting a station that is bridging from a wireless network
             to a wired network.
 			&lt;/p&gt;&lt;table&gt;
@@ -8055,7 +8055,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocNetworkBridgeDetectedAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocNetworkBridgeDetectedAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM has detected an Ad hoc
 			network that is bridging to a wired network
 			&lt;/p&gt;&lt;table&gt;
@@ -8118,7 +8118,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocNetworkBridgeDetectedSta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocNetworkBridgeDetectedSta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AM has detected an Ad hoc
 			network that is bridging to a wired network
 			&lt;/p&gt;&lt;table&gt;
@@ -8186,8 +8186,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxDisconnectStationAttackAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxDisconnectStationAttackAP</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AM detected a station disconnect 
+&lt;p&gt;
+			This trap indicates that an AM detected a station disconnect
             attack.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0045
  			http://www.wve.org/entries/show/WVE-2005-0046
@@ -8283,8 +8283,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxDisconnectStationAttackSta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxDisconnectStationAttackSta</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AM detected a station Disconnect 
+&lt;p&gt;
+			This trap indicates that an AM detected a station Disconnect
             attack.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0045
  			http://www.wve.org/entries/show/WVE-2005-0046
@@ -8376,9 +8376,9 @@
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSuspectUnsecureAPDetected</event-label>
         <descr>
 &lt;p&gt;			This trap indicates that an access point, classified as Suspected Rogue, has been
-                detected by a Controller. The AP is suspected to be rogue, 
-                with the supplied confidence level, because it was matched to 
-                the wired MAC address. 
+                detected by a Controller. The AP is suspected to be rogue,
+                with the supplied confidence level, because it was matched to
+                the wired MAC address.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -8449,8 +8449,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxSuspectUnsecureAPResolved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxSuspectUnsecureAPResolved</event-label>
         <descr>
-&lt;p&gt;			
-		This trap indicates that a previously detected access point, classified Suspected 
+&lt;p&gt;
+		This trap indicates that a previously detected access point, classified Suspected
                 Rogue, is either no longer present in the network or
                 has changed its state.
 			&lt;/p&gt;&lt;table&gt;
@@ -8498,7 +8498,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxConfigurationLicenseMismatch</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxConfigurationLicenseMismatch</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates the configuration update status in the case
             where some configuration could not be applied due to missing licenses.
         	&lt;/p&gt;&lt;table&gt;
@@ -8541,7 +8541,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxVoiceCdrBufferThresholdReached</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxVoiceCdrBufferThresholdReached</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the CDR buffer threshold has been reached
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -8578,7 +8578,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxTunnelUp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxTunnelUp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a tunnel interface is up.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -8625,7 +8625,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxTunnelDown</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxTunnelDown</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a tunnel interface is down.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -8672,7 +8672,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMeshNodeEntryChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMeshNodeEntryChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the mesh node configuration has changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -8729,7 +8729,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxHtGreenfieldSupported</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxHtGreenfieldSupported</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	    This trap indicates that an AP detected an access point that supports HT Greenfield mode.
 		For more info check: http://www.wve.org/entries/show/WVE-2008-0005
 	&lt;/p&gt;&lt;table&gt;
@@ -8792,7 +8792,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxHT40MHzIntoleranceAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxHT40MHzIntoleranceAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	    This trap indicates that an AP is detecting an access point with the HT 40MHz intolerance setting.
 		For more info check: http://www.wve.org/entries/show/WVE-2008-0004
 	&lt;/p&gt;&lt;table&gt;
@@ -8855,7 +8855,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxHT40MHzIntoleranceSta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxHT40MHzIntoleranceSta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 		This trap indicates that the system is detecting an HT 40MHz Intolerance setting from a Station.
 		For more info check: http://www.wve.org/entries/show/WVE-2008-0004
 	&lt;/p&gt;&lt;table&gt;
@@ -8949,7 +8949,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthServerAllInService</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthServerAllInService</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that all authentication servers is a server group are brought back in service.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -8986,8 +8986,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAdhocNetwork</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAdhocNetwork</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected an ad hoc 
+&lt;p&gt;
+			This trap indicates that an AP detected an ad hoc
 			network where a station is connected to an ad hoc access point.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9059,7 +9059,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAdhocNetworkBridgeDetectedAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAdhocNetworkBridgeDetectedAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an ad hoc
 			network that is bridging to a wired network.
 			&lt;/p&gt;&lt;table&gt;
@@ -9127,7 +9127,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAdhocNetworkBridgeDetectedSta</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAdhocNetworkBridgeDetectedSta</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an ad hoc
 			network that is bridging to a wired network.
 			&lt;/p&gt;&lt;table&gt;
@@ -9200,7 +9200,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAuthMaxXsecUserEntries</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAuthMaxXsecUserEntries</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the xSec user limit is reached.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9232,7 +9232,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNVpnMaxSessions</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNVpnMaxSessions</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the VPN session limit is reached.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9264,7 +9264,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNRapExpiredPSK</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNRapExpiredPSK</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the RAP is using the Expired PSK.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9306,7 +9306,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNRapWarnExpiredPSK</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNRapWarnExpiredPSK</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the Cached IKE PSK for RAPs will expire soon.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9343,7 +9343,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNConnectionResetWithLocal</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNConnectionResetWithLocal</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that tcp connection between master controller and local controller has been lost.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9400,7 +9400,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNApOnBackupController</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNApOnBackupController</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             A trap which indicates that the AP has registered with the backup controller.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9447,8 +9447,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxClientFloodAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxClientFloodAttack</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that the number of potential fake clients detected by 
+&lt;p&gt;
+			This trap indicates that the number of potential fake clients detected by
 			an AP has exceeded the configured IDS threshold. This is the total number of fake clients observed across all bands.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0056
 	&lt;/p&gt;&lt;table&gt;
@@ -9496,7 +9496,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxValidClientNotUsingEncryption</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxValidClientNotUsingEncryption</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 		    This trap indicates that an AP detected an unencrypted data frame between a valid client and an access point.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9573,7 +9573,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAdhocUsingValidSSID</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAdhocUsingValidSSID</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an ad hoc network using a valid/protected SSID.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0008
 	&lt;/p&gt;&lt;table&gt;
@@ -9641,7 +9641,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPSpoofingDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPSpoofingDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected that one of its virtual APs is being spoofed using MAC spoofing.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0019
 	&lt;/p&gt;&lt;table&gt;
@@ -9719,8 +9719,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxClientAssociatingOnWrongChannel</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxClientAssociatingOnWrongChannel</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected a client trying to associate to one of its BSSIDs on the wrong channel.  This can be a sign that the BSSID is 
+&lt;p&gt;
+			This trap indicates that an AP detected a client trying to associate to one of its BSSIDs on the wrong channel.  This can be a sign that the BSSID is
             being spoofed in order to fool the client into thinking the AP is operating on another channel.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9797,7 +9797,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNDisconnectStationAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNDisconnectStationAttack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP has determined that a client is under Disconnect Attack because the rate of Assoc/Reassoc Response packets
             received by that client exceeds the configured threshold.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0045
@@ -9873,7 +9873,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNStaUnAssociatedFromUnsecureAP</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNStaUnAssociatedFromUnsecureAP</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP that had previously detected a client association to a Rogue access point is no longer detecting that association.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -9940,7 +9940,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxOmertaAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxOmertaAttack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an Omerta attack.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0053
 	&lt;/p&gt;&lt;table&gt;
@@ -10013,7 +10013,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxTKIPReplayAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxTKIPReplayAttack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a TKIP replay attack. If successful this could be the precursor to more
 			advanced attacks.
 			For more info check: http://www.wve.org/entries/show/WVE-2008-0013
@@ -10087,7 +10087,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxChopChopAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxChopChopAttack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a ChopChop attack.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0038
 	&lt;/p&gt;&lt;table&gt;
@@ -10160,7 +10160,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxFataJackAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxFataJackAttack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a FATA-Jack attack.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0057
 	&lt;/p&gt;&lt;table&gt;
@@ -10233,7 +10233,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxInvalidAddressCombination</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxInvalidAddressCombination</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an invalid source and destination combination.
 			For more info check: http://www.wve.org/entries/show/WVE-2008-0011
 	&lt;/p&gt;&lt;table&gt;
@@ -10301,7 +10301,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxValidClientMisassociation</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxValidClientMisassociation</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a misassociation between a valid client and an unsafe AP.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -10378,8 +10378,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMalformedHTIEDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMalformedHTIEDetected</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected a malformed HT Information Element. This can be the result of a misbehaving wireless driver or it may be an indiation of a new wireless attack. 
+&lt;p&gt;
+			This trap indicates that an AP detected a malformed HT Information Element. This can be the result of a misbehaving wireless driver or it may be an indiation of a new wireless attack.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -10450,7 +10450,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMalformedAssocReqDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMalformedAssocReqDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a malformed association request with a NULL SSID.
 			For more info check: http://www.wve.org/entries/show/WVE-2008-0010
 	&lt;/p&gt;&lt;table&gt;
@@ -10523,8 +10523,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxOverflowIEDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxOverflowIEDetected</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an AP detected a management frame with a malformed information element. The declared length of the element is larger than the entire frame containing the element. This may be used to corrupt or crash wireless drivers. 
+&lt;p&gt;
+			This trap indicates that an AP detected a management frame with a malformed information element. The declared length of the element is larger than the entire frame containing the element. This may be used to corrupt or crash wireless drivers.
 			For more info check: http://www.wve.org/entries/show/WVE-2008-0008
 	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -10596,7 +10596,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxOverflowEAPOLKeyDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxOverflowEAPOLKeyDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a key in an EAPOL Key message with a specified length greater than the length of the entire message.
 			For more info check: http://www.wve.org/entries/show/WVE-2008-0009
 	&lt;/p&gt;&lt;table&gt;
@@ -10669,7 +10669,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMalformedFrameLargeDurationDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMalformedFrameLargeDurationDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an unusually large duration in a wireless frame. This may be an attempt to block other devices from transmitting.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0051
 	&lt;/p&gt;&lt;table&gt;
@@ -10732,7 +10732,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMalformedFrameWrongChannelDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMalformedFrameWrongChannelDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a beacon on one channel advertising another channel. This could be an attempt to lure clients away from a valid AP.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0050
 	&lt;/p&gt;&lt;table&gt;
@@ -10810,7 +10810,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMalformedAuthFrame</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMalformedAuthFrame</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an authentication frame with
             either a bad algorithm (similar to Fata-Jack) or a bad transaction.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0057
@@ -10884,8 +10884,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxCTSRateAnomaly</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxCTSRateAnomaly</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that the rate of CTS packets 
+&lt;p&gt;
+			This trap indicates that the rate of CTS packets
             received by an AP exceeds the configured IDS threshold.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -10937,8 +10937,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxRTSRateAnomaly</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxRTSRateAnomaly</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that the rate of RTS packets 
+&lt;p&gt;
+			This trap indicates that the rate of RTS packets
             received by an AP exceeds the configured IDS threshold.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -10990,8 +10990,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNRogueAPDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNRogueAPDetected</event-label>
         <descr>
-&lt;p&gt;			
-				This trap indicates that an unauthorized access point is connected to the wired network. The access point is 
+&lt;p&gt;
+				This trap indicates that an unauthorized access point is connected to the wired network. The access point is
                 classified as Rogue by the system.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -11038,7 +11038,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNRogueAPResolved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNRogueAPResolved</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
                 This trap indicates that a previously detected access point, classified as Rogue,
                 is either no longer present in the network or it changed its state.
 			&lt;/p&gt;&lt;table&gt;
@@ -11086,8 +11086,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNeighborAPDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNeighborAPDetected</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an access point has been classified as a Neighbor by the system. 
+&lt;p&gt;
+			This trap indicates that an access point has been classified as a Neighbor by the system.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -11133,9 +11133,9 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNInterferingAPDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNInterferingAPDetected</event-label>
         <descr>
-&lt;p&gt;			
-			This trap indicates that an access point has been classified as Interfering by the system. The access point 
-            is declared Interfering because it is not authorized, nor has it been classified as a Rogue. 
+&lt;p&gt;
+			This trap indicates that an access point has been classified as Interfering by the system. The access point
+            is declared Interfering because it is not authorized, nor has it been classified as a Rogue.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -11181,10 +11181,10 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSuspectRogueAPDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSuspectRogueAPDetected</event-label>
         <descr>
-&lt;p&gt;			
-		This trap indicates that an access point, classified as Suspected Rogue, is 
-                detected by the system. The AP is suspected to be rogue 
-                with the supplied confidence level. 
+&lt;p&gt;
+		This trap indicates that an access point, classified as Suspected Rogue, is
+                detected by the system. The AP is suspected to be rogue
+                with the supplied confidence level.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -11235,8 +11235,8 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSuspectRogueAPResolved</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSuspectRogueAPResolved</event-label>
         <descr>
-&lt;p&gt;			
-		This trap indicates that a previously detected access point, classified as Suspected 
+&lt;p&gt;
+		This trap indicates that a previously detected access point, classified as Suspected
                 Rogue, is either no longer present in the network or
                 has changed its state.
 			&lt;/p&gt;&lt;table&gt;
@@ -11284,7 +11284,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxBlockAckAttackDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxBlockAckAttackDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
         This trap indicates that an attempt has been made to deny service to
         the source address by spoofing a block ACK add request that sets a
         sequence number window outside the currently used window.
@@ -11359,7 +11359,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxHotspotterAttackDetected</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxHotspotterAttackDetected</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
         This trap indicates that a new AP has appeared immediately following a client probe request.
         This is indicative of the Hotspotter tool or similar that attempts to trap clients with a fake
         hotspot or other wireless network.
@@ -11439,7 +11439,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatch</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatch</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match in a frame.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -11516,7 +11516,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchNetstumbler</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchNetstumbler</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Netstumbler in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0025
 	&lt;/p&gt;&lt;table&gt;
@@ -11594,7 +11594,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchAsleap</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchAsleap</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for ASLEAP in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0027
 	&lt;/p&gt;&lt;table&gt;
@@ -11672,7 +11672,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchAirjack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchAirjack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Airjack in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0018
 	&lt;/p&gt;&lt;table&gt;
@@ -11750,7 +11750,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchNullProbeResp</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchNullProbeResp</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Null-Probe-Response in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0064
 	&lt;/p&gt;&lt;table&gt;
@@ -11828,7 +11828,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchDeauthBcast</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchDeauthBcast</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Deauth-Broadcast in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0019
  			http://www.wve.org/entries/show/WVE-2005-0045
@@ -11907,7 +11907,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchDisassocBcast</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchDisassocBcast</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Disassoc-Broadcast in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0019
  			http://www.wve.org/entries/show/WVE-2005-0046
@@ -11986,7 +11986,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNSignatureMatchWellenreiter</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNSignatureMatchWellenreiter</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a signature match for Wellenreiter in a frame.
 			For more info check: http://www.wve.org/entries/show/WVE-2006-0058
 	&lt;/p&gt;&lt;table&gt;
@@ -12064,7 +12064,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPDeauthContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPDeauthContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain an access point by disconnecting its client.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12126,7 +12126,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxClientDeauthContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxClientDeauthContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain a client by disconnecting it from the AP that it is associated with.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12188,7 +12188,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPWiredContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPWiredContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain an access point by disrupting traffic to its client on the wired interface.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12255,7 +12255,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxClientWiredContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxClientWiredContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain a client by disrupting traffic to it on the wired interface.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12322,7 +12322,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPTaggedWiredContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPTaggedWiredContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain an access point by disrupting traffic to its client on the wired interface.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12394,7 +12394,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxClientTaggedWiredContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxClientTaggedWiredContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain a client by disrupting traffic to it on the wired interface.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12466,7 +12466,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxTarpitContainment</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxTarpitContainment</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP has attempted to contain an access point by moving a client that is attempting to associate to it to a tarpit.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12538,7 +12538,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxVoiceClientLocationUpdate</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxVoiceClientLocationUpdate</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the location of voice client has been changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12605,7 +12605,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPChannelChange</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPChannelChange</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP changed its channel.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12735,7 +12735,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPPowerChange</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPPowerChange</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP changed its transmit power level.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12792,7 +12792,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxAPModeChange</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxAPModeChange</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 	This trap indicates that an AP changed its mode from AP to APMonitor or vice versa.
       	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12885,7 +12885,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxUserEntryAttributesChanged</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxUserEntryAttributesChanged</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the user entry attributes have changed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -12962,7 +12962,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxPowerSaveDosAttack</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxPowerSaveDosAttack</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected a Power Save DoS attack.
 			&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -13034,7 +13034,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAPMasterStatusChange</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAPMasterStatusChange</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the status of the AP as seen by
             the master controller has changed.
         	&lt;/p&gt;&lt;table&gt;
@@ -13092,7 +13092,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxNAdhocUsingValidSSID</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxNAdhocUsingValidSSID</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
 			This trap indicates that an AP detected an ad hoc network node using a valid/protected SSID.
 			For more info check: http://www.wve.org/entries/show/WVE-2005-0008
 	&lt;/p&gt;&lt;table&gt;
@@ -13165,7 +13165,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxCRLExpired</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxCRLExpired</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that the CRL associated with the particular Trustpoint is expired.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -13207,7 +13207,7 @@
         <uei>uei.opennms.org/vendor/aruba/traps/wlsxMgmtUserAuthenticationFailed</uei>
         <event-label>WLSX-TRAP-MIB defined trap event: wlsxMgmtUserAuthenticationFailed</event-label>
         <descr>
-&lt;p&gt;			
+&lt;p&gt;
             This trap indicates that a management user authentication has failed.
         	&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;

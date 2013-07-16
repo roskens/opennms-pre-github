@@ -52,7 +52,7 @@
                     #
                     # Prefix your url with theme:// to designate that url to the image is in the theme bundle
                     #
-                    server=theme://images/server.png 
+                    server=theme://images/server.png
                 </contents>
             </config>
           </configs>

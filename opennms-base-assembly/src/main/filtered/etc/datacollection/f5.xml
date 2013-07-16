@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <datacollection-group name="F5">
-     
+
     <resourceType name="ltmPoolStatName" label="F5 LTM Pool Stats (F5 BigIP MIB)"
                   resourceLabel="${ltmPoolStatName}">
        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
-     
+
     <resourceType name="ltmVSStatName" label="F5 LTM Virtual Server Stats (F5 BigIP MIB)"
                   resourceLabel="${ltmVSStatName}">
        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
-     
+
     <resourceType name="f5ifName" label="F5 Interface Name (F5 BigIP MIB)"
                   resourceLabel="${f5ifName}">
        <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
        <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
     </resourceType>
-    
+
     <resourceType name="f5CpuN" label="F5 Multi-CPU" resourceLabel="F5 Multi-CPU: ${index}">
         <persistenceSelectorStrategy class="org.opennms.netmgt.collectd.PersistAllSelectorStrategy"/>
         <storageStrategy class="org.opennms.netmgt.dao.support.IndexStorageStrategy"/>
@@ -79,7 +79,7 @@
         <mibObj oid=".1.3.6.1.4.1.3375.2.1.1.2.20.29" instance="0" alias="global1m" type="gauge" />
         <mibObj oid=".1.3.6.1.4.1.3375.2.1.1.2.20.37" instance="0" alias="global5m" type="gauge" />
       </group>
-      
+
       <systemDef name="F5 BigIP LTM Load Balancers">
         <sysoidMask>.1.3.6.1.4.1.3375.2.</sysoidMask>
         <collect>

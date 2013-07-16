@@ -20,9 +20,9 @@
 	<descr>
 &lt;p&gt;The appliance is in the process of rebooting.
 
-The name of the user who initiated the reboot is contained in 
+The name of the user who initiated the reboot is contained in
 amx5020TrapObjectUserName.  If the reboot is initated from
-via snmp , then the value of this object will be the 
+via snmp , then the value of this object will be the
 following string
 
   snmpUser&lt;/p&gt;&lt;table&gt;
@@ -32,7 +32,7 @@ following string
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020RebootStartedTrap trap received 
+			amx5020RebootStartedTrap trap received
 			amx5020TrapObjectUserName=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -55,16 +55,16 @@ following string
 	<uei>uei.opennms.org/vendor/avocent/traps/amx5020RouteConnectTrap</uei>
 	<event-label>AMX5020-TRAP-MIB defined trap event: amx5020RouteConnectTrap</event-label>
 	<descr>
-&lt;p&gt;A connection between a UserStation and an Amiq device has been 
+&lt;p&gt;A connection between a UserStation and an Amiq device has been
 established.
 
-The Uid of the UserStation involved in the connection is contained 
+The Uid of the UserStation involved in the connection is contained
 in amx5020TrapObjectUserStationUid.
 
-The Uid of the Amiq device involved in the connection is contained 
+The Uid of the Amiq device involved in the connection is contained
 in amx5020TrapObjectAmiqUid.
 
-The connection mode of the connection is contained in 
+The connection mode of the connection is contained in
 amx5020TrapObjectAmiqConnectMode&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -85,9 +85,9 @@ amx5020TrapObjectAmiqConnectMode&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020RouteConnectTrap trap received 
-			amx5020TrapObjectUserStationUid=%parm[#1]% 
-			amx5020TrapObjectAmiqUid=%parm[#2]% 
+			amx5020RouteConnectTrap trap received
+			amx5020TrapObjectUserStationUid=%parm[#1]%
+			amx5020TrapObjectAmiqUid=%parm[#2]%
 			amx5020TrapObjectAmiqConnectMode=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -110,10 +110,10 @@ amx5020TrapObjectAmiqConnectMode&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/vendor/avocent/traps/amx5020RouteDisconnectTrap</uei>
 	<event-label>AMX5020-TRAP-MIB defined trap event: amx5020RouteDisconnectTrap</event-label>
 	<descr>
-&lt;p&gt;A connection between a UserStation and an Amiq device has been 
+&lt;p&gt;A connection between a UserStation and an Amiq device has been
 disconnected.
 
-The Uid of the UserStation involved in the connection is contained 
+The Uid of the UserStation involved in the connection is contained
 in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -121,7 +121,7 @@ in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020RouteDisconnectTrap trap received 
+			amx5020RouteDisconnectTrap trap received
 			amx5020TrapObjectUserStationUid=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -146,13 +146,13 @@ in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;An AMIQ device has been connected to the AMX.
 
-The Uid of the Amiq device connected to the AMX is contained 
+The Uid of the Amiq device connected to the AMX is contained
 in amx5020TrapObjectAmiqUid.
 
-The name of the Amiq device connected to the AMX is contained 
+The name of the Amiq device connected to the AMX is contained
 in amx5020TrapObjectAmiqName.
 
-The PortNum of the Amiq device connected to the AMX is contained 
+The PortNum of the Amiq device connected to the AMX is contained
 in amx5020TrapObjectAmiqPortNum.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -250,9 +250,9 @@ in amx5020TrapObjectAmiqPortNum.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020AmiqConnectedTrap trap received 
-			amx5020TrapObjectAmiqUid=%parm[#1]% 
-			amx5020TrapObjectAmiqName=%parm[#2]% 
+			amx5020AmiqConnectedTrap trap received
+			amx5020TrapObjectAmiqUid=%parm[#1]%
+			amx5020TrapObjectAmiqName=%parm[#2]%
 			amx5020TrapObjectAmiqPortNum=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -277,7 +277,7 @@ in amx5020TrapObjectAmiqPortNum.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;An AMIQ device has been disconnected from the AMX.
 
-The Uid of the Amiq device disconnected from the AMX is contained 
+The Uid of the Amiq device disconnected from the AMX is contained
 in amx5020TrapObjectAmiqUid.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -285,7 +285,7 @@ in amx5020TrapObjectAmiqUid.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020AmiqDisconnectedTrap trap received 
+			amx5020AmiqDisconnectedTrap trap received
 			amx5020TrapObjectAmiqUid=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -310,13 +310,13 @@ in amx5020TrapObjectAmiqUid.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A UserStation has been connected to the AMX.
 
-The Uid of the UserStation connected to the AMX is contained 
+The Uid of the UserStation connected to the AMX is contained
 in amx5020TrapObjectUserStationUid.
 
-The name of the UserStation connected to the AMX is contained 
+The name of the UserStation connected to the AMX is contained
 in amx5020TrapObjectUserStationName.
 
-The PortNum of the UserStation connected to the AMX is contained 
+The PortNum of the UserStation connected to the AMX is contained
 in amx5020TrapObjectUserStnPortNum.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -414,9 +414,9 @@ in amx5020TrapObjectUserStnPortNum.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020UserStationConnectedTrap trap received 
-			amx5020TrapObjectUserStationUid=%parm[#1]% 
-			amx5020TrapObjectUserStationName=%parm[#2]% 
+			amx5020UserStationConnectedTrap trap received
+			amx5020TrapObjectUserStationUid=%parm[#1]%
+			amx5020TrapObjectUserStationName=%parm[#2]%
 			amx5020TrapObjectUserStnPortNum=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -441,7 +441,7 @@ in amx5020TrapObjectUserStnPortNum.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A UserStation has been disconnected from the AMX.
 
-The Uid of the UserStation disconnected from the AMX is contained 
+The Uid of the UserStation disconnected from the AMX is contained
 in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -449,7 +449,7 @@ in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020UserStnDisconnectedTrap trap received 
+			amx5020UserStnDisconnectedTrap trap received
 			amx5020TrapObjectUserStationUid=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -474,10 +474,10 @@ in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A User has logged in from a UserStation.
 
-The Uid of the UserStation being logged in from is contained 
+The Uid of the UserStation being logged in from is contained
 in amx5020TrapObjectUserStationUid.
 
-The name of the User logged in to the UserStation is contained 
+The name of the User logged in to the UserStation is contained
 in amx5020TrapObjectUserStationName.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -489,8 +489,8 @@ in amx5020TrapObjectUserStationName.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020UserStationLoginTrap trap received 
-			amx5020TrapObjectUserStationUid=%parm[#1]% 
+			amx5020UserStationLoginTrap trap received
+			amx5020TrapObjectUserStationUid=%parm[#1]%
 			amx5020TrapObjectUserName=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -515,7 +515,7 @@ in amx5020TrapObjectUserStationName.&lt;/p&gt;&lt;table&gt;
 	<descr>
 &lt;p&gt;A User has logged out from a UserStation.
 
-The Uid of the UserStation being logged out from is contained 
+The Uid of the UserStation being logged out from is contained
 in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -523,7 +523,7 @@ in amx5020TrapObjectUserStationUid.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			amx5020UserStationLogoutTrap trap received 
+			amx5020UserStationLogoutTrap trap received
 			amx5020TrapObjectUserStationUid=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

@@ -19,7 +19,7 @@
             <vbvalue>1</vbvalue>
             <vbvalue>3</vbvalue>
             <vbvalue>4</vbvalue>
-        </varbind>	
+        </varbind>
 	</mask>
 	<uei>uei.opennms.org/standard/rfc1666/traps/snaNodeStateChangeTrapNotActive</uei>
 	<event-label>SNA-NAU-MIB defined trap event: snaNodeStateChangeTrap</event-label>
@@ -46,8 +46,8 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snaNodeStateChangeTrap trap received 
-			snaNodeOperName=%parm[#1]% 
+			snaNodeStateChangeTrap trap received
+			snaNodeOperName=%parm[#1]%
 			snaNodeOperState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -70,7 +70,7 @@
         <varbind>
             <vbnumber>2</vbnumber>
             <vbvalue>2</vbvalue>
-        </varbind>	
+        </varbind>
 	</mask>
 	<uei>uei.opennms.org/standard/rfc1666/traps/snaNodeStateChangeTrapActive</uei>
 	<event-label>SNA-NAU-MIB defined trap event: snaNodeStateChangeTrap</event-label>
@@ -97,12 +97,12 @@
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snaNodeStateChangeTrap trap received 
-			snaNodeOperName=%parm[#1]% 
+			snaNodeStateChangeTrap trap received
+			snaNodeOperName=%parm[#1]%
 			snaNodeOperState=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2" auto-clean="true" clear-key="uei.opennms.org/standard/rfc1666/traps/snaNodeStateChangeTrapNotActive:%dpname%:%nodeid%:%parm[#1]%" />	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="2" auto-clean="true" clear-key="uei.opennms.org/standard/rfc1666/traps/snaNodeStateChangeTrapNotActive:%dpname%:%nodeid%:%parm[#1]%" />
 </event>
 <event>
 	<mask>
@@ -152,13 +152,13 @@ the failure reason.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snaNodeActFailTrap trap received 
-			snaNodeOperName=%parm[#1]% 
-			snaNodeOperState=%parm[#2]% 
+			snaNodeActFailTrap trap received
+			snaNodeOperName=%parm[#1]%
+			snaNodeOperState=%parm[#2]%
 			snaNodeOperActFailureReason=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
-    <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="3" auto-clean="true"/>	
+    <alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#1]%" alarm-type="3" auto-clean="true"/>
 </event>
 <event>
 	<mask>
@@ -177,7 +177,7 @@ the failure reason.&lt;/p&gt;&lt;table&gt;
         <varbind>
             <vbnumber>3</vbnumber>
             <vbvalue>1</vbvalue>
-        </varbind>	
+        </varbind>
 	</mask>
 	<uei>uei.opennms.org/standard/rfc1666/traps/snaLuStateChangeTrap</uei>
 	<event-label>SNA-NAU-MIB defined trap event: snaLuStateChangeTrap</event-label>
@@ -207,9 +207,9 @@ state after change.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snaLuStateChangeTrap trap received 
-			snaLuOperName=%parm[#1]% 
-			snaLuOperSnaName=%parm[#2]% 
+			snaLuStateChangeTrap trap received
+			snaLuOperName=%parm[#1]%
+			snaLuOperSnaName=%parm[#2]%
 			snaLuOperState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -232,7 +232,7 @@ state after change.&lt;/p&gt;&lt;table&gt;
         <varbind>
             <vbnumber>3</vbnumber>
             <vbvalue>2</vbvalue>
-        </varbind>	
+        </varbind>
 	</mask>
 	<uei>uei.opennms.org/standard/rfc1666/traps/snaLuStateChangeActiveTrap</uei>
 	<event-label>SNA-NAU-MIB defined trap event: snaLuStateChangeTrap</event-label>
@@ -262,13 +262,13 @@ state after change.&lt;/p&gt;&lt;table&gt;
 	&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snaLuStateChangeTrap trap received 
-			snaLuOperName=%parm[#1]% 
-			snaLuOperSnaName=%parm[#2]% 
+			snaLuStateChangeTrap trap received
+			snaLuOperName=%parm[#1]%
+			snaLuOperSnaName=%parm[#2]%
 			snaLuOperState=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
-	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#2]%" alarm-type="2" auto-clean="true" clear-key="uei.opennms.org/standard/rfc1666/traps/snaLuStateChangeTrap:%dpname%:%nodeid%:%parm[#2]%" />	
+	<alarm-data reduction-key="%uei%:%dpname%:%nodeid%:%parm[#2]%" alarm-type="2" auto-clean="true" clear-key="uei.opennms.org/standard/rfc1666/traps/snaLuStateChangeTrap:%dpname%:%nodeid%:%parm[#2]%" />
 </event>
 <event>
 	<mask>
@@ -323,10 +323,10 @@ traffic on the network.&lt;/p&gt;&lt;table&gt;
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			snaLuSessnBindFailTrap trap received 
-			snaLuSessnLocalApplName=%parm[#1]% 
-			snaLuSessnRemoteLuName=%parm[#2]% 
-			snaLuSessnOperState=%parm[#3]% 
+			snaLuSessnBindFailTrap trap received
+			snaLuSessnLocalApplName=%parm[#1]%
+			snaLuSessnRemoteLuName=%parm[#2]%
+			snaLuSessnOperState=%parm[#3]%
 			snaLuSessnSenseData=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>

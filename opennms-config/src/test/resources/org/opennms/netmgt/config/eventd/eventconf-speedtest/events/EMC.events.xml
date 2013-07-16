@@ -27,7 +27,7 @@ Not Ready conditions.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			emcDeviceStatusTrap trap received 
+			emcDeviceStatusTrap trap received
 			symmEventDescr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -50,9 +50,9 @@ Not Ready conditions.&lt;/p&gt;&lt;table&gt;
 	<uei>uei.opennms.org/mib2opennms/emcSymmetrixStatusTrap</uei>
 	<event-label>EMC-MIB defined trap event: emcSymmetrixStatusTrap</event-label>
 	<descr>
-&lt;p&gt;This trap is sent for each new WARNING and FATAL error 
+&lt;p&gt;This trap is sent for each new WARNING and FATAL error
 condition found during the most recent 'health'
-test of each attached Symmetrix. 
+test of each attached Symmetrix.
 
 Format of the message is:
 
@@ -67,7 +67,7 @@ an example of which is:
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			emcSymmetrixStatusTrap trap received 
+			emcSymmetrixStatusTrap trap received
 			symmEventDescr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -101,7 +101,7 @@ startup, and apply to all Symmetrixes attached.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			emcRatiosOutofRangeTrap trap received 
+			emcRatiosOutofRangeTrap trap received
 			symmEventDescr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -133,7 +133,7 @@ in the configuration of previously attached Symmetrixes.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			discoveryTableChange trap received 
+			discoveryTableChange trap received
 			discoveryChangeTime=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -164,7 +164,7 @@ event occurs in the agent, or for a specific Symmetrix.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			emcSymmetrixEventTrap trap received 
+			emcSymmetrixEventTrap trap received
 			symmEventDescr=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

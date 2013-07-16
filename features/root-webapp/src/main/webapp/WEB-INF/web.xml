@@ -10,7 +10,7 @@
         <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
-		 
+
   <display-name>OpenNMS ROOT</display-name>
   <error-page>
     <error-code>404</error-code>

@@ -25,7 +25,7 @@ station ID. Note that the CCU Ethernet port is specified by the CCU's own
 station ID.
 
 This may occur due to a host moving from one modem to another, or a modem moving
-from one CCU to another on the same Ethernet domain. It may also occur due to 
+from one CCU to another on the same Ethernet domain. It may also occur due to
 incorrectly configured networks at an EUM or attempts to spoof MAC addresses.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -41,9 +41,9 @@ incorrectly configured networks at an EUM or attempts to spoof MAC addresses.&lt
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ccuAddressChangeTrap trap received 
-			ccuTrapACMacAddress=%parm[#1]% 
-			ccuTrapACOldId=%parm[#2]% 
+			ccuAddressChangeTrap trap received
+			ccuTrapACMacAddress=%parm[#1]%
+			ccuTrapACOldId=%parm[#2]%
 			ccuTrapACNewId=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -78,7 +78,7 @@ configured with the same IP address as the CCU.&lt;/p&gt;&lt;table&gt;
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p;&gt;&lt;/p&gt;&lt;/td;&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ccuDuplicateIpTrap trap received 
+			ccuDuplicateIpTrap trap received
 			ccuTrapDupEumId=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>

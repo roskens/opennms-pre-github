@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:onmsgi="http://xmlns.opennms.org/xsd/spring/onms-osgi"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -31,7 +31,7 @@
 	</bean>
 
 	<bean id="capsdConfig" class="org.opennms.netmgt.config.CapsdConfigFactory" depends-on="init-capsdConfig-factory" factory-method="getInstance"/>
-	
+
     <bean id="init-wmiPeerFactory" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod"><value>org.opennms.netmgt.config.WmiPeerFactory.init</value></property>
 	</bean>
@@ -41,9 +41,9 @@
     <bean id="linkdConfig-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
       <property name="staticMethod"><value>org.opennms.netmgt.config.LinkdConfigFactory.init</value></property>
     </bean>
-  
+
     <bean id="linkdConfig" class="org.opennms.netmgt.config.LinkdConfigFactory" depends-on="linkdConfig-init" factory-method="getInstance"/>
-     
+
 
 	<bean name="syncer" class="org.opennms.netmgt.capsd.JdbcCapsdDbSyncer">
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
@@ -57,7 +57,7 @@
 	<bean id="eventConfResourceLocation" class="java.lang.String">
 	  <constructor-arg value="file:${opennms.home}/etc/eventconf.xml" />
 	</bean>
-	
+
 	<bean id="eventConfDao" class="org.opennms.netmgt.config.DefaultEventConfDao">
 		<property name="configResource" ref="eventConfResourceLocation"/>
 	</bean>
@@ -75,5 +75,5 @@
   </bean>
 
   <bean id="userManager" class="org.opennms.netmgt.config.UserFactory" depends-on="userManager-init" factory-method="getInstance"/>
-  
+
 </beans>

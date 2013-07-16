@@ -19,8 +19,8 @@
         <event-label>WLSR-AP-MIB defined trap event: wlsrUnsecureApDetected</event-label>
         <descr>&lt;p&gt;
 			This trap indicates that an Unsecure Access Point is detected
-			by an Air Monitor located at wlsrLocation on channel 
-			wlsrCurrentChannel. The AP is declared unsecure, because we 
+			by an Air Monitor located at wlsrLocation on channel
+			wlsrCurrentChannel. The AP is declared unsecure, because we
 			matched it to the wlsrMatchedMac/wlsrMatchedIp.
 
 		&lt;/p&gt;&lt;table&gt;
@@ -162,7 +162,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrValidSSIDViolation</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrValidSSIDViolation</event-label>
         <descr>&lt;p&gt;
-		This trap indicates that an Access Point violating Valid SSID is 
+		This trap indicates that an Access Point violating Valid SSID is
 		detected by an AP at wlsrLocation.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -609,7 +609,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrChannelInterferenceDetected</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrChannelInterferenceDetected</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation has detected a channel interference on
 			wlsrCurrentChannel.
 		&lt;/p&gt;&lt;table&gt;
@@ -645,7 +645,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrAPInterferenceDetected</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrAPInterferenceDetected</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation has detected an AP interference on
 			wlsrCurrentChannel.
 		&lt;/p&gt;&lt;table&gt;
@@ -691,7 +691,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrStaInterferenceDetected</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrStaInterferenceDetected</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation has detected a Station interference on
 			wlsrCurrentChannel.
 		&lt;/p&gt;&lt;table&gt;
@@ -742,7 +742,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrFrameRetryRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrFrameRetryRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that an AP wlsrTargetApBSSID has exceeded
 			an upper threshold for Frame Retry Rate for AP wlsrTargetApBSSID.
 		&lt;/p&gt;&lt;table&gt;
@@ -788,9 +788,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrFrameReceiveErrorRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrFrameReceiveErrorRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that an AP wlsrTargetApBSSID has exceeded
-			an upper threshold for Frame Receive Error Rate for AP 
+			an upper threshold for Frame Receive Error Rate for AP
 			wlsrTargetApBSSID.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -835,9 +835,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrFrameFragmentationRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrFrameFragmentationRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that an AP wlsrTargetApBSSID has exceeded
-			an upper threshold for Frame Fragmentation Rate for AP 
+			an upper threshold for Frame Fragmentation Rate for AP
 			wlsrTargetApBSSID.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -882,9 +882,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrFrameBandWidthRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrFrameBandWidthRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that a station wlsrStaAddress has exceeded
-			the allocated Bandwidth rate. 
+			the allocated Bandwidth rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -933,9 +933,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrFrameLowSpeedRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrFrameLowSpeedRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that a station wlsrStaAddress has exceeded
-			the Low speed rate. 
+			the Low speed rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -984,9 +984,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrFrameNonUnicastRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrFrameNonUnicastRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that a station wlsrStaAddress has exceeded
-			the Non Unicast traffic rate. 
+			the Non Unicast traffic rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1035,8 +1035,8 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrLoadbalancingEnabled</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrLoadbalancingEnabled</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
-			wlsrLocation is reporting that an AP with BSSID wlsrTargetApBSSID 
+			This trap indicates that an AM/AP located at
+			wlsrLocation is reporting that an AP with BSSID wlsrTargetApBSSID
 			has enabled Load balancing.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1081,9 +1081,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrChannelFrameRetryRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrChannelFrameRetryRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that it exceeded an upper threshold
-			for Frame Retry Rate. 
+			for Frame Retry Rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1117,9 +1117,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrChannelFrameFragmentationRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrChannelFrameFragmentationRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that it exceeded an upper threshold
-			for Frame Fragmentation Rate. 
+			for Frame Fragmentation Rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1153,9 +1153,9 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrChannelFrameErrorRateExceeded</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrChannelFrameErrorRateExceeded</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
+			This trap indicates that an AM/AP located at
 			wlsrLocation is reporting that it exceeded an upper threshold
-			for Frame Error Rate. 
+			for Frame Error Rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -1301,7 +1301,7 @@
         <event-label>WLSR-AP-MIB defined trap event: wlsrNodeRateAnomaly</event-label>
         <descr>&lt;p&gt;
 		This trap indicates that an AP/AM at wlsrLocation detected
-		frames of type wlsrFrameType transmitted by node wlsrNodeMac 
+		frames of type wlsrFrameType transmitted by node wlsrNodeMac
 		which exceeds the configured IDS rate threshold.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1372,8 +1372,8 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrEAPRateAnomaly</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrEAPRateAnomaly</event-label>
         <descr>&lt;p&gt;
-		This trap indicates that the number of EAP Handshake packets received 
-		by an AP/AM at wlsrLocation exceeds the configured IDS EAP Handshake 
+		This trap indicates that the number of EAP Handshake packets received
+		by an AP/AM at wlsrLocation exceeds the configured IDS EAP Handshake
 		rate.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1408,7 +1408,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrSignalAnomaly</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrSignalAnomaly</event-label>
         <descr>&lt;p&gt;
-		This trap indicates that an AP/AM at wlsrLocation detected a Signal 
+		This trap indicates that an AP/AM at wlsrLocation detected a Signal
 		Anomaly on wlsrCurrentChannel.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1554,7 +1554,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrApFloodAttack</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrApFloodAttack</event-label>
         <descr>&lt;p&gt;
-		This trap is triggered when the number of spurious AP's detected by 
+		This trap is triggered when the number of spurious AP's detected by
 		an AP/AM at wlsrLocation exceeds the configured IDS threshold.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1584,7 +1584,7 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrAdhocNetwork</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrAdhocNetwork</event-label>
         <descr>&lt;p&gt;
-		This trap indicates that an AP/AM at wlsrLocation detected an Adhoc 
+		This trap indicates that an AP/AM at wlsrLocation detected an Adhoc
 		Network. Node wlsrSourceMac is connected to an adhoc AP
 		wlsrTargetApBSSID with wlsrTargetApSSID ssid.
 		&lt;/p&gt;&lt;table&gt;
@@ -1635,8 +1635,8 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrWirelessBridge</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrWirelessBridge</event-label>
         <descr>&lt;p&gt;
-		This trap indicates that an AP/AM at wlsrLocation detected a Wireless 
-		Bridge. The detected bridge is between wlsrSourceMac and 
+		This trap indicates that an AP/AM at wlsrLocation detected a Wireless
+		Bridge. The detected bridge is between wlsrSourceMac and
 		wlsrReceiverMac.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1737,8 +1737,8 @@
         <uei>uei.opennms.org/vendor/aruba/ap/traps/wlsrLoadbalancingDisabled</uei>
         <event-label>WLSR-AP-MIB defined trap event: wlsrLoadbalancingDisabled</event-label>
         <descr>&lt;p&gt;
-			This trap indicates that an AM/AP located at 
-			wlsrLocation is reporting that an AP with BSSID wlsrTargetApBSSID 
+			This trap indicates that an AM/AP located at
+			wlsrLocation is reporting that an AP with BSSID wlsrTargetApBSSID
 			has disabled Load balancing.
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -1930,8 +1930,8 @@
         <descr>&lt;p&gt;
 			This trap indicates that a station with wlsrNodeMac associated
 			with an Unsecure Access Point wlsrTargetApBSSID. This is detected
-			by an Air Monitor located at wlsrLocation on channel 
-			wlsrCurrentChannel. 
+			by an Air Monitor located at wlsrLocation on channel
+			wlsrCurrentChannel.
 
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
@@ -2037,8 +2037,8 @@
         <event-label>WLSR-AP-MIB defined trap event: wlsrInterferingApDetected</event-label>
         <descr>&lt;p&gt;
 			This trap indicates that an Interfering Access Point is detected
-			by an Air Monitor located at wlsrLocation on channel 
-			wlsrCurrentChannel. 
+			by an Air Monitor located at wlsrLocation on channel
+			wlsrCurrentChannel.
 
 		&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;

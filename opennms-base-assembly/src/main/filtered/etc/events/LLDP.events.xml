@@ -18,13 +18,13 @@
 	<uei>uei.opennms.org/ieee/lldpMIB/traps/lldpRemTablesChange</uei>
 	<event-label>LLDP-MIB defined trap event: lldpRemTablesChange</event-label>
 	<descr>
-&lt;p&gt;A lldpRemTablesChange notification is sent when the value 
-of lldpStatsRemTableLastChangeTime changes. It can be 
-utilized by an NMS to trigger LLDP remote systems table 
+&lt;p&gt;A lldpRemTablesChange notification is sent when the value
+of lldpStatsRemTableLastChangeTime changes. It can be
+utilized by an NMS to trigger LLDP remote systems table
 maintenance polls.
 
 Note that transmission of lldpRemTablesChange
-notifications are throttled by the agent, as specified by the 
+notifications are throttled by the agent, as specified by the
 'lldpNotificationInterval' object.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -44,10 +44,10 @@ notifications are throttled by the agent, as specified by the
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			lldpRemTablesChange trap received 
-			lldpStatsRemTablesInserts=%parm[#1]% 
-			lldpStatsRemTablesDeletes=%parm[#2]% 
-			lldpStatsRemTablesDrops=%parm[#3]% 
+			lldpRemTablesChange trap received
+			lldpStatsRemTablesInserts=%parm[#1]%
+			lldpStatsRemTablesDeletes=%parm[#2]%
+			lldpStatsRemTablesDrops=%parm[#3]%
 			lldpStatsRemTablesAgeouts=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

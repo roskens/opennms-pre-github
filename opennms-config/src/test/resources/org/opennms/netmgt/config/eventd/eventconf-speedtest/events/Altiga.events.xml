@@ -36,11 +36,11 @@
                 </maskelement>
                 <maskelement>
                         <mename>specific</mename>
-                        <mevalue>0</mevalue> 
+                        <mevalue>0</mevalue>
                 </maskelement>
                 <varbind>
-                        <vbnumber>1</vbnumber> 
-                        <vbvalue>~.*\s+SEV=5\s+AUTH/\d+\s+RPT=\d+.*?User\s+.\s+SNMP\s+.\s+Protocol\s+.\s+SNMP\s+.\s+attempted.*?Status:\s+.ACCESS GRANTED.*</vbvalue> 
+                        <vbnumber>1</vbnumber>
+                        <vbvalue>~.*\s+SEV=5\s+AUTH/\d+\s+RPT=\d+.*?User\s+.\s+SNMP\s+.\s+Protocol\s+.\s+SNMP\s+.\s+attempted.*?Status:\s+.ACCESS GRANTED.*</vbvalue>
                 </varbind>
         </mask>
         <uei>uei.opennms.org/vender/altiga/traps/altigaGenTrap2AnnoyingSnmpAccessGranted</uei>
@@ -65,7 +65,7 @@
                 </maskelement>
                 <maskelement>
                         <mename>specific</mename>
-                        <mevalue>0</mevalue> 
+                        <mevalue>0</mevalue>
                 </maskelement>
         </mask>
         <uei>uei.opennms.org/vender/altiga/traps/altigaGenTrap2</uei>

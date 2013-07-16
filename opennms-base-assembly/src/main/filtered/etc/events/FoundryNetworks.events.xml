@@ -2465,8 +2465,8 @@
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapUDLDLinkDown trap received 
-				ifIndex=%parm[#1]% 
+				snTrapUDLDLinkDown trap received
+				ifIndex=%parm[#1]%
 				snAgGblTrapMessage=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2501,8 +2501,8 @@
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapUDLDLinkUp trap received 
-				ifIndex=%parm[#1]% 
+				snTrapUDLDLinkUp trap received
+				ifIndex=%parm[#1]%
 				snAgGblTrapMessage=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -2532,7 +2532,7 @@
 		%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapMacBasedVlanEnabled trap received 
+				snTrapMacBasedVlanEnabled trap received
 				snAgGblTrapMessage=%parm[#1]%&lt;/p&gt;
 			</logmsg>
 		<severity>Normal</severity>
@@ -2562,7 +2562,7 @@
 		%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapMacBasedVlanDisabled trap received 
+				snTrapMacBasedVlanDisabled trap received
 				snAgGblTrapMessage=%parm[#1]%&lt;/p&gt;
 			</logmsg>
 		<severity>Minor</severity>
@@ -2597,8 +2597,8 @@
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapChasFanNormal trap received 
-				snChasFanIndex=%parm[#1]% 
+				snTrapChasFanNormal trap received
+				snChasFanIndex=%parm[#1]%
 				snChasFanDescription=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Cleared</severity>
@@ -2636,9 +2636,9 @@
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapStpRootGuardDetect trap received 
-				ifIndex=%parm[#1]% 
-				snVLanByPortCfgVLanId=%parm[#2]% 
+				snTrapStpRootGuardDetect trap received
+				ifIndex=%parm[#1]%
+				snVLanByPortCfgVLanId=%parm[#2]%
 				snAgGblTrapMessage=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2676,9 +2676,9 @@
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapStpRootGuardExpire trap received 
-				ifIndex=%parm[#1]% 
-				snVLanByPortCfgVLanId=%parm[#2]% 
+				snTrapStpRootGuardExpire trap received
+				ifIndex=%parm[#1]%
+				snVLanByPortCfgVLanId=%parm[#2]%
 				snAgGblTrapMessage=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2716,9 +2716,9 @@
 		%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapStpBPDUGuardDetect trap received 
-				ifIndex=%parm[#1]% 
-				snVLanByPortCfgVLanId=%parm[#2]% 
+				snTrapStpBPDUGuardDetect trap received
+				ifIndex=%parm[#1]%
+				snVLanByPortCfgVLanId=%parm[#2]%
 				snAgGblTrapMessage=%parm[#3]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2752,8 +2752,8 @@
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapMstpBPDUGuardDetect trap received 
-				ifIndex=%parm[#1]% 
+				snTrapMstpBPDUGuardDetect trap received
+				ifIndex=%parm[#1]%
 				snAgGblTrapMessage=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>
@@ -2787,8 +2787,8 @@
 		%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 		</descr>
 			<logmsg dest='logndisplay'>&lt;p&gt;
-				snTrapErrorDisableAction trap received 
-				ifIndex=%parm[#1]% 
+				snTrapErrorDisableAction trap received
+				ifIndex=%parm[#1]%
 				snAgGblTrapMessage=%parm[#2]%&lt;/p&gt;
 			</logmsg>
 		<severity>Warning</severity>

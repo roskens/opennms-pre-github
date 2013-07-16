@@ -22,14 +22,14 @@
 <p>A per min bytes exceed trap signifies that the number of
 bytes per minutes has exceeds the specified threshold.
 
-jnxJsScreenZoneName: the zone name under which the attack 
+jnxJsScreenZoneName: the zone name under which the attack
 is occuring.
 ifName the interface at which the attack is occuring.
 jnxJsScreenAttackType: type of attack.
 jnxJsScreenAttackCounter: the number of attacks recorded
 based on the particular screening options enabled. The
 value of this counter is the aggregated statistic of all
-the interfaces bound to the mentioned zone. 
+the interfaces bound to the mentioned zone.
 jnxJsScreenAttackDescr: a general text description of the
 this attack or the trap.</p><table>
 	<tr><td><b>
@@ -86,11 +86,11 @@ this attack or the trap.</p><table>
 	%parm[#5]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsScreenAttack trap received 
-			jnxJsScreenZoneName=%parm[#1]% 
-			ifName=%parm[#2]% 
-			jnxJsScreenAttackType=%parm[#3]% 
-			jnxJsScreenAttackCounter=%parm[#4]% 
+			jnxJsScreenAttack trap received
+			jnxJsScreenZoneName=%parm[#1]%
+			ifName=%parm[#2]%
+			jnxJsScreenAttackType=%parm[#3]%
+			jnxJsScreenAttackCounter=%parm[#4]%
 			jnxJsScreenAttackDescr=%parm[#5]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -114,8 +114,8 @@ this attack or the trap.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsScreenCfgChange</uei>
     <event-label>JUNIPER-JS-SCREENING-MIB defined trap event: jnxJsScreenCfgChange</event-label>
     <descr><![CDATA[
-<p>The screening configuration change trap signifies that 
-an screening option has been changed(enabled or disabled).  
+<p>The screening configuration change trap signifies that
+an screening option has been changed(enabled or disabled).
 
 A disable feature may implies a security hole.
 
@@ -172,9 +172,9 @@ jnxJsScreenCfgStatus: either enabled or disabled</p><table>
 	</p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsScreenCfgChange trap received 
-			jnxJsScreenZoneName=%parm[#1]% 
-			jnxJsScreenAttackType=%parm[#2]% 
+			jnxJsScreenCfgChange trap received
+			jnxJsScreenZoneName=%parm[#1]%
+			jnxJsScreenAttackType=%parm[#2]%
 			jnxJsScreenCfgStatus=%parm[#3]%</p>
 		]]></logmsg>
     <severity>Warning</severity>

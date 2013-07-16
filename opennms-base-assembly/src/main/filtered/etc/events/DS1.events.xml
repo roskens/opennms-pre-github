@@ -34,8 +34,8 @@ the ds1 are sent.&lt;/p&gt;&lt;table&gt;
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			dsx1LineStatusChange trap received 
-			dsx1LineStatus=%parm[#1]% 
+			dsx1LineStatusChange trap received
+			dsx1LineStatus=%parm[#1]%
 			dsx1LineStatusLastChange=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServiceUp</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServiceUp</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that the 
+<p>An access authentication trap signifies that the
 specified service has started. </p><table></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
@@ -46,7 +46,7 @@ specified service has started. </p><table></table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServiceDown</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServiceDown</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that the 
+<p>An access authentication trap signifies that the
 specified service has been stopped.</p><table></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
@@ -73,7 +73,7 @@ specified service has been stopped.</p><table></table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServerDisabled</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServerDisabled</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that 
+<p>An access authentication trap signifies that
 the External authentication server is not responding.</p><table>
 	<tr><td><b>
 
@@ -81,7 +81,7 @@ the External authentication server is not responding.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxAccessAuthServerDisabled trap received 
+			jnxAccessAuthServerDisabled trap received
 			jnxUserAAAServerName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Major</severity>
@@ -105,7 +105,7 @@ the External authentication server is not responding.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthServerEnabled</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthServerEnabled</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that 
+<p>An access authentication trap signifies that
 the External authentication server started responding
 again.</p><table>
 	<tr><td><b>
@@ -114,7 +114,7 @@ again.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxAccessAuthServerEnabled trap received 
+			jnxAccessAuthServerEnabled trap received
 			jnxUserAAAServerName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Cleared</severity>
@@ -138,7 +138,7 @@ again.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthAddressPoolHighThreshold</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthAddressPoolHighThreshold</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that 
+<p>An access authentication trap signifies that
 the address pool has reached its high threshold.</p><table>
 	<tr><td><b>
 
@@ -146,7 +146,7 @@ the address pool has reached its high threshold.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxAccessAuthAddressPoolHighThreshold trap received 
+			jnxAccessAuthAddressPoolHighThreshold trap received
 			jnxUserAAAAddressPoolName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -169,7 +169,7 @@ the address pool has reached its high threshold.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthAddressPoolAbateThreshold</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthAddressPoolAbateThreshold</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that 
+<p>An access authentication trap signifies that
 the address pool has reached its abate threshold</p><table>
 	<tr><td><b>
 
@@ -177,7 +177,7 @@ the address pool has reached its abate threshold</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxAccessAuthAddressPoolAbateThreshold trap received 
+			jnxAccessAuthAddressPoolAbateThreshold trap received
 			jnxUserAAAAddressPoolName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -200,7 +200,7 @@ the address pool has reached its abate threshold</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthAddressPoolOutOfAddresses</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthAddressPoolOutOfAddresses</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that 
+<p>An access authentication trap signifies that
 an Out Of Addresses event occured on the pool.</p><table>
 	<tr><td><b>
 
@@ -208,7 +208,7 @@ an Out Of Addresses event occured on the pool.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxAccessAuthAddressPoolOutOfAddresses trap received 
+			jnxAccessAuthAddressPoolOutOfAddresses trap received
 			jnxUserAAAAddressPoolName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>
@@ -231,7 +231,7 @@ an Out Of Addresses event occured on the pool.</p><table>
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxAccessAuthAddressPoolOutOfMemory</uei>
     <event-label>JUNIPER-USER-AAA-MIB defined trap event: jnxAccessAuthAddressPoolOutOfMemory</event-label>
     <descr><![CDATA[
-<p>An access authentication trap signifies that 
+<p>An access authentication trap signifies that
 an Out Of Memory event occured on the pool.</p><table>
 	<tr><td><b>
 
@@ -239,7 +239,7 @@ an Out Of Memory event occured on the pool.</p><table>
 	%parm[#1]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxAccessAuthAddressPoolOutOfMemory trap received 
+			jnxAccessAuthAddressPoolOutOfMemory trap received
 			jnxUserAAAAddressPoolName=%parm[#1]%</p>
 		]]></logmsg>
     <severity>Indeterminate</severity>

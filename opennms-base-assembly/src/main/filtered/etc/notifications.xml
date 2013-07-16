@@ -9,10 +9,10 @@
         <uei>uei.opennms.org/nodes/interfaceDown</uei>
         <rule>IPADDR != '0.0.0.0'</rule>
         <destinationPath>Email-Admin</destinationPath>
-        <text-message>All services are down on interface %interfaceresolve% (%interface%) 
-on node %nodelabel%.  New Outage records have been created 
-and service level availability calculations will be impacted 
-until this outage is resolved.  
+        <text-message>All services are down on interface %interfaceresolve% (%interface%)
+on node %nodelabel%.  New Outage records have been created
+and service level availability calculations will be impacted
+until this outage is resolved.
 	</text-message>
         <subject>Notice #%noticeid%: %interfaceresolve% (%interface%) on node %nodelabel% down.</subject>
         <numeric-message>111-%noticeid%</numeric-message>
@@ -21,9 +21,9 @@ until this outage is resolved.
         <uei>uei.opennms.org/nodes/nodeDown</uei>
         <rule>IPADDR != '0.0.0.0'</rule>
         <destinationPath>Email-Admin</destinationPath>
-        <text-message>All services are down on node %nodelabel%.  New Outage records have 
-been created and service level availability calculations will 
-be impacted until this outage is resolved.  
+        <text-message>All services are down on node %nodelabel%.  New Outage records have
+been created and service level availability calculations will
+be impacted until this outage is resolved.
 	</text-message>
         <subject>Notice #%noticeid%: node %nodelabel% down.</subject>
         <numeric-message>111-%noticeid%</numeric-message>
@@ -32,8 +32,8 @@ be impacted until this outage is resolved.
         <uei>uei.opennms.org/nodes/nodeLostService</uei>
         <rule>IPADDR != '0.0.0.0'</rule>
         <destinationPath>Email-Admin</destinationPath>
-        <text-message>The %service% service poll on interface %interfaceresolve% (%interface%) 
-on node %nodelabel% failed at %time%. 
+        <text-message>The %service% service poll on interface %interfaceresolve% (%interface%)
+on node %nodelabel% failed at %time%.
 	</text-message>
         <subject>Notice #%noticeid%: %service% down on %interfaceresolve% (%interface%) on node %nodelabel%.</subject>
         <numeric-message>111-%noticeid%</numeric-message>
@@ -51,7 +51,7 @@ on node %nodelabel% failed at %time%.
         <uei>uei.opennms.org/nodes/interfaceDeleted</uei>
         <rule>IPADDR != '0.0.0.0'</rule>
         <destinationPath>Email-Admin</destinationPath>
-        <text-message>Due to extended downtime or operator action, the interface %interfaceresolve% (%interface%) 
+        <text-message>Due to extended downtime or operator action, the interface %interfaceresolve% (%interface%)
 on node %nodelabel% has been deleted from OpenNMS&apos;s polling database.</text-message>
         <subject>Notice #%noticeid%: [OpenNMS] %interfaceresolve% (%interface%) on node %nodelabel% deleted.</subject>
         <numeric-message>111-%noticeid%</numeric-message>

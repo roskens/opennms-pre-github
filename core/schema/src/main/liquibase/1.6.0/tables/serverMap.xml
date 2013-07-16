@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-serverMap">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="servermap" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<!-- Contains a list of IP Addresses mapped to OpenNMS servers -->
 		<createTable tableName="servermap">

@@ -59,12 +59,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscTestTrapEvent trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscTestTrapEvent trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -128,12 +128,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscAuthError trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscAuthError trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -197,12 +197,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscLostESM trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscLostESM trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -266,12 +266,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscFoundESM trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscFoundESM trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -335,12 +335,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscPowerOff trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscPowerOff trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -404,12 +404,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscPowerOn trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscPowerOn trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -473,12 +473,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscWatchdogExpired trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscWatchdogExpired trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -542,12 +542,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscBattLow trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscBattLow trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -611,12 +611,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscTempNormal trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscTempNormal trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -680,12 +680,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscTempWarning trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscTempWarning trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -749,12 +749,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscTempCritical trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscTempCritical trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -818,12 +818,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscVoltNormal trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscVoltNormal trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>
@@ -887,12 +887,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscVoltWarning trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscVoltWarning trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Minor</severity>
@@ -956,12 +956,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscVoltCritical trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscVoltCritical trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1025,12 +1025,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscSELWarning trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscSELWarning trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1094,12 +1094,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscSELCritical trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscSELCritical trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1163,12 +1163,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscSEL80percentFull trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscSEL80percentFull trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1232,12 +1232,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscSEL90percentFull trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscSEL90percentFull trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1301,12 +1301,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscSEL100percentFull trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscSEL100percentFull trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Major</severity>
@@ -1370,12 +1370,12 @@
 	%parm[#6]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
         <logmsg dest="logndisplay">&lt;p&gt;
-			alertDrscSELNormal trap received 
-			drsAlertSystem=%parm[#1]% 
-			drsAlertTableIndexOID=%parm[#2]% 
-			drsAlertMessage=%parm[#3]% 
-			drsAlertCurrentStatus=%parm[#4]% 
-			drsAlertPreviousStatus=%parm[#5]% 
+			alertDrscSELNormal trap received
+			drsAlertSystem=%parm[#1]%
+			drsAlertTableIndexOID=%parm[#2]%
+			drsAlertMessage=%parm[#3]%
+			drsAlertCurrentStatus=%parm[#4]%
+			drsAlertPreviousStatus=%parm[#5]%
 			drsAlertData=%parm[#6]%&lt;/p&gt;
 		</logmsg>
         <severity>Normal</severity>

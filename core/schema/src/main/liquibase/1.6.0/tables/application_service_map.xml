@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
 	<changeSet author="rangerrick" id="1.6.0-application_service_map">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="application_service_map" /></not>
-		</preConditions> 
+		</preConditions>
 
 		<createTable tableName="application_service_map">
 			<column name="appid" type="integer" />

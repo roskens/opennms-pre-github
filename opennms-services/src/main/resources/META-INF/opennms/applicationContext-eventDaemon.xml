@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
@@ -15,8 +15,8 @@
     </property>
     <property name="receiver" ref="broadcastEventProcessor"/>
   </bean>
-  
-  
+
+
   <bean id="eventdConfigManager-init" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod"><value>org.opennms.netmgt.config.EventdConfigFactory.init</value></property>
   </bean>
@@ -40,15 +40,15 @@
 
   <bean id="eventIpcManagerHandlerPoolSize" factory-bean="eventdConfigManager" factory-method="getReceivers"/>
   <bean id="eventIpcManagerHandlerQueueLength" factory-bean="eventdConfigManager" factory-method="getQueueLength"/>
-  
+
   <bean id="eventdServiceManager" class="org.opennms.netmgt.eventd.DaoEventdServiceManager">
     <property name="serviceTypeDao" ref="serviceTypeDao"/>
   </bean>
-  
+
   <bean id="eventdEventHandler" class="org.opennms.netmgt.eventd.DefaultEventHandlerImpl">
     <property name="eventProcessors">
       <list>
-        <!-- 
+        <!--
           This EventProcessor can be used to perform regex replacements on incoming parm values.
           It was added in 1.11 and because of performance concerns, it is commented-out for now.
         -->
@@ -59,7 +59,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="eventWriter" class="org.opennms.netmgt.eventd.processor.JdbcEventWriter">
     <property name="getNextIdString" ref="getNextEventIdSql"/>
     <property name="dataSource" ref="dataSource"/>
@@ -67,7 +67,7 @@
   </bean>
 
   <bean id="getNextEventIdSql" factory-bean="eventdConfigManager" factory-method="getGetNextEventID"/>
-  
+
   <bean id="eventIpcBroadcastProcessor" class="org.opennms.netmgt.eventd.processor.EventIpcBroadcastProcessor">
     <property name="eventIpcBroadcaster" ref="eventIpcManagerImpl"/>
   </bean>
@@ -75,7 +75,7 @@
   <bean id="eventHandler" class="org.opennms.netmgt.eventd.adaptors.EventIpcManagerEventHandlerProxy" depends-on="eventIpcManagerImpl">
     <property name="eventIpcManager" ref="eventIpcManager"/>
   </bean>
-  
+
   <bean id="tcpReceiver" class="org.opennms.netmgt.eventd.adaptors.tcp.TcpEventReceiver">
     <property name="port" ref="tcpPort"/>
     <property name="ipAddress" ref="tcpIpAddress"/>
@@ -85,7 +85,7 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="udpReceiver" class="org.opennms.netmgt.eventd.adaptors.udp.UdpEventReceiver">
     <property name="port" ref="udpPort"/>
     <property name="ipAddress" ref="udpIpAddress"/>
@@ -95,15 +95,15 @@
       </list>
     </property>
   </bean>
-  
+
   <bean id="tcpIpAddress" factory-bean="eventdConfigManager" factory-method="getTCPIpAddress"/>
 
   <bean id="tcpPort" factory-bean="eventdConfigManager" factory-method="getTCPPort"/>
 
   <bean id="udpIpAddress" factory-bean="eventdConfigManager" factory-method="getUDPIpAddress"/>
-  
+
   <bean id="udpPort" factory-bean="eventdConfigManager" factory-method="getUDPPort"/>
-  
+
   <bean id="broadcastEventProcessor" class="org.opennms.netmgt.eventd.BroadcastEventProcessor" depends-on="eventIpcManagerImpl">
     <constructor-arg><ref bean="eventIpcManager"/></constructor-arg>
     <constructor-arg><ref bean="eventConfDao"/></constructor-arg>

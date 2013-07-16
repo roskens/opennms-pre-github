@@ -27,7 +27,7 @@
 	<event-label>GGSN-MIB defined trap event: ggsnContactUnsupported</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly or changed generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -71,14 +71,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -111,7 +111,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnContactUnsupported</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly or changed generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -155,14 +155,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -195,7 +195,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnBufferFull</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly or changed generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -239,14 +239,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -279,7 +279,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnBufferFull</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly or changed generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -323,14 +323,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -363,7 +363,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnLostContactPRS-PPS</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly or changed generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -407,14 +407,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -447,7 +447,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnLostContactPRS-PPS</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly or changed generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -491,14 +491,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -527,7 +527,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnTrapNew</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -571,14 +571,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -607,7 +607,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnTrapNew</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -651,14 +651,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -687,7 +687,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnTrapNew</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -731,14 +731,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -767,7 +767,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnTrapNew</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -811,14 +811,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -843,7 +843,7 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	<event-label>GGSN-MIB defined trap event: ggsnTrapNew</event-label>
 	<descr>
 &lt;p&gt;A trap describing the newly generated event or
-alarm. The text in ggsnTrapDescription indicates 
+alarm. The text in ggsnTrapDescription indicates
 the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	&lt;tr&gt;&lt;td&gt;&lt;b&gt;
 
@@ -887,14 +887,14 @@ the nature of the problem.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapNew trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapNew trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -968,14 +968,14 @@ of the change.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Critical</severity>
@@ -1049,14 +1049,14 @@ of the change.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Major</severity>
@@ -1130,14 +1130,14 @@ of the change.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Minor</severity>
@@ -1211,14 +1211,14 @@ of the change.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Warning</severity>
@@ -1288,14 +1288,14 @@ of the change.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapChanged trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapChanged trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>
@@ -1362,14 +1362,14 @@ of the change.&lt;/p&gt;&lt;table&gt;
 	%parm[#8]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			ggsnTrapCleared trap received 
-			ggsnAlarmId=%parm[#1]% 
-			ggsnAlarmName=%parm[#2]% 
-			ggsnAlarmTime=%parm[#3]% 
-			ggsnAlarmSourceId=%parm[#4]% 
-			ggsnAlarmObjectClass=%parm[#5]% 
-			ggsnAlarmObjectInstance=%parm[#6]% 
-			ggsnAlarmSeverity=%parm[#7]% 
+			ggsnTrapCleared trap received
+			ggsnAlarmId=%parm[#1]%
+			ggsnAlarmName=%parm[#2]%
+			ggsnAlarmTime=%parm[#3]%
+			ggsnAlarmSourceId=%parm[#4]%
+			ggsnAlarmObjectClass=%parm[#5]%
+			ggsnAlarmObjectInstance=%parm[#6]%
+			ggsnAlarmSeverity=%parm[#7]%
 			ggsnAlarmDescription=%parm[#8]%&lt;/p&gt;
 		</logmsg>
 	<severity>Normal</severity>

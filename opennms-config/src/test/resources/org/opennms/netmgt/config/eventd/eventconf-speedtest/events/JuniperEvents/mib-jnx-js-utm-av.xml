@@ -19,7 +19,7 @@
     <uei>uei.opennms.org/vendor/Juniper/traps/jnxJsAvPatternUpdateTrap</uei>
     <event-label>JUNIPER-JS-UTM-AV-MIB defined trap event: jnxJsAvPatternUpdateTrap</event-label>
     <descr><![CDATA[
-<p>This traps is raised when the Anti-Virus pattern database is 
+<p>This traps is raised when the Anti-Virus pattern database is
 updated successfully.</p><table>
 	<tr><td><b>
 
@@ -31,8 +31,8 @@ updated successfully.</p><table>
 	%parm[#2]%;</td><td><p></p></td></tr></table>
 	]]></descr>
     <logmsg dest="logndisplay" notify="true"><![CDATA[<p>
-			jnxJsAvPatternUpdateTrap trap received 
-			jnxAVPatternVersionString=%parm[#1]% 
+			jnxJsAvPatternUpdateTrap trap received
+			jnxAVPatternVersionString=%parm[#1]%
 			jnxAVPatternTimestamp=%parm[#2]%</p>
 		]]></logmsg>
     <severity>Normal</severity>

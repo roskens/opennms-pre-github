@@ -10,26 +10,26 @@
 			so, or explicitly add them in the Admin UI.  You will most likely want to
 			tell OpenNMS where to look to discover hosts on your network.
 		</para>
-		
+
 		<para>
 			Edit <filename>$OPENNMS_HOME/etc/discovery-configuration.xml</filename>.  You
 			should see an example &lt;include-range&gt; tag with a &lt;begin&gt; and an
 			&lt;end&gt; which is commented out.
 		</para>
-		
+
 		<para>
 			You will most likely want to uncomment it and change the beginning and end
 			ranges (within the <code>&lt;begin&gt;</code> and <code>&lt;end&gt;</code>
 			tags, respectively).  Additionally, you can add as many
 			<code>&lt;include-range&gt;</code>es as you'd like.
 		</para>
-		
+
 		<para>
 			If you would rather list the individual host that you want to have
 			discovered, you can insert <code>&lt;specific&gt;</code> tags above the
 			<code>&lt;include-range&gt;</code> tag.
 		</para>
-		
+
 		<para>
 			Lastly, if you prefer to use the web interface to add individual hosts for
 			OpenNMS to monitor, you leave the contents of this file commented out.

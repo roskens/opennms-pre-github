@@ -43,9 +43,9 @@ reconfigured VPC at this ATM Interface.&lt;/p&gt;&lt;table&gt;
         &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        atmfVpcChange trap received 
-                        atmfVpcPortIndex=%parm[#1]% 
-                        atmfVpcVpi=%parm[#2]% 
+                        atmfVpcChange trap received
+                        atmfVpcPortIndex=%parm[#1]%
+                        atmfVpcVpi=%parm[#2]%
                         atmfVpcOperStatus=%parm[#3]%&lt;/p&gt;
                 </logmsg>
         <severity>Warning</severity>
@@ -69,7 +69,7 @@ reconfigured VPC at this ATM Interface.&lt;/p&gt;&lt;table&gt;
         <uei>uei.opennms.org/vendor/atmforum/traps/atmfVccChange</uei>
         <event-label>ATM-FORUM-ILMI40-MIB defined trap event: atmfVccChange</event-label>
         <descr>
-&lt;p&gt;An atmfVccChange trap indicates that a permanent VCC has been 
+&lt;p&gt;An atmfVccChange trap indicates that a permanent VCC has been
 added or deleted at this ATM Interface or that the attributes
 of an existing VCC have been modified.. The variables
 included in the trap identify the VCI and VPI values
@@ -99,10 +99,10 @@ Interface.&lt;/p&gt;&lt;table&gt;
         &lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
         </descr>
                 <logmsg dest='logndisplay'>&lt;p&gt;
-                        atmfVccChange trap received 
-                        atmfVccPortIndex=%parm[#1]% 
-                        atmfVccVci=%parm[#2]% 
-                        atmfVccVpi=%parm[#3]% 
+                        atmfVccChange trap received
+                        atmfVccPortIndex=%parm[#1]%
+                        atmfVccVci=%parm[#2]%
+                        atmfVccVpi=%parm[#3]%
                         atmfVccOperStatus=%parm[#4]%&lt;/p&gt;
                 </logmsg>
         <severity>Warning</severity>

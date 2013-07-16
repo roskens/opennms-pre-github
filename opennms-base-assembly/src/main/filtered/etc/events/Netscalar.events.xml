@@ -25,7 +25,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			changeToPrimary trap received 
+			changeToPrimary trap received
 			sysIpAddress=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -55,7 +55,7 @@
 	%parm[#1]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			changeToSecondary trap received 
+			changeToSecondary trap received
 			sysIpAddress=%parm[#1]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -93,9 +93,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuUtilization trap received 
-			nsCPUusage=%parm[#1]% 
-			alarmHighThreshold=%parm[#2]% 
+			cpuUtilization trap received
+			nsCPUusage=%parm[#1]%
+			alarmHighThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -229,8 +229,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			entitydown trap received 
-			entityName=%parm[#1]% 
+			entitydown trap received
+			entityName=%parm[#1]%
 			sysIpAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -264,8 +264,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			entityup trap received 
-			entityName=%parm[#1]% 
+			entityup trap received
+			entityName=%parm[#1]%
 			sysIpAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -303,9 +303,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			synflood trap received 
-			unackSynCount=%parm[#1]% 
-			alarmHighThreshold=%parm[#2]% 
+			synflood trap received
+			unackSynCount=%parm[#1]%
+			alarmHighThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -343,9 +343,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			cpuUtilizationNormal trap received 
-			nsCPUusage=%parm[#1]% 
-			alarmNormalThreshold=%parm[#2]% 
+			cpuUtilizationNormal trap received
+			nsCPUusage=%parm[#1]%
+			alarmNormalThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -383,9 +383,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			synfloodNormal trap received 
-			unackSynCount=%parm[#1]% 
-			alarmNormalThreshold=%parm[#2]% 
+			synfloodNormal trap received
+			unackSynCount=%parm[#1]%
+			alarmNormalThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -423,9 +423,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			memoryUtilization trap received 
-			resMemUsage=%parm[#1]% 
-			alarmHighThreshold=%parm[#2]% 
+			memoryUtilization trap received
+			resMemUsage=%parm[#1]%
+			alarmHighThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -463,9 +463,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			memoryUtilizationNormal trap received 
-			resMemUsage=%parm[#1]% 
-			alarmNormalThreshold=%parm[#2]% 
+			memoryUtilizationNormal trap received
+			resMemUsage=%parm[#1]%
+			alarmNormalThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -507,10 +507,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vServerRequestRate trap received 
-			vsvrName=%parm[#1]% 
-			vsvrRequestRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			vServerRequestRate trap received
+			vsvrName=%parm[#1]%
+			vsvrRequestRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -552,10 +552,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vServerRequestRateNormal trap received 
-			vsvrName=%parm[#1]% 
-			vsvrRequestRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			vServerRequestRateNormal trap received
+			vsvrName=%parm[#1]%
+			vsvrRequestRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -597,10 +597,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceRequestRate trap received 
-			svcServiceName=%parm[#1]% 
-			svcRequestRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			serviceRequestRate trap received
+			svcServiceName=%parm[#1]%
+			svcRequestRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -642,10 +642,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceRequestRateNormal trap received 
-			svcServiceName=%parm[#1]% 
-			svcRequestRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			serviceRequestRateNormal trap received
+			svcServiceName=%parm[#1]%
+			svcRequestRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -847,11 +847,11 @@
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netScalerConfigChange trap received 
-			nsUserName=%parm[#1]% 
-			configurationCmd=%parm[#2]% 
-			authorizationStatus=%parm[#3]% 
-			commandExecutionStatus=%parm[#4]% 
+			netScalerConfigChange trap received
+			nsUserName=%parm[#1]%
+			configurationCmd=%parm[#2]%
+			authorizationStatus=%parm[#3]%
+			commandExecutionStatus=%parm[#4]%
 			sysIpAddress=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -893,10 +893,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			maxClients trap received 
-			svcServiceName=%parm[#1]% 
-			svcEstablishedConn=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			maxClients trap received
+			svcServiceName=%parm[#1]%
+			svcEstablishedConn=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -938,10 +938,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			maxClientsNormal trap received 
-			svcServiceName=%parm[#1]% 
-			svcEstablishedConn=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			maxClientsNormal trap received
+			svcServiceName=%parm[#1]%
+			svcEstablishedConn=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -975,8 +975,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netScalerConfigSave trap received 
-			nsUserName=%parm[#1]% 
+			netScalerConfigSave trap received
+			nsUserName=%parm[#1]%
 			sysIpAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1018,10 +1018,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceRxBytesRate trap received 
-			svcServiceName=%parm[#1]% 
-			svcRxBytesRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			serviceRxBytesRate trap received
+			svcServiceName=%parm[#1]%
+			svcRxBytesRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1063,10 +1063,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceRxBytesRateNormal trap received 
-			svcServiceName=%parm[#1]% 
-			svcRxBytesRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			serviceRxBytesRateNormal trap received
+			svcServiceName=%parm[#1]%
+			svcRxBytesRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1108,10 +1108,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vserverRxBytesRate trap received 
-			vsvrName=%parm[#1]% 
-			vsvrRxBytesRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			vserverRxBytesRate trap received
+			vsvrName=%parm[#1]%
+			vsvrRxBytesRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1153,10 +1153,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vserverRxBytesRateNormal trap received 
-			vsvrName=%parm[#1]% 
-			vsvrRxBytesRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			vserverRxBytesRateNormal trap received
+			vsvrName=%parm[#1]%
+			vsvrRxBytesRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1198,10 +1198,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceTxBytesRate trap received 
-			svcServiceName=%parm[#1]% 
-			svcTxBytesRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			serviceTxBytesRate trap received
+			svcServiceName=%parm[#1]%
+			svcTxBytesRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1243,10 +1243,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceTxBytesRateNormal trap received 
-			svcServiceName=%parm[#1]% 
-			svcTxBytesRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			serviceTxBytesRateNormal trap received
+			svcServiceName=%parm[#1]%
+			svcTxBytesRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1288,10 +1288,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vserverTxBytesRate trap received 
-			vsvrName=%parm[#1]% 
-			vsvrTxBytesRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			vserverTxBytesRate trap received
+			vsvrName=%parm[#1]%
+			vsvrTxBytesRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1333,10 +1333,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vserverTxBytesRateNormal trap received 
-			vsvrName=%parm[#1]% 
-			vsvrTxBytesRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			vserverTxBytesRateNormal trap received
+			vsvrName=%parm[#1]%
+			vsvrTxBytesRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1378,10 +1378,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceSynfloodRate trap received 
-			svcServiceName=%parm[#1]% 
-			svcSynfloodRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			serviceSynfloodRate trap received
+			svcServiceName=%parm[#1]%
+			svcSynfloodRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1423,10 +1423,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			serviceSynfloodNormal trap received 
-			svcServiceName=%parm[#1]% 
-			svcSynfloodRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			serviceSynfloodNormal trap received
+			svcServiceName=%parm[#1]%
+			svcSynfloodRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1468,10 +1468,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vserverSynfloodRate trap received 
-			vsvrName=%parm[#1]% 
-			vsvrSynfloodRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			vserverSynfloodRate trap received
+			vsvrName=%parm[#1]%
+			vsvrSynfloodRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1513,10 +1513,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			vserverSynfloodNormal trap received 
-			vsvrName=%parm[#1]% 
-			vsvrSynfloodRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			vserverSynfloodNormal trap received
+			vsvrName=%parm[#1]%
+			vsvrSynfloodRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1558,10 +1558,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberRequestRate trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberRequestRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			svcGroupMemberRequestRate trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberRequestRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1603,10 +1603,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberRequestRateNormal trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberRequestRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			svcGroupMemberRequestRateNormal trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberRequestRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1648,10 +1648,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberRxBytesRate trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberRxBytesRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			svcGroupMemberRxBytesRate trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberRxBytesRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1693,10 +1693,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberRxBytesRateNormal trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberRxBytesRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			svcGroupMemberRxBytesRateNormal trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberRxBytesRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1738,10 +1738,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberTxBytesRate trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberTxBytesRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			svcGroupMemberTxBytesRate trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberTxBytesRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1783,10 +1783,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberTxBytesRateNormal trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberTxBytesRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			svcGroupMemberTxBytesRateNormal trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberTxBytesRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1828,10 +1828,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberSynfloodRate trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberSynfloodRate=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			svcGroupMemberSynfloodRate trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberSynfloodRate=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1873,10 +1873,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberSynfloodNormal trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberSynfloodRate=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			svcGroupMemberSynfloodNormal trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberSynfloodRate=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1918,10 +1918,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberMaxClients trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberEstablishedConn=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			svcGroupMemberMaxClients trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberEstablishedConn=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -1963,10 +1963,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			svcGroupMemberMaxClientsNormal trap received 
-			svcGrpMemberName=%parm[#1]% 
-			svcGrpMemberEstablishedConn=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			svcGroupMemberMaxClientsNormal trap received
+			svcGrpMemberName=%parm[#1]%
+			svcGrpMemberEstablishedConn=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2004,9 +2004,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			averageCpuUtilization trap received 
-			resCpuUsage=%parm[#1]% 
-			alarmHighThreshold=%parm[#2]% 
+			averageCpuUtilization trap received
+			resCpuUsage=%parm[#1]%
+			alarmHighThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2044,9 +2044,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			averageCpuUtilizationNormal trap received 
-			resCpuUsage=%parm[#1]% 
-			alarmNormalThreshold=%parm[#2]% 
+			averageCpuUtilizationNormal trap received
+			resCpuUsage=%parm[#1]%
+			alarmNormalThreshold=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2092,11 +2092,11 @@
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			monRespTimeoutAboveThresh trap received 
-			monServiceName=%parm[#1]% 
-			monitorName=%parm[#2]% 
-			responseTimeoutThreshold=%parm[#3]% 
-			alarmMonrespto=%parm[#4]% 
+			monRespTimeoutAboveThresh trap received
+			monServiceName=%parm[#1]%
+			monitorName=%parm[#2]%
+			responseTimeoutThreshold=%parm[#3]%
+			alarmMonrespto=%parm[#4]%
 			sysIpAddress=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2142,11 +2142,11 @@
 	%parm[#5]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			monRespTimeoutBelowThresh trap received 
-			monServiceName=%parm[#1]% 
-			monitorName=%parm[#2]% 
-			responseTimeoutThreshold=%parm[#3]% 
-			alarmMonrespto=%parm[#4]% 
+			monRespTimeoutBelowThresh trap received
+			monServiceName=%parm[#1]%
+			monitorName=%parm[#2]%
+			responseTimeoutThreshold=%parm[#3]%
+			alarmMonrespto=%parm[#4]%
 			sysIpAddress=%parm[#5]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2180,8 +2180,8 @@
 	%parm[#2]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			netScalerLoginFailure trap received 
-			nsUserName=%parm[#1]% 
+			netScalerLoginFailure trap received
+			nsUserName=%parm[#1]%
 			sysIpAddress=%parm[#2]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2219,9 +2219,9 @@
 	%parm[#3]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			sslCertificateExpiry trap received 
-			sslCertKeyName=%parm[#1]% 
-			sslDaysToExpire=%parm[#2]% 
+			sslCertificateExpiry trap received
+			sslCertKeyName=%parm[#1]%
+			sslDaysToExpire=%parm[#2]%
 			sysIpAddress=%parm[#3]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2263,10 +2263,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fanSpeedLow trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmLowThreshold=%parm[#3]% 
+			fanSpeedLow trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmLowThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2308,10 +2308,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			fanSpeedNormal trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			fanSpeedNormal trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2353,10 +2353,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			voltageLow trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmLowThreshold=%parm[#3]% 
+			voltageLow trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmLowThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2398,10 +2398,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			voltageNormal trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			voltageNormal trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2443,10 +2443,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			voltageHigh trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			voltageHigh trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2488,10 +2488,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			temperatureHigh trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			temperatureHigh trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2533,10 +2533,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			temperatureNormal trap received 
-			sysHealthCounterName=%parm[#1]% 
-			sysHealthCounterValue=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			temperatureNormal trap received
+			sysHealthCounterName=%parm[#1]%
+			sysHealthCounterValue=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2578,10 +2578,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			diskUsageHigh trap received 
-			sysHealthDiskName=%parm[#1]% 
-			sysHealthDiskPerusage=%parm[#2]% 
-			alarmHighThreshold=%parm[#3]% 
+			diskUsageHigh trap received
+			sysHealthDiskName=%parm[#1]%
+			sysHealthDiskPerusage=%parm[#2]%
+			alarmHighThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2623,10 +2623,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			diskUsageNormal trap received 
-			sysHealthDiskName=%parm[#1]% 
-			sysHealthDiskPerusage=%parm[#2]% 
-			alarmNormalThreshold=%parm[#3]% 
+			diskUsageNormal trap received
+			sysHealthDiskName=%parm[#1]%
+			sysHealthDiskPerusage=%parm[#2]%
+			alarmNormalThreshold=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2668,10 +2668,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			interfaceThroughputLow trap received 
-			ifName=%parm[#1]% 
-			ifThroughput=%parm[#2]% 
-			ifMinThroughput=%parm[#3]% 
+			interfaceThroughputLow trap received
+			ifName=%parm[#1]%
+			ifThroughput=%parm[#2]%
+			ifMinThroughput=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
@@ -2713,10 +2713,10 @@
 	%parm[#4]%;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 	</descr>
 		<logmsg dest='logndisplay'>&lt;p&gt;
-			interfaceThroughputNormal trap received 
-			ifName=%parm[#1]% 
-			ifThroughput=%parm[#2]% 
-			ifMinThroughput=%parm[#3]% 
+			interfaceThroughputNormal trap received
+			ifName=%parm[#1]%
+			ifThroughput=%parm[#2]%
+			ifMinThroughput=%parm[#3]%
 			sysIpAddress=%parm[#4]%&lt;/p&gt;
 		</logmsg>
 	<severity>Indeterminate</severity>
