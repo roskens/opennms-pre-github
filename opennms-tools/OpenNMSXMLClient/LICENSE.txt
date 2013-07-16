@@ -1,8 +1,8 @@
 Copyright (C) 2009 The OpenNMS Group Inc
 
 Licensed to the OpenNMS Group Inc. under one or more contributor license
-agreements. The OpenNMS Group Inc. licenses this file to You under the 
-Apache License, Version 2.0 (the "License"). 
+agreements. The OpenNMS Group Inc. licenses this file to You under the
+Apache License, Version 2.0 (the "License").
 You may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 

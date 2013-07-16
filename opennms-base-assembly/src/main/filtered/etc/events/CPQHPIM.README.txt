@@ -12,11 +12,11 @@ Compiled from & contains the following MIBS
 
  CPQAPPG80-MIB	Compaq SAN HSG80 Controller Information
 
- CPQ54NN-MIB	Compaq Gigaswitch information 
+ CPQ54NN-MIB	Compaq Gigaswitch information
 
  CPQAPLI-MIB	Compaq/HP Appliance MIB
 
- CPQCLUSTER-MIB (CPQCLUS-MIB)  Cluster information 
+ CPQCLUSTER-MIB (CPQCLUS-MIB)  Cluster information
 
  CPQCMC-MIB	Console Management Controller (CMC) information
 

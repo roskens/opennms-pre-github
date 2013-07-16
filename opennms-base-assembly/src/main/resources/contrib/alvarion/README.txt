@@ -1,5 +1,5 @@
-In order to get link quality information from Alvarion (http://www.alvarion.com/) 
-Breeze Access wireless devices an snmpset has to be periodically sent. 
+In order to get link quality information from Alvarion (http://www.alvarion.com/)
+Breeze Access wireless devices an snmpset has to be periodically sent.
 The included scripts perform this action.
 
 The Link Quality indicator (baVLReadUpLinkQu) is actually the result of a

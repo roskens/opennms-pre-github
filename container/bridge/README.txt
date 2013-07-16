@@ -39,7 +39,7 @@ You can build and deploy this example in two ways:
 - A. Using Jetty: Quick and Easy
   This option is useful if you want to see the example up and
   running quickly.
-   
+
 - B. Using Your Favorite Web Container
   This option is useful if you want to see Karaf running
   as a web application inside your favorite web container.
@@ -104,11 +104,11 @@ container, by completing the following steps:
 
 1. In a command prompt/shell, change to the directory
    that contains this README.txt file.
-   
+
 2. Enter the following command:
 
      mvn package
-     
+
 Maven builds the web application, web-2.2.7.war, and
 saves it in the target directory of this example. Deploy this
 WAR file to your favorite web container. Once the application

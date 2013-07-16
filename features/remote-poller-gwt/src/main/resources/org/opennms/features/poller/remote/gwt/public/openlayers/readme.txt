@@ -21,9 +21,9 @@ Installing OpenLayers
 ---------------------
 
 You can use OpenLayers as-is by copying build/OpenLayers.js and the
-entire theme/ and img/ directories up to your webserver, putting them 
-in the same directory. The files can be in subdirectories on your website, 
-or right in the root of the site, as in these examples. 
+entire theme/ and img/ directories up to your webserver, putting them
+in the same directory. The files can be in subdirectories on your website,
+or right in the root of the site, as in these examples.
 To include the OpenLayers library in your web page from the root of the site, use:
 
   <script type="text/javascript" src="/OpenLayers.js" />

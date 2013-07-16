@@ -5,32 +5,32 @@
 SONUS-COMMON-MIB DEFINITIONS ::= BEGIN
 
 IMPORTS
-    Integer32, IpAddress, MODULE-IDENTITY, NOTIFICATION-TYPE, 
+    Integer32, IpAddress, MODULE-IDENTITY, NOTIFICATION-TYPE,
     OBJECT-TYPE, Unsigned32
         FROM SNMPv2-SMI
     DateAndTime, DisplayString, RowStatus
         FROM SNMPv2-TC
     sonusSystemMIBs
         FROM SONUS-SMI
-    SonusAccessLevel, SonusAdminState, SonusEventClass, SonusEventLevel, 
+    SonusAccessLevel, SonusAdminState, SonusEventClass, SonusEventLevel,
     SonusEventString, SonusName, SonusNameReference, SonusTrapType
         FROM SONUS-TC;
 
 sonusCommonMIB MODULE-IDENTITY
     LAST-UPDATED    "200102030000Z"
-    ORGANIZATION    
+    ORGANIZATION
             "Sonus Networks, Inc."
-    CONTACT-INFO    
-            "   Customer Support    
+    CONTACT-INFO
+            "   Customer Support
              Sonus Networks, Inc,
              5 carlisle Road
              Westford, MA 01886
              USA
-             
-             	Tel: 978-692-8999
-             	Fax: 978-392-9118
-             	E-mail: cs.snmp@sonusnet.com"
-    DESCRIPTION     
+
+		Tel: 978-692-8999
+		Fax: 978-392-9118
+		E-mail: cs.snmp@sonusnet.com"
+    DESCRIPTION
             "The MIB Module for common management of all Sonus devices."
     ::= { sonusSystemMIBs 5 }
 
@@ -48,7 +48,7 @@ sonusNetMgmtClientNextIndex OBJECT-TYPE
     SYNTAX          Integer32 (0..65535)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The next valid index to use when creating an entry in
              the sonusNetMgmtClientTable."
     ::= { sonusNetMgmtClient 1 }
@@ -57,7 +57,7 @@ sonusNetMgmtClientTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF SonusNetMgmtClientEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The sonusNetMgmtClientTable specifies the management entities
              (i.e. clients) that are capable of configurating the node.
              Each management client is identified by its IP address."
@@ -67,7 +67,7 @@ sonusNetMgmtClientEntry OBJECT-TYPE
     SYNTAX          SonusNetMgmtClientEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "An entry in the sonusNetMgmtClientTable."
     INDEX           { sonusNetMgmtClientIndex }
     ::= { sonusNetMgmtClientTable 1 }
@@ -95,7 +95,7 @@ sonusNetMgmtClientIndex OBJECT-TYPE
     SYNTAX          Integer32 (1..8)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The tabular index of this administrative management client."
     DEFVAL          { 1 }
     ::= { sonusNetMgmtClientEntry 1 }
@@ -104,7 +104,7 @@ sonusNetMgmtClientName OBJECT-TYPE
     SYNTAX          SonusName
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The name of this administrative management client."
     ::= { sonusNetMgmtClientEntry 2 }
 
@@ -112,7 +112,7 @@ sonusNetMgmtClientState OBJECT-TYPE
     SYNTAX          SonusAdminState
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The administrative state of this management client."
     DEFVAL          { disabled }
     ::= { sonusNetMgmtClientEntry 3 }
@@ -121,7 +121,7 @@ sonusNetMgmtClientIpAddr OBJECT-TYPE
     SYNTAX          IpAddress
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The IP address of this management client."
     DEFVAL          { '01010101'H }
     ::= { sonusNetMgmtClientEntry 4 }
@@ -130,7 +130,7 @@ sonusNetMgmtClientAccess OBJECT-TYPE
     SYNTAX          SonusAccessLevel
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The level of management that is granted to this management client."
     DEFVAL          { readOnly }
     ::= { sonusNetMgmtClientEntry 5 }
@@ -139,7 +139,7 @@ sonusNetMgmtClientSnmpCommunityGet OBJECT-TYPE
     SYNTAX          DisplayString (SIZE(0..23))
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The SNMP read-only community string."
     DEFVAL          { "public" }
     ::= { sonusNetMgmtClientEntry 6 }
@@ -148,7 +148,7 @@ sonusNetMgmtClientSnmpCommunitySet OBJECT-TYPE
     SYNTAX          DisplayString (SIZE(0..23))
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The SNMP read-write community string."
     DEFVAL          { "private" }
     ::= { sonusNetMgmtClientEntry 7 }
@@ -157,7 +157,7 @@ sonusNetMgmtClientSnmpCommunityTrap OBJECT-TYPE
     SYNTAX          DisplayString (SIZE(0..23))
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The SNMP trap community string."
     DEFVAL          { "public" }
     ::= { sonusNetMgmtClientEntry 8 }
@@ -166,7 +166,7 @@ sonusNetMgmtClientTrapState OBJECT-TYPE
     SYNTAX          SonusAdminState
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "Determines whether SNMP traps are transmitted to this
              management client."
     DEFVAL          { enabled }
@@ -176,7 +176,7 @@ sonusNetMgmtClientRowStatus OBJECT-TYPE
     SYNTAX          RowStatus
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "This object is used to create and delete rows in the
              sonusNetMgmtClientTable."
     ::= { sonusNetMgmtClientEntry 10 }
@@ -185,7 +185,7 @@ sonusNetMgmtClientTrapPort OBJECT-TYPE
     SYNTAX          Integer32 (0..65535)
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The port number of the management client where trap/notification
              PDUs are to be sent to."
     DEFVAL          { 162 }
@@ -195,7 +195,7 @@ sonusNetMgmtClientAllTraps OBJECT-TYPE
     SYNTAX          SonusTrapType
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "Indicates if all traps are to be sent to this management client,
              and defines their trap type."
     DEFVAL          { trapv2 }
@@ -205,11 +205,11 @@ sonusNetMgmtClientInformReqTimeout OBJECT-TYPE
     SYNTAX          Integer32 (1..120)
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The time in seconds that an InformRequest PDU that is sent to
              this Management Client will timeout if no Response PDU is received.
              This MIB object does not apply to SNMPv1 or SNMPv2 Trap PDUs.
-             
+
              Refer to sonusNetMgmtClientInformRequestRetries for related
              information."
     DEFVAL          { 5 }
@@ -219,14 +219,14 @@ sonusNetMgmtClientInformReqRetries OBJECT-TYPE
     SYNTAX          Integer32 (0..10)
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The number of retries that are to be made when sending an
              InformRequest PDU to this Management Client.  The maximum
              number of attempts to send an InformRequest PDU to a
              Management Client will be one, for the initial attempt,
              plus the number of retries.  This MIB object does not apply
              to SNMPv1 or SNMPv2 Trap PDUs.
-             
+
              Refer to sonusNetMgmtClientInformRequestTimeout for related
              information."
     DEFVAL          { 3 }
@@ -236,7 +236,7 @@ sonusNetMgmtClientInformReqMaxQueue OBJECT-TYPE
     SYNTAX          Integer32 (1..100)
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The maximum of InformRequest PDUs that will be outstanding,
              awaiting for Response PDUs from this Management Client.
              When the maximum number has been reached, consectutive
@@ -252,9 +252,9 @@ sonusNetMgmtClientStatusTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF SonusNetMgmtClientStatusEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The sonusNetMgmtClientStatusTable specifies the status of the
-             management entities (i.e. clients). Each management client is 
+             management entities (i.e. clients). Each management client is
              identified by its IP address."
     ::= { sonusNetMgmtClient 3 }
 
@@ -262,7 +262,7 @@ sonusNetMgmtClientStatusEntry OBJECT-TYPE
     SYNTAX          SonusNetMgmtClientStatusEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "An entry in the sonusNetMgmtClientStatusTable."
     INDEX           { sonusNetMgmtClientStatusIndex }
     ::= { sonusNetMgmtClientStatusTable 1 }
@@ -277,7 +277,7 @@ sonusNetMgmtClientStatusIndex OBJECT-TYPE
     SYNTAX          Integer32 (1..8)
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The tabular index of this status management client."
     ::= { sonusNetMgmtClientStatusEntry 1 }
 
@@ -285,10 +285,10 @@ sonusNetMgmtClientStatusLastConfigChange OBJECT-TYPE
     SYNTAX          DateAndTime
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "Octet string that identifies the GMT timestamp of last
              successful SET PDU from this management client.
-             
+
              field  octects  contents      range
              -----  -------  --------      -----
                1      1-2      year         0..65536
@@ -298,7 +298,7 @@ sonusNetMgmtClientStatusLastConfigChange OBJECT-TYPE
                5       6       minutes      0..59
                6       7       seconds      0..59
                7       8       deci-sec     0..9
-             
+
                * Notes:
                - the value of year is in network-byte order "
     ::= { sonusNetMgmtClientStatusEntry 2 }
@@ -313,7 +313,7 @@ sonusNetMgmtTrapTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF SonusNetMgmtTrapEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The sonusNetMgmtTrapTable identifies the SNMP Traps
              that this node supports."
     ::= { sonusNetMgmtTrap 2 }
@@ -322,7 +322,7 @@ sonusNetMgmtTrapEntry OBJECT-TYPE
     SYNTAX          SonusNetMgmtTrapEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "An entry in the sonusNetMgmtTrapTable."
     INDEX           { sonusNetMgmtTrapIndex }
     ::= { sonusNetMgmtTrapTable 1 }
@@ -342,7 +342,7 @@ sonusNetMgmtTrapIndex OBJECT-TYPE
     SYNTAX          Integer32 (1..65535)
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The tabular index of this trap."
     DEFVAL          { 1 }
     ::= { sonusNetMgmtTrapEntry 1 }
@@ -351,7 +351,7 @@ sonusNetMgmtTrapName OBJECT-TYPE
     SYNTAX          SonusName
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The name of this trap."
     ::= { sonusNetMgmtTrapEntry 2 }
 
@@ -359,7 +359,7 @@ sonusNetMgmtTrapMIBName OBJECT-TYPE
     SYNTAX          DisplayString (SIZE(0..63))
     MAX-ACCESS      read-only
     STATUS          obsolete
-    DESCRIPTION     
+    DESCRIPTION
             "The full MIB name of this trap."
     DEFVAL          { "" }
     ::= { sonusNetMgmtTrapEntry 3 }
@@ -368,7 +368,7 @@ sonusNetMgmtTrapOID OBJECT-TYPE
     SYNTAX          OBJECT IDENTIFIER
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The MIB OID of this trap."
     ::= { sonusNetMgmtTrapEntry 4 }
 
@@ -376,7 +376,7 @@ sonusNetMgmtTrapClass OBJECT-TYPE
     SYNTAX          SonusEventClass
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The classification of the event that corresponds
              to this trap."
     DEFVAL          { sysmgmt }
@@ -386,7 +386,7 @@ sonusNetMgmtTrapLevel OBJECT-TYPE
     SYNTAX          SonusEventLevel
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The severity level of the event that corresponds
              to this trap."
     DEFVAL          { info }
@@ -396,7 +396,7 @@ sonusNetMgmtTrapState OBJECT-TYPE
     SYNTAX          SonusAdminState
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "Determines if this SNMP trap is transmitted to any
              management client."
     DEFVAL          { enabled }
@@ -409,7 +409,7 @@ sonusNetMgmtNotifyNextIndex OBJECT-TYPE
     SYNTAX          Integer32 (0..65535)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The next valid index to use when creating an entry in
              the sonusNetMgmtNotifyTable."
     ::= { sonusNetMgmtNotify 1 }
@@ -418,7 +418,7 @@ sonusNetMgmtNotifyTable OBJECT-TYPE
     SYNTAX          SEQUENCE OF SonusNetMgmtNotifyEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The sonusNetMgmtNotifyTable identifies which management
              clients are to be notified by which SNMP Traps."
     ::= { sonusNetMgmtNotify 2 }
@@ -427,7 +427,7 @@ sonusNetMgmtNotifyEntry OBJECT-TYPE
     SYNTAX          SonusNetMgmtNotifyEntry
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "An entry in the sonusNetMgmtNotifyTable."
     INDEX           { sonusNetMgmtNotifyIndex }
     ::= { sonusNetMgmtNotifyTable 1 }
@@ -446,7 +446,7 @@ sonusNetMgmtNotifyIndex OBJECT-TYPE
     SYNTAX          Integer32 (1..65535)
     MAX-ACCESS      not-accessible
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The table index of notify entries."
     DEFVAL          { 1 }
     ::= { sonusNetMgmtNotifyEntry 1 }
@@ -455,7 +455,7 @@ sonusNetMgmtNotifyName OBJECT-TYPE
     SYNTAX          SonusName
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The name of the notification entry."
     ::= { sonusNetMgmtNotifyEntry 2 }
 
@@ -463,10 +463,10 @@ sonusNetMgmtNotifyMgmtName OBJECT-TYPE
     SYNTAX          SonusNameReference
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
-            "The name of the management client that is to be 
+    DESCRIPTION
+            "The name of the management client that is to be
              notified of the trap identified by this entry.  The
-             value must match an existing sonusNetMgmtClientName 
+             value must match an existing sonusNetMgmtClientName
              in the sonusNetMgmtClientTable."
     DEFVAL          { "" }
     ::= { sonusNetMgmtNotifyEntry 3 }
@@ -475,8 +475,8 @@ sonusNetMgmtNotifyTrapName OBJECT-TYPE
     SYNTAX          SonusNameReference
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
-            "The name of the trap that is to be sent to the 
+    DESCRIPTION
+            "The name of the trap that is to be sent to the
              management client identified by this entry.  The
              value must match an existing sonusNetMgmtTrapName in
              the sonusNetMgmtTrapTable."
@@ -487,7 +487,7 @@ sonusNetMgmtNotifyTrapType OBJECT-TYPE
     SYNTAX          SonusTrapType
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "Identify whether no PDU, a SNMPv1 Trap PDU, SNMPv2 Trap PDU,
              or SNMPv2 Inform PDU is to be transmitted to this
              management client."
@@ -498,7 +498,7 @@ sonusNetMgmtNotifyRowStatus OBJECT-TYPE
     SYNTAX          RowStatus
     MAX-ACCESS      read-write
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "This object is used to create and delete rows in the
              sonusNetMgmtNotifyTable."
     ::= { sonusNetMgmtNotifyEntry 6 }
@@ -516,7 +516,7 @@ sonusShelfIndex OBJECT-TYPE
     SYNTAX          Integer32 (1..6)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The shelf index of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 1 }
 
@@ -524,7 +524,7 @@ sonusSlotIndex OBJECT-TYPE
     SYNTAX          Integer32 (1..16)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The slot index of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 2 }
 
@@ -532,7 +532,7 @@ sonusPortIndex OBJECT-TYPE
     SYNTAX          Integer32 (0..65535)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The port index of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 3 }
 
@@ -540,7 +540,7 @@ sonusDs3Index OBJECT-TYPE
     SYNTAX          Integer32 (0..65535)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The DS3 index of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 4 }
 
@@ -548,7 +548,7 @@ sonusDs1Index OBJECT-TYPE
     SYNTAX          Integer32 (0..65535)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The DS1 index of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 5 }
 
@@ -556,7 +556,7 @@ sonusEventDescription OBJECT-TYPE
     SYNTAX          SonusEventString
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "A description of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 6 }
 
@@ -564,7 +564,7 @@ sonusEventClass OBJECT-TYPE
     SYNTAX          SonusEventClass
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The category of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 7 }
 
@@ -572,7 +572,7 @@ sonusEventLevel OBJECT-TYPE
     SYNTAX          SonusEventLevel
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The severity level of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 8 }
 
@@ -580,7 +580,7 @@ sonusSequenceId OBJECT-TYPE
     SYNTAX          Unsigned32
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "A consecutive number assigned to each trap in a
              sequence of traps that are sent to one management client.
              Each management client has its own set of sequence IDs."
@@ -590,7 +590,7 @@ sonusEventTime OBJECT-TYPE
     SYNTAX          DateAndTime
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The date and time of the event that generated the trap."
     ::= { sonusCommonMIBNotificationsObjects 10 }
 
@@ -598,38 +598,38 @@ sonusNetMgmtInformReqDiscards OBJECT-TYPE
     SYNTAX          Integer32 (0..100)
     MAX-ACCESS      read-only
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The number of InformRequest PDUs that were discarded
              for a Management Client."
     ::= { sonusCommonMIBNotificationsObjects 11 }
 
 sonusNetMgmtClientInformReqQueueFlushedNotification NOTIFICATION-TYPE
-    OBJECTS         { sonusNetMgmtClientName, 
-                      sonusNetMgmtInformReqDiscards, 
-                      sonusEventDescription, sonusEventClass, 
+    OBJECTS         { sonusNetMgmtClientName,
+                      sonusNetMgmtInformReqDiscards,
+                      sonusEventDescription, sonusEventClass,
                       sonusEventLevel }
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The specified number of InformRequest PDUs destined to
              the specified Management Client were flushed from the
              InformRequest PDU queue because no Response PDUs were
              were received from the Management Client.
-             
+
              This situtation could occur if the Management Client
              cannot quickly process and respond to InformRequest PDUs
              that it receives, or if communications is lost with the
              Management Client.
-             
+
              If this situation occurs occasionally, it is recommended
              to increase the InformRequest PDU timeout and/or retry
              values (see sonusNetMgmtClientInformReqTimeout and
              sonusNetMgmtClientInformReqRetries.)
-             
+
              If this situation occurs repeatedly, it is an indication
              that communications is lost with the Management Client,
              either because of network problems, or because the
              Management Client is no longer operational.
-             
+
              It is recommended that this device be configured to
              send a Trap PDU, not an InformRequest PDU, for this
              Notification to all Management Clients, thus bypassing
@@ -638,30 +638,30 @@ sonusNetMgmtClientInformReqQueueFlushedNotification NOTIFICATION-TYPE
     ::= { sonusCommonMIBNotificationsPrefix 1 }
 
 sonusNetMgmtClientInformReqQueueFullNotification NOTIFICATION-TYPE
-    OBJECTS         { sonusNetMgmtClientName, 
-                      sonusNetMgmtInformReqDiscards, 
-                      sonusEventDescription, sonusEventClass, 
+    OBJECTS         { sonusNetMgmtClientName,
+                      sonusNetMgmtInformReqDiscards,
+                      sonusEventDescription, sonusEventClass,
                       sonusEventLevel }
     STATUS          current
-    DESCRIPTION     
+    DESCRIPTION
             "The specified number of InformRequest PDUs destined to
              the specified Management Client were discard because its
              InformRequest PDU queue was full.
-             
+
              This situtation could occur if the Management Client
              cannot quickly process and respond to InformRequest PDUs
              that it receives, or if communications is lost with the
              Management Client.
-             
+
              If this situation occurs occasionally, it is recommended
              to increase the InformRequest PDU queue size (see
              sonusNetMgmtClientInformReqMaxQueue.)
-             
+
              If this situation occurs repeatedly, it is an indication
              that communications is lost with the Management Client,
              either because of network problems, or because the
              Management Client is no longer operational.
-             
+
              It is recommended that this device be configured to
              send a Trap PDU, not an InformRequest PDU, for this
              Notification to all Management Clients, thus bypassing

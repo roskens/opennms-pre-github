@@ -34,7 +34,7 @@ This will move the pkginfo and postinstall files to the proper place.
 i pkginfo=./pkginfo
 i postinstall=./postinstall
 
-10. Edit the prototype file, go to the bottom and remove the references 
+10. Edit the prototype file, go to the bottom and remove the references
     to postinstall, pkginfo and prototype.
 
 11. fix permissions -- it's best to change your username stuff to "bin bin"

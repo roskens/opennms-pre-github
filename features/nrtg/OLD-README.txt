@@ -11,7 +11,7 @@ mvn assembly:assembly
 java -jar target/org.opennms.nrtg.jar.nrtcollector-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ################
-# Install in karaf 
+# Install in karaf
 ################
 get latest karaf http://karaf.apache.org/
 
@@ -49,7 +49,7 @@ features:install osgi-nrtg-protocolcollector-snmp
 features:install war
 
 # install the activemq-webgui
-features:install activemq-web-console 
+features:install activemq-web-console
 
 ##########
 # JSM Broker

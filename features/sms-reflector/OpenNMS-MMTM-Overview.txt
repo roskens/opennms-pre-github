@@ -20,7 +20,7 @@ on the following design objectives for the first milestone:
 
 In addition to this, we thought it was important that we be able to
 place phones in different geographical locations to ensure that the
-entire network was tested.  
+entire network was tested.
 
 
 Architectural Overview
@@ -36,7 +36,7 @@ These service specific tests are provided to the poller through the use
 of a plugin architecture.  Each type of test is provided to the poller
 as a plugin known as a ServiceMonitor.  These plugins have the
 responsibility when asked to determine if the service they represent
-is functioning on the interface that is being tested. 
+is functioning on the interface that is being tested.
 
 In the OpenNMS GUI each of these monitors are represented as a service
 on an interface.  Latency data is displayed for them via Response Time
@@ -54,7 +54,7 @@ Architectural Details
 
 Since SMS and USSD are quite different from existing protocols we use
 to do monitoring, quite a bit of additional infrastructure was needed
-to make the monitors work. 
+to make the monitors work.
 
 The finished milestone will include a set of libraries that adds modem
 support to Java and provides for the sending and receiving of SMS and

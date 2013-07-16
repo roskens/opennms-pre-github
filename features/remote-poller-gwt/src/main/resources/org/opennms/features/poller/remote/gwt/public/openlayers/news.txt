@@ -25,22 +25,22 @@ OpenLayers 2.6:
 
 OpenLayers 2.5:
  r4899
- Released 10/09/07 
+ Released 10/09/07
  http://trac.openlayers.org/wiki/Release/2.5/Notes
 
 OpenLayers 2.4:
  r3198
- Released 05/29/07 
+ Released 05/29/07
  http://trac.openlayers.org/wiki/Release/2.4/Notes
 
 OpenLayers 2.3:
  r2255
- Released 02/21/07 
+ Released 02/21/07
  http://trac.openlayers.org/wiki/Release/2.3/Notes
 
 OpenLayers 2.2:
  r1866
- Released 11/15/06 
+ Released 11/15/06
  http://trac.openlayers.org/wiki/Release/2.2/Notes
 
 OpenLayers 2.1:

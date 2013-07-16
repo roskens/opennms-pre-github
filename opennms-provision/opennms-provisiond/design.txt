@@ -7,7 +7,7 @@ Provisioning provided by Provisiond has the following objectives:
 To allow simple and customizable provisioning services to users of OpenNMS
 
 This will include 'discovered provisioning' as currently provided by Capsd
-and 'directed provisioning' at currently provided by the importer as well as 
+and 'directed provisioning' at currently provided by the importer as well as
 a hybrid of direction and discover that is as yet unprovided.
 
 Additionally, the ability to enhance the the set of possible provisions
@@ -21,8 +21,8 @@ Or add an entry to the /etc/hosts file for any newly discovered nodes/interfaces
 
 To accomplish this we have defined several key abstractions
 
-Lifecycle - This represents an entire process.  For example the import lifecycle represents 
-the entire process of importing a file, scanning the nodes, and updated the database.  There 
+Lifecycle - This represents an entire process.  For example the import lifecycle represents
+the entire process of importing a file, scanning the nodes, and updated the database.  There
 is more than one kind of lifecycle in provisioning.  Scanning a new node is represented as a
 lifecycle, importing an entire network, and scanning an interface for services.
 
@@ -30,7 +30,7 @@ A lifecycle can contain nested lifecycles, for example, the import a network lif
 nested node scanning lifecycles
 
 A lifecycle consists of nested phases.  A phase represents one sequential step of the lifecyle.
-Phases happen in series within a lifecyle.  Activities necessary to do the provisioning are 
+Phases happen in series within a lifecyle.  Activities necessary to do the provisioning are
 each associated with a lifecycle phase.
 
 Lifecycles are 'triggered' by various events which can include the following:
@@ -50,7 +50,7 @@ which lifecycle and phase they should be associated with.
 
 Trigger - this is the impetus for starting and running a new lifecyle.  The properties
 related to the lifecycle are here. For example, an import event that triggers the import
-of a network would trigger the import lifecycle and the related properties would be the 
+of a network would trigger the import lifecycle and the related properties would be the
 importResource and the foreignSource (if it is overridden)
 
 Other Issues:
@@ -60,7 +60,7 @@ Other Issues:
   the parallelism?
 - Can you have asynchronous phases?
 - Phase dependencies and parallelization of lifecycles?
-- How about phases that trigger an entire collection of lifecycles? 
+- How about phases that trigger an entire collection of lifecycles?
 
 
 

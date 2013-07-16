@@ -25,36 +25,36 @@
  */
  Author: Markus von Rüden
  Date: 2013-04-11
- 
+
  The "jmxconfiggenerator.webui" is not finished yet.
- Therefore several todos have to be completed before the "tool" 
- is ready for production use. The following lists does sum up all 
+ Therefore several todos have to be completed before the "tool"
+ is ready for production use. The following lists does sum up all
  open issues/todos but may not be complete.
- 
- 
+
+
 - In the MBeans Configuration View the tree view on the left does not show any
   validation error indicators if any element fails validation. So it is very hard
   to find any errors
-  
-- In the OpenNMS Configuration View the configuration snippet for the collectd-configuration.xml 
+
+- In the OpenNMS Configuration View the configuration snippet for the collectd-configuration.xml
   is not yet generated.
-  
+
  - In the OpenNMS Configuration View the "download" button just downloads the configuration
    in the currently selected tab, but should behave like a "download all" button.
-   
+
  - In the OpenNMS Configuration View the order of the tabs is not fixed, but should be
-   because it may cause some trouble for the user. It should always be for example: 
+   because it may cause some trouble for the user. It should always be for example:
    collectd-configuration.xml, <service>.xml, <service>-graph.properties
-   
+
 - The header (1. Introduction View, etc...) should have an OpenNMS style
 
 - The whole application should have an OpenNMS style
 
 - All buttons should have a size where the icons does not look that akward
 
-- All "next" buttons should have the caption on the left and not on the right side 
+- All "next" buttons should have the caption on the left and not on the right side
   (except the download button on the ResultConfigView)
-  
+
 - The code should be more documented.
 
 - Take care of the todos in the code.
@@ -68,5 +68,3 @@
   	MBeansViewValidationRegistry.getInstance().getValidators(MBeans.class);
   Be aware, that we can use the ValidationRegistry for the whole application or simply for the MBeansView.
   Currently I would just use it for the MBeansView. The other views are not that complex
-  
-  
