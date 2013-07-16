@@ -47,9 +47,9 @@ rule "load dependencies"
 					children.add( child );
 				}
 				insert( new DependsOnAny( parent, children ) );
-				println( "Inserted DependsOnAny for " + parent );			
+				println( "Inserted DependsOnAny for " + parent );
 			}
-			
+
 		}
 end
 
@@ -59,7 +59,7 @@ rule "pseudo-wire component down"
 	salience 100
 when
 	$e : Event( uei matches ".*jnxVpnPwDown" )
-	
+
 then
 	List<NCSComponent> list = correlationService.findComponentsByNodeIdAndEventParameters($e, "jnxVpnPwVpnType", "jnxVpnPwVpnName");
 	for ( NCSComponent ncs : list ) {
@@ -79,7 +79,7 @@ rule "component impacted"
 		sendImpactedComponentEvent( engine, $c, $e );
 end
 
-		
+
 
 
 rule "pseudo-wire component up"
@@ -133,7 +133,7 @@ then
 	retract( $eventComponent );
 	insert( new Resolved( $downEvent, $upEvent ) ); //TODO: Looks strange
 	println( "Resolved mpls down event " + $downEvent );
-	println( "mpls component up with " + $downValue );	
+	println( "mpls component up with " + $downValue );
 end
 
 
@@ -144,7 +144,7 @@ when
 	$r : Resolved( cause == $cause )
 then
 	println( " Resolving Impact " + $c.getName() + " " + $i );
-	retract( $i ); 
+	retract( $i );
 	sendResolvedComponentEvent(engine, $c, $cause);
 end
 
@@ -157,7 +157,7 @@ when
 	not ( forall ( $sc: Component() from $children Impacted( target == $sc ) ) )
 then
 	println( " Resolving Impact with depends on any " + $c.getName() + " " + $i );
-	retract( $i ); 
+	retract( $i );
 	retract( $d );
 	sendResolvedComponentEvent(engine, $c, $cause);
 end
@@ -172,7 +172,7 @@ when
 	not ( Impacted( target == $b ) )
 then
 	println( " Resolving Impact with depends on  " + $b.getName() + " " + $i );
-	retract( $i ); 
+	retract( $i );
 	retract( $d );
 	sendResolvedComponentEvent(engine, $b, $cause);
 end
@@ -194,7 +194,7 @@ rule "impact parent with DependsOnAny"
 	then
 		println( "Component " + $a.getName() + "impacted with DependsOnAny rule with cause " + $e.getUei()  + " with id " + $e.getDbid() );
 		insert( new Impacted( $a, $e ) );
-		sendImpactedComponentEvent( engine, $a, $e );		
+		sendImpactedComponentEvent( engine, $a, $e );
 end
 
 
@@ -209,7 +209,7 @@ then
 	println( "Component " + $a.getName() + " depends on impacted component " + $b.getName() + " with cause " + $e.getUei()  + " with id " + $e.getDbid() );
 	insert( new Impacted( $a, $e ) );
 	sendImpactedComponentEvent( engine, $a, $e );
-end	
+end
 
 
 /*
@@ -221,7 +221,7 @@ when
 	$r : Resolved( cause == $cause )
 then
 	println( " Resolving Impact " + $i );
-	retract( $i ); 
+	retract( $i );
 	sendResolvedServiceEvent(engine, $s, $cause);
 end
 */
@@ -265,6 +265,3 @@ function void sendResolvedComponentEvent( DroolsCorrelationEngine engine, Compon
 	bldr.addParam("cause", e.getDbid() );
 	engine.sendEvent(bldr.getEvent());
 }
-
-
-

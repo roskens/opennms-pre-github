@@ -57,7 +57,7 @@ end
 rule "affliction resolved for one monitor"
 	when
 		$e : Event( uei == EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI, $nodeid : nodeid, $ipAddr : interface, $svcName : service )
-		$aff: Affliction( nodeid == $nodeid, ipAddr == $ipAddr, svcName == $svcName, $reporters : reporters -> ( $reporters.contains( locationMonitor( $e ) ) ) ) 
+		$aff: Affliction( nodeid == $nodeid, ipAddr == $ipAddr, svcName == $svcName, $reporters : reporters -> ( $reporters.contains( locationMonitor( $e ) ) ) )
 		$flap: Flap( nodeid == $nodeid, ipAddr == $ipAddr, svcName == $svcName, endTime == null, locationMonitor == ( locationMonitor( $e ) ) )
 	then
 		$aff.removeReporter( locationMonitor( $e ) );
@@ -109,7 +109,7 @@ end
 rule "flap count exceeded"
 	when
 		$flapCount : FlapCount( $nodeid : nodeid, $ipAddr : ipAddr, $svcName : svcName, $locMon : locationMonitor, alerted == false, count >= ( FLAP_COUNT ) )
-		
+
 	then
 		sendServiceFlappingEvent( engine, $nodeid, $ipAddr, $svcName, $locMon );
 		$flapCount.setAlerted( true );
@@ -120,7 +120,7 @@ end
 
 rule "resolve affliction that caused wide spread event"
 	when
-		$aff: Affliction( $nodeid : nodeid, $ipAddr : ipAddr, $svcName : svcName, $type : type, reporterCount == 0 ) 		
+		$aff: Affliction( $nodeid : nodeid, $ipAddr : ipAddr, $svcName : svcName, $type : type, reporterCount == 0 )
 	then
 		if ($type == Type.WIDE_SPREAD) {
 			sendWideSpreadOutageResolvedEvent( engine, $nodeid, $ipAddr, $svcName );
@@ -168,4 +168,3 @@ function Integer locationMonitor( Event e ) {
 function void println(Object msg) {
 	System.out.println(new Date()+" : "+msg);
 }
-

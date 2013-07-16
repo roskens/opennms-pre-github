@@ -15,12 +15,12 @@ rule "openIssue"
 		println( "Found nodeDown event " + $e + " for node " + $node );
 		Outage $outage = new Outage( $node, $e );
 		insert( $outage );
-		
+
 		PossibleCause $cause = new PossibleCause( $node, $outage, true );
 		insert( $cause );
-		
+
 		retract( $e );
-		println( "Initial Possible cause: " + $cause ); 
+		println( "Initial Possible cause: " + $cause );
 end
 
 rule "parentDependency"
@@ -42,7 +42,7 @@ rule "causeTimeout"
 	then
 		println( "Retracting " + $possibleCause + " since we didn't verify it in one cycle");
 		retract( $possibleCause );
-end 
+end
 
 rule "verify possible causes"
 	salience 100
@@ -54,7 +54,7 @@ rule "verify possible causes"
 		update( $possibleCause );
 		println( "Verified " + $possibleCause );
 end
-	
+
 rule "parentless node is its own root cause"
 	salience 100
 	when
@@ -83,5 +83,3 @@ end
 function void println(Object msg) {
 	System.out.println(System.currentTimeMillis()+" : "+msg);
 }
-
-

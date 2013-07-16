@@ -53,7 +53,7 @@ rule "existingCause"
 		println(" Adding cause " + $c +" to existing parent " + $parent );
 		update( $parent );
 end
- 
+
 rule "resolveIssue"
 	salience 100
 	when
@@ -73,12 +73,10 @@ function Cause possibleCause( DroolsCorrelationEngine engine, Long nodeId, Event
 //	EventBuilder bldr = new EventBuilder( "rootCauseEvent", "Drools" );
 //	bldr.setNodeid((int)cause.getSymptom().getNodeid());
 //	bldr.addParam("rootCause", cause.getCause().intValue());
-//	
+//
 //	engine.sendEvent(bldr.getEvent());
 //}
 
 function void println(Object msg) {
 	System.out.println(new Date() + " : " + msg);
 }
-
-

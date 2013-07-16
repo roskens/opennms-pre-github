@@ -34,11 +34,11 @@ global org.opennms.netmgt.correlation.ncs.NCSCorrelationService correlationServi
  * ComponentImpacted indicates an outage with a cause
  *
  * DependenciesNeeded indicates that I need to ensure the dependencies on a component are loaded
- * 
+ *
  * ImpactEventSent indicates that we sent the impact event
  *
  */
- 
+
 rule "component down event"
 	salience 100
 when
@@ -46,7 +46,7 @@ when
 then
 	println( "Component '" + $c.getName() + "' is impacted!" );
 	insert( new ComponentImpacted( $c, $cde ) );
-	insert( new DependenciesNeeded( $c, $cde ) ); 
+	insert( new DependenciesNeeded( $c, $cde ) );
 end
 
 rule "send impact events"
@@ -59,18 +59,18 @@ then
 	sendComponentImpactedEvent( engine, $c, $cause.getEvent() );
 	insert( new ImpactEventSent( $c, $cause ) );
 end
-	
+
 
 rule "propagate impact"
 	when
 		ComponentImpacted( $child : target, $cde : cause )
 		DependsOn( $parent : a, b == $child )
-	
+
 	then
 		println( "Parent component '" + $parent.getName() + "' is impacted!" );
 		insert( new ComponentImpacted( $parent, $cde ) );
-		insert( new DependenciesNeeded( $parent, $cde ) ); 
-	
+		insert( new DependenciesNeeded( $parent, $cde ) );
+
 end
 
 rule "component up event"
@@ -143,6 +143,3 @@ function void sendComponentResolvedEvent( DroolsCorrelationEngine engine, Compon
 	bldr.addParam("cause", e.getDbid() );
 	engine.sendEvent(bldr.getEvent());
 }
-
-
-

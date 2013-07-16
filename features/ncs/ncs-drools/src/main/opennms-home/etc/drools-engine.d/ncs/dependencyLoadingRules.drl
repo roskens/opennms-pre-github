@@ -68,7 +68,7 @@ then
 				println( "Parent component '" + parent.getName() + "' depends on " + c.getName() );
 				insert( new DependsOn( parent, c ) );
 			}
-// POSTPONE DependsOnAny support			
+// POSTPONE DependsOnAny support
 //			else {
 //				List<NCSComponent> ncsChildren = correlationService.findSubComponents( parent.getId() );
 //				List<Component> children = new ArrayList<Component>( ncsChildren.size() );
@@ -77,9 +77,9 @@ then
 //					children.add( child );
 //				}
 //				insert( new DependsOnAny( parent, children ) );
-//				println( "Inserted DependsOnAny for " + parent );			
+//				println( "Inserted DependsOnAny for " + parent );
 //			}
-			
+
 		}
 end
 
@@ -88,4 +88,3 @@ function void println(Object msg)
 {
 	System.err.println(new Date() + " : " + msg);
 }
-

@@ -83,7 +83,7 @@ then
 	}
 end
 
- 
+
 
 rule "mpls lsp path component down"
 	salience 100
@@ -146,7 +146,7 @@ function void println(Object msg)
 
 function AttrParmMap map( String attrName, int parmIndex )
 {
-	return new AttrParmMap(attrName, parmIndex);	
+	return new AttrParmMap(attrName, parmIndex);
 }
 
 function void sendImpactedComponentEvent( DroolsCorrelationEngine engine, Component c, Event e )
@@ -171,6 +171,3 @@ function void sendResolvedComponentEvent( DroolsCorrelationEngine engine, Compon
 	bldr.addParam("cause", e.getDbid() );
 	engine.sendEvent(bldr.getEvent());
 }
-
-
-
