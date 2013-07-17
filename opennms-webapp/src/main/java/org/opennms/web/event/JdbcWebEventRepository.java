@@ -159,7 +159,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
 
             event.ipAddr = rs.getString("ipAddr");
             event.serviceID = (Integer) rs.getObject("serviceID");
-            event.nodeLabel = rs.getString("nodeLabel");;
+            event.nodeLabel = rs.getString("nodeLabel");
             event.serviceName = rs.getString("serviceName");
             event.createTime = new Date((rs.getTimestamp("eventCreateTime")).getTime());
             event.description = rs.getString("eventDescr");

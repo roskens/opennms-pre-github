@@ -66,10 +66,8 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
     @Override
     public List<String> getCategoriesList() {
         List<String> categories = new ArrayList<String>();
-        Collection<Category> catCollection = m_categoryConfigDao.findAll();;
-        Iterator<Category> i = catCollection.iterator();
-        while (i.hasNext()) {
-            categories.add(i.next().getLabel());
+        for(Category cat : m_categoryConfigDao.findAll()) {
+            categories.add(cat.getLabel());
         }
         return categories;
 
