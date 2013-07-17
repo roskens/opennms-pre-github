@@ -128,36 +128,32 @@ public class AddPollerConfigServlet extends HttpServlet {
             throw new ServletException("Missing required init parameter: redirect.success");
         }
 
-        {
-            String check1 = request.getParameter("check1");
-            String name1 = request.getParameter("name1");
-            String protoArray1 = request.getParameter("protArray1");
-            String port1 = request.getParameter("port1");
-
-            List<String> checkedList = new ArrayList<String>();
-            if (name1 != null && !name1.equals("")) {
-                if (!addPollerInfo(pollerConfig, firstPackage, props, check1, name1, port1, user_id, protoArray1, response, request)) {
-                    return;
-                }
-                checkedList.add(name1);
-                if (addCapsdInfo(capsdConfig, firstPackage, props, name1, port1, user_id, protoArray1, response, request)) {
-                    props.setProperty("service." + name1 + ".protocol", protoArray1);
-                } else {
-                    return;
-                }
+        String check1 = request.getParameter("check1");
+        String name1 = request.getParameter("name1");
+        String protoArray1 = request.getParameter("protArray1");
+        String port1 = request.getParameter("port1");
+        List<String> checkedList = new ArrayList<String>();
+        if (name1 != null && !name1.equals("")) {
+            if (!addPollerInfo(pollerConfig, firstPackage, props, check1, name1, port1, user_id, protoArray1, response, request)) {
+                return;
             }
-
-            props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
-            Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
-            Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
-            try {
-                Marshaller.marshal(pollerConfig, poller_fileWriter);
-                Marshaller.marshal(capsdConfig, capsd_fileWriter);
-            } catch (MarshalException e) {
-                throw new ServletException(e);
-            } catch (ValidationException e) {
-                throw new ServletException(e);
+            checkedList.add(name1);
+            if (addCapsdInfo(capsdConfig, firstPackage, props, name1, port1, user_id, protoArray1, response, request)) {
+                props.setProperty("service." + name1 + ".protocol", protoArray1);
+            } else {
+                return;
             }
+        }
+        props.store(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME)), null);
+        Writer poller_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONFIG_FILE_NAME)), "UTF-8");
+        Writer capsd_fileWriter = new OutputStreamWriter(new FileOutputStream(ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME)), "UTF-8");
+        try {
+            Marshaller.marshal(pollerConfig, poller_fileWriter);
+            Marshaller.marshal(capsdConfig, capsd_fileWriter);
+        } catch (MarshalException e) {
+            throw new ServletException(e);
+        } catch (ValidationException e) {
+            throw new ServletException(e);
         }
         response.sendRedirect(redirectSuccess);
     }
