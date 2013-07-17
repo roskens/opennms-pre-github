@@ -121,8 +121,8 @@ public final class RxtxCommands
 	 */
 	public Object _rxtxVersion(CommandInterpreter intp) {
 
-		intp.println( "RXTX Version: " + RXTXVersion.getVersion() );
-		intp.println( "RXTX NativeVersion: " + RXTXVersion.nativeGetVersion() );
+		intp.println("RXTX Version: " + RXTXVersion.getVersion());
+		intp.println("RXTX NativeVersion: " + RXTXVersion.nativeGetVersion());
 
 		return null;
 	}
@@ -141,7 +141,7 @@ public final class RxtxCommands
 		{
 			CommPortIdentifier commPortId = (CommPortIdentifier) en.nextElement();
 
-			intp.println( "Port: " + commPortId.getName() + " Type: " + commPortId.getPortType() );
+			intp.println("Port: " + commPortId.getName() + " Type: " + commPortId.getPortType());
 		}
 
 		return null;
@@ -175,14 +175,14 @@ public final class RxtxCommands
 			portId = CommPortIdentifier.getPortIdentifier(port);
 			if ( portId.getPortType() != CommPortIdentifier.PORT_SERIAL )
 			{
-				intp.println( "Only Serial Ports are currently supported." );
+				intp.println("Only Serial Ports are currently supported.");
 				return null;
 			}
 
 		}
 		catch ( NoSuchPortException e )
 		{
-			intp.println( "port not found: " + e.getMessage() );
+			intp.println("port not found: " + e.getMessage());
 			return null;
 		}
 
@@ -191,9 +191,9 @@ public final class RxtxCommands
 
 			SerialPort commPort = (SerialPort)portId.open("rxtx-test", 4000);
 
-			m_openPorts.put( id, commPort );
+			m_openPorts.put(id, commPort);
 
-			intp.println( "Port " + commPort.getName() + " assigned to id " + id );
+			intp.println("Port " + commPort.getName() + " assigned to id " + id);
 
 			return null;
 
@@ -201,7 +201,7 @@ public final class RxtxCommands
 		catch (PortInUseException e)
 		{
 
-			intp.println( "exception opening port: " + e.getMessage() );
+			intp.println("exception opening port: " + e.getMessage());
 			return null;
 		}
 
@@ -222,16 +222,16 @@ public final class RxtxCommands
 			String id = intp.nextArgument();
 
 			assertNotNull( id , "usage: rxtxClose <id>");
-			assertOpenPort( id );
+			assertOpenPort(id);
 
-			Pipe pipe = m_loggingPorts.remove( id );
+			Pipe pipe = m_loggingPorts.remove(id);
 
 			if( pipe != null )
 			{
 				pipe.stop();
 			}
 
-			SerialPort port = m_openPorts.remove( id );
+			SerialPort port = m_openPorts.remove(id);
 
 			intp.print("Closing port " + port.getName() + " with id " + id + "..." );
 
@@ -242,7 +242,7 @@ public final class RxtxCommands
 
 		}
 		catch( IllegalArgumentException e) {
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 
 		return null;
@@ -262,19 +262,19 @@ public final class RxtxCommands
 		try
 		{
 
-			assertNotNull( id , "usage: rxtxWrite <id> <text>" );
-			assertNotNull( text , "usage: rxtxWrite <id> <text>" );
+			assertNotNull(id , "usage: rxtxWrite <id> <text>");
+			assertNotNull(text , "usage: rxtxWrite <id> <text>");
 
-			assertOpenPort( id );
+			assertOpenPort(id);
 
-			SerialPort port = m_openPorts.get( id );
+			SerialPort port = m_openPorts.get(id);
 
-			Writer out = new OutputStreamWriter( port.getOutputStream(), "US-ASCII" );
+			Writer out = new OutputStreamWriter(port.getOutputStream(), "US-ASCII");
 
 			if ( text.startsWith( "<<" ) ) {
-				String eof = text.substring( 2 );
+				String eof = text.substring(2);
 
-				BufferedReader in = new BufferedReader( new InputStreamReader( System.in ) );
+				BufferedReader in = new BufferedReader(new InputStreamReader( System.in ));
 				String line = in.readLine();
 				while( ! eof.equals( line ) )
 				{
@@ -296,16 +296,16 @@ public final class RxtxCommands
 		}
 		catch( IllegalArgumentException e )
 		{
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 		catch( UnsupportedEncodingException e )
 		{
-			intp.println( "Unsupported Encoded " + e.getMessage() );
+			intp.println("Unsupported Encoded " + e.getMessage());
 		}
 		catch( IOException e )
 		{
-			intp.println( "Exception writing " + text + " to port with id " + id );
-			intp.printStackTrace( e );
+			intp.println("Exception writing " + text + " to port with id " + id);
+			intp.printStackTrace(e);
 		}
 
 		return null;
@@ -325,26 +325,26 @@ public final class RxtxCommands
 
 			String id = intp.nextArgument();
 
-			assertNotNull( id, "usage: rxtxRead <id> <timeout>" );
+			assertNotNull(id, "usage: rxtxRead <id> <timeout>");
 
-			assertOpenPort( id );
+			assertOpenPort(id);
 
-			SerialPort port = m_openPorts.get( id );
+			SerialPort port = m_openPorts.get(id);
 
 			Reader r = new InputStreamReader(port.getInputStream(), "US-ASCII");
 			while( r.ready() )
 			{
-				intp.print( (char)r.read() );
+				intp.print((char)r.read());
 			}
 		}
 		catch( IllegalArgumentException e)
 		{
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 		catch( Exception e)
 		{
 			intp.println( "Exception will reading.");
-			intp.printStackTrace( e );
+			intp.printStackTrace(e);
 		}
 
 
@@ -364,21 +364,21 @@ public final class RxtxCommands
 			String id = intp.nextArgument();
 
 			assertNotNull( id, "usage: rxtxLog <id>");
-			assertOpenPort( id );
+			assertOpenPort(id);
 
-			SerialPort port = m_openPorts.get( id );
+			SerialPort port = m_openPorts.get(id);
 
-			Pipe pipe = new Pipe( port.getInputStream(), System.out ).start( "Modem DataStream" );
+			Pipe pipe = new Pipe(port.getInputStream(), System.out ).start( "Modem DataStream");
 
-			m_loggingPorts.put( id, pipe );
+			m_loggingPorts.put(id, pipe);
 
 		}
 		catch( IllegalArgumentException e) {
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 		catch( IOException e) {
 			intp.println( "Error reading from port");
-			intp.printStackTrace( e );
+			intp.printStackTrace(e);
 		}
 
 		return null;
@@ -397,11 +397,11 @@ public final class RxtxCommands
 
 			assertNotNull(id, "usage: rxtxUnlog <id>");
 
-			assertOpenPort( id );
+			assertOpenPort(id);
 
 			assertTrue( m_loggingPorts.containsKey( id ), "port with id "+ id +" is not currently logging");
 
-			Pipe pipe = m_loggingPorts.remove( id );
+			Pipe pipe = m_loggingPorts.remove(id);
 
 			pipe.stop();
 		}
@@ -425,11 +425,11 @@ public final class RxtxCommands
 
 			String id = intp.nextArgument();
 
-			assertNotNull( id, "usage: rxtxInfo <id>" );
+			assertNotNull(id, "usage: rxtxInfo <id>");
 
-			assertOpenPort( id );
+			assertOpenPort(id);
 
-			SerialPort port = m_openPorts.get( id );
+			SerialPort port = m_openPorts.get(id);
 
 
 			intp.println("===== Info for port " + port.getName() + " =====");
@@ -469,7 +469,7 @@ public final class RxtxCommands
 		}
 		catch( IllegalArgumentException e)
 		{
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 		catch( Exception e )
 		{
@@ -489,10 +489,10 @@ public final class RxtxCommands
 		{
 			String id = intp.nextArgument();
 
-			assertNotNull( id, "usage: rxtxEnableEvents <id>" );
-			assertOpenPort( id );
+			assertNotNull(id, "usage: rxtxEnableEvents <id>");
+			assertOpenPort(id);
 
-			SerialPort port = m_openPorts.get( id );
+			SerialPort port = m_openPorts.get(id);
 
 			SerialPortEventListener listener = new EventLogger(intp);
 
@@ -516,7 +516,7 @@ public final class RxtxCommands
 		}
 		catch( IllegalArgumentException e )
 		{
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 	}
 
@@ -531,31 +531,31 @@ public final class RxtxCommands
 		{
 			String id = intp.nextArgument();
 
-			assertNotNull( id, "usage: rxtxDisableEvents <id>" );
-			assertOpenPort( id );
+			assertNotNull(id, "usage: rxtxDisableEvents <id>");
+			assertOpenPort(id);
 
-			SerialPort port = m_openPorts.get( id );
+			SerialPort port = m_openPorts.get(id);
 
-			removeListener( port );
+			removeListener(port);
 		}
 		catch( IllegalArgumentException e)
 		{
-			intp.print( e.getMessage() );
+			intp.print(e.getMessage());
 		}
 	}
 
 	private void removeListener(SerialPort port) {
 
-		port.notifyOnRingIndicator( false );
-		port.notifyOnParityError( false );
-		port.notifyOnOverrunError( false );
-		port.notifyOnOutputEmpty( false );
-		port.notifyOnFramingError( false );
-		port.notifyOnDSR( false );
-		port.notifyOnDataAvailable( false );
-		port.notifyOnCTS( false );
-		port.notifyOnCarrierDetect( false );
-		port.notifyOnBreakInterrupt( false );
+		port.notifyOnRingIndicator(false);
+		port.notifyOnParityError(false);
+		port.notifyOnOverrunError(false);
+		port.notifyOnOutputEmpty(false);
+		port.notifyOnFramingError(false);
+		port.notifyOnDSR(false);
+		port.notifyOnDataAvailable(false);
+		port.notifyOnCTS(false);
+		port.notifyOnCarrierDetect(false);
+		port.notifyOnBreakInterrupt(false);
 
 		port.removeEventListener();
 
@@ -572,16 +572,16 @@ public final class RxtxCommands
 			String port = intp.nextArgument();
 			String testString = intp.nextArgument();
 
-			assertNotNull( port , "usage: rxtxEventTest <port>" );
+			assertNotNull(port , "usage: rxtxEventTest <port>");
 
 			String[] args = testString == null ? new String[] { port } : new String[] { port, testString };
 
-			LoopbackEventTest.SerialEventHandler.main( args );
+			LoopbackEventTest.SerialEventHandler.main(args);
 
 		}
 		catch( IllegalArgumentException e )
 		{
-			intp.println( e.getMessage() );
+			intp.println(e.getMessage());
 		}
 
 	}
@@ -628,7 +628,7 @@ public final class RxtxCommands
 
 		for( SerialPort port : m_openPorts.values() )
 		{
-			removeListener( port );
+			removeListener(port);
 			port.close();
 		}
 
@@ -640,7 +640,7 @@ public final class RxtxCommands
 
 
 	private void assertNotNull(Object arg, String msg) {
-		assertFalse( arg == null, msg );
+		assertFalse(arg == null, msg);
 	}
 
 	private void assertOpenPort(String id) {
@@ -650,7 +650,7 @@ public final class RxtxCommands
 	private void assertTrue(boolean test, String msg) {
 
 		if( !test ) {
-			throw new IllegalArgumentException( msg );
+			throw new IllegalArgumentException(msg);
 		}
 
 	}
@@ -658,7 +658,7 @@ public final class RxtxCommands
 	private void assertFalse(boolean test, String msg) {
 
 		if( test ) {
-			throw new IllegalArgumentException( msg );
+			throw new IllegalArgumentException(msg);
 		}
 	}
 }

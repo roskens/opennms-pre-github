@@ -92,13 +92,13 @@ public class SnmpGetInterfacesServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession user = request.getSession(true);
 
-        String nodeIdString = request.getParameter( "node" );
+        String nodeIdString = request.getParameter("node");
 
         if( nodeIdString == null ) {
-            throw new org.opennms.web.servlet.MissingParameterException( "node" );
+            throw new org.opennms.web.servlet.MissingParameterException("node");
         }
 
-        int nodeid = WebSecurityUtils.safeParseInt( nodeIdString );
+        int nodeid = WebSecurityUtils.safeParseInt(nodeIdString);
 
         try {
             user.setAttribute("listInterfacesForNode.snmpselect.jsp", getNodeInterfaces(user,nodeid));

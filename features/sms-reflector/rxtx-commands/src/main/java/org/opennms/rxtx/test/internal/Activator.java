@@ -59,7 +59,7 @@ public final class Activator
     	m_commands = new RxtxCommands();
 
         // Register our example service implementation in the OSGi service registry
-        m_registration = bc.registerService( CommandProvider.class, m_commands, null );
+        m_registration = bc.registerService(CommandProvider.class, m_commands, null);
     }
 
     /**

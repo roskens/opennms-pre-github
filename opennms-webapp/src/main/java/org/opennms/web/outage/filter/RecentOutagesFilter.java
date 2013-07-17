@@ -89,7 +89,7 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
      */
     public static Date yesterday() {
         Calendar cal = new GregorianCalendar();
-        cal.add( Calendar.DATE, -1 );
+        cal.add(Calendar.DATE, -1);
         return cal.getTime();
     }
 

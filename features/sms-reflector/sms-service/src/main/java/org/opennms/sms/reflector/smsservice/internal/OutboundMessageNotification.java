@@ -76,7 +76,7 @@ public class OutboundMessageNotification implements IOutboundMessageNotification
         for( IOutboundMessageNotification listener : getListeners() )
         {
             if (listener != this) {
-                listener.process( gateway, msg );
+                listener.process(gateway, msg);
             }
         }
     }

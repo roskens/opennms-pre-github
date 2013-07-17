@@ -128,7 +128,7 @@ public final class ResourceServlet
             int n;
 
             while ((n = is.read(buf, 0, buf.length)) >= 0) {
-                os.write( buf, 0, n );
+                os.write(buf, 0, n);
                 len += n;
             }
 

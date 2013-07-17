@@ -72,7 +72,7 @@ public class UssdNotificationDispatcher implements IUSSDNotification {
         for( IUSSDNotification listener : getListeners() )
         {
             if (listener != this) {
-                listener.process( gateway, ussdResponse );
+                listener.process(gateway, ussdResponse);
             }
         }
     }

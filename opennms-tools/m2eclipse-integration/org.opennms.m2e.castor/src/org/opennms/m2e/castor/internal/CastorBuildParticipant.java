@@ -26,7 +26,7 @@ public class CastorBuildParticipant
 
     public CastorBuildParticipant( MojoExecution execution )
     {
-        super( execution, true );
+        super(execution, true);
     }
 
     @Override
@@ -47,12 +47,12 @@ public class CastorBuildParticipant
         }
 
         // execute mojo
-        Set<IProject> result = super.build( kind, monitor );
+        Set<IProject> result = super.build(kind, monitor);
 
         // tell m2e builder to refresh generated files
         File generated = maven.getMojoParameterValue(getSession(), getMojoExecution(), "dest", File.class);
         if (generated != null) {
-            buildContext.refresh( generated );
+            buildContext.refresh(generated);
         }
 
         return result;

@@ -22,7 +22,7 @@ public class CastorProjectConfigurator
                                                          MojoExecution execution,
                                                          IPluginExecutionMetadata executionMetadata )
     {
-        return new CastorBuildParticipant( execution );
+        return new CastorBuildParticipant(execution);
     }
 
     protected String getOutputFolderParameterName()

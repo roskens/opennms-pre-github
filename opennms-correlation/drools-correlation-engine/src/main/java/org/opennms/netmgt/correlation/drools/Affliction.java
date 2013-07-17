@@ -153,7 +153,7 @@ public class Affliction {
      * @param reporter a {@link java.lang.Integer} object.
      */
     public void addReporter(final Integer reporter) {
-        m_reporters.add( reporter );
+        m_reporters.add(reporter);
     }
 
     /**

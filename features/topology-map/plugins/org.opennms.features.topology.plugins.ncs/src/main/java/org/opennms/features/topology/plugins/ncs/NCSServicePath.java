@@ -39,7 +39,7 @@ public class NCSServicePath {
         setStatusCode(data);
 
         //Add device A to path, its not sent in the path
-        m_vertices.add( getVertexRefForForeignId(m_deviceAForeignID, m_nodeForeignSource) );
+        m_vertices.add(getVertexRefForForeignId(m_deviceAForeignID, m_nodeForeignSource));
         NodeList childNodes = getServicePath(data);
         for(int i = 0; i < childNodes.getLength(); i++) {
             Node item = childNodes.item(i);
@@ -49,7 +49,7 @@ public class NCSServicePath {
         }
 
         //Add device Z to path, its not sent in the path from the server
-        m_vertices.add( getVertexRefForForeignId(m_deviceZForeignID, m_nodeForeignSource) );
+        m_vertices.add(getVertexRefForForeignId(m_deviceZForeignID, m_nodeForeignSource));
     }
 
     private NodeList getServicePath(Node data) {
@@ -83,7 +83,7 @@ public class NCSServicePath {
                 if(!m_deviceAForeignID.equals(nodeForeignId) && !m_deviceZForeignID.equals(nodeForeignId)) {
                     NCSVertex vertex = getVertexRefForForeignId(nodeForeignId, m_nodeForeignSource);
                     if(vertex != null) {
-                        m_vertices.add( vertex );
+                        m_vertices.add(vertex);
                     }
                 }
             }

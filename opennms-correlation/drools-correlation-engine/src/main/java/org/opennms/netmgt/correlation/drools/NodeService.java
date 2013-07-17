@@ -45,6 +45,6 @@ public interface NodeService {
      * @param node a {@link java.lang.Long} object.
      * @return a {@link java.lang.Long} object.
      */
-    public Long getParentNode( Long node );
+    public Long getParentNode(Long node);
 
 }

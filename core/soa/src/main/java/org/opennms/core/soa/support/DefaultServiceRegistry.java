@@ -99,7 +99,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
             for( Class<?> cl : m_serviceInterfaces ) {
                 if ( serviceInterface.equals( cl ) ) {
-                    return serviceInterface.cast( m_provider );
+                    return serviceInterface.cast(m_provider);
                 }
             }
 

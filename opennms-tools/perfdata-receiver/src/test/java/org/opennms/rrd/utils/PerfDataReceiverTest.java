@@ -45,7 +45,7 @@ public class PerfDataReceiverTest
      */
     public PerfDataReceiverTest( String testName )
     {
-        super( testName );
+        super(testName);
     }
 
     /**
@@ -53,7 +53,7 @@ public class PerfDataReceiverTest
      */
     public static Test suite()
     {
-        return new TestSuite( PerfDataReceiverTest.class );
+        return new TestSuite(PerfDataReceiverTest.class);
     }
 
     /**
@@ -61,6 +61,6 @@ public class PerfDataReceiverTest
      */
     public void testReceiver()
     {
-        assertTrue( true );
+        assertTrue(true);
     }
 }

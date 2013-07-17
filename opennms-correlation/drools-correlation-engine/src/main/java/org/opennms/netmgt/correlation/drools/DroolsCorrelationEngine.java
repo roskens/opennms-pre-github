@@ -131,7 +131,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
         props.setProperty("drools.dialect.java.compiler.lnglevel", "1.6");
 
         final PackageBuilderConfiguration conf = new PackageBuilderConfiguration(props);
-        final PackageBuilder builder = new PackageBuilder( conf );
+        final PackageBuilder builder = new PackageBuilder(conf);
 
         loadRules(builder);
 
@@ -139,14 +139,14 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
         RuleBaseConfiguration config = new RuleBaseConfiguration();
         config.setAssertBehaviour(behaviour);
 
-        final RuleBase ruleBase = RuleBaseFactory.newRuleBase( config );
+        final RuleBase ruleBase = RuleBaseFactory.newRuleBase(config);
 
         if (builder.hasErrors()) {
             LOG.warn("Unable to initialize Drools engine: {}", builder.getErrors());
             throw new IllegalStateException("Unable to initialize Drools engine: " + builder.getErrors());
         }
 
-        ruleBase.addPackage( builder.getPackage() );
+        ruleBase.addPackage(builder.getPackage());
 
         m_workingMemory = ruleBase.newStatefulSession();
         m_workingMemory.setGlobal("engine", this);
@@ -163,8 +163,8 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
             Reader rdr = null;
             try {
                 LOG.debug("Loading rules file: {}", rulesFile);
-                rdr = new InputStreamReader( rulesFile.getInputStream(), "UTF-8" );
-                builder.addPackageFromDrl( rdr );
+                rdr = new InputStreamReader(rulesFile.getInputStream(), "UTF-8");
+                builder.addPackageFromDrl(rdr);
             } finally {
                 IOUtils.closeQuietly(rdr);
             }

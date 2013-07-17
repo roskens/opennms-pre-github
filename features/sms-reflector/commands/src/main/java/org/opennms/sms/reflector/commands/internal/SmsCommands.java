@@ -320,7 +320,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
      * @return a {@link java.lang.Object} object.
      */
     public Object _debug(CommandInterpreter intp) {
-        intp.println( "m_configAdmin is " + m_configAdmin );
+        intp.println("m_configAdmin is " + m_configAdmin);
 
 
 

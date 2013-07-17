@@ -71,10 +71,10 @@ public class SnmpTableResult implements RowResultFactory {
     void storeResult(SnmpResult result) {
         SnmpInstId instId = result.getInstance();
         if ( !m_pendingData.containsKey( instId ) ) {
-            m_pendingData.put( instId, m_rowResultFactory.createRowResult( getColumnCount(), instId ) );
+            m_pendingData.put(instId, m_rowResultFactory.createRowResult( getColumnCount(), instId ));
         }
-        SnmpRowResult row = m_pendingData.get( instId );
-        row.addResult( result.getBase(), result );
+        SnmpRowResult row = m_pendingData.get(instId);
+        row.addResult(result.getBase(), result);
 
         handleCompleteRows();
     }

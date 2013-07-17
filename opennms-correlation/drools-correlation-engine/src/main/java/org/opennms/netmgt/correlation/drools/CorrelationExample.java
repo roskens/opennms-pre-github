@@ -61,15 +61,15 @@ public class CorrelationExample {
     public static void main(final String[] args) throws Exception {
 
         final PackageBuilder builder = new PackageBuilder();
-        builder.addPackageFromDrl( new InputStreamReader( CorrelationExample.class.getResourceAsStream( "CorrelationExample.drl" ), "UTF-8" ) );
+        builder.addPackageFromDrl(new InputStreamReader( CorrelationExample.class.getResourceAsStream( "CorrelationExample.drl" ), "UTF-8" ));
 
         final RuleBase ruleBase = RuleBaseFactory.newRuleBase();
-        ruleBase.addPackage( builder.getPackage() );
+        ruleBase.addPackage(builder.getPackage());
 
         final WorkingMemory workingMemory = ruleBase.newStatefulSession();
 
-        final WorkingMemoryFileLogger logger = new WorkingMemoryFileLogger( workingMemory );
-        logger.setFileName( "log/correlation" );
+        final WorkingMemoryFileLogger logger = new WorkingMemoryFileLogger(workingMemory);
+        logger.setFileName("log/correlation");
 
         final InputStream in = CorrelationExample.class.getResourceAsStream("simulation");
         try {

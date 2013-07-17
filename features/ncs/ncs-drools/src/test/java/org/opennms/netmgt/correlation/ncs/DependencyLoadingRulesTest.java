@@ -476,13 +476,13 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 	}
 
 	private FactHandle insertFactAndFireRules(Object fact) {
-		FactHandle handle = m_engine.getWorkingMemory().insert( fact );
+		FactHandle handle = m_engine.getWorkingMemory().insert(fact);
         m_engine.getWorkingMemory().fireAllRules();
 		return handle;
 	}
 
 	private void retractFactAndFireRules(FactHandle fact) {
-		m_engine.getWorkingMemory().retract( fact );
+		m_engine.getWorkingMemory().retract(fact);
 		m_engine.getWorkingMemory().fireAllRules();
 	}
 

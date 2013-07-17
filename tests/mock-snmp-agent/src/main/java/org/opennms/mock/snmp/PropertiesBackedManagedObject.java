@@ -123,7 +123,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 		InputStream inStream = null;
 		try {
 		    inStream = moFile.openStream();
-			moProps.load( inStream );
+			moProps.load(inStream);
 		} catch (final Exception ex) {
 			s_log.error("Unable to read property file " + moFile, ex);
 			return null;
@@ -343,7 +343,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 	            } else if (moTypeStr.equals("Counter64")) {
 	                newVar = new Counter64(Long.parseLong(moValStr));
 	            } else if (moTypeStr.equals("Timeticks")) {
-	                Integer ticksInt = Integer.parseInt( moValStr.substring( moValStr.indexOf('(') + 1, moValStr.indexOf(')') ) );
+	                Integer ticksInt = Integer.parseInt(moValStr.substring( moValStr.indexOf('(') + 1, moValStr.indexOf(')') ));
 	                newVar = new TimeTicks(ticksInt);
 	            } else if (moTypeStr.equals("OID")) {
 	                newVar = new OID(moValStr);

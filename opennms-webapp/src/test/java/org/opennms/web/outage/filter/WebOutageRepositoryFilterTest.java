@@ -180,7 +180,7 @@ public class WebOutageRepositoryFilterTest implements InitializingBean {
 
     private static Date yesterday() {
         Calendar cal = new GregorianCalendar();
-        cal.add( Calendar.DATE, -1 );
+        cal.add(Calendar.DATE, -1);
         return cal.getTime();
     }
 

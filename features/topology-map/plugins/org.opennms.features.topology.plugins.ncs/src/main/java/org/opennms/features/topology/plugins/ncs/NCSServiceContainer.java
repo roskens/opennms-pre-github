@@ -72,7 +72,7 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
 			// ServiceElementComponents have no representation on the current map
 			// implementation.
 		    boolean isRoot = (Boolean) getItem(id).getItemProperty("isRoot").getValue();
-			Property itemProperty = getItem(id).getItemProperty( FOREIGN_SOURCE_PROPERTY );
+			Property itemProperty = getItem(id).getItemProperty(FOREIGN_SOURCE_PROPERTY);
             String fSource = (String)itemProperty.getValue();
             if(!isRoot && fSource.equals(foreignSource)) {
 			    retval.add(id);

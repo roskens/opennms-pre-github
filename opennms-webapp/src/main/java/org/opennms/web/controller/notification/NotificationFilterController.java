@@ -195,7 +195,7 @@ public class NotificationFilterController extends AbstractController implements 
                         }
                     }
                 }
-                nodeLabels.put( notice.getNodeId(), labels );
+                nodeLabels.put(notice.getNodeId(), labels);
             }
         }
 

@@ -252,7 +252,7 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
             int y = tform.getY();
             int oldCenterY = (int) Math.round(((height/2 - y) / tform.getScaleY()));
             p0.push(oldCenterX);
-            p0.push( oldCenterY );
+            p0.push(oldCenterY);
             p0.push((int) (width / tform.getScaleX()));
             p0.push((int) (height / tform.getScaleY()));
 
@@ -321,7 +321,7 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
 		}
 
 		private D3 getVertexSelection(GWTGraph graph, TopologyView<TopologyViewRenderer> topologyView) {
-			D3 vertexGroup = D3.d3().select( topologyView.getVertexGroup() );
+			D3 vertexGroup = D3.d3().select(topologyView.getVertexGroup());
             Func<String, GWTVertex> vertexIdentifierFunction = new Func<String, GWTVertex>() {
 
                                 @Override
@@ -747,7 +747,7 @@ public class VTopologyComponent extends Composite implements SVGTopologyMap, Top
             String targetKey = sharedEdge.getTargetKey();
 
             GWTVertex source = graph.findVertexById(sourceKey);
-            GWTVertex target = graph.findVertexById( targetKey );
+            GWTVertex target = graph.findVertexById(targetKey);
             GWTEdge edge = GWTEdge.create(edgeKey, source, target);
             boolean selected = sharedEdge.getSelected();
             String cssClass = sharedEdge.getCssClass();

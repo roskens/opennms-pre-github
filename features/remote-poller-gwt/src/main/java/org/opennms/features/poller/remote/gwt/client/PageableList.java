@@ -153,7 +153,7 @@ public abstract class PageableList extends Composite {
             if(totalPages == 0) {
                 totalPages = 1;
             }
-            setTotalPages( totalPages );
+            setTotalPages(totalPages);
 
         }else {
             setTotalPages(0);

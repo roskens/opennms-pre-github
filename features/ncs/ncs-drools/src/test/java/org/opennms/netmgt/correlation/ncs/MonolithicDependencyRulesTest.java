@@ -187,12 +187,12 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate component lspA down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "lspA-PE1-PE2", "NA-SvcElemComp", "8765,lspA-PE1-PE2", 17 ) );
+        anticipate(createComponentImpactedEvent( "ServiceElementComponent", "lspA-PE1-PE2", "NA-SvcElemComp", "8765,lspA-PE1-PE2", 17 ));
         // Generate down event
-		Event event = createMplsLspPathDownEvent( m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" );
+		Event event = createMplsLspPathDownEvent(m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2");
 		event.setDbid(17);
 		System.err.println("SENDING MplsLspPathDown on LspA EVENT!!");
-		engine.correlate( event );
+		engine.correlate(event);
 		// Check down event
 		getAnticipator().verifyAnticipated();
 
@@ -200,33 +200,33 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 		// Anticipate component lspB down event
 		// Parent should go down too
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "lspB-PE1-PE2", "NA-SvcElemComp", "8765,lspB-PE1-PE2", 18 ) );
-        anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)", 18 ) );
-        anticipate(  createComponentImpactedEvent( "ServiceElement", "PE1,SE1", "NA-ServiceElement", "8765", 18 ) );
-        anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18) );
+        anticipate(createComponentImpactedEvent( "ServiceElementComponent", "lspB-PE1-PE2", "NA-SvcElemComp", "8765,lspB-PE1-PE2", 18 ));
+        anticipate(createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)", 18 ));
+        anticipate(createComponentImpactedEvent( "ServiceElement", "PE1,SE1", "NA-ServiceElement", "8765", 18 ));
+        anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18));
 
-        //anticipate(  createComponentImpactedEvent( "Service", "NA-Service", "123", 17 ) );
+        //anticipate(createComponentImpactedEvent( "Service", "NA-Service", "123", 17 ));
         // Generate down event
-        event = createMplsLspPathDownEvent( m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2" );
+        event = createMplsLspPathDownEvent(m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2");
         event.setDbid(18);
         System.err.println("SENDING MplsLspPathDown on LspB EVENT!!");
-        engine.correlate( event );
+        engine.correlate(event);
         // Check down event
         getAnticipator().verifyAnticipated();
 
 
 		// Anticipate up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "lspA-PE1-PE2", "NA-SvcElemComp", "8765,lspA-PE1-PE2", 18 ) );
-        anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)", 18 ) );
-        anticipate(  createComponentResolvedEvent( "ServiceElement", "PE1,SE1", "NA-ServiceElement", "8765", 18 ) );
-        anticipate(  createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 18) );
+        anticipate(createComponentResolvedEvent( "ServiceElementComponent", "lspA-PE1-PE2", "NA-SvcElemComp", "8765,lspA-PE1-PE2", 18 ));
+        anticipate(createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)", 18 ));
+        anticipate(createComponentResolvedEvent( "ServiceElement", "PE1,SE1", "NA-ServiceElement", "8765", 18 ));
+        anticipate(createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 18));
 
         //Generate up event
-        event = createMplsLspPathUpEvent( m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" );
+        event = createMplsLspPathUpEvent(m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2");
         event.setDbid(17);
         System.err.println("SENDING MplsLspPathUp on LspA EVENT!!");
-        engine.correlate( event );
+        engine.correlate(event);
 
         // Check up event
         getAnticipator().verifyAnticipated();
@@ -245,38 +245,38 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
         // Antecipate down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
-        anticipate(  createComponentImpactedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
-        anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
+        anticipate(createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ));
+        anticipate(createComponentImpactedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ));
+        anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ));
 
 		// Generate down event
-		Event event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
+		Event event = createVpnPwDownEvent(m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50");
 		event.setDbid(17);
 		System.err.println("SENDING VpnPwDown EVENT!!");
-		engine.correlate( event );
+		engine.correlate(event);
 
 		// Check down event
 		getAnticipator().verifyAnticipated();
 
 		// Generate additional down event - nothing should happen
 //		getAnticipator().reset();
-//        event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
+//        event = createVpnPwDownEvent(m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50");
 //        event.setDbid(18);
 //        System.err.println("SENDING VpnPwDown EVENT!!");
-//        engine.correlate( event );
+//        engine.correlate(event);
 //        getAnticipator().verifyAnticipated();
 
 		// Anticipate up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
-        anticipate(  createComponentResolvedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
-        anticipate(  createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
+        anticipate(createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ));
+        anticipate(createComponentResolvedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ));
+        anticipate(createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ));
 
         // Generate up event
-        event = createVpnPwUpEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
+        event = createVpnPwUpEvent(m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50");
         event.setDbid(17);
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( event );
+        engine.correlate(event);
 
         // Check up event
         getAnticipator().verifyAnticipated();
@@ -293,38 +293,38 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
-        anticipate(  createComponentImpactedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
-        anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
+        anticipate(createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ));
+        anticipate(createComponentImpactedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ));
+        anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ));
 
 		// Generate down event
-		Event event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
+		Event event = createVpnPwDownEvent(m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50");
 		event.setDbid(17);
 		System.err.println("SENDING VpnPwDown EVENT!!");
-		engine.correlate( event );
+		engine.correlate(event);
 
 		// Check down event
 		getAnticipator().verifyAnticipated();
 
 		// Generate additional down event - nothing should happen
 		getAnticipator().reset();
-        event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
+        event = createVpnPwDownEvent(m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50");
         event.setDbid(18);
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( event );
+        engine.correlate(event);
         getAnticipator().verifyAnticipated();
 
 		// Anticipate up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
-        anticipate(  createComponentResolvedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
-        anticipate(  createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
+        anticipate(createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ));
+        anticipate(createComponentResolvedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ));
+        anticipate(createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ));
 
         // Generate up event
-        event = createVpnPwUpEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
+        event = createVpnPwUpEvent(m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50");
         event.setDbid(17);
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( event );
+        engine.correlate(event);
 
         // Check up event
         getAnticipator().verifyAnticipated();

@@ -79,14 +79,14 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
 		TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_SEQUENCE_RETRY, DEFAULT_TIMEOUT);
 
 		for(tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
-		    String seleniumTestFilename = getGroovyFilename( parameters );
+		    String seleniumTestFilename = getGroovyFilename(parameters);
     		try {
 
                 Map<String, Number> responseTimes = new HashMap<String, Number>();
                 responseTimes.put("response-time", Double.NaN);
 
                 tracker.startAttempt();
-                Result result = runTest( getBaseUrl(parameters, svc), getTimeout(parameters), createGroovyClass( seleniumTestFilename ) );
+                Result result = runTest(getBaseUrl(parameters, svc), getTimeout(parameters), createGroovyClass( seleniumTestFilename ));
                 double responseTime = tracker.elapsedTimeInMillis();
                 responseTimes.put("response-time", responseTime);
 
@@ -185,7 +185,7 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
 
         String file = System.getProperty("opennms.home") + "/etc/selenium/" + filename;
         System.err.println("File name: " + file);
-        return gcl.parseClass( new File( file ) );
+        return gcl.parseClass(new File( file ));
     }
 
 }

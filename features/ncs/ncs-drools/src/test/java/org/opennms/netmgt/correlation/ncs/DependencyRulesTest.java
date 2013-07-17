@@ -206,11 +206,11 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate component lspA down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 17 ) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 17 ));
 
         // Generate down event
         System.err.println("SENDING MplsLspPathDown on LspA EVENT!!");
-        engine.correlate( createMplsLspPathDownEvent( 17, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" ) );
+        engine.correlate(createMplsLspPathDownEvent( 17, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" ));
 
         // Check lspA component impacted
         getAnticipator().verifyAnticipated();
@@ -218,28 +218,28 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Anticipate component lspB down event
         // Parent should go down too
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspB-PE1-PE2"), 18 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspB-PE1-PE2"), 18 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18));
 
         // Generate down event
         System.err.println("SENDING MplsLspPathDown on LspB EVENT!!");
-        engine.correlate( createMplsLspPathDownEvent( 18, m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2" ) );
+        engine.correlate(createMplsLspPathDownEvent( 18, m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2" ));
 
         // verify components were impacted
         getAnticipator().verifyAnticipated();
 
         // Anticipate impacted resolved when we send up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 18 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,lspA-PE1-PE2"), 18 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18));
 
         // Generate up event
         System.err.println("SENDING MplsLspPathUp on LspA EVENT!!");
-        engine.correlate( createMplsLspPathUpEvent( 19, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" ) );
+        engine.correlate(createMplsLspPathUpEvent( 19, m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" ));
 
         // verify components are resolved
         getAnticipator().verifyAnticipated();
@@ -259,7 +259,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Antecipate down event
         getAnticipator().reset();
 
-        anticipate( transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentImpactedEvent(17) ) );
+        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentImpactedEvent(17) ));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
@@ -271,17 +271,17 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate( transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentResolvedEvent(17) ) );
+        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentResolvedEvent(17) ));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
         // Memory should be clean!
-        assertEquals( 0, engine.getMemorySize() );
+        assertEquals(0, engine.getMemorySize());
 
     }
 
@@ -295,7 +295,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Antecipate down event
         getAnticipator().reset();
 
-        anticipate( transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentImpactedEvent(17) ) );
+        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)" ), toComponentImpactedEvent(17) ));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
@@ -306,35 +306,35 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         getAnticipator().reset();
 
         // Second outage
-        anticipate( transform( singleton( findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnIf") ), toComponentImpactedEvent(18) ) );
+        anticipate(transform( singleton( findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnIf") ), toComponentImpactedEvent(18) ));
 
         System.err.println("SENDING VpnIfDown EVENT!!");
-        engine.correlate( createVpnIfDownEvent(18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnIfDownEvent(18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
 
         getAnticipator().verifyAnticipated();
         getAnticipator().reset();
 
         // expect only the resolved subelement to come back up
-        anticipate( transform( singleton( findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)") ), toComponentResolvedEvent(17) ) );
+        anticipate(transform( singleton( findSubcomponent(m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)") ), toComponentResolvedEvent(17) ));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
         getAnticipator().reset();
 
-        anticipate( transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnIf" ), toComponentResolvedEvent(18) ) );
+        anticipate(transform( findPathToSubcomponent(m_svc,  "NA-SvcElemComp", "9876,jnxVpnIf" ), toComponentResolvedEvent(18) ));
 
         System.err.println("SENDING VpnIfUp EVENT!!");
-        engine.correlate( createVpnIfUpEvent(20, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnIfUpEvent(20, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
         getAnticipator().verifyAnticipated();
 
         // Memory should be clean!
-        assertEquals( 0, engine.getMemorySize() );
+        assertEquals(0, engine.getMemorySize());
 
     }
 
@@ -359,69 +359,69 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate 1st down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ) );
-        anticipate(  createComponentImpactedEvent(findSubcomponent (m_svc, "NA-Service", "123"), 17 ) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
 
         // Generate vpn if down event
         System.err.println("SENDING VpnIfDown EVENT!!");
-        engine.correlate( createVpnIfDownEvent( 17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ) );
+        engine.correlate(createVpnIfDownEvent( 17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ) );
-        //anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
+        //anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
 
         // Should we get this?
-        //anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18 ) );
+        //anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18 ));
 
         // Generate vpn down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 18, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ) );
+        engine.correlate(createVpnPwDownEvent( 18, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
 
         // Check 2nd down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnIf"), 17 ));
 
         // The next two should not happen until the underlying subcomponents are also resolved
-        //anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ) );
-        //anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ) );
+        //anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
+        //anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
 
-        //anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ) );
-        //anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ) );
+        //anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
+        //anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ));
 
 
         // Generate up event
         System.err.println("SENDING VpnIfUp EVENT!!");
-        engine.correlate( createVpnIfUpEvent( 19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ) );
+        engine.correlate(createVpnIfUpEvent( 19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 18 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 18 ));
 
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ));
 
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( createVpnPwUpEvent( 20, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ) );
+        engine.correlate(createVpnPwUpEvent( 20, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
 
         // Memory should be clean!
-        assertEquals( 0, engine.getMemorySize() );
+        assertEquals(0, engine.getMemorySize());
 
 
     }
@@ -444,30 +444,30 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
             impactedByNodeDown.addAll( findPathToSubcomponent(m_svc, c.getForeignSource(), c.getForeignId()));
         }
 
-        impactedByNodeDown = uniq( impactedByNodeDown );
+        impactedByNodeDown = uniq(impactedByNodeDown);
 
-        anticipate( transform( impactedByNodeDown, toComponentImpactedEvent(17) ) );
+        anticipate(transform( impactedByNodeDown, toComponentImpactedEvent(17) ));
 
         // Generate down event
         System.err.println("SENDING nodeDown EVENT!!");
-        engine.correlate( createNodeDownEvent( 17, m_pe1NodeId ) );
+        engine.correlate(createNodeDownEvent( 17, m_pe1NodeId ));
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate( transform( impactedByNodeDown, toComponentResolvedEvent(19) ) );
+        anticipate(transform( impactedByNodeDown, toComponentResolvedEvent(19) ));
 
         // Generate up event
         System.err.println("SENDING nodeUpEvent EVENT!!");
-        engine.correlate( createNodeUpEvent( 19, m_pe1NodeId ) );
+        engine.correlate(createNodeUpEvent( 19, m_pe1NodeId ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
         // Memory should be clean!
-        assertEquals( "Unexpected objects in memory" + engine.getMemoryObjects(), 0, engine.getMemorySize() );
+        assertEquals("Unexpected objects in memory" + engine.getMemoryObjects(), 0, engine.getMemorySize());
 
     }
 
@@ -481,13 +481,13 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 17 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 17 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwDownEvent( 17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
         // Check down event
         getAnticipator().verifyAnticipated();
@@ -495,19 +495,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         // Generate additional down event - nothing should happen
         getAnticipator().reset();
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwDownEvent( 18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 17 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 17 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 17 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwUpEvent( 19, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
@@ -524,62 +524,62 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // Anticipate 1st down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ) );
-        anticipate(  createComponentImpactedEvent(findSubcomponent (m_svc, "NA-Service", "123"), 17 ) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
+        anticipate(createComponentImpactedEvent(findSubcomponent (m_svc, "NA-Service", "123"), 17 ));
 
         // Generate down event
         System.err.println("SENDING VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ) );
+        engine.correlate(createVpnPwDownEvent( 17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
 
         // Check down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd down event
         getAnticipator().reset();
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18 ) );
-        anticipate(  createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 18 ) );
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18 ));
+        anticipate(createComponentImpactedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 18 ));
 
         // Should we get this?
-        //anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18 ) );
+        //anticipate(createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18 ));
 
         // Generate another down event for the other PE
         System.err.println("SENDING 2nd VpnPwDown EVENT!!");
-        engine.correlate( createVpnPwDownEvent( 18, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwDownEvent( 18, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50" ));
 
         // Check 2nd down event
         getAnticipator().verifyAnticipated();
 
         // Anticipate up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)"), 17 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "8765"), 17 ));
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( createVpnPwUpEvent( 19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ) );
+        engine.correlate(createVpnPwUpEvent( 19, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
         // Anticipate 2nd up event
         getAnticipator().reset();
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18 ) );
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 18 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)"), 18 ));
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-ServiceElement", "9876"), 18 ));
 
-        anticipate(  createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ) );
+        anticipate(createComponentResolvedEvent( findSubcomponent (m_svc, "NA-Service", "123"), 18 ));
 
 
         // Generate up event
         System.err.println("SENDING VpnPwUp EVENT!!");
-        engine.correlate( createVpnPwUpEvent( 20, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50" ) );
+        engine.correlate(createVpnPwUpEvent( 20, m_pe2NodeId, "10.1.1.2", "5", "ge-3/1/4.50" ));
 
         // Check up event
         getAnticipator().verifyAnticipated();
 
 
         // Memory should be clean!
-        assertEquals( 0, engine.getMemorySize() );
+        assertEquals(0, engine.getMemorySize());
 
     }
 

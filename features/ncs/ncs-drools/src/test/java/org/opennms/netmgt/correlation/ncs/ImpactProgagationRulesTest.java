@@ -289,7 +289,7 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
         // this component depends on c
         Component parent = createComponent("ServiceElement", "NA-ServiceElement", "9876");
 
-        DependsOn dep = new DependsOn( parent, c );
+        DependsOn dep = new DependsOn(parent, c);
         ComponentImpacted componentImpacted = new ComponentImpacted(c, cde);
         ImpactEventSent eventSent = new ImpactEventSent( c, cde);
 
@@ -298,9 +298,9 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
         anticipateEvent(createComponentImpactedEvent("ServiceElement", "PE2,SE1", "NA-SvcElement", "9876", 17));
 
         // Insert facts and fire rules
-		FactHandle impactHandle = m_engine.getWorkingMemory().insert( componentImpacted );
-		FactHandle depHandle = m_engine.getWorkingMemory().insert( dep );
-		FactHandle eventSentHandle = m_engine.getWorkingMemory().insert( eventSent );
+		FactHandle impactHandle = m_engine.getWorkingMemory().insert(componentImpacted);
+		FactHandle depHandle = m_engine.getWorkingMemory().insert(dep);
+		FactHandle eventSentHandle = m_engine.getWorkingMemory().insert(eventSent);
 		m_engine.getWorkingMemory().fireAllRules();
 
         // pretend to be a using rule that inserts the DependenciesNeeded fact
@@ -424,13 +424,13 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
 	}
 
 	private FactHandle insertFactAndFireRules(Object fact) {
-		FactHandle handle = m_engine.getWorkingMemory().insert( fact );
+		FactHandle handle = m_engine.getWorkingMemory().insert(fact);
         m_engine.getWorkingMemory().fireAllRules();
 		return handle;
 	}
 
 	private void retractFactAndFireRules(FactHandle fact) {
-		m_engine.getWorkingMemory().retract( fact );
+		m_engine.getWorkingMemory().retract(fact);
 		m_engine.getWorkingMemory().fireAllRules();
 	}
 

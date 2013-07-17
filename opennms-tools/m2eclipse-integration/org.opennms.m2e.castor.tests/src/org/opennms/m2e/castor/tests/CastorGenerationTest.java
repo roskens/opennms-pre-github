@@ -45,44 +45,44 @@ public class CastorGenerationTest
         throws Exception
     {
         ResolverConfiguration configuration = new ResolverConfiguration();
-        IProject project1 = importProject( "projects/castor/castor-p001/pom.xml", configuration );
+        IProject project1 = importProject("projects/castor/castor-p001/pom.xml", configuration);
         waitForJobsToComplete();
 
-        project1.build( IncrementalProjectBuilder.FULL_BUILD, monitor );
-        project1.build( IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor );
+        project1.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+        project1.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor);
         waitForJobsToComplete();
 
-        assertNoErrors( project1 );
+        assertNoErrors(project1);
 
-        IJavaProject javaProject1 = JavaCore.create( project1 );
+        IJavaProject javaProject1 = JavaCore.create(project1);
         IClasspathEntry[] cp1 = javaProject1.getRawClasspath();
 
-        assertEquals( new Path( "/castor-p001/target/generated-sources/castor" ), cp1[3].getPath() );
+        assertEquals(new Path( "/castor-p001/target/generated-sources/castor" ), cp1[3].getPath());
 
-        assertTrue( project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isSynchronized( IResource.DEPTH_ZERO ) );
-        assertTrue( project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isAccessible() );
+        assertTrue(project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isSynchronized( IResource.DEPTH_ZERO ));
+        assertTrue(project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isAccessible());
     }
 
     public void test_p002_simple()
             throws Exception
         {
             ResolverConfiguration configuration = new ResolverConfiguration();
-            IProject project1 = importProject( "projects/castor/castor-p002/pom.xml", configuration );
+            IProject project1 = importProject("projects/castor/castor-p002/pom.xml", configuration);
             waitForJobsToComplete();
 
-            project1.build( IncrementalProjectBuilder.FULL_BUILD, monitor );
-            project1.build( IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor );
+            project1.build(IncrementalProjectBuilder.FULL_BUILD, monitor);
+            project1.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor);
             waitForJobsToComplete();
 
-            assertNoErrors( project1 );
+            assertNoErrors(project1);
 
-            IJavaProject javaProject1 = JavaCore.create( project1 );
+            IJavaProject javaProject1 = JavaCore.create(project1);
             IClasspathEntry[] cp1 = javaProject1.getRawClasspath();
 
-            assertEquals( new Path( "/castor-p002/target/generated-sources/castor" ), cp1[3].getPath() );
+            assertEquals(new Path( "/castor-p002/target/generated-sources/castor" ), cp1[3].getPath());
 
-            assertTrue( project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isSynchronized( IResource.DEPTH_ZERO ) );
-            assertTrue( project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isAccessible() );
+            assertTrue(project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isSynchronized( IResource.DEPTH_ZERO ));
+            assertTrue(project1.getFile( "target/generated-sources/castor/test/Tags.java" ).isAccessible());
         }
 
 }

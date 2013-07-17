@@ -222,14 +222,14 @@ public class HttpPlugin extends AbstractTcpPlugin {
             try {
                 while ((chars = lineRdr.read( cbuf, 0, 1024)) != -1)
                 {
-                    String line = new String( cbuf, 0, chars );
+                    String line = new String(cbuf, 0, chars);
                     LOG.debug("Read: {} bytes: [{}] from socket.", line.length(), line);
-                    response.append( line );
+                    response.append(line);
                 }
             } catch ( java.net.SocketTimeoutException timeoutEx ) {
                 if ( timeoutEx.bytesTransferred > 0 )
                 {
-                    String line = new String( cbuf, 0, timeoutEx.bytesTransferred );
+                    String line = new String(cbuf, 0, timeoutEx.bytesTransferred);
                     LOG.debug("Read: {} bytes: [{}] from socket @ timeout!", line.length(), line);
                     response.append(line);
                 }

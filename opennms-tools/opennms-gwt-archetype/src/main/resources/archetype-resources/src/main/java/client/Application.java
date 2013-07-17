@@ -48,7 +48,7 @@ public class Application
    */
   public void onModuleLoad()
   {
-     final Label label = new Label ( "gwt-maven-plugin Archetype :: Project org.codehaus.mojo.gwt-maven-plugin" );
-     RootPanel.get().add( label );
+     final Label label = new Label ("gwt-maven-plugin Archetype :: Project org.codehaus.mojo.gwt-maven-plugin");
+     RootPanel.get().add(label);
   }
 }

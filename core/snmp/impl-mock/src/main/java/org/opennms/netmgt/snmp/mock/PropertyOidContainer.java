@@ -53,7 +53,7 @@ public class PropertyOidContainer {
         InputStream inStream = null;
         try {
             inStream = resource.getInputStream();
-            moProps.load( inStream );
+            moProps.load(inStream);
         } finally {
             IOUtils.closeQuietly(inStream);
         }

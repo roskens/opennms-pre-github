@@ -285,7 +285,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
         assertEquals("Expected nothing but got " + engine.getMemoryObjects(), 0, engine.getMemorySize());
 
-        engine.correlate( event );
+        engine.correlate(event);
 
         List<Object> memObjects = engine.getMemoryObjects();
 
@@ -293,8 +293,8 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
         Object eventObj = memObjects.get(0);
 
-        assertTrue( "expected " + eventObj + " to be an instance of " + componentEventClass, componentEventClass.isInstance(eventObj) );
-        assertTrue( eventObj instanceof ComponentEvent );
+        assertTrue("expected " + eventObj + " to be an instance of " + componentEventClass, componentEventClass.isInstance(eventObj));
+        assertTrue(eventObj instanceof ComponentEvent);
 
         ComponentEvent c = (ComponentEvent) eventObj;
 
@@ -312,7 +312,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
         assertEquals("Expected nothing but got " + engine.getMemoryObjects(), 0, engine.getMemorySize());
 
-		engine.correlate( event );
+		engine.correlate(event);
 
 		List<Object> memObjects = engine.getMemoryObjects();
 
@@ -322,8 +322,8 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 		Set<String> remainingIds = new HashSet<String>(componentIds);
 		for(Object eventObj : memObjects) {
 
-		    assertTrue( "expected " + eventObj + " to be an instance of " + componentEventClass, componentEventClass.isInstance(eventObj) );
-		    assertTrue( eventObj instanceof ComponentEvent );
+		    assertTrue("expected " + eventObj + " to be an instance of " + componentEventClass, componentEventClass.isInstance(eventObj));
+		    assertTrue(eventObj instanceof ComponentEvent);
 
 		    ComponentEvent c = (ComponentEvent) eventObj;
 
@@ -342,7 +342,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
         assertEquals("Expected nothing but got " + engine.getMemoryObjects(), 0, engine.getMemorySize());
 
-		engine.correlate( event );
+		engine.correlate(event);
 
 		List<Object> memObjects = engine.getMemoryObjects();
 
@@ -350,8 +350,8 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
 		Object eventObj = memObjects.get(0);
 
-		assertTrue( componentEventClass.isInstance(eventObj) );
-		assertTrue( eventObj instanceof ComponentEvent );
+		assertTrue(componentEventClass.isInstance(eventObj));
+		assertTrue(eventObj instanceof ComponentEvent);
 
 		ComponentEvent c = (ComponentEvent) eventObj;
 
@@ -363,7 +363,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 		assertEquals(componentForeignId, component.getForeignId());
 
 		// Adding a copy of the event should not add to working memory
-		engine.correlate( event2 );
+		engine.correlate(event2);
 
 		memObjects = engine.getMemoryObjects();
 
@@ -371,8 +371,8 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
 		eventObj = memObjects.get(0);
 
-		assertTrue( componentEventClass.isInstance(eventObj) );
-		assertTrue( eventObj instanceof ComponentEvent );
+		assertTrue(componentEventClass.isInstance(eventObj));
+		assertTrue(eventObj instanceof ComponentEvent);
 
 		c = (ComponentEvent) eventObj;
 

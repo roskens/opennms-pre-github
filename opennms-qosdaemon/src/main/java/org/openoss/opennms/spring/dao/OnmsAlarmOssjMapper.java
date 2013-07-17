@@ -541,7 +541,7 @@ public class OnmsAlarmOssjMapper {
 				else _description = "NOT_SET";
 
 				// using manufacturers own definition of specific problem here ( OSS/J )
-				alarmValueSpecification.setSpecificProblem( _logmsg );
+				alarmValueSpecification.setSpecificProblem(_logmsg);
 				Integer alarmid= _openNMSalarm.getId();
 				Integer counter= _openNMSalarm.getCounter();
 				String reductionkey= _openNMSalarm.getReductionKey();
@@ -593,7 +593,7 @@ public class OnmsAlarmOssjMapper {
 				String _logmsg = _openNMSalarm.getLogMsg();
 				if (null == _logmsg ) _logmsg = "NOT_SET";
 				// using manufacturers own definition of specific problem here ( OSS/J )
-				alarmValueSpecification.setSpecificProblem( _logmsg );
+				alarmValueSpecification.setSpecificProblem(_logmsg);
 
 				String _description = _openNMSalarm.getDescription();
 				if (null == _description ) _description = "NOT_SET";
