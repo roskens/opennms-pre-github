@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  */
-public class OutageFactory extends Object {
+public final class OutageFactory {
 
 	private static final Logger LOG = LoggerFactory.getLogger(OutageFactory.class);
 

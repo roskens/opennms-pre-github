@@ -52,7 +52,7 @@ import org.opennms.web.filter.Filter;
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
-public class EventFactory {
+public final class EventFactory {
 
     /** Private constructor so this class cannot be instantiated. */
     private EventFactory() {

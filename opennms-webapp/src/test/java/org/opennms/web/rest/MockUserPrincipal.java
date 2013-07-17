@@ -30,7 +30,7 @@ package org.opennms.web.rest;
 
 import java.security.Principal;
 
-public class MockUserPrincipal implements Principal {
+public final class MockUserPrincipal implements Principal {
 
 	private static MockUserPrincipal m_instance = null;
 	private static String m_name = "admin";

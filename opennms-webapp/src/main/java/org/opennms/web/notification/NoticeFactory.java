@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
-public class NoticeFactory {
+public final class NoticeFactory {
 
 	private static final Logger LOG = LoggerFactory.getLogger(NoticeFactory.class);
 
