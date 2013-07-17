@@ -39,7 +39,8 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
 
-import java.net.*;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.sql.SQLException;
 
 //import java.io.IOException;

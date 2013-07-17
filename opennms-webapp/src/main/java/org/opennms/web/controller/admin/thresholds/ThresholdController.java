@@ -28,14 +28,26 @@
 
 package org.opennms.web.controller.admin.thresholds;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import com.google.common.collect.Multimap;
 import com.google.common.collect.TreeMultimap;
+
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.EventConfDao;
 import org.opennms.netmgt.config.ThresholdingConfigFactory;
-import org.opennms.netmgt.config.threshd.*;
+import org.opennms.netmgt.config.threshd.Basethresholddef;
+import org.opennms.netmgt.config.threshd.Expression;
+import org.opennms.netmgt.config.threshd.Group;
+import org.opennms.netmgt.config.threshd.ResourceFilter;
+import org.opennms.netmgt.config.threshd.Threshold;
 import org.opennms.netmgt.dao.api.ResourceDao;
 import org.opennms.netmgt.dao.support.GenericIndexResourceType;
 import org.opennms.netmgt.model.OnmsResourceType;
@@ -50,7 +62,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 /**
  * <p>ThresholdController class.</p>

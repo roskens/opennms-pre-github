@@ -48,9 +48,9 @@ import org.opennms.rancid.RancidApiException;
 import org.opennms.rancid.RancidNode;
 import org.opennms.rancid.RancidNodeAuthentication;
 import org.opennms.rancid.RWSBucket.BucketItem;
-
 import org.opennms.web.element.ElementUtil;
-import org.opennms.web.inventory.*;
+import org.opennms.web.inventory.InventoryWrapper;
+import org.opennms.web.inventory.RancidNodeWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
