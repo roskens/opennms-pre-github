@@ -162,12 +162,7 @@ public class InventoryService implements InitializingBean {
 
                 try {
                     RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupname, deviceName);
-                    if (rn!=null){
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
+                    return rn!=null;
                 }
                  catch (RancidApiException e){
                      LOG.debug("No inventory information associated to {}", deviceName);
