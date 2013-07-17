@@ -50,13 +50,10 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-import org.slf4j.MDC;
 import org.opennms.core.logging.Logging;
 import org.opennms.core.resource.Vault;
 import org.opennms.core.resource.db.DbConnectionFactory;
 import org.opennms.core.resource.db.SimpleDbConnectionFactory;
-import org.opennms.core.utils.InetAddressUtils;
 
 import org.opennms.web.map.MapsConstants;
 import org.opennms.web.map.MapsException;

@@ -29,10 +29,8 @@
 package org.opennms.gwt.web.ui.asset.client.presenter;
 
 import org.opennms.gwt.web.ui.asset.client.AssetPageConstants;
-import org.opennms.gwt.web.ui.asset.client.AssetService;
 import org.opennms.gwt.web.ui.asset.client.AssetServiceAsync;
 import org.opennms.gwt.web.ui.asset.client.event.SavedAssetEvent;
-import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSetSuggestBox;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
 import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 

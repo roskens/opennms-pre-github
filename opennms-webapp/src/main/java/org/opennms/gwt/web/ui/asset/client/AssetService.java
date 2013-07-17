@@ -28,7 +28,6 @@
 
 package org.opennms.gwt.web.ui.asset.client;
 
-import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSetSuggestBox;
 import org.opennms.gwt.web.ui.asset.shared.AssetCommand;
 import org.opennms.gwt.web.ui.asset.shared.AssetSuggCommand;
 
