@@ -468,7 +468,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
 			try{
 				qoSD.sendAlarms();
 			} catch ( Exception ex){
-				LOG.error("OssDaoOpenNMSImpl().sendAlarms() Problem calling back to qoSD:",ex );
+				LOG.error("OssDaoOpenNMSImpl().sendAlarms() Problem calling back to qoSD:",ex);
 				throw new IllegalStateException("OssDaoOpenNMSImpl().sendAlarms() Problem calling back to qoSD:",ex);
 			}
 		} else {

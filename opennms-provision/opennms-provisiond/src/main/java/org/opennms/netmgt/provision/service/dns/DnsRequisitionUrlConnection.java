@@ -218,7 +218,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         } catch (Throwable e) {
             String message = "Problem getting input stream: "+e;
             LOG.warn(message, e);
-            throw new IOExceptionWithCause(message,e );
+            throw new IOExceptionWithCause(message,e);
         }
 
         return stream;

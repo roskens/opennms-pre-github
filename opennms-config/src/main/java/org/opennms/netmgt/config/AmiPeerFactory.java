@@ -421,7 +421,7 @@ public class AmiPeerFactory {
                 // check the ranges
                 for (final Range rng : def.getRangeCollection()) {
                     if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()), rng.getBegin(), rng.getEnd())) {
-                        setAmiAgentConfig(agentConfig, def );
+                        setAmiAgentConfig(agentConfig, def);
                         break DEFLOOP;
                     }
                 }

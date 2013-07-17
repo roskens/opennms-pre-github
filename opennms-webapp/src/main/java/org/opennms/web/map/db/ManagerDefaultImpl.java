@@ -1370,7 +1370,7 @@ public class ManagerDefaultImpl implements Manager {
                         int numberOfLinks = alreadyIn.increaseLinks();
                         LOG.debug("Updated {} on Link: {}", numberOfLinks, alreadyIn.getId());
                         int numberOfLinkwithStatus = alreadyIn.increaseStatusMapLinks(statusString);
-                        LOG.debug("Updated Status Map: found: {} links with Status: {}", numberOfLinkwithStatus, statusString );
+                        LOG.debug("Updated Status Map: found: {} links with Status: {}", numberOfLinkwithStatus, statusString);
                         if ( ( multilinkStatus.equals(MapPropertiesFactory.MULTILINK_BEST_STATUS)
                                && status < getLinkStatusInt(alreadyIn.getLinkStatusString())
                              )

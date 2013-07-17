@@ -97,7 +97,7 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
                 bsfManager.declareBean("map", map, Map.class);
                 bsfManager.declareBean("ip_addr", address.getHostAddress(), String.class);
                 // TODO: I'm not sure how to deal with it on detectors. Is the node exists before running detectors? If so, I need NodeDao here.
-                // bsfManager.declareBean("node_id",svc.getNodeId(),int.class );
+                // bsfManager.declareBean("node_id",svc.getNodeId(),int.class);
                 // bsfManager.declareBean("node_label", svc.getNodeLabel(), String.class);
                 bsfManager.declareBean("svc_name", m_serviceName, String.class);
                 bsfManager.declareBean("results", m_results, HashMap.class);

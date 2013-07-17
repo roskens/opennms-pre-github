@@ -166,7 +166,7 @@ public class BSFMonitor extends AbstractServiceMonitor {
                     // Declare some beans that can be used inside the script
                     bsfManager.declareBean("map", map, Map.class);
                     bsfManager.declareBean("ip_addr",svc.getIpAddr(),String.class);
-                    bsfManager.declareBean("node_id",svc.getNodeId(),int.class );
+                    bsfManager.declareBean("node_id",svc.getNodeId(),int.class);
                     bsfManager.declareBean("node_label", svc.getNodeLabel(), String.class);
                     bsfManager.declareBean("svc_name", svc.getSvcName(), String.class);
                     bsfManager.declareBean("bsf_monitor", this, BSFMonitor.class);

@@ -124,7 +124,7 @@ public class JBossConnectionFactory {
                                 originalLoader,
                                 packages,
                                 true
-                            );
+);
                         } catch (MalformedURLException e) {
                             LOG.error("JBossConnectionWrapper MalformedURLException" ,e);
                         } catch (InvalidContextClassLoaderException e) {
@@ -152,8 +152,8 @@ public class JBossConnectionFactory {
                 Hashtable<String, String> props = new Hashtable<String, String>();
                 props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.NamingContextFactory");
                 props.put(Context.PROVIDER_URL,            "jnp://" + hostAddress + ":" + port);
-                props.put(Context.URL_PKG_PREFIXES,        "org.jboss.naming:org.jnp.interfaces" );
-                props.put("jnp.sotimeout",                 timeout );
+                props.put(Context.URL_PKG_PREFIXES,        "org.jboss.naming:org.jnp.interfaces");
+                props.put("jnp.sotimeout",                 timeout);
 
                 ctx = new InitialContext(props);
 
@@ -182,7 +182,7 @@ public class JBossConnectionFactory {
                 Hashtable<String, String> props = new Hashtable<String, String>();
                 props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.HttpNamingContextFactory");
                 props.put(Context.PROVIDER_URL,            "http://" + hostAddress + ":" + port + "/invoker/JNDIFactory");
-                props.put("jnp.sotimeout",                 timeout );
+                props.put("jnp.sotimeout",                 timeout);
 
                 ctx = new InitialContext(props);
 

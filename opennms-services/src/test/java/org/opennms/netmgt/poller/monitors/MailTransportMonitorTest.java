@@ -133,7 +133,7 @@ public class MailTransportMonitorTest {
                 "<entry key=\"foo\">1</entry>\n" +
                 "<entry key=\"fu\">baz</entry>\n" +
                 "</properties>");
-        InputStream stream = new ReaderInputStream(reader );
+        InputStream stream = new ReaderInputStream(reader);
         props.loadFromXML(stream);
         assertEquals("1", props.get("foo"));
     }

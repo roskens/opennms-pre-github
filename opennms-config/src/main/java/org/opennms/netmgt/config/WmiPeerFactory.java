@@ -413,7 +413,7 @@ public class WmiPeerFactory {
             // check the ranges
             for (Range rng : def.getRangeCollection()) {
                 if (InetAddressUtils.isInetAddressInRange(InetAddressUtils.str(agentConfig.getAddress()), rng.getBegin(), rng.getEnd())) {
-                    setWmiAgentConfig(agentConfig, def );
+                    setWmiAgentConfig(agentConfig, def);
                     break DEFLOOP;
                 }
             }

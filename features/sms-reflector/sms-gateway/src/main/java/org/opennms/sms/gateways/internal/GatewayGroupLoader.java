@@ -114,7 +114,7 @@ public class GatewayGroupLoader implements InitializingBean {
                 String port = modemProperties.getProperty(modemId + ".port");
 
                 if (port == null) {
-                    throw new IllegalArgumentException("No port defined for modem with id " + modemId );
+                    throw new IllegalArgumentException("No port defined for modem with id " + modemId);
                 }
                 int baudRate = Integer.parseInt(modemProperties.getProperty(modemId + ".baudrate", "9600"));
                 String manufacturer = modemProperties.getProperty(modemId + ".manufacturer");

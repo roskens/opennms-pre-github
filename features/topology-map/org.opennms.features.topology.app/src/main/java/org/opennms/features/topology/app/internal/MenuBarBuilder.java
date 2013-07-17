@@ -56,7 +56,7 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
 
         if(menuPath.size() == 1) {
             if(menu.containsKey(first)) {
-                add(Collections.singletonList(first + "_dup"), command, menu );
+                add(Collections.singletonList(first + "_dup"), command, menu);
             }else {
                 menu.put(first, command);
             }

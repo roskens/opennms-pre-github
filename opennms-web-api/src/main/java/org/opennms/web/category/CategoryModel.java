@@ -83,7 +83,7 @@ public class CategoryModel extends Object {
             CategoryModel.m_instance = new CategoryModel();
         }
 
-        return (CategoryModel.m_instance );
+        return (CategoryModel.m_instance);
     }
 
     /** A mapping of category names to category instances. */

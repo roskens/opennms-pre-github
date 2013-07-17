@@ -99,17 +99,17 @@ public class SearchMapsController extends MapsLoggingController {
         int d = WebSecurityUtils.safeParseInt(request
                                                      .getParameter("MapElemDimension"));
 
-        LOG.debug("default element dimension: {}", d );
+        LOG.debug("default element dimension: {}", d);
 
 
         String elems = request.getParameter("elems");
-        LOG.debug("Adding Searching Maps: elems={}", elems );
+        LOG.debug("Adding Searching Maps: elems={}", elems);
 
 
         int n = mapWidth /4/d;
         int k = mapHeight/2/d;
-        LOG.debug("Max number of element on the row: {}", n );
-        LOG.debug("Max number of element in the map: {}", n * k );
+        LOG.debug("Max number of element on the row: {}", n);
+        LOG.debug("Max number of element in the map: {}", n * k);
 
         String[] smapids = elems.split(",");
 
@@ -121,8 +121,8 @@ public class SearchMapsController extends MapsLoggingController {
             LOG.info("new element dimension: {}", d);
             n = mapWidth /4/d;
             k = mapHeight/2/d;
-            LOG.debug("Recalculated - Max number of element on the row: {}", n );
-            LOG.debug("Recalculated - Max number of element in the map: {}", n * k );
+            LOG.debug("Recalculated - Max number of element on the row: {}", n);
+            LOG.debug("Recalculated - Max number of element in the map: {}", n * k);
         }
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response

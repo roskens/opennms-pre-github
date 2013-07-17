@@ -165,7 +165,7 @@ public final class RxtxCommands
 
 		if ( m_openPorts.containsKey( id ) )
 		{
-			intp.println("there is already a port with id " + id );
+			intp.println("there is already a port with id " + id);
 			return null;
 		}
 
@@ -233,7 +233,7 @@ public final class RxtxCommands
 
 			SerialPort port = m_openPorts.remove(id);
 
-			intp.print("Closing port " + port.getName() + " with id " + id + "..." );
+			intp.print("Closing port " + port.getName() + " with id " + id + "...");
 
 			port.close();
 
@@ -434,36 +434,36 @@ public final class RxtxCommands
 
 			intp.println("===== Info for port " + port.getName() + " =====");
 			// Unsupported by ACM driver
-			//intp.println("\tbaudBase: " + port.getBaudBase() );
-			intp.println("\tbaudRate: " + port.getBaudRate() );
+			//intp.println("\tbaudBase: " + port.getBaudBase());
+			intp.println("\tbaudRate: " + port.getBaudRate());
 			// Unsupported by RXTX
-			//intp.println("\tcallOutHangup: " + port.getCallOutHangup() );
-			intp.println("\tisCD: " + port.isCD() );
-			intp.println("\tisCTS: " + port.isCTS() );
-			intp.println("\tisDSR: " + port.isDSR() );
-			intp.println("\tisDTR: " + port.isDTR() );
-			intp.println("\tisRI: " + port.isRI() );
-			intp.println("\tisRTS: " + port.isRTS() );
-			intp.println("\tdataBits: " + port.getDataBits() );
+			//intp.println("\tcallOutHangup: " + port.getCallOutHangup());
+			intp.println("\tisCD: " + port.isCD());
+			intp.println("\tisCTS: " + port.isCTS());
+			intp.println("\tisDSR: " + port.isDSR());
+			intp.println("\tisDTR: " + port.isDTR());
+			intp.println("\tisRI: " + port.isRI());
+			intp.println("\tisRTS: " + port.isRTS());
+			intp.println("\tdataBits: " + port.getDataBits());
 			// Unsupported by ACM driver
-			//intp.println("\tdivisor: " + port.getDivisor() );
-			intp.println("\tendOfInputChar: " + port.getEndOfInputChar() );
-			intp.println("\tflowControlMode: " + port.getFlowControlMode() );
-			intp.println("\tinputBufferSize: " + port.getInputBufferSize() );
+			//intp.println("\tdivisor: " + port.getDivisor());
+			intp.println("\tendOfInputChar: " + port.getEndOfInputChar());
+			intp.println("\tflowControlMode: " + port.getFlowControlMode());
+			intp.println("\tinputBufferSize: " + port.getInputBufferSize());
 			// Unsupported by RXTX
-			//intp.println("\tlowLatency: " + port.getLowLatency() );
-			intp.println("\toutputBufferSize: " + port.getOutputBufferSize() );
-			intp.println("\tparity: " + port.getParity() );
-			intp.println("\tparityErrorChar: " + port.getParityErrorChar() );
-			intp.println("\treceiveFramingEnabled: " + port.isReceiveFramingEnabled() );
-			intp.println("\treceiveFramingByte: " + port.getReceiveFramingByte() );
-			intp.println("\treceiveThresholdEnabled: " + port.isReceiveThresholdEnabled() );
-			intp.println("\treceiveThreshold: " + port.getReceiveThreshold() );
-			intp.println("\treceiveTimeoutEnabled: " + port.isReceiveTimeoutEnabled() );
-			intp.println("\treceiveTimeout: " + port.getReceiveTimeout() );
-			intp.println("\tstopBits: " + port.getStopBits() );
+			//intp.println("\tlowLatency: " + port.getLowLatency());
+			intp.println("\toutputBufferSize: " + port.getOutputBufferSize());
+			intp.println("\tparity: " + port.getParity());
+			intp.println("\tparityErrorChar: " + port.getParityErrorChar());
+			intp.println("\treceiveFramingEnabled: " + port.isReceiveFramingEnabled());
+			intp.println("\treceiveFramingByte: " + port.getReceiveFramingByte());
+			intp.println("\treceiveThresholdEnabled: " + port.isReceiveThresholdEnabled());
+			intp.println("\treceiveThreshold: " + port.getReceiveThreshold());
+			intp.println("\treceiveTimeoutEnabled: " + port.isReceiveTimeoutEnabled());
+			intp.println("\treceiveTimeout: " + port.getReceiveTimeout());
+			intp.println("\tstopBits: " + port.getStopBits());
 			// Unsupported by RXTX
-			//intp.println("\tuartType: " + port.getUARTType() );
+			//intp.println("\tuartType: " + port.getUARTType());
 			intp.println("===================================================");
 
 		}

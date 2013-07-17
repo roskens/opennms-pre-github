@@ -101,7 +101,7 @@ public class MsgTrackerCommands implements CommandProvider {
 
         @Override
         public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
-            LOG.trace("Using regex: {} to match response: {}", m_regex, response );
+            LOG.trace("Using regex: {} to match response: {}", m_regex, response);
             boolean retVal = response.getText().matches(m_regex);
             LOG.trace("Matching: {} for regex {} response {}", retVal, m_regex, response);
             return retVal;

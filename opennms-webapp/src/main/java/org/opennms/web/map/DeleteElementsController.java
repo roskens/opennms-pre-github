@@ -91,7 +91,7 @@ public class DeleteElementsController extends MapsLoggingController {
 
 		String action = request.getParameter("action");
 		String elems = request.getParameter("elems");
-		LOG.debug("Adding elements action:{}, elems={}", action, elems );
+		LOG.debug("Adding elements action:{}, elems={}", action, elems);
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 		try {

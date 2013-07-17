@@ -528,14 +528,14 @@ public class OnmsAlarmOssjMapper {
 
 				String _logmsg = _openNMSalarm.getLogMsg();
 				if (null != _logmsg ) {
-					matcher = p.matcher(_logmsg );
+					matcher = p.matcher(_logmsg);
 					_logmsg  = matcher.replaceAll(" "); // remove all HTML tags from operator instructions
 				}
 				else _logmsg = "NOT_SET";
 
 				String _description = _openNMSalarm.getDescription();
 				if (null != _description ) {
-					matcher = p.matcher(_description );
+					matcher = p.matcher(_description);
 					_description  = matcher.replaceAll(" "); // remove all HTML tags from description
 				}
 				else _description = "NOT_SET";

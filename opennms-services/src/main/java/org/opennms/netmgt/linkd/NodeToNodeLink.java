@@ -60,8 +60,8 @@ public class NodeToNodeLink {
 	public String toString() {
 		StringBuffer str = new StringBuffer("Node Id = " + m_nodeId);
 		str.append(" IfIndex = " + m_ifIndex);
-		str.append(" Node ParentId = " + m_nodeParentId );
-		str.append(" Parent IfIndex = " + m_parentIfIndex );
+		str.append(" Node ParentId = " + m_nodeParentId);
+		str.append(" Parent IfIndex = " + m_parentIfIndex);
 		return str.toString();
 	}
 

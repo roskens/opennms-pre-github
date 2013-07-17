@@ -103,7 +103,7 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
         String action = ParameterMap.getKeyedString(parameters, "action", "row_count");
         String column = ParameterMap.getKeyedString(parameters, "column", null);
         String operator = ParameterMap.getKeyedString(parameters, "operator", ">=");
-        String message = ParameterMap.getKeyedString(parameters, "message", null );
+        String message = ParameterMap.getKeyedString(parameters, "message", null);
 
         LOG.debug("Query: {}", query);
 
@@ -124,7 +124,7 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
                     if (integerCheck(rowCount,expectedRowCount,operator))
                         ps = PollStatus.available();
                     else
-                        ps = PollStatus.unavailable("Row Count Check Failed: " + rowCount +  " " +  operator + " " + expectedRowCount );
+                        ps = PollStatus.unavailable("Row Count Check Failed: " + rowCount +  " " +  operator + " " + expectedRowCount);
                     break;
                 case QUERY_ACTION_COMPARE_STRING:
                     String expectedString = ParameterMap.getKeyedString(parameters, "operand", null);
@@ -132,7 +132,7 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
                     if ( expectedString.equals(retrivedString))
                         ps = PollStatus.available();
                     else
-                        ps = PollStatus.unavailable("String Field Check Failed: Expected: " + expectedString + " Returned: " + retrivedString );
+                        ps = PollStatus.unavailable("String Field Check Failed: Expected: " + expectedString + " Returned: " + retrivedString);
 
                     break;
                 case QUERY_ACTION_COMPARE_INT:
@@ -141,7 +141,7 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
                     if (integerCheck(retrivedInt,expectedInt,operator))
                          ps = PollStatus.available();
                     else
-                         ps = PollStatus.unavailable("Integer Field Check Failed: " + expectedInt + " " + operator + " " + retrivedInt  );
+                         ps = PollStatus.unavailable("Integer Field Check Failed: " + expectedInt + " " + operator + " " + retrivedInt);
                     break;
 
             }

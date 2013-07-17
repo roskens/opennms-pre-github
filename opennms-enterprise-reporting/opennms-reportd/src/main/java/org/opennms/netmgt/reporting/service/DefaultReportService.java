@@ -184,13 +184,13 @@ public class DefaultReportService implements ReportService,InitializingBean {
                                                                        System.getProperty("opennms.home") +
                                                                        File.separator + "etc" +
                                                                        File.separator + "report-templates" +
-                                                                       File.separator + report.getReportTemplate() );
+                                                                       File.separator + report.getReportTemplate());
 
         if(report.getReportEngine().equals("jdbc")){
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             jasperPrint = JasperFillManager.fillReport(jasperReport,
                                                        paramListToMap(report.getParameterCollection()),
-                                                       connection );
+                                                       connection);
             connection.close();
         }
 

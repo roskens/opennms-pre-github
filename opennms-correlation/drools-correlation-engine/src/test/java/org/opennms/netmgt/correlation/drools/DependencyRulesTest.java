@@ -43,19 +43,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     @Test
     public void testInitialize() throws Exception {
 
-        anticipate(createInitializedEvent( 1, 1 ));
+        anticipate(createInitializedEvent(1, 1));
 
 	EventBuilder bldr = new EventBuilder("impactedService", "Drools");
 	bldr.setNodeid(1);
-	bldr.setInterface(addr( "10.1.1.1" ));
+	bldr.setInterface(addr("10.1.1.1"));
 	bldr.setService("HTTP");
-    	bldr.addParam("CAUSE", 17 );
+	bldr.addParam("CAUSE", 17);
 
 	anticipate(bldr.getEvent());
 
 	bldr = new EventBuilder("impactedApplication", "Drools");
-    	bldr.addParam("APP", "e-commerce" );
-    	bldr.addParam("CAUSE", 17 );
+	bldr.addParam("APP", "e-commerce");
+	bldr.addParam("CAUSE", 17);
 
 	anticipate(bldr.getEvent());
 
@@ -63,7 +63,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         Event event = createNodeLostServiceEvent(1, "10.1.1.1", "ICMP");
         event.setDbid(17);
-		engine.correlate(event);
+        engine.correlate(event);
 
         // event + initialized
         m_anticipatedMemorySize = 18;

@@ -97,7 +97,7 @@ public class SSLServer extends SimpleServer{
             }
         }
 
-        kmf.init(ks, password );
+        kmf.init(ks, password);
         KeyManager[] km = kmf.getKeyManagers();
 
         SSLContext sslContext = SSLContext.getInstance(getSslContextProtocol());

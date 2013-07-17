@@ -65,7 +65,7 @@ public class DefaultStatisticsReportServiceTest {
     @Before
     public void setUp() throws Exception {
         m_service.setResourceDao(m_resourceDao);
-        m_service.setStatisticsReportDao(m_statisticsReportDao );
+        m_service.setStatisticsReportDao(m_statisticsReportDao);
         m_service.afterPropertiesSet();
     }
 

@@ -352,7 +352,7 @@ public class LinkableNode {
 	}
 
 	public boolean hasMacAddressesOnBridgePort(final int bridgeport) {
-		return (m_portMacs.containsKey(bridgeport) && m_portMacs.get(bridgeport) != null );
+		return (m_portMacs.containsKey(bridgeport) && m_portMacs.get(bridgeport) != null);
 	}
 
 	public List<Integer> getBridgePortsFromMac(final String macAddress) {

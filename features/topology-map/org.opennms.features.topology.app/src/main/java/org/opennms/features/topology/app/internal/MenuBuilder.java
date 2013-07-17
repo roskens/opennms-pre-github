@@ -57,7 +57,7 @@ public abstract class MenuBuilder<T, K>{
 
 	    if(menuPath.size() == 1) {
 	        if(menu.containsKey(first)) {
-	            add(Collections.singletonList(first + "_dup"), command, menu );
+	            add(Collections.singletonList(first + "_dup"), command, menu);
 	        }else {
 	            menu.put(first, command);
 	        }

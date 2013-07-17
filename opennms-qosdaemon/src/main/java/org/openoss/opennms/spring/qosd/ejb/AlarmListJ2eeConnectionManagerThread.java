@@ -292,7 +292,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 			ref = ic.lookup(props.getProperty("org.openoss.opennms.spring.qosd.jvthome"));
 			LOG.info("AlarmListJ2eeConnectionManagerThread.lookupBean() QoS Bean found");
 			home = (JVTAlarmMonitorHome) PortableRemoteObject.narrow( ref,
-					JVTAlarmMonitorHome.class );
+					JVTAlarmMonitorHome.class);
 
 			LOG.debug("AlarmListJ2eeConnectionManagerThread.lookupBean() home initialised");
 
@@ -301,7 +301,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 			LOG.debug("AlarmListJ2eeConnectionManagerThread.lookupBean() Session created");
 
 			alarmInternals = (AlarmMonitor) PortableRemoteObject.narrow(
-					session.getHandle().getEJBObject(), AlarmMonitor.class );
+					session.getHandle().getEJBObject(), AlarmMonitor.class);
 			if(alarmInternals == null)
 				LOG.error("AlarmListJ2eeConnectionManagerThread.lookupBean() AlarmMonitor alarmInternals is null line 244");
 		}

@@ -508,7 +508,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
 
         @Override
         public void process(AGateway gateway, GatewayStatuses oldStatus, GatewayStatuses newStatus) {
-            LOG.debug(">>> Gateway Status change from: {}, OLD:  {} -> NEW: {}", gateway.getGatewayId(), oldStatus, newStatus );
+            LOG.debug(">>> Gateway Status change from: {}, OLD:  {} -> NEW: {}", gateway.getGatewayId(), oldStatus, newStatus);
         }
 
     }

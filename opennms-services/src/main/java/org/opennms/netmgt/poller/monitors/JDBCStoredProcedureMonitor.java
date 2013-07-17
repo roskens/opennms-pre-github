@@ -84,7 +84,7 @@ final public class JDBCStoredProcedureMonitor extends JDBCMonitor
 
          LOG.debug("Calling stored procedure: {}", procedureCall);
 
-         cs.registerOutParameter(1, java.sql.Types.BIT );
+         cs.registerOutParameter(1, java.sql.Types.BIT);
          cs.executeUpdate();
          bPass = cs.getBoolean(1);
 

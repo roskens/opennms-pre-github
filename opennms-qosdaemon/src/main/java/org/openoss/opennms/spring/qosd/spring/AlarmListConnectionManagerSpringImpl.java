@@ -155,7 +155,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 	/** {@inheritDoc} */
         @Override
 	public void reset_list(String _rebuilt_message) {
-		this.alarmMonitorDao.rebuildAlarmList(_rebuilt_message );
+		this.alarmMonitorDao.rebuildAlarmList(_rebuilt_message);
 	}
 
 	/* (non-Javadoc)

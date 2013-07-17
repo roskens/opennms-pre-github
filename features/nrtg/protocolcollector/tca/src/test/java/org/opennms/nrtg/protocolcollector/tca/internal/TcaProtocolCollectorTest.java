@@ -91,7 +91,7 @@ public class TcaProtocolCollectorTest implements InitializingBean {
         result = tcaProtocolCollector.getCompositeValue("inboundJitter", "|1|" + snmpResult);
         Assert.assertEquals("23", result);
 
-        result = tcaProtocolCollector.getCompositeValue("timesyncStatus", "|25|" + snmpResult );
+        result = tcaProtocolCollector.getCompositeValue("timesyncStatus", "|25|" + snmpResult);
         Assert.assertEquals("423", result);
 
         Assert.assertNull(tcaProtocolCollector.getCompositeValue("foo", "|1|" + snmpResult));
