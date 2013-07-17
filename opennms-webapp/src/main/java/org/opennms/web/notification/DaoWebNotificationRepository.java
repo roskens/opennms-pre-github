@@ -143,7 +143,8 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
                     case REVERSE_ID:
                         criteria.addOrder(Order.asc("notifyId"));
                         break;
-
+                    default:
+                        break;
                 }
 
             }

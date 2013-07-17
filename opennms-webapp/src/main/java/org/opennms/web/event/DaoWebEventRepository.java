@@ -150,7 +150,8 @@ public class DaoWebEventRepository implements WebEventRepository, InitializingBe
                 case REVERSE_TIME:
                     criteria.addOrder(Order.asc("eventTime"));
                     break;
-
+                default:
+                    break;
                 }
             }
 

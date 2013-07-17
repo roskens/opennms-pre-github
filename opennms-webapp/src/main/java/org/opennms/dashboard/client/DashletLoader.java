@@ -79,6 +79,8 @@ public class DashletLoader extends Composite {
               m_panel.remove(m_panel.getWidget());
             }
             break;
+        default:
+            break;
         }
     }
 
