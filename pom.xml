@@ -437,7 +437,6 @@
           <configuration>
             <enableRulesSummary>false</enableRulesSummary>
             <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
-            <suppressionsLocation>${root.dir}/src/site/checkstyle-suppressions.xml</suppressionsLocation>
             <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
           </configuration>
         </plugin>
@@ -607,7 +606,6 @@
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
           <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
-          <suppressionsLocation>${root.dir}/src/site/checkstyle-suppressions.xml</suppressionsLocation>
           <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
         </configuration>
       </plugin>
@@ -669,7 +667,6 @@
         <configuration>
           <enableRulesSummary>false</enableRulesSummary>
           <configLocation>${root.dir}/src/site/checkstyle.xml</configLocation>
-          <suppressionsLocation>${root.dir}/src/site/checkstyle-suppressions.xml</suppressionsLocation>
           <propertyExpansion>root.dir=${root.dir}</propertyExpansion>
         </configuration>
       </plugin>

@@ -94,4 +94,7 @@
     <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
     <property name="fileExtensions" value="java"/>
   </module>
+  <module name="SuppressionFilter">
+    <property name="file" value="${root.dir}/src/site/checkstyle-suppressions.xml"/>
+  </module>
 </module>
