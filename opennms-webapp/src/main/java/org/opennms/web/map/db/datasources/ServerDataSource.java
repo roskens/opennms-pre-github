@@ -89,7 +89,6 @@ public class ServerDataSource implements DataSourceInterface {
 	 * @param params a {@link java.util.Map} object.
 	 */
 	public ServerDataSource(Map<?,?> params){
-<<<<<<< HEAD
 	    this.params = params;
 	    Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Runnable() {
 
@@ -97,15 +96,9 @@ public class ServerDataSource implements DataSourceInterface {
             public void run() {
                 init();
             }
-	        
-	    });
-		
-=======
-	    Logging.putPrefix(MapsConstants.LOG4J_CATEGORY);
 
-		this.params = params;
-		init();
->>>>>>> trim trailing whitespace
+	    });
+
 	}
 
 	/**
