@@ -88,7 +88,7 @@ public class AddMapsController extends MapsLoggingController {
 
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
 	    String elems = request.getParameter("elems");
-	    LOG.debug("Adding Maps: elems={}", elems );
+	    LOG.debug("Adding Maps: elems={}", elems);
 
 	    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 	    try {
