@@ -153,11 +153,11 @@ public class DateFilterPredicate implements Predicate
         return match;
     }
 
-    private boolean isSearchMatch(final Object value, final String search, final boolean isDate,
+    private boolean isSearchMatch(final Object value, final String searchIn, final boolean isDate,
         final String format, final Locale locale)
     {
         String valueStr = value.toString().toLowerCase().trim();
-        search = search.toLowerCase().trim();
+        String search = searchIn.toLowerCase().trim();
 
         if (search.startsWith(asterisk) &&
                 valueStr.endsWith(StringUtils.replace(search, asterisk,

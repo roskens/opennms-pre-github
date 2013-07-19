@@ -184,7 +184,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * @return a {@link org.opennms.web.graph.GraphResults.GraphResultSet}
      * object.
      */
-    private GraphResultSet createGraphResultSet(final String resourceId, final OnmsResource resource, final String[] reports, final GraphResults graphResults) throws IllegalArgumentException {
+    private GraphResultSet createGraphResultSet(final String resourceId, OnmsResource resource, String[] reports, GraphResults graphResults) throws IllegalArgumentException {
         if (resource == null) {
             resource = m_resourceDao.getResourceById(resourceId);
             if (resource == null) {
