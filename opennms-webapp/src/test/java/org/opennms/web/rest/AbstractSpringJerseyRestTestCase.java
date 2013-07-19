@@ -98,7 +98,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
     private WebApplicationContext m_webAppContext;
 
     @Before
-    public final void setUp() throws Throwable {
+    public void setUp() throws Throwable {
         beforeServletStart();
 
         DaoTestConfigBean bean = new DaoTestConfigBean();
@@ -172,7 +172,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
     }
 
     @After
-    public final void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         System.err.println("------------------------------------------------------------------------------");
         beforeServletDestroy();
         getContextListener().contextDestroyed(new ServletContextEvent(getServletContext()));
@@ -472,7 +472,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
         assertTrue("location '" + location + "' should end with '" + expectedUrlSuffix + "'", location.endsWith(expectedUrlSuffix));
     }
 
-	protected final void createNode() throws Exception {
+	protected void createNode() throws Exception {
 	    String node = "<node label=\"TestMachine\">" +
 	    "<labelSource>H</labelSource>" +
 	    "<sysContact>The Owner</sysContact>" +
@@ -487,7 +487,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
 	    sendPost("/nodes", node, 303, "/nodes/1");
 	}
 
-	protected final void createIpInterface() throws Exception {
+	protected void createIpInterface() throws Exception {
 	    createNode();
 	    String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
 	    "<ipAddress>10.10.10.10</ipAddress>" +

@@ -66,7 +66,7 @@ public class MockAgentTest extends TestCase {
     private MockProxy m_proxy;
 
     @Override
-    protected void setUp() throws Exception {
+    protected final void setUp() throws Exception {
         MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
         MockLogAppender.setupLogging();
 
@@ -108,7 +108,7 @@ public class MockAgentTest extends TestCase {
     }
 
     @Override
-    protected void tearDown() throws Exception {
+    protected final void tearDown() throws Exception {
         m_proxy.stop();
 
         MockLogAppender.assertNoWarningsOrGreater();
@@ -116,7 +116,7 @@ public class MockAgentTest extends TestCase {
 
     }
 
-    public void testWalkSystem() throws IOException {
+    public final void testWalkSystem() throws IOException {
 
         Snmp snmp = new Snmp(new DefaultUdpTransportMapping());
         TableUtils walker = new TableUtils(snmp, new DefaultPDUFactory());
@@ -145,7 +145,7 @@ public class MockAgentTest extends TestCase {
 
     }
 
-    public void testGetSysName() throws IOException {
+    public final void testGetSysName() throws IOException {
 
         Snmp snmp = new Snmp(new DefaultUdpTransportMapping());
         snmp.listen();
