@@ -30,6 +30,7 @@ import java.net.URLConnection;
 public final class ResourceServlet
     extends HttpServlet
 {
+    private static final long serialVersionUID = -7387663368560295529L;
     private final String path;
 
     public ResourceServlet(String path)

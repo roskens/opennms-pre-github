@@ -34,6 +34,7 @@ import org.opennms.container.web.felix.base.internal.listener.ServletRequestAttr
 public final class DispatcherServlet
     extends HttpServlet
 {
+    private static final long serialVersionUID = 1L;
     private final HttpServiceController controller;
 
     public DispatcherServlet(HttpServiceController controller)
