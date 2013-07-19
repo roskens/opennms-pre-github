@@ -50,6 +50,7 @@ public class TimeoutSocketFactory {
         m_socketWrapper = wocketSrapper;
     }
 
+    @SuppressWarnings("resource")
     public Socket createSocket(final String host, final int port) throws IOException, UnknownHostException {
         Socket socket = new Socket(host, port);
         socket.setSoTimeout(m_timeout);

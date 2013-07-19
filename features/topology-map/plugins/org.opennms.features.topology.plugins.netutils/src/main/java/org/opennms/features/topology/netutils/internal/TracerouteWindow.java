@@ -279,6 +279,7 @@ public class TracerouteWindow extends Window {
 			if (n < 0 || n > 255) return false; //Integers in an IP address must be within 0-255
 			else count++;
 		}
+		line.close();
 		return (count == 4); //IP address must has 4 integer values separated by a '.'
 	}
 
