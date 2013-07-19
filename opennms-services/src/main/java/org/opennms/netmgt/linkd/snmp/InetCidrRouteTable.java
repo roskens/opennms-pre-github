@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry>
 {
 
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(InetCidrRouteTable.class);
    /**
     * <P>Constructs an InetCidrRouteTable object that is used to collect

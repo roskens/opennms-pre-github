@@ -440,6 +440,7 @@ final class Executor implements Runnable, PausableFiber {
      */
     @Override
     public synchronized void stop() {
+        @SuppressWarnings("unused")
         Logger log = (Logger) m_mgr.lookupBean("log");
 
         if (m_worker == null) {

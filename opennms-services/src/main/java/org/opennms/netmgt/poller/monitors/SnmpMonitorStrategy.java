@@ -44,9 +44,9 @@ import org.slf4j.LoggerFactory;
  * @author david
  * @version $Id: $
  */
-abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
+public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
 
-
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(SnmpMonitorStrategy.class);
 
     /**

@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractThresholdEvaluatorState implements ThresholdEvaluatorState {
 
 
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(AbstractThresholdEvaluatorState.class);
 
     private static final String UNKNOWN = "Unknown";
