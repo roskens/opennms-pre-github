@@ -43,8 +43,8 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.opennms.core.logging.Logging;
 import org.opennms.core.concurrent.LogPreservingThreadFactory;
+import org.opennms.core.logging.Logging;
 import org.opennms.netmgt.model.events.EventIpcBroadcaster;
 import org.opennms.netmgt.model.events.EventIpcManager;
 import org.opennms.netmgt.model.events.EventIpcManagerProxy;
@@ -55,7 +55,6 @@ import org.opennms.netmgt.xml.event.Events;
 import org.opennms.netmgt.xml.event.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;

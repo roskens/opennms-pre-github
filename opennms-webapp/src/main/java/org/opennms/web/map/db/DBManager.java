@@ -874,7 +874,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public final DbElement[] getElementsLike(final String elementLabel)
+    public final DbElement[] getElementsLike(String elementLabel)
             throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
@@ -1063,7 +1063,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public final DbMap[] getMapsLike(final String mapLabel) throws MapsException {
+    public final DbMap[] getMapsLike(String mapLabel) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;

@@ -95,7 +95,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
     @Before
     @Override
-    public final void setUp() throws Throwable {
+    public void setUp() throws Throwable {
         beforeServletStart();
 
         DaoTestConfigBean bean = new DaoTestConfigBean();

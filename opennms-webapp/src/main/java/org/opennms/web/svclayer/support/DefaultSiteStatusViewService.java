@@ -93,7 +93,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * @see org.opennms.web.svclayer.SiteStatusViewService#createAggregateStatusView(java.lang.String)
      */
     @Override
-    public final AggregateStatusView createAggregateStatusView(final String statusViewName) {
+    public final AggregateStatusView createAggregateStatusView(String statusViewName) {
         AggregateStatusView statusView = new AggregateStatusView();
         statusViewName = (statusViewName == null ? m_siteStatusViewConfigDao.getDefaultView().getName() : statusViewName);
 
@@ -316,7 +316,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
 
     /** {@inheritDoc} */
     @Override
-    public final Collection<OnmsNode> getNodes(final String statusViewName, final String statusSite, final String rowLabel) {
+    public final Collection<OnmsNode> getNodes(String statusViewName, final String statusSite, final String rowLabel) {
         if (statusViewName == null) {
             statusViewName = m_siteStatusViewConfigDao.getDefaultView().getName();
         }

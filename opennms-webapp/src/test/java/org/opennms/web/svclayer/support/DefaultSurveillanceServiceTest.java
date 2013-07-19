@@ -111,7 +111,7 @@ public class DefaultSurveillanceServiceTest {
 
     }
 
-    private String createNodePageUrl(final String label) {
+    private String createNodePageUrl(String label) {
         OnmsNode m_foundDownNode = new OnmsNode();
         m_foundDownNode.setId(1);
         if (m_foundDownNode != null) {

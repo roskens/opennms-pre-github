@@ -330,7 +330,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Override
-    protected final void createNode() throws Exception {
+    protected void createNode() throws Exception {
         String node = "<node type=\"A\" label=\"TestMachine" + m_nodeCounter + "\">" +
         "<labelSource>H</labelSource>" +
         "<sysContact>The Owner</sysContact>" +
@@ -345,7 +345,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Override
-    protected final void createIpInterface() throws Exception {
+    protected void createIpInterface() throws Exception {
         createNode();
         String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
         "<ipAddress>10.10.10.10</ipAddress>" +

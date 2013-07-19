@@ -796,7 +796,7 @@ public class ManagerDefaultImpl implements Manager {
      */
     @Override
     public final VElement newElement(final int mapId, final int elementId, final String type,
-            final String iconname, final int x, final int y) throws MapsException {
+            String iconname, final int x, final int y) throws MapsException {
         VElement velem = newElement(mapId, elementId, type);
         if (iconname == null) {
             if (type == MapsConstants.MAP_TYPE) {
@@ -1132,7 +1132,7 @@ public class ManagerDefaultImpl implements Manager {
     }
 
 
-    private VElement refreshMapElement(final VElement ve, final Set<Integer> nodesBySource,
+    private VElement refreshMapElement(VElement ve, final Set<Integer> nodesBySource,
             final Vector<Integer> deletedNodeids,
             final java.util.Map<Integer, AlarmInfo> outagedNodes,
             final java.util.Map<Integer, Double> avails) throws MapsException {
