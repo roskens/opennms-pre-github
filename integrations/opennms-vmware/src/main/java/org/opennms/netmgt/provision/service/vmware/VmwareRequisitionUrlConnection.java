@@ -373,20 +373,16 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
 
             HostSystem hostSystem = (HostSystem) managedEntity;
 
-            if (hostSystem == null) {
-                logger.debug("hostSystem=null");
-            } else {
-                HostRuntimeInfo hostRuntimeInfo = hostSystem.getRuntime();
+            HostRuntimeInfo hostRuntimeInfo = hostSystem.getRuntime();
 
-                if (hostRuntimeInfo == null) {
-                    logger.debug("hostRuntimeInfo=null");
+            if (hostRuntimeInfo == null) {
+                logger.debug("hostRuntimeInfo=null");
+            } else {
+                HostSystemPowerState hostSystemPowerState = hostRuntimeInfo.getPowerState();
+                if (hostSystemPowerState == null) {
+                    logger.debug("hostSystemPowerState=null");
                 } else {
-                    HostSystemPowerState hostSystemPowerState = hostRuntimeInfo.getPowerState();
-                    if (hostSystemPowerState == null) {
-                        logger.debug("hostSystemPowerState=null");
-                    } else {
-                        powerState = hostSystemPowerState.toString();
-                    }
+                    powerState = hostSystemPowerState.toString();
                 }
             }
 
@@ -423,20 +419,16 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
             if (managedEntity instanceof VirtualMachine) {
                 VirtualMachine virtualMachine = (VirtualMachine) managedEntity;
 
-                if (virtualMachine == null) {
-                    logger.debug("virtualMachine=null");
-                } else {
-                    VirtualMachineRuntimeInfo virtualMachineRuntimeInfo = virtualMachine.getRuntime();
+                VirtualMachineRuntimeInfo virtualMachineRuntimeInfo = virtualMachine.getRuntime();
 
-                    if (virtualMachineRuntimeInfo == null) {
-                        logger.debug("virtualMachineRuntimeInfo=null");
+                if (virtualMachineRuntimeInfo == null) {
+                    logger.debug("virtualMachineRuntimeInfo=null");
+                } else {
+                    VirtualMachinePowerState virtualMachinePowerState = virtualMachineRuntimeInfo.getPowerState();
+                    if (virtualMachinePowerState == null) {
+                        logger.debug("virtualMachinePowerState=null");
                     } else {
-                        VirtualMachinePowerState virtualMachinePowerState = virtualMachineRuntimeInfo.getPowerState();
-                        if (virtualMachinePowerState == null) {
-                            logger.debug("virtualMachinePowerState=null");
-                        } else {
-                            powerState = virtualMachinePowerState.toString();
-                        }
+                        powerState = virtualMachinePowerState.toString();
                     }
                 }
 
