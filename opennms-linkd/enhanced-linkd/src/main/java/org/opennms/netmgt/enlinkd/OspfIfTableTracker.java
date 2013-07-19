@@ -34,7 +34,6 @@ import java.net.InetAddress;
 import java.util.List;
 
 import org.opennms.core.utils.InetAddressUtils;
-import org.opennms.core.utils.LogUtils;
 
 import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
@@ -46,9 +45,13 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OspfIfTableTracker extends TableTracker {
 
+	private final static Logger LOG = LoggerFactory.getLogger(OspfIfTableTracker.class);
+	
     public static final SnmpObjId OSPF_IF_TABLE_ENTRY  = SnmpObjId.get(".1.3.6.1.2.1.14.7.1"); // start of table (GETNEXT)
     
     public final static SnmpObjId OSPF_IF_IPADDRESS    = SnmpObjId.get(".1.3.6.1.2.1.14.7.1.1");
@@ -77,7 +80,7 @@ public class OspfIfTableTracker extends TableTracker {
 
     	public OspfIfRow(int columnCount, SnmpInstId instance) {
 			super(columnCount, instance);
-            LogUtils.debugf(this, "column count = %d, instance = %s", columnCount, instance);
+            LOG.debug( "column count = %d, instance = %s", columnCount, instance);
 		}
     	
     	public InetAddress getOspfIpAddress() {
@@ -101,8 +104,8 @@ public class OspfIfTableTracker extends TableTracker {
 			elementA.addElementIdentifier(nodeElementIdentifier);
 			elementA.addElementIdentifier(ospfGenralElementIdentifier);
 		
-            LogUtils.infof(this, "processOspfIfRow: row ospf ip address: %s", str(getOspfIpAddress()));
-            LogUtils.infof(this, "processOspfIfRow: row ospf address less ifindex: %s", getOspfAddressLessIf());
+            LOG.info( "processOspfIfRow: row ospf ip address: %s", str(getOspfIpAddress()));
+            LOG.info( "processOspfIfRow: row ospf address less ifindex: %s", getOspfAddressLessIf());
 
 			OspfEndPoint endPointA = ipAddrTableGetter.get(getEndPoint(nodeElementIdentifier.getNodeid()));
 			OspfEndPoint endPointB = null;
@@ -112,7 +115,7 @@ public class OspfIfTableTracker extends TableTracker {
 						InetAddressUtils.getNetwork(endPointA.getOspfIpAddr(),
 								endPointA.getOspfIpMask()))) {
 					endPointB = ospfEndPoint;
-					LogUtils.infof(this,
+					LOG.info(
 							"processOspfIfRow: link nbr address found: %s",
 							str(endPointB.getOspfIpAddr()));
 					endPointB.setOspfIpMask(endPointA.getOspfIpMask());

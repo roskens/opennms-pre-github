@@ -40,7 +40,6 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgents;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.Nms17216NetworkBuilder;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
@@ -54,6 +53,8 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
 import org.opennms.test.JUnitConfigurationEnvironment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -63,7 +64,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment
 public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements InitializingBean {
-    
+    private final static Logger LOG = LoggerFactory.getLogger(Nms17216SnmpTest.class);
     @Override
     public void afterPropertiesSet() throws Exception {
     }
@@ -209,14 +210,14 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting node scan : Agent timed out while scanning the {} table", trackerName);
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LOG.error("run: collection interrupted, exiting",e);
             return;
         }
 
@@ -278,14 +279,14 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting node scan : Agent timed out while scanning the {} table", trackerName);
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LOG.error("run: collection interrupted, exiting",e);
             return;
         }
 
@@ -380,16 +381,16 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.warnf(this,
-                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.warn(
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.warnf(this,
-                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.warn(
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+            LOG.error("run: Ospf Linkd node collection interrupted, exiting",e);
             return;
         }
 
@@ -412,16 +413,16 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.warnf(this,
-                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.warn(
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.warnf(this,
-                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.warn(
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+            LOG.error("run: Ospf Linkd node collection interrupted, exiting",e);
             return;
         }
 
@@ -444,17 +445,17 @@ public class Nms17216SnmpTest extends Nms17216NetworkBuilder implements Initiali
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.warnf(this,
-                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.warn(
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	assertEquals(true, true);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.warnf(this,
-                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.warn(
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	assertEquals(false, true);
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+            LOG.error("run: Ospf Linkd node collection interrupted, exiting",e);
         	assertEquals(false, true);
         }
 

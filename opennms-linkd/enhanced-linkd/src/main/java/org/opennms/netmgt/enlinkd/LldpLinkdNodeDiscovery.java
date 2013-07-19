@@ -34,12 +34,13 @@ import java.util.Date;
 
 
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is designed to collect the necessary SNMP information from the
@@ -49,7 +50,7 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * allows the collection to occur in a thread if necessary.
  */
 public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
-    
+private final static Logger LOG = LoggerFactory.getLogger(LldpLinkdNodeDiscovery.class);
 	/**
 	 * Constructs a new SNMP collector for Lldp Node Discovery. 
 	 * The collection does not occur until the
@@ -70,7 +71,7 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
         final LldpLocalGroup lldpLocalGroup = new LldpLocalGroup();
 
-		LogUtils.debugf(this, "run: collecting : %s", getPeer());
+		LOG.debug( "run: collecting : {}", getPeer());
 
         SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, lldpLocalGroup);
 
@@ -79,29 +80,29 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Lldp Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting Lldp Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Lldp Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting Lldp Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Lldp Linkd node collection interrupted, exiting");
+            LOG.error("run: Lldp Linkd node collection interrupted, exiting", e);
             return;
         }
         
         if (lldpLocalGroup.getLldpLocChassisid() == null ) {
-            LogUtils.infof(this, "lldp mib not supported on: %s", str(getPeer().getAddress()));
+            LOG.info( "lldp mib not supported on: {}", str(getPeer().getAddress()));
             return;
         }
         
         final LldpElementIdentifier lldpLocalElementIdentifier = lldpLocalGroup.getElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found local lldp identifier : %s", lldpLocalElementIdentifier);
+        LOG.info( "found local lldp identifier : {}", lldpLocalElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
+        LOG.info( "found node identifier for node: {}", nodeElementIdentifier );
 
         final LldpLocPortGetter lldpLocPort = new LldpLocPortGetter(getPeer());
         trackerName = "lldpRemTable";
@@ -118,14 +119,14 @@ public final class LldpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting node scan : Agent timed out while scanning the {} table", trackerName);
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LOG.error("run: collection interrupted, exiting",e);
             return;
         }
         m_linkd.getQueryManager().reconcileLldp(getNodeId(),now);

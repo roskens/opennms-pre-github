@@ -34,7 +34,8 @@ import java.util.Date;
 
 
 
-import org.opennms.core.utils.LogUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 
@@ -49,7 +50,7 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * allows the collection to occur in a thread if necessary.
  */
 public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
-    
+	private final static Logger LOG = LoggerFactory.getLogger(CdpLinkdNodeDiscovery.class);
 
 	/**
 	 * Constructs a new SNMP collector for Cdp Node Discovery. 
@@ -71,7 +72,7 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
         final CdpGlobalGroup cdpGlobalGroup = new CdpGlobalGroup();
 
-		LogUtils.debugf(this, "run: collecting : %s", getPeer());
+		LOG.debug("run: collecting : {}", getPeer());
 
         SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, cdpGlobalGroup);
 
@@ -80,30 +81,28 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info("run:Aborting Cdp Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info("run:Aborting Cdp Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Cdp Linkd collection interrupted, exiting");
+            LOG.error("run: Cdp Linkd collection interrupted, exiting",e);
             return;
         }
         
         if (cdpGlobalGroup.getCdpDeviceId() == null ) {
-            LogUtils.infof(this, "cdp mib not supported on: %s", str(getPeer().getAddress()));
+            LOG.info("cdp mib not supported on: {}", str(getPeer().getAddress()));
             return;
         } 
 
 
         final CdpElementIdentifier cdpGlobalElementIdentifier = cdpGlobalGroup.getElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found local cdp identifier : %s", cdpGlobalElementIdentifier);
+        LOG.info("found local cdp identifier : {}", cdpGlobalElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
+        LOG.info("found node identifier for node: {}", nodeElementIdentifier );
 
         final CdpInterfacePortNameGetter cdpInterfacePortNameGetter = new CdpInterfacePortNameGetter(getPeer());
         trackerName = "cdpCacheTable";
@@ -120,16 +119,14 @@ public final class CdpLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info("run:Aborting Cdp Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Cdp Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info("run:Aborting Cdp Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Cdp Linkd collection interrupted, exiting");
+            LOG.error("run: Cdp Linkd collection interrupted, exiting",e);
             return;
         }
         m_linkd.getQueryManager().reconcileCdp(getNodeId(),now);

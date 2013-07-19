@@ -28,17 +28,19 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import org.opennms.core.utils.ThreadCategory;
-
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class LldpLocalGroup extends AggregateTracker {
 
+	private final static Logger LOG = LoggerFactory.getLogger(LldpLocalGroup.class);
+	
     public final static String LLDP_LOC_CHASSISID_SUBTYPE_ALIAS = "lldpLocChassisIdSubtype";
     public final static String LLDP_LOC_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.1";
     
@@ -109,16 +111,12 @@ public final class LldpLocalGroup extends AggregateTracker {
 
     /** {@inheritDoc} */
     protected void reportGenErr(String msg) {
-        log().warn("Error retrieving lldpLocalGroup: "+msg);
+        LOG.warn("Error retrieving lldpLocalGroup: {}",msg);
     }
 
     /** {@inheritDoc} */
     protected void reportNoSuchNameErr(String msg) {
-        log().info("Error retrieving lldpLocalGroup: "+msg);
-    }
-
-    private final ThreadCategory log() {
-        return ThreadCategory.getInstance(getClass());
+        LOG.info("Error retrieving lldpLocalGroup: {}",msg);
     }
 
 	public LldpElementIdentifier getElementIdentifier(Integer sourceNode) {

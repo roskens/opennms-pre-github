@@ -29,16 +29,18 @@
 package org.opennms.netmgt.enlinkd;
 
 
-import org.opennms.core.utils.LogUtils;
-
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
 
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.SnmpResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Dot1dStp extends AggregateTracker {
-    
+
+	private final static Logger LOG = LoggerFactory.getLogger(Dot1dStp.class);
+
 	/** Constant <code>STP_PROTOCOL_SPEC="dot1dStpProtocolSpecification"</code> */
 	public final static String STP_PROTOCOL_SPEC = "dot1dStpProtocolSpecification";
 
@@ -92,12 +94,12 @@ public final class Dot1dStp extends AggregateTracker {
 
     /** {@inheritDoc} */
     protected void reportGenErr(String msg) {
-        LogUtils.warnf(this, "Error retrieving dot1dStp: %s", msg);
+        LOG.warn("Error retrieving dot1dStp: {}", msg);
     }
 
     /** {@inheritDoc} */
     protected void reportNoSuchNameErr(String msg) {
-        LogUtils.infof(this, "Error retrieving dot1dStp: %s", msg);
+        LOG.info("Error retrieving dot1dStp: {}", msg);
     }
 
     /**

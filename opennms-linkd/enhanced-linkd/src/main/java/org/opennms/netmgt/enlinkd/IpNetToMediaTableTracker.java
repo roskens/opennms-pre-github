@@ -32,7 +32,6 @@ import static org.opennms.core.utils.InetAddressUtils.normalizeMacAddress;
 
 import java.net.InetAddress;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.InetElementIdentifier;
 import org.opennms.netmgt.model.topology.MacAddrElementIdentifier;
@@ -42,6 +41,8 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *<P>The IpNetToMediaTableEntry class is designed to hold all the MIB-II
@@ -61,7 +62,8 @@ import org.opennms.netmgt.snmp.TableTracker;
  */
 public class IpNetToMediaTableTracker extends TableTracker
 {
-    /**
+	private final static Logger LOG = LoggerFactory.getLogger(IpNetToMediaTableTracker.class);
+	/**
      * <P>The TABLE_OID is the object identifier that represents
      * the root of the IP Address table in the MIB forest.</P>
      */
@@ -151,7 +153,7 @@ public class IpNetToMediaTableTracker extends TableTracker
 	                return normalizeMacAddress(getValue(IPNETTOMEDIA_TABLE_PHYSADDR).toDisplayString());
 	            }
 		    } catch (IllegalArgumentException e) {
-		        LogUtils.warnf(this, e, e.getMessage());
+		        LOG.warn("IllegalArgument on ipnettomediatable", e);
 		        return getValue(IPNETTOMEDIA_TABLE_PHYSADDR).toDisplayString();
 		    }
 		}

@@ -28,7 +28,8 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import org.opennms.core.utils.LogUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
@@ -37,7 +38,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
 
 public final class CiscoVtpStatus extends AggregateTracker
 {
-	
+	private static final Logger LOG = LoggerFactory.getLogger(CiscoVtpStatus.class);
     /**
      * the bridge type
      */
@@ -89,12 +90,12 @@ public final class CiscoVtpStatus extends AggregateTracker
 
     /** {@inheritDoc} */
     protected void reportGenErr(final String msg) {
-        LogUtils.warnf(this, "Error retrieving vtpVersion: %s", msg);
+        LOG.warn("Error retrieving vtpVersion: {}", msg);
     }
 
     /** {@inheritDoc} */
     protected void reportNoSuchNameErr(final String msg) {
-        LogUtils.infof(this, "Error retrieving vtpVersion: %s", msg);
+        LOG.info("Error retrieving vtpVersion: {}", msg);
     }
 
     /**

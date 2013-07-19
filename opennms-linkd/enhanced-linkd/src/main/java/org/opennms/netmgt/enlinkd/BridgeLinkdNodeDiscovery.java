@@ -40,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.OnmsStpNode.BridgeBaseType;
 import org.opennms.netmgt.model.topology.BridgeDot1dTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
@@ -54,6 +53,9 @@ import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * This class is designed to collect the necessary SNMP information from the
  * target address and store the collected information. When the class is
@@ -62,6 +64,7 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * collection to occur in a thread if necessary.
  */
 public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
+    private static final Logger LOG = LoggerFactory.getLogger(BridgeLinkdNodeDiscovery.class);
 
 	public final static String CISCO_ENTERPRISE_OID = ".1.3.6.1.4.1.9";
 
@@ -116,7 +119,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
 		final Date now = new Date();
 
-		LogUtils.debugf(this, "run: collecting : %s", getPeer());
+		LOG.debug("run: collecting: {}", getPeer());
 		walkBridge();
 		if (isFailed())
 			return;
@@ -155,35 +158,30 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 				return;
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 				return;
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting", e);
 			setFailed(true);
 			return;
 		}
 
 		if (vtpStatus.getVtpVersion() == null) {
-			LogUtils.infof(this, "cisco vtp mib not supported, on: %s",
+			LOG.info("cisco vtp mib not supported, on: {}",
 					str(getPeer().getAddress()));
 			return;
 		}
-		LogUtils.infof(this, "cisco vtp mib supported, on: %s", str(getPeer()
+		LOG.info("cisco vtp mib supported, on: {}", str(getPeer()
 				.getAddress()));
-		LogUtils.infof(this, "walking cisco vtp, on: %s", str(getPeer()
+		LOG.info("walking cisco vtp, on: {}", str(getPeer()
 				.getAddress()));
 
 		trackerName = "ciscoVtpVlan";
@@ -193,9 +191,7 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 				if (row.isTypeEthernet() && row.isStatusOperational()) {
 					String community = getPeer().getReadCommunity();
 					Integer vlanindex = row.getVlanIndex();
-					LogUtils.debugf(
-							this,
-							"run: cisco vlan collection setting peer community: %s with VLAN %s",
+					LOG.debug("run: cisco vlan collection setting peer community: {} with VLAN {}",
 							community, vlanindex);
 					if (vlanindex != 1) {
 						getPeer().setReadCommunity(community + "@" + vlanindex);
@@ -212,23 +208,18 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 				return;
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 				return;
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting",e);
 			setFailed(true);
 			return;
 		}
@@ -244,71 +235,64 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 				return;
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 				return;
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting",e);
 			setFailed(true);
 			return;
 		}
 
 		if (dot1dbase.getBridgeAddress() == null) {
-			LogUtils.infof(this, "bridge mib not supported on: %s",
+			LOG.info("bridge mib not supported on: {}",
 					str(getPeer().getAddress()));
 			return;
 		}
 
 		if (isValidBridgeAddress(dot1dbase.getBridgeAddress())) {
-			LogUtils.infof(
-					this,
-					"bridge not supported, base address identifier %s is not valid on: %s",
+			LOG.info("bridge not supported, base address identifier {} is not valid on: {}",
 					dot1dbase.getBridgeAddress(), str(getPeer().getAddress()));
 			return;
 		}
 
 		if (dot1dbase.getNumberOfPorts() == 0) {
-			LogUtils.infof(this, "bridge %s has 0 port active, on: %s",
+			LOG.info("bridge {} has 0 port active, on: {}",
 					dot1dbase.getBridgeAddress(), str(getPeer().getAddress()));
 			return;
 		}
-		LogUtils.infof(this, "bridge %s has is if type %s, on: %s", dot1dbase
+		LOG.info("bridge {} has is if type {}, on: {}", dot1dbase
 				.getBridgeAddress(),
 				BridgeBaseType.getBridgeBaseTypeString(dot1dbase
 						.getBridgeType().getIntCode()), str(getPeer()
 						.getAddress()));
 
 		if (dot1dbase.getBridgeType().equals(BridgeBaseType.UNKNOWN)) {
-			LogUtils.infof(this, "%s: unknown type bridge, on: %s",
+			LOG.info("{}: unknown type bridge, on: {}",
 					dot1dbase.getBridgeAddress(), str(getPeer().getAddress()));
 			return;
 		} else if (dot1dbase.getBridgeType().equals(
 				BridgeBaseType.SOURCEROUTE_ONLY)) {
-			LogUtils.infof(this, "%s: source route only type bridge, on: %s",
+			LOG.info("{}: source route only type bridge, on: {}",
 					dot1dbase.getBridgeAddress(), str(getPeer().getAddress()));
 			return;
 		}
 
 		final BridgeElementIdentifier bridgeElementIdentifier = dot1dbase
 				.getElementIdentifier(getNodeId());
-		LogUtils.infof(this, "found local bridge identifier : %s",
+		LOG.info("found local bridge identifier : {}",
 				bridgeElementIdentifier);
 
 		final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(
 				getNodeId());
-		LogUtils.infof(this, "found node identifier for node: %s",
+		LOG.info("found node identifier for node: {}",
 				nodeElementIdentifier);
 
 		walkSpanningTree(nodeElementIdentifier, bridgeElementIdentifier);
@@ -374,23 +358,18 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 				return;
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 				return;
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting",e);
 			setFailed(true);
 			return;
 		}
@@ -454,21 +433,16 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting",e);
 			setFailed(true);
 		}
 	}
@@ -489,50 +463,39 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 				return;
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 				return;
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting",e);
 			setFailed(true);
 			return;
 		}
 
 		if (dot1dstp.getStpDesignatedRoot() == null) {
-			LogUtils.infof(this, "spanning tree not supported on: %s",
+			LOG.info("spanning tree not supported on: {}",
 					str(getPeer().getAddress()));
 			return;
 		} else if (!isValidBridgeAddress(dot1dstp.getStpDesignatedRoot())) {
-			LogUtils.infof(
-					this,
-					"spanning tree not supported, designated root %s is not valid on: %s",
+			LOG.info("spanning tree not supported, designated root {} is not valid on: {}",
 					dot1dstp.getStpDesignatedRoot(),
 					str(getPeer().getAddress()));
 			return;
 		} else if (dot1dstp.getStpProtocolSpecification() != 3) {
-			LogUtils.infof(
-					this,
-					"ieee8021d spanning tree not supported on bridge %s, on: %s",
+			LOG.info("ieee8021d spanning tree not supported on bridge {}, on: {}",
 					dot1dstp.getStpDesignatedRoot(),
 					str(getPeer().getAddress()));
 			return;
 		} else if (bridgeElementIdentifier.getBridgeAddress().equals(
 				getBridgeAddressFromBridgeId(dot1dstp.getStpDesignatedRoot()))) {
-			LogUtils.infof(
-					this,
-					"designated root of spanning tree is itself on bridge %s, on: %s",
+			LOG.info("designated root of spanning tree is itself on bridge {}, on: {}",
 					dot1dstp.getStpDesignatedRoot(),
 					str(getPeer().getAddress()));
 			return;
@@ -560,21 +523,16 @@ public final class BridgeLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 		try {
 			walker.waitFor();
 			if (walker.timedOut()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent timed out while scanning the %s table",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent timed out while scanning the {} table",
 						trackerName);
 				setFailed(true);
 			} else if (walker.failed()) {
-				LogUtils.infof(
-						this,
-						"run:Aborting Bridge Linkd node scan : Agent failed while scanning the %s table: %s",
+				LOG.info("run:Aborting Bridge Linkd node scan : Agent failed while scanning the {} table: {}",
 						trackerName, walker.getErrorMessage());
 				setFailed(true);
 			}
 		} catch (final InterruptedException e) {
-			LogUtils.errorf(this, e,
-					"run: Bridge Linkd node collection interrupted, exiting");
+			LOG.error("run: Bridge Linkd node collection interrupted, exiting",e);
 			setFailed(true);
 		}
 		setStpPorts(backbonestpbports);

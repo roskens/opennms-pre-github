@@ -29,7 +29,6 @@
 package org.opennms.netmgt.enlinkd;
 
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.LldpElementIdentifier;
 import org.opennms.netmgt.model.topology.LldpEndPoint;
@@ -41,9 +40,12 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.TableTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LldpRemTableTracker extends TableTracker {
-
+private final static Logger LOG = LoggerFactory.getLogger(LldpRemTableTracker.class);
+	
     public static final SnmpObjId LLDP_REM_TABLE_ENTRY = SnmpObjId.get(".1.0.8802.1.1.2.1.4.1.1"); // start of table (GETNEXT)
     
     
@@ -99,7 +101,7 @@ public class LldpRemTableTracker extends TableTracker {
 
 		public LldpRemRow(int columnCount, SnmpInstId instance) {
 			super(columnCount, instance);
-            LogUtils.debugf(this, "column count = %d, instance = %s", columnCount, instance);
+            LOG.debug( "column count = {}, instance = {}", columnCount, instance);
 		}
     	
 	    public Integer getLldpRemLocalPortNum() {
@@ -142,24 +144,24 @@ public class LldpRemTableTracker extends TableTracker {
             TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(lldpIdentifier);
-            LogUtils.infof(this, "processLldpRemRow: row count: %d", getColumnCount());
-            LogUtils.infof(this, "processLldpRemRow: row local port num: %d",  getLldpRemLocalPortNum());
+            LOG.info( "processLldpRemRow: row count: {}", getColumnCount());
+            LOG.info( "processLldpRemRow: row local port num: {}",  getLldpRemLocalPortNum());
 
             LldpEndPoint endPointA = lldpLocPort.get(getLldpRemLocalPortNum(), nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
-            LogUtils.infof(this, "processLldpRemRow: row local port id: %s", endPointA.getLldpPortId());
-            LogUtils.infof(this, "processLldpRemRow: row local port subtype: %s", endPointA.getLldpPortIdSubType());
+            LOG.info( "processLldpRemRow: row local port id: {}", endPointA.getLldpPortId());
+            LOG.info( "processLldpRemRow: row local port subtype: {}", endPointA.getLldpPortIdSubType());
     		
     		TopologyElement deviceB = new TopologyElement();
             LldpElementIdentifier lldpRemElementIdentifier = getRemElementIdentifier(nodeIdentifier.getNodeid());
-            LogUtils.infof(this, "processLldpRemRow: row rem lldp identifier: %s", lldpRemElementIdentifier);
+            LOG.info( "processLldpRemRow: row rem lldp identifier: {}", lldpRemElementIdentifier);
             deviceB.addElementIdentifier(lldpRemElementIdentifier);
     		
     		LldpEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
     		endPointB.setIfDescr(getLldpRemPortDescr());
     		deviceB.addEndPoint(endPointB);
-            LogUtils.infof(this, "processLldpRemRow: row rem port id: %s", endPointB.getLldpPortId());
-            LogUtils.infof(this, "processLldpRemRow: row rem port subtype: %s", endPointB.getLldpPortIdSubType());
+            LOG.info( "processLldpRemRow: row rem port id: {}", endPointB.getLldpPortId());
+            LOG.info( "processLldpRemRow: row rem port subtype: {}", endPointB.getLldpPortIdSubType());
     		
     		return new LldpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
 	    }

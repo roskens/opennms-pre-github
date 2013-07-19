@@ -37,13 +37,14 @@ import java.util.List;
 
 
 import org.opennms.core.utils.InetAddressUtils;
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.NodeElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is designed to collect the necessary SNMP information from the
@@ -54,6 +55,7 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  */
 public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
     
+	private final static Logger LOG = LoggerFactory.getLogger(OspfLinkdNodeDiscovery.class);
 	/**
 	 * Constructs a new SNMP collector for Ospf Node Discovery. 
 	 * The collection does not occur until the
@@ -74,7 +76,7 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
 
         final OspfGeneralGroup ospfGeneralGroup = new OspfGeneralGroup();
 
-		LogUtils.debugf(this, "run: collecting : %s", getPeer());
+		LOG.debug( "run: collecting : {}", getPeer());
 
         SnmpWalker walker =  SnmpUtils.createWalker(getPeer(), trackerName, ospfGeneralGroup);
 
@@ -83,34 +85,34 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: Ospf Linkd node collection interrupted, exiting");
+            LOG.error( "run: Ospf Linkd node collection interrupted, exiting",e);
             return;
         }
 
         if (ospfGeneralGroup.getOspfRouterId() == null ) {
-            LogUtils.infof(this, "ospf mib not supported on: %s", str(getPeer().getAddress()));
+            LOG.info( "ospf mib not supported on: {}", str(getPeer().getAddress()));
             return;
         } 
 
         if (ospfGeneralGroup.getOspfRouterId().equals(InetAddressUtils.addr("0.0.0.0"))) {
-            LogUtils.infof(this, "ospf not supported, ospf identifier 0.0.0.0 is not valid on: %s", str(getPeer().getAddress()));
+            LOG.info( "ospf not supported, ospf identifier 0.0.0.0 is not valid on: {}", str(getPeer().getAddress()));
             return;
         } 
 
         final OspfElementIdentifier ospfGenralElementIdentifier = ospfGeneralGroup.getElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found local ospf identifier : %s", ospfGenralElementIdentifier);
+        LOG.info( "found local ospf identifier : {}", ospfGenralElementIdentifier);
 
         final NodeElementIdentifier nodeElementIdentifier = new NodeElementIdentifier(getNodeId());
-        LogUtils.infof(this, "found node identifier for node: %s", nodeElementIdentifier );
+        LOG.info( "found node identifier for node: {}", nodeElementIdentifier );
 
         final List<OspfEndPoint> nbrEndPoints = new ArrayList<OspfEndPoint>();
         trackerName = "ospfNbrTable";
@@ -127,16 +129,16 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LOG.error( "run: collection interrupted, exiting",e);
             return;
         }
 
@@ -156,16 +158,16 @@ public final class OspfLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting Ospf Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting Ospf Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LOG.error("run: collection interrupted, exiting",e);
             return;
         }
 

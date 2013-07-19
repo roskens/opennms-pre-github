@@ -30,7 +30,6 @@ package org.opennms.netmgt.enlinkd;
 
 import java.net.InetAddress;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.TopologyElement;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.model.topology.OspfEndPoint;
@@ -39,11 +38,13 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.opennms.core.utils.InetAddressUtils.str;
 
 public class OspfNbrTableTracker extends TableTracker {
-
+	private final static Logger LOG = LoggerFactory.getLogger(OspfNbrTableTracker.class);
 
 	public final static SnmpObjId OSPF_NBR_IPADDRESS          = SnmpObjId.get(".1.3.6.1.2.1.14.10.1.1");
     public final static SnmpObjId OSPF_NBR_ADDRESS_LESS_INDEX = SnmpObjId.get(".1.3.6.1.2.1.14.10.1.2");
@@ -102,14 +103,14 @@ public class OspfNbrTableTracker extends TableTracker {
 	    }
 
 		public OspfEndPoint getEndPoint(Integer sourceNode) {
-            LogUtils.infof(this, "processOspfNbrRow: row count: %d", getColumnCount());
+            LOG.info( "processOspfNbrRow: row count: {}", getColumnCount());
 			TopologyElement device = new TopologyElement();
 			device.addElementIdentifier(new OspfElementIdentifier(getOspfNbrRouterId(),sourceNode));
-            LogUtils.infof(this, "processOspfNbrRow: row ospf nbr router id: %s", str(getOspfNbrRouterId()));
+            LOG.info( "processOspfNbrRow: row ospf nbr router id: {}", str(getOspfNbrRouterId()));
 
 			OspfEndPoint endPoint = new OspfEndPoint(getOspfNbrIpAddress(), getOspfNbrAddressLessIndex(),sourceNode);
-            LogUtils.infof(this, "processOspfNbrRow: row ospf nbr ip address: %s", str(getOspfNbrIpAddress()));
-            LogUtils.infof(this, "processOspfNbrRow: row ospf nbr address less ifindex: %d", getOspfNbrAddressLessIndex());
+            LOG.info( "processOspfNbrRow: row ospf nbr ip address: {}", str(getOspfNbrIpAddress()));
+            LOG.info( "processOspfNbrRow: row ospf nbr address less ifindex: {}", getOspfNbrAddressLessIndex());
 			device.addEndPoint(endPoint);
 			return endPoint;
 		}

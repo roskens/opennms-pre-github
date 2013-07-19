@@ -32,7 +32,6 @@ import static org.opennms.core.utils.InetAddressUtils.str;
 
 import java.net.InetAddress;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.linkd.scheduler.ReadyRunnable;
 import org.opennms.netmgt.linkd.scheduler.Scheduler;
 import org.opennms.netmgt.model.events.EventBuilder;
@@ -111,8 +110,6 @@ public abstract class AbstractLinkdNodeDiscovery implements ReadyRunnable {
             builder.setInterface(getTarget());
             builder.addParam("runnable", getName());
             m_linkd.getEventForwarder().sendNow(builder.getEvent());
-            LogUtils.debugf(this, "run: address: %s Suspended!",
-                            str(getTarget()));
         } else {
             builder = new EventBuilder(
                     "uei.opennms.org/internal/linkd/nodeLinkDiscoveryStarted",

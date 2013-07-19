@@ -31,7 +31,6 @@ package org.opennms.netmgt.enlinkd;
 import static org.opennms.core.utils.InetAddressUtils.isValidBridgeAddress;
 import static org.opennms.netmgt.enlinkd.Dot1dTpFdbTableTracker.SNMP_DOT1D_FDB_STATUS_LEARNED;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.BridgeDot1qTpFdbLink;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
@@ -45,6 +44,8 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.TableTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *<P>The Dot1qTpFdbTableTracker class is designed to hold all the MIB-II
@@ -63,6 +64,7 @@ import org.opennms.netmgt.snmp.TableTracker;
  */
 public class Dot1qTpFdbTableTracker extends TableTracker {
 
+	private final static Logger LOG = LoggerFactory.getLogger(Dot1qTpFdbTableTracker.class);
 
 	public final static SnmpObjId DOT1Q_TP_FDB_PORT    = SnmpObjId.get(".1.3.6.1.2.1.17.7.1.2.2.1.2");
 	public final static SnmpObjId DOT1Q_TP_FDB_STATUS  = SnmpObjId.get(".1.3.6.1.2.1.17.7.1.2.2.1.3");
@@ -181,7 +183,7 @@ public class Dot1qTpFdbTableTracker extends TableTracker {
 		public BridgeDot1qTpFdbLink getLink(
 				NodeElementIdentifier nodeIdentifier,
 				BridgeElementIdentifier bridgeIdentifier) {
-            LogUtils.infof(this, "processDot1qTpFdbRow: row count: %d", getColumnCount());
+            LOG.info("processDot1qTpFdbRow: row count: {}", getColumnCount());
 			
             if (!isValid()) {
 				return null;
@@ -189,18 +191,18 @@ public class Dot1qTpFdbTableTracker extends TableTracker {
 			TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(bridgeIdentifier);
-            LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
+            LOG.info("processDot1qTpFdbRow: row local bridge identifier: {}", bridgeIdentifier.getBridgeAddress());
 
             BridgeEndPoint endPointA = new BridgeEndPoint(getDot1qTpFdbPort(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
-            LogUtils.infof(this, "processDot1qTpFdbRow: row local bridge port: %s", endPointA.getBridgePort());
+            LOG.info("processDot1qTpFdbRow: row local bridge port: {}", endPointA.getBridgePort());
     		    		
             TopologyElement deviceB = new TopologyElement();
     		MacAddrEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
     		endPointB.setSourceNode(nodeIdentifier.getNodeid());
     		deviceB.addElementIdentifier(new MacAddrElementIdentifier(endPointB.getMacAddress(),nodeIdentifier.getNodeid()));
     		deviceB.addEndPoint(endPointB);
-            LogUtils.infof(this, "processDot1qTpFdbRow: row remote mac : %s", endPointB.getMacAddress());
+            LOG.info("processDot1qTpFdbRow: row remote mac : {}", endPointB.getMacAddress());
     		
     		return new BridgeDot1qTpFdbLink(endPointA, endPointB,nodeIdentifier.getNodeid());
 		}

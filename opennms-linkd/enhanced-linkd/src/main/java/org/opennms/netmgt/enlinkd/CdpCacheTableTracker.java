@@ -32,7 +32,8 @@ import java.net.InetAddress;
 
 import static org.opennms.core.utils.InetAddressUtils.getIpAddressByHexString;
 
-import org.opennms.core.utils.LogUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.opennms.netmgt.model.topology.CdpElementIdentifier;
 import org.opennms.netmgt.model.topology.CdpElementIdentifier.CiscoNetworkProtocolType;
@@ -47,7 +48,8 @@ import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
 
 public class CdpCacheTableTracker extends TableTracker {
-
+	private static final Logger LOG = LoggerFactory.getLogger(CdpCacheTableTracker.class);
+	
 	public static final SnmpObjId CDP_CACHE_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1"); // start of table (GETNEXT)
 
 	public final static SnmpObjId CDP_ADDRESS_TYPE      = SnmpObjId.get(".1.3.6.1.4.1.9.9.23.1.2.1.1.3");
@@ -101,7 +103,7 @@ public class CdpCacheTableTracker extends TableTracker {
 		
     	public CdpCacheRow(int columnCount, SnmpInstId instance) {
 			super(columnCount, instance);
-            LogUtils.debugf(this, "column count = %d, instance = %s", columnCount, instance);
+            LOG.debug("column count = {}, instance = {}", columnCount, instance);
 		}
 
     	/**
@@ -176,21 +178,21 @@ public class CdpCacheTableTracker extends TableTracker {
             TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(cdpIdentifier);
-            LogUtils.infof(this, "processCdpCacheRow: row count: %d", getColumnCount());
-            LogUtils.infof(this, "processCdpCacheRow: row cdpCacheIfindex: %d",  getCdpCacheIfIndex());
+            LOG.info("processCdpCacheRow: row count: {}", getColumnCount());
+            LOG.info("processCdpCacheRow: row cdpCacheIfindex: {}",  getCdpCacheIfIndex());
 
             CdpEndPoint endPointA = cdpInterfacePortNameGetter.get(getCdpCacheIfIndex(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
-            LogUtils.infof(this, "processCdpCacheRow: row local port: %s", endPointA.getCdpCacheDevicePort());
+            LOG.info("processCdpCacheRow: row local port: {}", endPointA.getCdpCacheDevicePort());
     		
     		TopologyElement deviceB = new TopologyElement();
             CdpElementIdentifier cdpCacheElementIdentifier = getCdpCacheElementIdentifier(nodeIdentifier.getNodeid());
-            LogUtils.infof(this, "processCdpCacheRow: row cdp cache identifier: %s", cdpCacheElementIdentifier);
+            LOG.info("processCdpCacheRow: row cdp cache identifier: {}", cdpCacheElementIdentifier);
             deviceB.addElementIdentifier(cdpCacheElementIdentifier);
     		
     		CdpEndPoint endPointB = getCdpCacheEndPoint(nodeIdentifier.getNodeid());
     		deviceB.addEndPoint(endPointB);
-            LogUtils.infof(this, "processCdpCacheRow: row cdp cache device port: %s", endPointB.getCdpCacheDevicePort());
+            LOG.info("processCdpCacheRow: row cdp cache device port: {}", endPointB.getCdpCacheDevicePort());
     		
     		return new CdpLink(endPointA, endPointB,nodeIdentifier.getNodeid());
 	    }

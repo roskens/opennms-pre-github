@@ -30,16 +30,17 @@ package org.opennms.netmgt.enlinkd;
 
 import java.net.InetAddress;
 
-import org.opennms.core.utils.ThreadCategory;
-
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
 import org.opennms.netmgt.model.topology.OspfElementIdentifier;
 import org.opennms.netmgt.snmp.AggregateTracker;
 import org.opennms.netmgt.snmp.SnmpResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class OspfGeneralGroup extends AggregateTracker {
 
+	private final static Logger LOG = LoggerFactory.getLogger(OspfGeneralGroup.class);
     public final static String OSPF_ROUTER_ID_ALIAS = "ospfRouterId";
     public final static String OSPF_ROUTER_ID_OID = ".1.3.6.1.2.1.14.1.1";
         
@@ -94,17 +95,12 @@ public final class OspfGeneralGroup extends AggregateTracker {
 
     /** {@inheritDoc} */
     protected void reportGenErr(String msg) {
-        log().warn("Error retrieving OspfGeneralGroup: "+msg);
+        LOG.warn("Error retrieving OspfGeneralGroup: {}",msg);
     }
 
     /** {@inheritDoc} */
     protected void reportNoSuchNameErr(String msg) {
-        log().info("Error retrieving OspfGeneralGroup: "+msg);
+        LOG.info("Error retrieving OspfGeneralGroup: {}",msg);
     }
-
-    private final ThreadCategory log() {
-        return ThreadCategory.getInstance(getClass());
-    }
-
 
 }

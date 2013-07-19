@@ -28,7 +28,8 @@
 
 package org.opennms.netmgt.enlinkd;
 
-import org.opennms.core.utils.LogUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.opennms.netmgt.linkd.snmp.NamedSnmpVar;
 import org.opennms.netmgt.linkd.snmp.SnmpStore;
@@ -48,7 +49,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
  */
 public final class CdpGlobalGroup extends AggregateTracker
 {
-	
+	private final static Logger LOG = LoggerFactory.getLogger(CdpGlobalGroup.class);
     /**
      * the bridge type
      */
@@ -102,12 +103,12 @@ public final class CdpGlobalGroup extends AggregateTracker
 
     /** {@inheritDoc} */
     protected void reportGenErr(final String msg) {
-        LogUtils.warnf(this, "Error retrieving systemGroup: %s", msg);
+        LOG.warn("Error retrieving systemGroup: {}", msg);
     }
 
     /** {@inheritDoc} */
     protected void reportNoSuchNameErr(final String msg) {
-        LogUtils.infof(this, "Error retrieving systemGroup: %s", msg);
+        LOG.info("Error retrieving systemGroup: {}", msg);
     }
 
     /**

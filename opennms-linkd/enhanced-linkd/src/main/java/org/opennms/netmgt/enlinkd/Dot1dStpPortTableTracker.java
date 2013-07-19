@@ -33,7 +33,6 @@ import static org.opennms.core.utils.InetAddressUtils.isValidBridgeDesignatedPor
 import static org.opennms.core.utils.InetAddressUtils.getBridgeAddressFromBridgeId;
 import static org.opennms.core.utils.InetAddressUtils.getBridgeDesignatedPortNumber;
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.OnmsStpInterface.StpPortStatus;
 import org.opennms.netmgt.model.topology.BridgeElementIdentifier;
 import org.opennms.netmgt.model.topology.BridgeEndPoint;
@@ -45,6 +44,8 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpRowResult;
 import org.opennms.netmgt.snmp.TableTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *<P>The Dot1dStpPortTableTracker class is designed to hold all the MIB-II
@@ -63,6 +64,7 @@ import org.opennms.netmgt.snmp.TableTracker;
  */
 public class Dot1dStpPortTableTracker extends TableTracker {
 
+	private final static Logger LOG = LoggerFactory.getLogger(Dot1dStpPortTableTracker.class); 
 	public final static int DOT1D_STP_PORT_ENABLED = 1;
 	
 	public final static SnmpObjId DOT1D_STP_PORT                   = SnmpObjId.get(".1.3.6.1.2.1.17.2.15.1.1");
@@ -217,30 +219,30 @@ public class Dot1dStpPortTableTracker extends TableTracker {
 		public BridgeStpLink getLink(
 				final NodeElementIdentifier nodeIdentifier,
 				final BridgeElementIdentifier bridgeIdentifier) {
-            LogUtils.infof(this, "processStpPortRow: row count: %d", getColumnCount());
+            LOG.info("processStpPortRow: row count: {}", getColumnCount());
 			if (!isValid()) {
 				return null;
 			}
 			if (bridgeIdentifier.getBridgeAddress().equals(getBridgeAddressFromBridgeId(getDot1dStpPortDesignatedBridge()))) {
-	            LogUtils.infof(this, "processStpPortRow: designated bridge on port %d  is bridge identifier: %s", getDot1dStpPort(),bridgeIdentifier.getBridgeAddress());
+	            LOG.info("processStpPortRow: designated bridge on port {}  is bridge identifier: {}", getDot1dStpPort(),bridgeIdentifier.getBridgeAddress());
 				return null;
 			}
 			TopologyElement deviceA = new TopologyElement();
             deviceA.addElementIdentifier(nodeIdentifier);
             deviceA.addElementIdentifier(bridgeIdentifier);
-            LogUtils.infof(this, "processStpPortRow: row local bridge identifier: %s", bridgeIdentifier.getBridgeAddress());
+            LOG.info("processStpPortRow: row local bridge identifier: {}", bridgeIdentifier.getBridgeAddress());
 
             BridgeEndPoint endPointA = new BridgeEndPoint(getDot1dStpPort(),nodeIdentifier.getNodeid());
             deviceA.addEndPoint(endPointA);
-            LogUtils.infof(this, "processStpPortRow: row local bridge port: %s", endPointA.getBridgePort());
+            LOG.info("processStpPortRow: row local bridge port: {}", endPointA.getBridgePort());
     		
     		TopologyElement deviceB = new TopologyElement();
             BridgeElementIdentifier remBridgeElementIdentifier = getRemElementIdentifier(nodeIdentifier.getNodeid());
-            LogUtils.infof(this, "processStpPortRow: row remote bridge identifier: %s", remBridgeElementIdentifier.getBridgeAddress());
+            LOG.info("processStpPortRow: row remote bridge identifier: {}", remBridgeElementIdentifier.getBridgeAddress());
             deviceB.addElementIdentifier(remBridgeElementIdentifier);
     		
     		BridgeEndPoint endPointB = getRemEndPoint(nodeIdentifier.getNodeid());
-            LogUtils.infof(this, "processStpPortRow: row remote bridge port: %s", endPointB.getBridgePort());
+            LOG.info("processStpPortRow: row remote bridge port: {}", endPointB.getBridgePort());
     		deviceB.addEndPoint(endPointB);
     		
     		return new BridgeStpLink(endPointA, endPointB,nodeIdentifier.getNodeid());

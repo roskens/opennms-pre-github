@@ -34,11 +34,12 @@ import java.util.Date;
 
 
 
-import org.opennms.core.utils.LogUtils;
 import org.opennms.netmgt.model.topology.MacAddrEndPoint;
 
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpWalker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is designed to collect the necessary SNMP information from the
@@ -49,6 +50,8 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  */
 public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDiscovery {
     
+	private final static Logger LOG = LoggerFactory.getLogger(IpNetToMediaLinkdNodeDiscovery.class);
+
 	/**
 	 * Constructs a new SNMP collector for IpNetToMedia Node Discovery. 
 	 * The collection does not occur until the
@@ -65,7 +68,7 @@ public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDisco
 
     	final Date now = new Date(); 
 
-		LogUtils.debugf(this, "run: collecting : %s", getPeer());
+		LOG.debug( "run: collecting : {}", getPeer());
 
 
 		IpNetToMediaTableTracker ipNetToMediaTableTracker = new IpNetToMediaTableTracker() {
@@ -84,16 +87,16 @@ public final class IpNetToMediaLinkdNodeDiscovery extends AbstractLinkdNodeDisco
         try {
             walker.waitFor();
             if (walker.timedOut()) {
-            	LogUtils.infof(this,
-                        "run:Aborting IpNetToMedia Linkd node scan : Agent timed out while scanning the %s table", trackerName);
+            	LOG.info(
+                        "run:Aborting IpNetToMedia Linkd node scan : Agent timed out while scanning the {} table", trackerName);
             	return;
             }  else if (walker.failed()) {
-            	LogUtils.infof(this,
-                        "run:Aborting IpNetToMedia Linkd node scan : Agent failed while scanning the %s table: %s", trackerName,walker.getErrorMessage());
+            	LOG.info(
+                        "run:Aborting IpNetToMedia Linkd node scan : Agent failed while scanning the {} table: {}", trackerName,walker.getErrorMessage());
             	return;
             }
         } catch (final InterruptedException e) {
-            LogUtils.errorf(this, e, "run: collection interrupted, exiting");
+            LOG.error("run: collection interrupted, exiting",e);
             return;
         }
 
