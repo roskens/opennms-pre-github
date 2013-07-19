@@ -58,9 +58,9 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AlarmSeverityChangeController extends AbstractController implements InitializingBean {
 
     /** Constant <code>ESCALATE_ACTION="1"</code> */
-    public final static String ESCALATE_ACTION = "1";
+    public static final String ESCALATE_ACTION = "1";
     /** Constant <code>CLEAR_ACTION="2"</code> */
-    public final static String CLEAR_ACTION = "2";
+    public static final String CLEAR_ACTION = "2";
 
     private AlarmRepository m_webAlarmRepository;
 
@@ -71,7 +71,7 @@ public class AlarmSeverityChangeController extends AbstractController implements
      *
      * @param redirectView a {@link java.lang.String} object.
      */
-    public void setRedirectView(String redirectView) {
+    public final void setRedirectView(final String redirectView) {
         m_redirectView = redirectView;
     }
 
@@ -80,7 +80,7 @@ public class AlarmSeverityChangeController extends AbstractController implements
      *
      * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
-    public void setAlarmRepository(AlarmRepository webAlarmRepository) {
+    public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
@@ -90,7 +90,7 @@ public class AlarmSeverityChangeController extends AbstractController implements
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_redirectView, "redirectView must be set");
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
     }
@@ -103,7 +103,7 @@ public class AlarmSeverityChangeController extends AbstractController implements
      * to an appropriate URL for display.
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         // required parameter
         String[] alarmIdStrings = request.getParameterValues("alarm");
         String action = request.getParameter("actionCode");

@@ -66,7 +66,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
      *
      * @param reportStoreService a {@link org.opennms.reporting.core.svclayer.ReportStoreService} object.
      */
-    public void setReportStoreService(ReportStoreService reportStoreService) {
+    public final void setReportStoreService(final ReportStoreService reportStoreService) {
         m_reportStoreService = reportStoreService;
     }
 
@@ -75,13 +75,13 @@ public class ManageDatabaseReportController extends SimpleFormController {
      *
      * @param pageSize a int.
      */
-    public void setPageSize(int pageSize) {
+    public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected Map<String, Object> referenceData(HttpServletRequest req) throws Exception {
+    protected final Map<String, Object> referenceData(final HttpServletRequest req) throws Exception {
         Map<String, Object> data = new HashMap<String, Object>();
         List<ReportCatalogEntry> reportCatalog = m_reportStoreService.getAll();
         Map<String, Object> formatMap = m_reportStoreService.getFormatMap();
@@ -97,7 +97,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(Object command) throws Exception {
+    protected final ModelAndView onSubmit(final Object command) throws Exception {
         ManageDatabaseReportCommand manageCommand = (ManageDatabaseReportCommand) command;
         m_reportStoreService.delete(manageCommand.getIds());
         ModelAndView mav = new ModelAndView(getSuccessView());

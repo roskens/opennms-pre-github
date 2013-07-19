@@ -59,7 +59,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
 
     /** {@inheritDoc} */
     @Override
-    public ChooseResourceModel findChildResources(String resourceId, String endUrl) {
+    public final ChooseResourceModel findChildResources(final String resourceId, final String endUrl) {
         if (resourceId == null) {
             throw new IllegalArgumentException("resourceId parameter may not be null");
         }
@@ -98,7 +98,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
         return model;
     }
 
-    private OnmsResource checkLabelForQuotes(OnmsResource childResource) {
+    private OnmsResource checkLabelForQuotes(final OnmsResource childResource) {
 
         String lbl  = Util.convertToJsSafeString(childResource.getLabel());
 
@@ -113,7 +113,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         if (m_resourceDao == null) {
             throw new IllegalStateException("resourceDao property not set");
         }
@@ -124,7 +124,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public ResourceDao getResourceDao() {
+    public final ResourceDao getResourceDao() {
         return m_resourceDao;
     }
 
@@ -133,7 +133,7 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 

@@ -48,7 +48,7 @@ public class TriggerDescription {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getTriggerName() {
+    public final String getTriggerName() {
         return m_triggerName;
     }
 
@@ -57,7 +57,7 @@ public class TriggerDescription {
      *
      * @param triggerName a {@link java.lang.String} object.
      */
-    public void setTriggerName(String triggerName) {
+    public final void setTriggerName(final String triggerName) {
         m_triggerName = triggerName;
     }
 
@@ -66,7 +66,7 @@ public class TriggerDescription {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription() {
+    public final String getDescription() {
         return m_description;
     }
     /**
@@ -74,7 +74,7 @@ public class TriggerDescription {
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description) {
+    public final void setDescription(final String description) {
         m_description = description;
     }
 
@@ -83,7 +83,7 @@ public class TriggerDescription {
      *
      * @return a java$util$Date object.
      */
-    public Date getNextFireTime() {
+    public final Date getNextFireTime() {
         return m_nextFireTime;
     }
 
@@ -92,7 +92,7 @@ public class TriggerDescription {
      *
      * @param nextFireTime a java$util$Date object.
      */
-    public void setNextFireTime(Date nextFireTime) {
+    public final void setNextFireTime(final Date nextFireTime) {
         m_nextFireTime = nextFireTime;
     }
 

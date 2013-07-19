@@ -52,7 +52,7 @@ public class ApplicationController extends AbstractController {
 
     private AdminApplicationService m_adminApplicationService;
 
-    private String getNonEmptyParameter(HttpServletRequest request, String parameter) {
+    private String getNonEmptyParameter(final HttpServletRequest request, final String parameter) {
     	if (request != null) {
     		String p = request.getParameter(parameter);
     		if (p != null && !p.equals("")) {
@@ -64,7 +64,7 @@ public class ApplicationController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         String removeApplicationIdString = getNonEmptyParameter(request, "removeApplicationId");
         String newApplicationName = getNonEmptyParameter(request, "newApplicationName");
         String applicationIdString = getNonEmptyParameter(request, "applicationid");
@@ -162,7 +162,7 @@ public class ApplicationController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.AdminApplicationService} object.
      */
-    public AdminApplicationService getAdminApplicationService() {
+    public final AdminApplicationService getAdminApplicationService() {
         return m_adminApplicationService;
     }
 
@@ -171,8 +171,8 @@ public class ApplicationController extends AbstractController {
      *
      * @param adminApplicationService a {@link org.opennms.web.svclayer.AdminApplicationService} object.
      */
-    public void setAdminApplicationService(
-            AdminApplicationService adminApplicationService) {
+    public final void setAdminApplicationService(
+            final AdminApplicationService adminApplicationService) {
         m_adminApplicationService = adminApplicationService;
     }
 

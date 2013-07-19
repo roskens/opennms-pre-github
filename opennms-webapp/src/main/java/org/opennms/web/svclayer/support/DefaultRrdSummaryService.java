@@ -64,16 +64,16 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
         private Attribute m_currAttr;
 
         interface ResourceParent {
-            public boolean isRoot();
-            public void addResource(Resource resource);
-            public void commit();
+            boolean isRoot();
+            void addResource(Resource resource);
+            void commit();
         }
 
         class SummaryHolder implements ResourceParent {
             Summary m_summary = new Summary();
 
             @Override
-            public void addResource(Resource resource) {
+            public void addResource(final Resource resource) {
                 m_summary.addResource(resource);
             }
 
@@ -103,7 +103,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
             boolean m_commited = false;
             Resource m_resource;
 
-            ResourceHolder(ResourceParent parent, String name) {
+            ResourceHolder(final ResourceParent parent, final String name) {
                 Assert.notNull(parent, "parent must not be null");
                 m_parent = parent;
                 m_resource = new Resource();
@@ -120,18 +120,22 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
 
             @Override
             public void commit() {
-                if (isCommited()) return;
-                if (m_parent != null) m_parent.commit();
+                if (isCommited()) {
+                    return;
+                }
+                if (m_parent != null) {
+                    m_parent.commit();
+                }
                 addSelf();
                 m_commited = true;
             }
 
             @Override
-            public void addResource(Resource resource) {
+            public void addResource(final Resource resource) {
                 m_resource.addResource(resource);
             }
 
-            protected Attribute addAttribute(String name) {
+            protected Attribute addAttribute(final String name) {
                 Attribute attr = new Attribute();
                 attr.setName(name);
                 m_resource.addAttribute(attr);
@@ -168,12 +172,12 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
             return m_root.getSummary();
         }
 
-        public void addAttribute(String name) {
+        public void addAttribute(final String name) {
             Assert.state(m_currentResource != null, "addResource must be called before calling addAttribute");
             m_currAttr = m_currentResource.addAttribute(name);
         }
 
-        public void setMin(double min){
+        public void setMin(final double min){
             checkForCurrAttr();
             m_currAttr.setMin(min);
 
@@ -185,19 +189,19 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
         }
 
 
-        public void setAverage(double avg) {
+        public void setAverage(final double avg) {
             checkForCurrAttr();
             m_currAttr.setAverage(avg);
         }
 
 
-        public void setMax(double max) {
+        public void setMax(final double max) {
             checkForCurrAttr();
             m_currAttr.setMax(max);
         }
 
 
-        public void pushResource(String label) {
+        public void pushResource(final String label) {
             ResourceParent parent = (m_currentResource == null ? m_root : m_currentResource);
             m_currentResource = new ResourceHolder(parent, label);
         }
@@ -225,7 +229,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
         private long m_total = 0;
         private long m_lastStarted = -1;
 
-        OpStats(String n) {
+        OpStats(final String n) {
             m_name = n;
         }
 
@@ -252,14 +256,14 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
 
     static class Stats {
         Map<String, OpStats> map = new LinkedHashMap<String, OpStats>();
-        public void begin(String operation) {
+        public void begin(final String operation) {
             if (!map.containsKey(operation)) {
                 map.put(operation, new OpStats(operation));
             }
             map.get(operation).begin();
         }
 
-        public void end(String operation) {
+        public void end(final String operation) {
             map.get(operation).end();
         }
 
@@ -284,7 +288,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * @param attributeSieve a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.attrsummary.Summary} object.
      */
-    public Summary getSummary(String filterRule, final long startTime, final long endTime, final String attributeSieve) {
+    public final Summary getSummary(final String filterRule, final long startTime, final long endTime, final String attributeSieve) {
         m_stats.begin("getSummary");
         try {
             final SummaryBuilder bldr = new SummaryBuilder();
@@ -296,7 +300,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
             walker.setFilter(filterRule);
             walker.setVisitor(new AbstractEntityVisitor() {
                 @Override
-                public void visitNode(OnmsNode node) {
+                public void visitNode(final OnmsNode node) {
 
                     OnmsResource nodeResource = getResourceForNode(node);
 
@@ -317,7 +321,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     bldr.popResource();
                 }
 
-                private Collection<RrdGraphAttribute> getResourceGraphAttributes(OnmsResource child) {
+                private Collection<RrdGraphAttribute> getResourceGraphAttributes(final OnmsResource child) {
                     String op = "getResourceGraphAttributes-"+child.getResourceType().getName();
                     m_stats.begin(op);
                     try {
@@ -327,7 +331,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     }
                 }
 
-                private List<OnmsResource> getChildResources1(OnmsResource nodeResource) {
+                private List<OnmsResource> getChildResources1(final OnmsResource nodeResource) {
                     m_stats.begin("getChildResources1");
                     try {
                         return nodeResource.getChildResources();
@@ -336,7 +340,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     }
                 }
 
-                private List<OnmsResource> getChildResources2(OnmsResource nodeResource) {
+                private List<OnmsResource> getChildResources2(final OnmsResource nodeResource) {
                     m_stats.begin("getChildResources2");
                     try {
                         return nodeResource.getChildResources();
@@ -345,7 +349,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     }
                 }
 
-                private OnmsResource getResourceForNode(OnmsNode node) {
+                private OnmsResource getResourceForNode(final OnmsNode node) {
                     m_stats.begin("getResourceForNode");
                     try {
                         return m_resourceDao.getResourceForNode(node);
@@ -354,11 +358,11 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     }
                 }
 
-                private void addResource(OnmsResource resource) {
+                private void addResource(final OnmsResource resource) {
                     addResource(resource, resource.getLabel());
                 }
 
-                private void addResource(OnmsResource resource, String label) {
+                private void addResource(final OnmsResource resource, final String label) {
                     Collection<RrdGraphAttribute> attrs = getResourceGraphAttributes(resource);
                     if (attrs.size() > 0) {
                         bldr.pushResource(label);
@@ -367,7 +371,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     }
                 }
 
-                private void addAttributes(Collection<RrdGraphAttribute> attrs) {
+                private void addAttributes(final Collection<RrdGraphAttribute> attrs) {
                     m_stats.begin("addAttributes");
                     try {
                         for(RrdGraphAttribute attr : attrs) {
@@ -384,7 +388,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     }
                 }
 
-                private double[] getValues(RrdGraphAttribute attr) {
+                private double[] getValues(final RrdGraphAttribute attr) {
                     m_stats.begin("getValues");
                     try {
                         return m_rrdDao.getPrintValues(attr, "AVERAGE", startTime*1000, endTime*1000, "MIN", "AVERAGE", "MAX");
@@ -408,7 +412,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.state(m_filterDao != null, "filterDao property must be set");
         Assert.state(m_resourceDao != null, "resourceDao property must be set");
         Assert.state(m_rrdDao != null, "rrdDao property must be set");
@@ -420,7 +424,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      *
      * @param filterDao a {@link org.opennms.netmgt.filter.FilterDao} object.
      */
-    public void setFilterDao(FilterDao filterDao) {
+    public final void setFilterDao(final FilterDao filterDao) {
         m_filterDao = filterDao;
     }
 
@@ -429,7 +433,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
@@ -438,27 +442,27 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
      *
      * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
-    public void setRrdDao(RrdDao rrdDao) {
+    public final void setRrdDao(final RrdDao rrdDao) {
         m_rrdDao = rrdDao;
     }
 
     /**
      * @return the nodeDao
      */
-    public NodeDao getNodeDao() {
+    public final NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
     /**
      * @param nodeDao the nodeDao to set
      */
-    public void setNodeDao(NodeDao nodeDao) {
+    public final void setNodeDao(final NodeDao nodeDao) {
         this.m_nodeDao = nodeDao;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Summary getSummary(SummarySpecification spec) {
+    public final Summary getSummary(final SummarySpecification spec) {
         return getSummary(spec.getFilterRule(), spec.getStartTime(), spec.getEndTime(), spec.getAttributeSieve());
     }
 

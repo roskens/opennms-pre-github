@@ -55,7 +55,7 @@ public class RtcNodeModel {
      *
      * @param node a {@link org.opennms.web.svclayer.support.RtcNodeModel.RtcNode} object.
      */
-    public void addNode(RtcNode node) {
+    public final void addNode(final RtcNode node) {
         m_nodeList.add(node);
     }
 
@@ -64,7 +64,7 @@ public class RtcNodeModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<RtcNode> getNodeList() {
+    public final List<RtcNode> getNodeList() {
         return m_nodeList;
     }
 
@@ -74,35 +74,35 @@ public class RtcNodeModel {
         private int m_downServiceCount;
         private double m_availability;
 
-        public RtcNode(OnmsNode node, int serviceCount, int downServiceCount, double availability) {
+        public RtcNode(final OnmsNode node, final int serviceCount, final int downServiceCount, final double availability) {
             m_node = node;
             m_serviceCount = serviceCount;
             m_downServiceCount = downServiceCount;
             m_availability = availability;
         }
 
-        public double getAvailability() {
+        public final double getAvailability() {
             return m_availability;
         }
 
-        public String getAvailabilityAsString() {
+        public final String getAvailabilityAsString() {
             return AVAILABILITY_FORMAT.format(m_availability);
         }
 
-        public int getDownServiceCount() {
+        public final int getDownServiceCount() {
             return m_downServiceCount;
         }
 
-        public OnmsNode getNode() {
+        public final OnmsNode getNode() {
             return m_node;
         }
 
-        public int getServiceCount() {
+        public final int getServiceCount() {
             return m_serviceCount;
         }
 
         @Override
-        public String toString() {
+        public final String toString() {
             return m_node.getLabel() + ": " + m_downServiceCount + " of " + m_serviceCount + ": " + getAvailabilityAsString();
         }
     }

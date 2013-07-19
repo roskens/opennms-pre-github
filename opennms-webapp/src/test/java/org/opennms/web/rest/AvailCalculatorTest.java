@@ -50,7 +50,7 @@ public class AvailCalculatorTest {
     private OnmsMonitoredService m_svc;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         m_locationMon = new OnmsLocationMonitor();
         m_locationMon.setDefinitionName("IPv6");
         m_locationMon.setStatus(MonitorStatus.STARTED);
@@ -60,7 +60,7 @@ public class AvailCalculatorTest {
 
 
     @Test
-    public void testGetAvailabilityOneStatus() {
+    public final void testGetAvailabilityOneStatus() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
 
@@ -78,7 +78,7 @@ public class AvailCalculatorTest {
     }
 
 
-    private OnmsLocationSpecificStatus createStatusChange(PollStatus pollStatus, Date timestamp) {
+    private OnmsLocationSpecificStatus createStatusChange(final PollStatus pollStatus, final Date timestamp) {
         pollStatus.setTimestamp(timestamp);
         OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();
         statusChange.setLocationMonitor(m_locationMon);
@@ -95,7 +95,7 @@ public class AvailCalculatorTest {
     }
 
     @Test
-    public void testGetAvailabilityStatusFlipFlop() {
+    public final void testGetAvailabilityStatusFlipFlop() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);
@@ -114,7 +114,7 @@ public class AvailCalculatorTest {
     }
 
     @Test
-    public void testGetAvailabilityUnavailableBefore() {
+    public final void testGetAvailabilityUnavailableBefore() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);
@@ -131,7 +131,7 @@ public class AvailCalculatorTest {
     }
 
     @Test
-    public void testNotAvailabileDuringTimeChunk() {
+    public final void testNotAvailabileDuringTimeChunk() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);

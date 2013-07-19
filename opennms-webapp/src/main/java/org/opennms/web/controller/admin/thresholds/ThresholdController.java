@@ -93,7 +93,7 @@ public class ThresholdController extends AbstractController implements Initializ
      * {@inheritDoc}
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         ModelAndView modelAndView;
         ThresholdingConfigFactory.init();
         String editGroup = request.getParameter("editGroup");
@@ -149,14 +149,14 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private ModelAndView gotoGroupEdit(String groupName) {
+    private ModelAndView gotoGroupEdit(final String groupName) {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView = new ModelAndView("admin/thresholds/editGroup");
         modelAndView.addObject("group", configFactory.getGroup(groupName));
         return modelAndView;
     }
 
-    private void addStandardEditingBits(ModelAndView modelAndView) {
+    private void addStandardEditingBits(final ModelAndView modelAndView) {
         Map<String, String> dsTypes = new LinkedHashMap<String, String>();
         dsTypes.put("node", "Node");
         dsTypes.put("if", "Interface"); // "interface" is a wrong word
@@ -210,7 +210,7 @@ public class ThresholdController extends AbstractController implements Initializ
         modelAndView.addObject("moveDownButtonTitle", MOVEDOWN_BUTTON_TITLE);
     }
 
-    private ModelAndView gotoNewThreshold(String groupName) {
+    private ModelAndView gotoNewThreshold(final String groupName) {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
 
         Group group = configFactory.getGroup(groupName);
@@ -264,7 +264,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private ModelAndView gotoNewExpression(String groupName) {
+    private ModelAndView gotoNewExpression(final String groupName) {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
 
         Group group = configFactory.getGroup(groupName);
@@ -318,7 +318,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private ModelAndView gotoEditThreshold(String thresholdIndexString, String groupName) throws ServletException {
+    private ModelAndView gotoEditThreshold(final String thresholdIndexString, final String groupName) throws ServletException {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         if (thresholdIndexString == null) {
@@ -338,7 +338,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private void moveThresholdFilter(Basethresholddef threshold, int oldPos, int newPos) {
+    private void moveThresholdFilter(final Basethresholddef threshold, final int oldPos, final int newPos) {
         if (newPos >= 0 && newPos < threshold.getResourceFilterCount()) {
             ResourceFilter oldFilter = (ResourceFilter) threshold.getResourceFilterCollection().get(oldPos);
             ResourceFilter newFilter = (ResourceFilter) threshold.getResourceFilterCollection().get(newPos);
@@ -348,11 +348,11 @@ public class ThresholdController extends AbstractController implements Initializ
     }
 
     @SuppressWarnings("unchecked")
-    private List<ResourceFilter> getFilterList(HttpServletRequest request, boolean create) {
+    private List<ResourceFilter> getFilterList(final HttpServletRequest request, final boolean create) {
         return (List<ResourceFilter>) request.getSession(create).getAttribute("savedFilters");
     }
 
-    private void setFilterList(HttpServletRequest request, List<ResourceFilter> filters) {
+    private void setFilterList(final HttpServletRequest request, final List<ResourceFilter> filters) {
         if (filters == null) {
             request.getSession(false).removeAttribute("savedFilters");
         }
@@ -361,7 +361,7 @@ public class ThresholdController extends AbstractController implements Initializ
         }
     }
 
-    private ModelAndView finishThresholdFilterEdit(HttpServletRequest request, Basethresholddef threshold) throws ServletException {
+    private ModelAndView finishThresholdFilterEdit(final HttpServletRequest request, final Basethresholddef threshold) throws ServletException {
 
         boolean isExpression = threshold instanceof Expression;
 
@@ -450,7 +450,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private ModelAndView gotoEditExpression(String expressionIndexString, String groupName) throws ServletException {
+    private ModelAndView gotoEditExpression(final String expressionIndexString, final String groupName) throws ServletException {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         if (expressionIndexString == null) {
@@ -470,13 +470,13 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private EventBuilder createEventBuilder(String uei) {
+    private EventBuilder createEventBuilder(final String uei) {
         EventBuilder ebldr = new EventBuilder(uei, "Web UI");
         ebldr.setHost(InetAddressUtils.getLocalHostName());
         return ebldr;
     }
 
-    private void sendNotifEvent(Event event) throws ServletException {
+    private void sendNotifEvent(final Event event) throws ServletException {
         try {
             Util.createEventProxy().send(event);
         } catch (Throwable e) {
@@ -509,7 +509,7 @@ public class ThresholdController extends AbstractController implements Initializ
 
     }
 
-    private ModelAndView deleteThreshold(String thresholdIndexString, String groupName) throws ServletException {
+    private ModelAndView deleteThreshold(final String thresholdIndexString, final String groupName) throws ServletException {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         if (thresholdIndexString == null) {
@@ -537,7 +537,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return gotoGroupList();
     }
 
-    private ModelAndView deleteExpression(String expressionIndexString, String groupName) throws ServletException {
+    private ModelAndView deleteExpression(final String expressionIndexString, final String groupName) throws ServletException {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         if (expressionIndexString == null) {
@@ -554,7 +554,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private void commonFinishEdit(HttpServletRequest request, Basethresholddef baseDef) {
+    private void commonFinishEdit(final HttpServletRequest request, final Basethresholddef baseDef) {
         String dsLabel = request.getParameter("dsLabel");
         if (dsLabel == null || "".equals(dsLabel)) {
             baseDef.setDsLabel(null); //Must set null in correct circumstances - empty string isn't quite the same thing
@@ -596,7 +596,7 @@ public class ThresholdController extends AbstractController implements Initializ
 
     }
 
-    private void ensureUEIInEventConf(String uei, String typeDesc) {
+    private void ensureUEIInEventConf(final String uei, final String typeDesc) {
         List<org.opennms.netmgt.xml.eventconf.Event> eventsForUEI = m_eventConfDao.getEvents(uei);
         if (eventsForUEI == null || eventsForUEI.size() == 0) {
             //UEI doesn't exist.  Add it
@@ -615,7 +615,7 @@ public class ThresholdController extends AbstractController implements Initializ
         }
     }
 
-    private ModelAndView finishThresholdEdit(HttpServletRequest request) throws ServletException {
+    private ModelAndView finishThresholdEdit(final HttpServletRequest request) throws ServletException {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         String groupName = request.getParameter("groupName");
@@ -663,7 +663,7 @@ public class ThresholdController extends AbstractController implements Initializ
         return modelAndView;
     }
 
-    private ModelAndView finishExpressionEdit(HttpServletRequest request) throws ServletException {
+    private ModelAndView finishExpressionEdit(final HttpServletRequest request) throws ServletException {
         ThresholdingConfigFactory configFactory = ThresholdingConfigFactory.getInstance();
         ModelAndView modelAndView;
         String groupName = request.getParameter("groupName");
@@ -751,7 +751,7 @@ public class ThresholdController extends AbstractController implements Initializ
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
@@ -760,7 +760,7 @@ public class ThresholdController extends AbstractController implements Initializ
      *
      * @param eventConfDao a {@link EventConfDao} object.
      */
-    public void setEventConfDao(EventConfDao eventConfDao) {
+    public final void setEventConfDao(final EventConfDao eventConfDao) {
         m_eventConfDao = eventConfDao;
     }
 

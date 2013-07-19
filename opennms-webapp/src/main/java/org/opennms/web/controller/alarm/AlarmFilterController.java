@@ -85,7 +85,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * </p>
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         String display = request.getParameter("display");
 
@@ -182,7 +182,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @param limit a {@link java.lang.Integer} object.
      */
-    public void setDefaultShortLimit(Integer limit) {
+    public final void setDefaultShortLimit(final Integer limit) {
         m_defaultShortLimit = limit;
     }
 
@@ -195,7 +195,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @param limit a {@link java.lang.Integer} object.
      */
-    public void setDefaultLongLimit(Integer limit) {
+    public final void setDefaultLongLimit(final Integer limit) {
         m_defaultLongLimit = limit;
     }
 
@@ -208,7 +208,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @param successView a {@link java.lang.String} object.
      */
-    public void setSuccessView(String successView) {
+    public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
@@ -217,7 +217,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
-    public void setAlarmRepository(AlarmRepository webAlarmRepository) {
+    public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
@@ -225,7 +225,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         Assert.notNull(m_defaultShortLimit, "property defaultShortLimit must be set to a value greater than 0");
         Assert.isTrue(m_defaultShortLimit > 0, "property defaultShortLimit must be set to a value greater than 0");
         Assert.notNull(m_defaultLongLimit, "property defaultLongLimit must be set to a value greater than 0");
@@ -239,7 +239,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @return a {@link org.opennms.web.alarm.AcknowledgeType} object.
      */
-    public AcknowledgeType getDefaultAcknowledgeType() {
+    public final AcknowledgeType getDefaultAcknowledgeType() {
         return m_defaultAcknowledgeType;
     }
 
@@ -248,7 +248,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @param defaultAcknowledgeType a {@link org.opennms.web.alarm.AcknowledgeType} object.
      */
-    public void setDefaultAcknowledgeType(AcknowledgeType defaultAcknowledgeType) {
+    public final void setDefaultAcknowledgeType(final AcknowledgeType defaultAcknowledgeType) {
         m_defaultAcknowledgeType = defaultAcknowledgeType;
     }
 
@@ -257,7 +257,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @return a {@link org.opennms.web.alarm.SortStyle} object.
      */
-    public SortStyle getDefaultSortStyle() {
+    public final SortStyle getDefaultSortStyle() {
         return m_defaultSortStyle;
     }
 
@@ -266,7 +266,7 @@ public class AlarmFilterController extends AbstractController implements Initial
      *
      * @param defaultSortStyle a {@link org.opennms.web.alarm.SortStyle} object.
      */
-    public void setDefaultSortStyle(SortStyle defaultSortStyle) {
+    public final void setDefaultSortStyle(final SortStyle defaultSortStyle) {
         m_defaultSortStyle = defaultSortStyle;
     }
 

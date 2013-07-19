@@ -104,13 +104,13 @@ public class RefreshMapController extends MapsLoggingController {
 			}
 
 
-			if(map==null){
+			if (map==null) {
 				throw new MapNotFoundException();
-			}else{
+			} else {
 				bw.write(ResponseAssembler.getRefreshResponse(map));
 			}
 		} catch (Throwable e) {
-			LOG.error("Error while refreshing map. Action {}", action,e);
+			LOG.error("Error while refreshing map. Action {}", action, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(action));
 		} finally {
 			bw.close();

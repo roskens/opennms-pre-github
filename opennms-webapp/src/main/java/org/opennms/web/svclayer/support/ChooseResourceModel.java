@@ -51,7 +51,7 @@ public class ChooseResourceModel {
      *
      * @param resource a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
-    public void setResource(OnmsResource resource) {
+    public final void setResource(final OnmsResource resource) {
         m_resource = resource;
     }
 
@@ -60,7 +60,7 @@ public class ChooseResourceModel {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
-    public OnmsResource getResource() {
+    public final OnmsResource getResource() {
         return m_resource;
     }
 
@@ -69,7 +69,7 @@ public class ChooseResourceModel {
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<OnmsResourceType, List<OnmsResource>> getResourceTypes() {
+    public final Map<OnmsResourceType, List<OnmsResource>> getResourceTypes() {
         return m_resourceTypes;
     }
 
@@ -78,7 +78,7 @@ public class ChooseResourceModel {
      *
      * @param resourceTypes a {@link java.util.Map} object.
      */
-    public void setResourceTypes(Map<OnmsResourceType, List<OnmsResource>> resourceTypes) {
+    public final void setResourceTypes(final Map<OnmsResourceType, List<OnmsResource>> resourceTypes) {
         m_resourceTypes = resourceTypes;
     }
 
@@ -87,7 +87,7 @@ public class ChooseResourceModel {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getEndUrl() {
+    public final String getEndUrl() {
         return m_endUrl;
     }
 
@@ -96,7 +96,7 @@ public class ChooseResourceModel {
      *
      * @param endUrl a {@link java.lang.String} object.
      */
-    public void setEndUrl(String endUrl) {
+    public final void setEndUrl(final String endUrl) {
         m_endUrl = endUrl;
     }
 

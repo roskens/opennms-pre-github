@@ -74,7 +74,7 @@ public class AlarmDetailController extends MultiActionController {
      * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository}
      * object.
      */
-    public void setAlarmRepository(AlarmRepository webAlarmRepository) {
+    public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
@@ -83,7 +83,7 @@ public class AlarmDetailController extends MultiActionController {
      *
      * @throws java.lang.Exception if any.
      */
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
     }
 
@@ -91,7 +91,7 @@ public class AlarmDetailController extends MultiActionController {
      * {@inheritDoc}
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         logger.debug("AlarmDetailController handleRequestInternal called");
         return super.handleRequestInternal(request, response);
     }
@@ -101,7 +101,7 @@ public class AlarmDetailController extends MultiActionController {
      *
      * Display alarm detail page
      */
-    public ModelAndView detail(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView detail(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
         List<OnmsAcknowledgment> acknowledgments = null;
@@ -129,7 +129,7 @@ public class AlarmDetailController extends MultiActionController {
         return mv;
     }
 
-    public ModelAndView removeStickyMemo(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView removeStickyMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -146,7 +146,7 @@ public class AlarmDetailController extends MultiActionController {
         }
     }
 
-    public ModelAndView saveStickyMemo(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView saveStickyMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -163,7 +163,7 @@ public class AlarmDetailController extends MultiActionController {
         }
     }
 
-    public ModelAndView removeJournalMemo(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView removeJournalMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 
@@ -180,7 +180,7 @@ public class AlarmDetailController extends MultiActionController {
         }
     }
 
-    public ModelAndView saveJournalMemo(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    public final ModelAndView saveJournalMemo(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse) throws Exception {
         int alarmId;
         String alarmIdString = "";
 

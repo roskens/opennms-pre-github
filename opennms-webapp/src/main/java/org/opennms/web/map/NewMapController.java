@@ -107,7 +107,7 @@ public class NewMapController extends MapsLoggingController {
 						mapWidth, mapHeight);
 			bw.write(ResponseAssembler.getMapResponse(map));
 		} catch (Throwable e) {
-			LOG.error("Error while creating new map for user:{}", request.getRemoteUser(),e);
+			LOG.error("Error while creating new map for user:{}", request.getRemoteUser(), e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.NEWMAP_ACTION));
 		} finally {
 			bw.close();

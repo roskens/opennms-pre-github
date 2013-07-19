@@ -77,15 +77,15 @@ public class OutageAllController extends UrlFilenameViewController {
 	 *
 	 * @param service a {@link org.opennms.web.svclayer.outage.OutageService} object.
 	 */
-	public void setOutageService(OutageService service) {
+	public final void setOutageService(final OutageService service) {
 		m_outageService = service;
 	}
 
 	// public Map referenceData(HttpServletRequest request) throws Exception {
 	/** {@inheritDoc} */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse reply) {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+			final HttpServletResponse reply) {
 
 		Context context = new HttpServletRequestContext(request);
 		LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
@@ -167,7 +167,7 @@ public class OutageAllController extends UrlFilenameViewController {
          *
          * @param successView a {@link java.lang.String} object.
          */
-        public void setSuccessView(String successView) {
+        public final void setSuccessView(final String successView) {
                 m_successView = successView;
         }
 
@@ -176,7 +176,7 @@ public class OutageAllController extends UrlFilenameViewController {
          *
          * @return a {@link java.lang.String} object.
          */
-        public String getSuccessView() {
+        public final String getSuccessView() {
                 return m_successView;
         }
 }

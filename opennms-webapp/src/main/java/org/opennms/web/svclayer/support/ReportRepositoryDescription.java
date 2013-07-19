@@ -40,7 +40,7 @@ public class ReportRepositoryDescription {
      *
      * @return a {@link String} object.
      */
-    public String getId() {
+    public final String getId() {
         return m_id;
     }
     /**
@@ -48,7 +48,7 @@ public class ReportRepositoryDescription {
      *
      * @param id a {@link String} object.
      */
-    public void setId(String id) {
+    public final void setId(final String id) {
         m_id = id;
     }
 
@@ -57,7 +57,7 @@ public class ReportRepositoryDescription {
      *
      * @return a {@link String} object.
      */
-    public String getDisplayName() {
+    public final String getDisplayName() {
         return m_displayName;
     }
     /**
@@ -66,7 +66,7 @@ public class ReportRepositoryDescription {
      * @param displayName a {@link String} object.
      */
 
-    public void setDisplayName(String displayName) {
+    public final void setDisplayName(final String displayName) {
         m_displayName = displayName;
     }
     /**
@@ -74,7 +74,7 @@ public class ReportRepositoryDescription {
      *
      * @return a {@link String} object.
      */
-    public String getDescription() {
+    public final String getDescription() {
         return m_description;
     }
     /**
@@ -82,7 +82,7 @@ public class ReportRepositoryDescription {
      *
      * @param description a {@link String} object.
      */
-    public void setDescription(String description) {
+    public final void setDescription(final String description) {
         m_description = description;
     }
 
@@ -91,7 +91,7 @@ public class ReportRepositoryDescription {
      *
      * @return a {@link String} object.
      */
-    public String getManagementUrl() {
+    public final String getManagementUrl() {
         return m_managementUrl;
     }
     /**
@@ -99,7 +99,7 @@ public class ReportRepositoryDescription {
      *
      * @param managementUrl a {@link String} object.
      */
-    public void setManagementUrl(String managementUrl) {
+    public final void setManagementUrl(final String managementUrl) {
         m_managementUrl = managementUrl;
     }
 }

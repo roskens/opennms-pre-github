@@ -52,7 +52,7 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
     private ForeignSourceRepository m_pendingRepository = new MockForeignSourceRepository();
 
     @Override
-    protected void setUp() throws Exception {
+    protected final void setUp() throws Exception {
         m_testData = m_activeRepository.importResourceRequisition(ConfigurationTestUtils.getSpringResourceForResource(this, "/tec_dump.xml"));
 
         m_provisioningService = new DefaultManualProvisioningService();
@@ -60,14 +60,14 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         m_provisioningService.setPendingForeignSourceRepository(m_pendingRepository);
     }
 
-    public void testGetProvisioningGroupNames() {
+    public final void testGetProvisioningGroupNames() {
         Set<String> expected = new TreeSet<String>();
         expected.add("matt:");
         Collection<String> groupNames = m_provisioningService.getProvisioningGroupNames();
         assertEquals(expected, groupNames);
     }
 
-    public void testGetProvisioningGroup() {
+    public final void testGetProvisioningGroup() {
         String name = "matt:";
 
         Requisition expected = m_testData;
@@ -75,7 +75,7 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(expected, actual);
     }
 
-    public void testAddNewNodeToGroup() {
+    public final void testAddNewNodeToGroup() {
         String groupName = "matt:";
         String nodeLabel = "david";
 
@@ -89,7 +89,7 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(nodeLabel, result.getNodes().get(0).getNodeLabel());
     }
 
-    public void testAddCategoryToNode() {
+    public final void testAddCategoryToNode() {
         String groupName = "matt:";
         String pathToNode = "node[0]";
         String categoryName = "categoryName";
@@ -106,7 +106,7 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(categoryName, newCategory.getName());
     }
 
-    public void testAddInterfaceToNode() {
+    public final void testAddInterfaceToNode() {
         String groupName = "matt:";
         String pathToNode = "node[0]";
         String ipAddr = "10.1.1.1";
@@ -123,7 +123,7 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(ipAddr, newIface.getIpAddr());
     }
 
-    public void testAddServiceToInterface() {
+    public final void testAddServiceToInterface() {
         String groupName = "matt:";
         String pathToInterface = "node[0].interface[0]";
         String serviceName = "SVC";
@@ -139,7 +139,7 @@ public class DefaultManualProvisioningServiceTest extends TestCase {
         assertEquals(serviceName, svc.getServiceName());
     }
 
-    public void testDeletePath() {
+    public final void testDeletePath() {
         String groupName = "matt:";
         String pathToInterface = "node[0].interface[0]";
         String pathToDelete = pathToInterface+".monitoredService[0]";

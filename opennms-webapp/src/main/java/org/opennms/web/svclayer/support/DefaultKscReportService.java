@@ -66,7 +66,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
 
     /** {@inheritDoc} */
     @Override
-    public Report buildDomainReport(String domain) {
+    public final Report buildDomainReport(final String domain) {
         String resourceId = OnmsResource.createResourceId("domain", domain);
         OnmsResource res = getResourceService().getResourceById(resourceId);
         return buildResourceReport(getResourceService(), res, "Domain Report for Domain " + domain);
@@ -74,7 +74,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
 
     /** {@inheritDoc} */
     @Override
-    public Report buildNodeReport(int node_id) {
+    public final Report buildNodeReport(final int node_id) {
         String resourceId = OnmsResource.createResourceId("node", Integer.toString(node_id));
         OnmsResource node = getResourceService().getResourceById(resourceId);
         return buildResourceReport(getResourceService(), node, "Node Report for Node Number " + node_id);
@@ -82,13 +82,13 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
 
     /** {@inheritDoc} */
     @Override
-    public Report buildNodeSourceReport(String nodeSource) {
+    public final Report buildNodeSourceReport(final String nodeSource) {
         String resourceId = OnmsResource.createResourceId("nodeSource", nodeSource);
         OnmsResource res = getResourceService().getResourceById(resourceId);
         return buildResourceReport(getResourceService(), res, "Node Report for Foreign Source:Id " + nodeSource);
     }
 
-    private static Report buildResourceReport(ResourceService service, OnmsResource parentResource, String title) {
+    private static Report buildResourceReport(final ResourceService service, final OnmsResource parentResource, final String title) {
         Report report = new Report();
         report.setTitle(title);
         report.setShow_timespan_button(true);
@@ -112,7 +112,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
         return report;
     }
 
-    private static String getResourceIdForGraph(Graph graph) {
+    private static String getResourceIdForGraph(final Graph graph) {
         Assert.notNull(graph, "graph argument cannot be null");
 
         String resourceId;
@@ -154,13 +154,13 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
 
     /** {@inheritDoc} */
     @Override
-    public OnmsResource getResourceFromGraph(Graph graph) {
+    public final OnmsResource getResourceFromGraph(final Graph graph) {
         return getResourceService().getResourceById(getResourceIdForGraph(graph));
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsResource> getResourcesFromGraphs(List<Graph> graphs) {
+    public final List<OnmsResource> getResourcesFromGraphs(final List<Graph> graphs) {
         Assert.notNull(graphs, "graph argument cannot be null");
         List<OnmsResource> resources = new LinkedList<OnmsResource>();
         HashMap<String, List<OnmsResource>> resourcesMap = new HashMap<String, List<OnmsResource>>();
@@ -219,7 +219,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
 
     /** {@inheritDoc} */
     @Override
-    public Map<String, String> getTimeSpans(boolean includeNone) {
+    public final Map<String, String> getTimeSpans(final boolean includeNone) {
         if (includeNone) {
             return s_timeSpansWithNone;
         } else {
@@ -233,7 +233,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * @return a {@link java.util.Map} object.
      */
     @Override
-    public Map<Integer, String> getReportList() {
+    public final Map<Integer, String> getReportList() {
         return m_kscReportFactory.getReportList();
     }
 
@@ -242,7 +242,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      *
      * @return a {@link org.opennms.web.svclayer.ResourceService} object.
      */
-    public ResourceService getResourceService() {
+    public final ResourceService getResourceService() {
         return m_resourceService;
     }
 
@@ -251,7 +251,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      *
      * @param resourceService a {@link org.opennms.web.svclayer.ResourceService} object.
      */
-    public void setResourceService(ResourceService resourceService) {
+    public final void setResourceService(final ResourceService resourceService) {
         m_resourceService = resourceService;
     }
 
@@ -260,7 +260,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      *
      * @return a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
      */
-    public KSC_PerformanceReportFactory getKscReportFactory() {
+    public final KSC_PerformanceReportFactory getKscReportFactory() {
         return m_kscReportFactory;
     }
 
@@ -269,7 +269,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      *
      * @param kscReportFactory a {@link org.opennms.netmgt.config.KSC_PerformanceReportFactory} object.
      */
-    public void setKscReportFactory(KSC_PerformanceReportFactory kscReportFactory) {
+    public final void setKscReportFactory(final KSC_PerformanceReportFactory kscReportFactory) {
         m_kscReportFactory = kscReportFactory;
     }
 
@@ -279,7 +279,7 @@ public class DefaultKscReportService implements KscReportService, InitializingBe
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.state(m_resourceService != null, "resourceService property has not been set");
         Assert.state(m_kscReportFactory != null, "kscReportFactory property has not been set");
 

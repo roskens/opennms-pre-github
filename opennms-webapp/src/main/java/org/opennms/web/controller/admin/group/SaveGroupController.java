@@ -53,13 +53,13 @@ public class SaveGroupController extends AbstractController implements Initializ
     WebGroupRepository m_groupRepository;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         HttpSession user = request.getSession(false);
 

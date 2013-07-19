@@ -47,7 +47,7 @@ public class GraphDashlet extends Dashlet {
     /**
      * The offset from the current time (rounded by TIME_ROUNDING_INTERVAL) for the start time on graphs
      */
-    private static final int TIME_START_OFFSET = - (7 * 24 * 60 * 60);
+    private static final int TIME_START_OFFSET = -(7 * 24 * 60 * 60);
 
     /**
      * The interval on which we round the start and end times for graph timespans

@@ -76,16 +76,16 @@ public class DistributedStatusHistoryModel {
      * @param errors a {@link java.util.List} object.
      */
     public DistributedStatusHistoryModel(
-            List<OnmsMonitoringLocationDefinition> locations,
-            List<OnmsApplication> applications,
-            List<OnmsLocationMonitor> monitors,
-            List<RelativeTimePeriod> periods,
-            OnmsMonitoringLocationDefinition chosenLocation,
-            OnmsApplication chosenApplication,
-            Collection<OnmsMonitoredService> chosenApplicationMemberServices,
-            OnmsLocationMonitor chosenMonitor,
-            RelativeTimePeriod chosenPeriod,
-            List<String> errors) {
+            final List<OnmsMonitoringLocationDefinition> locations,
+            final List<OnmsApplication> applications,
+            final List<OnmsLocationMonitor> monitors,
+            final List<RelativeTimePeriod> periods,
+            final OnmsMonitoringLocationDefinition chosenLocation,
+            final OnmsApplication chosenApplication,
+            final Collection<OnmsMonitoredService> chosenApplicationMemberServices,
+            final OnmsLocationMonitor chosenMonitor,
+            final RelativeTimePeriod chosenPeriod,
+            final List<String> errors) {
         m_locations = locations;
         m_applications = applications;
         m_monitors = monitors;
@@ -104,7 +104,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsApplication> getApplications() {
+    public final List<OnmsApplication> getApplications() {
         return m_applications;
     }
 
@@ -113,7 +113,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsMonitoringLocationDefinition> getLocations() {
+    public final List<OnmsMonitoringLocationDefinition> getLocations() {
         return m_locations;
     }
 
@@ -122,7 +122,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
-    public OnmsApplication getChosenApplication() {
+    public final OnmsApplication getChosenApplication() {
         return m_chosenApplication;
     }
 
@@ -131,7 +131,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<OnmsMonitoredService> getChosenApplicationMemberServices() {
+    public final Collection<OnmsMonitoredService> getChosenApplicationMemberServices() {
         return m_chosenApplicationMemberServices;
     }
 
@@ -140,7 +140,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition} object.
      */
-    public OnmsMonitoringLocationDefinition getChosenLocation() {
+    public final OnmsMonitoringLocationDefinition getChosenLocation() {
         return m_chosenLocation;
     }
 
@@ -149,7 +149,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<String> getErrors() {
+    public final List<String> getErrors() {
         return m_errors;
     }
 
@@ -158,7 +158,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link org.opennms.web.graph.RelativeTimePeriod} object.
      */
-    public RelativeTimePeriod getChosenPeriod() {
+    public final RelativeTimePeriod getChosenPeriod() {
         return m_chosenPeriod;
     }
 
@@ -167,7 +167,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<RelativeTimePeriod> getPeriods() {
+    public final List<RelativeTimePeriod> getPeriods() {
         return m_periods;
     }
 
@@ -176,7 +176,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link org.opennms.netmgt.model.OnmsLocationMonitor} object.
      */
-    public OnmsLocationMonitor getChosenMonitor() {
+    public final OnmsLocationMonitor getChosenMonitor() {
         return m_chosenMonitor;
     }
 
@@ -185,7 +185,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<OnmsLocationMonitor> getMonitors() {
+    public final List<OnmsLocationMonitor> getMonitors() {
         return m_monitors;
     }
 
@@ -194,7 +194,7 @@ public class DistributedStatusHistoryModel {
      *
      * @return a {@link java.util.SortedSet} object.
      */
-    public SortedSet<ServiceGraph >getServiceGraphs() {
+    public final SortedSet<ServiceGraph >getServiceGraphs() {
         return m_serviceGraphs;
     }
 
@@ -203,7 +203,7 @@ public class DistributedStatusHistoryModel {
      *
      * @param serviceGraphs a {@link java.util.SortedSet} object.
      */
-    public void setServiceGraphs(SortedSet<ServiceGraph> serviceGraphs) {
+    public final void setServiceGraphs(final SortedSet<ServiceGraph> serviceGraphs) {
         m_serviceGraphs = serviceGraphs;
     }
 
@@ -212,27 +212,27 @@ public class DistributedStatusHistoryModel {
         private String m_url;
         private String[] m_errors;
 
-        public ServiceGraph(OnmsMonitoredService service, String url) {
+        public ServiceGraph(final OnmsMonitoredService service, final String url) {
             m_service = service;
             m_url = url;
             m_errors = new String[0];
         }
 
-        public ServiceGraph(OnmsMonitoredService service, String[] errors) {
+        public ServiceGraph(final OnmsMonitoredService service, final String[] errors) {
             m_service = service;
             m_url = null;
             m_errors = errors;
         }
 
-        public String[] getErrors() {
+        public final String[] getErrors() {
             return m_errors;
         }
 
-        public OnmsMonitoredService getService() {
+        public final OnmsMonitoredService getService() {
             return m_service;
         }
 
-        public String getUrl() {
+        public final String getUrl() {
             return m_url;
         }
     }

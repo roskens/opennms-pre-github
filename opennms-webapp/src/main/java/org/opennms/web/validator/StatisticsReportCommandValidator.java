@@ -48,13 +48,13 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
 
     /** {@inheritDoc} */
     @Override
-    public boolean supports(Class<?> clazz) {
+    public final boolean supports(final Class<?> clazz) {
         return clazz.equals(StatisticsReportCommand.class);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void validate(Object obj, Errors errors) {
+    public final void validate(final Object obj, final Errors errors) {
         StatisticsReportCommand cmd = (StatisticsReportCommand) obj;
 
         if (cmd.getId() == null) {
@@ -78,7 +78,7 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         if (m_statisticsReportDao == null) {
             throw new IllegalStateException("statisticsReportDao property not set");
         }
@@ -89,7 +89,7 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
-    public StatisticsReportDao getStatisticsReportDao() {
+    public final StatisticsReportDao getStatisticsReportDao() {
         return m_statisticsReportDao;
     }
 
@@ -98,7 +98,7 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
      *
      * @param statisticsReportDao a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
-    public void setStatisticsReportDao(StatisticsReportDao statisticsReportDao) {
+    public final void setStatisticsReportDao(final StatisticsReportDao statisticsReportDao) {
         m_statisticsReportDao = statisticsReportDao;
     }
 

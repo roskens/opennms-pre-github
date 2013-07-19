@@ -64,7 +64,7 @@ public class DefaultDistributedPollerService implements
      * @return a {@link org.opennms.web.svclayer.LocationMonitorListModel} object.
      */
     @Override
-    public LocationMonitorListModel getLocationMonitorList() {
+    public final LocationMonitorListModel getLocationMonitorList() {
         List<OnmsLocationMonitor> monitors = m_locationMonitorDao.findAll();
 
         Collections.sort(monitors, m_comparator);
@@ -83,7 +83,7 @@ public class DefaultDistributedPollerService implements
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
-    public LocationMonitorDao getLocationMonitorDao() {
+    public final LocationMonitorDao getLocationMonitorDao() {
         return m_locationMonitorDao;
     }
 
@@ -92,7 +92,7 @@ public class DefaultDistributedPollerService implements
      *
      * @param locationMonitorDao a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
-    public void setLocationMonitorDao(LocationMonitorDao locationMonitorDao) {
+    public final void setLocationMonitorDao(final LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
     }
 
@@ -106,7 +106,7 @@ public class DefaultDistributedPollerService implements
     public class OnmsLocationMonitorAreaNameComparator
                 implements Comparator<OnmsLocationMonitor> {
         @Override
-        public int compare(OnmsLocationMonitor o1, OnmsLocationMonitor o2) {
+        public final int compare(final OnmsLocationMonitor o1, final OnmsLocationMonitor o2) {
             OnmsMonitoringLocationDefinition def1 = null;
             OnmsMonitoringLocationDefinition def2 = null;
 
@@ -140,7 +140,7 @@ public class DefaultDistributedPollerService implements
 
     /** {@inheritDoc} */
     @Override
-    public LocationMonitorListModel getLocationMonitorDetails(LocationMonitorIdCommand cmd, BindException errors) {
+    public final LocationMonitorListModel getLocationMonitorDetails(final LocationMonitorIdCommand cmd, final BindException errors) {
         LocationMonitorListModel model = new LocationMonitorListModel();
         model.setErrors(errors);
 
@@ -157,7 +157,7 @@ public class DefaultDistributedPollerService implements
 
     /** {@inheritDoc} */
     @Override
-    public void pauseLocationMonitor(LocationMonitorIdCommand command, BindException errors) {
+    public final void pauseLocationMonitor(final LocationMonitorIdCommand command, final BindException errors) {
         if (command == null) {
             throw new IllegalStateException("command argument cannot be null");
         }
@@ -185,7 +185,7 @@ public class DefaultDistributedPollerService implements
 
     /** {@inheritDoc} */
     @Override
-    public void resumeLocationMonitor(LocationMonitorIdCommand command, BindException errors) {
+    public final void resumeLocationMonitor(final LocationMonitorIdCommand command, final BindException errors) {
         if (command == null) {
             throw new IllegalStateException("command argument cannot be null");
         }
@@ -213,7 +213,7 @@ public class DefaultDistributedPollerService implements
 
     /** {@inheritDoc} */
     @Override
-    public void deleteLocationMonitor(LocationMonitorIdCommand command, BindException errors) {
+    public final void deleteLocationMonitor(final LocationMonitorIdCommand command, final BindException errors) {
         if (command == null) {
             throw new IllegalStateException("command argument cannot be null");
         }
@@ -230,12 +230,12 @@ public class DefaultDistributedPollerService implements
     }
 
     @Override
-    public void pauseAllLocationMonitors() {
+    public final void pauseAllLocationMonitors() {
         m_locationMonitorDao.pauseAll();
     }
 
     @Override
-    public void resumeAllLocationMonitors() {
+    public final void resumeAllLocationMonitors() {
         m_locationMonitorDao.resumeAll();
     }
 

@@ -71,13 +71,13 @@ public class OnlineReportController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected Object formBackingObject(HttpServletRequest req) throws Exception {
+    protected final Object formBackingObject(final HttpServletRequest req) throws Exception {
         return m_reportWrapperService.getParameters(req.getParameter("reportId"));
     }
 
     /** {@inheritDoc} */
     @Override
-    protected Map<String, Object> referenceData(HttpServletRequest req) throws Exception {
+    protected final Map<String, Object> referenceData(final HttpServletRequest req) throws Exception {
         String reportId = req.getParameter("reportId");
         Map<String, Object> data = new HashMap<String, Object>();
         List<ReportFormat> formats = m_reportWrapperService.getFormats(reportId);
@@ -92,8 +92,8 @@ public class OnlineReportController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected void initBinder(HttpServletRequest req,
-            ServletRequestDataBinder binder) throws Exception {
+    protected final void initBinder(final HttpServletRequest req,
+            final ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(
                                     Date.class,
                                     new CustomDateEditor(
@@ -104,7 +104,7 @@ public class OnlineReportController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
+    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
         ReportParameters parameters = (ReportParameters) command;
         if ((parameters.getFormat() == ReportFormat.PDF)
                 || (parameters.getFormat() == ReportFormat.SVG) ) {
@@ -131,7 +131,7 @@ public class OnlineReportController extends SimpleFormController {
      *
      * @param reportWrapperService a {@link org.opennms.reporting.core.svclayer.ReportWrapperService} object.
      */
-    public void setReportWrapperService(ReportWrapperService reportWrapperService) {
+    public final void setReportWrapperService(final ReportWrapperService reportWrapperService) {
         m_reportWrapperService = reportWrapperService;
     }
 
@@ -140,7 +140,7 @@ public class OnlineReportController extends SimpleFormController {
      *
      * @param catConfigService a {@link org.opennms.web.svclayer.CategoryConfigService} object.
      */
-    public void setCategoryConfigService(CategoryConfigService catConfigService) {
+    public final void setCategoryConfigService(final CategoryConfigService catConfigService) {
         m_catConfigService = catConfigService;
     }
 
@@ -149,7 +149,7 @@ public class OnlineReportController extends SimpleFormController {
      *
      * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public void setCategoryDao(CategoryDao categoryDao) {
+    public final void setCategoryDao(final CategoryDao categoryDao) {
     	m_categoryDao = categoryDao;
     }
 }

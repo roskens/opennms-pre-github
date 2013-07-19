@@ -101,13 +101,13 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     @Test
     @Transactional
-    public void testCreateAggregateStatusView() {
+    public final void testCreateAggregateStatusView() {
         m_databasePopulator.populateDatabase();
 
         AggregateStatusView view = m_aggregateService.createAggregateStatusView(null);
@@ -118,14 +118,14 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
 
     @Test
     @Transactional
-    public void testCreateAggregateStatusUsingNodeId() {
+    public final void testCreateAggregateStatusUsingNodeId() {
         m_databasePopulator.populateDatabase();
 
         Collection<AggregateStatus> aggrStati = m_aggregateService.createAggregateStatusesUsingNodeId(m_databasePopulator.getNode1().getId(), "default");
         assertNotNull(aggrStati);
     }
 
-    private void createOutageForNodeInCategory(String categoryName){
+    private void createOutageForNodeInCategory(final String categoryName){
         OnmsCategory category = m_categoryDao.findByName(categoryName);
         Collection<OnmsNode> nodes = m_nodeDao.findByCategory(category);
 
@@ -137,7 +137,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         node.visit(new AbstractEntityVisitor() {
 
             @Override
-            public void visitMonitoredService(OnmsMonitoredService monSvc) {
+            public void visitMonitoredService(final OnmsMonitoredService monSvc) {
                 createOutageForService(monSvc);
             }
 
@@ -146,7 +146,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
 
     }
 
-    protected void createOutageForService(OnmsMonitoredService monSvc) {
+    protected final void createOutageForService(final OnmsMonitoredService monSvc) {
         OnmsEvent outageEvent = new OnmsEvent();
         outageEvent.setEventUei("TEST_UEI");
         outageEvent.setDistPoller(monSvc.getIpInterface().getNode().getDistPoller());
@@ -166,7 +166,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
 
     @Test
     @Transactional
-    public void testCreateAggregateStatusUsingBuilding() {
+    public final void testCreateAggregateStatusUsingBuilding() {
         m_databasePopulator.populateDatabase();
 
         createOutageForNodeInCategory("Routers");

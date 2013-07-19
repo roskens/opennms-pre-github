@@ -37,7 +37,7 @@ public class PaletteBuilderTest extends TestCase {
 	private Palette m_palette;
 	private PaletteCategory m_currentCat;
 
-	public void testBuildingPalatte() {
+	public final void testBuildingPalatte() {
 
 		m_palette = new Palette("paletteLabel");
 		PaletteBuilder m_builder = new PaletteBuilder("paletteLabel");
@@ -69,13 +69,13 @@ public class PaletteBuilderTest extends TestCase {
 		m_currentCat.addItem(PaletteItem.SPACER);
 	}
 
-	private void createCategory(String label) {
+	private void createCategory(final String label) {
 		PaletteCategory cat = new PaletteCategory(label);
 		m_palette.addCategory(cat);
 		m_currentCat = cat;
 	}
 
-	private void createItem(String id, String label) {
+	private void createItem(final String id, final String label) {
 		PaletteItem item = new PaletteItem(id, label);
 		m_currentCat.addItem(item);
 	}

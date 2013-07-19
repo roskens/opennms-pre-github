@@ -92,7 +92,7 @@ public class DeleteMapController extends MapsLoggingController {
 			manager.deleteMap();
 			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.DELETEMAP_ACTION));
 		} catch (Throwable e) {
-			LOG.error("Error deleting map",e);
+			LOG.error("Error deleting map", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.DELETEMAP_ACTION));
 		} finally {
 			bw.close();

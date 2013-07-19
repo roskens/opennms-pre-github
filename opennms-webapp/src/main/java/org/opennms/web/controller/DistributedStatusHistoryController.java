@@ -52,7 +52,7 @@ public class DistributedStatusHistoryController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.DistributedStatusService} object.
      */
-    public DistributedStatusService getDistributedStatusService() {
+    public final DistributedStatusService getDistributedStatusService() {
         return m_distributedStatusService;
     }
 
@@ -61,14 +61,14 @@ public class DistributedStatusHistoryController extends AbstractController {
      *
      * @param statusService a {@link org.opennms.web.svclayer.DistributedStatusService} object.
      */
-    public void setDistributedStatusService(DistributedStatusService statusService) {
+    public final void setDistributedStatusService(final DistributedStatusService statusService) {
         m_distributedStatusService = statusService;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         String locationName = WebSecurityUtils.sanitizeString(request.getParameter("location"));
         String monitorId = WebSecurityUtils.sanitizeString(request.getParameter("monitorId"));
         String applicationName = WebSecurityUtils.sanitizeString(request.getParameter("application"));

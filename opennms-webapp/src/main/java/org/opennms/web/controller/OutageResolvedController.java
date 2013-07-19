@@ -56,15 +56,15 @@ public class OutageResolvedController extends UrlFilenameViewController {
          *
          * @param service a {@link org.opennms.web.svclayer.outage.OutageService} object.
          */
-        public void setOutageService(OutageService service) {
+        public final void setOutageService(final OutageService service) {
                 m_outageService = service;
         }
 
 
         /** {@inheritDoc} */
         @Override
-        protected ModelAndView handleRequestInternal(HttpServletRequest request,
-                HttpServletResponse reply) {
+        protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+                final HttpServletResponse reply) {
 
 
           return new ModelAndView(getSuccessView(),
@@ -79,7 +79,7 @@ public class OutageResolvedController extends UrlFilenameViewController {
          *
          * @param successView a {@link java.lang.String} object.
          */
-        public void setSuccessView(String successView) {
+        public final void setSuccessView(final String successView) {
             m_successView = successView;
         }
 
@@ -88,7 +88,7 @@ public class OutageResolvedController extends UrlFilenameViewController {
          *
          * @return a {@link java.lang.String} object.
          */
-        public String getSuccessView() {
+        public final String getSuccessView() {
             return m_successView;
         }
 

@@ -113,7 +113,7 @@ public class AddNodesController extends MapsLoggingController {
 				actionfound = true;
 				String[] snodeids = elems.split(",");
 				nodeids = new Integer[snodeids.length];
-				for (int i = 0; i<snodeids.length;i++) {
+				for (int i = 0; i<snodeids.length; i++) {
 					nodeids[i] = new Integer(snodeids[i]);
 				}
 			}
@@ -130,7 +130,7 @@ public class AddNodesController extends MapsLoggingController {
     				final List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getIPAddressList(rule);
     				LOG.debug("ips found: {}", nodeIPs.toString());
     				nodeids = new Integer[nodeIPs.size()];
-    				for (int i = 0; i<nodeIPs.size();i++) {
+				for (int i = 0; i<nodeIPs.size(); i++) {
     					final InetAddress nodeIp = nodeIPs.get(i);
     					final List<Integer> ids = NetworkElementFactory.getInstance(getServletContext()).getNodeIdsWithIpLike(InetAddressUtils.str(nodeIp));
     					LOG.debug("Ids by ipaddress {}: {}", nodeIp, ids.toString());
@@ -147,7 +147,7 @@ public class AddNodesController extends MapsLoggingController {
 				actionfound = true;
 				List<OnmsNode> nodes = NetworkElementFactory.getInstance(getServletContext()).getAllNodes();
 				nodeids = new Integer[nodes.size()];
-				for (int i = 0; i<nodes.size();i++) {
+				for (int i = 0; i<nodes.size(); i++) {
 					nodeids[i] = nodes.get(i).getId();
 				}
 			}
@@ -199,7 +199,7 @@ public class AddNodesController extends MapsLoggingController {
 				bw.write(ResponseAssembler.getAddElementResponse(null, velems, map.getLinks()));
 			}
 		} catch (Throwable e) {
-			LOG.error("Error while adding nodes for action: {}", action,e);
+			LOG.error("Error while adding nodes for action: {}", action, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(action));
 		} finally {
 			bw.close();

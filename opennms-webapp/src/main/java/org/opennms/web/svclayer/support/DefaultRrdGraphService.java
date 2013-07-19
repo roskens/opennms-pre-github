@@ -83,10 +83,10 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public InputStream getAdhocGraph(String resourceId, String title,
-            String[] dataSources, String[] aggregateFunctions,
-            String[] colors, String[] dataSourceTitles, String[] styles,
-            long start, long end) {
+    public final InputStream getAdhocGraph(final String resourceId, final String title,
+            final String[] dataSources, final String[] aggregateFunctions,
+            final String[] colors, final String[] dataSourceTitles, final String[] styles,
+            final long start, final long end) {
         Assert.notNull(resourceId, "resourceId argument cannot be null");
         Assert.notNull(title, "title argument cannot be null");
         Assert.notNull(dataSources, "dataSources argument cannot be null");
@@ -114,7 +114,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         return getInputStreamForCommand(command);
     }
 
-    private InputStream getInputStreamForCommand(String command) {
+    private InputStream getInputStreamForCommand(final String command) {
         boolean debug = true;
         File workDir = m_resourceDao.getRrdDirectory(true);
 
@@ -140,7 +140,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * @param file a {@link java.lang.String} object.
      * @return a {@link java.io.InputStream} object.
      */
-    public InputStream returnErrorImage(String file) {
+    public final InputStream returnErrorImage(final String file) {
         InputStream is =  getClass().getResourceAsStream(file);
         if (is == null) {
             throw new ObjectRetrievalFailureException(InputStream.class, file, "Could not find error image for '" + file + "' or could open", null);
@@ -150,7 +150,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public InputStream getPrefabGraph(String resourceId, String report, long start, long end, Integer width, Integer height) {
+    public final InputStream getPrefabGraph(final String resourceId, final String report, final long start, final long end, final Integer width, final Integer height) {
         Assert.notNull(resourceId, "resourceId argument cannot be null");
         Assert.notNull(report, "report argument cannot be null");
         Assert.isTrue(end > start, "end time " + end + " must be after start time" + start);
@@ -193,15 +193,15 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * @param dsStyles an array of {@link java.lang.String} objects.
      * @return a {@link java.lang.String} object.
      */
-    protected String createAdHocCommand(AdhocGraphType adhocType,
-            OnmsResource resource,
-            long start, long end,
-            String graphtitle,
-            String[] dsNames,
-            String[] dsAggregFxns,
-            String[] colors,
-            String[] dsTitles,
-            String[] dsStyles) {
+    protected final String createAdHocCommand(final AdhocGraphType adhocType,
+            final OnmsResource resource,
+            final long start, final long end,
+            final String graphtitle,
+            final String[] dsNames,
+            final String[] dsAggregFxns,
+            final String[] colors,
+            final String[] dsTitles,
+            final String[] dsStyles) {
         String commandPrefix = adhocType.getCommandPrefix();
         String title = adhocType.getTitleTemplate();
         String ds = adhocType.getDataSourceTemplate();
@@ -258,7 +258,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         return MessageFormat.format(buf.toString(), "bogus-rrd", starttime, endtime, graphtitle);
     }
 
-    private static String[] getRrdNames(OnmsResource resource, String[] dsNames) {
+    private static String[] getRrdNames(final OnmsResource resource, final String[] dsNames) {
         String[] rrds = new String[dsNames.length];
 
         Map<String, RrdGraphAttribute> attributes = resource.getRrdGraphAttributes();
@@ -275,7 +275,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         return rrds;
     }
 
-    private static Map<String, String> getTranslationsForAttributes(Map<String, String> attributes, String[] requiredAttributes, String type) {
+    private static Map<String, String> getTranslationsForAttributes(final Map<String, String> attributes, final String[] requiredAttributes, final String type) {
         if (requiredAttributes == null) {
             // XXX Nothing to do; not sure if we need this check
             return new HashMap<String, String>(0);
@@ -307,10 +307,10 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * @return a {@link java.lang.String} object.
      */
 
-    protected String createPrefabCommand(Graph graph,
-            String commandPrefix,
-            File workDir, String reportName,
-            Integer width, Integer height) {
+    protected final String createPrefabCommand(final Graph graph,
+            final String commandPrefix,
+            final File workDir, final String reportName,
+            final Integer width, final Integer height) {
         PrefabGraph prefabGraph = graph.getPrefabGraph();
 
         String[] rrds = getRrdNames(graph.getResource(), graph.getPrefabGraph().getColumns());
@@ -437,7 +437,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         Assert.state(m_resourceDao != null, "resourceDao property has not been set");
         Assert.state(m_graphDao != null, "graphDao property has not been set");
         Assert.state(m_rrdDao != null, "rrdDao property has not been set");
@@ -448,7 +448,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public ResourceDao getResourceDao() {
+    public final ResourceDao getResourceDao() {
         return m_resourceDao;
     }
 
@@ -457,7 +457,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
@@ -466,7 +466,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
-    public GraphDao getGraphDao() {
+    public final GraphDao getGraphDao() {
         return m_graphDao;
     }
 
@@ -475,7 +475,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *
      * @param graphDao a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
-    public void setGraphDao(GraphDao graphDao) {
+    public final void setGraphDao(final GraphDao graphDao) {
         m_graphDao = graphDao;
     }
 
@@ -484,7 +484,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
-    public RrdDao getRrdDao() {
+    public final RrdDao getRrdDao() {
         return m_rrdDao;
     }
 
@@ -493,7 +493,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
      *
      * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
-    public void setRrdDao(RrdDao rrdDao) {
+    public final void setRrdDao(final RrdDao rrdDao) {
         m_rrdDao = rrdDao;
     }
 

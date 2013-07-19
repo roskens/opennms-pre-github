@@ -53,7 +53,7 @@ public class NodeCategoryBoxController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         String nodeIdString = request.getParameter("node");
 
         if (nodeIdString == null) {
@@ -78,7 +78,7 @@ public class NodeCategoryBoxController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
-    public AdminCategoryService getAdminCategoryService() {
+    public final AdminCategoryService getAdminCategoryService() {
         return m_adminCategoryService;
     }
 
@@ -87,7 +87,7 @@ public class NodeCategoryBoxController extends AbstractController {
      *
      * @param adminCategoryService a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
-    public void setAdminCategoryService(AdminCategoryService adminCategoryService) {
+    public final void setAdminCategoryService(final AdminCategoryService adminCategoryService) {
         m_adminCategoryService = adminCategoryService;
     }
 

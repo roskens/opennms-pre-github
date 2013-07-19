@@ -70,7 +70,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public ResourceDao getResourceDao() {
+    public final ResourceDao getResourceDao() {
         return m_resourceDao;
     }
 
@@ -79,7 +79,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
@@ -88,7 +88,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
-    public GraphDao getGraphDao() {
+    public final GraphDao getGraphDao() {
         return m_graphDao;
     }
 
@@ -97,7 +97,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      *
      * @param graphDao a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
-    public void setGraphDao(GraphDao graphDao) {
+    public final void setGraphDao(final GraphDao graphDao) {
         m_graphDao = graphDao;
     }
 
@@ -106,7 +106,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      *
      * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
-    public void setEventProxy(EventProxy eventProxy) {
+    public final void setEventProxy(final EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
 
@@ -116,7 +116,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.state(m_resourceDao != null, "resourceDao property is not set");
         Assert.state(m_graphDao != null, "graphDao property is not set");
         Assert.state(m_eventProxy != null, "eventProxy property is not set");
@@ -128,7 +128,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return a {@link java.io.File} object.
      */
     @Override
-    public File getRrdDirectory() {
+    public final File getRrdDirectory() {
         return m_resourceDao.getRrdDirectory();
     }
 
@@ -138,7 +138,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsResource> findDomainResources() {
+    public final List<OnmsResource> findDomainResources() {
         return m_resourceDao.findDomainResources();
     }
 
@@ -148,7 +148,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsResource> findNodeSourceResources() {
+    public final List<OnmsResource> findNodeSourceResources() {
         return m_resourceDao.findNodeSourceResources();
     }
 
@@ -158,7 +158,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsResource> findNodeResources() {
+    public final List<OnmsResource> findNodeResources() {
         return m_resourceDao.findNodeResources();
     }
 
@@ -168,13 +168,13 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsResource> findTopLevelResources() {
+    public final List<OnmsResource> findTopLevelResources() {
         return m_resourceDao.findTopLevelResources();
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsResource> findNodeChildResources(int nodeId) {
+    public final List<OnmsResource> findNodeChildResources(final int nodeId) {
         List<OnmsResource> resources = new ArrayList<OnmsResource>();
         OnmsResource resource = m_resourceDao.getResourceById(OnmsResource.createResourceId("node", Integer.toString(nodeId)));
         if (resource != null) {
@@ -186,7 +186,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsResource> findDomainChildResources(String domain) {
+    public final List<OnmsResource> findDomainChildResources(final String domain) {
         List<OnmsResource> resources = new ArrayList<OnmsResource>();
         OnmsResource resource = m_resourceDao.getResourceById(OnmsResource.createResourceId("domain", domain));
         if (resource != null) {
@@ -198,7 +198,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsResource> findNodeSourceChildResources(String nodeSource) {
+    public final List<OnmsResource> findNodeSourceChildResources(final String nodeSource) {
         List<OnmsResource> resources = new ArrayList<OnmsResource>();
         OnmsResource resource = m_resourceDao.getResourceById(OnmsResource.createResourceId("nodeSource", nodeSource));
         if (resource != null) {
@@ -216,7 +216,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsResource> findChildResources(OnmsResource resource, String... resourceTypeMatches) {
+    public final List<OnmsResource> findChildResources(final OnmsResource resource, final String... resourceTypeMatches) {
         List<OnmsResource> matchingChildResources = new LinkedList<OnmsResource>();
 
         if (resource != null) {
@@ -242,7 +242,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
         return matchingChildResources;
     }
 
-    private static OnmsResource checkLabelForQuotes(OnmsResource childResource) {
+    private static OnmsResource checkLabelForQuotes(final OnmsResource childResource) {
 
         String lbl  = Util.convertToJsSafeString(childResource.getLabel());
 
@@ -255,25 +255,25 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public OnmsResource getResourceById(String id) {
+    public final OnmsResource getResourceById(final String id) {
         return m_resourceDao.getResourceById(id);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsResource> getResourceListById(String resourceId) {
+    public final List<OnmsResource> getResourceListById(final String resourceId) {
         return m_resourceDao.getResourceListById(resourceId);
     }
 
     /** {@inheritDoc} */
     @Override
-    public PrefabGraph[] findPrefabGraphsForResource(OnmsResource resource) {
+    public final PrefabGraph[] findPrefabGraphsForResource(final OnmsResource resource) {
         return m_graphDao.getPrefabGraphsForResource(resource);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void promoteGraphAttributesForResource(OnmsResource resource) {
+    public final void promoteGraphAttributesForResource(final OnmsResource resource) {
         String baseDir = getRrdDirectory().getAbsolutePath();
         List<String> rrdFiles = new LinkedList<String>();
         for(RrdGraphAttribute attribute : resource.getRrdGraphAttributes().values()) {
@@ -295,7 +295,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @param resourceId a {@link java.lang.String} object.
      */
     @Override
-    public void promoteGraphAttributesForResource(String resourceId) {
+    public final void promoteGraphAttributesForResource(final String resourceId) {
         promoteGraphAttributesForResource(getResourceById(resourceId));
     }
 
@@ -309,7 +309,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
      * @return an array of {@link org.opennms.netmgt.model.PrefabGraph} objects.
      */
     @Override
-    public PrefabGraph[] findPrefabGraphsForChildResources(OnmsResource resource, String... resourceTypeMatches) {
+    public final PrefabGraph[] findPrefabGraphsForChildResources(final OnmsResource resource, final String... resourceTypeMatches) {
         Map<String, PrefabGraph> childGraphs = new LinkedHashMap<String, PrefabGraph>();
         for (OnmsResource r : findChildResources(resource, resourceTypeMatches)) {
             for (PrefabGraph g : findPrefabGraphsForResource(r)) {
@@ -321,7 +321,7 @@ public class DefaultResourceService implements ResourceService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public PrefabGraph getPrefabGraph(String name) {
+    public final PrefabGraph getPrefabGraph(final String name) {
         return m_graphDao.getPrefabGraph(name);
     }
 

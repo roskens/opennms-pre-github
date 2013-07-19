@@ -95,7 +95,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
     @Before
     @Override
-    public void setUp() throws Throwable {
+    public final void setUp() throws Throwable {
         beforeServletStart();
 
         DaoTestConfigBean bean = new DaoTestConfigBean();
@@ -161,7 +161,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     @Override
-    protected void afterServletStart() {
+    protected final void afterServletStart() {
         MockLogAppender.setupLogging();
 
         m_databasePopulator = getBean("databasePopulator", DatabasePopulator.class);
@@ -183,7 +183,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     @Test
-    public void testGetAvailability() {
+    public final void testGetAvailability() {
 
         assertFalse("Don't use existing database", USE_EXISTING);
 
@@ -191,7 +191,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         txTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
+            protected void doInTransactionWithoutResult(final TransactionStatus status) {
                 long startMillis = System.currentTimeMillis() - 12000;
                 long totalTime = new Date().getTime() - startMillis;
                 TimeChunker timeChunker = new TimeChunker((int)totalTime, new Date(System.currentTimeMillis() - 12000), new Date());
@@ -215,7 +215,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
 
     @Test
-    public void testGetLocations() throws Exception {
+    public final void testGetLocations() throws Exception {
         String url = "/remotelocations";
         String responseString = sendRequest(GET, url, 200);
 
@@ -223,7 +223,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     @Test
-    public void testGetParticipants() throws Exception {
+    public final void testGetParticipants() throws Exception {
         String url = "/remotelocations/participants";
         String responseString = sendRequest(GET, url, 200);
 
@@ -231,7 +231,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     @Test
-    public void testRemotePollerAvailability() throws Exception {
+    public final void testRemotePollerAvailability() throws Exception {
         long startTime = System.currentTimeMillis();
         String url = BASE_REST_URL;
         Map<String, String> parameters = new HashMap<String, String>();
@@ -271,7 +271,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     @Test
-    public void testRemotePollerAvailabilitySingleLocation() throws Exception {
+    public final void testRemotePollerAvailabilitySingleLocation() throws Exception {
         long startTime = System.currentTimeMillis();
         String url = BASE_REST_URL + "/RDU";
         Map<String, String> parameters = new HashMap<String, String>();
@@ -291,7 +291,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         System.err.println("total time taken: " + (System.currentTimeMillis() - startTime));
     }
 
-    private void addEndTime(Map<String, String> parameters) {
+    private void addEndTime(final Map<String, String> parameters) {
         if(USE_EXISTING) {
             parameters.put("endTime", "" + 1307101853449L);
         } else {
@@ -299,7 +299,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         }
     }
 
-    private void addStartTime(Map<String, String> parameters) {
+    private void addStartTime(final Map<String, String> parameters) {
         if(USE_EXISTING) {
             parameters.put("startTime", "" + 1306943136422L);
         }else {
@@ -308,7 +308,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
     }
 
     @Test
-    public void testRemotePollerAvailabilityFiveMinutes() throws Exception {
+    public final void testRemotePollerAvailabilityFiveMinutes() throws Exception {
         String url = BASE_REST_URL;
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("startTime", "" + (new Date().getTime() - (86400000 * 2)));
@@ -328,7 +328,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         txTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
+            protected void doInTransactionWithoutResult(final TransactionStatus status) {
 
                 System.err.println("======= Starting createLocationMonitors() ======");
                 OnmsLocationMonitor locMon1 = new OnmsLocationMonitor();
@@ -378,7 +378,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         txTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
+            protected void doInTransactionWithoutResult(final TransactionStatus status) {
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
                 for(OnmsMonitoredService service : services) {
 
@@ -398,7 +398,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         txTemplate.execute(new TransactionCallbackWithoutResult() {
 
             @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
+            protected void doInTransactionWithoutResult(final TransactionStatus status) {
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
                 for(OnmsMonitoredService service : services) {
 

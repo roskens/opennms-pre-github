@@ -52,7 +52,7 @@ public class SuppressOutages {
 	 * @param outageService a {@link org.opennms.web.svclayer.outage.OutageService} object.
 	 * @param suppressor a {@link java.lang.String} object.
 	 */
-	public void suppress(Integer outageid, String time,OutageService outageService, String suppressor) {
+	public final void suppress(final Integer outageid, final String time,final OutageService outageService, final String suppressor) {
 
 		OnmsOutage outage = (OnmsOutage) outageService.load(outageid);
 		GregorianCalendar suppress = new GregorianCalendar();

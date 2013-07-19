@@ -63,13 +63,13 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     private static int m_nodeCounter = 0;
 
     @Override
-    protected void afterServletStart() throws Exception {
+    protected final void afterServletStart() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
         m_nodeCounter = 0;
     }
 
     @Test
-    public void testNode() throws Exception {
+    public final void testNode() throws Exception {
         // Testing POST
         createNode();
         String url = "/nodes";
@@ -131,7 +131,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testPutNode() throws Exception {
+    public final void testPutNode() throws Exception {
         JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -161,7 +161,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testLimits() throws Exception {
+    public final void testLimits() throws Exception {
         JAXBContext context = JAXBContext.newInstance(OnmsNodeList.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
@@ -192,7 +192,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
         int i = 0;
         Set<OnmsNode> sortedNodes = new TreeSet<OnmsNode>(new Comparator<OnmsNode>() {
             @Override
-            public int compare(OnmsNode o1, OnmsNode o2) {
+            public int compare(final OnmsNode o1, final OnmsNode o2) {
                 if (o1 == null && o2 == null) {
                     return 0;
                 } else if (o1 == null) {
@@ -215,7 +215,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testIpInterface() throws Exception {
+    public final void testIpInterface() throws Exception {
         createIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, 200);
@@ -229,7 +229,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testIpInterfaceLimit() throws Exception{
+    public final void testIpInterfaceLimit() throws Exception{
         createTwoIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, parseParamData("limit=1"), 200);
@@ -244,7 +244,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testIpInterfaceByIpAddress() throws Exception{
+    public final void testIpInterfaceByIpAddress() throws Exception{
         createTwoIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, parseParamData("ipAddress=11&comparator=contains"), 200);
@@ -253,7 +253,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testIpInterfaceIpLikeFilter() throws Exception{
+    public final void testIpInterfaceIpLikeFilter() throws Exception{
         createTwoIpInterface();
         String url = "/nodes/1/ipinterfaces";
         String xml = sendRequest(GET, url, parseParamData("ipAddress=*.*.*.11&comparator=iplike"), 200);
@@ -262,7 +262,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testSnmpInterface() throws Exception {
+    public final void testSnmpInterface() throws Exception {
         createSnmpInterface();
         String url = "/nodes/1/snmpinterfaces";
         String xml = sendRequest(GET, url, 200);
@@ -276,7 +276,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testMonitoredService() throws Exception {
+    public final void testMonitoredService() throws Exception {
         createService();
         String url = "/nodes/1/ipinterfaces/10.10.10.10/services";
         String xml = sendRequest(GET, url, 200);
@@ -290,7 +290,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testCategory() throws Exception {
+    public final void testCategory() throws Exception {
         createCategory();
         String url = "/nodes/1/categories";
         String xml = sendRequest(GET, url, 200);
@@ -304,7 +304,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testNodeComboQuery() throws Exception {
+    public final void testNodeComboQuery() throws Exception {
         String url = "/nodes";
         MockHttpServletRequest request = createRequest(GET, url);
         request.addParameter("_dc", "1235761409572");
@@ -315,7 +315,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Test
-    public void testIPhoneNodeSearch() throws Exception {
+    public final void testIPhoneNodeSearch() throws Exception {
         createIpInterface();
         String url = "/nodes";
         String xml = sendRequest(GET, url, parseParamData("comparator=ilike&match=any&label=1%25&ipInterface.ipAddress=1%25&ipInterface.ipHostName=1%25"), 200);
@@ -330,7 +330,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Override
-    protected void createNode() throws Exception {
+    protected final void createNode() throws Exception {
         String node = "<node type=\"A\" label=\"TestMachine" + m_nodeCounter + "\">" +
         "<labelSource>H</labelSource>" +
         "<sysContact>The Owner</sysContact>" +
@@ -345,7 +345,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
     @Override
-    protected void createIpInterface() throws Exception {
+    protected final void createIpInterface() throws Exception {
         createNode();
         String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
         "<ipAddress>10.10.10.10</ipAddress>" +
@@ -355,7 +355,7 @@ public class NodeRestServiceTest extends AbstractSpringJerseyRestTestCase {
     }
 
 
-    protected void createTwoIpInterface() throws Exception {
+    protected final void createTwoIpInterface() throws Exception {
         createNode();
         String ipInterface = "<ipInterface isManaged=\"M\" snmpPrimary=\"P\">" +
         "<ipAddress>10.10.10.10</ipAddress>" +

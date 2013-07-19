@@ -76,12 +76,12 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
     WebEventRepository m_daoEventRepo;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     @Before
-    public void setUp(){
+    public final void setUp(){
         m_dbPopulator.populateDatabase();
 
         OnmsEvent event = new OnmsEvent();
@@ -109,7 +109,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         m_dbPopulator.getEventDao().flush();
     }
 
-    private OnmsDistPoller getDistPoller(String localhost, String localhostIp) {
+    private OnmsDistPoller getDistPoller(final String localhost, final String localhostIp) {
         OnmsDistPoller distPoller = m_dbPopulator.getDistPollerDao().get(localhost);
         if (distPoller == null) {
             distPoller = new OnmsDistPoller(localhost, localhostIp);
@@ -121,7 +121,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingEvents(){
+    public final void testCountMatchingEvents(){
         EventCriteria criteria = new EventCriteria();
         int event = m_daoEventRepo.countMatchingEvents(criteria);
 
@@ -130,7 +130,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingEventsBySeverity(){
+    public final void testCountMatchingEventsBySeverity(){
         EventCriteria criteria = new EventCriteria();
         int[] matchingEvents = m_daoEventRepo.countMatchingEventsBySeverity(criteria);
 
@@ -148,7 +148,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testGetEvent(){
+    public final void testGetEvent(){
 
         Event event = m_daoEventRepo.getEvent(1);
         assertNotNull(event);
@@ -160,7 +160,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testAcknowledgeUnacknowledgeMatchingAlarms(){
+    public final void testAcknowledgeUnacknowledgeMatchingAlarms(){
         m_daoEventRepo.acknowledgeMatchingEvents("TestUser", new Date(), new EventCriteria(new EventIdFilter(1)));
 
         int matchingEventCount = m_daoEventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
@@ -174,7 +174,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testAcknowledgeUnacknowledgeAllAlarms(){
+    public final void testAcknowledgeUnacknowledgeAllAlarms(){
         m_daoEventRepo.acknowledgeAll("TestUser", new Date());
 
         int matchingEventCount = m_daoEventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
@@ -188,7 +188,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingBySeverity(){
+    public final void testCountMatchingBySeverity(){
 
         int[] matchingEventCount = m_daoEventRepo.countMatchingEventsBySeverity(new EventCriteria(new SeverityFilter(3)));
         assertNotNull(matchingEventCount);
@@ -197,7 +197,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testFilterBySeverity() {
+    public final void testFilterBySeverity() {
         NegativeSeverityFilter filter = new NegativeSeverityFilter(OnmsSeverity.NORMAL.getId());
 
         EventCriteria criteria = new EventCriteria(filter);

@@ -85,7 +85,7 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
     WebNotificationRepository m_jdbcNotificationRepo;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
@@ -100,13 +100,13 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
     }
 
     @Before
-    public void setUp(){
+    public final void setUp(){
         m_dbPopulator.populateDatabase();
     }
 
     @Test
     @Transactional
-    public void testAcknowledgeByFilter(){
+    public final void testAcknowledgeByFilter(){
         m_daoNotificationRepo.acknowledgeMatchingNotification("TestUser", new Date(), new NotificationCriteria());
 
         AcknowledgedByFilter filter = new AcknowledgedByFilter("TestUser");
@@ -115,14 +115,14 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testInterfaceFilter(){
+    public final void testInterfaceFilter(){
         InterfaceFilter filter = new InterfaceFilter("192.168.1.1");
         assert1Result(filter);
     }
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testNodeFilter(){
+    public final void testNodeFilter(){
 
         NodeFilter filter = new NodeFilter(1);
         assert1Result(filter);
@@ -131,7 +131,7 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testNotificationIdFilter(){
+    public final void testNotificationIdFilter(){
         NotificationIdFilter filter = new NotificationIdFilter(1);
 
         assert1Result(filter);
@@ -139,7 +139,7 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testNotificationIdListFilter(){
+    public final void testNotificationIdListFilter(){
         int[] ids = {1};
         NotificationIdListFilter filter = new NotificationIdListFilter(ids);
         assert1Result(filter);
@@ -147,7 +147,7 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testResponderFilter(){
+    public final void testResponderFilter(){
         m_daoNotificationRepo.acknowledgeMatchingNotification("TestUser", new Date(), new NotificationCriteria());
 
         ResponderFilter filter = new ResponderFilter("TestUser");
@@ -157,7 +157,7 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
-    public void testServiceFilter(){
+    public final void testServiceFilter(){
         Notification[] notifs = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria());
         System.out.println(notifs[0].getServiceId());
 
@@ -167,12 +167,12 @@ public class WebNotificationRepositoryFilterTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testUserFilter(){
+    public final void testUserFilter(){
         UserFilter filter = new UserFilter("TestUser");
         assert1Result(filter);
     }
 
-    private void assert1Result(Filter filter){
+    private void assert1Result(final Filter filter){
         System.out.println(filter.getSql());
         NotificationCriteria criteria = new NotificationCriteria(filter);
         Notification[] notifs = m_daoNotificationRepo.getMatchingNotifications(criteria);

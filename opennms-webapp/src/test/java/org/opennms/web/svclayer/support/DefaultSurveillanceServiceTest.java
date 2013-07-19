@@ -56,7 +56,7 @@ public class DefaultSurveillanceServiceTest {
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
 
     @Before
-    public void setUp() throws Exception {
+    public final void setUp() throws Exception {
         m_mockUtils = new EasyMockUtils();
 
         m_nodeDao = m_mockUtils.createMock(NodeDao.class);
@@ -65,7 +65,7 @@ public class DefaultSurveillanceServiceTest {
     }
 
     @Test
-    public void testCreateSurveillanceTable() {
+    public final void testCreateSurveillanceTable() {
 
         View view = new View();
         Rows rows = new Rows();
@@ -91,12 +91,12 @@ public class DefaultSurveillanceServiceTest {
 
     }
 
-    public Collection<OnmsCategory> createCategories(List<String> catNames) {
+    public final Collection<OnmsCategory> createCategories(final List<String> catNames) {
         Collection<OnmsCategory> categories = createCategoryNameCollection(catNames);
         return categories;
     }
 
-    private Collection<OnmsCategory> createCategoryNameCollection(List<String> categoryNames) {
+    private Collection<OnmsCategory> createCategoryNameCollection(final List<String> categoryNames) {
 
         Collection<OnmsCategory> categories = new ArrayList<OnmsCategory>();
         for (String catName : categoryNames) {
@@ -106,12 +106,12 @@ public class DefaultSurveillanceServiceTest {
     }
 
     @Test
-    public void testUrlMaker() {
+    public final void testUrlMaker() {
         System.err.println(createNodePageUrl("1 of 10"));
 
     }
 
-    private String createNodePageUrl(String label) {
+    private String createNodePageUrl(final String label) {
         OnmsNode m_foundDownNode = new OnmsNode();
         m_foundDownNode.setId(1);
         if (m_foundDownNode != null) {

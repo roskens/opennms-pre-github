@@ -53,7 +53,7 @@ public class ServiceApplicationBoxController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         Service service = ElementUtil.getServiceByParams(request, getServletContext());
 
         List<OnmsApplication> applications = m_adminApplicationService.findByMonitoredService(service.getId());
@@ -73,7 +73,7 @@ public class ServiceApplicationBoxController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.AdminApplicationService} object.
      */
-    public AdminApplicationService getAdminApplicationService() {
+    public final AdminApplicationService getAdminApplicationService() {
         return m_adminApplicationService;
     }
 
@@ -82,7 +82,7 @@ public class ServiceApplicationBoxController extends AbstractController {
      *
      * @param adminApplicationService a {@link org.opennms.web.svclayer.AdminApplicationService} object.
      */
-    public void setAdminApplicationService(AdminApplicationService adminApplicationService) {
+    public final void setAdminApplicationService(final AdminApplicationService adminApplicationService) {
         m_adminApplicationService = adminApplicationService;
     }
 

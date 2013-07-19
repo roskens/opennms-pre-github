@@ -60,14 +60,14 @@ import org.springframework.mock.web.MockHttpServletRequest;
  */
 public class RrdGraphControllerTest {
 
-	private final static int ONE_HOUR_IN_MILLIS=60*60*1000;
-	private final static int ONE_DAY_IN_MILLIS=24 * ONE_HOUR_IN_MILLIS;
+	private static final int ONE_HOUR_IN_MILLIS=60*60*1000;
+	private static final int ONE_DAY_IN_MILLIS=24 * ONE_HOUR_IN_MILLIS;
 
 	private RrdGraphController m_controller;
 	private MockHttpServletRequest m_request;
 
 	@Before
-	public void setUp() throws InterruptedException {
+    public final void setUp() throws InterruptedException {
 		m_controller = new RrdGraphController();
 		m_request = new MockHttpServletRequest();
 
@@ -90,7 +90,7 @@ public class RrdGraphControllerTest {
 	 * Set all fields smaller than an hour to 0.
 	 * @param now
 	 */
-	private void setSubHourFieldsZero(Calendar cal) {
+	private void setSubHourFieldsZero(final Calendar cal) {
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
@@ -100,7 +100,7 @@ public class RrdGraphControllerTest {
 	 * Set all fields smaller than a day to 0 (rounding down to midnight effectively)
 	 * @param now
 	 */
-	private void setSubDayFieldsZero(Calendar cal) {
+	private void setSubDayFieldsZero(final Calendar cal) {
 		setSubHourFieldsZero(cal);
 		cal.set(Calendar.HOUR_OF_DAY,0);
 	}
@@ -110,7 +110,7 @@ public class RrdGraphControllerTest {
 	 * most basic it can be.
 	 */
 	@Test
-	public void testExplicitTimeSpec() {
+    public final void testExplicitTimeSpec() {
 		m_request.addParameter("start", "123456789");
 		m_request.addParameter("end", "123456790");
 		long[] result = m_controller.parseTimes(m_request);
@@ -130,7 +130,7 @@ public class RrdGraphControllerTest {
 	 * @param epsilon - the maximum difference
 	 * @param desc - some description of the time.  Usually "start" or "end", could be others
 	 */
-	private void assertTimestampsEqualWithEpsilon(long expected, long actual, int epsilon, String desc) {
+	private void assertTimestampsEqualWithEpsilon(final long expected, final long actual, final int epsilon, final String desc) {
 		assertTrue("Expecting the calculated "+desc+" time " + actual + " ("+ new Date(actual).toString() +")"
 				+ " to be within "+epsilon+"ms of " + expected +" ("+new Date(expected)+")",
 				Math.abs(actual - expected) < epsilon);
@@ -141,7 +141,7 @@ public class RrdGraphControllerTest {
 	 * RRDTool, should give us 1 day ago until now
 	 */
 	@Test
-	public void testDefaultStartEndTimeSpec() {
+    public final void testDefaultStartEndTimeSpec() {
 		long now = new Date().getTime();
 		long oneDayAgo = now - (24 * 60 * 60 * 1000);
 		long[] result = m_controller.parseTimes(m_request);
@@ -161,7 +161,7 @@ public class RrdGraphControllerTest {
 	 * Test the defaults if someone managed to pass through an empty string.  A bit paranoid, but hey, why not
 	 */
 	@Test
-	public void testEmptyStringStartEndTimeSpec() {
+    public final void testEmptyStringStartEndTimeSpec() {
 		long now = new Date().getTime();
 		long oneDayAgo = now - (24 * 60 * 60 * 1000);
 
@@ -182,7 +182,7 @@ public class RrdGraphControllerTest {
 	 * default (1 day ago -> now)
 	 */
 	@Test
-	public void testNowEnd() {
+    public final void testNowEnd() {
 		long now = new Date().getTime();
 		long oneDayAgo = now - (24 * 60 * 60 * 1000);
 
@@ -201,7 +201,7 @@ public class RrdGraphControllerTest {
 	 * Test that we can use "n" for "now" in the end parameter.
 	 */
 	@Test
-	public void testAbbreviatedNowForEnd() {
+    public final void testAbbreviatedNowForEnd() {
 		long now = new Date().getTime();
 		long oneDayAgo = now - (24 * 60 * 60 * 1000);
 
@@ -221,7 +221,7 @@ public class RrdGraphControllerTest {
 	 * both start and end, using the 24hour clock
 	 */
 	@Test
-	public void test24HourClockHourTodayStartEndTime() {
+    public final void test24HourClockHourTodayStartEndTime() {
 		Calendar now = new GregorianCalendar();
 		now.set(Calendar.HOUR_OF_DAY, 8); //8am
 		now.set(Calendar.MINUTE, 0);
@@ -317,10 +317,10 @@ public class RrdGraphControllerTest {
 	 *
 	 */
 	@Test
-	public void testSimpleNegativeOffset() {
+    public final void testSimpleNegativeOffset() {
 		Calendar now = new GregorianCalendar();
 		Date endDate = now.getTime();
-		Date startDate = new Date(now.getTimeInMillis()-(60 * 60 * 1000));
+		Date startDate = new Date(now.getTimeInMillis() - (60 * 60 * 1000));
 
 		m_request.addParameter("start", "-1h");
 
@@ -336,7 +336,7 @@ public class RrdGraphControllerTest {
 	 * Test a start relative to an end that isn't now
 	 */
 	@Test
-	public void testRelativeStartOffsetEnd() {
+    public final void testRelativeStartOffsetEnd() {
 		Calendar now = new GregorianCalendar();
 		Date endDate = new Date(now.getTimeInMillis()-ONE_HOUR_IN_MILLIS);
 		Date startDate = new Date(now.getTimeInMillis()-(3*ONE_HOUR_IN_MILLIS));
@@ -357,7 +357,7 @@ public class RrdGraphControllerTest {
 	 * Test a start relative to an end that isn't now
 	 */
 	@Test
-	public void testRelativeStartOffsetEndAbbreviatedEnd() {
+    public final void testRelativeStartOffsetEndAbbreviatedEnd() {
 		Calendar now = new GregorianCalendar();
 		Date endDate = new Date(now.getTimeInMillis()-ONE_HOUR_IN_MILLIS);
 		Date startDate = new Date(now.getTimeInMillis()-(3*ONE_HOUR_IN_MILLIS));
@@ -378,7 +378,7 @@ public class RrdGraphControllerTest {
 	 * Test an end relative to a start that isn't now
 	 */
 	@Test
-	public void testRelativeEndOffsetStart() {
+    public final void testRelativeEndOffsetStart() {
 		Calendar now = new GregorianCalendar();
 		Date endDate = new Date(now.getTimeInMillis()-(2*ONE_HOUR_IN_MILLIS));
 		Date startDate = new Date(now.getTimeInMillis()-(4*ONE_HOUR_IN_MILLIS));
@@ -398,7 +398,7 @@ public class RrdGraphControllerTest {
 	 * Test an end relative to a start that isn't now - abbreviated start (s)
 	 */
 	@Test
-	public void testRelativeEndOffsetStartAbbreviatedStart() {
+    public final void testRelativeEndOffsetStartAbbreviatedStart() {
 		Calendar now = new GregorianCalendar();
 		Date endDate = new Date(now.getTimeInMillis()-(2*ONE_HOUR_IN_MILLIS));
 		Date startDate = new Date(now.getTimeInMillis()-(4*ONE_HOUR_IN_MILLIS));
@@ -418,7 +418,7 @@ public class RrdGraphControllerTest {
 	 * Test hour:min, and hour.min syntaxes
 	 */
 	@Test
-	public void testHourMinuteSyntax() {
+    public final void testHourMinuteSyntax() {
 		Calendar now = new GregorianCalendar();
 		setSubHourFieldsZero(now);
 		now.set(Calendar.HOUR_OF_DAY, 8);
@@ -447,7 +447,7 @@ public class RrdGraphControllerTest {
 	 * Test a plain date specified as DD.MM.YYYY
 	 */
 	@Test
-	public void testDateWithDots() {
+    public final void testDateWithDots() {
 		//Remember: 0-based month
 		Calendar cal = new GregorianCalendar(1980,0,1);
 		Date startDate = cal.getTime();
@@ -471,7 +471,7 @@ public class RrdGraphControllerTest {
 	 * Test a plain date specified as DD/MM/YYYY
 	 */
 	@Test
-	public void testDateWithSlashes() {
+    public final void testDateWithSlashes() {
 		//Remember: 0-based month
 		Calendar cal = new GregorianCalendar(1980,0,1);
 		Date startDate = cal.getTime();
@@ -495,7 +495,7 @@ public class RrdGraphControllerTest {
 	 * Test a plain date specified as YYYYMMDD
 	 */
 	@Test
-	public void testDateWithNoDelimiters() {
+    public final void testDateWithNoDelimiters() {
 		//Remember: 0-based month
 		Calendar cal = new GregorianCalendar(1980,0,1);
 		Date startDate = cal.getTime();
@@ -523,7 +523,7 @@ public class RrdGraphControllerTest {
 	 * If we find actual problems with specific months, we can add more tests
 	 */
 	@Test
-	public void testNamedMonthsNoYear() {
+    public final void testNamedMonthsNoYear() {
 		//Remember: 0-based month -- 2 = March
 		Calendar cal = new GregorianCalendar();
 		cal.set(Calendar.MONTH, 2);
@@ -557,7 +557,7 @@ public class RrdGraphControllerTest {
 	 * If we find actual problems with specific months, we can add more tests
 	 */
 	@Test
-	public void testNamedMonthsTwoDigitYear() {
+    public final void testNamedMonthsTwoDigitYear() {
 		//Remember: 0-based month -- 1 = Feb
 		Calendar cal = new GregorianCalendar(1980,1,2);
 		Date startDate = cal.getTime();
@@ -585,7 +585,7 @@ public class RrdGraphControllerTest {
 	 * If we find actual problems with specific months, we can add more tests
 	 */
 	@Test
-	public void testNamedMonthsFourDigitYear() {
+    public final void testNamedMonthsFourDigitYear() {
 		//Remember: 0-based month -- 3 = April
 		Calendar cal = new GregorianCalendar(1980,3,6);
 		Date startDate = cal.getTime();
@@ -611,7 +611,7 @@ public class RrdGraphControllerTest {
 	 *
 	 */
 	@Test
-	public void testDayOfWeekTimeSpec() {
+    public final void testDayOfWeekTimeSpec() {
 		Calendar cal = new GregorianCalendar();
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
 		cal.set(Calendar.HOUR_OF_DAY, 12);
@@ -640,7 +640,7 @@ public class RrdGraphControllerTest {
 	 * Test some basic time offsets
 	 */
 	@Test
-	public void testTimeOffsets1() {
+    public final void testTimeOffsets1() {
 		Calendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(cal.getTimeInMillis()-60000);
 		Date startDate = cal.getTime();
@@ -666,7 +666,7 @@ public class RrdGraphControllerTest {
 	 * Maybe (Depends how the parsing code constructs it's dates)
 	 */
 	@Test
-	public void testTimeOffsets2() {
+    public final void testTimeOffsets2() {
 		Calendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(cal.getTimeInMillis()-ONE_DAY_IN_MILLIS);
 		Date startDate = cal.getTime();
@@ -690,7 +690,7 @@ public class RrdGraphControllerTest {
 	 * Test some basic time offsets
 	 */
 	@Test
-	public void testTimeOffsets3() {
+    public final void testTimeOffsets3() {
 		Calendar cal = new GregorianCalendar();
 		cal.set(Calendar.MONTH, 6);
 		cal.set(Calendar.DAY_OF_MONTH, 12);
@@ -718,7 +718,7 @@ public class RrdGraphControllerTest {
 	 * Test another basic time offset
 	 */
 	@Test
-	public void testTimeOffsets4() {
+    public final void testTimeOffsets4() {
 		//Month 6 = July (0 offset)
 		Calendar cal = new GregorianCalendar(1980, 6, 12);
 		Date endDate = cal.getTime();
@@ -740,7 +740,7 @@ public class RrdGraphControllerTest {
 	 * Test some complex offset examples (per the rrdfetch man page)
 	 */
 	@Test
-	public void complexTest1() {
+    public final void complexTest1() {
 
 		Calendar cal = new GregorianCalendar();
 		cal.set(Calendar.HOUR_OF_DAY, 9);
@@ -761,7 +761,7 @@ public class RrdGraphControllerTest {
 	 * Test some more complex offset examples
 	 */
 	@Test
-	public void complexTest2() {
+    public final void complexTest2() {
 
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.HOUR, -5);
@@ -780,7 +780,7 @@ public class RrdGraphControllerTest {
 	 * Test some more complex offset examples
 	 */
 	@Test
-	public void complexTest3() {
+    public final void complexTest3() {
 
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.MONTH, -5);

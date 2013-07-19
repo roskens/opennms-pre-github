@@ -58,7 +58,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class UpdateGroupController extends AbstractController implements InitializingBean{
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         HttpSession userSession = request.getSession(false);
 
         if (userSession != null) {
@@ -116,7 +116,7 @@ public class UpdateGroupController extends AbstractController implements Initial
      * @return
      */
     @SuppressWarnings("unused")
-    private String[] removeAll(String[] a,  String[] b) {
+    private String[] removeAll(final String[] a,  final String[] b) {
         ArrayList<String> list = new ArrayList<String>();
         list.addAll(Arrays.asList(a));
         list.removeAll(Arrays.asList(b));

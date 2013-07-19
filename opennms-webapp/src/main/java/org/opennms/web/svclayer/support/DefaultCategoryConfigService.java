@@ -53,7 +53,7 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public Collection<Category> getCategories() {
+    public final Collection<Category> getCategories() {
         return m_categoryConfigDao.findAll();
     }
 
@@ -63,7 +63,7 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<String> getCategoriesList() {
+    public final List<String> getCategoriesList() {
         List<String> categories = new ArrayList<String>();
         for(Category cat : m_categoryConfigDao.findAll()) {
             categories.add(cat.getLabel());
@@ -77,7 +77,7 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
      *
      * @return a {@link org.opennms.web.svclayer.dao.CategoryConfigDao} object.
      */
-    public CategoryConfigDao getCategoryConfigDao() {
+    public final CategoryConfigDao getCategoryConfigDao() {
         return m_categoryConfigDao;
     }
 
@@ -86,7 +86,7 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
      *
      * @param categoryConfigDao a {@link org.opennms.web.svclayer.dao.CategoryConfigDao} object.
      */
-    public void setCategoryConfigDao(CategoryConfigDao categoryConfigDao) {
+    public final void setCategoryConfigDao(final CategoryConfigDao categoryConfigDao) {
         m_categoryConfigDao = categoryConfigDao;
     }
 

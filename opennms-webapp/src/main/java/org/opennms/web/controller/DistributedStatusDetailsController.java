@@ -52,7 +52,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
+    protected final ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
         DistributedStatusDetailsCommand cmd = (DistributedStatusDetailsCommand) command;
         SimpleWebTable table = m_distributedStatusService.createStatusTable(cmd, errors);
         return new ModelAndView(getSuccessView(), "webTable", table);
@@ -63,7 +63,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      *
      * @return a {@link org.opennms.web.svclayer.DistributedStatusService} object.
      */
-    public DistributedStatusService getDistributedStatusService() {
+    public final DistributedStatusService getDistributedStatusService() {
         return m_distributedStatusService;
     }
 
@@ -72,7 +72,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      *
      * @param statusService a {@link org.opennms.web.svclayer.DistributedStatusService} object.
      */
-    public void setDistributedStatusService(DistributedStatusService statusService) {
+    public final void setDistributedStatusService(final DistributedStatusService statusService) {
         m_distributedStatusService = statusService;
     }
 
@@ -81,7 +81,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSuccessView() {
+    public final String getSuccessView() {
         return m_successView;
     }
 
@@ -90,7 +90,7 @@ public class DistributedStatusDetailsController extends AbstractCommandControlle
      *
      * @param successView a {@link java.lang.String} object.
      */
-    public void setSuccessView(String successView) {
+    public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 }

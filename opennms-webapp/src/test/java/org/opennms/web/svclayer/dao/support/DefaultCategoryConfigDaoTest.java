@@ -54,7 +54,7 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
 	/**
 	 * @param arg0
 	 */
-	public DefaultCategoryConfigDaoTest(String arg0) {
+	public DefaultCategoryConfigDaoTest(final String arg0) {
 		super(arg0);
 	}
 
@@ -62,7 +62,7 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
 	 * @see junit.framework.TestCase#setUp()
 	 */
         @Override
-	protected void setUp() throws Exception {
+    protected final void setUp() throws Exception {
 		super.setUp();
 		MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
         MockLogAppender.setupLogging();
@@ -72,7 +72,7 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
 	}
 
 	   @Override
-	    public void runTest() throws Throwable {
+        public final void runTest() throws Throwable {
 	        super.runTest();
 	        MockLogAppender.assertNoWarningsOrGreater();
 	        MockUtil.println("------------ End Test "+getName()+" --------------------------");
@@ -85,7 +85,7 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
 	/**
 	 * Test method for {@link org.opennms.web.svclayer.dao.support.DefaultCategoryConfigDao#findAll()}.
 	 */
-	public void testFindAll() {
+	public final void testFindAll() {
 		Collection<Category> catColl = m_dao.findAll();
 		assertFalse(catColl.isEmpty());
 		assertEquals(catColl.size(),2);

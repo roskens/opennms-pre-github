@@ -87,14 +87,14 @@ public class LoadLabelMapController extends MapsLoggingController {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 
 
-		try{
+		try {
 	        String user = request.getRemoteUser();
 
             LOG.debug("Loading Label Map for user:{}", user);
 
 			bw.write(ResponseAssembler.getLoadLabelMapResponse(manager.getNodeLabelToMaps(user)));
 		} catch (Throwable e) {
-			LOG.error("Error in map's startup",e);
+			LOG.error("Error in map's startup", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADLABELMAP_ACTION));
 		} finally {
 			bw.close();

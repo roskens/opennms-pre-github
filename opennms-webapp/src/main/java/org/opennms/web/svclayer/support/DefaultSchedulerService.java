@@ -82,7 +82,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
 
         LOG.debug("Adding job {} to scheduler", m_jobDetail.getName());
         m_scheduler.addJob(m_jobDetail, true);
@@ -95,7 +95,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<TriggerDescription> getTriggerDescriptions() {
+    public final List<TriggerDescription> getTriggerDescriptions() {
 
         List<TriggerDescription> triggerDescriptions = new ArrayList<TriggerDescription>();
 
@@ -120,7 +120,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
 
     /** {@inheritDoc} */
     @Override
-    public Boolean exists(String triggerName) {
+    public final Boolean exists(final String triggerName) {
 
         Boolean found = false;
 
@@ -146,7 +146,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      */
     /** {@inheritDoc} */
     @Override
-    public void removeTrigger(String triggerName) {
+    public final void removeTrigger(final String triggerName) {
         try {
             m_scheduler.unscheduleJob(triggerName, m_triggerGroup);
         } catch (SchedulerException e) {
@@ -161,7 +161,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      * @param triggerNames an array of {@link java.lang.String} objects.
      */
     @Override
-    public void removeTriggers(String[] triggerNames) {
+    public final void removeTriggers(final String[] triggerNames) {
         for (String triggerName : triggerNames) {
             removeTrigger(triggerName);
         }
@@ -177,9 +177,9 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      */
     /** {@inheritDoc} */
     @Override
-    public String addCronTrigger(String id, ReportParameters criteria,
-            DeliveryOptions deliveryOptions,
-            String cronExpression, RequestContext context) {
+    public final String addCronTrigger(final String id, final ReportParameters criteria,
+            final DeliveryOptions deliveryOptions,
+            final String cronExpression, final RequestContext context) {
 
         CronTrigger cronTrigger = null;
 
@@ -245,8 +245,8 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      */
     /** {@inheritDoc} */
     @Override
-    public String execute(String id, ReportParameters criteria,
-            DeliveryOptions deliveryOptions, RequestContext context) {
+    public final String execute(final String id, final ReportParameters criteria,
+            final DeliveryOptions deliveryOptions, final RequestContext context) {
 
         try {
             if (m_reportWrapperService.validate(criteria,id) == false ) {
@@ -285,7 +285,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      *
      * @param scheduler a {@link org.quartz.Scheduler} object.
      */
-    public void setScheduler(Scheduler scheduler) {
+    public final void setScheduler(final Scheduler scheduler) {
         m_scheduler = scheduler;
     }
 
@@ -294,7 +294,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      *
      * @param reportJob a {@link org.quartz.JobDetail} object.
      */
-    public void setJobDetail(JobDetail reportJob) {
+    public final void setJobDetail(final JobDetail reportJob) {
         m_jobDetail = reportJob;
     }
 
@@ -303,7 +303,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      *
      * @param triggerGroup a {@link java.lang.String} object.
      */
-    public void setTriggerGroup(String triggerGroup) {
+    public final void setTriggerGroup(final String triggerGroup) {
         m_triggerGroup = triggerGroup;
     }
 
@@ -312,7 +312,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
      *
      * @param reportWrapperService a {@link org.opennms.reporting.core.svclayer.ReportWrapperService} object.
      */
-    public void setReportWrapperService(ReportWrapperService reportWrapperService) {
+    public final void setReportWrapperService(final ReportWrapperService reportWrapperService) {
         m_reportWrapperService = reportWrapperService;
     }
 

@@ -52,23 +52,23 @@ public class StatisticsReportModel {
         private OnmsResource m_resource;
 
         @Override
-        public int compareTo(Datum o) {
+        public final int compareTo(final Datum o) {
             return m_value.compareTo(o.getValue());
         }
 
-        public OnmsResource getResource() {
+        public final OnmsResource getResource() {
             return m_resource;
         }
 
-        public OnmsResource getPrettyResource() {
+        public final OnmsResource getPrettyResource() {
         	return new PrettyOnmsResource(m_resource);
         }
 
-        public void setResource(OnmsResource resource) {
+        public final void setResource(final OnmsResource resource) {
             m_resource = resource;
         }
 
-        public String getResourceParentLabel() {
+        public final String getResourceParentLabel() {
             Assert.notNull(m_resource, "the resource must be set before calling this method");
 
             StringBuffer buffer = new StringBuffer();
@@ -88,7 +88,7 @@ public class StatisticsReportModel {
             return buffer.toString();
         }
 
-        public List<OnmsResource> getResourceParentsReversed() {
+        public final List<OnmsResource> getResourceParentsReversed() {
             if (m_resource == null) {
                 return new ArrayList<OnmsResource>(0);
             }
@@ -104,7 +104,7 @@ public class StatisticsReportModel {
             return resources;
         }
 
-        public List<OnmsResource> getPrettyResourceParentsReversed() {
+        public final List<OnmsResource> getPrettyResourceParentsReversed() {
             if (m_resource == null) {
                 return new ArrayList<OnmsResource>(0);
             }
@@ -120,11 +120,11 @@ public class StatisticsReportModel {
             return resources;
         }
 
-        public Double getValue() {
+        public final Double getValue() {
             return m_value;
         }
 
-        public void setValue(Double value) {
+        public final void setValue(final Double value) {
             m_value = value;
         }
     }
@@ -138,7 +138,7 @@ public class StatisticsReportModel {
      *
      * @return a {@link java.util.SortedSet} object.
      */
-    public SortedSet<Datum> getData() {
+    public final SortedSet<Datum> getData() {
         return m_data;
     }
     /**
@@ -146,7 +146,7 @@ public class StatisticsReportModel {
      *
      * @param data a {@link java.util.SortedSet} object.
      */
-    public void setData(SortedSet<StatisticsReportModel.Datum> data) {
+    public final void setData(final SortedSet<StatisticsReportModel.Datum> data) {
         m_data = data;
     }
     /**
@@ -154,7 +154,7 @@ public class StatisticsReportModel {
      *
      * @param datum a {@link org.opennms.web.svclayer.support.StatisticsReportModel.Datum} object.
      */
-    public void addData(Datum datum) {
+    public final void addData(final Datum datum) {
         m_data.add(datum);
     }
     /**
@@ -162,7 +162,7 @@ public class StatisticsReportModel {
      *
      * @return a {@link org.springframework.validation.BindException} object.
      */
-    public BindException getErrors() {
+    public final BindException getErrors() {
         return m_errors;
     }
     /**
@@ -170,7 +170,7 @@ public class StatisticsReportModel {
      *
      * @param errors a {@link org.springframework.validation.BindException} object.
      */
-    public void setErrors(BindException errors) {
+    public final void setErrors(final BindException errors) {
         m_errors = errors;
     }
     /**
@@ -178,7 +178,7 @@ public class StatisticsReportModel {
      *
      * @return a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
-    public StatisticsReport getReport() {
+    public final StatisticsReport getReport() {
         return m_report;
     }
     /**
@@ -186,7 +186,7 @@ public class StatisticsReportModel {
      *
      * @param report a {@link org.opennms.netmgt.model.StatisticsReport} object.
      */
-    public void setReport(StatisticsReport report) {
+    public final void setReport(final StatisticsReport report) {
         m_report = report;
     }
 

@@ -135,7 +135,7 @@ public class SearchMapsController extends MapsLoggingController {
             int y = 0;
             int s = 1;
 
-			for (int i = 0; i<smapids.length;i++) {
+			for (int i = 0; i<smapids.length; i++) {
 
 			    if (x < n) {
 			        x++;
@@ -149,17 +149,17 @@ public class SearchMapsController extends MapsLoggingController {
                         s++;
        		        }
 			    }
-			    velems.add(manager.newElement(MapsConstants.SEARCH_MAP, new Integer(smapids[i]), MapsConstants.MAP_TYPE, null, x*4*d+s*2*d, y*2*d+d));
+			    velems.add(manager.newElement(MapsConstants.SEARCH_MAP, new Integer(smapids[i]), MapsConstants.MAP_TYPE, null, x * 4 * d+s * 2 * d, y * 2 * d+d));
 			} // end for
 
 			//get map
             VMap map = manager.searchMap(request
                                          .getRemoteUser(), request.getRemoteUser(),
-                                         mapWidth, mapHeight,velems);
+                                         mapWidth, mapHeight, velems);
             LOG.debug("Got search map from manager {}", map);
 			bw.write(ResponseAssembler.getMapResponse(map));
 		} catch (Throwable e) {
-			LOG.error("Error while adding Maps: ",e);
+			LOG.error("Error while adding Maps", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SEARCHMAPS_ACTION));
 		} finally {
 			bw.close();

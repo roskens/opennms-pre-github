@@ -92,7 +92,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     }
 
     @Override
-    public GraphResults findResults(String[] resourceIds, String[] reports, long start, long end, String relativeTime) {
+    public final GraphResults findResults(final String[] resourceIds, final String[] reports, final long start, final long end, final String relativeTime) {
         if (resourceIds == null) {
             throw new IllegalArgumentException("resourceIds argument cannot be null");
         }
@@ -161,7 +161,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * @return an array of {@link java.lang.String} objects or null if the
      * string is unparsable.
      */
-    public static String[] parseResourceId(String resourceId) {
+    public static String[] parseResourceId(final String resourceId) {
         try {
             String parent = resourceId.substring(0, resourceId.indexOf(']') + 1);
             String child = resourceId.substring(resourceId.indexOf(']') + 2);
@@ -184,7 +184,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * @return a {@link org.opennms.web.graph.GraphResults.GraphResultSet}
      * object.
      */
-    private GraphResultSet createGraphResultSet(String resourceId, OnmsResource resource, String[] reports, GraphResults graphResults) throws IllegalArgumentException {
+    private GraphResultSet createGraphResultSet(final String resourceId, final OnmsResource resource, final String[] reports, final GraphResults graphResults) throws IllegalArgumentException {
         if (resource == null) {
             resource = m_resourceDao.getResourceById(resourceId);
             if (resource == null) {
@@ -228,7 +228,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
         return rs;
     }
 
-    private void sendEvent(List<String> filesToPromote) {
+    private void sendEvent(final List<String> filesToPromote) {
 
         EventBuilder bldr = new EventBuilder(EventConstants.PROMOTE_QUEUE_DATA_UEI, "OpenNMS.Webapp");
         bldr.addParam(EventConstants.PARM_FILES_TO_PROMOTE, filesToPromote);
@@ -243,7 +243,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
 
 
 
-    private void getAttributeFiles(Graph graph, List<String> filesToPromote) {
+    private void getAttributeFiles(final Graph graph, final List<String> filesToPromote) {
 
         Collection<RrdGraphAttribute> attrs = graph.getRequiredRrGraphdAttributes();
 
@@ -262,7 +262,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         Assert.state(m_nodeDao != null, "nodeDao property has not been set");
         Assert.state(m_resourceDao != null, "resourceDao property has not been set");
         Assert.state(m_graphDao != null, "graphDao property has not been set");
@@ -274,7 +274,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public ResourceDao getResourceDao() {
+    public final ResourceDao getResourceDao() {
         return m_resourceDao;
     }
 
@@ -283,7 +283,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
@@ -292,7 +292,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public NodeDao getNodeDao() {
+    public final NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
@@ -301,7 +301,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public void setNodeDao(NodeDao nodeDao) {
+    public final void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
@@ -310,7 +310,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @return a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
-    public GraphDao getGraphDao() {
+    public final GraphDao getGraphDao() {
         return m_graphDao;
     }
 
@@ -319,7 +319,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @param graphDao a {@link org.opennms.netmgt.dao.api.GraphDao} object.
      */
-    public void setGraphDao(GraphDao graphDao) {
+    public final void setGraphDao(final GraphDao graphDao) {
         m_graphDao = graphDao;
     }
 
@@ -328,7 +328,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
-    public RrdDao getRrdDao() {
+    public final RrdDao getRrdDao() {
         return m_rrdDao;
     }
 
@@ -337,7 +337,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      *
      * @param rrdDao a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
-    public void setRrdDao(RrdDao rrdDao) {
+    public final void setRrdDao(final RrdDao rrdDao) {
         m_rrdDao = rrdDao;
     }
 
@@ -347,7 +347,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
      * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy}
      * object.
      */
-    public void setEventProxy(EventProxy eventProxy) {
+    public final void setEventProxy(final EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
 

@@ -49,13 +49,13 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
 
     /** {@inheritDoc} */
     @Override
-    public boolean supports(Class<?> clazz) {
+    public final boolean supports(final Class<?> clazz) {
         return clazz.equals(LocationMonitorIdCommand.class);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void validate(Object obj, Errors errors) {
+    public final void validate(final Object obj, final Errors errors) {
         LocationMonitorIdCommand cmd = (LocationMonitorIdCommand) obj;
 
         if (cmd.getMonitorId() == null) {
@@ -82,7 +82,7 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         if (m_locationMonitorDao == null) {
             throw new IllegalStateException("locationMonitorDao property not set");
         }
@@ -93,7 +93,7 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
-    public LocationMonitorDao getLocationMonitorDao() {
+    public final LocationMonitorDao getLocationMonitorDao() {
         return m_locationMonitorDao;
     }
 
@@ -102,7 +102,7 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
      *
      * @param locationMonitorDao a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
-    public void setLocationMonitorDao(LocationMonitorDao locationMonitorDao) {
+    public final void setLocationMonitorDao(final LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
     }
 

@@ -43,7 +43,7 @@ public class FivePercentWidthId implements ColumnInterceptor {
 
 	/** {@inheritDoc} */
         @Override
-	public void addColumnAttributes(TableModel arg0, Column arg1) {
+    public final void addColumnAttributes(final TableModel arg0, final Column arg1) {
 		String value = arg1.getPropertyValueAsString();
 
             //String style = "width:5%";
@@ -57,7 +57,7 @@ public class FivePercentWidthId implements ColumnInterceptor {
 
 	/** {@inheritDoc} */
         @Override
-	public void modifyColumnAttributes(TableModel arg0, Column arg1) {
+	public void modifyColumnAttributes(final TableModel arg0, final Column arg1) {
 		// TODO Auto-generated method stub
 
 	}

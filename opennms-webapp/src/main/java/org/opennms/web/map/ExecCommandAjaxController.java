@@ -93,17 +93,17 @@ public class ExecCommandAjaxController extends MapsLoggingController {
         try {
             final Command p;
             if (id == null) {
-                if (command == null )
+                if (command == null)
                     throw new IllegalArgumentException("Command or id is required");
-                if (address == null )
+                if (address == null)
                     throw new IllegalArgumentException("Address is required");
 
-                if ( NetworkElementFactory.getInstance(getServletContext()).getInterfacesWithIpAddress(address).length == 0 ) {
+                if (NetworkElementFactory.getInstance(getServletContext()).getInterfacesWithIpAddress(address).length == 0) {
                     os.write("NOADDRESSINDATABASE");
                 } else if (!manager.checkCommandExecution()) {
                     os.write("NOEXECUTIONALLOWED");
                 } else {
-                    String commandToExec = getCommandToExec(request,command,address);
+                    String commandToExec = getCommandToExec(request, command, address);
                     p = new Command(commandToExec);
                     LOG.info("Executing {}", commandToExec);
                     os.write(manager.execCommand(p));
@@ -117,7 +117,7 @@ public class ExecCommandAjaxController extends MapsLoggingController {
                     manager.removeCommand(id);
                     os.write("END");
                 } else {
-                    if (s == null ) {
+                    if (s == null) {
                         os.write("BLANCK");
                         LOG.debug("no lines in buffer found");
                     } else {

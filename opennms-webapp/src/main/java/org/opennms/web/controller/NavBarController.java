@@ -59,17 +59,17 @@ public class NavBarController extends AbstractController implements Initializing
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         Assert.state(m_navBarItems != null, "navBarItems property has not been set");
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return new ModelAndView("navBar", "model", createNavBarModel(request));
     }
 
-    private NavBarModel createNavBarModel(HttpServletRequest request) {
+    private NavBarModel createNavBarModel(final HttpServletRequest request) {
         Map<NavBarEntry, DisplayStatus> navBar = new LinkedHashMap<NavBarEntry, DisplayStatus>();
 
         for (NavBarEntry entry : getNavBarItems()) {
@@ -84,7 +84,7 @@ public class NavBarController extends AbstractController implements Initializing
      *
      * @return a {@link java.util.List} object.
      */
-    public List<NavBarEntry> getNavBarItems() {
+    public final List<NavBarEntry> getNavBarItems() {
         return m_navBarItems;
     }
 
@@ -93,16 +93,16 @@ public class NavBarController extends AbstractController implements Initializing
      *
      * @param navBarItems a {@link java.util.List} object.
      */
-    public void setNavBarItems(List<NavBarEntry> navBarItems) {
+    public final void setNavBarItems(final List<NavBarEntry> navBarItems) {
         m_navBarItems = navBarItems;
     }
 
     @Override
-    public String getHeaderHtml(HttpServletRequest request) {
+    public final String getHeaderHtml(final HttpServletRequest request) {
         return createHeaderHtml(request);
     }
 
-    private String createHeaderHtml(HttpServletRequest request) {
+    private String createHeaderHtml(final HttpServletRequest request) {
         return "<div id='header'>" +
               "<h1 id='headerlogo'><a href='index.jsp'><img src=\"../images/logo.png\" alt='OpenNMS Web Console Home'></a></h1>" +
           "<div id='headerinfo'>" +
@@ -136,7 +136,7 @@ public class NavBarController extends AbstractController implements Initializing
         return noticeStatus;
     }
 
-    private String createNavBarHtml(HttpServletRequest request) {
+    private String createNavBarHtml(final HttpServletRequest request) {
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append("<ul>");
 

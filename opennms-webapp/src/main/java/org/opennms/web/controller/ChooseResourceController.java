@@ -54,7 +54,7 @@ public class ChooseResourceController extends AbstractController implements Init
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         String[] requiredParameters = new String[] { "parentResourceId or", "parentResourceType and parentResource" };
 
         String endUrl = WebSecurityUtils.sanitizeString(request.getParameter("endUrl"));
@@ -90,7 +90,7 @@ public class ChooseResourceController extends AbstractController implements Init
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         if (m_chooseResourceService == null) {
             throw new IllegalStateException("chooseResourceService property not set");
         }
@@ -105,7 +105,7 @@ public class ChooseResourceController extends AbstractController implements Init
      *
      * @return a {@link org.opennms.web.svclayer.ChooseResourceService} object.
      */
-    public ChooseResourceService getChooseResourceService() {
+    public final ChooseResourceService getChooseResourceService() {
         return m_chooseResourceService;
     }
 
@@ -114,8 +114,8 @@ public class ChooseResourceController extends AbstractController implements Init
      *
      * @param chooseResourceService a {@link org.opennms.web.svclayer.ChooseResourceService} object.
      */
-    public void setChooseResourceService(
-            ChooseResourceService chooseResourceService) {
+    public final void setChooseResourceService(
+            final ChooseResourceService chooseResourceService) {
         m_chooseResourceService = chooseResourceService;
     }
 
@@ -124,7 +124,7 @@ public class ChooseResourceController extends AbstractController implements Init
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDefaultEndUrl() {
+    public final String getDefaultEndUrl() {
         return m_defaultEndUrl;
     }
 
@@ -133,7 +133,7 @@ public class ChooseResourceController extends AbstractController implements Init
      *
      * @param defaultEndUrl a {@link java.lang.String} object.
      */
-    public void setDefaultEndUrl(String defaultEndUrl) {
+    public final void setDefaultEndUrl(final String defaultEndUrl) {
         m_defaultEndUrl = defaultEndUrl;
     }
 }

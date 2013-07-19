@@ -119,22 +119,22 @@ public class OpenMapController extends MapsLoggingController {
 
 			LOG.debug("Current mapWidth={} and MapHeight={}", mapWidth, mapHeight);
 			VMap map = null;
-			if(mapIdStr!=null){
+			if (mapIdStr != null) {
 				int mapid = WebSecurityUtils.safeParseInt(mapIdStr);
 				LOG.debug("Opening map {} for user {}", mapid, user);
 				map = manager.openMap(mapid, user, !(adminModeStr.equals("true")));
-			}else{
+			} else {
 				LOG.debug("Try to Opening default map");
 				VMapInfo defaultmapinfo = manager.getDefaultMapsMenu(user);
-				if (defaultmapinfo != null ) {
-	                map = manager.openMap(defaultmapinfo.getId(),user,!(adminModeStr.equals("true")));
+				if (defaultmapinfo != null) {
+	                map = manager.openMap(defaultmapinfo.getId(), user, !(adminModeStr.equals("true")));
 				} else {
 				    map = manager.openMap();
 				}
 			}
 
 
-			if(map != null){
+			if (map != null) {
 				int dbMapWidth = map.getWidth();
 				int dbMapHeight = map.getHeight();
 				widthFactor = (float) mapWidth / dbMapWidth;
@@ -157,7 +157,7 @@ public class OpenMapController extends MapsLoggingController {
 			bw.write(ResponseAssembler.getMapResponse(map));
 
 		} catch (Throwable e) {
-			LOG.error("Error while opening map with id:{}, for user:{}", mapIdStr, user,e);
+			LOG.error("Error while opening map with id:{}, for user:{}", mapIdStr, user, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.OPENMAP_ACTION));
 		} finally {
 			bw.close();

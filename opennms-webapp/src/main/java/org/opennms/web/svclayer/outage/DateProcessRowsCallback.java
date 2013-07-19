@@ -48,7 +48,7 @@ public class DateProcessRowsCallback extends ProcessRowsCallback
 {
     /** {@inheritDoc} */
     @Override
-    public Collection filterRows(TableModel model, Collection rows)
+    public final Collection filterRows(final TableModel model, final Collection rows)
         throws Exception
     {
         boolean filtered = model.getLimit().isFiltered();

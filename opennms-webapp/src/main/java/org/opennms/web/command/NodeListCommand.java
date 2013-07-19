@@ -51,163 +51,163 @@ public class NodeListCommand {
     private boolean m_listInterfaces = false;
     private int m_nodeId = -1;
 
-    public void setNodeId(int nodeId) {
+    public final void setNodeId(final int nodeId) {
         m_nodeId = nodeId;
     }
-    public int getNodeId() {
+    public final int getNodeId() {
         return m_nodeId;
     }
-    public boolean hasNodeId() {
+    public final boolean hasNodeId() {
         return m_nodeId >= 0;
     }
-    public void setNodename(String nodename) {
+    public final void setNodename(final String nodename) {
         m_nodename = nodename;
     }
-    public String getNodename() {
+    public final String getNodename() {
         return m_nodename;
     }
-    public boolean hasNodename() {
+    public final boolean hasNodename() {
         return m_nodename != null;
     }
 
-    public void setIplike(String iplike) {
+    public final void setIplike(final String iplike) {
         m_iplike = iplike;
     }
-    public String getIplike() {
+    public final String getIplike() {
         return m_iplike;
     }
-    public boolean hasIplike() {
+    public final boolean hasIplike() {
         return m_iplike != null;
     }
 
-    public void setMaclike(String maclike) {
+    public final void setMaclike(final String maclike) {
         m_maclike = maclike;
     }
-    public String getMaclike() {
+    public final String getMaclike() {
         return m_maclike;
     }
-    public boolean hasMaclike() {
+    public final boolean hasMaclike() {
         return m_maclike != null;
     }
 
-    public void setForeignSource(String foreignSourceLike) {
+    public final void setForeignSource(final String foreignSourceLike) {
         m_foreignsource = foreignSourceLike;
     }
 
-    public String getForeignSource() {
+    public final String getForeignSource() {
         return m_foreignsource;
     }
 
-    public boolean hasForeignSource() {
+    public final boolean hasForeignSource() {
         return m_foreignsource != null;
     }
 
-    public void setService(Integer service) {
+    public final void setService(final Integer service) {
         m_service = service;
     }
-    public Integer getService() {
+    public final Integer getService() {
         return m_service;
     }
-    public boolean hasService() {
+    public final boolean hasService() {
         return m_service != null;
     }
 
-    public void setSnmpParm(String snmpParm) {
+    public final void setSnmpParm(final String snmpParm) {
         m_snmpParm = snmpParm;
     }
-    public String getSnmpParm() {
+    public final String getSnmpParm() {
         return m_snmpParm;
     }
-    public boolean hasSnmpParm() {
+    public final boolean hasSnmpParm() {
         return m_snmpParm != null;
     }
-    public void setSnmpParmValue(String snmpParmValue) {
+    public final void setSnmpParmValue(final String snmpParmValue) {
         m_snmpParmValue = snmpParmValue;
     }
-    public String getSnmpParmValue() {
+    public final String getSnmpParmValue() {
         return m_snmpParmValue;
     }
-    public boolean hasSnmpParmValue() {
+    public final boolean hasSnmpParmValue() {
         return m_snmpParmValue != null;
     }
-    public void setSnmpParmMatchType(String snmpParmMatchType) {
+    public final void setSnmpParmMatchType(final String snmpParmMatchType) {
         m_snmpParmMatchType = snmpParmMatchType;
     }
-    public String getSnmpParmMatchType() {
+    public final String getSnmpParmMatchType() {
         return m_snmpParmMatchType;
     }
-    public boolean hasSnmpParmMatchType() {
+    public final boolean hasSnmpParmMatchType() {
         return m_snmpParmMatchType != null;
     }
 
-    public void setCategory1(String[] category1) {
+    public final void setCategory1(final String[] category1) {
         m_category1 = category1;
     }
-    public String[] getCategory1() {
+    public final String[] getCategory1() {
         return m_category1;
     }
-    public boolean hasCategory1() {
+    public final boolean hasCategory1() {
         return m_category1 != null && m_category1.length > 0;
     }
 
-    public void setCategory2(String[] category2) {
+    public final void setCategory2(final String[] category2) {
         m_category2 = category2;
     }
-    public String[] getCategory2() {
+    public final String[] getCategory2() {
         return m_category2;
     }
-    public boolean hasCategory2() {
+    public final boolean hasCategory2() {
         return m_category2 != null && m_category2.length > 0;
     }
 
-    public void setStatusViewName(String statusViewName) {
+    public final void setStatusViewName(final String statusViewName) {
         m_statusViewName = statusViewName;
     }
-    public String getStatusViewName() {
+    public final String getStatusViewName() {
         return m_statusViewName;
     }
-    public boolean hasStatusViewName() {
+    public final boolean hasStatusViewName() {
         return m_statusViewName != null;
     }
 
-    public void setStatusSite(String statusSite) {
+    public final void setStatusSite(final String statusSite) {
         m_statusSite = statusSite;
     }
-    public String getStatusSite() {
+    public final String getStatusSite() {
         return m_statusSite;
     }
-    public boolean hasStatusSite() {
+    public final boolean hasStatusSite() {
         return m_statusSite != null;
     }
 
-    public void setStatusRowLabel(String statusRowLabel) {
+    public final void setStatusRowLabel(final String statusRowLabel) {
         m_statusRowLabel = statusRowLabel;
     }
-    public String getStatusRowLabel() {
+    public final String getStatusRowLabel() {
         return m_statusRowLabel;
     }
-    public boolean hasStatusRowLabel() {
+    public final boolean hasStatusRowLabel() {
         return m_statusRowLabel != null;
     }
 
-    public void setNodesWithOutages(boolean nodesWithOutages) {
+    public final void setNodesWithOutages(final boolean nodesWithOutages) {
         m_nodesWithOutages = nodesWithOutages;
     }
-    public boolean getNodesWithOutages() {
+    public final boolean getNodesWithOutages() {
         return m_nodesWithOutages;
     }
 
-    public void setNodesWithDownAggregateStatus(boolean nodesWithDownAggregateStatus) {
+    public final void setNodesWithDownAggregateStatus(final boolean nodesWithDownAggregateStatus) {
         m_nodesWithDownAggregateStatus = nodesWithDownAggregateStatus;
     }
-    public boolean getNodesWithDownAggregateStatus() {
+    public final boolean getNodesWithDownAggregateStatus() {
         return m_nodesWithDownAggregateStatus;
     }
 
-    public void setListInterfaces(boolean listInterfaces) {
+    public final void setListInterfaces(final boolean listInterfaces) {
         m_listInterfaces = listInterfaces;
     }
-    public boolean getListInterfaces() {
+    public final boolean getListInterfaces() {
         return m_listInterfaces;
     }
 

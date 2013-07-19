@@ -54,7 +54,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         int rows = Integer.getInteger("opennms.nodesWithProblems.count", ROWS);
         final String parm = request.getParameter("alarmCount");
         if (parm != null) {
@@ -88,7 +88,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
      *
      * @param successView a {@link java.lang.String} object.
      */
-    public void setSuccessView(String successView) {
+    public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
@@ -97,7 +97,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
      *
      * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
-    public void setAlarmRepository(AlarmRepository webAlarmRepository) {
+    public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
@@ -105,7 +105,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         Assert.notNull(m_successView, "property successView must be set");
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
     }

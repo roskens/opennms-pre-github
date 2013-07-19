@@ -66,7 +66,7 @@ public class DemandPollServiceTest extends TestCase {
 	private SingleDemandPollStore m_pollStore;
 
         @Override
-	protected void setUp() throws Exception {
+    protected final void setUp() throws Exception {
 		m_demandPollDao = createMock(DemandPollDao.class);
 		m_monitoredServiceDao = createMock(MonitoredServiceDao.class);
 		m_pollerService = createMock(PollerService.class);
@@ -101,15 +101,17 @@ public class DemandPollServiceTest extends TestCase {
 		}
 
                 @Override
-		public void delete(Integer id) {
-			if (id == m_demandPoll.getId())
-				m_demandPoll = null;
+		public void delete(final Integer id) {
+			if (id == m_demandPoll.getId()) {
+                m_demandPoll = null;
+            }
 		}
 
                 @Override
-		public void delete(DemandPoll entity) {
-			if (entity.getId() == m_demandPoll.getId())
-				m_demandPoll = null;
+		public void delete(final DemandPoll entity) {
+			if (entity.getId() == m_demandPoll.getId()) {
+                m_demandPoll = null;
+            }
 		}
 
                 @Override
@@ -122,33 +124,36 @@ public class DemandPollServiceTest extends TestCase {
 		}
 
                 @Override
-		public DemandPoll get(Integer id) {
-			if (id.intValue() == m_id)
-				return m_demandPoll;
+		public DemandPoll get(final Integer id) {
+			if (id.intValue() == m_id) {
+                return m_demandPoll;
+            }
 			return null;
 		}
 
                 @Override
-		public DemandPoll load(Integer id) {
+		public DemandPoll load(final Integer id) {
 			return get(id);
 		}
 
                 @Override
-		public void saveOrUpdate(DemandPoll entity) {
-			if (entity.getId() == null)
-				save(entity);
-			else
-				update(entity);
+		public void saveOrUpdate(final DemandPoll entity) {
+			if (entity.getId() == null) {
+                save(entity);
+            } else {
+                update(entity);
+            }
 		}
 
                 @Override
-		public void update(DemandPoll entity) {
-			if (entity.getId().intValue() == m_id)
-				m_demandPoll = entity;
+		public void update(final DemandPoll entity) {
+			if (entity.getId().intValue() == m_id) {
+                m_demandPoll = entity;
+            }
 		}
 
                 @Override
-		public void save(DemandPoll entity) {
+		public void save(final DemandPoll entity) {
 			if (entity.getId() == null) {
 				entity.setId(m_id);
 				m_demandPoll = entity;
@@ -158,7 +163,7 @@ public class DemandPollServiceTest extends TestCase {
 		}
 
                 @Override
-		public void initialize(Object obj) {
+		public void initialize(final Object obj) {
 			// TODO Auto-generated method stub
 
 		}
@@ -168,29 +173,29 @@ public class DemandPollServiceTest extends TestCase {
 		}
 
                 @Override
-        public List<DemandPoll> findMatching(Criteria criteria) {
+        public List<DemandPoll> findMatching(final Criteria criteria) {
             throw new UnsupportedOperationException("not yet implemeneted");
         }
 
                 @Override
-        public int countMatching(Criteria criteria) {
+        public int countMatching(final Criteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
 
                 @Override
-        public List<DemandPoll> findMatching(OnmsCriteria criteria) {
+        public List<DemandPoll> findMatching(final OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemeneted");
         }
 
                 @Override
-        public int countMatching(OnmsCriteria criteria) {
+        public int countMatching(final OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
 
 
 	}
 
-	public void testPollMonitoredService() throws EventProxyException {
+	public final void testPollMonitoredService() throws EventProxyException {
 
 		final int expectedResultId = m_pollStore.getExpectedId();
 
@@ -236,7 +241,7 @@ public class DemandPollServiceTest extends TestCase {
 
 	}
 
-	public void testGetUpdatedResults() {
+	public final void testGetUpdatedResults() {
 
 		final int resultId = 3;
 

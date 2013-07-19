@@ -103,7 +103,7 @@ public class DeleteElementsController extends MapsLoggingController {
 
             String[] mapids = elems.split(",");
             elemeids = new Integer[mapids.length];
-            for (int i = 0; i<mapids.length;i++) {
+            for (int i = 0; i<mapids.length; i++) {
                 elemeids[i] = new Integer(mapids[i]);
             }
 
@@ -121,16 +121,16 @@ public class DeleteElementsController extends MapsLoggingController {
 			if (actionfound) {
 				for (int i = 0; i < elemeids.length; i++) {
 					int elemId = elemeids[i].intValue();
-					if (map.containsElement(elemId, type)){
-						map.removeLinksOnElementList(elemId,type);
-						VElement ve = map.removeElement(elemId,type);
+					if (map.containsElement(elemId, type)) {
+						map.removeLinksOnElementList(elemId, type);
+						VElement ve = map.removeElement(elemId, type);
 						velemsids.add(ve.getId()+ve.getType());
 					}
 				}
 			}
 			bw.write(ResponseAssembler.getDeleteElementsResponse(velemsids));
 		} catch (Throwable e) {
-			LOG.error("Error while adding nodes for action: {}", action,e);
+			LOG.error("Error while adding nodes for action: {}", action, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(action));
 		} finally {
 			bw.close();

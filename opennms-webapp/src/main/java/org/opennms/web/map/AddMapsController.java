@@ -101,25 +101,25 @@ public class AddMapsController extends MapsLoggingController {
 	        LOG.debug("Adding maps by id: {}", elems);
 	        String[] smapids = elems.split(",");
 
-	        for (int i = 0; i<smapids.length;i++) {
+	        for (int i = 0; i<smapids.length; i++) {
 	            Integer id = new Integer(smapids[i]);
 	            if (map.containsElement(id, MapsConstants.MAP_TYPE)) {
 	                LOG.debug(" Map Contains Element: {}", id+MapsConstants.MAP_TYPE);
 	                continue;
 
 	            }
-	            boolean foundLoop = manager.foundLoopOnMaps(map,id);
+	            boolean foundLoop = manager.foundLoopOnMaps(map, id);
 
 	            if(foundLoop) {
 	                mapsWithLoop.add(id);
 	            } else {
-	                velems.add(manager.newElement(map.getId(),id, MapsConstants.MAP_TYPE));
+	                velems.add(manager.newElement(map.getId(), id, MapsConstants.MAP_TYPE));
 	            }
 	        } // end for
 
 	        //get map
 	        map = manager.addElements(map, velems);
-	        bw.write(ResponseAssembler.getAddElementResponse(mapsWithLoop,velems,map.getLinks()));
+	        bw.write(ResponseAssembler.getAddElementResponse(mapsWithLoop, velems, map.getLinks()));
 	    } catch (Throwable e) {
 	        LOG.error("Error while adding Maps: ", e);
 	        bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.ADDMAPS_ACTION));

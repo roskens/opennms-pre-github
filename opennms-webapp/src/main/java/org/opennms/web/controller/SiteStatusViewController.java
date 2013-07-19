@@ -70,13 +70,13 @@ public class SiteStatusViewController extends AbstractController {
      *
      * @param svc a {@link org.opennms.web.svclayer.SiteStatusViewService} object.
      */
-    public void setService(SiteStatusViewService svc) {
+    public final void setService(final SiteStatusViewService svc) {
         m_service = svc;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest req, final HttpServletResponse resp) throws Exception {
         ModelAndView mav = new ModelAndView("siteStatus");
         String statusView = req.getParameter("statusView");
         String statusSite = req.getParameter("statusSite");
@@ -106,7 +106,7 @@ public class SiteStatusViewController extends AbstractController {
         return mav;
     }
 
-    private SiteStatusViewError createSiteStatusViewError(String shortDescr, String longDescr) {
+    private SiteStatusViewError createSiteStatusViewError(final String shortDescr, final String longDescr) {
         SiteStatusViewError viewError = new SiteStatusViewError();
         viewError.setShortDescr(shortDescr);
         viewError.setLongDescr(longDescr);

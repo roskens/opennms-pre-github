@@ -90,15 +90,15 @@ public class SwitchRoleController extends MapsLoggingController {
 				.getOutputStream(), "UTF-8"));
 		try {
 
-			if(adminModeStr!=null ){
+			if (adminModeStr != null) {
 				adminMode=Boolean.parseBoolean(adminModeStr);
 				LOG.info("Swithing to mode admin: {}", !adminMode);
 				bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.SWITCH_MODE_ACTION));
-			} else{
-				throw new IllegalStateException("Parameter adminMode is null ");
+			} else {
+				throw new IllegalStateException("Parameter adminMode is null");
 			}
 		} catch (Throwable e) {
-			LOG.error("Exception found when changing adminMode: ",e);
+			LOG.error("Exception found when changing adminMode", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SWITCH_MODE_ACTION));
 		} finally {
 			bw.close();

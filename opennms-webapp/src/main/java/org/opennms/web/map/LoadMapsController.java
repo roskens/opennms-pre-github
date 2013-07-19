@@ -92,7 +92,7 @@ public class LoadMapsController extends MapsLoggingController {
 		try {
 			bw.write(ResponseAssembler.getLoadMapsResponse(manager.getVisibleMapsMenu(user)));
 		} catch (Throwable e) {
-			LOG.error("Error while loading visible maps for user:{}", user,e);
+			LOG.error("Error while loading visible maps for user:{}", user, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADMAPS_ACTION));
 		} finally {
 			bw.close();

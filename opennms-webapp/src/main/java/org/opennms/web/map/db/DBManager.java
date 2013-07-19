@@ -140,7 +140,7 @@ public class DBManager extends Manager {
      * @throws ClassNotFoundException
      */
 
-    Connection createConnection() throws MapsException {
+    final Connection createConnection() throws MapsException {
 
         if (m_factory != null) {
             try {
@@ -159,7 +159,7 @@ public class DBManager extends Manager {
         }
     }
 
-    void releaseConnection(Connection conn) throws MapsException {
+    final void releaseConnection(final Connection conn) throws MapsException {
         try {
             if (conn != null && !conn.isClosed()) {
                 if (m_factory != null) {
@@ -174,7 +174,7 @@ public class DBManager extends Manager {
         }
     }
 
-    protected void closeStatement(Statement statement) {
+    protected final void closeStatement(final Statement statement) {
         try {
             if (statement != null) { statement.close(); }
         } catch (SQLException ex) {
@@ -182,7 +182,7 @@ public class DBManager extends Manager {
         }
     }
 
-    protected void closeResultSet(ResultSet rs) {
+    protected final void closeResultSet(final ResultSet rs) {
         try {
             if (rs != null) { rs.close(); }
         } catch (SQLException ex) {
@@ -196,7 +196,7 @@ public class DBManager extends Manager {
      * @param conn a {@link java.sql.Connection} object.
      * @throws org.opennms.web.map.MapsException if any.
      */
-    public void finalize(Connection conn) throws MapsException {
+    public final void finalize(final Connection conn) throws MapsException {
         LOG.debug("finalizing...");
         try {
             releaseConnection(conn);
@@ -218,7 +218,7 @@ public class DBManager extends Manager {
         }
     }
 
-    synchronized private void endSession(Connection conn)
+    private synchronized void endSession(final Connection conn)
             throws MapsException {
         try {
             conn.commit();
@@ -230,7 +230,7 @@ public class DBManager extends Manager {
         }
     }
 
-    private void rollback(Connection conn) throws MapsException {
+    private void rollback(final Connection conn) throws MapsException {
         try {
             conn.rollback();
         } catch (SQLException ex) {
@@ -243,7 +243,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public synchronized int saveMap(DbMap m, Collection<DbElement> e) throws MapsException {
+    public final synchronized int saveMap(final DbMap m, final Collection<DbElement> e) throws MapsException {
         LOG.debug("saving map...");
         Connection conn = startSession();
         final String sqlGetCurrentTimestamp = "SELECT CURRENT_TIMESTAMP";
@@ -318,7 +318,7 @@ public class DBManager extends Manager {
                         saveElementInSession(dbe, conn);
                     }
                 } else {
-                    deleteElementsOfMapInSession(m.getId(),conn);
+                    deleteElementsOfMapInSession(m.getId(), conn);
                     for (DbElement dbe : e) {
                         saveElementInSession(dbe, conn);
                     }
@@ -334,12 +334,14 @@ public class DBManager extends Manager {
             closeStatement(statement);
             endSession(conn);
         }
-        if (m.isNew())
-                return nxtid;
-        else return m.getId();
+        if (m.isNew()) {
+            return nxtid;
+        } else {
+            return m.getId();
+        }
     }
 
-    private synchronized void saveElementInSession(DbElement e, Connection conn)
+    private synchronized void saveElementInSession(final DbElement e, final Connection conn)
             throws MapsException {
         LOG.debug("saving element: {}{}", e.getId(), e.getType());
 
@@ -402,7 +404,7 @@ public class DBManager extends Manager {
      * @param e a {@link org.opennms.web.map.db.DbElement} object.
      * @throws org.opennms.web.map.MapsException if any.
      */
-    public synchronized void saveElement(DbElement e) throws MapsException {
+    public final synchronized void saveElement(final DbElement e) throws MapsException {
         LOG.debug("saving element");
         Connection conn = startSession();
 
@@ -468,7 +470,7 @@ public class DBManager extends Manager {
      * @param elems an array of {@link org.opennms.web.map.db.DbElement} objects.
      * @throws org.opennms.web.map.MapsException if any.
      */
-    public synchronized void deleteElements(DbElement[] elems)
+    public final synchronized void deleteElements(final DbElement[] elems)
             throws MapsException {
         LOG.debug("deleting elements...");
         Connection conn = startSession();
@@ -495,15 +497,15 @@ public class DBManager extends Manager {
      * @param e a {@link org.opennms.web.map.db.DbElement} object.
      * @throws org.opennms.web.map.MapsException if any.
      */
-    public synchronized void deleteElement(DbElement e) throws MapsException {
+    public final synchronized void deleteElement(final DbElement e) throws MapsException {
         LOG.debug("deleting element...");
         if (e != null) {
             deleteElement(e.getId(), e.getMapId(), e.getType());
         }
     }
 
-    private synchronized void deleteElementInSession(int id, int mapid,
-            String type) throws MapsException {
+    private synchronized void deleteElementInSession(final int id, final int mapid,
+            final String type) throws MapsException {
         LOG.debug("deleting element...");
         Connection conn = startSession();
 
@@ -535,7 +537,7 @@ public class DBManager extends Manager {
      * @param type a {@link java.lang.String} object.
      * @throws org.opennms.web.map.MapsException if any.
      */
-    public synchronized void deleteElement(int id, int mapid, String type)
+    public final synchronized void deleteElement(final int id, final int mapid, final String type)
             throws MapsException {
         LOG.debug("deleting element...");
         Connection conn = startSession();
@@ -560,7 +562,7 @@ public class DBManager extends Manager {
         }
     }
 
-    private synchronized void deleteElementsOfMapInSession(int id, Connection conn) throws MapsException {
+    private synchronized void deleteElementsOfMapInSession(final int id, final Connection conn) throws MapsException {
         LOG.debug("deleting elements of map...");
         final String sqlDelete = "DELETE FROM " + elementTable
                 + " WHERE mapid = ?";
@@ -581,7 +583,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public synchronized int deleteMap(int id) throws MapsException {
+    public final synchronized int deleteMap(final int id) throws MapsException {
         LOG.debug("deleting map...");
         Connection conn = startSession();
         final String sqlDeleteMap = "DELETE FROM " + mapTable
@@ -610,7 +612,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public synchronized void deleteNodeTypeElementsFromAllMaps()
+    public final synchronized void deleteNodeTypeElementsFromAllMaps()
             throws MapsException {
         LOG.debug("deleting all node elements...");
         Connection conn = startSession();
@@ -639,7 +641,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public synchronized void deleteMapTypeElementsFromAllMaps()
+    public final synchronized void deleteMapTypeElementsFromAllMaps()
             throws MapsException {
         LOG.debug("deleting all map elements...");
         Connection conn = startSession();
@@ -663,7 +665,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbElement getElement(int id, int mapId, String type)
+    public final DbElement getElement(final int id, final int mapId, final String type)
             throws MapsException {
         Connection conn = createConnection();
 
@@ -693,7 +695,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbElement newElement(int id, int mapId, String type)
+    public final DbElement newElement(final int id, final int mapId, final String type)
             throws MapsException {
         DbElement e = new DbElement(mapId, id, type, null, null, null, 0, 0);
         e = completeElement(e);
@@ -708,7 +710,7 @@ public class DBManager extends Manager {
      * @param e
      * @return the element completed of label and icon name
      */
-    private DbElement completeElement(DbElement e) throws MapsException {
+    private DbElement completeElement(final DbElement e) throws MapsException {
 
         Connection conn = createConnection();
         String sqlQuery = null;
@@ -752,7 +754,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public DbElement[] getAllElements() throws MapsException {
+    public final DbElement[] getAllElements() throws MapsException {
         Connection conn = createConnection();
         Statement statement = null;
         ResultSet rs = null;
@@ -765,8 +767,9 @@ public class DBManager extends Manager {
             rs.close();
             statement.close();
 
-            if (elements == null)
+            if (elements == null) {
                 return new DbElement[0];
+            }
             DbElement[] el = new DbElement[elements.size()];
             el = elements.toArray(el);
             return el;
@@ -782,7 +785,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbElement[] getElementsOfMap(int mapid) throws MapsException {
+    public final DbElement[] getElementsOfMap(final int mapid) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -812,7 +815,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbElement[] getNodeElementsOfMap(int mapid) throws MapsException {
+    public final DbElement[] getNodeElementsOfMap(final int mapid) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -841,7 +844,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbElement[] getMapElementsOfMap(int mapid) throws MapsException {
+    public final DbElement[] getMapElementsOfMap(final int mapid) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -871,7 +874,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbElement[] getElementsLike(String elementLabel)
+    public final DbElement[] getElementsLike(final String elementLabel)
             throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
@@ -905,7 +908,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public java.util.Map<Integer, Set<Integer>> getMapsStructure()
+    public final java.util.Map<Integer, Set<Integer>> getMapsStructure()
             throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
@@ -945,7 +948,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public int countMaps(int mapId) throws MapsException {
+    public final int countMaps(final int mapId) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -973,7 +976,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbMap getMap(int id) throws MapsException {
+    public final DbMap getMap(final int id) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -997,7 +1000,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbMap[] getMaps(String mapname, String maptype) throws MapsException {
+    public final DbMap[] getMaps(final String mapname, final String maptype) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1032,7 +1035,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public DbMap[] getAllMaps() throws MapsException {
+    public final DbMap[] getAllMaps() throws MapsException {
         Connection conn = createConnection();
         Statement statement = null;
         ResultSet rs = null;
@@ -1060,7 +1063,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbMap[] getMapsLike(String mapLabel) throws MapsException {
+    public final DbMap[] getMapsLike(final String mapLabel) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1091,7 +1094,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbMap[] getMapsByName(String mapLabel) throws MapsException {
+    public final DbMap[] getMapsByName(final String mapLabel) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1121,7 +1124,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public DbMap[] getContainerMaps(int id, String type) throws MapsException {
+    public final DbMap[] getContainerMaps(final int id, final String type) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1156,7 +1159,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public VMapInfo[] getAllMapMenus() throws MapsException {
+    public final VMapInfo[] getAllMapMenus() throws MapsException {
         Connection conn = createConnection();
         Statement statement = null;
         ResultSet rs = null;
@@ -1186,7 +1189,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public VMapInfo getMapMenu(int mapId) throws MapsException {
+    public final VMapInfo getMapMenu(final int mapId) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1211,7 +1214,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public VMapInfo[] getMapsMenuByName(String mapLabel) throws MapsException {
+    public final VMapInfo[] getMapsMenuByName(final String mapLabel) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1241,7 +1244,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public VMapInfo[] getMapsMenuByOwner(String owner) throws MapsException {
+    public final VMapInfo[] getMapsMenuByOwner(final String owner) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1273,7 +1276,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public VMapInfo[] getMapsMenuByGroup(String group) throws MapsException {
+    public final VMapInfo[] getMapsMenuByGroup(final String group) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1310,7 +1313,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public VMapInfo[] getMapsMenuByOther() throws MapsException {
+    public final VMapInfo[] getMapsMenuByOther() throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1342,7 +1345,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public boolean isElementInMap(int elementId, int mapId, String type)
+    public final boolean isElementInMap(final int elementId, final int mapId, final String type)
             throws MapsException {
         try {
             DbElement element = null;
@@ -1360,7 +1363,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public Vector<VElementInfo> getAllElementInfo() throws MapsException {
+    public final Vector<VElementInfo> getAllElementInfo() throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1374,7 +1377,7 @@ public class DBManager extends Manager {
             while (rs.next()) {
                 int curnodeid = rs.getInt("nodeid");
                 if (curnodeid != previousNodeid) {
-                    VElementInfo ei = new VElementInfo(curnodeid,rs.getString("ipaddr"),rs.getString("nodelabel"));
+                    VElementInfo ei = new VElementInfo(curnodeid, rs.getString("ipaddr"), rs.getString("nodelabel"));
                     elements.add(ei);
                 }
                 previousNodeid=curnodeid;
@@ -1397,7 +1400,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public List<VElementInfo> getAlarmedElements() throws MapsException {
+    public final List<VElementInfo> getAlarmedElements() throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1434,7 +1437,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public java.util.Map<Integer, Double> getAvails(DbElement[] mapElements)
+    public final java.util.Map<Integer, Double> getAvails(final DbElement[] mapElements)
             throws MapsException {
         // get avails for all nodes in map and its submaps
         java.util.Map<Integer, Double> availsMap = null;
@@ -1465,7 +1468,7 @@ public class DBManager extends Manager {
      * returned.
      */
     private java.util.Map<Integer, Double> getNodeAvailability(
-            Set<Integer> nodeIds) throws MapsException {
+            final Set<Integer> nodeIds) throws MapsException {
 
         Calendar cal = new GregorianCalendar();
         Date end = cal.getTime();
@@ -1532,7 +1535,7 @@ public class DBManager extends Manager {
         return retMap;
     }
 
-    String getMapName(int id) throws MapsException {
+    final String getMapName(final int id) throws MapsException {
         Connection conn = createConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -1564,7 +1567,7 @@ public class DBManager extends Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     @Override
-    public Vector<Integer> getDeletedNodes() throws MapsException {
+    public final Vector<Integer> getDeletedNodes() throws MapsException {
         Connection conn = createConnection();
         Statement statement = null;
         ResultSet rs = null;
@@ -1596,7 +1599,7 @@ public class DBManager extends Manager {
      * is a map)
      */
     @Override
-    public Set<Integer> getNodeidsOnElement(DbElement elem)
+    public final Set<Integer> getNodeidsOnElement(final DbElement elem)
             throws MapsException {
         Set<Integer> elementNodeIds = new HashSet<Integer>();
         if (elem.isNode()) {
@@ -1623,7 +1626,7 @@ public class DBManager extends Manager {
 
     }
 
-    private Vector<DbMap> rs2MapVector(ResultSet rs) throws SQLException {
+    private Vector<DbMap> rs2MapVector(final ResultSet rs) throws SQLException {
         Vector<DbMap> mapVec = null;
         boolean firstTime = true;
         while (rs.next()) {
@@ -1652,7 +1655,7 @@ public class DBManager extends Manager {
         return mapVec;
     }
 
-    private Vector<VMapInfo> rs2MapMenuVector(ResultSet rs)
+    private Vector<VMapInfo> rs2MapMenuVector(final ResultSet rs)
             throws SQLException {
         Vector<VMapInfo> mapVec = null;
         boolean firstTime = true;
@@ -1670,7 +1673,7 @@ public class DBManager extends Manager {
         return mapVec;
     }
 
-    private VMapInfo rs2MapMenu(ResultSet rs) throws SQLException {
+    private VMapInfo rs2MapMenu(final ResultSet rs) throws SQLException {
         VMapInfo map = null;
         if (rs.next()) {
             map = new VMapInfo(rs.getInt("mapId"), rs.getString("mapName"),
@@ -1679,7 +1682,7 @@ public class DBManager extends Manager {
         return map;
     }
 
-    private DbMap rs2Map(ResultSet rs) throws SQLException {
+    private DbMap rs2Map(final ResultSet rs) throws SQLException {
         DbMap map = null;
         if (rs.next()) {
             map = new DbMap();
@@ -1703,7 +1706,7 @@ public class DBManager extends Manager {
         return map;
     }
 
-    private DbElement rs2Element(ResultSet rs) throws SQLException,
+    private DbElement rs2Element(final ResultSet rs) throws SQLException,
             MapsException {
         DbElement element = null;
         if (rs.next()) {
@@ -1719,7 +1722,7 @@ public class DBManager extends Manager {
         return element;
     }
 
-    private Vector<DbElement> rs2ElementVector(ResultSet rs)
+    private Vector<DbElement> rs2ElementVector(final ResultSet rs)
             throws SQLException, MapsException {
         Vector<DbElement> vecElem = null;
         boolean firstTime = true;
@@ -1743,7 +1746,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public Set<LinkInfo> getLinksOnElements(Set<Integer> allnodes)
+    public final Set<LinkInfo> getLinksOnElements(final Set<Integer> allnodes)
             throws MapsException {
         LOG.debug("getLinksOnElements {}", allnodes);
         Set<LinkInfo> nodes = null;
@@ -1752,14 +1755,16 @@ public class DBManager extends Manager {
         ResultSet rs = null;
         try {
             nodes = new HashSet<LinkInfo>();
-            if (allnodes == null || allnodes.size() == 0)
+            if (allnodes == null || allnodes.size() == 0) {
                 return nodes;
+            }
             String nodelist = "";
             Iterator<Integer> ite = allnodes.iterator();
             while (ite.hasNext()) {
                 nodelist += ite.next();
-                if (ite.hasNext())
+                if (ite.hasNext()) {
                     nodelist += ",";
+                }
             }
 
             statement = conn.createStatement();
@@ -1855,7 +1860,7 @@ public class DBManager extends Manager {
                                              nodeparentid, parentifindex,
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
-                                             snmpifadminstatus, status,linktypeid);
+                                             snmpifadminstatus, status, linktypeid);
 
                 nodes.add(link);
             }
@@ -1952,7 +1957,7 @@ public class DBManager extends Manager {
                                              nodeparentid, parentifindex,
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
-                                             snmpifadminstatus, status,linktypeid);
+                                             snmpifadminstatus, status, linktypeid);
 
                 nodes.add(link);
             }
@@ -2021,7 +2026,7 @@ public class DBManager extends Manager {
                                              nodeparentid, parentifindex,
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
-                                             snmpifadminstatus, status,linktypeid);
+                                             snmpifadminstatus, status, linktypeid);
 
                 nodes.add(link);
             }
@@ -2039,7 +2044,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public Set<Integer> getNodeIdsBySource(String query) throws MapsException {
+    public final Set<Integer> getNodeIdsBySource(final String query) throws MapsException {
         if (query == null) {
             return getAllNodes();
         }
@@ -2096,7 +2101,7 @@ public class DBManager extends Manager {
 
     /** {@inheritDoc} */
     @Override
-    public boolean isElementDeleted(int elementId, String type)
+    public final boolean isElementDeleted(final int elementId, final String type)
             throws MapsException {
         LOG.debug("isElementNotDeleted: elementId={} type= {}", elementId, type);
         if (type.equals(MapsConstants.MAP_TYPE)) {
@@ -2107,7 +2112,7 @@ public class DBManager extends Manager {
         return false;
     }
 
-    private boolean isMapInRow(int mapId) throws MapsException {
+    private boolean isMapInRow(final int mapId) throws MapsException {
         Connection conn = createConnection();
         boolean isThere = false;
         PreparedStatement statement = null;
@@ -2132,7 +2137,7 @@ public class DBManager extends Manager {
         return isThere;
     }
 
-    private boolean isNodeInRow(int nodeId) throws MapsException {
+    private boolean isNodeInRow(final int nodeId) throws MapsException {
         Connection conn = createConnection();
         boolean isThere = false;
         PreparedStatement statement = null;
@@ -2159,7 +2164,7 @@ public class DBManager extends Manager {
         return isThere;
     }
 
-    private String getLabel(String fqdn) {
+    private String getLabel(final String fqdn) {
         if (fqdn.indexOf(".")>0 && !validate(fqdn)) {
             return fqdn.substring(0, fqdn.indexOf('.'));
         } else {
@@ -2180,7 +2185,7 @@ public class DBManager extends Manager {
     *
     * @deprecated Use {@link InetAddressUtils} instead
     */
-    private boolean validate(final String ip){
+    private boolean validate(final String ip) {
   	  Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
 	  Matcher matcher = pattern.matcher(ip);
 	  return matcher.matches();

@@ -70,7 +70,7 @@ public class SurveillanceViewController extends AbstractController implements In
      *
      * @param svc a {@link org.opennms.web.svclayer.SurveillanceService} object.
      */
-    public void setService(SurveillanceService svc) {
+    public final void setService(final SurveillanceService svc) {
         m_service = svc;
     }
 
@@ -78,14 +78,14 @@ public class SurveillanceViewController extends AbstractController implements In
      * <p>afterPropertiesSet</p>
      */
     @Override
-    public void afterPropertiesSet() {
+    public final void afterPropertiesSet() {
         Assert.state(m_service != null, "service property must be set");
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest req,
-            HttpServletResponse resp) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest req,
+            final HttpServletResponse resp) throws Exception {
 
         if ( ! m_service.isViewName(req.getParameter(VIEW_NAME_PARAMETER)) ) {
             SurveillanceViewError viewError = createSurveillanceViewError( WebSecurityUtils.sanitizeString(req.getParameter(VIEW_NAME_PARAMETER)) );

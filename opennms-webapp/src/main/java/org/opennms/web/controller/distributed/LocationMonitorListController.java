@@ -50,7 +50,7 @@ public class LocationMonitorListController extends AbstractController implements
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         LocationMonitorListModel model = m_distributedPollerService.getLocationMonitorList();
         ModelAndView modelAndView = new ModelAndView("distributed/locationMonitorList", "model", model);
 
@@ -66,7 +66,7 @@ public class LocationMonitorListController extends AbstractController implements
      *
      * @return a {@link org.opennms.web.svclayer.DistributedPollerService} object.
      */
-    public DistributedPollerService getDistributedPollerService() {
+    public final DistributedPollerService getDistributedPollerService() {
         return m_distributedPollerService;
     }
 
@@ -75,7 +75,7 @@ public class LocationMonitorListController extends AbstractController implements
      *
      * @param distributedPollerService a {@link org.opennms.web.svclayer.DistributedPollerService} object.
      */
-    public void setDistributedPollerService(DistributedPollerService distributedPollerService) {
+    public final void setDistributedPollerService(final DistributedPollerService distributedPollerService) {
         m_distributedPollerService = distributedPollerService;
     }
 
@@ -85,7 +85,7 @@ public class LocationMonitorListController extends AbstractController implements
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         if (m_distributedPollerService == null) {
             throw new IllegalStateException("distributedPollerService property has not been set");
         }

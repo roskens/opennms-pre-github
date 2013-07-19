@@ -63,47 +63,47 @@ public class EditProvisioningGroupController extends SimpleFormController {
         private String m_currentNode;
         private String m_groupName = "hardcoded";
 
-        public String getAction() {
+        public final String getAction() {
             return m_action;
         }
-        public void setAction(String action) {
+        public final void setAction(final String action) {
             m_action = action;
         }
-        public String getGroupName() {
+        public final String getGroupName() {
             return m_groupName;
         }
-        public void setGroupName(String groupName) {
+        public final void setGroupName(final String groupName) {
             m_groupName = groupName;
         }
-        public Requisition getFormData() {
+        public final Requisition getFormData() {
             return m_formData;
         }
-        public void setFormData(final Requisition importData) {
+        public final void setFormData(final Requisition importData) {
             m_formData = importData;
         }
-        public String getFormPath() {
+        public final String getFormPath() {
             return m_formPath;
         }
-        public void setFormPath(String target) {
+        public final void setFormPath(final String target) {
             m_formPath = target;
         }
-        public String getCurrentNode() {
+        public final String getCurrentNode() {
             return m_currentNode;
         }
-        public void setCurrentNode(String node) {
+        public final void setCurrentNode(final String node) {
             m_currentNode = node;
         }
-        public String getDataPath() {
+        public final String getDataPath() {
             //added nodeEditForm. to the formData. because somehow we are getting that attached a prefix as well.
             return m_formPath.substring("nodeEditForm.formData.".length());
         }
-        public void setDataPath(String path) {
+        public final void setDataPath(final String path) {
             //added nodeEditForm. to the formData. because somehow we are getting that attached a prefix as well.
             m_formPath = "nodeEditForm.formData."+path;
         }
 
         @Override
-        public String toString() {
+        public final String toString() {
         	return new ToStringBuilder(this)
         		.append("action", getAction())
         		.append("currentNode", getCurrentNode())
@@ -122,19 +122,19 @@ public class EditProvisioningGroupController extends SimpleFormController {
      *
      * @param provisioningService a {@link org.opennms.web.svclayer.ManualProvisioningService} object.
      */
-    public void setProvisioningService(ManualProvisioningService provisioningService) {
+    public final void setProvisioningService(final ManualProvisioningService provisioningService) {
         m_provisioningService = provisioningService;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return super.handleRequestInternal(request, response);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
+    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
         TreeCommand treeCmd = (TreeCommand)command;
         String action = treeCmd.getAction();
         if (action == null) {
@@ -175,15 +175,15 @@ public class EditProvisioningGroupController extends SimpleFormController {
 
     }
 
-    private ModelAndView done(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView done(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         return new ModelAndView(getSuccessView());
     }
 
-    private ModelAndView doShow(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doShow(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doCancel(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doCancel(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         Requisition formData = m_provisioningService.getProvisioningGroup(treeCmd.getGroupName());
         treeCmd.setFormData(formData);
@@ -193,14 +193,14 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doImport(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doImport(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         m_provisioningService.importProvisioningGroup(treeCmd.getGroupName());
         return super.showForm(request, response, errors);
 
     }
 
-    private ModelAndView doDelete(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doDelete(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         Requisition formData = m_provisioningService.deletePath(treeCmd.getGroupName(), treeCmd.getDataPath());
         treeCmd.setFormData(formData);
@@ -208,7 +208,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddCategory(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddCategory(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         Requisition formData = m_provisioningService.addCategoryToNode(treeCmd.getGroupName(), treeCmd.getDataPath(), "New Category");
         treeCmd.setFormData(formData);
@@ -219,7 +219,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddAssetField(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddAssetField(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         Requisition formData = m_provisioningService.addAssetFieldToNode(treeCmd.getGroupName(), treeCmd.getDataPath(), "key", "value");
         treeCmd.setFormData(formData);
 
@@ -228,14 +228,14 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doEdit(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doEdit(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         treeCmd.setCurrentNode(treeCmd.getFormPath());
 
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doSave(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doSave(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
     	try {
     		LOG.debug("treeCmd = {}", treeCmd);
         	treeCmd.getFormData().validate();
@@ -248,7 +248,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddService(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddService(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         Requisition formData = m_provisioningService.addServiceToInterface(treeCmd.getGroupName(), treeCmd.getDataPath(), "SVC");
         treeCmd.setFormData(formData);
@@ -259,7 +259,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddInterface(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddInterface(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         Requisition formData = m_provisioningService.addInterfaceToNode(treeCmd.getGroupName(), treeCmd.getDataPath(), "");
         treeCmd.setFormData(formData);
@@ -269,7 +269,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddNode(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddNode(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         treeCmd.setFormData(m_provisioningService.addNewNodeToGroup(treeCmd.getGroupName(), "New Node"));
 
@@ -280,13 +280,13 @@ public class EditProvisioningGroupController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+    protected final Object formBackingObject(final HttpServletRequest request) throws Exception {
         TreeCommand formCommand = new TreeCommand();
         initializeTreeCommand(request, formCommand);
         return formCommand;
     }
 
-    private void initializeTreeCommand(HttpServletRequest request, TreeCommand formCommand) throws Exception {
+    private void initializeTreeCommand(final HttpServletRequest request, final TreeCommand formCommand) throws Exception {
         String groupName = request.getParameter("groupName");
         if (groupName == null) {
             throw new IllegalArgumentException("groupName required");
@@ -302,7 +302,7 @@ public class EditProvisioningGroupController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected Map<String, Collection<String>> referenceData(HttpServletRequest request) throws Exception {
+    protected final Map<String, Collection<String>> referenceData(final HttpServletRequest request) throws Exception {
         Map<String, Collection<String>> map = new HashMap<String, Collection<String>>();
 
         // Fetch the list of possible values out of the Castor enumeration

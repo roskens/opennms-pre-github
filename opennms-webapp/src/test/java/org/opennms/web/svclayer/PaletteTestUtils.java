@@ -35,13 +35,13 @@ import junit.framework.Assert;
 
 public abstract class PaletteTestUtils extends Assert {
 
-	public static void assertPaletteItemEquals(PaletteItem expectedItem, PaletteItem actualItem) {
+	public static void assertPaletteItemEquals(final PaletteItem expectedItem, final PaletteItem actualItem) {
 		assertEquals(expectedItem.getId(), actualItem.getId());
 		assertEquals(expectedItem.getLabel(), actualItem.getLabel());
 		assertEquals(expectedItem.isSpacer(), actualItem.isSpacer());
 	}
 
-	public static void assertPaletteCateriesEquals(List<PaletteCategory> expectedCategories, List<PaletteCategory> actualCategories) {
+	public static void assertPaletteCateriesEquals(final List<PaletteCategory> expectedCategories, final List<PaletteCategory> actualCategories) {
 		if (expectedCategories == null) {
 			assertNull(actualCategories);
 			return;
@@ -56,12 +56,12 @@ public abstract class PaletteTestUtils extends Assert {
 		assertFalse(iter.hasNext());
 	}
 
-	public static void assertPaletteEquals(Palette expectedPalette, Palette actualPalette) {
+	public static void assertPaletteEquals(final Palette expectedPalette, final Palette actualPalette) {
 		assertEquals(expectedPalette.getLabel(), actualPalette.getLabel());
 		assertPaletteCateriesEquals(expectedPalette.getCategories(), actualPalette.getCategories());
 	}
 
-	public static void assertPaletteItemsEqual(List<PaletteItem> expectedItems, List<PaletteItem> actualItems) {
+	public static void assertPaletteItemsEqual(final List<PaletteItem> expectedItems, final List<PaletteItem> actualItems) {
 		if (expectedItems == null) {
 			assertNull(actualItems);
 			return;
@@ -79,7 +79,7 @@ public abstract class PaletteTestUtils extends Assert {
 		}
 	}
 
-	public static void assertPaletteCategoryEquals(PaletteCategory expectedCategory, PaletteCategory actualCategory) {
+	public static void assertPaletteCategoryEquals(final PaletteCategory expectedCategory, final PaletteCategory actualCategory) {
 		assertEquals("Unexpected category label", expectedCategory.getLabel(), actualCategory.getLabel());
 		assertPaletteItemsEqual(expectedCategory.getItems(), actualCategory.getItems());
 	}

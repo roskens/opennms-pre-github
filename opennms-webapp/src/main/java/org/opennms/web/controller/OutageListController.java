@@ -76,7 +76,7 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @param service a {@link org.opennms.web.svclayer.outage.OutageService} object.
      */
-    public void setOutageService(OutageService service) {
+    public final void setOutageService(final OutageService service) {
         m_outageService = service;
     }
 
@@ -85,13 +85,13 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @param filterView a {@link org.opennms.web.svclayer.outage.OutagesFilteringView} object.
      */
-    public void setFilterView(OutagesFilteringView filterView) {
+    public final void setFilterView(final OutagesFilteringView filterView) {
         m_filterView = filterView;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse reply) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse reply) throws Exception {
         Context context = new HttpServletRequestContext(request);
         LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
         Limit limit = new TableLimit(limitFactory);
@@ -151,7 +151,7 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @param successView a {@link java.lang.String} object.
      */
-    public void setSuccessView(String successView) {
+    public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
@@ -160,7 +160,7 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSuccessView() {
+    public final String getSuccessView() {
         return m_successView;
     }
 
@@ -169,7 +169,7 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @param defaultRowsDisplayed a int.
      */
-    public void setDefaultRowsDisplayed(int defaultRowsDisplayed) {
+    public final void setDefaultRowsDisplayed(final int defaultRowsDisplayed) {
         m_defaultRowsDisplayed = defaultRowsDisplayed;
     }
 
@@ -178,7 +178,7 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @return a int.
      */
-    public int getDefaultRowsDisplayed() {
+    public final int getDefaultRowsDisplayed() {
         return m_defaultRowsDisplayed;
     }
 
@@ -188,7 +188,7 @@ public class OutageListController extends AbstractController implements Initiali
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_filterView, "filterView property must be set");
         Assert.notNull(m_outageListBuilder, "outageListBuilder property must be set");
     }
@@ -198,7 +198,7 @@ public class OutageListController extends AbstractController implements Initiali
      *
      * @param outageListBuilder a {@link org.opennms.web.svclayer.outage.OutageListBuilder} object.
      */
-    public void setOutageListBuilder(OutageListBuilder outageListBuilder) {
+    public final void setOutageListBuilder(final OutageListBuilder outageListBuilder) {
         m_outageListBuilder = outageListBuilder;
     }
 

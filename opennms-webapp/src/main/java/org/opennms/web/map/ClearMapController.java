@@ -94,7 +94,7 @@ public class ClearMapController extends MapsLoggingController {
 			manager.clearMap();
 			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLEAR_ACTION));
 		} catch (Throwable e) {
-			LOG.error("Error while doing clear map ",e);
+			LOG.error("Error while doing clear map", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.CLEAR_ACTION));
 		} finally {
 			bw.close();

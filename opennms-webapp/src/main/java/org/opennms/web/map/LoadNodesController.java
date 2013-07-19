@@ -85,14 +85,14 @@ public class LoadNodesController extends MapsLoggingController {
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		LOG.debug("Loading Nodes" );
+		LOG.debug("Loading Nodes");
 
 		String user = request.getRemoteUser();
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 		try {
 			bw.write(ResponseAssembler.getLoadNodesResponse(manager.getElementInfo()));
 		} catch (Throwable e) {
-			LOG.error("Error while loading visible maps for user:{}", user,e);
+			LOG.error("Error while loading visible maps for user:{}", user, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADNODES_ACTION));
 		} finally {
 			bw.close();

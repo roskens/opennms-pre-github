@@ -81,7 +81,7 @@ public class DateFilterPredicate implements Predicate
      *
      * @param model table model
      */
-    public DateFilterPredicate(TableModel model)
+    public DateFilterPredicate(final TableModel model)
     {
     	this.model = model;
     }
@@ -92,7 +92,7 @@ public class DateFilterPredicate implements Predicate
      * Use the filter parameters to filter out the table.
      */
     @Override
-    public boolean evaluate(Object bean)
+    public final boolean evaluate(final Object bean)
     {
         boolean match = false;
 
@@ -153,8 +153,8 @@ public class DateFilterPredicate implements Predicate
         return match;
     }
 
-    private boolean isSearchMatch(Object value, String search, boolean isDate,
-        String format, Locale locale)
+    private boolean isSearchMatch(final Object value, final String search, final boolean isDate,
+        final String format, final Locale locale)
     {
         String valueStr = value.toString().toLowerCase().trim();
         search = search.toLowerCase().trim();

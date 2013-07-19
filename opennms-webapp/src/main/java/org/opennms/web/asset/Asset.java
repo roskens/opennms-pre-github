@@ -82,7 +82,7 @@ public class Asset extends Object {
     public static final String RSH_CONNECTION = "rsh";
 
     /** Constant <code>CONNECTIONS="new String[] { TELNET_CONNECTION,SSH_CO"{trunked}</code> */
-    public static final String[] CONNECTIONS = new String[] { TELNET_CONNECTION,SSH_CONNECTION, RSH_CONNECTION};
+    public static final String[] CONNECTIONS = new String[] { TELNET_CONNECTION, SSH_CONNECTION, RSH_CONNECTION};
 
     protected int nodeId;
 

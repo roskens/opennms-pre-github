@@ -84,7 +84,7 @@ public class EditForeignSourceController extends SimpleFormController {
      *
      * @param fss a {@link org.opennms.netmgt.provision.persist.ForeignSourceService} object.
      */
-    public void setForeignSourceService(ForeignSourceService fss) {
+    public final void setForeignSourceService(final ForeignSourceService fss) {
         m_foreignSourceService = fss;
     }
 
@@ -95,48 +95,48 @@ public class EditForeignSourceController extends SimpleFormController {
         private String m_currentNode;
         private String m_foreignSourceName = "hardcoded";
 
-        public String getAction() {
+        public final String getAction() {
             return m_action;
         }
-        public void setAction(String action) {
+        public final void setAction(final String action) {
             m_action = action;
         }
-        public String getForeignSourceName() {
+        public final String getForeignSourceName() {
             return m_foreignSourceName;
         }
-        public void setForeignSourceName(String foreignSourceName) {
+        public final void setForeignSourceName(final String foreignSourceName) {
             m_foreignSourceName = foreignSourceName;
         }
-        public ForeignSource getFormData() {
+        public final ForeignSource getFormData() {
             return m_formData;
         }
-        public void setFormData(ForeignSource importData) {
+        public final void setFormData(final ForeignSource importData) {
             m_formData = importData;
         }
-        public String getDefaultFormPath() {
+        public final String getDefaultFormPath() {
             return "foreignSourceEditForm.formData";
         }
-        public String getFormPath() {
+        public final String getFormPath() {
             return m_formPath;
         }
-        public void setFormPath(String target) {
+        public final void setFormPath(final String target) {
             m_formPath = target;
         }
-        public String getCurrentNode() {
+        public final String getCurrentNode() {
             return m_currentNode;
         }
-        public void setCurrentNode(String node) {
+        public final void setCurrentNode(final String node) {
             m_currentNode = node;
         }
-        public String getDataPath() {
+        public final String getDataPath() {
             return m_formPath.substring("foreignSourceEditForm.formData.".length());
         }
-        public void setDataPath(String path) {
+        public final void setDataPath(final String path) {
             m_formPath = "foreignSourceEditForm.formData."+path;
         }
 
         @Override
-        public String toString() {
+        public final String toString() {
             return new ToStringBuilder(this)
                 .append("foreign source", m_foreignSourceName)
                 .append("form path", m_formPath)
@@ -149,19 +149,19 @@ public class EditForeignSourceController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
+    protected final void initBinder(final HttpServletRequest req, final ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(Duration.class, new StringIntervalPropertyEditor());
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         return super.handleRequestInternal(request, response);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
+    protected final ModelAndView onSubmit(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
         TreeCommand treeCmd = (TreeCommand)command;
         LOG.debug("treeCmd = {}", treeCmd);
         String action = treeCmd.getAction();
@@ -190,30 +190,30 @@ public class EditForeignSourceController extends SimpleFormController {
 
     }
 
-    private ModelAndView done(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView done(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         m_foreignSourceService.saveForeignSource(treeCmd.getForeignSourceName(), treeCmd.getFormData());
         return new ModelAndView(getSuccessView());
     }
 
-    private ModelAndView doShow(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doShow(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddDetector(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddDetector(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         ForeignSource fs = m_foreignSourceService.addDetectorToForeignSource(treeCmd.getForeignSourceName(), "New Detector");
         treeCmd.setFormData(fs);
         treeCmd.setCurrentNode(treeCmd.getFormPath()+".detectors["+ (fs.getDetectors().size()-1) +"]");
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddPolicy(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddPolicy(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         ForeignSource fs = m_foreignSourceService.addPolicyToForeignSource(treeCmd.getForeignSourceName(), "New Policy");
         treeCmd.setFormData(fs);
         treeCmd.setCurrentNode(treeCmd.getFormPath()+".policies["+ (fs.getPolicies().size()-1) +"]");
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doAddParameter(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doAddParameter(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         ForeignSource fs = m_foreignSourceService.addParameter(treeCmd.getForeignSourceName(), treeCmd.getDataPath());
         treeCmd.setFormData(fs);
         PropertyPath path = new PropertyPath(treeCmd.getDataPath());
@@ -223,26 +223,26 @@ public class EditForeignSourceController extends SimpleFormController {
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doSave(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doSave(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         ForeignSource fs = m_foreignSourceService.saveForeignSource(treeCmd.getForeignSourceName(), treeCmd.getFormData());
         treeCmd.setFormData(fs);
         treeCmd.setCurrentNode("");
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doEdit(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doEdit(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         treeCmd.setCurrentNode(treeCmd.getFormPath());
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doCancel(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doCancel(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
         ForeignSource fs = m_foreignSourceService.getForeignSource(treeCmd.getForeignSourceName());
         treeCmd.setFormData(fs);
         treeCmd.setCurrentNode("");
         return showForm(request, response, errors);
     }
 
-    private ModelAndView doDelete(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
+    private ModelAndView doDelete(final HttpServletRequest request, final HttpServletResponse response, final TreeCommand treeCmd, final BindException errors) throws Exception {
 
         ForeignSource fs = m_foreignSourceService.deletePath(treeCmd.getForeignSourceName(), treeCmd.getDataPath());
         treeCmd.setFormData(fs);
@@ -251,7 +251,7 @@ public class EditForeignSourceController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+    protected final Object formBackingObject(final HttpServletRequest request) throws Exception {
         TreeCommand formCommand = new TreeCommand();
         String foreignSourceName = request.getParameter("foreignSourceName");
         if (foreignSourceName == null) {
@@ -264,7 +264,7 @@ public class EditForeignSourceController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected Map<String,Object> referenceData(HttpServletRequest request) throws Exception {
+    protected final Map<String,Object> referenceData(final HttpServletRequest request) throws Exception {
         final Map<String, Object> map = new HashMap<String, Object>();
         int classFieldWidth = 20;
         int valueFieldWidth = 20;
@@ -292,7 +292,7 @@ public class EditForeignSourceController extends SimpleFormController {
         return map;
     }
 
-    private Set<String> getParametersForClass(String clazz) {
+    private Set<String> getParametersForClass(final String clazz) {
         if (m_pluginParameters.containsKey(clazz)) {
             return m_pluginParameters.get(clazz);
         }

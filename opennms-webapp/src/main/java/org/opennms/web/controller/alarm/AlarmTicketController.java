@@ -66,7 +66,7 @@ public class AlarmTicketController extends MultiActionController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         LOG.debug("AlarmTicketController handleRequestInternal called");
         return super.handleRequestInternal(request, response);
     }
@@ -77,13 +77,13 @@ public class AlarmTicketController extends MultiActionController {
         public Integer getAlarm() {
             return alarm;
         }
-        public void setAlarm(Integer alarm) {
+        public void setAlarm(final Integer alarm) {
             this.alarm = alarm;
         }
         public String getRedirect() {
             return redirect;
         }
-        public void setRedirect(String redirect) {
+        public void setRedirect(final String redirect) {
             this.redirect = redirect;
         }
 
@@ -99,15 +99,16 @@ public class AlarmTicketController extends MultiActionController {
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      * @throws java.lang.Exception if any.
      */
-    public ModelAndView create(HttpServletRequest request, HttpServletResponse response, CommandBean bean) throws Exception {
+    public final ModelAndView create(final HttpServletRequest request, final HttpServletResponse response, final CommandBean bean) throws Exception {
     	Map<String,String> parameters = new HashMap<String, String>();
     	parameters.put(EventConstants.PARM_USER, request.getRemoteUser());
     	@SuppressWarnings("unchecked")
 		Enumeration<String> paramNames = request.getParameterNames();
         while(paramNames.hasMoreElements()) {
         	String paramName = paramNames.nextElement();
-        	if (!paramName.equals("alarm") || !paramName.equals("redirect"))
-        		parameters.put(paramName, request.getParameter(paramName));
+		if (!paramName.equals("alarm") || !paramName.equals("redirect")) {
+                parameters.put(paramName, request.getParameter(paramName));
+            }
         }
     	m_troubleTicketProxy.createTicket(bean.getAlarm(), parameters);
         return new ModelAndView("redirect:"+bean.getRedirect());
@@ -120,7 +121,7 @@ public class AlarmTicketController extends MultiActionController {
      * @param bean a {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
-    public ModelAndView update(HttpServletRequest request, HttpServletResponse response, CommandBean bean) {
+    public final ModelAndView update(final HttpServletRequest request, final HttpServletResponse response, final CommandBean bean) {
         m_troubleTicketProxy.updateTicket(bean.getAlarm());
         return new ModelAndView("redirect:"+bean.getRedirect());
     }
@@ -132,7 +133,7 @@ public class AlarmTicketController extends MultiActionController {
      * @param bean a {@link org.opennms.web.controller.alarm.AlarmTicketController.CommandBean} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
-    public ModelAndView close(HttpServletRequest request, HttpServletResponse response, CommandBean bean) {
+    public final ModelAndView close(final HttpServletRequest request, final HttpServletResponse response, final CommandBean bean) {
         m_troubleTicketProxy.closeTicket(bean.getAlarm());
         return new ModelAndView("redirect:"+bean.getRedirect());
     }
@@ -142,7 +143,7 @@ public class AlarmTicketController extends MultiActionController {
      *
      * @param troubleTicketProxy a {@link org.opennms.web.svclayer.TroubleTicketProxy} object.
      */
-    public void setTroubleTicketProxy(TroubleTicketProxy troubleTicketProxy) {
+    public final void setTroubleTicketProxy(final TroubleTicketProxy troubleTicketProxy) {
         m_troubleTicketProxy = troubleTicketProxy;
     }
 

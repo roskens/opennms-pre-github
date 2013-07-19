@@ -59,7 +59,7 @@ public class DefaultDatabaseReportListService implements
      */
     @Deprecated
     @Override
-    public List<DatabaseReportDescription> getAll() {
+    public final List<DatabaseReportDescription> getAll() {
 
         List<DatabaseReportDescription> allReports = new ArrayList<DatabaseReportDescription>();
 
@@ -79,7 +79,7 @@ public class DefaultDatabaseReportListService implements
     }
 
     @Override
-    public List<ReportRepositoryDescription> getActiveRepositories() {
+    public final List<ReportRepositoryDescription> getActiveRepositories() {
         List<ReportRepositoryDescription> result = new ArrayList<ReportRepositoryDescription>();
         List<ReportRepository> reportRepositoryList = new ArrayList<ReportRepository>();
 
@@ -98,7 +98,7 @@ public class DefaultDatabaseReportListService implements
     }
 
     @Override
-    public List<DatabaseReportDescription> getOnlineReportsByRepositoryId(String repositoryId) {
+    public final List<DatabaseReportDescription> getOnlineReportsByRepositoryId(final String repositoryId) {
         List<DatabaseReportDescription> onlineReportList = new ArrayList<DatabaseReportDescription>();
 
         for (BasicReportDefinition reportDefinition : m_globalReportRepository.getRepositoryById(repositoryId).getOnlineReports()) {
@@ -115,7 +115,7 @@ public class DefaultDatabaseReportListService implements
     }
 
     @Override
-    public List<DatabaseReportDescription> getReportsByRepositoryId(String repositoryId) {
+    public final List<DatabaseReportDescription> getReportsByRepositoryId(final String repositoryId) {
         List<DatabaseReportDescription> reportList = new ArrayList<DatabaseReportDescription>();
 
         for (BasicReportDefinition reportDefinition : m_globalReportRepository.getRepositoryById(repositoryId).getReports()) {
@@ -140,7 +140,7 @@ public class DefaultDatabaseReportListService implements
      */
     @Deprecated
     @Override
-    public List<DatabaseReportDescription> getAllOnline() {
+    public final List<DatabaseReportDescription> getAllOnline() {
 
         List<DatabaseReportDescription> onlineReports = new ArrayList<DatabaseReportDescription>();
         for (ReportRepository m_repo : m_globalReportRepository.getRepositoryList()) {
@@ -158,12 +158,12 @@ public class DefaultDatabaseReportListService implements
         return onlineReports;
     }
 
-    public void setGlobalReportRepository(GlobalReportRepository globalReportRepository) {
+    public final void setGlobalReportRepository(final GlobalReportRepository globalReportRepository) {
         m_globalReportRepository = globalReportRepository;
     }
 
     @Override
-    public void reloadConfigurationFiles() {
+    public final void reloadConfigurationFiles() {
         m_globalReportRepository.reloadConfigurationFiles();
 
     }

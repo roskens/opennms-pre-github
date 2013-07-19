@@ -69,7 +69,7 @@ public class DefaultAdminCategoryService implements
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public CategoryDao getCategoryDao() {
+    public final CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
 
@@ -78,7 +78,7 @@ public class DefaultAdminCategoryService implements
      *
      * @param dao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public void setCategoryDao(CategoryDao dao) {
+    public final void setCategoryDao(final CategoryDao dao) {
         m_categoryDao = dao;
     }
 
@@ -87,7 +87,7 @@ public class DefaultAdminCategoryService implements
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public NodeDao getNodeDao() {
+    public final NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
@@ -96,7 +96,7 @@ public class DefaultAdminCategoryService implements
      *
      * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public void setNodeDao(NodeDao nodeDao) {
+    public final void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
@@ -105,13 +105,13 @@ public class DefaultAdminCategoryService implements
      *
      * @param eventProxy a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
-    public void setEventProxy(EventProxy eventProxy) {
+    public final void setEventProxy(final EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
 
     /** {@inheritDoc} */
     @Override
-    public CategoryAndMemberNodes getCategory(String categoryIdString) {
+    public final CategoryAndMemberNodes getCategory(final String categoryIdString) {
         if (categoryIdString == null) {
             throw new IllegalArgumentException("categoryIdString must not be null");
         }
@@ -129,7 +129,7 @@ public class DefaultAdminCategoryService implements
         return new CategoryAndMemberNodes(category, memberNodes);
     }
 
-    private OnmsCategory findCategory(String name) {
+    private OnmsCategory findCategory(final String name) {
         int categoryId = -1;
         try {
             categoryId = WebSecurityUtils.safeParseInt(name);
@@ -157,7 +157,7 @@ public class DefaultAdminCategoryService implements
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsNode> findAllNodes() {
+    public final List<OnmsNode> findAllNodes() {
     	final List<OnmsNode> list = new ArrayList<OnmsNode>();
     	for (final OnmsNode node : getNodeDao().findAll()) {
     		if (!"D".equals(node.getType())) {
@@ -171,7 +171,7 @@ public class DefaultAdminCategoryService implements
 
     /** {@inheritDoc} */
     @Override
-    public EditModel findCategoryAndAllNodes(String categoryIdString) {
+    public final EditModel findCategoryAndAllNodes(final String categoryIdString) {
         CategoryAndMemberNodes cat = getCategory(categoryIdString);
         List<OnmsNode> monitoredNodes = findAllNodes();
         return new EditModel(cat.getCategory(), monitoredNodes, cat.getMemberNodes());
@@ -186,8 +186,8 @@ public class DefaultAdminCategoryService implements
      * @param toDelete an array of {@link java.lang.String} objects.
      */
     @Override
-    public void performEdit(String categoryIdString, String editAction,
-            String[] toAdd, String[] toDelete) {
+    public final void performEdit(final String categoryIdString, final String editAction,
+            final String[] toAdd, final String[] toDelete) {
         if (categoryIdString == null) {
             throw new IllegalArgumentException("categoryIdString cannot be null");
         }
@@ -268,7 +268,7 @@ public class DefaultAdminCategoryService implements
 
     /** {@inheritDoc} */
     @Override
-    public OnmsCategory addNewCategory(final String name) {
+    public final OnmsCategory addNewCategory(final String name) {
         OnmsCategory category = new OnmsCategory();
         category.setName(name);
         m_categoryDao.save(category);
@@ -277,7 +277,7 @@ public class DefaultAdminCategoryService implements
 
     /** {@inheritDoc} */
     @Override
-    public OnmsCategory getCategoryWithName(final String name) {
+    public final OnmsCategory getCategoryWithName(final String name) {
         return m_categoryDao.findByName(name);
     }
 
@@ -287,13 +287,13 @@ public class DefaultAdminCategoryService implements
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsCategory> findAllCategories() {
+    public final List<OnmsCategory> findAllCategories() {
         Collection<OnmsCategory> categories = m_categoryDao.findAll();
         List<OnmsCategory> sortedCategories =
             new ArrayList<OnmsCategory>(categories);
         Collections.sort(sortedCategories, new Comparator<OnmsCategory>() {
             @Override
-            public int compare(OnmsCategory o1, OnmsCategory o2) {
+            public int compare(final OnmsCategory o1, final OnmsCategory o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
@@ -303,7 +303,7 @@ public class DefaultAdminCategoryService implements
 
     /** {@inheritDoc} */
     @Override
-    public void removeCategory(String categoryIdString) {
+    public final void removeCategory(final String categoryIdString) {
         OnmsCategory category = findCategory(categoryIdString);
         CategoryAndMemberNodes cat = getCategory(categoryIdString);
         for (OnmsNode adriftNode : cat.getMemberNodes()) {
@@ -314,7 +314,7 @@ public class DefaultAdminCategoryService implements
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsCategory> findByNode(int nodeId) {
+    public final List<OnmsCategory> findByNode(final int nodeId) {
         final OnmsNode node = getNodeDao().get(nodeId);
         if (node == null) {
             throw new IllegalArgumentException("node with id of " + nodeId + "could not be found");
@@ -327,7 +327,7 @@ public class DefaultAdminCategoryService implements
 
     /** {@inheritDoc} */
     @Override
-    public NodeEditModel findNodeCategories(String nodeIdString) {
+    public final NodeEditModel findNodeCategories(final String nodeIdString) {
         if (nodeIdString == null) {
             throw new IllegalArgumentException("nodeIdString must not be null");
         }
@@ -347,8 +347,8 @@ public class DefaultAdminCategoryService implements
      * @param toDelete an array of {@link java.lang.String} objects.
      */
     @Override
-    public void performNodeEdit(String nodeIdString, String editAction,
-            String[] toAdd, String[] toDelete) {
+    public final void performNodeEdit(final String nodeIdString, final String editAction,
+            final String[] toAdd, final String[] toDelete) {
         if (nodeIdString == null) {
             throw new IllegalArgumentException("nodeIdString cannot be null");
         }
@@ -435,7 +435,7 @@ public class DefaultAdminCategoryService implements
     }
 
 
-    private OnmsNode findNode(String nodeIdString) {
+    private OnmsNode findNode(final String nodeIdString) {
     	final int nodeId;
 
         try {
@@ -465,17 +465,17 @@ public class DefaultAdminCategoryService implements
         private OnmsCategory m_category;
         private Collection<OnmsNode> m_memberNodes;
 
-        public CategoryAndMemberNodes(OnmsCategory category,
-                Collection<OnmsNode> memberNodes) {
+        public CategoryAndMemberNodes(final OnmsCategory category,
+                final Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_memberNodes = memberNodes;
         }
 
-        public OnmsCategory getCategory() {
+        public final OnmsCategory getCategory() {
             return m_category;
         }
 
-        public Collection<OnmsNode> getMemberNodes() {
+        public final Collection<OnmsNode> getMemberNodes() {
             return m_memberNodes;
         }
     }
@@ -485,8 +485,8 @@ public class DefaultAdminCategoryService implements
         private List<OnmsNode> m_nodes;
         private List<OnmsNode> m_sortedMemberNodes;
 
-        public EditModel(OnmsCategory category, List<OnmsNode> nodes,
-                Collection<OnmsNode> memberNodes) {
+        public EditModel(final OnmsCategory category, final List<OnmsNode> nodes,
+                final Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_nodes = nodes;
 
@@ -499,15 +499,15 @@ public class DefaultAdminCategoryService implements
             Collections.sort(m_sortedMemberNodes);
         }
 
-        public OnmsCategory getCategory() {
+        public final OnmsCategory getCategory() {
             return m_category;
         }
 
-        public List<OnmsNode> getNodes() {
+        public final List<OnmsNode> getNodes() {
             return m_nodes;
         }
 
-        public List<OnmsNode> getSortedMemberNodes() {
+        public final List<OnmsNode> getSortedMemberNodes() {
             return m_sortedMemberNodes;
         }
 
@@ -518,7 +518,7 @@ public class DefaultAdminCategoryService implements
         private List<OnmsCategory> m_categories;
         private List<OnmsCategory> m_sortedCategories;
 
-        public NodeEditModel(OnmsNode node, List<OnmsCategory> categories) {
+        public NodeEditModel(final OnmsNode node, final List<OnmsCategory> categories) {
             m_node = node;
             m_categories = categories;
 
@@ -531,15 +531,15 @@ public class DefaultAdminCategoryService implements
             Collections.sort(m_sortedCategories);
         }
 
-        public OnmsNode getNode() {
+        public final OnmsNode getNode() {
             return m_node;
         }
 
-        public List<OnmsCategory> getCategories() {
+        public final List<OnmsCategory> getCategories() {
             return m_categories;
         }
 
-        public List<OnmsCategory> getSortedCategories() {
+        public final List<OnmsCategory> getSortedCategories() {
             return m_sortedCategories;
         }
 

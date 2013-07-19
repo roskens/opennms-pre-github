@@ -66,7 +66,7 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
 	private OutageDao outageDao;
 
         @Override
-	protected void setUp() throws Exception {
+    protected final void setUp() throws Exception {
 		super.setUp();
 		viewDisplayDao = createMock(ViewDisplayDao.class);
 		categoryDao = createMock(CategoryConfigDao.class);
@@ -78,7 +78,7 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
 	}
 
 
-	public void testCategoryGroupsReturnedWhenNoneExist() {
+	public final void testCategoryGroupsReturnedWhenNoneExist() {
 
 
 		View view = new View();
@@ -95,7 +95,7 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
 	}
 
 
-	public void testGetCategoriesStatus(){
+	public final void testGetCategoriesStatus(){
 
 		View view = new View();
 		Section section = new Section();
@@ -178,7 +178,7 @@ public class DefaultCategoryStatusServiceTest extends TestCase {
 	}
 
 
-	private Category createCategoryFromLabel(String label) {
+	private Category createCategoryFromLabel(final String label) {
 
 		Category category = new Category();
 

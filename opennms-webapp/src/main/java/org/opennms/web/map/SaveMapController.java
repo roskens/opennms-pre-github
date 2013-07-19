@@ -153,7 +153,7 @@ public class SaveMapController extends MapsLoggingController {
                 }
 
                 VElement ve = manager.newElement(map.getId(), id, type, icon, x, y);
-                if (label != null )
+                if (label != null)
                     ve.setLabel(label);
 
                 LOG.debug("adding map element to map with id: {}{} and label: {}", id, type, ve.getLabel());
@@ -176,8 +176,7 @@ public class SaveMapController extends MapsLoggingController {
 			    LOG.debug("Map is New Map");
 				map.setType(MapsConstants.USER_GENERATED_MAP);
 				map.setAccessMode(MapsConstants.ACCESS_MODE_ADMIN);
-			}
-			else if (map.getType().trim().equalsIgnoreCase(MapsConstants.AUTOMATICALLY_GENERATED_MAP)) {
+			} else if (map.getType().trim().equalsIgnoreCase(MapsConstants.AUTOMATICALLY_GENERATED_MAP)) {
                 LOG.debug("Map is Automated Map, saving as Static");
                 map.setType(MapsConstants.AUTOMATIC_SAVED_MAP);
 			}
@@ -190,7 +189,7 @@ public class SaveMapController extends MapsLoggingController {
 
 			bw.write(ResponseAssembler.getSaveMapResponse(map));
 		} catch (Throwable e) {
-			LOG.error("Map save error: {}", e,e);
+			LOG.error("Map save error", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.SAVEMAP_ACTION));
 		} finally {
 			bw.close();

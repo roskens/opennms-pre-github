@@ -63,7 +63,7 @@ public class AcknowledgeAlarmController extends AbstractController implements In
      *
      * @param redirectView a {@link java.lang.String} object.
      */
-    public void setRedirectView(String redirectView) {
+    public final void setRedirectView(final String redirectView) {
         m_redirectView = redirectView;
     }
 
@@ -72,7 +72,7 @@ public class AcknowledgeAlarmController extends AbstractController implements In
      *
      * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
-    public void setAlarmRepository(AlarmRepository webAlarmRepository) {
+    public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
@@ -82,7 +82,7 @@ public class AcknowledgeAlarmController extends AbstractController implements In
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_redirectView, "redirectView must be set");
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
     }
@@ -94,7 +94,7 @@ public class AcknowledgeAlarmController extends AbstractController implements In
      * to an appropriate URL for display.
      */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         // required parameter
         String[] alarmIdStrings = request.getParameterValues("alarm");

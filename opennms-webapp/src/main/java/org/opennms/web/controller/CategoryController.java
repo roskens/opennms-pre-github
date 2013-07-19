@@ -64,7 +64,7 @@ public class CategoryController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         String removeCategoryIdString = request.getParameter("removeCategoryId");
         String newCategoryName = request.getParameter("newCategoryName");
         String categoryIdString = request.getParameter("categoryid");
@@ -178,7 +178,7 @@ public class CategoryController extends AbstractController {
         return categoryNames;
     }
 
-    private void addCategoryNames(List<String> categoryNames, List<Category> categoryCollection) {
+    private void addCategoryNames(final List<String> categoryNames, final List<Category> categoryCollection) {
         for(Category category : categoryCollection) {
             if(!categoryNames.contains(category.getName())) {
                 categoryNames.add(category.getName());
@@ -191,7 +191,7 @@ public class CategoryController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
-    public AdminCategoryService getAdminCategoryService() {
+    public final AdminCategoryService getAdminCategoryService() {
         return m_adminCategoryService;
     }
 
@@ -200,15 +200,15 @@ public class CategoryController extends AbstractController {
      *
      * @param adminCategoryService a {@link org.opennms.web.svclayer.AdminCategoryService} object.
      */
-    public void setAdminCategoryService(AdminCategoryService adminCategoryService) {
+    public final void setAdminCategoryService(final AdminCategoryService adminCategoryService) {
         m_adminCategoryService = adminCategoryService;
     }
 
-    public void setSurveillanceViewConfigDao(SurveillanceViewConfigDao surveillanceConfigDao) {
+    public final void setSurveillanceViewConfigDao(final SurveillanceViewConfigDao surveillanceConfigDao) {
         m_surveillanceViewConfigDao = surveillanceConfigDao;
     }
 
-    public SurveillanceViewConfigDao getSurveillanceViewConfigDao() {
+    public final SurveillanceViewConfigDao getSurveillanceViewConfigDao() {
         return m_surveillanceViewConfigDao;
     }
 

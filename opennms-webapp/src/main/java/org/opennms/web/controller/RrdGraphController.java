@@ -65,8 +65,8 @@ public class RrdGraphController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
         String[] requiredParameters = new String[] {
                 "resourceId",
                 "start",
@@ -148,7 +148,7 @@ public class RrdGraphController extends AbstractController {
         return null;
     }
 
-    public long[] parseTimes(HttpServletRequest request) {
+    public final long[] parseTimes(final HttpServletRequest request) {
     	String startTime = request.getParameter("start");
     	String endTime = request.getParameter("end");
 
@@ -197,8 +197,8 @@ public class RrdGraphController extends AbstractController {
         	TimeSpec specEnd = endParser.parse();
 		long[] results = TimeSpec.getTimestamps(specStart, specEnd);
 		//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.  Gah.
-        	results[0] = results[0]*1000;
-        	results[1] = results[1]*1000;
+		results[0] = results[0] * 1000;
+		results[1] = results[1] * 1000;
         	return results;
 		} catch (RrdException e) {
 			throw new IllegalArgumentException("Could not parse start '"+ startTime+"' and end '"+endTime+"' as valid time specifications", e);
@@ -210,7 +210,7 @@ public class RrdGraphController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.RrdGraphService} object.
      */
-    public RrdGraphService getRrdGraphService() {
+    public final RrdGraphService getRrdGraphService() {
         return m_rrdGraphService;
     }
 
@@ -219,7 +219,7 @@ public class RrdGraphController extends AbstractController {
      *
      * @param rrdGraphService a {@link org.opennms.web.svclayer.RrdGraphService} object.
      */
-    public void setRrdGraphService(RrdGraphService rrdGraphService) {
+    public final void setRrdGraphService(final RrdGraphService rrdGraphService) {
         m_rrdGraphService = rrdGraphService;
     }
 }

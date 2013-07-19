@@ -72,7 +72,7 @@ public class DatabaseReportDescription {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getId() {
+    public final String getId() {
         return m_id;
     }
     /**
@@ -80,7 +80,7 @@ public class DatabaseReportDescription {
      *
      * @param id a {@link java.lang.String} object.
      */
-    public void setId(String id) {
+    public final void setId(final String id) {
         m_id = id;
     }
     /**
@@ -88,7 +88,7 @@ public class DatabaseReportDescription {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getRepositoryId() {
+    public final String getRepositoryId() {
         return m_repositoryId;
     }
     /**
@@ -96,7 +96,7 @@ public class DatabaseReportDescription {
      *
      * @param repositoryId a {@link java.lang.String} object.
      */
-    public void setRepositoryId(String repositoryId) {
+    public final void setRepositoryId(final String repositoryId) {
         m_repositoryId = repositoryId;
     }
     /**
@@ -104,7 +104,7 @@ public class DatabaseReportDescription {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDisplayName() {
+    public final String getDisplayName() {
         return m_displayName;
     }
     /**
@@ -112,7 +112,7 @@ public class DatabaseReportDescription {
      *
      * @param displayName a {@link java.lang.String} object.
      */
-    public void setDisplayName(String displayName) {
+    public final void setDisplayName(final String displayName) {
         m_displayName = displayName;
     }
     /**
@@ -120,7 +120,7 @@ public class DatabaseReportDescription {
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getDescription() {
+    public final String getDescription() {
         return m_description;
     }
     /**
@@ -128,7 +128,7 @@ public class DatabaseReportDescription {
      *
      * @param description a {@link java.lang.String} object.
      */
-    public void setDescription(String description) {
+    public final void setDescription(final String description) {
         m_description = description;
     }
 
@@ -138,7 +138,7 @@ public class DatabaseReportDescription {
      *
      * @param isOnline a {@link boolean} object.
      */
-    public void setIsOnline(boolean isOnline) {
+    public final void setIsOnline(final boolean isOnline) {
         m_isOnline = isOnline;
     }
 
@@ -148,7 +148,7 @@ public class DatabaseReportDescription {
      *
      * @return a {@link boolean} object.
      */
-    public boolean getIsOnline() {
+    public final boolean getIsOnline() {
         return m_isOnline;
     }
 
@@ -158,7 +158,7 @@ public class DatabaseReportDescription {
      *
      * @param allowAccess a {@link boolean} object.
      */
-    public void setAllowAccess(boolean allowAccess) {
+    public final void setAllowAccess(final boolean allowAccess) {
         m_allowAccess = allowAccess;
     }
 
@@ -168,7 +168,7 @@ public class DatabaseReportDescription {
      *
      * @return a {@link boolean} object
      */
-    public boolean getAllowAccess() {
+    public final boolean getAllowAccess() {
         return m_allowAccess;
     }
 }

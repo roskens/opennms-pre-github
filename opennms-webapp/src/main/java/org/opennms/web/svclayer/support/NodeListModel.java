@@ -52,7 +52,7 @@ public class NodeListModel {
      * @param nodes a {@link java.util.List} object.
      * @param interfaceCount a int.
      */
-    public NodeListModel(List<NodeModel> nodes, int interfaceCount) {
+    public NodeListModel(final List<NodeModel> nodes, final int interfaceCount) {
         m_nodes = nodes;
         m_interfaceCount = interfaceCount;
     }
@@ -62,7 +62,7 @@ public class NodeListModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<NodeModel> getNodes() {
+    public final List<NodeModel> getNodes() {
         return m_nodes;
     }
 
@@ -71,7 +71,7 @@ public class NodeListModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<NodeModel> getNodesLeft() {
+    public final List<NodeModel> getNodesLeft() {
         return m_nodes.subList(0, getLastInLeftColumn());
     }
 
@@ -80,7 +80,7 @@ public class NodeListModel {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<NodeModel> getNodesRight() {
+    public final List<NodeModel> getNodesRight() {
         return m_nodes.subList(getLastInLeftColumn(), m_nodes.size());
     }
 
@@ -89,7 +89,7 @@ public class NodeListModel {
      *
      * @return a int.
      */
-    public int getLastInLeftColumn() {
+    public final int getLastInLeftColumn() {
         return (int) Math.ceil(m_nodes.size()/2.0);
     }
 
@@ -98,7 +98,7 @@ public class NodeListModel {
      *
      * @return a int.
      */
-    public int getNodeCount() {
+    public final int getNodeCount() {
         return m_nodes.size();
     }
 
@@ -107,7 +107,7 @@ public class NodeListModel {
      *
      * @return a int.
      */
-    public int getInterfaceCount() {
+    public final int getInterfaceCount() {
         return m_interfaceCount;
     }
 
@@ -118,26 +118,26 @@ public class NodeListModel {
         private List<OnmsSnmpInterface> m_snmpinterfaces;
 
 
-        public NodeModel(OnmsNode node, List<OnmsIpInterface> interfaces, List<OnmsArpInterface> arpinterfaces, List<OnmsSnmpInterface> snmpinterfaces) {
+        public NodeModel(final OnmsNode node, final List<OnmsIpInterface> interfaces, final List<OnmsArpInterface> arpinterfaces, final List<OnmsSnmpInterface> snmpinterfaces) {
             m_node = node;
             m_interfaces = interfaces;
             m_arpinterfaces = arpinterfaces;
             m_snmpinterfaces = snmpinterfaces;
         }
 
-        public OnmsNode getNode() {
+        public final OnmsNode getNode() {
             return m_node;
         }
 
-        public List<OnmsIpInterface> getInterfaces() {
+        public final List<OnmsIpInterface> getInterfaces() {
             return m_interfaces;
         }
 
-        public List<OnmsArpInterface> getArpInterfaces() {
+        public final List<OnmsArpInterface> getArpInterfaces() {
             return m_arpinterfaces;
         }
 
-        public List<OnmsSnmpInterface> getSnmpInterfaces() {
+        public final List<OnmsSnmpInterface> getSnmpInterfaces() {
             return m_snmpinterfaces;
         }
     }

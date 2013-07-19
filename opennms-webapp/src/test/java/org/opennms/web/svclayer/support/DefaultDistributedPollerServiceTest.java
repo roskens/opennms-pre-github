@@ -58,7 +58,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     private DefaultDistributedPollerService m_distributedPollerService;
 
     @Override
-    protected void setUp() {
+    protected final void setUp() {
         m_mocks = new LinkedList<Object>();
 
         m_locationMonitorDao = createMock(LocationMonitorDao.class);
@@ -68,7 +68,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         m_distributedPollerService.setLocationMonitorDao(m_locationMonitorDao);
     }
 
-    public void testPauseLocationMonitorSuccess() {
+    public final void testPauseLocationMonitorSuccess() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
         locationMonitor.setStatus(MonitorStatus.STARTED);
@@ -88,7 +88,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("new monitor status", MonitorStatus.PAUSED, locationMonitor.getStatus());
     }
 
-    public void testPauseLocationMonitorAlreadyPaused() {
+    public final void testPauseLocationMonitorAlreadyPaused() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
         locationMonitor.setStatus(MonitorStatus.PAUSED);
@@ -110,7 +110,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     }
 
 
-    public void testPauseLocationMonitorBindingErrors() {
+    public final void testPauseLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
         BindException errors = new BindException(command, "command");
@@ -125,7 +125,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     }
 
 
-    public void testPauseLocationMonitorNullCommand() {
+    public final void testPauseLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("command argument cannot be null"));
 
@@ -142,7 +142,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
-    public void testPauseLocationMonitorNullBindException() {
+    public final void testPauseLocationMonitorNullBindException() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("errors argument cannot be null"));
 
@@ -158,7 +158,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
-    public void testResumeLocationMonitorSuccess() {
+    public final void testResumeLocationMonitorSuccess() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
         locationMonitor.setStatus(MonitorStatus.PAUSED);
@@ -178,7 +178,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         assertEquals("new monitor status", MonitorStatus.STARTED, locationMonitor.getStatus());
     }
 
-    public void testResumeLocationMonitorNotPaused() {
+    public final void testResumeLocationMonitorNotPaused() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
         locationMonitor.setStatus(MonitorStatus.STARTED);
@@ -200,7 +200,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     }
 
 
-    public void testResumeLocationMonitorBindingErrors() {
+    public final void testResumeLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
         BindException errors = new BindException(command, "command");
@@ -215,7 +215,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     }
 
 
-    public void testResumeLocationMonitorNullCommand() {
+    public final void testResumeLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("command argument cannot be null"));
 
@@ -232,7 +232,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
-    public void testResumeLocationMonitorNullBindException() {
+    public final void testResumeLocationMonitorNullBindException() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("errors argument cannot be null"));
 
@@ -248,7 +248,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
-    public void testDeleteLocationMonitorSuccess() {
+    public final void testDeleteLocationMonitorSuccess() {
         OnmsLocationMonitor locationMonitor = new OnmsLocationMonitor();
         locationMonitor.setId(1);
         expect(m_locationMonitorDao.load(locationMonitor.getId())).andReturn(locationMonitor);
@@ -267,7 +267,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     }
 
 
-    public void testDeleteLocationMonitorBindingErrors() {
+    public final void testDeleteLocationMonitorBindingErrors() {
         LocationMonitorIdCommand command = new LocationMonitorIdCommand();
 
         BindException errors = new BindException(command, "command");
@@ -282,7 +282,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
     }
 
 
-    public void testDeleteLocationMonitorNullCommand() {
+    public final void testDeleteLocationMonitorNullCommand() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("command argument cannot be null"));
 
@@ -299,7 +299,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         verifyMocks();
     }
 
-    public void testDeleteLocationMonitorNullBindException() {
+    public final void testDeleteLocationMonitorNullBindException() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("errors argument cannot be null"));
 
@@ -330,7 +330,7 @@ public class DefaultDistributedPollerServiceTest extends TestCase {
         }
     }
 
-    private static List<ObjectError> getErrorList(Errors errors) {
+    private static List<ObjectError> getErrorList(final Errors errors) {
         return (List<ObjectError>) errors.getAllErrors();
     }
 }

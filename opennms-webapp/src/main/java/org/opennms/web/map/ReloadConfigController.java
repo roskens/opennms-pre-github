@@ -91,7 +91,7 @@ public class ReloadConfigController extends MapsLoggingController {
 		    manager.reloadConfig();
 			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.RELOAD_CONFIG_ACTION));
 		} catch (Throwable e) {
-			LOG.error("Exception found when changing adminMode: ",e);
+			LOG.error("Exception found when changing adminMode: ", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.RELOAD_CONFIG_ACTION));
 		} finally {
 			bw.close();

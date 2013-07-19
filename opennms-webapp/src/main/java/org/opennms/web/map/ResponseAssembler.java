@@ -59,9 +59,9 @@ public class ResponseAssembler {
 	 * @param map a {@link org.opennms.web.map.view.VMap} object.
 	 * @return a {@link java.lang.String} object.
 	 */
-    protected static String getRefreshResponse(VMap map){
-		Map<String,Object> refreshResponseMap = new HashMap<String,Object>();
-		refreshResponseMap.put("elems",map.getElements().values());
+    protected static String getRefreshResponse(VMap map) {
+		Map<String, Object> refreshResponseMap = new HashMap<String, Object>();
+		refreshResponseMap.put("elems", map.getElements().values());
 		refreshResponseMap.put("links", map.getLinks());
 		return JSONSerializer.toJSON(refreshResponseMap).toString();
 	}
@@ -74,10 +74,10 @@ public class ResponseAssembler {
      * @param links a {@link java.util.Collection} object.
      * @return a {@link java.lang.String} object.
      */
-	protected static String getAddElementResponse(List<Integer> mapsWithLoopInfo, Collection<VElement> elems, Collection<VLink> links){
-		Map<String,Object> addElementResponseMap = new HashMap<String,Object>();
-        addElementResponseMap.put("mapsWithLoop",mapsWithLoopInfo);
-        addElementResponseMap.put("elems",elems);
+	protected static String getAddElementResponse(List<Integer> mapsWithLoopInfo, Collection<VElement> elems, Collection<VLink> links) {
+		Map<String, Object> addElementResponseMap = new HashMap<String, Object>();
+        addElementResponseMap.put("mapsWithLoop", mapsWithLoopInfo);
+        addElementResponseMap.put("elems", elems);
         addElementResponseMap.put("links", links);
         return JSONSerializer.toJSON(addElementResponseMap).toString();
 	}
@@ -88,7 +88,7 @@ public class ResponseAssembler {
 	 * @param velemsids a {@link java.util.List} object.
 	 * @return a {@link java.lang.String} object.
 	 */
-	protected static String getDeleteElementsResponse(List<String> velemsids){
+	protected static String getDeleteElementsResponse(List<String> velemsids) {
         return JSONSerializer.toJSON(velemsids).toString();
 	}
 
@@ -98,7 +98,7 @@ public class ResponseAssembler {
 	 * @param elemInfos a {@link java.util.List} object.
 	 * @return a {@link java.lang.String} object.
 	 */
-	protected static String getLoadNodesResponse(List<VElementInfo> elemInfos){
+	protected static String getLoadNodesResponse(List<VElementInfo> elemInfos) {
 		return JSONSerializer.toJSON(elemInfos).toString();
 	}
 
@@ -128,12 +128,12 @@ public class ResponseAssembler {
 	 * @param map a {@link org.opennms.web.map.view.VMap} object.
 	 * @return a {@link java.lang.String} object.
 	 */
-    protected static String getSaveMapResponse(VMap map){
-		Map<String,Object> saveMapResponse = new HashMap<String,Object>();
+    protected static String getSaveMapResponse(VMap map) {
+		Map<String, Object> saveMapResponse = new HashMap<String, Object>();
 		saveMapResponse.put("id", map.getId());
-		saveMapResponse.put("accessMode",map.getAccessMode());
-        saveMapResponse.put("owner",map.getOwner());
-        saveMapResponse.put("userLastModifies",map.getUserLastModifies());
+		saveMapResponse.put("accessMode", map.getAccessMode());
+        saveMapResponse.put("owner", map.getOwner());
+        saveMapResponse.put("userLastModifies", map.getUserLastModifies());
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH.mm.ss dd/MM/yy");
         Date now = new Date();
@@ -144,9 +144,9 @@ public class ResponseAssembler {
 
 
         if (map.getCreateTime() != null)
-            saveMapResponse.put("createTimeString",formatter.format(map.getCreateTime()));
+            saveMapResponse.put("createTimeString", formatter.format(map.getCreateTime()));
         else
-            saveMapResponse.put("createTimeString",formatter.format(now));
+            saveMapResponse.put("createTimeString", formatter.format(now));
 
         return JSONSerializer.toJSON(saveMapResponse).toString();
 	}
@@ -180,7 +180,7 @@ public class ResponseAssembler {
      * @return a {@link java.lang.String} object.
      * @throws java.lang.Exception if any.
      */
-    protected static String getStartupResponse(VProperties initObj)throws Exception{
+    protected static String getStartupResponse(VProperties initObj) throws Exception {
          return JSONSerializer.toJSON(initObj).toString();
     }
 

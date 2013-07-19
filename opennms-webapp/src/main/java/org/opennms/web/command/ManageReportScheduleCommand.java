@@ -44,7 +44,7 @@ public class ManageReportScheduleCommand {
      *
      * @param triggerNames an array of {@link java.lang.String} objects.
      */
-    public void setTriggerNames(String[] triggerNames) {
+    public final void setTriggerNames(final String[] triggerNames) {
         m_triggerNames = triggerNames;
     }
 
@@ -53,7 +53,7 @@ public class ManageReportScheduleCommand {
      *
      * @return an array of {@link java.lang.String} objects.
      */
-    public String[] getTriggerNames() {
+    public final String[] getTriggerNames() {
         return m_triggerNames;
     }
 

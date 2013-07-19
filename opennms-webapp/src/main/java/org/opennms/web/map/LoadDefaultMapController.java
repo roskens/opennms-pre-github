@@ -96,7 +96,7 @@ public class LoadDefaultMapController extends MapsLoggingController {
 		    VMapInfo mapInfo  = manager.getDefaultMapsMenu(user);
 			bw.write(ResponseAssembler.getLoadDefaultMapResponse(mapInfo));
 		} catch (Throwable e) {
-			LOG.error("Error while loading default map for user:{}", user,e);
+			LOG.error("Error while loading default map for user:{}", user, e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.LOADDEFAULTMAP_ACTION));
 		} finally {
 			bw.close();

@@ -88,7 +88,7 @@ public class ExecCommandController extends MapsLoggingController {
 	        if (timeout != null)
 	            timeOut = WebSecurityUtils.safeParseInt(timeout);
 	        String numberofrequest = request.getParameter("numberOfRequest");
-	        if (numberofrequest != null )
+	        if (numberofrequest != null)
 	            numberOfRequest = WebSecurityUtils.safeParseInt(numberofrequest);
             String packetsize = request.getParameter("packetSize");
             if (packetsize != null)
@@ -96,7 +96,7 @@ public class ExecCommandController extends MapsLoggingController {
 		    // these are optionals
             String solaris = request.getParameter("solaris");
             if (solaris != null && solaris.equals("true")) {
-                commandToExec=commandToExec+" -I "+timeOut+" "+ address +" "+packetSize+" "+numberOfRequest ;
+                commandToExec=commandToExec+" -I "+timeOut+" "+ address +" "+packetSize+" "+numberOfRequest;
             } else {
                 commandToExec=commandToExec+" -c "+numberOfRequest+" -i "+timeOut+" -s "+packetSize + " "+ address;
             }
@@ -114,11 +114,10 @@ public class ExecCommandController extends MapsLoggingController {
 		    String ipmiPassword = request.getParameter("ipmiPassword");
 		    String ipmiProtocol = request.getParameter("ipmiProtocol");
 
-		    if(ipmiCommand !=null && ipmiUserName != null &&  ipmiPassword != null ){
+		    if(ipmiCommand != null && ipmiUserName != null && ipmiPassword != null) {
 		        commandToExec = commandToExec + " -I "+ipmiProtocol+" -U "
 		        + ipmiUserName +" -P " + ipmiPassword + " -H " + address +" " + ipmiCommand;
-		    }
-		    else
+		    } else
 		        throw new IllegalStateException("IPMITool requires Protocol, Command, Usernane and Password");
 
 		} else {
@@ -128,17 +127,17 @@ public class ExecCommandController extends MapsLoggingController {
 	    LOG.info("Executing {}", commandToExec);
         response.setBufferSize(0);
         response.setContentType("text/html");
-        response.setHeader("pragma","no-Cache");
-        response.setHeader("Expires","0");
-        response.setHeader("Cache-Control","no-Cache");
+        response.setHeader("pragma", "no-Cache");
+        response.setHeader("Expires", "0");
+        response.setHeader("Cache-Control", "no-Cache");
         final OutputStreamWriter os = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
         os.write("<html>");
 
         try {
 			final Command p = new Command(commandToExec);
-			String comm = (command.startsWith("ping"))?"Ping":null;
-			if(comm==null){
-				comm = (command.startsWith("traceroute"))?"Trace Route":"";
+			String comm = (command.startsWith("ping")) ? "Ping" : null;
+			if (comm==null) {
+				comm = (command.startsWith("traceroute")) ? "Trace Route" : "";
 			}
 
 			os.write("<head><title>"+comm+" "+address+" | OpenNMS Web Console</title>" +
@@ -150,35 +149,31 @@ public class ExecCommandController extends MapsLoggingController {
 			new Thread(new Runnable()
 			{
                             @Override
-			    public void run()
-			    {
-			        try
-			        {
+			    public void run() {
+			        try {
 			            String s = null;
-			            while((s = p.getBufferedReader().readLine()) != null)
-			            {
+			            while((s = p.getBufferedReader().readLine()) != null) {
 			               os.write(s);
 			               os.write("<br>");
 			               os.flush();
 			               //log.debug(s);
 			            }
 
-			        }
-			        catch(IOException io){
+			        } catch(IOException io) {
 			        	LOG.warn(io.getMessage());
 			        }
 			    }
 			}, this.getClass().getSimpleName()).start();
-			try{
+			try {
 				p.waitFor();
-			}catch(Throwable e){
+			} catch(Throwable e) {
 				LOG.warn(e.getMessage());
 			}
 
 		} catch (Throwable e) {
-			LOG.error("An error occourred while executing command.",e);
+			LOG.error("An error occourred while executing command.", e);
 			os.write("An error occourred.");
-		}finally{
+		} finally {
 			os.write("</font>" +
 					"<br>" +
 					"</html>");
@@ -189,28 +184,24 @@ public class ExecCommandController extends MapsLoggingController {
 		return null;
 	}
 
-	private class Command
-	{
+	private class Command {
 	    private BufferedReader out;
 	    private Process p;
 
-	    public Command(String command) throws IOException, IllegalStateException
-	    {
-	    	if(command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")){
+	    public Command(String command) throws IOException, IllegalStateException {
+		if(command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")) {
 	    		 p = Runtime.getRuntime().exec(command);
 	 	        out = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	    	}else{
+		} else {
 	    		throw new IllegalStateException("Command "+ command+" not supported.");
 	    	}
 	    }
 
-	    public BufferedReader getBufferedReader()
-	    {
+	    public BufferedReader getBufferedReader() {
 	        return out;
 	    }
 
-	    public void waitFor() throws InterruptedException
-	    {
+	    public void waitFor() throws InterruptedException {
 	        p.waitFor();
 	    }
 	}

@@ -54,7 +54,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
+    protected final ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response, final Object command, final BindException errors) throws Exception {
         LocationMonitorIdCommand cmd = (LocationMonitorIdCommand) command;
         LocationMonitorListModel model = getDistributedPollerService().getLocationMonitorDetails(cmd, errors);
         ModelAndView modelAndView = new ModelAndView(getSuccessView(), "model", model);
@@ -72,7 +72,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      *
      * @return a {@link org.opennms.web.svclayer.DistributedPollerService} object.
      */
-    public DistributedPollerService getDistributedPollerService() {
+    public final DistributedPollerService getDistributedPollerService() {
         return m_distributedPollerService;
     }
 
@@ -81,7 +81,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      *
      * @param distributedPollerService a {@link org.opennms.web.svclayer.DistributedPollerService} object.
      */
-    public void setDistributedPollerService(DistributedPollerService distributedPollerService) {
+    public final void setDistributedPollerService(final DistributedPollerService distributedPollerService) {
         m_distributedPollerService = distributedPollerService;
     }
 
@@ -90,7 +90,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getSuccessView() {
+    public final String getSuccessView() {
         return m_successView;
     }
 
@@ -99,7 +99,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      *
      * @param successView a {@link java.lang.String} object.
      */
-    public void setSuccessView(String successView) {
+    public final void setSuccessView(final String successView) {
         m_successView = successView;
     }
 
@@ -109,7 +109,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         if (m_distributedPollerService == null) {
             throw new IllegalStateException("distributedPollerService property cannot be null");
         }

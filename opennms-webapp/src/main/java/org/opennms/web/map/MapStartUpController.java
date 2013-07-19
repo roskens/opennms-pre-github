@@ -87,7 +87,7 @@ public class MapStartUpController extends MapsLoggingController {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 
-		try{
+		try {
 	        String user = request.getRemoteUser();
 
 	            LOG.debug("MapStartUp for user:{}", user);
@@ -95,7 +95,7 @@ public class MapStartUpController extends MapsLoggingController {
 			bw.write(ResponseAssembler.getStartupResponse(manager.getProperties(
 			                          request.isUserInRole(org.opennms.web.springframework.security.Authentication.ROLE_ADMIN))));
 		} catch (Throwable e) {
-			LOG.error("Error in map's startup",e);
+			LOG.error("Error in map's startup", e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.MAPS_STARTUP_ACTION));
 		} finally {
 			bw.close();

@@ -84,7 +84,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
 
     /** {@inheritDoc} */
     @Override
-    public NodeListModel createNodeList(NodeListCommand command) {
+    public final NodeListModel createNodeList(final NodeListCommand command) {
         Collection<OnmsNode> onmsNodes = null;
 
         /*
@@ -115,7 +115,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         return createModelForNodes(command, onmsNodes);
     }
 
-    private void addCriteriaForCommand(OnmsCriteria criteria, NodeListCommand command) {
+    private void addCriteriaForCommand(final OnmsCriteria criteria, final NodeListCommand command) {
         if (command.hasNodename()) {
             addCriteriaForNodename(criteria, command.getNodename());
         } else if (command.hasNodeId()) {
@@ -146,8 +146,8 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
 
 
-    private void addCriteriaForSnmpParm(OnmsCriteria criteria,
-            String snmpParm, String snmpParmValue, String snmpParmMatchType) {
+    private void addCriteriaForSnmpParm(final OnmsCriteria criteria,
+            final String snmpParm, final String snmpParmValue, final String snmpParmMatchType) {
         criteria.createAlias("node.ipInterfaces", "ipInterface");
         criteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
 
@@ -156,12 +156,11 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         if(snmpParmMatchType.equals("contains")) {
             criteria.add(Restrictions.ilike("snmpInterface.".concat(snmpParm), snmpParmValue, MatchMode.ANYWHERE));
         } else if(snmpParmMatchType.equals("equals")) {
-            snmpParmValue = snmpParmValue.toLowerCase();
-            criteria.add(Restrictions.sqlRestriction("{alias}.nodeid in (select nodeid from snmpinterface where snmpcollect != 'D' and lower(snmp" + snmpParm + ") = '" + snmpParmValue + "')"));
+            criteria.add(Restrictions.sqlRestriction("{alias}.nodeid in (select nodeid from snmpinterface where snmpcollect != 'D' and lower(snmp" + snmpParm + ") = '" + snmpParmValue.toLowerCase() + "')"));
         }
     }
 
-    private void addCriteriaForCurrentOutages(OnmsCriteria criteria) {
+    private void addCriteriaForCurrentOutages(final OnmsCriteria criteria) {
         /*
          * This doesn't work properly if ipInterfaces and/or
          * monitoredServices have other restrictions.  If we are
@@ -180,19 +179,19 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.sqlRestriction("{alias}.nodeId in (select o.nodeId from outages o where o.ifregainedservice is null and o.suppresstime is null or o.suppresstime < now())"));
     }
 
-    private void addCriteriaForNodename(OnmsCriteria criteria, String nodeName) {
+    private void addCriteriaForNodename(final OnmsCriteria criteria, final String nodeName) {
         criteria.add(Restrictions.ilike("node.label", nodeName, MatchMode.ANYWHERE));
     }
 
-    private void addCriteriaForNodeId(OnmsCriteria criteria, int nodeId) {
+    private void addCriteriaForNodeId(final OnmsCriteria criteria, final int nodeId) {
         criteria.add(Restrictions.idEq(nodeId));
     }
 
-    private void addCriteriaForForeignSource(OnmsCriteria criteria, String foreignSource) {
+    private void addCriteriaForForeignSource(final OnmsCriteria criteria, final String foreignSource) {
         criteria.add(Restrictions.ilike("node.foreignSource", foreignSource, MatchMode.ANYWHERE));
     }
 
-    private void addCriteriaForIpLike(OnmsCriteria criteria, String iplike) {
+    private void addCriteriaForIpLike(final OnmsCriteria criteria, final String iplike) {
         OnmsCriteria ipInterface = criteria.createCriteria("node.ipInterfaces", "ipInterface");
         ipInterface.add(Restrictions.ne("isManaged", "D"));
 
@@ -200,7 +199,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
 
 
-    private void addCriteriaForService(OnmsCriteria criteria, int serviceId) {
+    private void addCriteriaForService(final OnmsCriteria criteria, final int serviceId) {
         criteria.createAlias("node.ipInterfaces", "ipInterface");
         criteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
 
@@ -210,7 +209,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.ne("monitoredService.status", "D"));
     }
 
-    private void addCriteriaForMaclike(OnmsCriteria criteria, String macLike) {
+    private void addCriteriaForMaclike(final OnmsCriteria criteria, final String macLike) {
         String macLikeStripped = macLike.replaceAll("[:-]", "");
 
         criteria.createAlias("node.snmpInterfaces", "snmpInterface", OnmsCriteria.LEFT_JOIN);
@@ -256,7 +255,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
     */
 
-    private void addCriteriaForCategories(OnmsCriteria criteria, String[]... categories) {
+    private void addCriteriaForCategories(final OnmsCriteria criteria, final String[]... categories) {
         Assert.notNull(criteria, "criteria argument must not be null");
 
         for (Criterion criterion : m_categoryDao.getCriterionForCategorySetsUnion(categories)) {
@@ -264,7 +263,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
 
-    private void addCriteriaForSiteStatusView(OnmsCriteria criteria, String statusViewName, String statusSite, String rowLabel) {
+    private void addCriteriaForSiteStatusView(final OnmsCriteria criteria, final String statusViewName, final String statusSite, final String rowLabel) {
         View view = m_siteStatusViewConfigDao.getView(statusViewName);
         RowDef rowDef = getRowDef(view, rowLabel);
         Set<String> categoryNames = getCategoryNamesForRowDef(rowDef);
@@ -276,7 +275,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     }
 
 
-    private RowDef getRowDef(View view, String rowLabel) {
+    private RowDef getRowDef(final View view, final String rowLabel) {
         Rows rows = view.getRows();
         Collection<RowDef> rowDefs = rows.getRowDefCollection();
         for (RowDef rowDef : rowDefs) {
@@ -288,7 +287,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         throw new DataRetrievalFailureException("Unable to locate row: "+rowLabel+" for status view: "+view.getName());
     }
 
-    private Set<String> getCategoryNamesForRowDef(RowDef rowDef) {
+    private Set<String> getCategoryNamesForRowDef(final RowDef rowDef) {
         Set<String> categories = new LinkedHashSet<String>();
 
         List<Category> cats = rowDef.getCategoryCollection();
@@ -298,7 +297,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         return categories;
     }
 
-    private NodeListModel createModelForNodes(NodeListCommand command, Collection<OnmsNode> onmsNodes) {
+    private NodeListModel createModelForNodes(final NodeListCommand command, final Collection<OnmsNode> onmsNodes) {
         int interfaceCount = 0;
         List<NodeModel> displayNodes = new LinkedList<NodeModel>();
         for (OnmsNode node : onmsNodes) {
@@ -391,7 +390,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public CategoryDao getCategoryDao() {
+    public final CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
 
@@ -400,7 +399,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      *
      * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public void setCategoryDao(CategoryDao categoryDao) {
+    public final void setCategoryDao(final CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
@@ -409,7 +408,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public NodeDao getNodeDao() {
+    public final NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
@@ -418,7 +417,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      *
      * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public void setNodeDao(NodeDao nodeDao) {
+    public final void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
@@ -427,7 +426,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      *
      * @return a {@link org.opennms.netmgt.dao.api.SiteStatusViewConfigDao} object.
      */
-    public SiteStatusViewConfigDao getSiteStatusViewConfigDao() {
+    public final SiteStatusViewConfigDao getSiteStatusViewConfigDao() {
         return m_siteStatusViewConfigDao;
     }
 
@@ -436,7 +435,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      *
      * @param siteStatusViewConfigDao a {@link org.opennms.netmgt.dao.api.SiteStatusViewConfigDao} object.
      */
-    public void setSiteStatusViewConfigDao(SiteStatusViewConfigDao siteStatusViewConfigDao) {
+    public final void setSiteStatusViewConfigDao(final SiteStatusViewConfigDao siteStatusViewConfigDao) {
         m_siteStatusViewConfigDao = siteStatusViewConfigDao;
     }
 
@@ -447,7 +446,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.state(m_nodeDao != null, "nodeDao property cannot be null");
         Assert.state(m_categoryDao != null, "categoryDao property cannot be null");
         Assert.state(m_siteStatusViewConfigDao != null, "siteStatusViewConfigDao property cannot be null");
@@ -460,7 +459,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         private static final long serialVersionUID = 1538654897829381114L;
 
         @Override
-        public int compare(final OnmsIpInterface o1, final OnmsIpInterface o2) {
+        public final int compare(final OnmsIpInterface o1, final OnmsIpInterface o2) {
             int diff;
 
             // Sort by IP first if the IPs are non-0.0.0.0
@@ -529,7 +528,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         private static final long serialVersionUID = 3751865611949289845L;
 
         @Override
-        public int compare(OnmsSnmpInterface o1, OnmsSnmpInterface o2) {
+        public final int compare(final OnmsSnmpInterface o1, final OnmsSnmpInterface o2) {
             int diff;
 
             // Sort by ifName
@@ -569,7 +568,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         private static final long serialVersionUID = 2955682030166384496L;
 
         @Override
-        public int compare(OnmsArpInterface o1, OnmsArpInterface o2) {
+        public final int compare(final OnmsArpInterface o1, final OnmsArpInterface o2) {
             int diff;
 
             // Sort by IP first if the IPs are non-0.0.0.0

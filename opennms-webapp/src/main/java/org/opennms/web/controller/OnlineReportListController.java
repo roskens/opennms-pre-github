@@ -63,8 +63,8 @@ public class OnlineReportListController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-                                                 HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+                                                 final HttpServletResponse response) throws Exception {
         Map<ReportRepositoryDescription, PagedListHolder<DatabaseReportDescription>> repositoryList = new LinkedHashMap<ReportRepositoryDescription, PagedListHolder <DatabaseReportDescription>>();
         for (ReportRepositoryDescription reportRepositoryDescription : m_reportListService.getActiveRepositories()) {
             PagedListHolder<DatabaseReportDescription> pageListholder = new PagedListHolder<DatabaseReportDescription>(m_reportListService.getOnlineReportsByRepositoryId(reportRepositoryDescription.getId()));
@@ -81,7 +81,7 @@ public class OnlineReportListController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.DatabaseReportListService} object.
      */
-    public DatabaseReportListService getDatabaseReportListService() {
+    public final DatabaseReportListService getDatabaseReportListService() {
         return m_reportListService;
     }
 
@@ -90,7 +90,7 @@ public class OnlineReportListController extends AbstractController {
      *
      * @param listService a {@link org.opennms.web.svclayer.DatabaseReportListService} object.
      */
-    public void setDatabaseReportListService(DatabaseReportListService listService) {
+    public final void setDatabaseReportListService(final DatabaseReportListService listService) {
         m_reportListService = listService;
     }
 
@@ -99,7 +99,7 @@ public class OnlineReportListController extends AbstractController {
      *
      * @return a int.
      */
-    public int getPageSize() {
+    public final int getPageSize() {
         return m_pageSize;
     }
 
@@ -108,7 +108,7 @@ public class OnlineReportListController extends AbstractController {
      *
      * @param pageSize a int.
      */
-    public void setPageSize(int pageSize) {
+    public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;
     }
 

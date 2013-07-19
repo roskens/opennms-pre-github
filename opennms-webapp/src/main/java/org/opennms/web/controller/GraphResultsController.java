@@ -65,7 +65,7 @@ public class GraphResultsController extends AbstractController implements Initia
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         String[] requiredParameters = new String[] {
                 "resourceId",
                 "reports"
@@ -154,8 +154,8 @@ public class GraphResultsController extends AbstractController implements Initia
 	            	TimeSpec specEnd = endParser.parse();
 			long[] results = TimeSpec.getTimestamps(specStart, specEnd);
 			//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.
-	            	startLong = results[0]*1000;
-	            	endLong = results[1]*1000;
+			startLong = results[0] * 1000;
+			endLong = results[1] * 1000;
 	            } catch (RrdException e1) {
 	    			throw new IllegalArgumentException("Could not parse start '"+ start+"' and end '"+end+"' as valid time specifications", e1);
 	    		}
@@ -230,7 +230,7 @@ public class GraphResultsController extends AbstractController implements Initia
      *
      * @return a {@link org.opennms.web.svclayer.GraphResultsService} object.
      */
-    public GraphResultsService getGraphResultsService() {
+    public final GraphResultsService getGraphResultsService() {
         return m_graphResultsService;
     }
 
@@ -239,7 +239,7 @@ public class GraphResultsController extends AbstractController implements Initia
      *
      * @param graphResultsService a {@link org.opennms.web.svclayer.GraphResultsService} object.
      */
-    public void setGraphResultsService(GraphResultsService graphResultsService) {
+    public final void setGraphResultsService(final GraphResultsService graphResultsService) {
         m_graphResultsService = graphResultsService;
     }
 
@@ -250,7 +250,7 @@ public class GraphResultsController extends AbstractController implements Initia
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.state(m_graphResultsService != null, "graphResultsService property must be set to a non-null value");
     }
 }

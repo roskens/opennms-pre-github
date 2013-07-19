@@ -55,7 +55,7 @@ public class DefaultAdminApplicationService implements
 
     /** {@inheritDoc} */
     @Override
-    public ApplicationAndMemberServices getApplication(String applicationIdString) {
+    public final ApplicationAndMemberServices getApplication(final String applicationIdString) {
         if (applicationIdString == null) {
             throw new IllegalArgumentException("applicationIdString must not be null");
         }
@@ -78,7 +78,7 @@ public class DefaultAdminApplicationService implements
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsMonitoredService> findAllMonitoredServices() {
+    public final List<OnmsMonitoredService> findAllMonitoredServices() {
         List<OnmsMonitoredService> list =
             new ArrayList<OnmsMonitoredService>(m_monitoredServiceDao.findAll());
         Collections.sort(list);
@@ -88,7 +88,7 @@ public class DefaultAdminApplicationService implements
 
     /** {@inheritDoc} */
     @Override
-    public EditModel findApplicationAndAllMonitoredServices(String applicationIdString) {
+    public final EditModel findApplicationAndAllMonitoredServices(final String applicationIdString) {
         ApplicationAndMemberServices app = getApplication(applicationIdString);
 
         List<OnmsMonitoredService> monitoredServices =
@@ -102,7 +102,7 @@ public class DefaultAdminApplicationService implements
      *
      * @return a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
      */
-    public ApplicationDao getApplicationDao() {
+    public final ApplicationDao getApplicationDao() {
         return m_applicationDao;
     }
 
@@ -111,7 +111,7 @@ public class DefaultAdminApplicationService implements
      *
      * @param dao a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
      */
-    public void setApplicationDao(ApplicationDao dao) {
+    public final void setApplicationDao(final ApplicationDao dao) {
         m_applicationDao = dao;
     }
 
@@ -120,7 +120,7 @@ public class DefaultAdminApplicationService implements
      *
      * @return a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
      */
-    public MonitoredServiceDao getMonitoredServiceDao() {
+    public final MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
 
@@ -129,7 +129,7 @@ public class DefaultAdminApplicationService implements
      *
      * @param monitoredServiceDao a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao} object.
      */
-    public void setMonitoredServiceDao(MonitoredServiceDao monitoredServiceDao) {
+    public final void setMonitoredServiceDao(final MonitoredServiceDao monitoredServiceDao) {
         m_monitoredServiceDao = monitoredServiceDao;
     }
 
@@ -142,8 +142,8 @@ public class DefaultAdminApplicationService implements
      * @param toDelete an array of {@link java.lang.String} objects.
      */
     @Override
-    public void performEdit(String applicationIdString, String editAction,
-            String[] toAdd, String[] toDelete) {
+    public final void performEdit(final String applicationIdString, final String editAction,
+            final String[] toAdd, final String[] toDelete) {
         if (applicationIdString == null) {
             throw new IllegalArgumentException("applicationIdString cannot be null");
         }
@@ -228,7 +228,7 @@ public class DefaultAdminApplicationService implements
 
     /** {@inheritDoc} */
     @Override
-    public OnmsApplication addNewApplication(String name) {
+    public final OnmsApplication addNewApplication(final String name) {
         OnmsApplication application = new OnmsApplication();
         application.setName(name);
         m_applicationDao.save(application);
@@ -241,7 +241,7 @@ public class DefaultAdminApplicationService implements
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<OnmsApplication> findAllApplications() {
+    public final List<OnmsApplication> findAllApplications() {
         Collection<OnmsApplication> applications = m_applicationDao.findAll();
         List<OnmsApplication> sortedApplications =
             new ArrayList<OnmsApplication>(applications);
@@ -252,14 +252,14 @@ public class DefaultAdminApplicationService implements
 
     /** {@inheritDoc} */
     @Override
-    public void removeApplication(String applicationIdString) {
+    public final void removeApplication(final String applicationIdString) {
         OnmsApplication application = findApplication(applicationIdString);
         m_applicationDao.delete(application);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<OnmsApplication> findByMonitoredService(int id) {
+    public final List<OnmsApplication> findByMonitoredService(final int id) {
         OnmsMonitoredService service = m_monitoredServiceDao.get(id);
         if (service == null) {
             throw new IllegalArgumentException("monitored service with "
@@ -283,8 +283,8 @@ public class DefaultAdminApplicationService implements
      * @param toDelete an array of {@link java.lang.String} objects.
      */
     @Override
-    public void performServiceEdit(String ifServiceIdString, String editAction,
-            String[] toAdd, String[] toDelete) {
+    public final void performServiceEdit(final String ifServiceIdString, final String editAction,
+            final String[] toAdd, final String[] toDelete) {
         if (ifServiceIdString == null) {
             throw new IllegalArgumentException("ifServiceIdString cannot be null");
         }
@@ -368,7 +368,7 @@ public class DefaultAdminApplicationService implements
 
     /** {@inheritDoc} */
     @Override
-    public ServiceEditModel findServiceApplications(String ifServiceIdString) {
+    public final ServiceEditModel findServiceApplications(final String ifServiceIdString) {
         if (ifServiceIdString == null) {
             throw new IllegalArgumentException("ifServiceIdString must not be null");
         }
@@ -388,7 +388,7 @@ public class DefaultAdminApplicationService implements
      * @param name a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsApplication} object.
      */
-    public OnmsApplication findApplication(String name) {
+    public final OnmsApplication findApplication(final String name) {
         int applicationId = -1;
         try {
             applicationId = WebSecurityUtils.safeParseInt(name);
@@ -411,7 +411,7 @@ public class DefaultAdminApplicationService implements
 
 
 
-    private OnmsMonitoredService findService(String ifServiceIdString) {
+    private OnmsMonitoredService findService(final String ifServiceIdString) {
         int ifServiceId;
 
         try {
@@ -436,17 +436,17 @@ public class DefaultAdminApplicationService implements
         private OnmsApplication m_application;
         private Collection<OnmsMonitoredService> m_memberServices;
 
-        public ApplicationAndMemberServices(OnmsApplication application,
-                Collection<OnmsMonitoredService> memberServices) {
+        public ApplicationAndMemberServices(final OnmsApplication application,
+                final Collection<OnmsMonitoredService> memberServices) {
             m_application = application;
             m_memberServices = memberServices;
         }
 
-        public OnmsApplication getApplication() {
+        public final OnmsApplication getApplication() {
             return m_application;
         }
 
-        public Collection<OnmsMonitoredService> getMemberServices() {
+        public final Collection<OnmsMonitoredService> getMemberServices() {
             return m_memberServices;
         }
     }
@@ -456,9 +456,9 @@ public class DefaultAdminApplicationService implements
         private List<OnmsMonitoredService> m_monitoredServices;
         private List<OnmsMonitoredService> m_sortedMemberServices;
 
-        public EditModel(OnmsApplication application,
-                List<OnmsMonitoredService> monitoredServices,
-                Collection<OnmsMonitoredService> memberServices) {
+        public EditModel(final OnmsApplication application,
+                final List<OnmsMonitoredService> monitoredServices,
+                final Collection<OnmsMonitoredService> memberServices) {
             m_application = application;
             m_monitoredServices = monitoredServices;
 
@@ -469,15 +469,15 @@ public class DefaultAdminApplicationService implements
             Collections.sort(m_sortedMemberServices);
         }
 
-        public OnmsApplication getApplication() {
+        public final OnmsApplication getApplication() {
             return m_application;
         }
 
-        public List<OnmsMonitoredService> getMonitoredServices() {
+        public final List<OnmsMonitoredService> getMonitoredServices() {
             return m_monitoredServices;
         }
 
-        public List<OnmsMonitoredService> getSortedMemberServices() {
+        public final List<OnmsMonitoredService> getSortedMemberServices() {
             return m_sortedMemberServices;
         }
 
@@ -489,7 +489,7 @@ public class DefaultAdminApplicationService implements
         private List<OnmsApplication> m_applications;
         private List<OnmsApplication> m_sortedApplications;
 
-        public ServiceEditModel(OnmsMonitoredService service, List<OnmsApplication> applications) {
+        public ServiceEditModel(final OnmsMonitoredService service, final List<OnmsApplication> applications) {
             m_service = service;
             m_applications = applications;
 
@@ -502,15 +502,15 @@ public class DefaultAdminApplicationService implements
             Collections.sort(m_sortedApplications);
         }
 
-        public OnmsMonitoredService getService() {
+        public final OnmsMonitoredService getService() {
             return m_service;
         }
 
-        public List<OnmsApplication> getApplications() {
+        public final List<OnmsApplication> getApplications() {
             return m_applications;
         }
 
-        public List<OnmsApplication> getSortedApplications() {
+        public final List<OnmsApplication> getSortedApplications() {
             return m_sortedApplications;
         }
 

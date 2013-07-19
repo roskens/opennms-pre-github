@@ -56,8 +56,8 @@ public class DownloadReportController extends AbstractController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request,
+            final HttpServletResponse response) throws Exception {
 
         String fileName = request.getParameter("fileName");
         if (fileName != null) {
@@ -125,7 +125,7 @@ public class DownloadReportController extends AbstractController {
      *
      * @param reportStoreService a {@link org.opennms.reporting.core.svclayer.ReportStoreService} object.
      */
-    public void setReportStoreService(ReportStoreService reportStoreService) {
+    public final void setReportStoreService(final ReportStoreService reportStoreService) {
         m_reportStoreService = reportStoreService;
     }
 

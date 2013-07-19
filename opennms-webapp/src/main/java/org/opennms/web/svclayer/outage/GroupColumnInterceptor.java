@@ -45,13 +45,13 @@ public class GroupColumnInterceptor implements ColumnInterceptor {
 
     /** {@inheritDoc} */
     @Override
-    public void addColumnAttributes(TableModel tableModel, Column column) {
+    public void addColumnAttributes(final TableModel tableModel, final Column column) {
         //do nothing
     }
 
     /** {@inheritDoc} */
     @Override
-    public void modifyColumnAttributes(TableModel tableModel, Column column) {
+    public final void modifyColumnAttributes(final TableModel tableModel, final Column column) {
         Object value = column.getValue();
         Object lastValue = column.getAttribute(LAST_VALUE);
 

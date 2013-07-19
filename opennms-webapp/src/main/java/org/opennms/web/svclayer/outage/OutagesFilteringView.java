@@ -71,7 +71,7 @@ public class OutagesFilteringView {
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link java.lang.String} object.
      */
-    public String filterQuery(HttpServletRequest request) {
+    public final String filterQuery(final HttpServletRequest request) {
 
         String queryResult = "";
         Locale locale = Locale.getDefault();
@@ -148,7 +148,7 @@ public class OutagesFilteringView {
      * @param request a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.opennms.netmgt.model.OnmsCriteria} object.
      */
-    public OnmsCriteria buildCriteria(HttpServletRequest request) {
+    public final OnmsCriteria buildCriteria(final HttpServletRequest request) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsOutage.class);
 
         if (request.getParameter("nodeid") != null && request.getParameter("nodeid").length() > 0) {
@@ -234,7 +234,7 @@ public class OutagesFilteringView {
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public CategoryDao getCategoryDao() {
+    public final CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
 
@@ -243,7 +243,7 @@ public class OutagesFilteringView {
      *
      * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public void setCategoryDao(CategoryDao categoryDao) {
+    public final void setCategoryDao(final CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 

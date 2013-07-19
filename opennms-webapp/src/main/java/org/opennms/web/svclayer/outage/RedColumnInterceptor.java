@@ -45,13 +45,13 @@ import org.extremecomponents.table.interceptor.ColumnInterceptor;
 public class RedColumnInterceptor implements ColumnInterceptor {
     /** {@inheritDoc} */
     @Override
-    public void addColumnAttributes(TableModel tableModel, Column column) {
+    public void addColumnAttributes(final TableModel tableModel, final Column column) {
         //do nothing
     }
 
     /** {@inheritDoc} */
     @Override
-    public void modifyColumnAttributes(TableModel tableModel, Column column) {
+    public final void modifyColumnAttributes(final TableModel tableModel, final Column column) {
         if (column.getPropertyValue() == null) {
             column.setStyle("background: red;");
             column.setValue("Down");

@@ -69,28 +69,28 @@ public class DefaultSurveillanceServiceIntegrationTest implements InitializingBe
     private DatabasePopulator m_databasePopulator;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
     @Test
     @Transactional
-    public void testCreateSurveillanceServiceTableUsingViewName() {
+    public final void testCreateSurveillanceServiceTableUsingViewName() {
         String viewName = "default";
         SimpleWebTable table = m_surveillanceService.createSurveillanceTable(viewName, new ProgressMonitor() {
 
             @Override
-            public void beginNextPhase(String string) {
+            public void beginNextPhase(final String string) {
                 System.err.println("PHASE: " + string);
             }
 
             @Override
-            public void setPhaseCount(int i) {
+            public void setPhaseCount(final int i) {
 
             }
 

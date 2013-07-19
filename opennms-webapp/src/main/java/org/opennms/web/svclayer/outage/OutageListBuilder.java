@@ -56,7 +56,7 @@ public class OutageListBuilder {
      * @param foundOutages a {@link java.util.Collection} object.
      * @return a {@link java.util.List} object.
      */
-    public List<Map<String, Object>> theTable(Collection<OnmsOutage> foundOutages) {
+    public final List<Map<String, Object>> theTable(final Collection<OnmsOutage> foundOutages) {
         List<Map<String, Object>> theTable = new ArrayList<Map<String, Object>>();
 
         for (OnmsOutage outage : foundOutages) {

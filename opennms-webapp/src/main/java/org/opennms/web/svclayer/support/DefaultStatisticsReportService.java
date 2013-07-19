@@ -65,13 +65,13 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * @return a {@link java.util.List} object.
      */
     @Override
-    public List<StatisticsReport> getStatisticsReports() {
+    public final List<StatisticsReport> getStatisticsReports() {
         return m_statisticsReportDao.findAll();
     }
 
     /** {@inheritDoc} */
     @Override
-    public StatisticsReportModel getReport(StatisticsReportCommand command, BindException errors) {
+    public final StatisticsReportModel getReport(final StatisticsReportCommand command, final BindException errors) {
         StatisticsReportModel model = new StatisticsReportModel();
         model.setErrors(errors);
 
@@ -109,7 +109,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.state(m_statisticsReportDao != null, "property statisticsReportDao must be set to a non-null value");
         Assert.state(m_resourceDao != null, "property resourceDao must be set to a non-null value");
     }
@@ -119,7 +119,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
-    public StatisticsReportDao getStatisticsReportDao() {
+    public final StatisticsReportDao getStatisticsReportDao() {
         return m_statisticsReportDao;
     }
 
@@ -128,7 +128,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      *
      * @param statisticsReportDao a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
-    public void setStatisticsReportDao(StatisticsReportDao statisticsReportDao) {
+    public final void setStatisticsReportDao(final StatisticsReportDao statisticsReportDao) {
         m_statisticsReportDao = statisticsReportDao;
     }
 
@@ -137,7 +137,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public ResourceDao getResourceDao() {
+    public final ResourceDao getResourceDao() {
         return m_resourceDao;
     }
 
@@ -146,7 +146,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
      *
      * @param resourceDao a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
-    public void setResourceDao(ResourceDao resourceDao) {
+    public final void setResourceDao(final ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 }

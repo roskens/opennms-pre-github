@@ -99,7 +99,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      *
      * @param repository a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
      */
-    public void setDeployedForeignSourceRepository(final ForeignSourceRepository repository) {
+    public final void setDeployedForeignSourceRepository(final ForeignSourceRepository repository) {
         m_writeLock.lock();
         try {
             m_deployedForeignSourceRepository = repository;
@@ -113,7 +113,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      *
      * @param repository a {@link org.opennms.netmgt.provision.persist.ForeignSourceRepository} object.
      */
-    public void setPendingForeignSourceRepository(final ForeignSourceRepository repository) {
+    public final void setPendingForeignSourceRepository(final ForeignSourceRepository repository) {
         m_writeLock.lock();
         try {
             m_pendingForeignSourceRepository = repository;
@@ -127,7 +127,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      *
      * @param nodeDao a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
-    public void setNodeDao(final NodeDao nodeDao) {
+    public final void setNodeDao(final NodeDao nodeDao) {
         m_writeLock.lock();
         try {
             m_nodeDao = nodeDao;
@@ -141,7 +141,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      *
      * @param categoryDao a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
-    public void setCategoryDao(final CategoryDao categoryDao) {
+    public final void setCategoryDao(final CategoryDao categoryDao) {
         m_writeLock.lock();
         try {
             m_categoryDao = categoryDao;
@@ -155,17 +155,17 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      *
      * @param serviceTypeDao a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
-    public void setServiceTypeDao(final ServiceTypeDao serviceTypeDao) {
+    public final void setServiceTypeDao(final ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
 
-    public void setCapsdConfig(final CapsdConfig capsdConfig) {
+    public final void setCapsdConfig(final CapsdConfig capsdConfig) {
         m_capsdConfig = capsdConfig;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Requisition addCategoryToNode(final String groupName, final String pathToNode, final String categoryName) {
+    public final Requisition addCategoryToNode(final String groupName, final String pathToNode, final String categoryName) {
         m_writeLock.lock();
         try {
             final Requisition group = getProvisioningGroup(groupName);
@@ -188,7 +188,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition addAssetFieldToNode(final String groupName, final String pathToNode, final String assetName, final String assetValue) {
+    public final Requisition addAssetFieldToNode(final String groupName, final String pathToNode, final String assetName, final String assetValue) {
         m_writeLock.lock();
         try {
             final Requisition group = getProvisioningGroup(groupName);
@@ -211,7 +211,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition addInterfaceToNode(final String groupName, final String pathToNode, final String ipAddr) {
+    public final Requisition addInterfaceToNode(final String groupName, final String pathToNode, final String ipAddr) {
         m_writeLock.lock();
         try {
             final Requisition group = getProvisioningGroup(groupName);
@@ -247,7 +247,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition addNewNodeToGroup(final String groupName, final String nodeLabel) {
+    public final Requisition addNewNodeToGroup(final String groupName, final String nodeLabel) {
         m_writeLock.lock();
 
         try {
@@ -274,7 +274,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition addServiceToInterface(final String groupName, final String pathToInterface, final String serviceName) {
+    public final Requisition addServiceToInterface(final String groupName, final String pathToInterface, final String serviceName) {
         m_writeLock.lock();
 
         try {
@@ -295,7 +295,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition getProvisioningGroup(final String name) {
+    public final Requisition getProvisioningGroup(final String name) {
         m_readLock.lock();
         try {
             m_pendingForeignSourceRepository.flush();
@@ -315,7 +315,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition saveProvisioningGroup(final String groupName, final Requisition group) {
+    public final Requisition saveProvisioningGroup(final String groupName, final Requisition group) {
         m_writeLock.lock();
         try {
             group.setForeignSource(groupName);
@@ -333,7 +333,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public Collection<String> getProvisioningGroupNames() {
+    public final Collection<String> getProvisioningGroupNames() {
         m_readLock.lock();
         try {
             m_deployedForeignSourceRepository.flush();
@@ -353,7 +353,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition createProvisioningGroup(final String name) {
+    public final Requisition createProvisioningGroup(final String name) {
         m_writeLock.lock();
         try {
             final Requisition group = new Requisition();
@@ -376,7 +376,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public void importProvisioningGroup(final String groupName) {
+    public final void importProvisioningGroup(final String groupName) {
         m_writeLock.lock();
 
         try {
@@ -407,7 +407,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public Requisition deletePath(final String groupName, final String pathToDelete) {
+    public final Requisition deletePath(final String groupName, final String pathToDelete) {
         m_writeLock.lock();
 
         try {
@@ -446,7 +446,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public Collection<Requisition> getAllGroups() {
+    public final Collection<Requisition> getAllGroups() {
         m_readLock.lock();
 
         try {
@@ -464,7 +464,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public void deleteProvisioningGroup(final String groupName) {
+    public final void deleteProvisioningGroup(final String groupName) {
         m_writeLock.lock();
 
         try {
@@ -482,7 +482,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
 
     /** {@inheritDoc} */
     @Override
-    public void deleteAllNodes(final String groupName) {
+    public final void deleteAllNodes(final String groupName) {
         m_writeLock.lock();
 
         try {
@@ -510,7 +510,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * @return a java$util$Map object.
      */
     @Override
-    public Map<String, Integer> getGroupDbNodeCounts() {
+    public final Map<String, Integer> getGroupDbNodeCounts() {
         m_readLock.lock();
 
         try {
@@ -532,7 +532,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public Collection<String> getNodeCategoryNames() {
+    public final Collection<String> getNodeCategoryNames() {
         m_readLock.lock();
 
         try {
@@ -552,7 +552,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public Collection<String> getServiceTypeNames(String groupName) {
+    public final Collection<String> getServiceTypeNames(final String groupName) {
         final SortedSet<String> serviceNames = new TreeSet<String>();
 
         m_readLock.lock();
@@ -581,7 +581,7 @@ public class DefaultManualProvisioningService implements ManualProvisioningServi
      * @return a {@link java.util.Collection} object.
      */
     @Override
-    public Collection<String> getAssetFieldNames() {
+    public final Collection<String> getAssetFieldNames() {
         m_readLock.lock();
 
         try {

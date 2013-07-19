@@ -67,7 +67,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
      *
      * @param redirectView a {@link java.lang.String} object.
      */
-    public void setRedirectView(String redirectView) {
+    public final void setRedirectView(final String redirectView) {
         m_redirectView = redirectView;
     }
 
@@ -76,7 +76,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
      *
      * @param webAlarmRepository a {@link org.opennms.netmgt.dao.api.AlarmRepository} object.
      */
-    public void setAlarmRepository(AlarmRepository webAlarmRepository) {
+    public final void setAlarmRepository(final AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
 
@@ -86,7 +86,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public final void afterPropertiesSet() throws Exception {
         Assert.notNull(m_redirectView, "redirectView must be set");
         Assert.notNull(m_webAlarmRepository, "webAlarmRepository must be set");
     }
@@ -98,7 +98,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
      * to an appropriate URL for display.
      */
     @Override
-    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         // required parameter
         String[] filterStrings = request.getParameterValues("filter");
         String action = request.getParameter("actionCode");

@@ -58,7 +58,7 @@ public class DistributedStatusSummaryController extends AbstractController {
      *
      * @return a {@link org.opennms.web.svclayer.DistributedStatusService} object.
      */
-    public DistributedStatusService getDistributedStatusService() {
+    public final DistributedStatusService getDistributedStatusService() {
         return m_distributedStatusService;
     }
 
@@ -67,13 +67,13 @@ public class DistributedStatusSummaryController extends AbstractController {
      *
      * @param statusService a {@link org.opennms.web.svclayer.DistributedStatusService} object.
      */
-    public void setDistributedStatusService(DistributedStatusService statusService) {
+    public final void setDistributedStatusService(final DistributedStatusService statusService) {
         m_distributedStatusService = statusService;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 
         // Calculate a date that equals midnight of the current day (00:00:00 AM)
         GregorianCalendar calendar = new GregorianCalendar();
@@ -93,7 +93,7 @@ public class DistributedStatusSummaryController extends AbstractController {
         return new ModelAndView("distributedStatusSummary", "webTable", table);
     }
 
-    private Object createError(String shortDescr, String longDescr) {
+    private Object createError(final String shortDescr, final String longDescr) {
         Map<String, String> error = new HashMap<String, String>();
         error.put("shortDescr", shortDescr);
         error.put("longDescr", longDescr);

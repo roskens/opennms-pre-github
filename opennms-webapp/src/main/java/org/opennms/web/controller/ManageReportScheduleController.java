@@ -65,7 +65,7 @@ public class ManageReportScheduleController extends SimpleFormController {
      *
      * @param schedulerService a {@link org.opennms.web.svclayer.SchedulerService} object.
      */
-    public void setReportSchedulerService(SchedulerService schedulerService) {
+    public final void setReportSchedulerService(final SchedulerService schedulerService) {
         m_reportSchedulerService = schedulerService;
     }
     /**
@@ -73,13 +73,13 @@ public class ManageReportScheduleController extends SimpleFormController {
      *
      * @param pageSize a int.
      */
-    public void setPageSize(int pageSize) {
+    public final void setPageSize(final int pageSize) {
         m_pageSize = pageSize;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected Map<String, Object> referenceData(HttpServletRequest req) throws Exception {
+    protected final Map<String, Object> referenceData(final HttpServletRequest req) throws Exception {
         Map<String, Object> data = new HashMap<String, Object>();
         PagedListHolder<TriggerDescription> pagedListHolder = new PagedListHolder<TriggerDescription>(m_reportSchedulerService.getTriggerDescriptions());
         pagedListHolder.setPageSize(m_pageSize);
@@ -92,7 +92,7 @@ public class ManageReportScheduleController extends SimpleFormController {
 
     /** {@inheritDoc} */
     @Override
-    protected ModelAndView onSubmit(Object command) throws Exception {
+    protected final ModelAndView onSubmit(final Object command) throws Exception {
         ManageReportScheduleCommand manageCommand = (ManageReportScheduleCommand) command;
         m_reportSchedulerService.removeTriggers((manageCommand.getTriggerNames()));
         ModelAndView mav = new ModelAndView(getSuccessView());

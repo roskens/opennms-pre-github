@@ -55,12 +55,12 @@ public class GroupListController extends AbstractController {
 
 	/** {@inheritDoc} */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected final ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 		Map<String, Group> groups = m_groupManager.getGroups();
 		List<Group> groupList = new ArrayList<Group>(groups.values());
 		Collections.sort(groupList, new Comparator<Group>() {
                     @Override
-		    public int compare(Group g1, Group g2) {
+		    public int compare(final Group g1, final Group g2) {
 		        return g1.getName().toLowerCase().compareTo(g2.getName().toLowerCase());
 		    }
 		});
@@ -72,7 +72,7 @@ public class GroupListController extends AbstractController {
 	 *
 	 * @return a {@link org.opennms.netmgt.config.GroupManager} object.
 	 */
-	public GroupManager getGroupManager() {
+	public final GroupManager getGroupManager() {
 		return m_groupManager;
 	}
 
@@ -81,7 +81,7 @@ public class GroupListController extends AbstractController {
 	 *
 	 * @param groupManager a {@link org.opennms.netmgt.config.GroupManager} object.
 	 */
-	public void setGroupManager(GroupManager groupManager) {
+	public final void setGroupManager(final GroupManager groupManager) {
 		m_groupManager = groupManager;
 	}
 

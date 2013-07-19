@@ -56,7 +56,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	}
 
         @Override
-	public AssetCommand getAssetByNodeId(int nodeId) throws Exception {
+    public final AssetCommand getAssetByNodeId(final int nodeId) throws Exception {
 		if (nodeId == 666) {
 			throw new NullPointerException("just testing error-case: nodeid 666");
 		}
@@ -64,7 +64,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	}
 
         @Override
-	public Boolean saveOrUpdateAssetByNodeId(int nodeId, AssetCommand asset) throws Exception {
+    public final Boolean saveOrUpdateAssetByNodeId(final int nodeId, final AssetCommand asset) throws Exception {
 		if (nodeId == 999) {
 			throw new NullPointerException("just testing error-case: nodeid 999, you will not save!!");
 		}
@@ -76,7 +76,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		return true;
 	}
 
-	public AssetCommand setData() {
+	public final AssetCommand setData() {
 		asset.setNodeId("23");
 		asset.setNodeLabel("Cronojon");
 		asset.setLoggedInUser("admin");
@@ -212,7 +212,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	}
 
         @Override
-	public AssetSuggCommand getAssetSuggestions() throws Exception {
+    public final AssetSuggCommand getAssetSuggestions() throws Exception {
 
 		assetSugg.addDescription("001");
 		assetSugg.addDescription("001");

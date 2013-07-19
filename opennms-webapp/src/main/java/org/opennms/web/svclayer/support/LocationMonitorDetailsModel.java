@@ -59,7 +59,7 @@ public class LocationMonitorDetailsModel {
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<MessageSourceResolvable, MessageSourceResolvable> getAdditionalDetails() {
+    public final Map<MessageSourceResolvable, MessageSourceResolvable> getAdditionalDetails() {
         return m_additionalDetails;
     }
 
@@ -68,7 +68,7 @@ public class LocationMonitorDetailsModel {
      *
      * @param additionalDetails a {@link java.util.Map} object.
      */
-    public void setAdditionalDetails(Map<MessageSourceResolvable, MessageSourceResolvable> additionalDetails) {
+    public final void setAdditionalDetails(final Map<MessageSourceResolvable, MessageSourceResolvable> additionalDetails) {
         m_additionalDetails = additionalDetails;
     }
 
@@ -78,7 +78,7 @@ public class LocationMonitorDetailsModel {
      * @param key a {@link org.springframework.context.MessageSourceResolvable} object.
      * @param value a {@link org.springframework.context.MessageSourceResolvable} object.
      */
-    public void addAdditionalDetail(MessageSourceResolvable key, MessageSourceResolvable value) {
+    public final void addAdditionalDetail(final MessageSourceResolvable key, final MessageSourceResolvable value) {
         if (m_additionalDetails == null) {
             m_additionalDetails = new LinkedHashMap<MessageSourceResolvable, MessageSourceResolvable>();
         }
@@ -90,7 +90,7 @@ public class LocationMonitorDetailsModel {
      *
      * @return a {@link org.springframework.context.MessageSourceResolvable} object.
      */
-    public MessageSourceResolvable getAdditionalDetailsTitle() {
+    public final MessageSourceResolvable getAdditionalDetailsTitle() {
         return m_additionalDetailsTitle;
     }
 
@@ -99,7 +99,7 @@ public class LocationMonitorDetailsModel {
      *
      * @param additionalDetailsTitle a {@link org.springframework.context.MessageSourceResolvable} object.
      */
-    public void setAdditionalDetailsTitle(MessageSourceResolvable additionalDetailsTitle) {
+    public final void setAdditionalDetailsTitle(final MessageSourceResolvable additionalDetailsTitle) {
         m_additionalDetailsTitle = additionalDetailsTitle;
     }
 
@@ -108,7 +108,7 @@ public class LocationMonitorDetailsModel {
      *
      * @return a {@link java.util.Map} object.
      */
-    public Map<MessageSourceResolvable, MessageSourceResolvable> getMainDetails() {
+    public final Map<MessageSourceResolvable, MessageSourceResolvable> getMainDetails() {
         return m_mainDetails;
     }
 
@@ -117,7 +117,7 @@ public class LocationMonitorDetailsModel {
      *
      * @param mainDetails a {@link java.util.Map} object.
      */
-    public void setMainDetails(Map<MessageSourceResolvable, MessageSourceResolvable> mainDetails) {
+    public final void setMainDetails(final Map<MessageSourceResolvable, MessageSourceResolvable> mainDetails) {
         m_mainDetails = mainDetails;
     }
 
@@ -127,7 +127,7 @@ public class LocationMonitorDetailsModel {
      * @param key a {@link org.springframework.context.MessageSourceResolvable} object.
      * @param value a {@link org.springframework.context.MessageSourceResolvable} object.
      */
-    public void addMainDetail(MessageSourceResolvable key, MessageSourceResolvable value) {
+    public final void addMainDetail(final MessageSourceResolvable key, final MessageSourceResolvable value) {
         if (m_mainDetails == null) {
             m_mainDetails = new LinkedHashMap<MessageSourceResolvable, MessageSourceResolvable>();
         }
@@ -139,7 +139,7 @@ public class LocationMonitorDetailsModel {
      *
      * @return a {@link org.springframework.context.MessageSourceResolvable} object.
      */
-    public MessageSourceResolvable getTitle() {
+    public final MessageSourceResolvable getTitle() {
         return m_title;
     }
 
@@ -148,7 +148,7 @@ public class LocationMonitorDetailsModel {
      *
      * @param title a {@link org.springframework.context.MessageSourceResolvable} object.
      */
-    public void setTitle(MessageSourceResolvable title) {
+    public final void setTitle(final MessageSourceResolvable title) {
         m_title = title;
     }
 
@@ -157,7 +157,7 @@ public class LocationMonitorDetailsModel {
      *
      * @return a {@link org.springframework.validation.Errors} object.
      */
-    public Errors getErrors() {
+    public final Errors getErrors() {
         return m_errors;
     }
 
@@ -166,7 +166,7 @@ public class LocationMonitorDetailsModel {
      *
      * @param errors a {@link org.springframework.validation.Errors} object.
      */
-    public void setErrors(Errors errors) {
+    public final void setErrors(final Errors errors) {
         m_errors = errors;
     }
 }
