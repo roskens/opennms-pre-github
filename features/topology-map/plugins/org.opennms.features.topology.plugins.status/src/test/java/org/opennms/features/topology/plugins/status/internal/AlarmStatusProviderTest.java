@@ -9,17 +9,15 @@ import java.util.List;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
-import org.opennms.core.criteria.Criteria;
 import org.opennms.features.topology.api.topo.AbstractRef;
 import org.opennms.features.topology.api.topo.Status;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.netmgt.dao.api.AlarmDao;
-import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsSeverity;
+import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 import com.vaadin.data.Item;
-import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 public class AlarmStatusProviderTest {
 

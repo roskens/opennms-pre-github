@@ -1,23 +1,23 @@
 package org.opennms.netmgt.config;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import static org.junit.Assert.assertTrue;
+import static org.opennms.core.test.ConfigurationTestUtils.getDaemonEtcDirectory;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import org.apache.commons.io.FileUtils;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
-import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertTrue;
+import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
-import static org.opennms.core.test.ConfigurationTestUtils.getDaemonEtcDirectory;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableList;
 
 /**
  * This is a meta test, testing the coverage of {@link WillItUnmarshalTest}.

@@ -34,13 +34,12 @@ import java.util.Properties;
 import javax.oss.fm.monitor.AlarmKey;
 import javax.oss.fm.monitor.AlarmValue;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.openoss.opennms.spring.qosd.AlarmListConnectionManager;
 import org.openoss.opennms.spring.qosd.PropertiesLoader;
-import org.openoss.opennms.spring.qosd.QoSDimpl2;
-import org.openoss.ossj.jvt.fm.monitor.OOSSAlarmValue;
 import org.openoss.ossj.fm.monitor.spring.AlarmMonitorDao;
+import org.openoss.ossj.jvt.fm.monitor.OOSSAlarmValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 

@@ -28,16 +28,14 @@
 
 package org.opennms.features.topology.plugins.browsers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opennms.core.criteria.restrictions.AnyRestriction;
-import org.opennms.core.criteria.restrictions.EqRestriction;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.features.topology.api.SelectionContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 abstract class SelectionContextToRestrictionConverter {
     public List<Restriction> getRestrictions(SelectionContext selectionContext) {

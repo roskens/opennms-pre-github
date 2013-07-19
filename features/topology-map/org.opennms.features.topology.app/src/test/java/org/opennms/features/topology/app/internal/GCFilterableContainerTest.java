@@ -1,7 +1,6 @@
 package org.opennms.features.topology.app.internal;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;

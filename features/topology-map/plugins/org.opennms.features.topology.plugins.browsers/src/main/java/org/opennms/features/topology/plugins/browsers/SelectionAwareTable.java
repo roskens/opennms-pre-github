@@ -39,7 +39,6 @@ import org.opennms.features.topology.api.SelectionContext;
 import org.opennms.features.topology.api.SelectionListener;
 import org.opennms.features.topology.api.SelectionNotifier;
 
-import com.vaadin.data.Container;
 import com.vaadin.ui.Table;
 
 public class SelectionAwareTable extends Table implements SelectionListener, SelectionNotifier {

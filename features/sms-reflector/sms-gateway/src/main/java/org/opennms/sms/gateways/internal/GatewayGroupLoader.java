@@ -33,8 +33,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.sms.reflector.smsservice.GatewayGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

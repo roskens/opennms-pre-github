@@ -41,9 +41,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 import org.opennms.core.logging.Logging;
 import org.opennms.reporting.datablock.IfService;
 import org.opennms.reporting.datablock.Interface;
@@ -51,6 +48,8 @@ import org.opennms.reporting.datablock.Node;
 import org.opennms.reporting.datablock.OutageSince;
 import org.opennms.reporting.datablock.OutageSvcTimesList;
 import org.opennms.reporting.datablock.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * AvailCalculations does all computations for all reports for a category. The

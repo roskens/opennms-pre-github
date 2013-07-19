@@ -40,7 +40,6 @@ import java.io.OutputStreamWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.opennms.core.logging.Logging;
 import org.opennms.web.map.view.Manager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

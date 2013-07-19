@@ -20,13 +20,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
-import java.util.Map;
+
 import org.apache.sshd.ClientChannel;
 import org.apache.sshd.ClientSession;
-import org.opennms.features.topology.ssh.internal.gwt.client.ui.VTerminal;
 
-import com.vaadin.server.PaintException;
-import com.vaadin.server.PaintTarget;
 import com.vaadin.ui.AbstractComponent;
 
 /**

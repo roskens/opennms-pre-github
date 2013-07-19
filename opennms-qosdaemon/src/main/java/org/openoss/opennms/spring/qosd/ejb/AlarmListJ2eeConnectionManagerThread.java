@@ -20,8 +20,11 @@
 package org.openoss.opennms.spring.qosd.ejb;
 
 import java.rmi.RemoteException;
-import javax.ejb.RemoveException;
+import java.util.Hashtable;
+import java.util.Properties;
+
 import javax.ejb.CreateException;
+import javax.ejb.RemoveException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.oss.fm.monitor.AlarmKey;
@@ -29,15 +32,13 @@ import javax.oss.fm.monitor.AlarmValue;
 import javax.oss.fm.monitor.JVTAlarmMonitorHome;
 import javax.oss.fm.monitor.JVTAlarmMonitorSession;
 import javax.rmi.PortableRemoteObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.openoss.opennms.spring.qosd.AlarmListConnectionManager;
 import org.openoss.opennms.spring.qosd.PropertiesLoader;
-import org.openoss.opennms.spring.qosd.QoSDimpl2;
 import org.openoss.ossj.fm.monitor.j2ee.AlarmMonitor;
-import java.util.Properties;
-import java.util.Hashtable;
 import org.openoss.ossj.jvt.fm.monitor.OOSSAlarmValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

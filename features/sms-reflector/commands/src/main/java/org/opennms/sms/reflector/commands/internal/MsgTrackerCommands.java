@@ -37,12 +37,11 @@ import org.opennms.sms.reflector.smsservice.MobileMsgRequest;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher;
-import org.opennms.sms.reflector.smsservice.MobileMsgResponseMatchers;
 import org.opennms.sms.reflector.smsservice.MobileMsgTracker;
-import org.smslib.OutboundMessage;
-import org.smslib.USSDRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.smslib.OutboundMessage;
+import org.smslib.USSDRequest;
 
 
 /**

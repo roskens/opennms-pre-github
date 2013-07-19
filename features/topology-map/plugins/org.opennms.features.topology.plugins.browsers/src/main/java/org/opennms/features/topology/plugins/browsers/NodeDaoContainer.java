@@ -28,22 +28,18 @@
 
 package org.opennms.features.topology.plugins.browsers;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.opennms.core.criteria.Alias;
 import org.opennms.core.criteria.Criteria;
-import org.opennms.core.criteria.CriteriaBuilder;
-import org.opennms.core.criteria.Fetch;
 import org.opennms.core.criteria.restrictions.EqRestriction;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.features.topology.api.SelectionContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.netmgt.dao.api.NodeDao;
-import org.opennms.netmgt.dao.api.OnmsDao;
-import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
-import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode,Integer> {
 
