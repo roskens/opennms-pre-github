@@ -30,6 +30,16 @@ package org.opennms.features.gwt.graph.resource.list.client.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Interface Presenter.
+ */
 public interface Presenter {
+
+    /**
+     * Go.
+     *
+     * @param container
+     *            the container
+     */
     public void go(final HasWidgets container);
 }

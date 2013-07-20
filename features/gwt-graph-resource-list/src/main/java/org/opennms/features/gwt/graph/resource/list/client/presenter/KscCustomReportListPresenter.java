@@ -40,24 +40,67 @@ import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class KscCustomReportListPresenter.
+ */
 public class KscCustomReportListPresenter extends DefaultResourceListPresenter implements Presenter {
 
+    /**
+     * The Interface SelectionDisplay.
+     */
     public interface SelectionDisplay {
+
+        /**
+         * Gets the submit button.
+         *
+         * @return the submit button
+         */
         HasClickHandlers getSubmitButton();
 
+        /**
+         * Gets the select action.
+         *
+         * @return the select action
+         */
         String getSelectAction();
 
+        /**
+         * As widget.
+         *
+         * @return the widget
+         */
         Widget asWidget();
     }
 
+    /** The m_selection display. */
     private SelectionDisplay m_selectionDisplay;
 
+    /**
+     * Instantiates a new ksc custom report list presenter.
+     *
+     * @param view
+     *            the view
+     * @param searchPopup
+     *            the search popup
+     * @param dataList
+     *            the data list
+     * @param selectionDisplay
+     *            the selection display
+     * @param baseUrl
+     *            the base url
+     */
     public KscCustomReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup,
             JsArray<ResourceListItem> dataList, SelectionDisplay selectionDisplay, String baseUrl) {
         super(view, searchPopup, dataList, baseUrl);
         initializeSelectionDisplay(selectionDisplay);
     }
 
+    /**
+     * Initialize selection display.
+     *
+     * @param selectionDisplay
+     *            the selection display
+     */
     private void initializeSelectionDisplay(SelectionDisplay selectionDisplay) {
         m_selectionDisplay = selectionDisplay;
 
@@ -98,6 +141,9 @@ public class KscCustomReportListPresenter extends DefaultResourceListPresenter i
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         super.go(container);
@@ -105,6 +151,9 @@ public class KscCustomReportListPresenter extends DefaultResourceListPresenter i
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter#onResourceItemSelected()
+     */
     @Override
     public void onResourceItemSelected() {
         // Don't do anything on selection

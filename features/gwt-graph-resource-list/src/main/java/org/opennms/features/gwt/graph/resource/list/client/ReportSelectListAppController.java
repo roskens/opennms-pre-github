@@ -40,22 +40,45 @@ import org.opennms.features.gwt.graph.resource.list.client.view.SearchPopup;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class ReportSelectListAppController.
+ */
 public class ReportSelectListAppController implements Presenter {
 
+    /** The m_resource list. */
     private List<ResourceListItem> m_resourceList;
 
+    /** The m_base url. */
     private String m_baseUrl;
 
+    /**
+     * Instantiates a new report select list app controller.
+     *
+     * @param resourceListData
+     *            the resource list data
+     * @param baseUrl
+     *            the base url
+     */
     public ReportSelectListAppController(JsArray<ResourceListItem> resourceListData, String baseUrl) {
         m_resourceList = convertJsArrayToList(resourceListData);
         m_baseUrl = baseUrl;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         new ReportSelectListPresenter(new ReportSelectListViewImpl(m_resourceList), new SearchPopup(), m_baseUrl).go(container);
     }
 
+    /**
+     * Convert js array to list.
+     *
+     * @param resourceList
+     *            the resource list
+     * @return the list
+     */
     private List<ResourceListItem> convertJsArrayToList(JsArray<ResourceListItem> resourceList) {
         List<ResourceListItem> data = new ArrayList<ResourceListItem>();
         for (int i = 0; i < resourceList.length(); i++) {

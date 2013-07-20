@@ -48,29 +48,45 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
+/**
+ * The Class DefaultResourceListViewImpl.
+ */
 public class DefaultResourceListViewImpl extends Composite implements DefaultResourceListView<ResourceListItem> {
 
+    /** The ui binder. */
     private static DefaultResourceListViewImplUiBinder uiBinder = GWT.create(DefaultResourceListViewImplUiBinder.class);
 
+    /**
+     * The Interface DefaultResourceListViewImplUiBinder.
+     */
     interface DefaultResourceListViewImplUiBinder extends UiBinder<Widget, DefaultResourceListViewImpl> {
     }
 
+    /** The m_layout panel. */
     @UiField
     LayoutPanel m_layoutPanel;
 
+    /** The m_resource table. */
     @UiField
     ResourceTable m_resourceTable;
 
+    /** The m_search btn. */
     @UiField
     Button m_searchBtn;
 
+    /** The m_simple pager container. */
     @UiField
     FlowPanel m_simplePagerContainer;
 
+    /** The m_data provider. */
     private ListDataProvider<ResourceListItem> m_dataProvider;
 
+    /** The m_presenter. */
     private Presenter<ResourceListItem> m_presenter;
 
+    /**
+     * Instantiates a new default resource list view impl.
+     */
     public DefaultResourceListViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -97,26 +113,44 @@ public class DefaultResourceListViewImpl extends Composite implements DefaultRes
         m_resourceTable.setWidth("100%");
     }
 
+    /**
+     * On search button click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_searchBtn")
     public void onSearchButtonClick(ClickEvent event) {
         m_presenter.onSearchButtonClicked();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ResourceListView#setDataList(java.util.List)
+     */
     @Override
     public void setDataList(List<ResourceListItem> dataList) {
         m_dataProvider.setList(dataList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.DefaultResourceListView#setPresenter(org.opennms.features.gwt.graph.resource.list.client.view.DefaultResourceListView.Presenter)
+     */
     @Override
     public void setPresenter(Presenter<ResourceListItem> presenter) {
         m_presenter = presenter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ResourceListView#showWarning()
+     */
     @Override
     public void showWarning() {
         Window.alert("Please Choose A Resource");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ResourceListView#getSelectedResource()
+     */
     @Override
     public ResourceListItem getSelectedResource() {
         return m_resourceTable.getSelectedResourceItem();

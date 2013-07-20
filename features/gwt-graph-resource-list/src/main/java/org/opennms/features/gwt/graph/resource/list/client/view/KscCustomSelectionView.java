@@ -36,32 +36,50 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class KscCustomSelectionView.
+ */
 public class KscCustomSelectionView implements SelectionDisplay {
 
+    /** The Constant VIEW. */
     public static final String VIEW = "view";
 
+    /** The Constant CUSTOMIZE. */
     public static final String CUSTOMIZE = "customize";
 
+    /** The Constant CREATE_NEW. */
     public static final String CREATE_NEW = "createNew";
 
+    /** The Constant CREATE_NEW_FROM_EXISTING. */
     public static final String CREATE_NEW_FROM_EXISTING = "createNewExisting";
 
+    /** The Constant DELETE. */
     public static final String DELETE = "delete";
 
+    /** The m_vert panel. */
     VerticalPanel m_vertPanel;
 
+    /** The m_submit button. */
     Button m_submitButton;
 
+    /** The m_view rb. */
     RadioButton m_viewRB;
 
+    /** The m_customize rb. */
     RadioButton m_customizeRB;
 
+    /** The m_create new rb. */
     RadioButton m_createNewRB;
 
+    /** The m_create new existing rb. */
     RadioButton m_createNewExistingRB;
 
+    /** The m_delete rb. */
     RadioButton m_deleteRB;
 
+    /**
+     * Instantiates a new ksc custom selection view.
+     */
     public KscCustomSelectionView() {
         m_vertPanel = new VerticalPanel();
         m_vertPanel.setStyleName("onms-table-no-borders-margin");
@@ -81,11 +99,17 @@ public class KscCustomSelectionView implements SelectionDisplay {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.KscCustomReportListPresenter.SelectionDisplay#getSubmitButton()
+     */
     @Override
     public HasClickHandlers getSubmitButton() {
         return m_submitButton;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.KscCustomReportListPresenter.SelectionDisplay#getSelectAction()
+     */
     @Override
     public String getSelectAction() {
         if (m_viewRB.getValue()) {
@@ -102,6 +126,9 @@ public class KscCustomSelectionView implements SelectionDisplay {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.KscCustomReportListPresenter.SelectionDisplay#asWidget()
+     */
     @Override
     public Widget asWidget() {
         return m_vertPanel.asWidget();

@@ -51,34 +51,75 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
+/**
+ * The Class ReportSelectListCellTree.
+ */
 public class ReportSelectListCellTree extends CellTree {
 
+    /**
+     * The Class ResourceType.
+     */
     private static class ResourceType {
+
+        /** The m_name. */
         private final String m_name;
 
+        /** The m_resource list. */
         private final List<ResourceListItem> m_resourceList = new ArrayList<ResourceListItem>();
 
+        /**
+         * Instantiates a new resource type.
+         *
+         * @param name
+         *            the name
+         */
         public ResourceType(String name) {
             m_name = name;
         }
 
+        /**
+         * Adds the resource list item.
+         *
+         * @param item
+         *            the item
+         */
         public void addResourceListItem(ResourceListItem item) {
             m_resourceList.add(item);
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName() {
             return m_name;
         }
 
+        /**
+         * Gets the resource list.
+         *
+         * @return the resource list
+         */
         public List<ResourceListItem> getResourceList() {
             return m_resourceList;
         }
 
     }
 
+    /**
+     * The Class CustomTreeModel.
+     */
     private static class CustomTreeModel implements TreeViewModel {
 
+        /**
+         * The Class ResourceListItemCell.
+         */
         private final class ResourceListItemCell extends AbstractCell<ResourceListItem> {
+
+            /* (non-Javadoc)
+             * @see com.google.gwt.cell.client.AbstractCell#render(com.google.gwt.cell.client.Cell.Context, java.lang.Object, com.google.gwt.safehtml.shared.SafeHtmlBuilder)
+             */
             @Override
             public void render(Context context, ResourceListItem value, SafeHtmlBuilder sb) {
                 if (value != null) {
@@ -88,7 +129,14 @@ public class ReportSelectListCellTree extends CellTree {
             }
         }
 
+        /**
+         * The Class ResourceTypCell.
+         */
         private final class ResourceTypCell extends AbstractCell<ResourceType> {
+
+            /* (non-Javadoc)
+             * @see com.google.gwt.cell.client.AbstractCell#render(com.google.gwt.cell.client.Cell.Context, java.lang.Object, com.google.gwt.safehtml.shared.SafeHtmlBuilder)
+             */
             @Override
             public void render(Context context, ResourceType value, SafeHtmlBuilder sb) {
                 if (value != null) {
@@ -97,14 +145,26 @@ public class ReportSelectListCellTree extends CellTree {
             }
         }
 
+        /** The m_resource types. */
         private final List<ResourceType> m_resourceTypes;
 
+        /** The m_multiple selection model. */
         private final MultiSelectionModel<ResourceListItem> m_multipleSelectionModel;
 
+        /** The m_resource list item cell. */
         private final Cell<ResourceListItem> m_resourceListItemCell;
 
+        /** The m_selection manager. */
         private final DefaultSelectionEventManager<ResourceListItem> m_selectionManager = DefaultSelectionEventManager.createCheckboxManager();
 
+        /**
+         * Instantiates a new custom tree model.
+         *
+         * @param resourceList
+         *            the resource list
+         * @param selectionModel
+         *            the selection model
+         */
         public CustomTreeModel(List<ResourceListItem> resourceList, MultiSelectionModel<ResourceListItem> selectionModel) {
             m_resourceTypes = new ArrayList<ResourceType>();
             organizeList(resourceList);
@@ -174,6 +234,12 @@ public class ReportSelectListCellTree extends CellTree {
 
         }
 
+        /**
+         * Organize list.
+         *
+         * @param resourceList
+         *            the resource list
+         */
         private void organizeList(List<ResourceListItem> resourceList) {
 
             Map<String, String> types = new HashMap<String, String>();
@@ -200,6 +266,12 @@ public class ReportSelectListCellTree extends CellTree {
         /**
          * Get the {@link NodeInfo} that provides the children of the specified
          * value.
+         *
+         * @param <T>
+         *            the generic type
+         * @param value
+         *            the value
+         * @return the node info
          */
         @Override
         public <T> NodeInfo<?> getNodeInfo(T value) {
@@ -224,6 +296,10 @@ public class ReportSelectListCellTree extends CellTree {
          * Check if the specified value represents a leaf node. Leaf nodes
          * cannot be
          * opened.
+         *
+         * @param value
+         *            the value
+         * @return true, if is leaf
          */
         @Override
         public boolean isLeaf(Object value) {
@@ -235,6 +311,14 @@ public class ReportSelectListCellTree extends CellTree {
         }
     }
 
+    /**
+     * Instantiates a new report select list cell tree.
+     *
+     * @param resourceList
+     *            the resource list
+     * @param selectionModel
+     *            the selection model
+     */
     public ReportSelectListCellTree(List<ResourceListItem> resourceList,
             MultiSelectionModel<ResourceListItem> selectionModel) {
         super(new CustomTreeModel(resourceList, selectionModel), null,

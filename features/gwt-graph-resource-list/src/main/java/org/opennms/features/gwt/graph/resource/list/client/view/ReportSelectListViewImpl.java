@@ -47,44 +47,69 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
+/**
+ * The Class ReportSelectListViewImpl.
+ */
 public class ReportSelectListViewImpl extends Composite implements ReportSelectListView<ResourceListItem> {
 
+    /** The ui binder. */
     private static ReportSelectListViewImplUiBinder uiBinder = GWT.create(ReportSelectListViewImplUiBinder.class);
 
+    /**
+     * The Interface ReportSelectListViewImplUiBinder.
+     */
     interface ReportSelectListViewImplUiBinder extends UiBinder<Widget, ReportSelectListViewImpl> {
     }
 
+    /** The m_layout panel. */
     @UiField
     LayoutPanel m_layoutPanel;
 
+    /** The m_tree container. */
     @UiField
     FlowPanel m_treeContainer;
 
+    /** The m_remove button. */
     @UiField
     Button m_removeButton;
 
+    /** The m_select all button. */
     @UiField
     Button m_selectAllButton;
 
+    /** The m_graph button. */
     @UiField
     Button m_graphButton;
 
+    /** The m_search button. */
     @UiField
     Button m_searchButton;
 
+    /** The m_graph all button. */
     @UiField
     Button m_graphAllButton;
 
+    /** The m_report cell tree. */
     ReportSelectListCellTree m_reportCellTree;
 
+    /** The m_data list. */
     private List<ResourceListItem> m_dataList;
 
+    /** The m_selection model. */
     private final MultiSelectionModel<ResourceListItem> m_selectionModel;
 
+    /** The m_selected reports. */
     private List<ResourceListItem> m_selectedReports;
 
+    /** The m_presenter. */
     private Presenter<ResourceListItem> m_presenter;
 
+    /**
+     * Instantiates a new report select list view impl.
+     *
+     * @param dataList
+     *            the data list
+     */
     public ReportSelectListViewImpl(List<ResourceListItem> dataList) {
         m_dataList = dataList;
 
@@ -110,20 +135,45 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
 
     }
 
+    /**
+     * Make cell tree.
+     *
+     * @param list
+     *            the list
+     * @return the report select list cell tree
+     */
     private ReportSelectListCellTree makeCellTree(List<ResourceListItem> list) {
         return new ReportSelectListCellTree(list, m_selectionModel);
     }
 
+    /**
+     * On graph button click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_graphButton")
     public void onGraphButtonClick(ClickEvent event) {
         m_presenter.onGraphButtonClick();
     }
 
+    /**
+     * On remove button click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_removeButton")
     public void onRemoveButtonClick(ClickEvent event) {
         m_presenter.onClearSelectionButtonClick();
     }
 
+    /**
+     * On select all button click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_selectAllButton")
     public void onSelectAllButtonClick(ClickEvent event) {
         for (ResourceListItem item : m_dataList) {
@@ -131,52 +181,88 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
         }
     }
 
+    /**
+     * On search button click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_searchButton")
     public void onSearchButtonClick(ClickEvent event) {
         m_presenter.onSearchButtonClick();
     }
 
+    /**
+     * On graph all click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_graphAllButton")
     public void onGraphAllClick(ClickEvent event) {
         m_presenter.onGraphAllButtonClick();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#setDataList(java.util.List)
+     */
     @Override
     public void setDataList(List<ResourceListItem> dataList) {
         m_treeContainer.clear();
         m_treeContainer.add(makeCellTree(dataList));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#getSelectedReports()
+     */
     @Override
     public List<ResourceListItem> getSelectedReports() {
         return m_selectedReports;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#setPresenter(org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView.Presenter)
+     */
     @Override
     public void setPresenter(Presenter<ResourceListItem> presenter) {
         m_presenter = presenter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#clearAllSelections()
+     */
     @Override
     public void clearAllSelections() {
         m_selectionModel.clear();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#showWarning()
+     */
     @Override
     public void showWarning() {
         Window.alert("Please Select a Report to Graph");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#getDataList()
+     */
     @Override
     public List<ResourceListItem> getDataList() {
         return m_dataList;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#searchPopupTarget()
+     */
     @Override
     public Widget searchPopupTarget() {
         return m_treeContainer.asWidget();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView#getAllReports()
+     */
     @Override
     public List<ResourceListItem> getAllReports() {
         return m_dataList;

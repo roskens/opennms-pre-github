@@ -28,11 +28,29 @@
 
 package org.opennms.features.gwt.graph.resource.list.client.view;
 
+/**
+ * The Interface KscChooseResourceListView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface KscChooseResourceListView<T> extends ResourceListView<T> {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> extends ResourceListView.Presenter<T> {
 
     }
 
+    /**
+     * Sets the presenter.
+     *
+     * @param presenter
+     *            the new presenter
+     */
     void setPresenter(Presenter<T> presenter);
 }

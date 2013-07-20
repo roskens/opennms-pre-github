@@ -48,36 +48,102 @@ import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class DefaultResourceListPresenter.
+ */
 public class DefaultResourceListPresenter implements Presenter, DefaultResourceListView.Presenter<ResourceListItem> {
 
+    /**
+     * The Interface SearchPopupDisplay.
+     */
     public interface SearchPopupDisplay {
+
+        /**
+         * Gets the search confirm btn.
+         *
+         * @return the search confirm btn
+         */
         HasClickHandlers getSearchConfirmBtn();
 
+        /**
+         * Gets the cancel btn.
+         *
+         * @return the cancel btn
+         */
         HasClickHandlers getCancelBtn();
 
+        /**
+         * Gets the text box.
+         *
+         * @return the text box
+         */
         HasKeyPressHandlers getTextBox();
 
+        /**
+         * As widget.
+         *
+         * @return the widget
+         */
         Widget asWidget();
 
+        /**
+         * Gets the search text.
+         *
+         * @return the search text
+         */
         String getSearchText();
 
+        /**
+         * Sets the height offset.
+         *
+         * @param offset
+         *            the new height offset
+         */
         void setHeightOffset(int offset);
 
+        /**
+         * Show search popup.
+         */
         void showSearchPopup();
 
+        /**
+         * Hide search popup.
+         */
         void hideSearchPopup();
 
+        /**
+         * Sets the target widget.
+         *
+         * @param target
+         *            the new target widget
+         */
         void setTargetWidget(Widget target);
     }
 
+    /** The m_view. */
     private DefaultResourceListView<ResourceListItem> m_view;
 
+    /** The m_search popup. */
     private SearchPopupDisplay m_searchPopup;
 
+    /** The m_data list. */
     private List<ResourceListItem> m_dataList;
 
+    /** The m_base url. */
     private String m_baseUrl;
 
+    /**
+     * Instantiates a new default resource list presenter.
+     *
+     * @param view
+     *            the view
+     * @param searchPopup
+     *            the search popup
+     * @param dataList
+     *            the data list
+     * @param baseUrl
+     *            the base url
+     */
     public DefaultResourceListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup,
             JsArray<ResourceListItem> dataList, String baseUrl) {
         setView(view);
@@ -91,6 +157,13 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         setBaseUrl(baseUrl);
     }
 
+    /**
+     * Convert js array to list.
+     *
+     * @param resourceList
+     *            the resource list
+     * @return the list
+     */
     private List<ResourceListItem> convertJsArrayToList(JsArray<ResourceListItem> resourceList) {
         List<ResourceListItem> data = new ArrayList<ResourceListItem>();
         for (int i = 0; i < resourceList.length(); i++) {
@@ -107,6 +180,12 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         return data;
     }
 
+    /**
+     * Initialize search popup.
+     *
+     * @param searchPopupView
+     *            the search popup view
+     */
     private void initializeSearchPopup(SearchPopupDisplay searchPopupView) {
         m_searchPopup = searchPopupView;
         m_searchPopup.setTargetWidget(getView().asWidget());
@@ -139,6 +218,13 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         });
     }
 
+    /**
+     * Filter list.
+     *
+     * @param searchText
+     *            the search text
+     * @return the list
+     */
     private List<ResourceListItem> filterList(String searchText) {
         List<ResourceListItem> list = new ArrayList<ResourceListItem>();
         for (ResourceListItem item : m_dataList) {
@@ -149,12 +235,18 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         container.clear();
         container.add(getView().asWidget());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ResourceListView.Presenter#onResourceItemSelected()
+     */
     @Override
     public void onResourceItemSelected() {
         StringBuilder url = new StringBuilder(getBaseUrl());
@@ -165,23 +257,48 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         Location.assign(url.toString());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ResourceListView.Presenter#onSearchButtonClicked()
+     */
     @Override
     public void onSearchButtonClicked() {
         m_searchPopup.showSearchPopup();
     }
 
+    /**
+     * Sets the view.
+     *
+     * @param view
+     *            the new view
+     */
     public void setView(DefaultResourceListView<ResourceListItem> view) {
         m_view = view;
     }
 
+    /**
+     * Gets the view.
+     *
+     * @return the view
+     */
     public DefaultResourceListView<ResourceListItem> getView() {
         return m_view;
     }
 
+    /**
+     * Sets the base url.
+     *
+     * @param baseUrl
+     *            the new base url
+     */
     public void setBaseUrl(String baseUrl) {
         m_baseUrl = baseUrl;
     }
 
+    /**
+     * Gets the base url.
+     *
+     * @return the base url
+     */
     public String getBaseUrl() {
         return m_baseUrl;
     }

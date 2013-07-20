@@ -35,14 +35,23 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class KscReportResourceChooser.
+ */
 public class KscReportResourceChooser implements ViewChoiceDisplay {
 
+    /** The m_vert panel. */
     VerticalPanel m_vertPanel;
 
+    /** The m_choose btn. */
     private Button m_chooseBtn;
 
+    /** The m_view btn. */
     private Button m_viewBtn;
 
+    /**
+     * Instantiates a new ksc report resource chooser.
+     */
     public KscReportResourceChooser() {
         m_chooseBtn = new Button("Choose Child Resource");
         m_viewBtn = new Button("View Child Resource");
@@ -53,16 +62,25 @@ public class KscReportResourceChooser implements ViewChoiceDisplay {
         m_vertPanel.add(m_chooseBtn);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.KscGraphResourceListPresenter.ViewChoiceDisplay#getViewButton()
+     */
     @Override
     public HasClickHandlers getViewButton() {
         return m_viewBtn;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.KscGraphResourceListPresenter.ViewChoiceDisplay#getChooseButton()
+     */
     @Override
     public HasClickHandlers getChooseButton() {
         return m_chooseBtn;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.KscGraphResourceListPresenter.ViewChoiceDisplay#asWidget()
+     */
     @Override
     public Widget asWidget() {
         return m_vertPanel.asWidget();

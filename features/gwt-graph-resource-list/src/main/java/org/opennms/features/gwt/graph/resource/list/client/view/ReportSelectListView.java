@@ -32,33 +32,101 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Interface ReportSelectListView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface ReportSelectListView<T> {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> {
+
+        /**
+         * On graph button click.
+         */
         void onGraphButtonClick();
 
+        /**
+         * On clear selection button click.
+         */
         void onClearSelectionButtonClick();
 
+        /**
+         * On search button click.
+         */
         void onSearchButtonClick();
 
+        /**
+         * On graph all button click.
+         */
         void onGraphAllButtonClick();
     }
 
+    /**
+     * Gets the selected reports.
+     *
+     * @return the selected reports
+     */
     List<ResourceListItem> getSelectedReports();
 
+    /**
+     * Sets the data list.
+     *
+     * @param dataList
+     *            the new data list
+     */
     void setDataList(List<ResourceListItem> dataList);
 
+    /**
+     * Sets the presenter.
+     *
+     * @param presenter
+     *            the new presenter
+     */
     void setPresenter(Presenter<T> presenter);
 
+    /**
+     * As widget.
+     *
+     * @return the widget
+     */
     Widget asWidget();
 
+    /**
+     * Clear all selections.
+     */
     void clearAllSelections();
 
+    /**
+     * Show warning.
+     */
     void showWarning();
 
+    /**
+     * Gets the data list.
+     *
+     * @return the data list
+     */
     List<ResourceListItem> getDataList();
 
+    /**
+     * Search popup target.
+     *
+     * @return the widget
+     */
     Widget searchPopupTarget();
 
+    /**
+     * Gets the all reports.
+     *
+     * @return the all reports
+     */
     List<ResourceListItem> getAllReports();
 }

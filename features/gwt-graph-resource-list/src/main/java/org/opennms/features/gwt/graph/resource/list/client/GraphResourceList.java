@@ -111,6 +111,12 @@ public class GraphResourceList implements EntryPoint {
         }
     }
 
+    /**
+     * Creates the report select view.
+     *
+     * @param element
+     *            the element
+     */
     private void createReportSelectView(Element element) {
         ReportSelectListAppController reportSelectListAppController = new ReportSelectListAppController(
                                                                                                         getResourceListData(getDataObjectAttribute(element)),
@@ -118,6 +124,12 @@ public class GraphResourceList implements EntryPoint {
         reportSelectListAppController.go(RootPanel.get(element.getId()));
     }
 
+    /**
+     * Creates the ksc custom report view.
+     *
+     * @param element
+     *            the element
+     */
     private void createKscCustomReportView(Element element) {
         KscCustomReportAppController kscCustomReportList = new KscCustomReportAppController(
                                                                                             getResourceListData(getDataObjectAttribute(element)),
@@ -125,6 +137,12 @@ public class GraphResourceList implements EntryPoint {
         kscCustomReportList.go(RootPanel.get(element.getId()));
     }
 
+    /**
+     * Creates the ksc report list view.
+     *
+     * @param element
+     *            the element
+     */
     private void createKscReportListView(Element element) {
         KscReportListAppController nodeSnmpReportList = new KscReportListAppController(
                                                                                        getResourceListData(getDataObjectAttribute(element)),
@@ -132,6 +150,12 @@ public class GraphResourceList implements EntryPoint {
         nodeSnmpReportList.go(RootPanel.get(element.getId()));
     }
 
+    /**
+     * Creates the graph resource view.
+     *
+     * @param element
+     *            the element
+     */
     private void createGraphResourceView(Element element) {
         ResourceListAppController resourceListView = new ResourceListAppController(
                                                                                    getResourceListData(getDataObjectAttribute(element)),
@@ -139,6 +163,12 @@ public class GraphResourceList implements EntryPoint {
         resourceListView.go(RootPanel.get(element.getId()));
     }
 
+    /**
+     * Creates the ksc choose resource view.
+     *
+     * @param elem
+     *            the elem
+     */
     private void createKscChooseResourceView(Element elem) {
         KscChooseResourceAppController appView = new KscChooseResourceAppController(
                                                                                     getResourceListData(getDataObjectAttribute(elem)),
@@ -146,10 +176,22 @@ public class GraphResourceList implements EntryPoint {
         appView.go(RootPanel.get(elem.getId()));
     }
 
+    /**
+     * Gets the data object attribute.
+     *
+     * @param elem
+     *            the elem
+     * @return the data object attribute
+     */
     private String getDataObjectAttribute(Element elem) {
         return elem.getAttribute("dataObject") != null ? elem.getAttribute("dataObject") : "data";
     }
 
+    /**
+     * Gets the base url.
+     *
+     * @return the base url
+     */
     public final native String getBaseUrl() /*-{
                                             try{
                                             return $wnd.getBaseHref();
@@ -159,6 +201,13 @@ public class GraphResourceList implements EntryPoint {
 
                                             }-*/;
 
+    /**
+     * Gets the resource list data.
+     *
+     * @param dataObject
+     *            the data object
+     * @return the resource list data
+     */
     public final native JsArray<ResourceListItem> getResourceListData(String dataObject) /*-{
                                                                                          return $wnd[dataObject].records;
                                                                                          }-*/;

@@ -42,23 +42,62 @@ import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class KscGraphResourceListPresenter.
+ */
 public class KscGraphResourceListPresenter extends DefaultResourceListPresenter implements Presenter,
         KscChooseResourceListView.Presenter<ResourceListItem> {
 
+    /**
+     * The Interface ViewChoiceDisplay.
+     */
     public interface ViewChoiceDisplay {
+
+        /**
+         * Gets the view button.
+         *
+         * @return the view button
+         */
         HasClickHandlers getViewButton();
 
+        /**
+         * Gets the choose button.
+         *
+         * @return the choose button
+         */
         HasClickHandlers getChooseButton();
 
+        /**
+         * As widget.
+         *
+         * @return the widget
+         */
         Widget asWidget();
     }
 
+    /** The m_search popup. */
     SearchPopupDisplay m_searchPopup;
 
+    /** The m_data list. */
     List<ResourceListItem> m_dataList;
 
+    /** The m_view choice display. */
     private ViewChoiceDisplay m_viewChoiceDisplay;
 
+    /**
+     * Instantiates a new ksc graph resource list presenter.
+     *
+     * @param view
+     *            the view
+     * @param searchPopupView
+     *            the search popup view
+     * @param resourceList
+     *            the resource list
+     * @param viewChoiceDisplay
+     *            the view choice display
+     * @param baseUrl
+     *            the base url
+     */
     public KscGraphResourceListPresenter(DefaultResourceListView<ResourceListItem> view,
             SearchPopupDisplay searchPopupView, JsArray<ResourceListItem> resourceList,
             ViewChoiceDisplay viewChoiceDisplay, String baseUrl) {
@@ -67,6 +106,12 @@ public class KscGraphResourceListPresenter extends DefaultResourceListPresenter 
         initializeViewChoiceDisplay(viewChoiceDisplay);
     }
 
+    /**
+     * Initialize view choice display.
+     *
+     * @param viewChoiceDisplay
+     *            the view choice display
+     */
     private void initializeViewChoiceDisplay(ViewChoiceDisplay viewChoiceDisplay) {
         m_viewChoiceDisplay = viewChoiceDisplay;
         viewChoiceDisplay.getChooseButton().addClickHandler(new ClickHandler() {
@@ -107,12 +152,18 @@ public class KscGraphResourceListPresenter extends DefaultResourceListPresenter 
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         super.go(container);
         container.add(m_viewChoiceDisplay.asWidget());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter#onResourceItemSelected()
+     */
     @Override
     public void onResourceItemSelected() {
 

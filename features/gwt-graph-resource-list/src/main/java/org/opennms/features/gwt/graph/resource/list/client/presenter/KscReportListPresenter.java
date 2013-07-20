@@ -35,13 +35,31 @@ import org.opennms.features.gwt.graph.resource.list.client.view.SearchPopup;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.Window.Location;
 
+/**
+ * The Class KscReportListPresenter.
+ */
 public class KscReportListPresenter extends DefaultResourceListPresenter {
 
+    /**
+     * Instantiates a new ksc report list presenter.
+     *
+     * @param view
+     *            the view
+     * @param searchPopup
+     *            the search popup
+     * @param dataList
+     *            the data list
+     * @param baseUrl
+     *            the base url
+     */
     public KscReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopup searchPopup,
             JsArray<ResourceListItem> dataList, String baseUrl) {
         super(view, searchPopup, dataList, baseUrl);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter#onResourceItemSelected()
+     */
     @Override
     public void onResourceItemSelected() {
         StringBuilder urlBuilder = new StringBuilder();

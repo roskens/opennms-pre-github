@@ -30,6 +30,16 @@ package org.opennms.features.gwt.graph.resource.list.client.event;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * The Interface SearchClickEventHandler.
+ */
 public interface SearchClickEventHandler extends EventHandler {
+
+    /**
+     * On search click event.
+     *
+     * @param searchTerm
+     *            the search term
+     */
     public void onSearchClickEvent(String searchTerm);
 }

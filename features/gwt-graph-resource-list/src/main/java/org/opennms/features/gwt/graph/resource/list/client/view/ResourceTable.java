@@ -35,15 +35,25 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class ResourceTable.
+ */
 public class ResourceTable extends CellTable<ResourceListItem> {
 
+    /** The m_selection model. */
     private SingleSelectionModel<ResourceListItem> m_selectionModel;
 
+    /**
+     * Instantiates a new resource table.
+     */
     public ResourceTable() {
         super(15, (CellTable.Resources) GWT.create(OnmsTableResources.class));
         initialize();
     }
 
+    /**
+     * Initialize.
+     */
     private void initialize() {
         TextColumn<ResourceListItem> resourceColumn = new TextColumn<ResourceListItem>() {
 
@@ -61,6 +71,11 @@ public class ResourceTable extends CellTable<ResourceListItem> {
 
     }
 
+    /**
+     * Gets the selected resource item.
+     *
+     * @return the selected resource item
+     */
     public ResourceListItem getSelectedResourceItem() {
         return m_selectionModel.getSelectedObject();
     }

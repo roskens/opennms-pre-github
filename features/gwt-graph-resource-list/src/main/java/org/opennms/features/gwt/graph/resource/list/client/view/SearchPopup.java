@@ -46,24 +46,38 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class SearchPopup.
+ */
 public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
 
+    /** The m_label. */
     private Label m_label;
 
+    /** The m_tf. */
     private TextBox m_tf;
 
+    /** The m_ok btn. */
     private Button m_okBtn;
 
+    /** The m_cancel btn. */
     private Button m_cancelBtn;
 
+    /** The m_event bus. */
     private SimpleEventBus m_eventBus = new SimpleEventBus();
 
+    /** The m_target. */
     private UIObject m_target;
 
+    /** The m_layout panel. */
     private LayoutPanel m_layoutPanel;
 
+    /** The m_height offset. */
     private int m_heightOffset = 274;
 
+    /**
+     * Instantiates a new search popup.
+     */
     public SearchPopup() {
         super(true);
 
@@ -109,25 +123,43 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
         setWidget(m_layoutPanel);
     }
 
+    /**
+     * Adds the search click event handler.
+     *
+     * @param handler
+     *            the handler
+     */
     public void addSearchClickEventHandler(SearchClickEventHandler handler) {
         m_eventBus.addHandler(SearchClickEvent.getType(), handler);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#getSearchConfirmBtn()
+     */
     @Override
     public HasClickHandlers getSearchConfirmBtn() {
         return m_okBtn;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#getCancelBtn()
+     */
     @Override
     public HasClickHandlers getCancelBtn() {
         return m_cancelBtn;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#getSearchText()
+     */
     @Override
     public String getSearchText() {
         return m_tf.getText();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#showSearchPopup()
+     */
     @Override
     public void showSearchPopup() {
 
@@ -145,27 +177,44 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#hideSearchPopup()
+     */
     @Override
     public void hideSearchPopup() {
         hide();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#setTargetWidget(com.google.gwt.user.client.ui.Widget)
+     */
     @Override
     public void setTargetWidget(Widget target) {
         m_target = target;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#getTextBox()
+     */
     @Override
     public HasKeyPressHandlers getTextBox() {
         return m_tf;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.DefaultResourceListPresenter.SearchPopupDisplay#setHeightOffset(int)
+     */
     @Override
     public void setHeightOffset(int offset) {
         m_heightOffset = offset;
 
     }
 
+    /**
+     * Gets the height offset.
+     *
+     * @return the height offset
+     */
     private int getHeightOffset() {
         return m_heightOffset;
     }

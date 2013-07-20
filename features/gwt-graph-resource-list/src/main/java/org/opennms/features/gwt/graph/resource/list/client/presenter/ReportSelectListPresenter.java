@@ -43,14 +43,30 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class ReportSelectListPresenter.
+ */
 public class ReportSelectListPresenter implements Presenter, ReportSelectListView.Presenter<ResourceListItem> {
 
+    /** The m_view. */
     private ReportSelectListView<ResourceListItem> m_view;
 
+    /** The m_search popup. */
     private SearchPopupDisplay m_searchPopup;
 
+    /** The m_base url. */
     private String m_baseUrl;
 
+    /**
+     * Instantiates a new report select list presenter.
+     *
+     * @param view
+     *            the view
+     * @param searchView
+     *            the search view
+     * @param baseUrl
+     *            the base url
+     */
     public ReportSelectListPresenter(ReportSelectListView<ResourceListItem> view, SearchPopupDisplay searchView,
             String baseUrl) {
         setView(view);
@@ -59,6 +75,12 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         m_baseUrl = baseUrl;
     }
 
+    /**
+     * Initialize search popup.
+     *
+     * @param searchPopupView
+     *            the search popup view
+     */
     private void initializeSearchPopup(SearchPopupDisplay searchPopupView) {
         m_searchPopup = searchPopupView;
         m_searchPopup.setHeightOffset(425);
@@ -92,12 +114,18 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         container.clear();
         container.add(getView().asWidget());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView.Presenter#onGraphButtonClick()
+     */
     @Override
     public void onGraphButtonClick() {
         List<ResourceListItem> reports = getView().getSelectedReports();
@@ -109,6 +137,12 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
 
     }
 
+    /**
+     * Builds the url and go to graph page.
+     *
+     * @param reports
+     *            the reports
+     */
     private void buildUrlAndGoToGraphPage(List<ResourceListItem> reports) {
         StringBuilder sb = new StringBuilder();
         sb.append(m_baseUrl + "graph/results.htm?reports=all&resourceId=");
@@ -126,17 +160,32 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         Location.assign(sb.toString());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView.Presenter#onClearSelectionButtonClick()
+     */
     @Override
     public void onClearSelectionButtonClick() {
         getView().clearAllSelections();
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView.Presenter#onSearchButtonClick()
+     */
     @Override
     public void onSearchButtonClick() {
         m_searchPopup.showSearchPopup();
     }
 
+    /**
+     * Filter list.
+     *
+     * @param searchText
+     *            the search text
+     * @param dataList
+     *            the data list
+     * @return the list
+     */
     private List<ResourceListItem> filterList(String searchText, List<ResourceListItem> dataList) {
         List<ResourceListItem> list = new ArrayList<ResourceListItem>();
         for (ResourceListItem item : dataList) {
@@ -147,14 +196,28 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         return list;
     }
 
+    /**
+     * Sets the view.
+     *
+     * @param view
+     *            the new view
+     */
     public void setView(ReportSelectListView<ResourceListItem> view) {
         m_view = view;
     }
 
+    /**
+     * Gets the view.
+     *
+     * @return the view
+     */
     public ReportSelectListView<ResourceListItem> getView() {
         return m_view;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.view.ReportSelectListView.Presenter#onGraphAllButtonClick()
+     */
     @Override
     public void onGraphAllButtonClick() {
         List<ResourceListItem> reports = getView().getAllReports();

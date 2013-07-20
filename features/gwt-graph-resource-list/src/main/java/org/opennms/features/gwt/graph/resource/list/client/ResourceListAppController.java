@@ -37,17 +37,33 @@ import org.opennms.features.gwt.graph.resource.list.client.view.SearchPopup;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class ResourceListAppController.
+ */
 public class ResourceListAppController implements Presenter {
 
+    /** The m_resource list. */
     private JsArray<ResourceListItem> m_resourceList;
 
+    /** The m_base url. */
     private String m_baseUrl;
 
+    /**
+     * Instantiates a new resource list app controller.
+     *
+     * @param resourceListData
+     *            the resource list data
+     * @param baseUrl
+     *            the base url
+     */
     public ResourceListAppController(JsArray<ResourceListItem> resourceListData, String baseUrl) {
         m_resourceList = resourceListData;
         m_baseUrl = baseUrl;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         new DefaultResourceListPresenter(new DefaultResourceListViewImpl(), new SearchPopup(), m_resourceList,

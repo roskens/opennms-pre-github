@@ -32,19 +32,57 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Interface ResourceListView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface ResourceListView<T> {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> {
+
+        /**
+         * On resource item selected.
+         */
         void onResourceItemSelected();
 
+        /**
+         * On search button clicked.
+         */
         void onSearchButtonClicked();
     }
 
+    /**
+     * Sets the data list.
+     *
+     * @param dataList
+     *            the new data list
+     */
     void setDataList(List<ResourceListItem> dataList);
 
+    /**
+     * Show warning.
+     */
     void showWarning();
 
+    /**
+     * Gets the selected resource.
+     *
+     * @return the selected resource
+     */
     ResourceListItem getSelectedResource();
 
+    /**
+     * As widget.
+     *
+     * @return the widget
+     */
     Widget asWidget();
 }

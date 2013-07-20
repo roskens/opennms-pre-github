@@ -30,15 +30,36 @@ package org.opennms.features.gwt.graph.resource.list.client.view;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class ResourceListItem.
+ */
 public class ResourceListItem extends JavaScriptObject {
 
+    /**
+     * Instantiates a new resource list item.
+     */
     protected ResourceListItem() {
     };
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native String getId()/*-{ return this.id }-*/;
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public final native String getValue()/*-{ return this.value }-*/;
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public final native String getType()/*-{ return this.type }-*/;
 
 }

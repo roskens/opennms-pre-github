@@ -38,17 +38,33 @@ import org.opennms.features.gwt.graph.resource.list.client.view.SearchPopup;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class KscChooseResourceAppController.
+ */
 public class KscChooseResourceAppController implements Presenter {
 
+    /** The m_resource list. */
     private JsArray<ResourceListItem> m_resourceList;
 
+    /** The m_base url. */
     private String m_baseUrl;
 
+    /**
+     * Instantiates a new ksc choose resource app controller.
+     *
+     * @param resourceList
+     *            the resource list
+     * @param baseUrl
+     *            the base url
+     */
     public KscChooseResourceAppController(JsArray<ResourceListItem> resourceList, String baseUrl) {
         m_resourceList = resourceList;
         m_baseUrl = baseUrl;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.graph.resource.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         new KscGraphResourceListPresenter(new DefaultResourceListViewImpl(), new SearchPopup(), m_resourceList,

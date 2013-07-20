@@ -31,8 +31,14 @@ package org.opennms.features.gwt.graph.resource.list.client.view.styles;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.CellTree.Style;
 
+/**
+ * The Interface CustomCellTreeResource.
+ */
 public interface CustomCellTreeResource extends CellTree.Resources {
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.cellview.client.CellTree.Resources#cellTreeStyle()
+     */
     @Source({ "ReportCellTree.css" })
     @Override
     Style cellTreeStyle();

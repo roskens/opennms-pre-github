@@ -30,25 +30,47 @@ package org.opennms.features.gwt.graph.resource.list.client.event;
 
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * The Class SearchClickEvent.
+ */
 public class SearchClickEvent extends GwtEvent<SearchClickEventHandler> {
 
+    /** The type. */
     public static Type<SearchClickEventHandler> TYPE = new Type<SearchClickEventHandler>();
 
+    /** The m_search term. */
     private String m_searchTerm;
 
+    /**
+     * Instantiates a new search click event.
+     *
+     * @param searchTerm
+     *            the search term
+     */
     public SearchClickEvent(String searchTerm) {
         m_searchTerm = searchTerm;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public static Type<SearchClickEventHandler> getType() {
         return TYPE;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+     */
     @Override
     public Type<SearchClickEventHandler> getAssociatedType() {
         return TYPE;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+     */
     @Override
     protected void dispatch(SearchClickEventHandler handler) {
         handler.onSearchClickEvent(m_searchTerm);
