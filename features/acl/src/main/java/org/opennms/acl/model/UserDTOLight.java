@@ -44,7 +44,7 @@ package org.opennms.acl.model;
 
 /**
  * Bean class to manage the basic information like username, id and enabled of
- * managed user in web layer and in resource layer
+ * managed user in web layer and in resource layer.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -67,6 +67,7 @@ public class UserDTOLight implements UserView {
      * <p>
      * isNew
      * </p>
+     * .
      *
      * @return if a user is new and if it's never store in the system
      */
@@ -126,6 +127,7 @@ public class UserDTOLight implements UserView {
      * <p>
      * isEnabled
      * </p>
+     * .
      *
      * @return if the user is enabled or not
      */
@@ -146,9 +148,12 @@ public class UserDTOLight implements UserView {
         this.enabled = enabled;
     }
 
+    /** The username. */
     private String username;
 
+    /** The id. */
     private Long id;
 
+    /** The enabled. */
     private Boolean enabled;
 }

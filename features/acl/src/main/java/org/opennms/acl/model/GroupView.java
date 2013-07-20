@@ -59,6 +59,7 @@ public interface GroupView {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return Name of the Authority
      */
@@ -68,6 +69,7 @@ public interface GroupView {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return Unique identifier
      */
@@ -77,6 +79,7 @@ public interface GroupView {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return List of authorities contained in this group
      */
@@ -87,6 +90,7 @@ public interface GroupView {
      * <p>
      * getEmptyUsers
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */

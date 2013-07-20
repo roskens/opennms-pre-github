@@ -51,7 +51,7 @@ import org.opennms.acl.model.UserDTOLight;
 import org.opennms.acl.model.UserView;
 
 /**
- * Contract to insert/update/read/delete acl users
+ * Contract to insert/update/read/delete acl users.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -63,6 +63,7 @@ public interface UserRepository {
      * <p>
      * getIdUser
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -74,6 +75,7 @@ public interface UserRepository {
      * <p>
      * getUserCredentials
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -82,7 +84,7 @@ public interface UserRepository {
     public UserDTO getUserCredentials(String id);
 
     /**
-     * disable user by id
+     * disable user by id.
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -94,6 +96,7 @@ public interface UserRepository {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -105,6 +108,7 @@ public interface UserRepository {
      * <p>
      * getUserWithAuthorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -116,10 +120,11 @@ public interface UserRepository {
      * <p>
      * getUserWithAuthoritiesByID
      * </p>
+     * .
      *
-     * @return user with its authorities
      * @param sid
      *            a {@link java.lang.Integer} object.
+     * @return user with its authorities
      */
     public UserAuthoritiesDTO getUserWithAuthoritiesByID(Integer sid);
 
@@ -127,6 +132,7 @@ public interface UserRepository {
      * <p>
      * getEnabledUsers
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -138,6 +144,7 @@ public interface UserRepository {
      * <p>
      * getDisabledUsers
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -149,6 +156,7 @@ public interface UserRepository {
      * <p>
      * getUsersNumber
      * </p>
+     * .
      *
      * @return number of users in the system
      */
@@ -158,6 +166,7 @@ public interface UserRepository {
      * <p>
      * insertUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserDTO} object.
@@ -166,7 +175,7 @@ public interface UserRepository {
     public Long insertUser(UserDTO user);
 
     /**
-     * Update a user
+     * Update a user.
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserDTO} object.
@@ -175,7 +184,7 @@ public interface UserRepository {
     public Integer updatePassword(UserDTO user);
 
     /**
-     * Save an UserDTO user
+     * Save an UserDTO user.
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.

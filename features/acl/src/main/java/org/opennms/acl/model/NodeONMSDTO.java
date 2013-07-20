@@ -43,7 +43,7 @@
 package org.opennms.acl.model;
 
 /**
- * Map a OpenNms information
+ * Map a OpenNms information.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -144,9 +144,12 @@ public class NodeONMSDTO {
         return result;
     }
 
+    /** The nodelabel. */
     private String dpname, nodelabel;
 
+    /** The nodeid. */
     private Integer nodeid;
 
+    /** The hash code. */
     private volatile int hashCode;
 }

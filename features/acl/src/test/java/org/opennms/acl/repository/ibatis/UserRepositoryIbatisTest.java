@@ -62,19 +62,37 @@ import org.opennms.acl.model.UserAuthoritiesDTO;
 import org.opennms.acl.model.UserDTO;
 import org.opennms.acl.model.UserView;
 
+/**
+ * The Class UserRepositoryIbatisTest.
+ */
 @Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class UserRepositoryIbatisTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         repo = (UserRepositoryIbatis) SpringFactory.getXmlWebApplicationContext().getBean("userRepository");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         repo = null;
     }
 
+    /**
+     * Prepare db.
+     */
     @Before
     public void prepareDb() {
         dbUser.prepareDb();
@@ -84,6 +102,9 @@ public class UserRepositoryIbatisTest {
         // dbAuthoritiesAuth.prepareDb();
     }
 
+    /**
+     * Clean db.
+     */
     @After
     public void cleanDb() {
         // dbAuthoritiesAuth.cleanDb();
@@ -93,16 +114,29 @@ public class UserRepositoryIbatisTest {
         dbUser.cleanDb();
     }
 
+    /**
+     * Gets the id user.
+     *
+     * @return the id user
+     */
     @Test
     public void getIdUser() {
         assertTrue(repo.getIdUser("max").toString().equals("1"));
     }
 
+    /**
+     * Disable user.
+     */
     @Test
     public void disableUser() {
         assertTrue(repo.disableUser("5"));
     }
 
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
     @Test
     public void getUser() {
         UserView user = repo.getUser("1");
@@ -111,11 +145,21 @@ public class UserRepositoryIbatisTest {
         assertTrue(user.getId() == 1);
     }
 
+    /**
+     * Gets the user disabled.
+     *
+     * @return the user disabled
+     */
     @Test
     public void getUserDisabled() {
         assertNull(repo.getUser("8"));
     }
 
+    /**
+     * Gets the user with authorities.
+     *
+     * @return the user with authorities
+     */
     @Test
     public void getUserWithAuthorities() {
         UserAuthoritiesDTO user = repo.getUserWithAuthorities("max");
@@ -126,12 +170,22 @@ public class UserRepositoryIbatisTest {
         assertFalse(user.isNew());
     }
 
+    /**
+     * Gets the user disablde with authorities.
+     *
+     * @return the user disablde with authorities
+     */
     @Test
     public void getUserDisabldeWithAuthorities() {
         UserAuthoritiesDTO user = repo.getUserWithAuthorities("pluto");
         assertNull(user);
     }
 
+    /**
+     * Gets the user with out authorities.
+     *
+     * @return the user with out authorities
+     */
     @Test
     public void getUserWithOutAuthorities() {
         UserAuthoritiesDTO user = repo.getUserWithAuthorities("pippo");
@@ -142,21 +196,39 @@ public class UserRepositoryIbatisTest {
         assertFalse(user.isNew());
     }
 
+    /**
+     * Gets the enabled users.
+     *
+     * @return the enabled users
+     */
     @Test
     public void getEnabledUsers() {
         assertTrue(repo.getEnabledUsers(new Pager(0, 1, 15)).size() == 3);
     }
 
+    /**
+     * Gets the disabled users.
+     *
+     * @return the disabled users
+     */
     @Test
     public void getDisabledUsers() {
         assertTrue(repo.getDisabledUsers(new Pager(0, 1, 15)).size() == 1);
     }
 
+    /**
+     * Gets the users number.
+     *
+     * @return the users number
+     */
     @Test
     public void getUsersNumber() {
         assertTrue(repo.getUsersNumber() == 4);
     }
 
+    /**
+     * Insert user.
+     */
     @Test
     public void insertUser() {
         UserDTO user = new UserDTO();
@@ -166,6 +238,9 @@ public class UserRepositoryIbatisTest {
         assertTrue(repo.insertUser(user) > 0);
     }
 
+    /**
+     * Update user.
+     */
     @Test
     public void updateUser() {
         UserDTO user = new UserDTO();
@@ -177,14 +252,19 @@ public class UserRepositoryIbatisTest {
         assertTrue(repo.updatePassword(user) == 1);
     }
 
+    /** The db user. */
     private DBUser dbUser = new DBUser();
 
+    /** The db auth. */
     private DBAuthority dbAuth = new DBAuthority();
 
     // private DBAuthoritiesAuth dbAuthoritiesAuth = new DBAuthoritiesAuth();
+    /** The db group. */
     private DBGroup dbGroup = new DBGroup();
 
+    /** The db group member. */
     private DbGroupMemeber dbGroupMember = new DbGroupMemeber();
 
+    /** The repo. */
     private static UserRepositoryIbatis repo;
 }

@@ -55,9 +55,15 @@ import org.junit.Test;
 import org.opennms.acl.model.AuthorityDTO;
 import org.opennms.acl.model.AuthorityView;
 
+/**
+ * The Class AuthoritiesNodeHelperTest.
+ */
 @Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class AuthoritiesNodeHelperTest {
 
+    /**
+     * Constructor.
+     */
     @Test
     public void constructor() {
         AuthorityDTO authority = createAuthority();
@@ -74,6 +80,11 @@ public class AuthoritiesNodeHelperTest {
         assertNotNull(helper);
     }
 
+    /**
+     * Gets the authorities items.
+     *
+     * @return the authorities items
+     */
     @Test
     public void getAuthoritiesItems() {
 
@@ -97,6 +108,11 @@ public class AuthoritiesNodeHelperTest {
 
     }
 
+    /**
+     * Gets the authorities items no duplicated.
+     *
+     * @return the authorities items no duplicated
+     */
     @Test
     public void getAuthoritiesItemsNoDuplicated() {
 
@@ -122,6 +138,9 @@ public class AuthoritiesNodeHelperTest {
 
     }
 
+    /**
+     * Delete items.
+     */
     @Test
     public void deleteItems() {
 
@@ -159,6 +178,11 @@ public class AuthoritiesNodeHelperTest {
 
     }
 
+    /**
+     * Creates the authority.
+     *
+     * @return the authority dto
+     */
     private AuthorityDTO createAuthority() {
         AuthorityDTO authority = new AuthorityDTO();
         authority.setDescription("this is a description");

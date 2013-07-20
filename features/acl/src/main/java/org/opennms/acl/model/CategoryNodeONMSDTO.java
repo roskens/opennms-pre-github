@@ -147,9 +147,12 @@ public class CategoryNodeONMSDTO {
         return result;
     }
 
+    /** The category id. */
     private Integer categoryId;
 
+    /** The category description. */
     private String categoryName, categoryDescription;
 
+    /** The hash code. */
     private volatile int hashCode;
 }

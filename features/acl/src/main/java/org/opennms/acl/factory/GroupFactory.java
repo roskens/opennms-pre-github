@@ -45,7 +45,7 @@ package org.opennms.acl.factory;
 import org.opennms.acl.domain.Group;
 
 /**
- * Contract to retrieve a Group by id
+ * Contract to retrieve a Group by id.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -57,6 +57,7 @@ public interface GroupFactory {
      * <p>
      * getGroup
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.

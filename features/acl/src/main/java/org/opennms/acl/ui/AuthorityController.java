@@ -58,7 +58,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Authority Controller
+ * Authority Controller.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -71,6 +71,7 @@ public class AuthorityController {
      * <p>
      * list
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -89,6 +90,7 @@ public class AuthorityController {
      * <p>
      * detail
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -104,6 +106,7 @@ public class AuthorityController {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -122,6 +125,7 @@ public class AuthorityController {
      * <p>
      * confirmDelete
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -140,6 +144,7 @@ public class AuthorityController {
      * <p>
      * items
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -163,6 +168,7 @@ public class AuthorityController {
      * <p>
      * selection
      * </p>
+     * .
      *
      * @param ids
      *            a {@link java.lang.String} object.
@@ -196,6 +202,7 @@ public class AuthorityController {
         this.authorityService = authorityService;
     }
 
+    /** The authority service. */
     private final AuthorityService authorityService;
 
 }

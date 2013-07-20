@@ -73,18 +73,21 @@ public class AuthorityFactoryImpl implements AutorityFactory, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /** The authority service. */
     @Autowired
     private AuthorityService authorityService;
 
+    /** The acl item service. */
     @Autowired
     @Qualifier("categoryNodesItemsService")
     private AclItemService aclItemService;

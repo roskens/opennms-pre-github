@@ -47,8 +47,14 @@ import java.io.FileInputStream;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 
+/**
+ * The Class DBAuthority.
+ */
 public class DBAuthority extends DbUnit {
 
+    /* (non-Javadoc)
+     * @see org.dbunit.DatabaseTestCase#getDataSet()
+     */
     @Override
     public IDataSet getDataSet() throws Exception {
         return new FlatXmlDataSetBuilder().build(new FileInputStream(

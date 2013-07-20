@@ -59,7 +59,7 @@ import org.opennms.acl.model.Pager;
 public interface GroupService extends PagerService {
 
     /**
-     * Save a GroupDTO
+     * Save a GroupDTO.
      *
      * @param group
      *            a {@link org.opennms.acl.model.GroupDTO} object.
@@ -68,7 +68,7 @@ public interface GroupService extends PagerService {
     public Boolean save(GroupDTO group);
 
     /**
-     * Retrieve a group by id
+     * Retrieve a group by id.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -77,7 +77,7 @@ public interface GroupService extends PagerService {
     public GroupDTO getGroup(Integer id);
 
     /**
-     * Remove a group by id
+     * Remove a group by id.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -86,7 +86,7 @@ public interface GroupService extends PagerService {
     public Boolean removeGroup(Integer id);
 
     /**
-     * Check if Group has a users
+     * Check if Group has a users.
      *
      * @param id
      *            of the group
@@ -98,6 +98,7 @@ public interface GroupService extends PagerService {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -109,6 +110,7 @@ public interface GroupService extends PagerService {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return list of all authorities
      */
@@ -118,6 +120,7 @@ public interface GroupService extends PagerService {
      * <p>
      * getUserGroups
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -129,6 +132,7 @@ public interface GroupService extends PagerService {
      * <p>
      * getFreeGroups
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -137,7 +141,7 @@ public interface GroupService extends PagerService {
     public List<GroupDTO> getFreeGroups(String username);
 
     /**
-     * Save a list of authorities for a given user
+     * Save a list of authorities for a given user.
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -148,7 +152,7 @@ public interface GroupService extends PagerService {
     public Boolean saveGroups(String username, List<Integer> groups);
 
     /**
-     * Delete all user's authorities
+     * Delete all user's authorities.
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -160,6 +164,7 @@ public interface GroupService extends PagerService {
      * <p>
      * getUserGroupsWithAutorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.

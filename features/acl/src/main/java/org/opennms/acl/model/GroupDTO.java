@@ -107,6 +107,7 @@ public class GroupDTO implements GroupView {
      * <p>
      * isNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -118,6 +119,7 @@ public class GroupDTO implements GroupView {
      * <p>
      * hasAuthorities
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -129,6 +131,7 @@ public class GroupDTO implements GroupView {
      * <p>
      * hasGroups
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -208,13 +211,18 @@ public class GroupDTO implements GroupView {
         this.groups = groups;
     }
 
+    /** The name. */
     private String name;
 
+    /** The id. */
     private Integer id = 0;
 
+    /** The authorities. */
     private List<AuthorityView> authorities;
 
+    /** The groups. */
     private List<GroupView> groups;
 
+    /** The empty users. */
     private Boolean emptyUsers = false;
 }

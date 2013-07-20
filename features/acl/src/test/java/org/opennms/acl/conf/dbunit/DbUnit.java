@@ -59,11 +59,22 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.opennms.acl.conf.Config;
 
+/**
+ * The Class DbUnit.
+ */
 public abstract class DbUnit extends DBTestCase {
 
+    /**
+     * Instantiates a new db unit.
+     */
     public DbUnit() {
     }
 
+    /**
+     * Sets the up connection.
+     *
+     * @return the i database connection
+     */
     public static IDatabaseConnection setUpConnection() {
         System.out.println("DbUnit setUpConnection");
         Config config = new Config();
@@ -82,11 +93,22 @@ public abstract class DbUnit extends DBTestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.dbunit.DBTestCase#newDatabaseTester()
+     */
     @Override
     public IDatabaseTester newDatabaseTester() throws Exception {
         return new DefaultDatabaseTester(setUpConnection());
     }
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws Exception
+     *             the exception
+     */
     public static void main(String[] args) throws Exception {
         Config config = new Config();
         Class.forName(config.getDbDriver());
@@ -104,6 +126,9 @@ public abstract class DbUnit extends DBTestCase {
                              new FileOutputStream("src/test/java/opennms/opennms/acl/conf/dbunit/full.xml"));
     }
 
+    /**
+     * Prepare db.
+     */
     public void prepareDb() {
         try {
             try {
@@ -121,6 +146,9 @@ public abstract class DbUnit extends DBTestCase {
         ++operation;
     }
 
+    /**
+     * Clean db.
+     */
     public void cleanDb() {
         try {
 
@@ -141,6 +169,9 @@ public abstract class DbUnit extends DBTestCase {
 
     }
 
+    /**
+     * Close connection.
+     */
     public static void closeConnection() {
         System.out.println("DbUnit closeConnection");
         if (dbConn != null) {
@@ -156,7 +187,9 @@ public abstract class DbUnit extends DBTestCase {
         System.out.println("Total DbUnit Operation:" + operation);
     }
 
+    /** The db conn. */
     private static IDatabaseConnection dbConn = setUpConnection();
 
+    /** The operation. */
     private static int operation;
 }

@@ -48,25 +48,53 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class Config.
+ */
 public class Config {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Config.class);
 
+    /**
+     * Gets the db driver.
+     *
+     * @return the db driver
+     */
     public String getDbDriver() {
         return dbDriver;
     }
 
+    /**
+     * Gets the db user.
+     *
+     * @return the db user
+     */
     public String getDbUser() {
         return dbUser;
     }
 
+    /**
+     * Gets the db pass.
+     *
+     * @return the db pass
+     */
     public String getDbPass() {
         return dbPass;
     }
 
+    /**
+     * Gets the db url.
+     *
+     * @return the db url
+     */
     public String getDbUrl() {
         return dbUrl;
     }
 
+    /**
+     * Instantiates a new config.
+     */
     public Config() {
         Properties props = new Properties();
         try {
@@ -81,11 +109,15 @@ public class Config {
         dbPass = props.getProperty("jdbc.password");
     }
 
+    /** The db driver. */
     private String dbDriver;
 
+    /** The db user. */
     private String dbUser;
 
+    /** The db pass. */
     private String dbPass;
 
+    /** The db url. */
     private String dbUrl;
 }

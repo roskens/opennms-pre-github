@@ -59,7 +59,7 @@ import org.opennms.acl.model.Pager;
 public interface AuthorityService extends PagerService {
 
     /**
-     * store an authority
+     * store an authority.
      *
      * @param authority
      *            a {@link org.opennms.acl.model.AuthorityDTO} object.
@@ -71,6 +71,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getAuthority
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -82,6 +83,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * removeAuthority
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -93,6 +95,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -104,6 +107,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return list of all authorities
      */
@@ -113,6 +117,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getUserAuthorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -124,6 +129,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getFreeAuthorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -135,6 +141,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getFreeAuthoritiesForGroup
      * </p>
+     * .
      *
      * @return the list of authorities that Group doesn't have
      */
@@ -144,10 +151,11 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getGroupAuthorities
      * </p>
+     * .
      *
-     * @return the list of authorities that Group have
      * @param id
      *            a {@link java.lang.Integer} object.
+     * @return the list of authorities that Group have
      */
     public List<AuthorityDTO> getGroupAuthorities(Integer id);
 
@@ -155,6 +163,7 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getIdItemsAuthority
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -166,19 +175,20 @@ public interface AuthorityService extends PagerService {
      * <p>
      * getAuthoritiesNumber
      * </p>
+     * .
      *
      * @return authorities number
      */
     public Integer getAuthoritiesNumber();
 
     /**
-     * Insert a list of authorities assigned to a group
+     * Insert a list of authorities assigned to a group.
      *
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @param authorities
      *            a {@link java.util.List} object.
      * @return result of
-     * @param id
-     *            a {@link java.lang.Integer} object.
      */
     public boolean insertGroupAuthorities(Integer id, List<Integer> authorities);
 }

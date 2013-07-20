@@ -56,88 +56,88 @@ public class Constants {
     /** Constant <code>OS_SEPARATOR="System.getProperty(file.separator)"</code> */
     public static final String OS_SEPARATOR = System.getProperty("file.separator");
 
-    /** Constant <code>LOG_NAME="logfile_application"</code> */
+    /** Constant <code>LOG_NAME="logfile_application"</code>. */
     public static final String LOG_NAME = "logfile_application";
 
-    /** Constant <code>ID="id"</code> */
+    /** Constant <code>ID="id"</code>. */
     public static String ID = "id";
 
-    /** Constant <code>STRATEGIES="strategies"</code> */
+    /** Constant <code>STRATEGIES="strategies"</code>. */
     public static String STRATEGIES = "strategies";
 
-    /** Constant <code>COMMA=","</code> */
+    /** Constant <code>COMMA=","</code>. */
     public static String COMMA = ",";
 
-    /** Constant <code>UI_USERS="users"</code> */
+    /** Constant <code>UI_USERS="users"</code>. */
     public static String UI_USERS = "users";
 
-    /** Constant <code>UI_USER="user"</code> */
+    /** Constant <code>UI_USER="user"</code>. */
     public static String UI_USER = "user";
 
-    /** Constant <code>UI_PAGE="pg"</code> */
+    /** Constant <code>UI_PAGE="pg"</code>. */
     public static String UI_PAGE = "pg";
 
-    /** Constant <code>UI_ITEMS="items"</code> */
+    /** Constant <code>UI_ITEMS="items"</code>. */
     public static String UI_ITEMS = "items";
 
-    /** Constant <code>USER_SID="sid"</code> */
+    /** Constant <code>USER_SID="sid"</code>. */
     public static String USER_SID = "sid";
 
-    /** Constant <code>AUTHORITY_ID="aid"</code> */
+    /** Constant <code>AUTHORITY_ID="aid"</code>. */
     public static String AUTHORITY_ID = "aid";
 
-    /** Constant <code>GROUP_ID="gid"</code> */
+    /** Constant <code>GROUP_ID="gid"</code>. */
     public static String GROUP_ID = "gid";
 
-    /** Constant <code>UI_MODE="mode"</code> */
+    /** Constant <code>UI_MODE="mode"</code>. */
     public static String UI_MODE = "mode";
 
-    /** Constant <code>UI_USER_AUTHORITIES="userAuthorities"</code> */
+    /** Constant <code>UI_USER_AUTHORITIES="userAuthorities"</code>. */
     public static String UI_USER_AUTHORITIES = "userAuthorities";
 
-    /** Constant <code>UI_USER_GROUPS="userGroups"</code> */
+    /** Constant <code>UI_USER_GROUPS="userGroups"</code>. */
     public static String UI_USER_GROUPS = "userGroups";
 
-    /** Constant <code>PAGE="page"</code> */
+    /** Constant <code>PAGE="page"</code>. */
     public static final String PAGE = "page";
 
-    /** Constant <code>PAGER="pager"</code> */
+    /** Constant <code>PAGER="pager"</code>. */
     public static final String PAGER = "pager";
 
-    /** Constant <code>PAGE_NUMBER="pg"</code> */
+    /** Constant <code>PAGE_NUMBER="pg"</code>. */
     public static String PAGE_NUMBER = "pg";
 
-    /** Constant <code>USER="user"</code> */
+    /** Constant <code>USER="user"</code>. */
     public static String USER = "user";
 
-    /** Constant <code>GROUPS="groups"</code> */
+    /** Constant <code>GROUPS="groups"</code>. */
     public static String GROUPS = "groups";
 
-    /** Constant <code>GROUP="group"</code> */
+    /** Constant <code>GROUP="group"</code>. */
     public static String GROUP = "group";
 
-    /** Constant <code>AUTHORITIES="authorities"</code> */
+    /** Constant <code>AUTHORITIES="authorities"</code>. */
     public static String AUTHORITIES = "authorities";
 
-    /** Constant <code>AUTHORITY="authority"</code> */
+    /** Constant <code>AUTHORITY="authority"</code>. */
     public static String AUTHORITY = "authority";
 
-    /** Constant <code>AUTHORITY_ITEMS="authorityItems"</code> */
+    /** Constant <code>AUTHORITY_ITEMS="authorityItems"</code>. */
     public static String AUTHORITY_ITEMS = "authorityItems";
 
-    /** Constant <code>GROUP_AUTHORITIES="groupAuthorities"</code> */
+    /** Constant <code>GROUP_AUTHORITIES="groupAuthorities"</code>. */
     public static String GROUP_AUTHORITIES = "groupAuthorities";
 
-    /** Constant <code>AUTHORITY_DETAIL="authorityDetail"</code> */
+    /** Constant <code>AUTHORITY_DETAIL="authorityDetail"</code>. */
     public static String AUTHORITY_DETAIL = "authorityDetail";
 
-    /** Constant <code>INCLUDE_HIDDEN="includedHidden"</code> */
+    /** Constant <code>INCLUDE_HIDDEN="includedHidden"</code>. */
     public static String INCLUDE_HIDDEN = "includedHidden";
 
-    /** Constant <code>MESSAGE="msg"</code> */
+    /** Constant <code>MESSAGE="msg"</code>. */
     public static String MESSAGE = "msg";
 
-    /** Constant <code>DELETE="delete"</code> */
+    /** Constant <code>DELETE="delete"</code>. */
     public static String DELETE = "delete";
 
     /**
@@ -170,18 +170,18 @@ public class Constants {
      */
     public static String REDIRECT_USER_AUTHORITIES = "redirect:user.authorities.page";
 
-    /** Constant <code>CONFIG_ACL_CACHE="aclCacheName"</code> */
+    /** Constant <code>CONFIG_ACL_CACHE="aclCacheName"</code>. */
     public static String CONFIG_ACL_CACHE = "aclCacheName";
 
-    /** Constant <code>ROLE_ADMIN="ROLE_ADMIN"</code> */
+    /** Constant <code>ROLE_ADMIN="ROLE_ADMIN"</code>. */
     public static String ROLE_ADMIN = "ROLE_ADMIN";
 
-    /** Constant <code>ROLE_VIEW_USER="ROLE_VIEW_USER"</code> */
+    /** Constant <code>ROLE_VIEW_USER="ROLE_VIEW_USER"</code>. */
     public static String ROLE_VIEW_USER = "ROLE_VIEW_USER";
 
-    /** Constant <code>AUTHORITIES_ITEMS="authItems"</code> */
+    /** Constant <code>AUTHORITIES_ITEMS="authItems"</code>. */
     public static String AUTHORITIES_ITEMS = "authItems";
 
-    /** Constant <code>ALGORITHM_SHA="SHA-1"</code> */
+    /** Constant <code>ALGORITHM_SHA="SHA-1"</code>. */
     public static final String ALGORITHM_SHA = "SHA-1";
 }

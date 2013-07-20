@@ -49,7 +49,7 @@ import org.opennms.acl.model.AuthorityDTO;
 import org.opennms.acl.model.AuthorityView;
 
 /**
- * Contract to manage acl items
+ * Contract to manage acl items.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -61,13 +61,14 @@ public interface AclItemService {
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return all items
      */
     public List<?> getItems();
 
     /**
-     * delete an item
+     * delete an item.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -76,7 +77,7 @@ public interface AclItemService {
     public Boolean deleteItem(Integer id);
 
     /**
-     * delete an item
+     * delete an item.
      *
      * @param authority
      *            a {@link java.lang.String} object.
@@ -85,7 +86,7 @@ public interface AclItemService {
     public Boolean deleteAuthority(String authority);
 
     /**
-     * the set of items permitted
+     * the set of items permitted.
      *
      * @param authorities
      *            a {@link java.util.Set} object.
@@ -97,6 +98,7 @@ public interface AclItemService {
      * <p>
      * getAuthorityItems
      * </p>
+     * .
      *
      * @param authorityItemsId
      *            a {@link java.util.List} object.
@@ -108,6 +110,7 @@ public interface AclItemService {
      * <p>
      * getFreeItems
      * </p>
+     * .
      *
      * @param authorityItemsID
      *            a {@link java.util.List} object.
@@ -116,7 +119,7 @@ public interface AclItemService {
     public List<?> getFreeItems(List<Integer> authorityItemsID);
 
     /**
-     * add an authority with its items
+     * add an authority with its items.
      *
      * @param authority
      *            a {@link org.opennms.acl.model.AuthorityDTO} object.

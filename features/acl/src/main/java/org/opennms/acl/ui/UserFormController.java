@@ -63,7 +63,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
- * User Form Controller to insert or update a managed user
+ * User Form Controller to insert or update a managed user.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -77,6 +77,7 @@ public class UserFormController implements InitializingBean {
      * <p>
      * processSubmit
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserDTO} object.
@@ -104,11 +105,12 @@ public class UserFormController implements InitializingBean {
      * <p>
      * initBinder
      * </p>
+     * .
      *
      * @param binder
      *            a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
@@ -119,6 +121,7 @@ public class UserFormController implements InitializingBean {
      * <p>
      * setupForm
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -140,15 +143,21 @@ public class UserFormController implements InitializingBean {
         return userForm;
     }
 
+    /** The user service. */
     @Autowired
     private UserService userService;
 
+    /** The validator. */
     @Autowired
     @Qualifier("userValidator")
     private UserValidator validator;
 
+    /** The user form. */
     private final String userForm = "user/form";
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

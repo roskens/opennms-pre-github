@@ -45,7 +45,7 @@ package org.opennms.acl.model;
 import java.util.List;
 
 /**
- * Read-only interface to expose an Authority
+ * Read-only interface to expose an Authority.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -57,6 +57,7 @@ public interface AuthorityView {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return Name of the Authority
      */
@@ -66,6 +67,7 @@ public interface AuthorityView {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return Unique identifier
      */
@@ -75,6 +77,7 @@ public interface AuthorityView {
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return List of items managed by this authority
      */
@@ -84,6 +87,7 @@ public interface AuthorityView {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return Description of the Authority
      */

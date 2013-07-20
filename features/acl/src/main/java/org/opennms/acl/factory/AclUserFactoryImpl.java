@@ -52,7 +52,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Acl user factory, retrieve users by id or username
+ * Acl user factory, retrieve users by id or username.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -79,18 +79,21 @@ public class AclUserFactoryImpl implements AclUserFactory, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /** The user service. */
     @Autowired
     private UserService userService;
 
+    /** The group service. */
     @Autowired
     private GroupService groupService;
 }

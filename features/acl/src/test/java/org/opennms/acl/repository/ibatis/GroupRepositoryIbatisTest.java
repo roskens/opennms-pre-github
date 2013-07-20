@@ -58,31 +58,55 @@ import org.opennms.acl.SpringFactory;
 import org.opennms.acl.conf.dbunit.DBGroup;
 import org.opennms.acl.conf.dbunit.DbGroupMemeber;
 
+/**
+ * The Class GroupRepositoryIbatisTest.
+ */
 @Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class GroupRepositoryIbatisTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         repo = (GroupRepositoryIbatis) SpringFactory.getXmlWebApplicationContext().getBean("groupRepository");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         repo = null;
     }
 
+    /**
+     * Prepare db.
+     */
     @Before
     public void prepareDb() {
         dbGroup.prepareDb();
         dbGroupMember.prepareDb();
     }
 
+    /**
+     * Clean db.
+     */
     @After
     public void cleanDb() {
         dbGroupMember.cleanDb();
         dbGroup.cleanDb();
     }
 
+    /**
+     * Save groups.
+     */
     @Test
     public void saveGroups() {
         dbGroupMember.cleanDb();
@@ -93,6 +117,9 @@ public class GroupRepositoryIbatisTest {
         repo.saveGroups("paperone", groups);
     }
 
+    /**
+     * Update group.
+     */
     @Test
     public void updateGroup() {
         dbGroupMember.cleanDb();
@@ -103,36 +130,62 @@ public class GroupRepositoryIbatisTest {
         repo.saveGroups("paperone", groups);
     }
 
+    /**
+     * Gets the group.
+     *
+     * @return the group
+     */
     @Test
     public void getGroup() {
         assertNotNull(repo.getGroup(1));
     }
 
+    /**
+     * Gets the group number.
+     *
+     * @return the group number
+     */
     @Test
     public void getGroupNumber() {
         assertNotNull(repo.getGroupsNumber() == 2);
     }
 
+    /**
+     * Gets the user groups.
+     *
+     * @return the user groups
+     */
     @Test
     public void getUserGroups() {
         assertNotNull(repo.getUserGroups("max"));
         assertTrue(repo.getUserGroups("max").size() == 2);
     }
 
+    /**
+     * Gets the free groups.
+     *
+     * @return the free groups
+     */
     @Test
     public void getFreeGroups() {
         assertNotNull(repo.getFreeGroups("paperone"));
         assertTrue(repo.getFreeGroups("paperone").size() == 3);
     }
 
+    /**
+     * Delete group.
+     */
     @Test
     public void deleteGroup() {
         assertTrue(repo.removeGroup(3));
     }
 
+    /** The db group. */
     private DBGroup dbGroup = new DBGroup();
 
+    /** The db group member. */
     private DbGroupMemeber dbGroupMember = new DbGroupMemeber();
 
+    /** The repo. */
     private static GroupRepositoryIbatis repo;
 }

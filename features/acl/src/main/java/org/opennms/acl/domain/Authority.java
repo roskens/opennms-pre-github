@@ -61,16 +61,14 @@ import org.opennms.acl.service.AuthorityService;
  */
 public class Authority implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8511033606854401267L;
 
     /**
-     * Constructor used by AuthorityFactory
+     * Constructor used by AuthorityFactory.
      *
      * @param authority
-     * @param authorityService
+     *            the authority
      * @param authorityService
      *            a {@link org.opennms.acl.service.AuthorityService} object.
      * @param aclItemService
@@ -83,7 +81,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Return a paginated list of anemic authorities
+     * Return a paginated list of anemic authorities.
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -94,7 +92,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Return a read only Autority
+     * Return a read only Autority.
      *
      * @return authority
      */
@@ -106,6 +104,7 @@ public class Authority implements Serializable {
      * <p>
      * hasItems
      * </p>
+     * .
      *
      * @return hasItems
      */
@@ -114,14 +113,14 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Save the internal state of the Authority
+     * Save the internal state of the Authority.
      */
     public void save() {
         authorityService.save(authority);
     }
 
     /**
-     * Overwrite the items assigned to this Autority
+     * Overwrite the items assigned to this Autority.
      *
      * @param items
      *            a {@link java.util.List} object.
@@ -131,7 +130,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Remove this Autority
+     * Remove this Autority.
      *
      * @return a boolean.
      */
@@ -140,7 +139,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Return the human readable description of this Authority
+     * Return the human readable description of this Authority.
      *
      * @return description
      */
@@ -149,7 +148,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Authority unique identifier
+     * Authority unique identifier.
      *
      * @return authority's identifier
      */
@@ -158,7 +157,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Return a list of all items manageable by authorities
+     * Return a list of all items manageable by authorities.
      *
      * @return all items
      */
@@ -170,6 +169,7 @@ public class Authority implements Serializable {
      * <p>
      * getFreeItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -178,7 +178,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Return a list of all items managed by this Authority
+     * Return a list of all items managed by this Authority.
      *
      * @return authority items
      */
@@ -188,7 +188,7 @@ public class Authority implements Serializable {
     }
 
     /**
-     * Return the name of the Authority
+     * Return the name of the Authority.
      *
      * @return name
      */
@@ -196,9 +196,12 @@ public class Authority implements Serializable {
         return authority.getName();
     }
 
+    /** The authority. */
     private AuthorityDTO authority;
 
+    /** The authority service. */
     private AuthorityService authorityService;
 
+    /** The acl item service. */
     private AclItemService aclItemService;
 }

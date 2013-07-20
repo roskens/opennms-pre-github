@@ -51,7 +51,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 /**
- * This entity is a ACL application user, extends the
+ * This entity is a ACL application user, extends the.
  * {@link org.springframework.security.userdetails.User} to use authentication
  * and authorization Spring Security infrastructure.
  *
@@ -75,9 +75,9 @@ public class AclUser extends User implements Serializable {
      *            a boolean.
      * @param collection
      *            an array of
-     *            {@link org.springframework.security.GrantedAuthority} objects.
      * @param userInfo
      *            a {@link java.util.Map} object.
+     *            {@link org.springframework.security.GrantedAuthority} objects.
      */
     public AclUser(String username, String password, boolean isEnabled,
             Collection<? extends GrantedAuthority> collection, Map<String, ?> userInfo) {
@@ -86,7 +86,7 @@ public class AclUser extends User implements Serializable {
     }
 
     /**
-     * The additional custom informations kept in AclUser
+     * The additional custom informations kept in AclUser.
      *
      * @return a {@link java.util.Map} object.
      */
@@ -95,7 +95,7 @@ public class AclUser extends User implements Serializable {
     }
 
     /**
-     * The AclUser's unique identifier
+     * The AclUser's unique identifier.
      *
      * @return a long.
      */
@@ -103,5 +103,6 @@ public class AclUser extends User implements Serializable {
         return new Long(userInfo.get(Constants.USER_SID).toString());
     }
 
+    /** The user info. */
     private Map<String, ?> userInfo;
 }

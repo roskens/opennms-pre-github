@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class to manage all user information including the list of authorities
+ * Class to manage all user information including the list of authorities.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -136,9 +136,12 @@ public class UserAuthoritiesDTO extends UserDTO {
         this.items = items;
     }
 
+    /** The authorities. */
     private List<AuthorityDTO> authorities;
 
+    /** The groups. */
     private List<GroupDTO> groups;
 
+    /** The items. */
     private List<?> items;
 }

@@ -43,7 +43,7 @@
 package org.opennms.acl.model;
 
 /**
- * Class to manage user information including password
+ * Class to manage user information including password.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -106,5 +106,6 @@ public class UserDTO extends UserDTOLight {
         this.oldPassword = oldPassword;
     }
 
+    /** The old password. */
     private String password, oldPassword;
 }

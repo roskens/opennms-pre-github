@@ -56,19 +56,37 @@ import org.opennms.acl.conf.dbunit.DBAuthority;
 import org.opennms.acl.conf.dbunit.DBGroup;
 import org.opennms.acl.conf.dbunit.DBUser;
 
+/**
+ * The Class UserFactoryTest.
+ */
 @Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class UserFactoryTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         factory = (AclUserFactory) SpringFactory.getXmlWebApplicationContext().getBean("aclUserFactory");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         factory = null;
     }
 
+    /**
+     * Prepare db.
+     */
     @Before
     public void prepareDb() {
         dbGroup.prepareDb();
@@ -77,6 +95,9 @@ public class UserFactoryTest {
         // dbAuthoritiesAuth.prepareDb();
     }
 
+    /**
+     * Clean db.
+     */
     @After
     public void cleanDb() {
         // dbAuthoritiesAuth.cleanDb();
@@ -85,6 +106,11 @@ public class UserFactoryTest {
         dbGroup.cleanDb();
     }
 
+    /**
+     * Gets the user by id with authorities.
+     *
+     * @return the user by id with authorities
+     */
     @Test
     public void getUserByIDWithAuthorities() {
 
@@ -92,12 +118,22 @@ public class UserFactoryTest {
         assertTrue(factory.getAclUser(1).getUsername().equals("max"));
     }
 
+    /**
+     * Gets the user disabled by id with authorities.
+     *
+     * @return the user disabled by id with authorities
+     */
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void getUserDisabledByIDWithAuthorities() {
 
         factory.getAclUser(8);
     }
 
+    /**
+     * Gets the user by id with out authorities.
+     *
+     * @return the user by id with out authorities
+     */
     @Test
     public void getUserByIDWithOutAuthorities() {
 
@@ -105,6 +141,11 @@ public class UserFactoryTest {
         assertTrue(factory.getAclUser(2).getUsername().equals("pippo"));
     }
 
+    /**
+     * Gets the user by username with authorities.
+     *
+     * @return the user by username with authorities
+     */
     @Test
     public void getUserByUsernameWithAuthorities() {
 
@@ -112,18 +153,27 @@ public class UserFactoryTest {
         assertTrue(factory.getAclUserByUsername("max").getUsername().equals("max"));
     }
 
+    /**
+     * Gets the user disablde by username with authorities.
+     *
+     * @return the user disablde by username with authorities
+     */
     @Test(expected = java.lang.IllegalArgumentException.class)
     public void getUserDisabldeByUsernameWithAuthorities() {
 
         factory.getAclUserByUsername("pluto");
     }
 
+    /** The db user. */
     private DBUser dbUser = new DBUser();
 
+    /** The db auth. */
     private DBAuthority dbAuth = new DBAuthority();
 
+    /** The db group. */
     private DBGroup dbGroup = new DBGroup();
 
     // private DBAuthoritiesAuth dbAuthoritiesAuth = new DBAuthoritiesAuth();
+    /** The factory. */
     private static AclUserFactory factory;
 }

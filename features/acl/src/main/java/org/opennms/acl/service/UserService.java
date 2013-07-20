@@ -65,6 +65,7 @@ public interface UserService extends PagerService {
      * <p>
      * getEnabledUsers
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -73,7 +74,7 @@ public interface UserService extends PagerService {
     public List<UserDTOLight> getEnabledUsers(Pager pager);
 
     /**
-     * Retrieve the disabled users
+     * Retrieve the disabled users.
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -82,7 +83,7 @@ public interface UserService extends PagerService {
     public List<UserDTOLight> getDisabledUsers(Pager pager);
 
     /**
-     * Retrieve the id of user by username
+     * Retrieve the id of user by username.
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -91,7 +92,7 @@ public interface UserService extends PagerService {
     public Object getIdUser(String username);
 
     /**
-     * disable a user
+     * disable a user.
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -100,7 +101,7 @@ public interface UserService extends PagerService {
     public Boolean disableUser(String id);
 
     /**
-     * retrieve a user
+     * retrieve a user.
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -109,7 +110,7 @@ public interface UserService extends PagerService {
     public UserView getUser(String id);
 
     /**
-     * retrieve a user with credentials
+     * retrieve a user with credentials.
      *
      * @param id
      *            a {@link java.lang.String} object.
@@ -118,7 +119,7 @@ public interface UserService extends PagerService {
     public UserDTO getUserCredentials(String id);
 
     /**
-     * retrieve a user with their authorities
+     * retrieve a user with their authorities.
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -127,11 +128,11 @@ public interface UserService extends PagerService {
     public UserAuthoritiesDTO getUserWithAuthorities(String username);
 
     /**
-     * retrieve a user with their id
+     * retrieve a user with their id.
      *
-     * @return {@link UserAuthoritiesDTO} with their authorities
      * @param sid
      *            a {@link java.lang.Integer} object.
+     * @return {@link UserAuthoritiesDTO} with their authorities
      */
     public UserAuthoritiesDTO getUserWithAuthoritiesByID(Integer sid);
 
@@ -139,13 +140,14 @@ public interface UserService extends PagerService {
      * <p>
      * getUsersNumber
      * </p>
+     * .
      *
      * @return user's number
      */
     public Integer getUsersNumber();
 
     /**
-     * Method only for admin, insert a user or change the user password
+     * Method only for admin, insert a user or change the user password.
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserDTO} object.
@@ -157,6 +159,7 @@ public interface UserService extends PagerService {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.

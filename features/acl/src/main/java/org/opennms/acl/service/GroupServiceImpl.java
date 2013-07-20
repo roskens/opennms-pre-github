@@ -92,6 +92,7 @@ public class GroupServiceImpl implements GroupService, InitializingBean {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -134,6 +135,7 @@ public class GroupServiceImpl implements GroupService, InitializingBean {
      * <p>
      * getTotalItemsNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -148,9 +150,13 @@ public class GroupServiceImpl implements GroupService, InitializingBean {
         return repository.hasUsers(id);
     }
 
+    /** The repository. */
     @Autowired
     private GroupRepository repository;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

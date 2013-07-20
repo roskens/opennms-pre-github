@@ -72,6 +72,7 @@ public class AuthorityServiceImpl implements AuthorityService {
      * <p>
      * getFreeAuthoritiesForGroup
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -84,6 +85,7 @@ public class AuthorityServiceImpl implements AuthorityService {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -115,6 +117,7 @@ public class AuthorityServiceImpl implements AuthorityService {
      * <p>
      * getTotalItemsNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -151,6 +154,7 @@ public class AuthorityServiceImpl implements AuthorityService {
      * <p>
      * getAuthoritiesNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -179,5 +183,6 @@ public class AuthorityServiceImpl implements AuthorityService {
         this.authorityRepository = authorityRepository;
     }
 
+    /** The authority repository. */
     private AuthorityRepository authorityRepository;
 }

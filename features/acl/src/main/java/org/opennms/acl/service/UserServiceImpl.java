@@ -82,6 +82,7 @@ public class UserServiceImpl implements UserService {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
@@ -96,6 +97,7 @@ public class UserServiceImpl implements UserService {
      * <p>
      * updatePassword
      * </p>
+     * .
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserDTO} object.
@@ -141,6 +143,7 @@ public class UserServiceImpl implements UserService {
      * <p>
      * getUsersNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -153,6 +156,7 @@ public class UserServiceImpl implements UserService {
      * <p>
      * getTotalItemsNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -186,5 +190,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    /** The user repository. */
     private UserRepository userRepository;
 }

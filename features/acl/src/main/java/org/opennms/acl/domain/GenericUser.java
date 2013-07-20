@@ -61,13 +61,11 @@ import org.springframework.util.Assert;
  */
 public class GenericUser implements Serializable {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2527391420135516265L;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param user
      *            a {@link org.opennms.acl.model.UserAuthoritiesDTO} object.
@@ -85,14 +83,14 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * Save the user
+     * Save the user.
      */
     public void save() {
         userService.save(user);
     }
 
     /**
-     * Add a list of groups to this GenericUser
+     * Add a list of groups to this GenericUser.
      *
      * @param groups
      *            a {@link java.util.List} object.
@@ -102,7 +100,7 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * Return a list of groups that this GenericUser don't have
+     * Return a list of groups that this GenericUser don't have.
      *
      * @return free groups
      */
@@ -114,6 +112,7 @@ public class GenericUser implements Serializable {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -122,7 +121,7 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * Return a read only GenericUser
+     * Return a read only GenericUser.
      *
      * @return a {@link org.opennms.acl.model.UserView} object.
      */
@@ -131,7 +130,7 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * Return the GenericUser unique identifier
+     * Return the GenericUser unique identifier.
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -140,7 +139,7 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * Return the username of this GenericUser
+     * Return the username of this GenericUser.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,7 +148,7 @@ public class GenericUser implements Serializable {
     }
 
     /**
-     * Return a list of authorities of this GenericUser
+     * Return a list of authorities of this GenericUser.
      *
      * @return a {@link java.util.List} object.
      */
@@ -157,9 +156,12 @@ public class GenericUser implements Serializable {
         return user.getAuthorities();
     }
 
+    /** The user. */
     private UserAuthoritiesDTO user;
 
+    /** The group service. */
     private GroupService groupService;
 
+    /** The user service. */
     private UserService userService;
 }

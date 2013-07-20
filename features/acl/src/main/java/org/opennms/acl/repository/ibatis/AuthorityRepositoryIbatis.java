@@ -93,6 +93,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -120,6 +121,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
      * <p>
      * getFreeAuthoritiesForGroup
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -174,6 +176,15 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
         });
     }
 
+    /**
+     * Save items.
+     *
+     * @param authority
+     *            the authority
+     * @param items
+     *            the items
+     * @return the boolean
+     */
     private Boolean saveItems(final Integer authority, final List<?> items) {
 
         return execute(new SqlMapClientCallback<Boolean>() {
@@ -207,6 +218,7 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
      * <p>
      * getAuthoritiesNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -249,14 +261,35 @@ public class AuthorityRepositoryIbatis extends SqlMapClientTemplate implements A
         return authority.isNew() ? insert(authority) : update(authority);
     }
 
+    /**
+     * Insert.
+     *
+     * @param authority
+     *            the authority
+     * @return the boolean
+     */
     private Boolean insert(AuthorityView authority) {
         return insert("insertAuthority", authority) != null;
     }
 
+    /**
+     * Delete authority items.
+     *
+     * @param id
+     *            the id
+     * @return the boolean
+     */
     private Boolean deleteAuthorityItems(Integer id) {
         return delete("deleteAuthorityItems", id) > 0;
     }
 
+    /**
+     * Update.
+     *
+     * @param authority
+     *            the authority
+     * @return the boolean
+     */
     private Boolean update(AuthorityView authority) {
 
         if (authority.getItems() != null && authority.getItems().size() > 0) {

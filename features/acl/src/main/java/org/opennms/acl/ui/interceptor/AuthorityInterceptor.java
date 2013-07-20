@@ -56,7 +56,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor to put an Authority in the request
+ * Interceptor to put an Authority in the request.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -77,9 +77,13 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter implements I
         return true;
     }
 
+    /** The authority factory. */
     @Autowired
     private AutorityFactory authorityFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

@@ -70,12 +70,17 @@ public class GroupFactoryImpl implements GroupFactory, InitializingBean {
         return new Group(group, authorityService, groupService);
     }
 
+    /** The group service. */
     @Autowired
     private GroupService groupService;
 
+    /** The authority service. */
     @Autowired
     private AuthorityService authorityService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

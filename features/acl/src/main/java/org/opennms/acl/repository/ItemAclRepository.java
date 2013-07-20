@@ -58,6 +58,7 @@ public interface ItemAclRepository {
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return a list of items to put under acl control
      */
@@ -67,6 +68,7 @@ public interface ItemAclRepository {
      * <p>
      * getAuthorityItems
      * </p>
+     * .
      *
      * @param items
      *            a {@link java.util.List} object.
@@ -78,6 +80,7 @@ public interface ItemAclRepository {
      * <p>
      * getFreeItems
      * </p>
+     * .
      *
      * @param items
      *            a {@link java.util.List} object.

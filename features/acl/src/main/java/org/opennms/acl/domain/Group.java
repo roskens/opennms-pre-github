@@ -83,6 +83,7 @@ public class Group {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -91,7 +92,7 @@ public class Group {
     }
 
     /**
-     * Return a list of all items manageable by authorities
+     * Return a list of all items manageable by authorities.
      *
      * @return all items
      */
@@ -100,7 +101,7 @@ public class Group {
     }
 
     /**
-     * Return a paginated list of anemic group
+     * Return a paginated list of anemic group.
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -111,7 +112,7 @@ public class Group {
     }
 
     /**
-     * Return a read only Group
+     * Return a read only Group.
      *
      * @return authority
      */
@@ -123,6 +124,7 @@ public class Group {
      * <p>
      * hasAuthorities
      * </p>
+     * .
      *
      * @return hasAuthorities
      */
@@ -134,6 +136,7 @@ public class Group {
      * <p>
      * hasUser
      * </p>
+     * .
      *
      * @return hasUsers
      */
@@ -142,14 +145,14 @@ public class Group {
     }
 
     /**
-     * Save the internal state of the Group
+     * Save the internal state of the Group.
      */
     public void save() {
         groupService.save(group);
     }
 
     /**
-     * Overwrite the authorities assigned to this Group
+     * Overwrite the authorities assigned to this Group.
      *
      * @param items
      *            a {@link java.util.List} object.
@@ -159,7 +162,7 @@ public class Group {
     }
 
     /**
-     * Remove this Group
+     * Remove this Group.
      *
      * @return a boolean.
      */
@@ -168,7 +171,7 @@ public class Group {
     }
 
     /**
-     * Return the human readable description of this Group
+     * Return the human readable description of this Group.
      *
      * @return description
      */
@@ -177,7 +180,7 @@ public class Group {
     }
 
     /**
-     * Group unique identifier
+     * Group unique identifier.
      *
      * @return group's identifier
      */
@@ -189,6 +192,7 @@ public class Group {
      * <p>
      * getFreeAuthorities
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -196,9 +200,12 @@ public class Group {
         return authorityService.getFreeAuthoritiesForGroup();
     }
 
+    /** The group. */
     private GroupDTO group;
 
+    /** The authority service. */
     private AuthorityService authorityService;
 
+    /** The group service. */
     private GroupService groupService;
 }

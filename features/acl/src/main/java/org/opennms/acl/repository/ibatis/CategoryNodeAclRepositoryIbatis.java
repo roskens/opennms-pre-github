@@ -78,6 +78,7 @@ public class CategoryNodeAclRepositoryIbatis extends SqlMapClientTemplate implem
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

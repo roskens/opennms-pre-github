@@ -127,6 +127,7 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
      * <p>
      * getUsersNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -173,6 +174,13 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
         return user.isNew() ? insert(user) : update(user);
     }
 
+    /**
+     * Update.
+     *
+     * @param user
+     *            the user
+     * @return the boolean
+     */
     private Boolean update(UserAuthoritiesDTO user) {
         boolean result = deleteUserItems(user.getUsername());
         if (user.getItems() != null && user.getItems().size() > 0) {
@@ -181,14 +189,37 @@ public class UserRepositoryIbatis extends SqlMapClientTemplate implements UserRe
         return result;
     }
 
+    /**
+     * Insert.
+     *
+     * @param user
+     *            the user
+     * @return the boolean
+     */
     private Boolean insert(UserAuthoritiesDTO user) {
         return insert("insertUser", user) != null;
     }
 
+    /**
+     * Delete user items.
+     *
+     * @param username
+     *            the username
+     * @return the boolean
+     */
     private Boolean deleteUserItems(String username) {
         return delete("deleteUserItems", username) > 0;
     }
 
+    /**
+     * Save items.
+     *
+     * @param username
+     *            the username
+     * @param items
+     *            the items
+     * @return the boolean
+     */
     private Boolean saveItems(final String username, final List<?> items) {
 
         return execute(new SqlMapClientCallback<Boolean>() {

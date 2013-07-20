@@ -43,7 +43,7 @@
 package org.opennms.acl.model;
 
 /**
- * Contains the logic to perform pagination
+ * Contains the logic to perform pagination.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -52,7 +52,7 @@ package org.opennms.acl.model;
 public class Pager {
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param page
      *            requested
@@ -104,6 +104,7 @@ public class Pager {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,5 +117,6 @@ public class Pager {
         return sb.toString();
     }
 
+    /** The items number on page. */
     private Integer page, max, itemsNumberOnPage;
 }

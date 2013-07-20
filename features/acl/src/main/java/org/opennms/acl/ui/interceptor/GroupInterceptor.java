@@ -55,7 +55,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor to put a Group in the request
+ * Interceptor to put a Group in the request.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -75,9 +75,13 @@ public class GroupInterceptor extends HandlerInterceptorAdapter implements Initi
         return true;
     }
 
+    /** The group factory. */
     @Autowired
     private GroupFactory groupFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

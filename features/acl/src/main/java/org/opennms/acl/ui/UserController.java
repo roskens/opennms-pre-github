@@ -61,7 +61,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * User Controller
+ * User Controller.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -74,12 +74,13 @@ public class UserController implements InitializingBean {
      * <p>
      * authorities
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @RequestMapping("/user.authorities.page")
     public ModelAndView authorities(HttpServletRequest req) throws Exception {
@@ -91,12 +92,13 @@ public class UserController implements InitializingBean {
      * <p>
      * list
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @RequestMapping("/user.list.page")
     public ModelAndView list(HttpServletRequest req) throws Exception {
@@ -108,12 +110,13 @@ public class UserController implements InitializingBean {
      * <p>
      * detail
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @RequestMapping("/user.detail.page")
     public ModelAndView detail(HttpServletRequest req) throws Exception {
@@ -133,14 +136,15 @@ public class UserController implements InitializingBean {
      * <p>
      * selection
      * </p>
+     * .
      *
      * @param ids
      *            a {@link java.lang.String} object.
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @RequestMapping("/user.selection.page")
     public ModelAndView selection(@RequestParam("includedHidden")
@@ -158,9 +162,13 @@ public class UserController implements InitializingBean {
                                 new StringBuilder(Constants.REDIRECT_USER_AUTHORITIES).append("?").append(Constants.USER_SID).append("=").append(user.getId()).toString());
     }
 
+    /** The user service. */
     @Autowired
     private UserService userService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

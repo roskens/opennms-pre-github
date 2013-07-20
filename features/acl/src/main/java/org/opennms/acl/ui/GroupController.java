@@ -60,7 +60,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Group Controller
+ * Group Controller.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -73,6 +73,7 @@ public class GroupController {
      * <p>
      * list
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -91,6 +92,7 @@ public class GroupController {
      * <p>
      * detail
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -106,6 +108,7 @@ public class GroupController {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -124,6 +127,7 @@ public class GroupController {
      * <p>
      * confirmDelete
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -142,6 +146,7 @@ public class GroupController {
      * <p>
      * items
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -165,6 +170,7 @@ public class GroupController {
      * <p>
      * selection
      * </p>
+     * .
      *
      * @param ids
      *            a {@link java.lang.String} object.
@@ -200,5 +206,6 @@ public class GroupController {
         this.groupService = groupService;
     }
 
+    /** The group service. */
     private final GroupService groupService;
 }

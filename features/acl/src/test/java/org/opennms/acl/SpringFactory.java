@@ -47,8 +47,14 @@ import javax.servlet.ServletContext;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
+/**
+ * A factory for creating Spring objects.
+ */
 public class SpringFactory {
 
+    /**
+     * Sets the up xml web application context.
+     */
     public static void setUpXmlWebApplicationContext() {
         if (xmlWebCtx == null) {
             ServletContext servletContext = new MockServletContext("file:src/test/resources/org/opennms/acl/conf/");
@@ -61,10 +67,22 @@ public class SpringFactory {
         }
     }
 
+    /**
+     * Gets the bean.
+     *
+     * @param name
+     *            the name
+     * @return the bean
+     */
     public static Object getBean(String name) {
         return xmlWebCtx.getBean(name);
     }
 
+    /**
+     * Gets the xml web application context.
+     *
+     * @return the xml web application context
+     */
     public static XmlWebApplicationContext getXmlWebApplicationContext() {
         if (xmlWebCtx == null) {
             setUpXmlWebApplicationContext();
@@ -73,10 +91,14 @@ public class SpringFactory {
 
     }
 
+    /**
+     * Destroy xml web application context.
+     */
     public static void destroyXmlWebApplicationContext() {
         xmlWebCtx = null;
         System.out.println("XmlWebApplicationContext Stop");
     }
 
+    /** The xml web ctx. */
     private static XmlWebApplicationContext xmlWebCtx;
 }

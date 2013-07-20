@@ -107,6 +107,7 @@ public class AuthorityDTO implements AuthorityView {
      * <p>
      * isNew
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -118,6 +119,7 @@ public class AuthorityDTO implements AuthorityView {
      * <p>
      * hasItems
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -173,9 +175,12 @@ public class AuthorityDTO implements AuthorityView {
         this.description = description;
     }
 
+    /** The items. */
     private List<?> items;
 
+    /** The description. */
     private String name, description;
 
+    /** The id. */
     private Integer id = 0;
 }

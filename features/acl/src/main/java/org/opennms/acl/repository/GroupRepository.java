@@ -48,7 +48,7 @@ import org.opennms.acl.model.GroupDTO;
 import org.opennms.acl.model.Pager;
 
 /**
- * Contract to insert/update/read/delete the groups
+ * Contract to insert/update/read/delete the groups.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -57,7 +57,7 @@ import org.opennms.acl.model.Pager;
 public interface GroupRepository {
 
     /**
-     * Save a GroupDTO
+     * Save a GroupDTO.
      *
      * @param group
      *            a {@link org.opennms.acl.model.GroupDTO} object.
@@ -66,7 +66,7 @@ public interface GroupRepository {
     public Boolean save(GroupDTO group);
 
     /**
-     * Retrieve a group by id
+     * Retrieve a group by id.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -75,7 +75,7 @@ public interface GroupRepository {
     public GroupDTO getGroup(Integer id);
 
     /**
-     * Remove a group by id
+     * Remove a group by id.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -87,6 +87,7 @@ public interface GroupRepository {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -98,6 +99,7 @@ public interface GroupRepository {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return list of all authorities
      */
@@ -107,6 +109,7 @@ public interface GroupRepository {
      * <p>
      * getGroupsNumber
      * </p>
+     * .
      *
      * @return numbers of authorities present in the system
      */
@@ -116,6 +119,7 @@ public interface GroupRepository {
      * <p>
      * getUserGroups
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -127,6 +131,7 @@ public interface GroupRepository {
      * <p>
      * getUserGroupsWithAutorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -138,6 +143,7 @@ public interface GroupRepository {
      * <p>
      * getFreeGroups
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -146,7 +152,7 @@ public interface GroupRepository {
     public List<GroupDTO> getFreeGroups(String username);
 
     /**
-     * Save a list of authorities for a given user
+     * Save a list of authorities for a given user.
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -157,7 +163,7 @@ public interface GroupRepository {
     public Boolean saveGroups(String username, List<Integer> groups);
 
     /**
-     * Delete all user's authorities
+     * Delete all user's authorities.
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -169,6 +175,7 @@ public interface GroupRepository {
      * <p>
      * hasUsers
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.

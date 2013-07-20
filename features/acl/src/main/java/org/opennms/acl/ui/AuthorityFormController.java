@@ -63,7 +63,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
- * Authority Form Controller to insert or update an Authority
+ * Authority Form Controller to insert or update an Authority.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -77,6 +77,7 @@ public class AuthorityFormController implements InitializingBean {
      * <p>
      * processSubmit
      * </p>
+     * .
      *
      * @param authority
      *            a {@link org.opennms.acl.model.AuthorityDTO} object.
@@ -104,11 +105,12 @@ public class AuthorityFormController implements InitializingBean {
      * <p>
      * initBinder
      * </p>
+     * .
      *
      * @param binder
      *            a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
@@ -119,6 +121,7 @@ public class AuthorityFormController implements InitializingBean {
      * <p>
      * setupForm
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -133,15 +136,21 @@ public class AuthorityFormController implements InitializingBean {
         return authorityForm;
     }
 
+    /** The authority service. */
     @Autowired
     private AuthorityService authorityService;
 
+    /** The authority validator. */
     @Autowired
     @Qualifier("authorityValidator")
     private AuthorityValidator authorityValidator;
 
+    /** The authority form. */
     private final String authorityForm = "authority/form";
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

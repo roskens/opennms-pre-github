@@ -45,7 +45,7 @@ package org.opennms.acl.factory;
 import org.opennms.acl.domain.GenericUser;
 
 /**
- * Contract to retrieve GenericUser by id
+ * Contract to retrieve GenericUser by id.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -57,6 +57,7 @@ public interface AclUserFactory {
      * <p>
      * getAclUser
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -68,6 +69,7 @@ public interface AclUserFactory {
      * <p>
      * getAclUserByUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.

@@ -97,5 +97,6 @@ public class UserValidator implements Validator {
         this.userService = userService;
     }
 
+    /** The user service. */
     private UserService userService;
 }

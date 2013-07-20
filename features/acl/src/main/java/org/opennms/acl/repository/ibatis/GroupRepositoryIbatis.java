@@ -99,6 +99,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
      * <p>
      * getGroupUsernames
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -132,6 +133,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -186,6 +188,7 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
      * <p>
      * getGroupsNumber
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -213,14 +216,35 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
         return group.isNew() ? add(group) : update(group);
     }
 
+    /**
+     * Adds the.
+     *
+     * @param group
+     *            the group
+     * @return the boolean
+     */
     private Boolean add(GroupDTO group) {
         return insert("insertGroup", group) != null;
     }
 
+    /**
+     * Delete authority group.
+     *
+     * @param id
+     *            the id
+     * @return the int
+     */
     private int deleteAuthorityGroup(Integer id) {
         return update("updateAuthorityToGroupToHidden", id);
     }
 
+    /**
+     * Update.
+     *
+     * @param group
+     *            the group
+     * @return the boolean
+     */
     private Boolean update(GroupDTO group) {
         deleteAuthorityGroup(group.getId());
         if (group.getAuthorities() != null && group.getAuthorities().size() > 0) {
@@ -229,10 +253,26 @@ public class GroupRepositoryIbatis extends SqlMapClientTemplate implements Group
         return updateGroupName(group);
     }
 
+    /**
+     * Update group name.
+     *
+     * @param group
+     *            the group
+     * @return the boolean
+     */
     private Boolean updateGroupName(GroupDTO group) {
         return update("updateGroupName", group) == 1;
     }
 
+    /**
+     * Save authorities.
+     *
+     * @param group
+     *            the group
+     * @param authorities
+     *            the authorities
+     * @return the boolean
+     */
     private Boolean saveAuthorities(final Integer group, final List<?> authorities) {
 
         return execute(new SqlMapClientCallback<Boolean>() {

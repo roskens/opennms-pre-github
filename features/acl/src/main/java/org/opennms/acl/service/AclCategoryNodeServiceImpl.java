@@ -70,6 +70,7 @@ public class AclCategoryNodeServiceImpl implements AclItemService {
      * <p>
      * init
      * </p>
+     * .
      */
     @SuppressWarnings("unchecked")
     public void init() {
@@ -96,6 +97,7 @@ public class AclCategoryNodeServiceImpl implements AclItemService {
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -164,12 +166,16 @@ public class AclCategoryNodeServiceImpl implements AclItemService {
         this.authorityService = authorityService;
     }
 
+    /** The item acl repository. */
     private ItemAclRepository itemAclRepository;
 
+    /** The authority service. */
     private AuthorityService authorityService;
 
+    /** The auth items helper. */
     private AuthoritiesNodeHelper authItemsHelper;
 
+    /** The ready. */
     private boolean ready = false;
 
 }

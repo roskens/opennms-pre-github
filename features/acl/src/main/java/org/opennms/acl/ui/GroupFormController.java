@@ -63,7 +63,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 /**
- * Group Form Controller to insert or update a Group
+ * Group Form Controller to insert or update a Group.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -77,6 +77,7 @@ public class GroupFormController implements InitializingBean {
      * <p>
      * processSubmit
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.acl.model.GroupDTO} object.
@@ -104,11 +105,12 @@ public class GroupFormController implements InitializingBean {
      * <p>
      * initBinder
      * </p>
+     * .
      *
      * @param binder
      *            a {@link org.springframework.web.bind.WebDataBinder} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @InitBinder()
     public void initBinder(WebDataBinder binder) throws Exception {
@@ -119,6 +121,7 @@ public class GroupFormController implements InitializingBean {
      * <p>
      * setupForm
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -133,15 +136,21 @@ public class GroupFormController implements InitializingBean {
         return groupForm;
     }
 
+    /** The group service. */
     @Autowired
     private GroupService groupService;
 
+    /** The group validator. */
     @Autowired
     @Qualifier("groupValidator")
     private GroupValidator groupValidator;
 
+    /** The group form. */
     private final String groupForm = "group/form";
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

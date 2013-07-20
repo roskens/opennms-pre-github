@@ -70,6 +70,7 @@ public abstract class WebUtils {
      * <p>
      * getIntId
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -83,6 +84,7 @@ public abstract class WebUtils {
      * <p>
      * getIntParam
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -98,6 +100,7 @@ public abstract class WebUtils {
      * <p>
      * addSessionAttribute
      * </p>
+     * .
      *
      * @param session
      *            a {@link javax.servlet.http.HttpSession} object.
@@ -120,6 +123,7 @@ public abstract class WebUtils {
      * <p>
      * getNumPage
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -133,6 +137,7 @@ public abstract class WebUtils {
      * <p>
      * getPager
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -146,6 +151,7 @@ public abstract class WebUtils {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -159,6 +165,7 @@ public abstract class WebUtils {
      * <p>
      * getAuthority
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -172,6 +179,7 @@ public abstract class WebUtils {
      * <p>
      * getGroup
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -185,6 +193,7 @@ public abstract class WebUtils {
      * <p>
      * extractIdGrantedAuthorityFromString
      * </p>
+     * .
      *
      * @param line
      *            a {@link java.lang.String} object.
@@ -205,6 +214,7 @@ public abstract class WebUtils {
      * <p>
      * getPager
      * </p>
+     * .
      *
      * @param req
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -227,6 +237,7 @@ public abstract class WebUtils {
      * <p>
      * getPager
      * </p>
+     * .
      *
      * @param page
      *            a int.
@@ -244,6 +255,15 @@ public abstract class WebUtils {
         return new Pager(page, numeroPagineMax, numberItemsOnPage);
     }
 
+    /**
+     * Gets the max page number.
+     *
+     * @param itemsNumberTotal
+     *            the items number total
+     * @param itemsNumber
+     *            the items number
+     * @return the max page number
+     */
     private static Integer getMaxPageNumber(Integer itemsNumberTotal, Integer itemsNumber) {
         Double numberPageMax = new Double(1);
         if (itemsNumberTotal > itemsNumber) {

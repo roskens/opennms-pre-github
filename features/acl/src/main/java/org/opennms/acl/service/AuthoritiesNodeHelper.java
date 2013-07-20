@@ -53,11 +53,13 @@ import org.opennms.acl.model.AuthorityDTO;
 import org.opennms.acl.model.AuthorityView;
 
 /**
+ * The Class AuthoritiesNodeHelper.
+ *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
- */
-/* This class retrieve the nodes that an authority can view */
-/* This class retrieve the nodes that an authority can view */
+ *
+ * This class retrieves the nodes that an authority can view
+ **/
 class AuthoritiesNodeHelper {
 
     /**
@@ -85,6 +87,7 @@ class AuthoritiesNodeHelper {
      * <p>
      * deleteAuthority
      * </p>
+     * .
      *
      * @param authority
      *            a {@link java.lang.String} object.
@@ -98,6 +101,7 @@ class AuthoritiesNodeHelper {
      * <p>
      * deleteItem
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -116,6 +120,7 @@ class AuthoritiesNodeHelper {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -128,6 +133,7 @@ class AuthoritiesNodeHelper {
      * <p>
      * getAuthoritiesItems
      * </p>
+     * .
      *
      * @param authorities
      *            a {@link java.util.Set} object.
@@ -147,6 +153,7 @@ class AuthoritiesNodeHelper {
      * <p>
      * addAuthorityWithNodes
      * </p>
+     * .
      *
      * @param authority
      *            a {@link org.opennms.acl.model.AuthorityDTO} object.
@@ -170,6 +177,13 @@ class AuthoritiesNodeHelper {
         }
     }
 
+    /**
+     * Creates the fresh authority items.
+     *
+     * @param list
+     *            the list
+     * @return the sets the
+     */
     private Set<Integer> createFreshAuthorityItems(List<String> list) {
         Set<Integer> authItems = new HashSet<Integer>();
         for (String nodeONMSDTO : list) {
@@ -178,7 +192,9 @@ class AuthoritiesNodeHelper {
         return authItems;
     }
 
+    /** The auth items map. */
     private Map<String, Set<Integer>> authItemsMap;
 
+    /** The items set. */
     private Set<Integer> itemsSet;
 }

@@ -55,7 +55,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation class of {@link AclItemService} to use Node as Items
+ * Implementation class of {@link AclItemService} to use Node as Items.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -68,6 +68,7 @@ public class AclNodeServiceImpl implements AclItemService {
      * <p>
      * init
      * </p>
+     * .
      */
     @SuppressWarnings("unchecked")
     public void init() {
@@ -94,6 +95,7 @@ public class AclNodeServiceImpl implements AclItemService {
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -162,11 +164,15 @@ public class AclNodeServiceImpl implements AclItemService {
         this.authorityService = authorityService;
     }
 
+    /** The item acl repository. */
     private ItemAclRepository itemAclRepository;
 
+    /** The authority service. */
     private AuthorityService authorityService;
 
+    /** The auth items helper. */
     private AuthoritiesNodeHelper authItemsHelper;
 
+    /** The ready. */
     private boolean ready = false;
 }

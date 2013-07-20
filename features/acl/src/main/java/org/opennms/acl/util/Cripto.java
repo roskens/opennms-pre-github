@@ -46,7 +46,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Util class to encript a password
+ * Util class to encript a password.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -58,6 +58,7 @@ public class Cripto {
      * <p>
      * stringToSHA
      * </p>
+     * .
      *
      * @param buffer
      *            a {@link java.lang.String} object.
@@ -75,6 +76,13 @@ public class Cripto {
 
     }
 
+    /**
+     * Bytes to hex.
+     *
+     * @param b
+     *            the b
+     * @return the string
+     */
     private static String bytesToHex(byte[] b) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < b.length; ++i) {

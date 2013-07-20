@@ -55,16 +55,31 @@ import org.opennms.acl.repository.ibatis.GroupRepositoryIbatisTest;
 import org.opennms.acl.repository.ibatis.UserRepositoryIbatisTest;
 import org.opennms.acl.service.AuthoritiesNodeHelperTest;
 
+/**
+ * The Class AllTest.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ AuthoritiesNodeHelperTest.class, AuthorityRepositoryIbatisTest.class, GroupRepositoryIbatisTest.class,
         UserRepositoryIbatisTest.class, AuthorityFactoryTest.class, UserFactoryTest.class })
 public class AllTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         SpringFactory.setUpXmlWebApplicationContext();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         DbUnit.closeConnection();

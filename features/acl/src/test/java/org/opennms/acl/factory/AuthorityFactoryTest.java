@@ -56,19 +56,37 @@ import org.opennms.acl.conf.dbunit.DBAuthority;
 import org.opennms.acl.conf.dbunit.DBGroup;
 import org.opennms.acl.conf.dbunit.DBUser;
 
+/**
+ * The Class AuthorityFactoryTest.
+ */
 @Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class AuthorityFactoryTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         factory = (AutorityFactory) SpringFactory.getXmlWebApplicationContext().getBean("authorityFactory");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         factory = null;
     }
 
+    /**
+     * Prepare db.
+     */
     @Before
     public void prepareDb() {
         dbGroup.prepareDb();
@@ -77,6 +95,9 @@ public class AuthorityFactoryTest {
         // dbAuthoritiesAuth.prepareDb();
     }
 
+    /**
+     * Clean db.
+     */
     @After
     public void cleanDb() {
         // dbAuthoritiesAuth.cleanDb();
@@ -86,6 +107,11 @@ public class AuthorityFactoryTest {
         dbGroup.cleanDb();
     }
 
+    /**
+     * Gets the authority.
+     *
+     * @return the authority
+     */
     @Test
     public void getAuthority() {
 
@@ -94,12 +120,16 @@ public class AuthorityFactoryTest {
         assertTrue(factory.getAuthority(20).getDescription().equals("Questo ruolo permette la lettura dei nodi"));
     }
 
+    /** The db user. */
     private DBUser dbUser = new DBUser();
 
+    /** The db auth. */
     private DBAuthority dbAuth = new DBAuthority();
 
     // private DBAuthoritiesAuth dbAuthoritiesAuth = new DBAuthoritiesAuth();
+    /** The db group. */
     private DBGroup dbGroup = new DBGroup();
 
+    /** The factory. */
     private static AutorityFactory factory;
 }

@@ -56,7 +56,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor to put a User in the request
+ * Interceptor to put a User in the request.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -77,9 +77,13 @@ public class UserInterceptor extends HandlerInterceptorAdapter implements Initia
         return true;
     }
 
+    /** The acl user factory. */
     @Autowired
     private AclUserFactory aclUserFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

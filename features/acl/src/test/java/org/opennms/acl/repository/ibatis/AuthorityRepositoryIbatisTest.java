@@ -62,19 +62,37 @@ import org.opennms.acl.model.AuthorityDTO;
 import org.opennms.acl.model.AuthorityView;
 import org.opennms.acl.repository.AuthorityRepository;
 
+/**
+ * The Class AuthorityRepositoryIbatisTest.
+ */
 @Ignore("test database is not thread-safe, port to opennms temporary database code")
 public class AuthorityRepositoryIbatisTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         repo = (AuthorityRepository) SpringFactory.getXmlWebApplicationContext().getBean("authorityRepository");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         repo = null;
     }
 
+    /**
+     * Prepare db.
+     */
     @Before
     public void prepareDb() {
         dbUser.prepareDb();
@@ -83,6 +101,9 @@ public class AuthorityRepositoryIbatisTest {
         dbAuth.prepareDb();
     }
 
+    /**
+     * Clean db.
+     */
     @After
     public void cleanDb() {
         dbAuth.cleanDb();
@@ -91,23 +112,41 @@ public class AuthorityRepositoryIbatisTest {
         dbUser.cleanDb();
     }
 
+    /**
+     * Gets the all authorities.
+     *
+     * @return the all authorities
+     */
     @Test
     public void getAllAuthorities() {
         assertTrue(repo.getAuthorities().size() == 16);
     }
 
+    /**
+     * Gets the user authorities.
+     *
+     * @return the user authorities
+     */
     @Test
     public void getUserAuthorities() {
         assertTrue(repo.getFreeAuthorities("paperone").size() == 16);
         assertTrue(repo.getUserAuthorities("max").size() == 5);
     }
 
+    /**
+     * Gets the free authorities.
+     *
+     * @return the free authorities
+     */
     @Test
     public void getFreeAuthorities() {
         assertTrue(repo.getFreeAuthorities("paperone").size() == 16);
         assertTrue(repo.getFreeAuthorities("max").size() == 11);
     }
 
+    /**
+     * Save authority.
+     */
     @Test
     public void saveAuthority() {
         AuthorityDTO auth = new AuthorityDTO();
@@ -115,6 +154,9 @@ public class AuthorityRepositoryIbatisTest {
         assertTrue(repo.save(auth));
     }
 
+    /**
+     * Save authorities.
+     */
     @Test
     public void saveAuthorities() {
         List<Integer> authorities = new ArrayList<Integer>();
@@ -123,11 +165,21 @@ public class AuthorityRepositoryIbatisTest {
         repo.saveAuthorities(1, authorities);
     }
 
+    /**
+     * Gets the authorities number.
+     *
+     * @return the authorities number
+     */
     @Test
     public void getAuthoritiesNumber() {
         assertTrue(repo.getAuthorities().size() == 16);
     }
 
+    /**
+     * Gets the authority.
+     *
+     * @return the authority
+     */
     @Test
     public void getAuthority() {
         AuthorityView authority = repo.getAuthority(19);
@@ -136,6 +188,11 @@ public class AuthorityRepositoryIbatisTest {
         assertTrue(authority.getName().equals("quindici"));
     }
 
+    /**
+     * Gets the authorities.
+     *
+     * @return the authorities
+     */
     @Test
     public void getAuthorities() {
         AuthorityView authority = repo.getAuthority(19);
@@ -144,23 +201,34 @@ public class AuthorityRepositoryIbatisTest {
         assertTrue(authority.getName().equals("quindici"));
     }
 
+    /**
+     * Removes the authority.
+     */
     @Test
     public void removeAuthority() {
         assertTrue(repo.removeAuthority(19));
     }
 
+    /**
+     * Delete user groups.
+     */
     @Test
     public void deleteUserGroups() {
         assertTrue(repo.deleteUserGroups("max"));
     }
 
+    /** The db user. */
     private DBUser dbUser = new DBUser();
 
+    /** The db auth. */
     private DBAuthority dbAuth = new DBAuthority();
 
+    /** The db group. */
     private DBGroup dbGroup = new DBGroup();
 
+    /** The db group member. */
     private DbGroupMemeber dbGroupMember = new DbGroupMemeber();
 
+    /** The repo. */
     private static AuthorityRepository repo;
 }

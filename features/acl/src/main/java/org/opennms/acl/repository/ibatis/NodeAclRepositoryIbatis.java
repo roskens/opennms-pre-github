@@ -78,6 +78,7 @@ public class NodeAclRepositoryIbatis extends SqlMapClientTemplate implements Ite
      * <p>
      * getItems
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

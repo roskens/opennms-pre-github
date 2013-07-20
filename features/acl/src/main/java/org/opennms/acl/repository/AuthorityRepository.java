@@ -48,7 +48,7 @@ import org.opennms.acl.model.AuthorityDTO;
 import org.opennms.acl.model.Pager;
 
 /**
- * Contract to insert/update/read/delete the authorities
+ * Contract to insert/update/read/delete the authorities.
  *
  * @author Massimiliano Dess&igrave; (desmax74@yahoo.it)
  * @since jdk 1.5.0
@@ -57,7 +57,7 @@ import org.opennms.acl.model.Pager;
 public interface AuthorityRepository {
 
     /**
-     * Save an authorityDTO
+     * Save an authorityDTO.
      *
      * @param authority
      *            a {@link org.opennms.acl.model.AuthorityDTO} object.
@@ -66,7 +66,7 @@ public interface AuthorityRepository {
     public Boolean save(AuthorityDTO authority);
 
     /**
-     * Retrieve an authority by id
+     * Retrieve an authority by id.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -75,7 +75,7 @@ public interface AuthorityRepository {
     public AuthorityDTO getAuthority(Integer id);
 
     /**
-     * Remove an authority by id
+     * Remove an authority by id.
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -87,6 +87,7 @@ public interface AuthorityRepository {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @param pager
      *            a {@link org.opennms.acl.model.Pager} object.
@@ -98,6 +99,7 @@ public interface AuthorityRepository {
      * <p>
      * getAuthorities
      * </p>
+     * .
      *
      * @return list of all authorities
      */
@@ -107,6 +109,7 @@ public interface AuthorityRepository {
      * <p>
      * getAuthoritiesNumber
      * </p>
+     * .
      *
      * @return numbers of authorities present in the system
      */
@@ -116,6 +119,7 @@ public interface AuthorityRepository {
      * <p>
      * getUserAuthorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -127,6 +131,7 @@ public interface AuthorityRepository {
      * <p>
      * getFreeAuthorities
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -138,26 +143,28 @@ public interface AuthorityRepository {
      * <p>
      * getFreeAuthoritiesForGroup
      * </p>
+     * .
      *
      * @return the list of authorities that Group doesn't have
      */
     public List<AuthorityDTO> getFreeAuthoritiesForGroup();
 
     /**
-     * Save a list of authorities for a given group
+     * Save a list of authorities for a given group.
      *
+     * @param id
+     *            a {@link java.lang.Integer} object.
      * @param authorities
      *            a {@link java.util.List} object.
      * @return the result of operation
-     * @param id
-     *            a {@link java.lang.Integer} object.
      */
     public Boolean saveAuthorities(Integer id, List<Integer> authorities);
 
     /**
-     * Delete all user's authorities
+     * Delete all user's authorities.
      *
      * @param username
+     *            the username
      * @return the result of the operation
      */
     // public Boolean deleteUserAuthorities(String username);
@@ -174,6 +181,7 @@ public interface AuthorityRepository {
      * <p>
      * getIdItemsAuthority
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -185,6 +193,7 @@ public interface AuthorityRepository {
      * <p>
      * getGroupAuthorities
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -196,6 +205,7 @@ public interface AuthorityRepository {
      * <p>
      * removeGroupFromAuthorities
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
