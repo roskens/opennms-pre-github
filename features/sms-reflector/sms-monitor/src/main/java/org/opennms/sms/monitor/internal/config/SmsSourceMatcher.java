@@ -49,6 +49,8 @@ import org.slf4j.LoggerFactory;
  */
 @XmlRootElement(name = "validate-source")
 public class SmsSourceMatcher extends SequenceResponseMatcher {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmsSourceMatcher.class);
 
     /**

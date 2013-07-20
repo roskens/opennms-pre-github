@@ -56,18 +56,24 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponseHandler;
 public class MobileSequenceTransaction implements Comparable<MobileSequenceTransaction> {
 
     /* containing sequenceConfig */
+    /** The m_sequence config. */
     private MobileSequenceConfig m_sequenceConfig;
 
     /* attributes and sub elements */
+    /** The m_label. */
     private String m_label;
 
+    /** The m_gateway id. */
     private String m_gatewayId;
 
+    /** The m_request. */
     private MobileSequenceRequest m_request;
 
+    /** The m_responses. */
     private List<MobileSequenceResponse> m_responses;
 
     /* other data */
+    /** The m_default gateway id. */
     private String m_defaultGatewayId;
 
     /**
@@ -109,6 +115,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +128,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -133,6 +141,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getGatewayId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -145,6 +154,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * setGatewayId
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -157,6 +167,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
@@ -171,6 +182,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * setRequest
      * </p>
+     * .
      *
      * @param request
      *            a
@@ -195,6 +207,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getResponses
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -206,6 +219,11 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
         return m_responses;
     }
 
+    /**
+     * Creates the responses list.
+     *
+     * @return the list
+     */
     private List<MobileSequenceResponse> createResponsesList() {
         return new TriggeredList<MobileSequenceResponse>() {
 
@@ -226,6 +244,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * setResponses
      * </p>
+     * .
      *
      * @param responses
      *            a {@link java.util.List} object.
@@ -241,6 +260,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * addResponse
      * </p>
+     * .
      *
      * @param response
      *            a
@@ -256,6 +276,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getSequenceConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
@@ -270,6 +291,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * setSequenceConfig
      * </p>
+     * .
      *
      * @param sequenceConfig
      *            a
@@ -284,6 +306,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getDefaultGatewayId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -296,6 +319,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * setDefaultGatewayId
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -308,6 +332,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
@@ -322,12 +347,13 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a
-     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
+     *         object.
      */
     @Override
     public int compareTo(MobileSequenceTransaction o) {
@@ -339,6 +365,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -353,6 +380,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
@@ -370,19 +398,20 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * <p>
      * matchesResponse
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
      *            object.
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param response
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *         object.
      */
     public boolean matchesResponse(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
 
@@ -395,10 +424,26 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
         return match;
     }
 
+    /**
+     * Gets the response label.
+     *
+     * @param session
+     *            the session
+     * @param response
+     *            the response
+     * @return the response label
+     */
     String getResponseLabel(MobileSequenceSession session, MobileSequenceResponse response) {
         return session.substitute(getLabel() + ".response" + getResponseIndex(response));
     }
 
+    /**
+     * Gets the response index.
+     *
+     * @param response
+     *            the response
+     * @return the response index
+     */
     private int getResponseIndex(MobileSequenceResponse response) {
         int index = 1;
         for (MobileSequenceResponse r : getResponses()) {

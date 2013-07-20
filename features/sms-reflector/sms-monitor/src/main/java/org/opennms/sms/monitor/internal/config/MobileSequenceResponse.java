@@ -50,8 +50,10 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
  */
 public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 
+    /** The m_matchers. */
     private List<SequenceResponseMatcher> m_matchers = Collections.synchronizedList(new ArrayList<SequenceResponseMatcher>());
 
+    /** The m_transaction. */
     private MobileSequenceTransaction m_transaction;
 
     /**
@@ -93,6 +95,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * getMatchers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -105,6 +108,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * setMatchers
      * </p>
+     * .
      *
      * @param matchers
      *            a {@link java.util.List} object.
@@ -120,6 +124,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * addMatcher
      * </p>
+     * .
      *
      * @param matcher
      *            a
@@ -134,6 +139,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * getEffectiveLabel
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
@@ -148,6 +154,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * getTransaction
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
@@ -162,6 +169,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * setTransaction
      * </p>
+     * .
      *
      * @param transaction
      *            a
@@ -176,6 +184,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,19 +198,31 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * matchesResponseType
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param response
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *         object.
      */
     protected abstract boolean matchesResponseType(MobileMsgRequest request, MobileMsgResponse response);
 
+    /**
+     * Matches criteria.
+     *
+     * @param session
+     *            the session
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @return true, if successful
+     */
     private boolean matchesCriteria(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
 
         for (SequenceResponseMatcher m : getMatchers()) {
@@ -216,19 +237,20 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
      *            object.
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param response
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *         object.
      */
     public boolean matches(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         return matchesResponseType(request, response) && matchesCriteria(session, request, response);
@@ -238,16 +260,17 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * <p>
      * processResponse
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
      *            object.
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param response
      *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
      *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
      *            object.
      */

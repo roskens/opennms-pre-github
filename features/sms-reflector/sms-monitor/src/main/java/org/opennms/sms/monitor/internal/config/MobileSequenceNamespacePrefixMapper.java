@@ -65,6 +65,7 @@ public class MobileSequenceNamespacePrefixMapper extends NamespacePrefixMapper {
      * <p>
      * getPreDeclaredNamespaceUris
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */

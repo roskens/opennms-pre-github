@@ -42,10 +42,13 @@ import org.smslib.USSDResponse;
 import org.smslib.USSDSessionStatus;
 
 /**
+ * The Class TestMessenger.
+ *
  * @author brozow
  */
 public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse> {
 
+    /** The m_q. */
     protected Queue<MobileMsgResponse> m_q;
 
     /*
@@ -67,24 +70,49 @@ public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgRespo
         m_q = q;
     }
 
+    /**
+     * Send test response.
+     *
+     * @param response
+     *            the response
+     */
     public void sendTestResponse(MobileMsgResponse response) {
         m_q.offer(response);
     }
 
     /**
-     * @param msg1
+     * Send test response.
+     *
+     * @param msg
+     *            the msg
      */
     public void sendTestResponse(InboundMessage msg) {
         sendTestResponse(new SmsResponse(msg, System.currentTimeMillis()));
     }
 
     /**
+     * Send test response.
+     *
+     * @param gatewayId
+     *            the gateway id
      * @param response
+     *            the response
      */
     public void sendTestResponse(String gatewayId, USSDResponse response) {
         sendTestResponse(new UssdResponse(gatewayId, response, System.currentTimeMillis()));
     }
 
+    /**
+     * Send test response.
+     *
+     * @param gatewayId
+     *            the gateway id
+     * @param content
+     *            the content
+     * @param status
+     *            the status
+     * @return the uSSD response
+     */
     public USSDResponse sendTestResponse(final String gatewayId, String content, USSDSessionStatus status) {
         USSDResponse r = new USSDResponse();
         r.setContent(content);
@@ -96,6 +124,15 @@ public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgRespo
         return r;
     }
 
+    /**
+     * Send test response.
+     *
+     * @param recipient
+     *            the recipient
+     * @param text
+     *            the text
+     * @return the inbound message
+     */
     public InboundMessage sendTestResponse(String recipient, String text) {
         InboundMessage responseMsg = new InboundMessage(new Date(), recipient, text, 0, "0");
         sendTestResponse(responseMsg);

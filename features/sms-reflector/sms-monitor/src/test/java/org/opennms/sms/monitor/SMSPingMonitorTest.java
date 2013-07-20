@@ -54,23 +54,36 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class SMSPingMonitorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:/META-INF/spring/bundle-context.xml",
         "classpath*:/META-INF/opennms/bundle-context-opennms.xml", "classpath:/testContext.xml" })
 public class SMSPingMonitorTest implements InitializingBean {
+
+    /** The m_context. */
     @Autowired
     ApplicationContext m_context;
 
+    /** The m_sms service. */
     @Resource(name = "smsService")
     SmsService m_smsService;
 
+    /** The m_service. */
     MonitoredService m_service;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -112,6 +125,9 @@ public class SMSPingMonitorTest implements InitializingBean {
         };
     }
 
+    /**
+     * Test ping.
+     */
     @Test
     @DirtiesContext
     public void testPing() {

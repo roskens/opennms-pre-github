@@ -48,6 +48,8 @@ import org.slf4j.LoggerFactory;
  */
 @XmlRootElement(name = "from-recipient")
 public class SmsFromRecipientResponseMatcher extends SequenceResponseMatcher {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmsFromRecipientResponseMatcher.class);
 
     /** {@inheritDoc} */
@@ -61,6 +63,15 @@ public class SmsFromRecipientResponseMatcher extends SequenceResponseMatcher {
         return false;
     }
 
+    /**
+     * Equals.
+     *
+     * @param orig
+     *            the orig
+     * @param recip
+     *            the recip
+     * @return true, if successful
+     */
     private boolean equals(String orig, String recip) {
         return orig.replaceFirst("^\\+", "").equals(recip.replaceFirst("^\\+", ""));
     }

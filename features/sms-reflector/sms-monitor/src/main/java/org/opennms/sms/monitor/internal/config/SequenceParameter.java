@@ -46,9 +46,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "m_key", "m_value" })
 public class SequenceParameter {
+
+    /** The m_key. */
     @XmlAttribute(name = "key")
     private String m_key;
 
+    /** The m_value. */
     @XmlAttribute(name = "value")
     private String m_value;
 
@@ -79,6 +82,7 @@ public class SequenceParameter {
      * <p>
      * getKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,6 +94,7 @@ public class SequenceParameter {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

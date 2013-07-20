@@ -45,8 +45,11 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponseHandler;
  */
 @XmlRootElement(name = "sms-request")
 public class SmsSequenceRequest extends MobileSequenceRequest {
+
+    /** The m_recipient. */
     private String m_recipient;
 
+    /** The m_validity period in hours. */
     private int m_validityPeriodInHours = 1;
 
     /**
@@ -91,6 +94,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
      * <p>
      * getRecipient
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +107,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
      * <p>
      * setRecipient
      * </p>
+     * .
      *
      * @param recipient
      *            a {@link java.lang.String} object.
@@ -115,6 +120,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
      * <p>
      * getValidityPeriodInHours
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -127,6 +133,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
      * <p>
      * setValidityPeriodInHours
      * </p>
+     * .
      *
      * @param validityPeriodInHours
      *            a int.
@@ -146,6 +153,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

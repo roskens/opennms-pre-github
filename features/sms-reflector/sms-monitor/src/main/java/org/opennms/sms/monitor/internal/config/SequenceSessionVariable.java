@@ -61,18 +61,24 @@ import org.slf4j.LoggerFactory;
 @XmlType(name = "SequenceSessionVariableType", propOrder = { "m_name", "m_className", "m_parameters" })
 @XmlRootElement(name = "session-variable")
 public class SequenceSessionVariable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SequenceSessionVariable.class);
 
+    /** The m_name. */
     @XmlAttribute(name = "name")
     private String m_name;
 
+    /** The m_class name. */
     @XmlAttribute(name = "class")
     private String m_className;
 
+    /** The m_parameters. */
     @XmlElementWrapper(name = "parameters", required = false)
     @XmlElement(name = "parameter")
     private List<SequenceParameter> m_parameters;
 
+    /** The m_generator. */
     @XmlTransient
     private SessionVariableGenerator m_generator;
 
@@ -103,6 +109,7 @@ public class SequenceSessionVariable {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -114,6 +121,7 @@ public class SequenceSessionVariable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -126,6 +134,7 @@ public class SequenceSessionVariable {
      * <p>
      * getClassName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -137,6 +146,7 @@ public class SequenceSessionVariable {
      * <p>
      * setClassName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -149,6 +159,7 @@ public class SequenceSessionVariable {
      * <p>
      * addParameter
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -166,6 +177,7 @@ public class SequenceSessionVariable {
      * <p>
      * getParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -177,6 +189,7 @@ public class SequenceSessionVariable {
      * <p>
      * getParametersAsMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -194,6 +207,7 @@ public class SequenceSessionVariable {
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.List} object.
@@ -206,6 +220,7 @@ public class SequenceSessionVariable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,16 +234,17 @@ public class SequenceSessionVariable {
      * <p>
      * getGenerator
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.sms.monitor.session.SessionVariableGenerator}
-     *         object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     *             {@link org.opennms.sms.monitor.session.SessionVariableGenerator}
+     *             object.
      */
     public SessionVariableGenerator getGenerator() throws ClassNotFoundException, InstantiationException,
             IllegalAccessException {
@@ -251,15 +267,16 @@ public class SequenceSessionVariable {
      * <p>
      * checkOut
      * </p>
+     * .
      *
      * @param properties
      *            a {@link java.util.Properties} object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
      */
     public void checkOut(Properties properties) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException {
@@ -280,6 +297,7 @@ public class SequenceSessionVariable {
      * <p>
      * checkIn
      * </p>
+     * .
      *
      * @param properties
      *            a {@link java.util.Properties} object.

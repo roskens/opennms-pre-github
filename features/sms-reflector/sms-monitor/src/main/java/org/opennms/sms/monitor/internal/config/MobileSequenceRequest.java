@@ -46,8 +46,11 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponseHandler;
  */
 @XmlRootElement(name = "request")
 public abstract class MobileSequenceRequest extends MobileSequenceOperation {
+
+    /** The m_transaction. */
     private MobileSequenceTransaction m_transaction;
 
+    /** The m_text. */
     private String m_text;
 
     /**
@@ -95,6 +98,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +111,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * setText
      * </p>
+     * .
      *
      * @param text
      *            a {@link java.lang.String} object.
@@ -119,6 +124,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * getTransaction
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
@@ -133,6 +139,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * setTransaction
      * </p>
+     * .
      *
      * @param transaction
      *            a
@@ -147,6 +154,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * getGatewayId
      * </p>
+     * .
      *
      * @param defaultGatewayId
      *            a {@link java.lang.String} object.
@@ -160,6 +168,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @param defaultLabel
      *            a {@link java.lang.String} object.
@@ -173,6 +182,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * getGatewayIdForRequest
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -184,6 +194,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -197,6 +208,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
      * <p>
      * send
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}

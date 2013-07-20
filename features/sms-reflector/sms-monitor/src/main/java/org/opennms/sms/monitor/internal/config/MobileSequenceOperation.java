@@ -43,6 +43,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class MobileSequenceOperation {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MobileSequenceOperation.class);
 
     /**
@@ -80,14 +82,17 @@ public abstract class MobileSequenceOperation {
         setLabel(label);
     }
 
+    /** The m_gateway id. */
     private String m_gatewayId;
 
+    /** The m_label. */
     private String m_label;
 
     /**
      * <p>
      * getGatewayId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,6 +105,7 @@ public abstract class MobileSequenceOperation {
      * <p>
      * setGatewayId
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -112,6 +118,7 @@ public abstract class MobileSequenceOperation {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,6 +131,7 @@ public abstract class MobileSequenceOperation {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -136,6 +144,7 @@ public abstract class MobileSequenceOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

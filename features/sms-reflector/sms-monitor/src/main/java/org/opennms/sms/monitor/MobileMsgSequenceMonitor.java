@@ -59,18 +59,22 @@ import org.springframework.util.StringUtils;
 @Distributable(DistributionContext.DAEMON)
 public class MobileMsgSequenceMonitor extends AbstractServiceMonitor {
 
-    /** Constant <code>DEFAULT_CONTEXT_NAME="mobileMessagePollerContext"</code> */
+    /** Constant <code>DEFAULT_CONTEXT_NAME="mobileMessagePollerContext"</code>. */
     public static final String DEFAULT_CONTEXT_NAME = "mobileMessagePollerContext";
 
-    /** Constant <code>CONTEXT_KEY="mobileMessageContextName"</code> */
+    /** Constant <code>CONTEXT_KEY="mobileMessageContextName"</code>. */
     public static final String CONTEXT_KEY = "mobileMessageContextName";
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(MobileMsgSequenceMonitor.class);
 
+    /** The m_phonebook. */
     private Phonebook m_phonebook;
 
+    /** The m_tracker. */
     private MobileMsgTracker m_tracker;
 
+    /** The m_coordinator. */
     private DefaultTaskCoordinator m_coordinator;
 
     /** {@inheritDoc} */

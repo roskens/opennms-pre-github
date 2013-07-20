@@ -37,37 +37,66 @@ import java.util.regex.Pattern;
 import org.junit.Test;
 
 /**
- * UssdMessageParsing
+ * UssdMessageParsing.
  *
  * @author brozow
  */
 public class UssdMessageParsingTest {
 
+    /**
+     * Test ussd single line.
+     */
     @Test
     public void testUssdSingleLine() {
         parseMessage("+CUSD: 2,\"a message\"\r", 2, "2", "a message", null);
     }
 
+    /**
+     * Test ussd single line space after status.
+     */
     @Test
     public void testUssdSingleLineSpaceAfterStatus() {
         parseMessage("+CUSD: 2, \"a message\"\r", 2, "2", "a message", null);
     }
 
+    /**
+     * Test ussd single line with encoding.
+     */
     @Test
     public void testUssdSingleLineWithEncoding() {
         parseMessage("+CUSD: 2,\"a message with an encoding\",15\r", 2, "2", "a message with an encoding", "15");
     }
 
+    /**
+     * Test ussd single line with encoding space before encoding.
+     */
     @Test
     public void testUssdSingleLineWithEncodingSpaceBeforeEncoding() {
         parseMessage("+CUSD: 2,\"a message with an encoding\", 15\r", 2, "2", "a message with an encoding", "15");
     }
 
+    /**
+     * Test operation not supprted.
+     */
     @Test
     public void testOperationNotSupprted() {
         parseMessage("+CUSD: 4\r", 2, "4", null, null);
     }
 
+    /**
+     * Parses the message.
+     *
+     * @param msg
+     *            the msg
+     * @param expectedCount
+     *            the expected count
+     * @param status
+     *            the status
+     * @param content
+     *            the content
+     * @param encoding
+     *            the encoding
+     */
     public void parseMessage(String msg, int expectedCount, String status, String content, String encoding) {
         // Pattern MSG_PATTERN =
         // Pattern.compile("(?s)^\\+CUSD:\\s+(\\d),\"(.*)(\"(,(\\d+))?\r)?$");
@@ -86,6 +115,15 @@ public class UssdMessageParsingTest {
 
     }
 
+    /**
+     * Group.
+     *
+     * @param matcher
+     *            the matcher
+     * @param index
+     *            the index
+     * @return the string
+     */
     private String group(Matcher matcher, int index) {
         return matcher.groupCount() >= index ? matcher.group(index) : null;
     }

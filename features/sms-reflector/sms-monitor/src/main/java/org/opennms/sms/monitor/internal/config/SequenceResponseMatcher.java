@@ -46,10 +46,12 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
  */
 public abstract class SequenceResponseMatcher {
     // Forces this to be an XSD complexType instead of simpleType
+    /** The m_dummy. */
     @SuppressWarnings("unused")
     @XmlAttribute(name = "dummy", required = false)
     private String m_dummy;
 
+    /** The m_text. */
     private String m_text;
 
     /**
@@ -76,6 +78,7 @@ public abstract class SequenceResponseMatcher {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,6 +91,7 @@ public abstract class SequenceResponseMatcher {
      * <p>
      * setText
      * </p>
+     * .
      *
      * @param text
      *            a {@link java.lang.String} object.
@@ -100,6 +104,7 @@ public abstract class SequenceResponseMatcher {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,19 +117,20 @@ public abstract class SequenceResponseMatcher {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
      *            object.
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param response
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *         object.
      */
     public abstract boolean matches(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response);
 

@@ -45,9 +45,12 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "match")
 public class SequenceOperationMatch {
+
+    /** The m_type. */
     @XmlAttribute(name = "type")
     private String m_type = "success";
 
+    /** The m_value. */
     @XmlValue
     private String m_value;
 
@@ -90,6 +93,7 @@ public class SequenceOperationMatch {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +105,7 @@ public class SequenceOperationMatch {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -113,6 +118,7 @@ public class SequenceOperationMatch {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -124,6 +130,7 @@ public class SequenceOperationMatch {
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.

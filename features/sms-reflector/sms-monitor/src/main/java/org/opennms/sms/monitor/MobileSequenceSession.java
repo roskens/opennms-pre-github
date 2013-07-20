@@ -55,12 +55,16 @@ import org.smslib.USSDSessionStatus;
  */
 public class MobileSequenceSession {
 
+    /** The Constant DEFAULT_RETRIES. */
     private static final int DEFAULT_RETRIES = 0;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final long DEFAULT_TIMEOUT = 10000L;
 
+    /** The m_session variables. */
     private List<SequenceSessionVariable> m_sessionVariables;
 
+    /** The m_tracker. */
     private MobileMsgTracker m_tracker;
 
     /**
@@ -111,14 +115,17 @@ public class MobileSequenceSession {
         }
     }
 
+    /** The m_properties. */
     private Properties m_properties = new Properties();
 
+    /** The m_generators. */
     private Map<String, SessionVariableGenerator> m_generators = new HashMap<String, SessionVariableGenerator>();
 
     /**
      * <p>
      * getProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -130,6 +137,7 @@ public class MobileSequenceSession {
      * <p>
      * getGenerators
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -137,6 +145,12 @@ public class MobileSequenceSession {
         return m_generators;
     }
 
+    /**
+     * Sets the recipient.
+     *
+     * @param recipient
+     *            the new recipient
+     */
     void setRecipient(String recipient) {
         getProperties().setProperty("recipient", recipient);
     }
@@ -145,6 +159,7 @@ public class MobileSequenceSession {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -156,6 +171,7 @@ public class MobileSequenceSession {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -167,6 +183,7 @@ public class MobileSequenceSession {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a long.
@@ -179,6 +196,7 @@ public class MobileSequenceSession {
      * <p>
      * setRetries
      * </p>
+     * .
      *
      * @param retries
      *            a int.
@@ -191,6 +209,7 @@ public class MobileSequenceSession {
      * <p>
      * setVariable
      * </p>
+     * .
      *
      * @param varName
      *            a {@link java.lang.String} object.
@@ -205,6 +224,7 @@ public class MobileSequenceSession {
      * <p>
      * substitute
      * </p>
+     * .
      *
      * @param string
      *            a {@link java.lang.String} object.
@@ -214,6 +234,9 @@ public class MobileSequenceSession {
         return PropertiesUtils.substitute(string, getProperties());
     }
 
+    /**
+     * Checkin variables.
+     */
     void checkinVariables() {
 
         for (SequenceSessionVariable var : m_sessionVariables) {
@@ -222,6 +245,16 @@ public class MobileSequenceSession {
 
     }
 
+    /**
+     * Checkout variables.
+     *
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     */
     void checkoutVariables() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         for (SequenceSessionVariable var : m_sessionVariables) {
@@ -233,6 +266,7 @@ public class MobileSequenceSession {
      * <p>
      * eqOrMatches
      * </p>
+     * .
      *
      * @param expected
      *            a {@link java.lang.String} object.
@@ -248,6 +282,7 @@ public class MobileSequenceSession {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param expected
      *            a {@link java.lang.String} object.
@@ -263,6 +298,7 @@ public class MobileSequenceSession {
      * <p>
      * ussdStatusMatches
      * </p>
+     * .
      *
      * @param expected
      *            a {@link java.lang.String} object.
@@ -287,6 +323,7 @@ public class MobileSequenceSession {
      * <p>
      * sendSms
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -318,6 +355,7 @@ public class MobileSequenceSession {
      * <p>
      * sendUssd
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.

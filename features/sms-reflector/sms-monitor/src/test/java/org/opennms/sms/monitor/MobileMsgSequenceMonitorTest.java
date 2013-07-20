@@ -46,12 +46,20 @@ import org.opennms.netmgt.poller.InetNetworkInterface;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.NetworkInterface;
 
+/**
+ * The Class MobileMsgSequenceMonitorTest.
+ */
 public class MobileMsgSequenceMonitorTest {
 
+    /** The m_service. */
     private MonitoredService m_service;
 
+    /** The m_monitor. */
     private MobileMsgSequenceMonitor m_monitor;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_service = new MonitoredService() {
@@ -94,6 +102,12 @@ public class MobileMsgSequenceMonitorTest {
         m_monitor = createAndInitializeMonitor();
     }
 
+    /**
+     * Test broken configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testBrokenConfiguration() throws Exception {
 
@@ -102,6 +116,12 @@ public class MobileMsgSequenceMonitorTest {
 
     }
 
+    /**
+     * Test inline sequence.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testInlineSequence() throws Exception {
 
@@ -114,12 +134,21 @@ public class MobileMsgSequenceMonitorTest {
 
     }
 
+    /**
+     * Handle null to init.
+     */
     @Test
     public void handleNullToInit() {
         MobileMsgSequenceMonitor m = new MobileMsgSequenceMonitor();
         m.initialize((Map<String, Object>) null);
     }
 
+    /**
+     * Test parse configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testParseConfiguration() throws Exception {
 
@@ -128,6 +157,12 @@ public class MobileMsgSequenceMonitorTest {
 
     }
 
+    /**
+     * Test simple sequence.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSimpleSequence() throws Exception {
 
@@ -136,19 +171,48 @@ public class MobileMsgSequenceMonitorTest {
 
     }
 
+    /**
+     * Test ussd sequence.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUssdSequence() throws Exception {
         assertAvailable(getXmlBuffer("tmobile-balance-sequence.xml"));
     }
 
+    /**
+     * Assert unavailable.
+     *
+     * @param config
+     *            the config
+     * @return the poll status
+     */
     private PollStatus assertUnavailable(String config) {
         return assertPollStatus(config, PollStatus.SERVICE_UNAVAILABLE);
     }
 
+    /**
+     * Assert available.
+     *
+     * @param config
+     *            the config
+     * @return the poll status
+     */
     private PollStatus assertAvailable(String config) {
         return assertPollStatus(config, PollStatus.SERVICE_AVAILABLE);
     }
 
+    /**
+     * Assert poll status.
+     *
+     * @param config
+     *            the config
+     * @param expectedStatus
+     *            the expected status
+     * @return the poll status
+     */
     private PollStatus assertPollStatus(String config, int expectedStatus) {
         Map<String, Object> parameters = createConfigParameters(config);
         PollStatus s = m_monitor.poll(m_service, parameters);
@@ -156,6 +220,11 @@ public class MobileMsgSequenceMonitorTest {
         return s;
     }
 
+    /**
+     * Creates the and initialize monitor.
+     *
+     * @return the mobile msg sequence monitor
+     */
     private MobileMsgSequenceMonitor createAndInitializeMonitor() {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(MobileMsgSequenceMonitor.CONTEXT_KEY, "testMobileMessagePollerContext");
@@ -165,6 +234,13 @@ public class MobileMsgSequenceMonitorTest {
         return m;
     }
 
+    /**
+     * Creates the config parameters.
+     *
+     * @param mobileConfig
+     *            the mobile config
+     * @return the map
+     */
     private Map<String, Object> createConfigParameters(String mobileConfig) {
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("retry", "0");
@@ -173,6 +249,15 @@ public class MobileMsgSequenceMonitorTest {
         return parameters;
     }
 
+    /**
+     * Gets the xml buffer.
+     *
+     * @param fileName
+     *            the file name
+     * @return the xml buffer
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String getXmlBuffer(String fileName) throws IOException {
         File xmlFile = new File(ClassLoader.getSystemResource(fileName).getFile());
         assertTrue("xml file is readable", xmlFile.canRead());

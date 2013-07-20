@@ -39,10 +39,12 @@ import java.util.Map;
  * @version $Id: $
  */
 public interface SessionVariableGenerator {
+
     /**
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.Map} object.
@@ -53,6 +55,7 @@ public interface SessionVariableGenerator {
      * <p>
      * checkOut
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -62,6 +65,7 @@ public interface SessionVariableGenerator {
      * <p>
      * checkIn
      * </p>
+     * .
      *
      * @param variable
      *            a {@link java.lang.String} object.

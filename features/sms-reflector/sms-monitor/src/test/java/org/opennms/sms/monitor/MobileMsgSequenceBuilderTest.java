@@ -45,26 +45,39 @@ import org.opennms.sms.reflector.smsservice.MobileMsgTrackerImpl;
 import org.smslib.USSDSessionStatus;
 
 /**
- * MobileMsgTrackerTeste
+ * MobileMsgTrackerTeste.
  *
  * @author brozow
  */
 public class MobileMsgSequenceBuilderTest {
 
+    /** The Constant PHONE_NUMBER. */
     private static final String PHONE_NUMBER = "+19195551212";
 
+    /** The Constant TMOBILE_RESPONSE. */
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
 
+    /** The Constant TMOBILE_USSD_MATCH. */
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
+    /** The m_messenger. */
     TestMessenger m_messenger;
 
+    /** The m_tracker. */
     MobileMsgTrackerImpl m_tracker;
 
+    /** The m_coordinator. */
     DefaultTaskCoordinator m_coordinator;
 
+    /** The m_session. */
     MobileSequenceSession m_session;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -85,6 +98,12 @@ public class MobileMsgSequenceBuilderTest {
         System.err.println("=== STARTING TEST ===");
     }
 
+    /**
+     * Test ping timeout with builder.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test(expected = java.net.SocketTimeoutException.class)
     public void testPingTimeoutWithBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
@@ -97,6 +116,12 @@ public class MobileMsgSequenceBuilderTest {
 
     }
 
+    /**
+     * Test ping with builder.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testPingWithBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
@@ -116,6 +141,12 @@ public class MobileMsgSequenceBuilderTest {
         assertTrue(latency(timing, "SMS Ping") > 400);
     }
 
+    /**
+     * Test ussd with builder.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testUssdWithBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
@@ -136,6 +167,12 @@ public class MobileMsgSequenceBuilderTest {
         assertTrue(latency(timing, "USSD request") > 400);
     }
 
+    /**
+     * Test multiple step sequence builder.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testMultipleStepSequenceBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
@@ -167,24 +204,51 @@ public class MobileMsgSequenceBuilderTest {
         assertEquals("Unexpected size for timing " + timing, 3, timing.size());
     }
 
+    /**
+     * Latency.
+     *
+     * @param timing
+     *            the timing
+     * @param label
+     *            the label
+     * @return the double
+     */
     private double latency(Map<String, Number> timing, String label) {
         Number latency = timing.get(label);
         assertNotNull("no latency found for " + label, latency);
         return latency.doubleValue();
     }
 
+    /**
+     * Ping.
+     *
+     * @param bldr
+     *            the bldr
+     */
     private void ping(MobileSequenceConfigBuilder bldr) {
         bldr.smsRequest("SMS Ping", "G", PHONE_NUMBER, "ping").expectSmsResponse("SMS Pong").matching("^pong$");
     }
 
+    /**
+     * Send pong.
+     */
     private void sendPong() {
         m_messenger.sendTestResponse(PHONE_NUMBER, "pong");
     }
 
+    /**
+     * Balance inquiry.
+     *
+     * @param bldr
+     *            the bldr
+     */
     private void balanceInquiry(MobileSequenceConfigBuilder bldr) {
         bldr.ussdRequest("USSD request", "G", "#225#").expectUssdResponse("USSD response").matching(TMOBILE_USSD_MATCH).withSessionStatus(USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
     }
 
+    /**
+     * Send balance.
+     */
     private void sendBalance() {
         m_messenger.sendTestResponse("G", TMOBILE_RESPONSE, USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
     }

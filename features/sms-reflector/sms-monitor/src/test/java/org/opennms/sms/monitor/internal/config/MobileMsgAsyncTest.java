@@ -51,44 +51,72 @@ import org.opennms.sms.reflector.smsservice.MobileMsgTrackerImpl;
 import org.smslib.USSDSessionStatus;
 
 /**
- * MobileMsgTrackerTeste
+ * MobileMsgTrackerTeste.
  *
  * @author brozow
  */
 public class MobileMsgAsyncTest {
 
+    /** The Constant PHONE_NUMBER. */
     private static final String PHONE_NUMBER = "+19195551212";
 
+    /** The Constant TMOBILE_RESPONSE. */
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
 
+    /** The Constant TMOBILE_USSD_MATCH. */
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
+    /**
+     * The Class LatencyResponseHandler.
+     */
     private final class LatencyResponseHandler implements MobileMsgResponseHandler {
+
+        /** The m_session. */
         private final MobileSequenceSession m_session;
 
+        /** The m_transaction. */
         private final MobileSequenceTransaction m_transaction;
 
+        /** The m_latch. */
         private final CountDownLatch m_latch = new CountDownLatch(1);
 
+        /** The m_start. */
         private final AtomicLong m_start = new AtomicLong();
 
+        /** The m_end. */
         private final AtomicLong m_end = new AtomicLong();
 
+        /** The m_timed out. */
         private final AtomicBoolean m_timedOut = new AtomicBoolean(false);
 
+        /** The m_failed. */
         private final AtomicBoolean m_failed = new AtomicBoolean(false);
 
+        /**
+         * Instantiates a new latency response handler.
+         *
+         * @param session
+         *            the session
+         * @param transaction
+         *            the transaction
+         */
         public LatencyResponseHandler(MobileSequenceSession session, MobileSequenceTransaction transaction) {
             m_session = session;
             m_transaction = transaction;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleError(org.opennms.sms.reflector.smsservice.MobileMsgRequest, java.lang.Throwable)
+         */
         @Override
         public void handleError(MobileMsgRequest request, Throwable t) {
             m_failed.set(true);
             m_latch.countDown();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleResponse(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+         */
         @Override
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse packet) {
             m_start.set(request.getSentTime());
@@ -97,27 +125,54 @@ public class MobileMsgAsyncTest {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleTimeout(org.opennms.sms.reflector.smsservice.MobileMsgRequest)
+         */
         @Override
         public void handleTimeout(MobileMsgRequest request) {
             m_timedOut.set(true);
             m_latch.countDown();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher#matches(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+         */
         @Override
         public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
             return m_transaction.matchesResponse(m_session, request, response);
         }
 
+        /**
+         * Failed.
+         *
+         * @return true, if successful
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public boolean failed() throws InterruptedException {
             m_latch.await();
             return m_failed.get();
         }
 
+        /**
+         * Timed out.
+         *
+         * @return true, if successful
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public boolean timedOut() throws InterruptedException {
             m_latch.await();
             return m_timedOut.get();
         }
 
+        /**
+         * Gets the latency.
+         *
+         * @return the latency
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public long getLatency() throws InterruptedException {
             m_latch.await();
             return m_end.get() - m_start.get();
@@ -125,12 +180,21 @@ public class MobileMsgAsyncTest {
 
     }
 
+    /** The m_messenger. */
     TestMessenger m_messenger;
 
+    /** The m_tracker. */
     MobileMsgTrackerImpl m_tracker;
 
+    /** The m_coordinator. */
     DefaultTaskCoordinator m_coordinator;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_messenger = new TestMessenger();
@@ -147,6 +211,12 @@ public class MobileMsgAsyncTest {
         System.err.println("=== STARTING TEST ===");
     }
 
+    /**
+     * Test raw sms ping.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRawSmsPing() throws Exception {
 
@@ -175,6 +245,12 @@ public class MobileMsgAsyncTest {
         System.err.println("testRawSmsPing(): latency = " + handler.getLatency());
     }
 
+    /**
+     * Test raw ussd message.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRawUssdMessage() throws Exception {
         final String gatewayId = "G";

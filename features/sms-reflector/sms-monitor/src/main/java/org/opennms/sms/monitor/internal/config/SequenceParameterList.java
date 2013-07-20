@@ -48,6 +48,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "parameters")
 public class SequenceParameterList {
+
+    /** The m_parameters. */
     @XmlElement(name = "parameter")
     private List<SequenceParameter> m_parameters = Collections.synchronizedList(new ArrayList<SequenceParameter>());
 
@@ -55,6 +57,7 @@ public class SequenceParameterList {
      * <p>
      * addParameter
      * </p>
+     * .
      *
      * @param parameter
      *            a
@@ -69,6 +72,7 @@ public class SequenceParameterList {
      * <p>
      * getParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -80,6 +84,7 @@ public class SequenceParameterList {
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.List} object.

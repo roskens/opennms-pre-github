@@ -70,31 +70,59 @@ import org.smslib.USSDSessionStatus;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+/**
+ * The Class SequenceXmlTest.
+ */
 public class SequenceXmlTest {
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_sms sequence. */
     private MobileSequenceConfig m_smsSequence;
 
+    /** The m_context. */
     private JAXBContext m_context;
 
+    /** The m_marshaller. */
     private Marshaller m_marshaller;
 
+    /** The m_unmarshaller. */
     private Unmarshaller m_unmarshaller;
 
+    /**
+     * The Class TestOutputResolver.
+     */
     private static class TestOutputResolver extends SchemaOutputResolver {
+
+        /** The m_schema file. */
         private final File m_schemaFile;
 
+        /**
+         * Instantiates a new test output resolver.
+         *
+         * @param schemaFile
+         *            the schema file
+         */
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+         */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
         }
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_fileAnticipator = new FileAnticipator();
@@ -132,11 +160,23 @@ public class SequenceXmlTest {
         XMLUnit.setNormalize(true);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Generate schema.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateSchema() throws Exception {
         File schemaFile = m_fileAnticipator.expecting("mobile-sequence.xsd");
@@ -147,6 +187,12 @@ public class SequenceXmlTest {
         }
     }
 
+    /**
+     * Generate xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateXML() throws Exception {
         // Marshal the test object to an XML string
@@ -155,6 +201,12 @@ public class SequenceXmlTest {
         System.err.println(objectXML.toString());
     }
 
+    /**
+     * Read invalid xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(expected = UnmarshalException.class)
     public void readInvalidXML() throws Exception {
         File exampleFile = new File(ClassLoader.getSystemResource("invalid-sequence.xml").getFile());
@@ -166,6 +218,12 @@ public class SequenceXmlTest {
         assertTransactionParentsSet(s);
     }
 
+    /**
+     * Read poorly formed xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(expected = UnmarshalException.class)
     public void readPoorlyFormedXML() throws Exception {
         File exampleFile = new File(ClassLoader.getSystemResource("poorly-formed-sequence.xml").getFile());
@@ -176,6 +234,12 @@ public class SequenceXmlTest {
         assertTransactionParentsSet(s);
     }
 
+    /**
+     * Read another sample xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void readAnotherSampleXML() throws Exception {
         File exampleFile = new File(ClassLoader.getSystemResource("alternate-ping-sequence.xml").getFile());
@@ -186,6 +250,12 @@ public class SequenceXmlTest {
         assertTransactionParentsSet(s);
     }
 
+    /**
+     * Read xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void readXML() throws Exception {
         File exampleFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
@@ -196,6 +266,12 @@ public class SequenceXmlTest {
         assertTransactionParentsSet(s);
     }
 
+    /**
+     * Validate xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void validateXML() throws Exception {
         // Marshal the test object to an XML string
@@ -217,6 +293,12 @@ public class SequenceXmlTest {
                      myDiff.getAllDifferences().size());
     }
 
+    /**
+     * Validate against schema.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void validateAgainstSchema() throws Exception {
         File schemaFile = m_fileAnticipator.expecting("mobile-sequence.xsd");
@@ -240,6 +322,12 @@ public class SequenceXmlTest {
         }
     }
 
+    /**
+     * Try factory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void tryFactory() throws Exception {
         File exampleFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
@@ -247,6 +335,19 @@ public class SequenceXmlTest {
         assertEquals("ussd-transfer", sequence.getTransactions().iterator().next().getLabel());
     }
 
+    /**
+     * Gets the diff.
+     *
+     * @param objectXML
+     *            the object xml
+     * @param exampleXML
+     *            the example xml
+     * @return the diff
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @SuppressWarnings("unchecked")
     private DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException, IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(exampleXML.toString(), objectXML.toString()));
@@ -259,12 +360,27 @@ public class SequenceXmlTest {
         return myDiff;
     }
 
+    /**
+     * Assert transaction parents set.
+     *
+     * @param s
+     *            the s
+     */
     private void assertTransactionParentsSet(MobileSequenceConfig s) {
         for (MobileSequenceTransaction t : s.getTransactions()) {
             assertEquals(s, t.getSequenceConfig());
         }
     }
 
+    /**
+     * Gets the xml buffer.
+     *
+     * @param fileName
+     *            the file name
+     * @return the xml buffer
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private StringBuffer getXmlBuffer(String fileName) throws IOException {
         StringBuffer xmlBuffer = new StringBuffer();
         File xmlFile = new File(ClassLoader.getSystemResource("ussd-balance-sequence.xml").getFile());
@@ -283,6 +399,14 @@ public class SequenceXmlTest {
         return xmlBuffer;
     }
 
+    /**
+     * Prints the file.
+     *
+     * @param file
+     *            the file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void printFile(File file) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
         StringBuilder sb = new StringBuilder();

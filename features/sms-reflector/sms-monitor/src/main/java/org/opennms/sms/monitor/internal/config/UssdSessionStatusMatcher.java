@@ -50,6 +50,8 @@ import org.smslib.USSDSessionStatus;
  */
 @XmlRootElement(name = "session-status")
 public class UssdSessionStatusMatcher extends SequenceResponseMatcher {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UssdSessionStatusMatcher.class);
 
     /**

@@ -39,6 +39,8 @@ import java.util.Map;
  * @version $Id: $
  */
 public class BaseSessionVariableGenerator implements SessionVariableGenerator {
+
+    /** The m_parameters. */
     private Map<String, String> m_parameters;
 
     /**
@@ -72,6 +74,7 @@ public class BaseSessionVariableGenerator implements SessionVariableGenerator {
      * <p>
      * checkOut
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +87,7 @@ public class BaseSessionVariableGenerator implements SessionVariableGenerator {
      * <p>
      * getParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

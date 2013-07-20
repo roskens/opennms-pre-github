@@ -30,18 +30,37 @@ package org.opennms.sms.monitor.session;
 
 import java.util.Map;
 
+/**
+ * The Class TmobileBalance.
+ */
 public class TmobileBalance extends BaseSessionVariableGenerator {
+
+    /**
+     * Instantiates a new tmobile balance.
+     */
     public TmobileBalance() {
     }
 
+    /**
+     * Instantiates a new tmobile balance.
+     *
+     * @param parameters
+     *            the parameters
+     */
     public TmobileBalance(Map<String, String> parameters) {
         super(parameters);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.sms.monitor.session.BaseSessionVariableGenerator#checkIn(java.lang.String)
+     */
     @Override
     public void checkIn(String variable) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.sms.monitor.session.BaseSessionVariableGenerator#checkOut()
+     */
     @Override
     public String checkOut() {
         return "#225#";

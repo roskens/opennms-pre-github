@@ -39,12 +39,24 @@ import org.opennms.sms.reflector.smsservice.UssdResponse;
 import org.smslib.InboundMessage;
 import org.smslib.USSDResponse;
 
+/**
+ * The Class TestCallback.
+ */
 public class TestCallback implements MobileMsgResponseCallback {
 
+    /** The m_latch. */
     CountDownLatch m_latch = new CountDownLatch(1);
 
+    /** The m_response. */
     AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
+    /**
+     * Gets the response.
+     *
+     * @return the response
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     MobileMsgResponse getResponse() throws InterruptedException {
         m_latch.await();
         return m_response.get();
@@ -89,8 +101,11 @@ public class TestCallback implements MobileMsgResponseCallback {
     }
 
     /**
-     * @return
+     * Gets the message.
+     *
+     * @return the message
      * @throws InterruptedException
+     *             the interrupted exception
      */
     public InboundMessage getMessage() throws InterruptedException {
         MobileMsgResponse response = getResponse();
@@ -101,6 +116,13 @@ public class TestCallback implements MobileMsgResponseCallback {
 
     }
 
+    /**
+     * Gets the uSSD response.
+     *
+     * @return the uSSD response
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public USSDResponse getUSSDResponse() throws InterruptedException {
         MobileMsgResponse response = getResponse();
         if (response instanceof UssdResponse) {

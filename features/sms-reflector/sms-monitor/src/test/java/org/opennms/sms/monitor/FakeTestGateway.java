@@ -53,21 +53,43 @@ import org.smslib.USSDResponse;
  * make testing easier.
  */
 public class FakeTestGateway extends AGateway {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FakeTestGateway.class);
 
+    /** The ref counter. */
     private int refCounter = 0;
 
+    /** The counter. */
     private int counter = 0;
 
+    /**
+     * The Class QueueRunner.
+     */
     private class QueueRunner implements Runnable, Delayed {
+
+        /** The m_message. */
         InboundMessage m_message;
 
+        /** The m_response. */
         private USSDResponse m_response;
 
+        /** The m_expiration. */
         long m_expiration = 0;
 
+        /** The m_gateway. */
         private AGateway m_gateway;
 
+        /**
+         * Instantiates a new queue runner.
+         *
+         * @param response
+         *            the response
+         * @param milliseconds
+         *            the milliseconds
+         * @param gateway
+         *            the gateway
+         */
         public QueueRunner(USSDResponse response, long milliseconds, AGateway gateway) {
             System.err.println("QueueRunner initialized with timeout " + milliseconds + " for message: " + response);
             m_gateway = gateway;
@@ -75,6 +97,16 @@ public class FakeTestGateway extends AGateway {
             m_expiration = System.currentTimeMillis() + milliseconds;
         }
 
+        /**
+         * Instantiates a new queue runner.
+         *
+         * @param inbound
+         *            the inbound
+         * @param milliseconds
+         *            the milliseconds
+         * @param gateway
+         *            the gateway
+         */
         public QueueRunner(InboundMessage inbound, int milliseconds, AGateway gateway) {
             m_gateway = gateway;
             System.err.println("QueueRunner initialized with timeout " + milliseconds + " for message: " + inbound);
@@ -82,6 +114,9 @@ public class FakeTestGateway extends AGateway {
             m_expiration = System.currentTimeMillis() + milliseconds;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             if (m_message != null) {
@@ -98,12 +133,22 @@ public class FakeTestGateway extends AGateway {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.util.concurrent.Delayed#getDelay(java.util.concurrent.TimeUnit)
+         */
         @Override
         public long getDelay(TimeUnit unit) {
             long remainder = m_expiration - System.currentTimeMillis();
             return unit.convert(remainder, TimeUnit.MILLISECONDS);
         }
 
+        /**
+         * Compare to.
+         *
+         * @param o
+         *            the o
+         * @return the int
+         */
         @Override
         public int compareTo(Delayed o) {
             long thisVal = this.getDelay(TimeUnit.NANOSECONDS);
@@ -113,10 +158,18 @@ public class FakeTestGateway extends AGateway {
 
     }
 
+    /** The m_delay queue. */
     private DelayQueue<QueueRunner> m_delayQueue = new DelayQueue<QueueRunner>();
 
+    /** The incoming messages thread. */
     Thread incomingMessagesThread;
 
+    /**
+     * Instantiates a new fake test gateway.
+     *
+     * @param id
+     *            the id
+     */
     public FakeTestGateway(String id) {
         super(id);
         System.err.println("Initializing FakeTestGateway");
@@ -174,6 +227,9 @@ public class FakeTestGateway extends AGateway {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.smslib.AGateway#sendMessage(org.smslib.OutboundMessage)
+     */
     @Override
     public boolean sendMessage(OutboundMessage msg) throws TimeoutException, GatewayException, IOException,
             InterruptedException {
@@ -203,6 +259,9 @@ public class FakeTestGateway extends AGateway {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.smslib.AGateway#sendUSSDRequest(org.smslib.USSDRequest)
+     */
     @Override
     public boolean sendUSSDRequest(USSDRequest request) throws GatewayException, TimeoutException, IOException,
             InterruptedException {
@@ -223,6 +282,9 @@ public class FakeTestGateway extends AGateway {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.smslib.AGateway#getQueueSchedulingInterval()
+     */
     @Override
     public int getQueueSchedulingInterval() {
         return 500;

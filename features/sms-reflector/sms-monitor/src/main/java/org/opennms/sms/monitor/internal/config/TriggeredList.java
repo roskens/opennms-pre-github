@@ -37,10 +37,14 @@ import java.util.List;
  * TriggeredList class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public class TriggeredList<T> extends AbstractList<T> {
+
+    /** The m_backing list. */
     List<T> m_backingList = new ArrayList<T>();
 
     /** {@inheritDoc} */
@@ -87,6 +91,7 @@ public class TriggeredList<T> extends AbstractList<T> {
      * <p>
      * onSet
      * </p>
+     * .
      *
      * @param index
      *            a int.
@@ -108,6 +113,7 @@ public class TriggeredList<T> extends AbstractList<T> {
      * <p>
      * onAdd
      * </p>
+     * .
      *
      * @param index
      *            a int.
@@ -121,6 +127,7 @@ public class TriggeredList<T> extends AbstractList<T> {
      * <p>
      * onRemove
      * </p>
+     * .
      *
      * @param index
      *            a int.

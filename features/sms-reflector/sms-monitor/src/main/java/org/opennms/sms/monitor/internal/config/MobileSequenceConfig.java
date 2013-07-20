@@ -57,20 +57,21 @@ import org.springframework.util.Assert;
 @XmlRootElement(name = "mobile-sequence")
 public class MobileSequenceConfig implements Serializable, Comparable<MobileSequenceConfig> {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 142043644615784730L;
 
     /* attributes and elements */
+    /** The m_session variables. */
     private List<SequenceSessionVariable> m_sessionVariables;
 
+    /** The m_transactions. */
     private List<MobileSequenceTransaction> m_transactions;
 
     /**
      * <p>
      * addSessionVariable
      * </p>
+     * .
      *
      * @param var
      *            a
@@ -85,6 +86,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * getSessionVariables
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -96,6 +98,11 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
         return m_sessionVariables;
     }
 
+    /**
+     * Creates the session variable list.
+     *
+     * @return the list
+     */
     private List<SequenceSessionVariable> createSessionVariableList() {
         return Collections.synchronizedList(new ArrayList<SequenceSessionVariable>());
     }
@@ -104,6 +111,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * setSessionVariables
      * </p>
+     * .
      *
      * @param sessionVariables
      *            a {@link java.util.List} object.
@@ -116,6 +124,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * addTransaction
      * </p>
+     * .
      *
      * @param transaction
      *            a
@@ -130,6 +139,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * getTransactions
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -141,6 +151,11 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
         return m_transactions;
     }
 
+    /**
+     * Creates the transaction list.
+     *
+     * @return the list
+     */
     private List<MobileSequenceTransaction> createTransactionList() {
         return new TriggeredList<MobileSequenceTransaction>() {
 
@@ -160,6 +175,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * setTransactions
      * </p>
+     * .
      *
      * @param transactions
      *            a {@link java.util.List} object.
@@ -176,12 +192,13 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a
-     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
+     *         object.
      */
     @Override
     public int compareTo(MobileSequenceConfig o) {
@@ -192,6 +209,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -204,6 +222,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * computeDefaultGateways
      * </p>
+     * .
      */
     public void computeDefaultGateways() {
         String defaultGatewayId = "*";
@@ -220,16 +239,17 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * createTransaction
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
-     *            object.
      * @param response
      *            a
-     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceResponse}
-     *            object.
      * @return a
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
+     *         object.
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceResponse}
+     *         object.
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
      *         object.
      */
@@ -248,6 +268,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * executeSequence
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
@@ -256,10 +277,10 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
      *            object.
      * @return a {@link java.util.Map} object.
-     * @throws org.opennms.sms.monitor.SequencerException
-     *             if any.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws SequencerException
+     *             the sequencer exception
+     * @throws Throwable
+     *             the throwable
      */
     public Map<String, Number> executeSequence(MobileSequenceSession session, DefaultTaskCoordinator coordinator)
             throws SequencerException, Throwable {
@@ -275,6 +296,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * start
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
@@ -283,10 +305,10 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      *            a {@link org.opennms.core.tasks.DefaultTaskCoordinator}
      *            object.
      * @return a
-     *         {@link org.opennms.sms.monitor.internal.MobileSequenceExecution}
-     *         object.
-     * @throws org.opennms.sms.monitor.SequencerException
-     *             if any.
+     * @throws SequencerException
+     *             the sequencer exception
+     *             {@link org.opennms.sms.monitor.internal.MobileSequenceExecution}
+     *             object.
      */
     public MobileSequenceExecution start(MobileSequenceSession session, DefaultTaskCoordinator coordinator)
             throws SequencerException {
@@ -303,6 +325,11 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
 
     }
 
+    /**
+     * Creates the execution.
+     *
+     * @return the mobile sequence execution
+     */
     private MobileSequenceExecution createExecution() {
         return new MobileSequenceExecution(this);
     }
@@ -311,20 +338,21 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * waitFor
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
      *            object.
      * @param execution
      *            a
-     *            {@link org.opennms.sms.monitor.internal.MobileSequenceExecution}
-     *            object.
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.util.concurrent.ExecutionException
-     *             if any.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
+     * @throws Throwable
+     *             the throwable
+     *             {@link org.opennms.sms.monitor.internal.MobileSequenceExecution}
+     *             object.
      */
     public void waitFor(MobileSequenceSession session, MobileSequenceExecution execution) throws InterruptedException,
             ExecutionException, Throwable {
@@ -338,6 +366,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * <p>
      * hasTransactions
      * </p>
+     * .
      *
      * @return a boolean.
      */

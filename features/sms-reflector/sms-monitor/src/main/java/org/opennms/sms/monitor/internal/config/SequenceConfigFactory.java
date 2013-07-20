@@ -50,10 +50,16 @@ import org.opennms.sms.monitor.internal.SequenceException;
  * @version $Id: $
  */
 public class SequenceConfigFactory {
+
+    /** The m_singleton. */
     private static SequenceConfigFactory m_singleton = null;
 
+    /** The m_context. */
     private JAXBContext m_context;
 
+    /**
+     * Instantiates a new sequence config factory.
+     */
     private SequenceConfigFactory() {
     }
 
@@ -61,6 +67,7 @@ public class SequenceConfigFactory {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.SequenceConfigFactory}
@@ -77,9 +84,10 @@ public class SequenceConfigFactory {
      * <p>
      * initializeContext
      * </p>
+     * .
      *
-     * @throws javax.xml.bind.JAXBException
-     *             if any.
+     * @throws JAXBException
+     *             the jAXB exception
      */
     protected synchronized void initializeContext() throws JAXBException {
         if (m_context == null) {
@@ -95,10 +103,11 @@ public class SequenceConfigFactory {
      * <p>
      * getMarshaller
      * </p>
+     * .
      *
      * @return a {@link javax.xml.bind.Marshaller} object.
-     * @throws javax.xml.bind.JAXBException
-     *             if any.
+     * @throws JAXBException
+     *             the jAXB exception
      */
     protected Marshaller getMarshaller() throws JAXBException {
         synchronized (m_context) {
@@ -113,10 +122,11 @@ public class SequenceConfigFactory {
      * <p>
      * getUnmarshaller
      * </p>
+     * .
      *
      * @return a {@link javax.xml.bind.Unmarshaller} object.
-     * @throws javax.xml.bind.JAXBException
-     *             if any.
+     * @throws JAXBException
+     *             the jAXB exception
      */
     protected Unmarshaller getUnmarshaller() throws JAXBException {
         synchronized (m_context) {
@@ -131,14 +141,15 @@ public class SequenceConfigFactory {
      * <p>
      * getSequenceForXml
      * </p>
+     * .
      *
      * @param sequenceXml
      *            a {@link java.lang.String} object.
      * @return a
-     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
-     *         object.
-     * @throws org.opennms.sms.monitor.internal.SequenceException
-     *             if any.
+     * @throws SequenceException
+     *             the sequence exception
+     *             {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
+     *             object.
      */
     public MobileSequenceConfig getSequenceForXml(String sequenceXml) throws SequenceException {
         try {
@@ -155,14 +166,15 @@ public class SequenceConfigFactory {
      * <p>
      * getSequenceForFile
      * </p>
+     * .
      *
      * @param sequenceFile
      *            a {@link java.io.File} object.
      * @return a
-     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
-     *         object.
-     * @throws org.opennms.sms.monitor.internal.SequenceException
-     *             if any.
+     * @throws SequenceException
+     *             the sequence exception
+     *             {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
+     *             object.
      */
     public MobileSequenceConfig getSequenceForFile(File sequenceFile) throws SequenceException {
         try {

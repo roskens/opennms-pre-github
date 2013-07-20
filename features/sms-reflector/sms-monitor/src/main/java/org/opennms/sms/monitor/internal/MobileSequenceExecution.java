@@ -45,7 +45,7 @@ import org.opennms.sms.monitor.internal.config.MobileSequenceTransaction;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 
 /**
- * MobileSequenceExecution
+ * MobileSequenceExecution.
  *
  * @author brozow
  * @version $Id: $
@@ -53,14 +53,19 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 public class MobileSequenceExecution {
 
     // Use a LinkedHashMap to ensure transaction latencies are ordered.
+    /** The m_response times. */
     private Map<String, Number> m_responseTimes = new LinkedHashMap<String, Number>();
 
+    /** The m_start time. */
     private Long m_startTime;
 
+    /** The m_task. */
     private SequenceTask m_task;
 
+    /** The m_sequence config. */
     private MobileSequenceConfig m_sequenceConfig;
 
+    /** The m_transaction executions. */
     private List<MobileTransactionExecution> m_transactionExecutions = new ArrayList<MobileTransactionExecution>();
 
     /**
@@ -86,6 +91,7 @@ public class MobileSequenceExecution {
      * <p>
      * getSequenceConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
@@ -99,6 +105,7 @@ public class MobileSequenceExecution {
      * <p>
      * getTransactionExecutions
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -110,6 +117,7 @@ public class MobileSequenceExecution {
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -121,6 +129,7 @@ public class MobileSequenceExecution {
      * <p>
      * setStartTime
      * </p>
+     * .
      *
      * @param startTime
      *            a {@link java.lang.Long} object.
@@ -133,6 +142,7 @@ public class MobileSequenceExecution {
      * <p>
      * getResponseTimes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -144,6 +154,7 @@ public class MobileSequenceExecution {
      * <p>
      * end
      * </p>
+     * .
      */
     public void end() {
         long end = System.currentTimeMillis();
@@ -154,11 +165,12 @@ public class MobileSequenceExecution {
      * <p>
      * waitFor
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.util.concurrent.ExecutionException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
      */
     public void waitFor() throws InterruptedException, ExecutionException {
 
@@ -176,6 +188,7 @@ public class MobileSequenceExecution {
      * <p>
      * getTask
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.SequenceTask} object.
      */
@@ -187,6 +200,7 @@ public class MobileSequenceExecution {
      * <p>
      * setTask
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.SequenceTask} object.
@@ -199,12 +213,13 @@ public class MobileSequenceExecution {
      * <p>
      * updateResults
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
      *            object.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     public void updateResults(MobileSequenceSession session) throws Throwable {
         for (MobileTransactionExecution execution : getTransactionExecutions()) {
@@ -220,6 +235,7 @@ public class MobileSequenceExecution {
      * <p>
      * start
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.opennms.sms.monitor.MobileSequenceSession}
@@ -241,6 +257,15 @@ public class MobileSequenceExecution {
         getTask().schedule();
     }
 
+    /**
+     * Creates the async.
+     *
+     * @param session
+     *            the session
+     * @param execution
+     *            the execution
+     * @return the async
+     */
     private Async<MobileMsgResponse> createAsync(final MobileSequenceSession session,
             final MobileTransactionExecution execution) {
         return new Async<MobileMsgResponse>() {
@@ -255,6 +280,11 @@ public class MobileSequenceExecution {
         };
     }
 
+    /**
+     * Checks for failed.
+     *
+     * @return true, if successful
+     */
     private boolean hasFailed() {
         for (MobileTransactionExecution execution : getTransactionExecutions()) {
             if (execution.getError() != null) {

@@ -44,7 +44,7 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 import org.opennms.sms.reflector.smsservice.MobileMsgResponseHandler;
 
 /**
- * MobileTransactionExecution
+ * MobileTransactionExecution.
  *
  * @author brozow
  * @version $Id: $
@@ -52,17 +52,29 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponseHandler;
 public class MobileTransactionExecution {
 
     /**
-     * TransactionResponseHandler
+     * TransactionResponseHandler.
      *
      * @author brozow
      */
     private final class TransactionResponseHandler implements MobileMsgResponseHandler {
+
+        /** The m_cb. */
         private final Callback<MobileMsgResponse> m_cb;
 
+        /** The m_session. */
         private final MobileSequenceSession m_session;
 
+        /** The m_pending responses. */
         private final Set<MobileSequenceResponse> m_pendingResponses;
 
+        /**
+         * Instantiates a new transaction response handler.
+         *
+         * @param session
+         *            the session
+         * @param cb
+         *            the cb
+         */
         private TransactionResponseHandler(MobileSequenceSession session, Callback<MobileMsgResponse> cb) {
             m_cb = cb;
             m_session = session;
@@ -70,6 +82,9 @@ public class MobileTransactionExecution {
                                                                                                        getTransaction().getResponses()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher#matches(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+         */
         @Override
         public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 
@@ -85,6 +100,9 @@ public class MobileTransactionExecution {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleTimeout(org.opennms.sms.reflector.smsservice.MobileMsgRequest)
+         */
         @Override
         public void handleTimeout(MobileMsgRequest request) {
             SocketTimeoutException err = new SocketTimeoutException("timed out processing request " + request);
@@ -92,6 +110,9 @@ public class MobileTransactionExecution {
             m_cb.handleException(err);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleResponse(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+         */
         @Override
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
             if (request != null)
@@ -119,24 +140,34 @@ public class MobileTransactionExecution {
             return !m_pendingResponses.isEmpty();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleError(org.opennms.sms.reflector.smsservice.MobileMsgRequest, java.lang.Throwable)
+         */
         @Override
         public void handleError(MobileMsgRequest request, Throwable t) {
             setError(t);
             m_cb.handleException(t);
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return new ToStringBuilder(this).append("callback", m_cb).append("session", m_session).toString();
         }
     }
 
+    /** The m_transaction. */
     private MobileSequenceTransaction m_transaction;
 
+    /** The m_send time. */
     private Long m_sendTime;
 
+    /** The m_receive time. */
     private Long m_receiveTime;
 
+    /** The m_error. */
     private Throwable m_error;
 
     /**
@@ -153,10 +184,22 @@ public class MobileTransactionExecution {
         m_transaction = transaction;
     }
 
+    /**
+     * Sets the send time.
+     *
+     * @param sendTime
+     *            the new send time
+     */
     private void setSendTime(Long sendTime) {
         m_sendTime = sendTime;
     }
 
+    /**
+     * Sets the receive time.
+     *
+     * @param receiveTime
+     *            the new receive time
+     */
     private void setReceiveTime(Long receiveTime) {
         m_receiveTime = receiveTime;
     }
@@ -165,6 +208,7 @@ public class MobileTransactionExecution {
      * <p>
      * getLatency
      * </p>
+     * .
      *
      * @return the latency
      */
@@ -176,6 +220,7 @@ public class MobileTransactionExecution {
      * <p>
      * getError
      * </p>
+     * .
      *
      * @return the error
      */
@@ -187,6 +232,7 @@ public class MobileTransactionExecution {
      * <p>
      * setError
      * </p>
+     * .
      *
      * @param error
      *            the error to set
@@ -199,6 +245,7 @@ public class MobileTransactionExecution {
      * <p>
      * getTransaction
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceTransaction}
@@ -208,6 +255,11 @@ public class MobileTransactionExecution {
         return m_transaction;
     }
 
+    /**
+     * Gets the callback.
+     *
+     * @return the callback
+     */
     Callback<MobileMsgResponse> getCallback() {
         return new Callback<MobileMsgResponse>() {
             @Override
@@ -225,6 +277,14 @@ public class MobileTransactionExecution {
         };
     }
 
+    /**
+     * Send request.
+     *
+     * @param session
+     *            the session
+     * @param cb
+     *            the cb
+     */
     void sendRequest(MobileSequenceSession session, Callback<MobileMsgResponse> cb) {
         getTransaction().sendRequest(session, new TransactionResponseHandler(session, cb));
     }

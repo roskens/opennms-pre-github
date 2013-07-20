@@ -48,6 +48,8 @@ import org.slf4j.LoggerFactory;
  */
 @XmlRootElement(name = "matches")
 public class TextResponseMatcher extends SequenceResponseMatcher {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TextResponseMatcher.class);
 
     /**

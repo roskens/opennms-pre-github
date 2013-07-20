@@ -41,10 +41,14 @@ import java.util.Set;
  * @version $Id: $
  */
 public class UniqueNumber extends BaseSessionVariableGenerator {
+
+    /** The min. */
     private int min = 0;
 
+    /** The max. */
     private int max = 1000;
 
+    /** The m_used. */
     private static Set<Integer> m_used = new HashSet<Integer>();
 
     /**
@@ -85,6 +89,7 @@ public class UniqueNumber extends BaseSessionVariableGenerator {
      * <p>
      * checkOut
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

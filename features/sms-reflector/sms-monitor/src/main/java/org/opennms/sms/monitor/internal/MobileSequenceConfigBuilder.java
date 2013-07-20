@@ -45,13 +45,14 @@ import org.opennms.sms.monitor.session.SessionVariableGenerator;
 import org.smslib.USSDSessionStatus;
 
 /**
- * MobileSequenceConfigBuilder
+ * MobileSequenceConfigBuilder.
  *
  * @author brozow
  * @version $Id: $
  */
 public class MobileSequenceConfigBuilder {
 
+    /** The m_sequence. */
     private MobileSequenceConfig m_sequence;
 
     /**
@@ -81,6 +82,7 @@ public class MobileSequenceConfigBuilder {
      * <p>
      * getSequence
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceConfig}
@@ -94,6 +96,7 @@ public class MobileSequenceConfigBuilder {
      * <p>
      * addTransaction
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder}
@@ -109,12 +112,13 @@ public class MobileSequenceConfigBuilder {
      * <p>
      * request
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
-     *            object.
      * @return a
+     *         {@link org.opennms.sms.monitor.internal.config.MobileSequenceRequest}
+     *         object.
      *         {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder}
      *         object.
      */
@@ -126,6 +130,7 @@ public class MobileSequenceConfigBuilder {
      * <p>
      * smsRequest
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -154,6 +159,7 @@ public class MobileSequenceConfigBuilder {
      * <p>
      * ussdRequest
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -176,30 +182,71 @@ public class MobileSequenceConfigBuilder {
 
     }
 
+    /**
+     * The Class MobileSequenceTransactionBuilder.
+     */
     public static class MobileSequenceTransactionBuilder {
+
+        /** The m_transaction. */
         private MobileSequenceTransaction m_transaction;
 
+        /**
+         * Instantiates a new mobile sequence transaction builder.
+         *
+         * @param transaction
+         *            the transaction
+         */
         public MobileSequenceTransactionBuilder(MobileSequenceTransaction transaction) {
             m_transaction = transaction;
         }
 
+        /**
+         * Sets the request.
+         *
+         * @param sequenceRequest
+         *            the sequence request
+         * @return the mobile sequence transaction builder
+         */
         public MobileSequenceTransactionBuilder setRequest(MobileSequenceRequest sequenceRequest) {
             m_transaction.setRequest(sequenceRequest);
             return this;
         }
 
+        /**
+         * Gets the transaction.
+         *
+         * @return the transaction
+         */
         public MobileSequenceTransaction getTransaction() {
             return m_transaction;
         }
 
+        /**
+         * Adds the response.
+         *
+         * @param response
+         *            the response
+         */
         public void addResponse(MobileSequenceResponse response) {
             m_transaction.addResponse(response);
         }
 
+        /**
+         * Expect sms response.
+         *
+         * @return the sms response builder
+         */
         public SmsResponseBuilder expectSmsResponse() {
             return expectSmsResponse(null);
         }
 
+        /**
+         * Expect sms response.
+         *
+         * @param label
+         *            the label
+         * @return the sms response builder
+         */
         public SmsResponseBuilder expectSmsResponse(String label) {
             MobileSequenceResponse response = new SmsSequenceResponse(label);
 
@@ -207,21 +254,47 @@ public class MobileSequenceConfigBuilder {
             return new SmsResponseBuilder(response);
         }
 
+        /**
+         * Expect ussd response.
+         *
+         * @return the ussd response builder
+         */
         public UssdResponseBuilder expectUssdResponse() {
             return expectUssdResponse(null);
         }
 
+        /**
+         * Expect ussd response.
+         *
+         * @param label
+         *            the label
+         * @return the ussd response builder
+         */
         public UssdResponseBuilder expectUssdResponse(String label) {
             UssdSequenceResponse response = new UssdSequenceResponse(label);
             addResponse(response);
             return new UssdResponseBuilder(response);
         }
 
+        /**
+         * With transaction label.
+         *
+         * @param transactionLabel
+         *            the transaction label
+         * @return the mobile sequence transaction builder
+         */
         public MobileSequenceTransactionBuilder withTransactionLabel(String transactionLabel) {
             m_transaction.setLabel(transactionLabel);
             return this;
         }
 
+        /**
+         * With gateway id.
+         *
+         * @param gatewayId
+         *            the gateway id
+         * @return the mobile sequence transaction builder
+         */
         public MobileSequenceTransactionBuilder withGatewayId(String gatewayId) {
             m_transaction.setGatewayId(gatewayId);
             return this;
@@ -230,31 +303,67 @@ public class MobileSequenceConfigBuilder {
     }
 
     /**
-     * SmsResponseBuilder
+     * SmsResponseBuilder.
      *
      * @author brozow
      */
     public static class SmsResponseBuilder {
+
+        /** The m_response. */
         private MobileSequenceResponse m_response;
 
+        /**
+         * Instantiates a new sms response builder.
+         *
+         * @param response
+         *            the response
+         */
         public SmsResponseBuilder(MobileSequenceResponse response) {
             m_response = response;
         }
 
+        /**
+         * Adds the matcher.
+         *
+         * @param matcher
+         *            the matcher
+         * @return the sms response builder
+         */
         public SmsResponseBuilder addMatcher(SequenceResponseMatcher matcher) {
             m_response.addMatcher(matcher);
             return this;
         }
 
+        /**
+         * Matching.
+         *
+         * @param regex
+         *            the regex
+         * @return the sms response builder
+         */
         public SmsResponseBuilder matching(String regex) {
             return addMatcher(new TextResponseMatcher(regex));
         }
 
+        /**
+         * Src matches.
+         *
+         * @param originator
+         *            the originator
+         * @return the sms response builder
+         */
         public SmsResponseBuilder srcMatches(String originator) {
             addMatcher(new SmsSourceMatcher(originator));
             return this;
         }
 
+        /**
+         * On gateway.
+         *
+         * @param gatewayId
+         *            the gateway id
+         * @return the sms response builder
+         */
         public SmsResponseBuilder onGateway(String gatewayId) {
             m_response.setGatewayId(gatewayId);
             return this;
@@ -263,30 +372,66 @@ public class MobileSequenceConfigBuilder {
     }
 
     /**
-     * SmsResponseBuilder
+     * SmsResponseBuilder.
      *
      * @author brozow
      */
     public static class UssdResponseBuilder {
+
+        /** The m_response. */
         private UssdSequenceResponse m_response;
 
+        /**
+         * Instantiates a new ussd response builder.
+         *
+         * @param response
+         *            the response
+         */
         public UssdResponseBuilder(UssdSequenceResponse response) {
             m_response = response;
         }
 
+        /**
+         * Adds the matcher.
+         *
+         * @param matcher
+         *            the matcher
+         * @return the ussd response builder
+         */
         public UssdResponseBuilder addMatcher(SequenceResponseMatcher matcher) {
             m_response.addMatcher(matcher);
             return this;
         }
 
+        /**
+         * Matching.
+         *
+         * @param regex
+         *            the regex
+         * @return the ussd response builder
+         */
         public UssdResponseBuilder matching(String regex) {
             return addMatcher(new TextResponseMatcher(regex));
         }
 
+        /**
+         * With session status.
+         *
+         * @param sessionStatus
+         *            the session status
+         * @return the ussd response builder
+         */
         public UssdResponseBuilder withSessionStatus(USSDSessionStatus sessionStatus) {
             return addMatcher(new UssdSessionStatusMatcher(sessionStatus));
         }
 
+        /**
+         * On gateway.
+         *
+         * @param gatewayId
+         *            the gateway id
+         * @return the ussd response builder
+         */
         public UssdResponseBuilder onGateway(String gatewayId) {
             m_response.setGatewayId(gatewayId);
             return this;
@@ -298,6 +443,7 @@ public class MobileSequenceConfigBuilder {
      * <p>
      * variable
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -314,13 +460,33 @@ public class MobileSequenceConfigBuilder {
 
     }
 
+    /**
+     * The Class SessionVariableBuilder.
+     */
     public static class SessionVariableBuilder {
+
+        /** The m_var. */
         private SequenceSessionVariable m_var;
 
+        /**
+         * Instantiates a new session variable builder.
+         *
+         * @param var
+         *            the var
+         */
         public SessionVariableBuilder(SequenceSessionVariable var) {
             m_var = var;
         }
 
+        /**
+         * Parameter.
+         *
+         * @param key
+         *            the key
+         * @param val
+         *            the val
+         * @return the session variable builder
+         */
         public SessionVariableBuilder parameter(String key, Object val) {
             m_var.addParameter(key, val == null ? null : val.toString());
             return this;
