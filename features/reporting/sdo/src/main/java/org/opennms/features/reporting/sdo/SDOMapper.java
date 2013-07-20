@@ -34,10 +34,21 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SDOMapper.
+ */
 public class SDOMapper {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + SDOMapper.class.getName());
 
+    /**
+     * Gets the sdo.
+     *
+     * @param bean
+     *            the bean
+     * @return the sdo
+     */
     public static RemoteReportSDO getSDO(Object bean) {
         RemoteReportSDO reportResult = new RemoteReportSDO();
         try {
