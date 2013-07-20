@@ -56,9 +56,7 @@ import org.springframework.util.Assert;
 
 public class DefaultGlobalReportRepository implements GlobalReportRepository {
 
-    /**
-     * Logging
-     */
+    /** Logging. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.Report."
             + DefaultGlobalReportRepository.class.getName());
 
@@ -90,6 +88,11 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
     /**
      * Default constructor creates one local-repository and all configured
      * remote-repositories.
+     *
+     * @param remoteRepositoryConfigDao
+     *            the remote repository config dao
+     * @param localReportRepository
+     *            the local report repository
      */
     public DefaultGlobalReportRepository(RemoteRepositoryConfigDao remoteRepositoryConfigDao,
             ReportRepository localReportRepository) {
@@ -296,7 +299,7 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
      * </p>
      * <p/>
      * Set the legacy local repository which provides all OpenNMS community
-     * reports
+     * reports.
      *
      * @param reportRepository
      *            a
@@ -313,7 +316,7 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
      * </p>
      * <p/>
      * Get the legacy local repository which provides all OpenNMS community
-     * reports
+     * reports.
      *
      * @return a
      *         {@link org.opennms.features.reporting.repository.local.LegacyLocalReportRepository}
@@ -329,7 +332,7 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
      * </p>
      * <p/>
      * Set the default remote report repository which provides access to OpenNMS
-     * CONNECT reports
+     * CONNECT reports.
      *
      * @param remoteRepositoryConfigDao
      *            a
@@ -368,7 +371,7 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
      * getRemoteRepositoryConfigDao
      * </p>
      * <p/>
-     * Get config Dao for remote-repositories
+     * Get config Dao for remote-repositories.
      *
      * @return a
      *         {@link org.opennms.features.reporting.repository.remote.DefaultRemoteRepository}
@@ -378,6 +381,9 @@ public class DefaultGlobalReportRepository implements GlobalReportRepository {
         return m_remoteRepositoryConfigDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.repository.global.GlobalReportRepository#reloadConfigurationFiles()
+     */
     @Override
     public void reloadConfigurationFiles() {
         try {

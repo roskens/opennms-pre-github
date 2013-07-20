@@ -62,9 +62,7 @@ import org.springframework.util.Assert;
         "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class LegacyLocalReportRepository implements ReportRepository {
 
-    /**
-     * Logging
-     */
+    /** Logging. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + LegacyLocalReportRepository.class.getName());
 
     /**
@@ -77,24 +75,16 @@ public class LegacyLocalReportRepository implements ReportRepository {
      */
     private LocalJasperReportsDao m_localJasperReportsDao;
 
-    /**
-     * Repository tag to identify reports
-     */
+    /** Repository tag to identify reports. */
     private final String REPOSITORY_ID = "local";
 
-    /**
-     * Name for the local community repository
-     */
+    /** Name for the local community repository. */
     private final String REPOSITORY_NAME = "Local Report Repository";
 
-    /**
-     * Description for the local community repository
-     */
+    /** Description for the local community repository. */
     private final String REPOSITORY_DESCRIPTION = "Providing OpenNMS community reports from local disk.";
 
-    /**
-     * URL to subscribe a repository
-     */
+    /** URL to subscribe a repository. */
     private final String MANAGEMENT_URL = "blank";
 
     /**
@@ -103,10 +93,10 @@ public class LegacyLocalReportRepository implements ReportRepository {
      *
      * @param localReportsDao
      *            a
-     *            {@link org.opennms.features.reporting.dao.LegacyLocalReportsDao}
-     *            object
      * @param localJasperReportsDao
      *            a
+     *            {@link org.opennms.features.reporting.dao.LegacyLocalReportsDao}
+     *            object
      *            {@link org.opennms.features.reporting.dao.jasper.LegacyLocalJasperReportsDao}
      *            object
      */
@@ -312,6 +302,9 @@ public class LegacyLocalReportRepository implements ReportRepository {
         return m_localJasperReportsDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.repository.ReportRepository#loadConfiguration()
+     */
     @Override
     public void loadConfiguration() {
         try {

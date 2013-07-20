@@ -34,29 +34,105 @@ import java.util.List;
 import org.opennms.features.reporting.model.basicreport.BasicReportDefinition;
 import org.opennms.features.reporting.repository.ReportRepository;
 
+/**
+ * The Interface GlobalReportRepository.
+ */
 public interface GlobalReportRepository {
 
+    /**
+     * Gets the all reports.
+     *
+     * @return the all reports
+     */
     public List<BasicReportDefinition> getAllReports();
 
+    /**
+     * Gets the all online reports.
+     *
+     * @return the all online reports
+     */
     public List<BasicReportDefinition> getAllOnlineReports();
 
+    /**
+     * Gets the reports.
+     *
+     * @param repoId
+     *            the repo id
+     * @return the reports
+     */
     public List<BasicReportDefinition> getReports(String repoId);
 
+    /**
+     * Gets the online reports.
+     *
+     * @param repoId
+     *            the repo id
+     * @return the online reports
+     */
     public List<BasicReportDefinition> getOnlineReports(String repoId);
 
+    /**
+     * Gets the report service.
+     *
+     * @param reportId
+     *            the report id
+     * @return the report service
+     */
     public String getReportService(String reportId);
 
+    /**
+     * Gets the display name.
+     *
+     * @param reportId
+     *            the report id
+     * @return the display name
+     */
     public String getDisplayName(String reportId);
 
+    /**
+     * Gets the engine.
+     *
+     * @param reportId
+     *            the report id
+     * @return the engine
+     */
     public String getEngine(String reportId);
 
+    /**
+     * Gets the template stream.
+     *
+     * @param reportId
+     *            the report id
+     * @return the template stream
+     */
     public InputStream getTemplateStream(String reportId);
 
+    /**
+     * Gets the repository list.
+     *
+     * @return the repository list
+     */
     public List<ReportRepository> getRepositoryList();
 
+    /**
+     * Adds the report repository.
+     *
+     * @param repository
+     *            the repository
+     */
     public void addReportRepository(ReportRepository repository);
 
+    /**
+     * Gets the repository by id.
+     *
+     * @param repoId
+     *            the repo id
+     * @return the repository by id
+     */
     public ReportRepository getRepositoryById(String repoId);
 
+    /**
+     * Reload configuration files.
+     */
     public void reloadConfigurationFiles();
 }

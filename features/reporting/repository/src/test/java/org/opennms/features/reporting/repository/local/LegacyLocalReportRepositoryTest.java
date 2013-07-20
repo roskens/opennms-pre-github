@@ -61,6 +61,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingRepositoryTest.xml" })
 public class LegacyLocalReportRepositoryTest {
 
+    /** The m_legacy local report repository. */
     private LegacyLocalReportRepository m_legacyLocalReportRepository;
 
     /**
@@ -68,9 +69,10 @@ public class LegacyLocalReportRepositoryTest {
      * setUp
      * </p>
      * <p/>
-     * Initialize and mockup the LegacyLocalReportRepository
+     * Initialize and mockup the LegacyLocalReportRepository.
      *
      * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception {
@@ -124,9 +126,10 @@ public class LegacyLocalReportRepositoryTest {
      * tearDown
      * </p>
      * <p/>
-     * Cleanup
+     * Cleanup.
      *
      * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -138,9 +141,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetReports
      * </p>
      * <p/>
-     * Test to get local community reports from legacy local repository
+     * Test to get local community reports from legacy local repository.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetReports() throws Exception {
@@ -153,9 +157,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetOnlineReports
      * </p>
      * <p/>
-     * Test to get *ONLINE* reports from the local repository
+     * Test to get *ONLINE* reports from the local repository.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetOnlineReports() throws Exception {
@@ -170,9 +175,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetReportService
      * </p>
      * <p/>
-     * Test to get report services by report ID
+     * Test to get report services by report ID.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetReportService() throws Exception {
@@ -187,9 +193,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetDisplayName
      * </p>
      * <p/>
-     * Test to get display name by report ID
+     * Test to get display name by report ID.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetDisplayName() throws Exception {
@@ -202,9 +209,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetEngine
      * </p>
      * <p/>
-     * Test to get report engine by report ID
+     * Test to get report engine by report ID.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetEngine() throws Exception {
@@ -217,9 +225,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetTemplateStream
      * </p>
      * <p/>
-     * Test to get jasper report as template stream by report ID
+     * Test to get jasper report as template stream by report ID.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetTemplateStream() throws Exception {
@@ -232,9 +241,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetRepositoryName
      * </p>
      * <p/>
-     * Test to get local repository ID
+     * Test to get local repository ID.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryId() throws Exception {
@@ -246,9 +256,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetRepositoryName
      * </p>
      * <p/>
-     * Test to get local repository name
+     * Test to get local repository name.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryName() throws Exception {
@@ -261,9 +272,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetRepositoryDescription
      * </p>
      * <p/>
-     * Test get local repository description
+     * Test get local repository description.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryDescription() throws Exception {
@@ -276,9 +288,10 @@ public class LegacyLocalReportRepositoryTest {
      * testGetManagementUrl
      * </p>
      * <p/>
-     * Test get local repository management URL
+     * Test get local repository management URL.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetManagementUrl() throws Exception {
@@ -290,7 +303,7 @@ public class LegacyLocalReportRepositoryTest {
      * setLegacyLocalReportRepository
      * </p>
      * <p/>
-     * Set the repository implementation for test
+     * Set the repository implementation for test.
      *
      * @param legacyLocalReportRepository
      *            a

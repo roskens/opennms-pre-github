@@ -64,30 +64,45 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingRepositoryTest.xml" })
 public class DefaultGlobalReportRepositoryTest {
 
+    /** The logger. */
     Logger logger = LoggerFactory.getLogger(DefaultGlobalReportRepositoryTest.class);
 
+    /** The m_global report repository. */
     private DefaultGlobalReportRepository m_globalReportRepository;
 
+    /** The m_mock local report repository. */
     private ReportRepository m_mockLocalReportRepository;
 
+    /** The m_remote report repository. */
     private ReportRepository m_remoteReportRepository;
 
+    /** The m_mock active repositories list. */
     private List<RemoteRepositoryDefinition> m_mockActiveRepositoriesList;
 
+    /** The m_mock all repositories list. */
     private List<RemoteRepositoryDefinition> m_mockAllRepositoriesList;
 
+    /** The m_mock report list. */
     private List<BasicReportDefinition> m_mockReportList;
 
+    /** The m_mock report definition1. */
     private BasicReportDefinition m_mockReportDefinition1;
 
+    /** The m_mock report definition2. */
     private BasicReportDefinition m_mockReportDefinition2;
 
+    /** The m_mock remote repository config dao. */
     private RemoteRepositoryConfigDao m_mockRemoteRepositoryConfigDao;
 
+    /** The m_mock active remote repository. */
     private RemoteRepositoryDefinition m_mockActiveRemoteRepository;
 
+    /** The m_mock not active remote repository. */
     private RemoteRepositoryDefinition m_mockNotActiveRemoteRepository;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -189,6 +204,9 @@ public class DefaultGlobalReportRepositoryTest {
                                                                      m_mockLocalReportRepository);
     }
 
+    /**
+     * Adds the report repository test.
+     */
     @Test
     public void addReportRepositoryTest() {
         assertEquals("Repository is initialized with one configured repository", 1,
@@ -197,16 +215,31 @@ public class DefaultGlobalReportRepositoryTest {
         assertEquals("One repository is added", 2, m_globalReportRepository.getRepositoryList().size());
     }
 
+    /**
+     * Gets the all online reports test.
+     *
+     * @return the all online reports test
+     */
     @Test
     public void getAllOnlineReportsTest() {
         assertEquals("Test size of online reports", 2, m_globalReportRepository.getAllOnlineReports().size());
     }
 
+    /**
+     * Gets the all reports test.
+     *
+     * @return the all reports test
+     */
     @Test
     public void getAllReportsTest() {
         assertEquals("Test size of online reports", 2, m_globalReportRepository.getAllReports().size());
     }
 
+    /**
+     * Gets the engine test.
+     *
+     * @return the engine test
+     */
     @Test
     public void getEngineTest() {
         // TODO tak: improve this tests
@@ -214,6 +247,11 @@ public class DefaultGlobalReportRepositoryTest {
         // m_globalReportRepository.getEngine("local_MockupReportReportId2"));
     }
 
+    /**
+     * Gets the online reports test.
+     *
+     * @return the online reports test
+     */
     @Test
     public void getOnlineReportsTest() {
         // TODO tak: improve this tests
@@ -221,12 +259,22 @@ public class DefaultGlobalReportRepositoryTest {
         // m_globalReportRepository.getOnlineReports("local_MockupReportRepositoryId1"));
     }
 
+    /**
+     * Gets the remplate stream test.
+     *
+     * @return the remplate stream test
+     */
     @Ignore
     @Test
     public void getRemplateStreamTest() {
         // TODO tak: improve this tests
     }
 
+    /**
+     * Gets the report service test.
+     *
+     * @return the report service test
+     */
     @Ignore
     @Test
     public void getReportServiceTest() {
@@ -235,6 +283,11 @@ public class DefaultGlobalReportRepositoryTest {
         // m_globalReportRepository.getReportService("local_MockupReportReportId2"));
     }
 
+    /**
+     * Gets the reports test.
+     *
+     * @return the reports test
+     */
     @Ignore
     @Test
     public void getReportsTest() {
@@ -243,6 +296,11 @@ public class DefaultGlobalReportRepositoryTest {
         // m_globalReportRepository.getReports("local_MockupReportReportId2"));
     }
 
+    /**
+     * Gets the repository by id test.
+     *
+     * @return the repository by id test
+     */
     @Ignore
     @Test
     public void getRepositoryByIdTest() {
@@ -273,6 +331,11 @@ public class DefaultGlobalReportRepositoryTest {
         // localRepo.getOnlineReports().get(0).getId());
     }
 
+    /**
+     * Gets the repository list test.
+     *
+     * @return the repository list test
+     */
     @Ignore
     @Test
     public void getRepositoryListTest() {
@@ -285,6 +348,12 @@ public class DefaultGlobalReportRepositoryTest {
         // repositoryList.get(1).getRepositoryId());
     }
 
+    /**
+     * Sets the report repository.
+     *
+     * @param globalReportRepository
+     *            the new report repository
+     */
     public void setReportRepository(DefaultGlobalReportRepository globalReportRepository) {
         m_globalReportRepository = globalReportRepository;
     }

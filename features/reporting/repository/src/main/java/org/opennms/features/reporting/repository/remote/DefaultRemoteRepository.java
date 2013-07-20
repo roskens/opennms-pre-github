@@ -64,9 +64,7 @@ import com.sun.jersey.client.apache.config.DefaultApacheHttpClientConfig;
         "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class DefaultRemoteRepository implements ReportRepository {
 
-    /**
-     * Logging
-     */
+    /** Logging. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + DefaultRemoteRepository.class.getName());
 
     /**
@@ -74,35 +72,27 @@ public class DefaultRemoteRepository implements ReportRepository {
      */
     private RemoteRepositoryDefinition m_remoteRepositoryDefintion;
 
-    /**
-     * Jasper report version number
-     */
+    /** Jasper report version number. */
     private String m_jasperReportsVersion;
 
-    /**
-     * HTTP client for ReST connection
-     */
+    /** HTTP client for ReST connection. */
     private ApacheHttpClient m_client;
 
-    /**
-     * HTTP client connection configuration
-     */
+    /** HTTP client connection configuration. */
     private ApacheHttpClientConfig m_clientConfig;
 
-    /**
-     * Data structure from ReST call
-     */
+    /** Data structure from ReST call. */
     private WebResource m_webResource;
 
     /**
-     * Default constructor to initialize the ReST HTTP client
+     * Default constructor to initialize the ReST HTTP client.
      *
      * @param remoteRepositoryDefinition
      *            a
-     *            {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryDefinition}
-     *            object
      * @param jasperReportsVersion
      *            a {@link java.lang.String} object
+     *            {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryDefinition}
+     *            object
      */
     public DefaultRemoteRepository(RemoteRepositoryDefinition remoteRepositoryDefinition, String jasperReportsVersion) {
         this.m_remoteRepositoryDefintion = remoteRepositoryDefinition;
@@ -302,6 +292,11 @@ public class DefaultRemoteRepository implements ReportRepository {
         return this.m_remoteRepositoryDefintion.getRepositoryManagementURL();
     }
 
+    /**
+     * Checks if is config ok.
+     *
+     * @return the boolean
+     */
     private Boolean isConfigOk() {
         if (m_remoteRepositoryDefintion != null) {
             if (m_remoteRepositoryDefintion.isRepositoryActive()) {
@@ -316,6 +311,13 @@ public class DefaultRemoteRepository implements ReportRepository {
         return true;
     }
 
+    /**
+     * Map sdo list to basic report list.
+     *
+     * @param remoteReportSDOList
+     *            the remote report sdo list
+     * @return the list
+     */
     private List<BasicReportDefinition> mapSDOListToBasicReportList(List<RemoteReportSDO> remoteReportSDOList) {
         List<BasicReportDefinition> resultList = new ArrayList<BasicReportDefinition>();
         for (RemoteReportSDO report : remoteReportSDOList) {
@@ -344,6 +346,9 @@ public class DefaultRemoteRepository implements ReportRepository {
         return resultList;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.repository.ReportRepository#loadConfiguration()
+     */
     @Override
     public void loadConfiguration() {
         logger.debug("reloading for configuration was called. No reoad for remote repository possible.");

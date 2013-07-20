@@ -34,14 +34,17 @@ import java.util.List;
 import org.opennms.features.reporting.model.basicreport.BasicReportDefinition;
 
 /**
+ * The Interface ReportRepository.
+ *
  * @author tak
  */
 public interface ReportRepository {
+
     /**
      * <p>
      * getReports
      * </p>
-     * Get *ALL* reports from a report repository
+     * Get *ALL* reports from a report repository.
      *
      * @return a {@link java.util.List} object
      */
@@ -51,7 +54,7 @@ public interface ReportRepository {
      * <p>
      * getOnlineReports
      * </p>
-     * Get all *ONLINE* reports from a report repository
+     * Get all *ONLINE* reports from a report repository.
      *
      * @return a {@link java.util.List} object
      */
@@ -61,7 +64,7 @@ public interface ReportRepository {
      * <p>
      * getReportService
      * </p>
-     * Get report service from a specific report by ID
+     * Get report service from a specific report by ID.
      *
      * @param reportId
      *            a {@link java.lang.String} object
@@ -73,7 +76,7 @@ public interface ReportRepository {
      * <p>
      * getDisplayName
      * </p>
-     * Get display name from a specific report by ID
+     * Get display name from a specific report by ID.
      *
      * @param reportId
      *            a {@link java.lang.String} object
@@ -85,7 +88,7 @@ public interface ReportRepository {
      * <p>
      * getEngine
      * </p>
-     * Get engine for database access from a specific report by ID
+     * Get engine for database access from a specific report by ID.
      *
      * @param reportId
      *            a {@link java.lang.String} object
@@ -97,7 +100,7 @@ public interface ReportRepository {
      * <p>
      * getTemplateStream
      * </p>
-     * Get report template stream from a specific report by ID
+     * Get report template stream from a specific report by ID.
      *
      * @param reportId
      *            a {@link java.lang.String} object
@@ -109,7 +112,7 @@ public interface ReportRepository {
      * <p>
      * getRepositoryId
      * </p>
-     * Get report repository ID
+     * Get report repository ID.
      *
      * @return a {@link java.lang.String} object
      */
@@ -119,7 +122,7 @@ public interface ReportRepository {
      * <p>
      * getRepositoryName
      * </p>
-     * Get report repository name
+     * Get report repository name.
      *
      * @return a {@link java.lang.String} object
      */
@@ -129,7 +132,7 @@ public interface ReportRepository {
      * <p>
      * getRepositoryDescription
      * </p>
-     * Get report repository description
+     * Get report repository description.
      *
      * @return a {@link java.lang.String} object
      */
@@ -139,11 +142,14 @@ public interface ReportRepository {
      * <p>
      * getManagementUrl
      * </p>
-     * Get repository management URL for subscription services
+     * Get repository management URL for subscription services.
      *
      * @return a {@link java.lang.String} object
      */
     String getManagementUrl();
 
+    /**
+     * Load configuration.
+     */
     void loadConfiguration();
 }

@@ -60,14 +60,21 @@ import org.springframework.core.io.Resource;
 @Ignore
 public class DefaultRemoteRepositoryTest {
 
+    /** The logger. */
     private Logger logger = LoggerFactory.getLogger(DefaultRemoteRepositoryTest.class);
 
+    /** The m_default remote repository. */
     private DefaultRemoteRepository m_defaultRemoteRepository;
 
+    /** The Constant OPENNMS_HOME. */
     private static final String OPENNMS_HOME = "src/test/resources";
 
+    /** The m_config resource. */
     private Resource m_configResource;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         System.setProperty("opennms.home", OPENNMS_HOME);
@@ -79,6 +86,11 @@ public class DefaultRemoteRepositoryTest {
         assertNotNull(System.getProperty("opennms.home"));
     }
 
+    /**
+     * Gets the online reports.
+     *
+     * @return the online reports
+     */
     @Test
     public void getOnlineReports() {
         List<BasicReportDefinition> reports = m_defaultRemoteRepository.getOnlineReports();
@@ -88,6 +100,11 @@ public class DefaultRemoteRepositoryTest {
         }
     }
 
+    /**
+     * Gets the reports.
+     *
+     * @return the reports
+     */
     @Test
     public void getReports() {
         List<BasicReportDefinition> reports = m_defaultRemoteRepository.getReports();
@@ -97,6 +114,9 @@ public class DefaultRemoteRepositoryTest {
         }
     }
 
+    /**
+     * Report ids start with repository id test.
+     */
     @Test
     public void reportIdsStartWithRepositoryIdTest() {
         List<BasicReportDefinition> reports = m_defaultRemoteRepository.getReports();
@@ -108,6 +128,9 @@ public class DefaultRemoteRepositoryTest {
         }
     }
 
+    /**
+     * Report ids with repo idget mapped to remote report test.
+     */
     @Test
     public void reportIdsWithRepoIdgetMappedToRemoteReportTest() {
         List<BasicReportDefinition> reports = m_defaultRemoteRepository.getReports();
@@ -117,6 +140,9 @@ public class DefaultRemoteRepositoryTest {
         }
     }
 
+    /**
+     * Catch uniform exception test.
+     */
     @Test
     public void catchUniformExceptionTest() {
         String report = m_defaultRemoteRepository.getReportService("null");
