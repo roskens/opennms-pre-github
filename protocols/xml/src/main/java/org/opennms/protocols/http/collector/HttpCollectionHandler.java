@@ -69,6 +69,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollectionHandler.class);
 
     /*
@@ -119,8 +121,8 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
      *            the collection set
      * @param source
      *            the source
-     * @param document
-     *            the JSoup document
+     * @param doc
+     *            the doc
      * @throws ParseException
      *             the parse exception
      */
@@ -183,8 +185,8 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
     /**
      * Gets the time stamp.
      *
-     * @param document
-     *            the JSoup document
+     * @param doc
+     *            the doc
      * @param group
      *            the group
      * @return the time stamp

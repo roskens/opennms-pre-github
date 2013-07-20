@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XmlCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlCollectionAttribute.class);
 
     /** The Attribute Value. */

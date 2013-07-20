@@ -43,7 +43,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The Test class for XML Collector for 3GPP Statistics
+ * The Test class for XML Collector for 3GPP Statistics.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

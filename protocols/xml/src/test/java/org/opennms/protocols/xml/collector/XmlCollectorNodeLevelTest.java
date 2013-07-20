@@ -35,7 +35,7 @@ import java.util.Map;
 import org.junit.Test;
 
 /**
- * The Test class for XML Collector for Node Level Statistics
+ * The Test class for XML Collector for Node Level Statistics.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

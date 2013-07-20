@@ -60,8 +60,10 @@ import com.jcraft.jsch.SftpException;
  */
 public class Sftp3gppUrlConnection extends SftpUrlConnection {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppUrlConnection.class);
 
+    /** The m_url properties. */
     private Map<String, String> m_urlProperties;
 
     /**

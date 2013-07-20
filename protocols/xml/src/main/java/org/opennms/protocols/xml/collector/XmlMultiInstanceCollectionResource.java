@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlMultiInstanceCollectionResource.class);
 
     /** The collection resource instance. */

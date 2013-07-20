@@ -31,7 +31,7 @@ package org.opennms.protocols.http;
 import org.opennms.protocols.xml.config.Request;
 
 /**
- * The class for handling HTTPS URL Connection using Apache HTTP Client
+ * The class for handling HTTPS URL Connection using Apache HTTP Client.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

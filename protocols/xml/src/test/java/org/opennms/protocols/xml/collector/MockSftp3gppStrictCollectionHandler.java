@@ -51,6 +51,7 @@ import org.w3c.dom.Document;
  */
 public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHandler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockSftp3gppStrictCollectionHandler.class);
 
     /*

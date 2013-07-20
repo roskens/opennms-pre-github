@@ -72,6 +72,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectionHandler {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractJsonCollectionHandler.class);
 
     /**

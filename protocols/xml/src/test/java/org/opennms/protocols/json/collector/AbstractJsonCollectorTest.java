@@ -197,6 +197,8 @@ public abstract class AbstractJsonCollectorTest {
     /**
      * Creates the RRD repository.
      *
+     * @param collection
+     *            the collection
      * @return the RRD repository
      * @throws IOException
      *             Signals that an I/O exception has occurred.

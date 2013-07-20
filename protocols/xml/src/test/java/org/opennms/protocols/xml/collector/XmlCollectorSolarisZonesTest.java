@@ -43,7 +43,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * The Test class for XML Collector for Solaris Zones Statistics
+ * The Test class for XML Collector for Solaris Zones Statistics.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class XmlCollector implements ServiceCollector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlCollector.class);
 
     /** The XML Data Collection DAO. */
@@ -82,7 +83,11 @@ public class XmlCollector implements ServiceCollector {
     /**
      * Log.
      *
+     * @param parameters
+     *            the parameters
      * @return the thread category
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
 
     /*

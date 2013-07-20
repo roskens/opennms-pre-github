@@ -67,12 +67,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class for managing HTTP URL Connection using Apache HTTP Client
+ * The class for managing HTTP URL Connection using Apache HTTP Client.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class HttpUrlConnection extends URLConnection {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpUrlConnection.class);
 
     /** The URL. */
@@ -90,6 +91,7 @@ public class HttpUrlConnection extends URLConnection {
      * @param url
      *            the URL
      * @param request
+     *            the request
      */
     protected HttpUrlConnection(URL url, Request request) {
         super(url);
@@ -206,7 +208,7 @@ public class HttpUrlConnection extends URLConnection {
     }
 
     /**
-     * Disconnect
+     * Disconnect.
      */
     public void disconnect() {
         if (m_client != null) {

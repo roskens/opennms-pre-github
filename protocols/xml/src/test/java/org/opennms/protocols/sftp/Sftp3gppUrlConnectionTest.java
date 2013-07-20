@@ -45,10 +45,12 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppUrlConnectionTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppUrlConnectionTest.class);
 
     /**
-     * Test path for Standard SFTP
+     * Test path for Standard SFTP.
      *
      * @throws Exception
      *             the exception

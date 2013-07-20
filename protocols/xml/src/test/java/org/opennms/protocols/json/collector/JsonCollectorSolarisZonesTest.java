@@ -41,7 +41,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * The Test class for JSON Collector for Solaris Zones Statistics
+ * The Test class for JSON Collector for Solaris Zones Statistics.
  *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>

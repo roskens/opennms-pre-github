@@ -133,7 +133,7 @@ public class HttpDataCollectionTest {
     }
 
     /**
-     * Test HTTP Data Collection with XPath
+     * Test HTTP Data Collection with XPath.
      *
      * @throws Exception
      *             the exception
@@ -170,7 +170,7 @@ public class HttpDataCollectionTest {
     }
 
     /**
-     * Test HTTP Data Collection with CSS Selector
+     * Test HTTP Data Collection with CSS Selector.
      *
      * @throws Exception
      *             the exception
@@ -207,7 +207,7 @@ public class HttpDataCollectionTest {
     }
 
     /**
-     * Test HTTP Data Collection with JSON
+     * Test HTTP Data Collection with JSON.
      *
      * @throws Exception
      *             the exception
@@ -246,6 +246,8 @@ public class HttpDataCollectionTest {
     /**
      * Creates the RRD repository.
      *
+     * @param rrd
+     *            the rrd
      * @return the RRD repository
      * @throws IOException
      *             Signals that an I/O exception has occurred.

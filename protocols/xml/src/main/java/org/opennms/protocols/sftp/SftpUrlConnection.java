@@ -136,6 +136,8 @@ public class SftpUrlConnection extends URLConnection {
      * Gets the channel.
      *
      * @return the channel
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public ChannelSftp getChannel() throws IOException {
         if (m_channel == null) {

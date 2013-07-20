@@ -96,6 +96,7 @@ import org.w3c.dom.NodeList;
  */
 public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractXmlCollectionHandler.class);
 
     /** The Service Name associated with this Collection Handler. */

@@ -78,8 +78,8 @@ public class MockDocumentBuilder {
     /**
      * Sets the XML file name.
      *
-     * @param xmlFileName
-     *            the new XML file name
+     * @param jsonFileName
+     *            the new jSON file name
      */
     public static void setJSONFileName(String jsonFileName) {
         m_jsonFileName = jsonFileName;

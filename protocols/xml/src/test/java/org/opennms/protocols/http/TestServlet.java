@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class TestServlet extends HttpServlet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
 
     /*

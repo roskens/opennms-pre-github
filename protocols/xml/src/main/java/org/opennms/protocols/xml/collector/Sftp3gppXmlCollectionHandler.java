@@ -76,6 +76,7 @@ import org.w3c.dom.Document;
  */
 public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppXmlCollectionHandler.class);
 
     /** The Constant XML_LAST_FILENAME. */
@@ -251,6 +252,8 @@ public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
      * @param currentTimestamp
      *            the current timestamp
      * @return the string
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     protected String parseUrl(String unformattedUrl, CollectionAgent agent, Integer collectionStep,
             long currentTimestamp) throws IllegalArgumentException {
