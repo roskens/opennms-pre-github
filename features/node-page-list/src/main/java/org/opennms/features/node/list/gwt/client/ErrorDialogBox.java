@@ -42,14 +42,23 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class ErrorDialogBox.
+ */
 public class ErrorDialogBox extends PopupPanel {
 
+    /** The m_error label. */
     private final Label m_errorLabel = new Label();
 
+    /** The m_caption. */
     private final HTML m_caption = new HTML();
 
+    /** The m_layout panel. */
     private DockLayoutPanel m_layoutPanel;
 
+    /**
+     * Instantiates a new error dialog box.
+     */
     public ErrorDialogBox() {
 
         setModal(false);
@@ -61,6 +70,11 @@ public class ErrorDialogBox extends PopupPanel {
 
     }
 
+    /**
+     * Creates the widget.
+     *
+     * @return the widget
+     */
     private Widget createWidget() {
         m_errorLabel.setText("hello");
         Button ok = new Button("OK");
@@ -98,6 +112,12 @@ public class ErrorDialogBox extends PopupPanel {
         return m_layoutPanel;
     }
 
+    /**
+     * Sets the error message and show.
+     *
+     * @param errorMsg
+     *            the new error message and show
+     */
     public void setErrorMessageAndShow(String errorMsg) {
         m_errorLabel.setText(errorMsg);
         m_errorLabel.setHeight("100px");

@@ -30,43 +30,94 @@ package org.opennms.features.node.list.gwt.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class PhysicalInterface.
+ */
 public class PhysicalInterface extends JavaScriptObject {
 
+    /**
+     * Instantiates a new physical interface.
+     */
     protected PhysicalInterface() {
     };
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native String getId() /*-{
                                        return this["@id"];
                                        }-*/;
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     public final native String getIfIndex() /*-{
                                             return this["@ifIndex"];
                                             }-*/;
 
+    /**
+     * Gets the snmp if descr.
+     *
+     * @return the snmp if descr
+     */
     public final native String getSnmpIfDescr() /*-{
                                                 return this.ifDescr;
                                                 }-*/;
 
+    /**
+     * Gets the snmp if name.
+     *
+     * @return the snmp if name
+     */
     public final native String getSnmpIfName() /*-{
                                                return this.ifName;
                                                }-*/;
 
+    /**
+     * Gets the snmp if alias.
+     *
+     * @return the snmp if alias
+     */
     public final native String getSnmpIfAlias() /*-{
                                                 return this.ifAlias;
                                                 }-*/;
 
+    /**
+     * Gets the snmp if speed.
+     *
+     * @return the snmp if speed
+     */
     public final native String getSnmpIfSpeed() /*-{
                                                 return this.ifSpeed;
                                                 }-*/;
 
+    /**
+     * Gets the ip address.
+     *
+     * @return the ip address
+     */
     public final native String getIpAddress() /*-{
                                               return this.ipAddress;
                                               }-*/;
 
+    /**
+     * Gets the if admin status.
+     *
+     * @return the if admin status
+     */
     public final native int getIfAdminStatus()/*-{
                                               return parseInt(this.ifAdminStatus);
                                               }-*/;
 
+    /**
+     * Gets the if oper status.
+     *
+     * @return the if oper status
+     */
     public final native int getIfOperStatus() /*-{
                                               return parseInt(this.ifOperStatus);
                                               }-*/;

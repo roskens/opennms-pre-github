@@ -31,7 +31,14 @@ package org.opennms.features.node.list.gwt.client;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.Style;
 
+/**
+ * The Interface OnmsSimplePagerResources.
+ */
 public interface OnmsSimplePagerResources extends SimplePager.Resources {
+
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.cellview.client.SimplePager.Resources#simplePagerStyle()
+     */
     @Source({ "com/google/gwt/user/cellview/client/SimplePager.css", "OnmsSimplePager.css" })
     @Override
     Style simplePagerStyle();

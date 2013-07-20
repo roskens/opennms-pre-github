@@ -62,11 +62,20 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
+/**
+ * The Class PageableNodeList.
+ */
 public class PageableNodeList extends Composite implements ProvidesResize, PhysicalInterfaceSelectionHandler,
         IpInterfaceSelectionHandler {
 
+    /**
+     * The Class SnmpInterfacesRequestCallback.
+     */
     public class SnmpInterfacesRequestCallback implements RequestCallback {
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.http.client.RequestCallback#onResponseReceived(com.google.gwt.http.client.Request, com.google.gwt.http.client.Response)
+         */
         @Override
         public void onResponseReceived(Request request, Response response) {
             if (response.getStatusCode() == 200) {
@@ -77,6 +86,9 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
             }
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.http.client.RequestCallback#onError(com.google.gwt.http.client.Request, java.lang.Throwable)
+         */
         @Override
         public void onError(Request request, Throwable exception) {
             showErrorDialogBox("Error attempting to get SnmpInterfaces");
@@ -84,8 +96,14 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
 
     }
 
+    /**
+     * The Class IpInterfacesRequestCallback.
+     */
     public class IpInterfacesRequestCallback implements RequestCallback {
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.http.client.RequestCallback#onResponseReceived(com.google.gwt.http.client.Request, com.google.gwt.http.client.Response)
+         */
         @Override
         public void onResponseReceived(Request request, Response response) {
             if (response.getStatusCode() == 200) {
@@ -96,6 +114,9 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
             }
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.http.client.RequestCallback#onError(com.google.gwt.http.client.Request, java.lang.Throwable)
+         */
         @Override
         public void onError(Request request, Throwable exception) {
             showErrorDialogBox("Error attempting to get IpInterfaces");
@@ -103,62 +124,88 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
 
     }
 
+    /** The ui binder. */
     private static PageableNodeListUiBinder uiBinder = GWT.create(PageableNodeListUiBinder.class);
 
+    /**
+     * The Interface PageableNodeListUiBinder.
+     */
     interface PageableNodeListUiBinder extends UiBinder<Widget, PageableNodeList> {
     }
 
+    /** The Constant COOKIE. */
     public static final String COOKIE = "hideNodePageErrorDialog";
 
+    /** The m_tab layout panel. */
     @UiField
     TabLayoutPanel m_tabLayoutPanel;
 
+    /** The m_ip interface table. */
     @UiField
     IpInterfaceTable m_ipInterfaceTable;
 
+    /** The m_physical interface table. */
     @UiField
     PhysicalInterfaceTable m_physicalInterfaceTable;
 
+    /** The m_ip table div. */
     @UiField
     FlowPanel m_ipTableDiv;
 
+    /** The m_phys table div. */
     @UiField
     FlowPanel m_physTableDiv;
 
+    /** The m_ip search btn. */
     @UiField
     Button m_ipSearchBtn;
 
+    /** The m_phys search btn. */
     @UiField
     Button m_physSearchBtn;
 
+    /** The m_ip search list. */
     @UiField
     ListBox m_ipSearchList;
 
+    /** The m_ip text box. */
     @UiField
     TextBox m_ipTextBox;
 
+    /** The m_phys search list. */
     @UiField
     ListBox m_physSearchList;
 
+    /** The m_phys text box. */
     @UiField
     TextBox m_physTextBox;
 
+    /** The m_ip interface table div. */
     @UiField
     FlowPanel m_ipInterfaceTableDiv;
 
+    /** The m_physical table div. */
     @UiField
     FlowPanel m_physicalTableDiv;
 
+    /** The m_error dialog. */
     ErrorDialogBox m_errorDialog;
 
+    /** The m_node service. */
     NodeService m_nodeService = new DefaultNodeService();
 
+    /** The m_ip iface data provider. */
     private ListDataProvider<IpInterface> m_ipIfaceDataProvider;
 
+    /** The m_physical iface data provider. */
     private ListDataProvider<PhysicalInterface> m_physicalIfaceDataProvider;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /**
+     * Instantiates a new pageable node list.
+     */
     public PageableNodeList() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -169,6 +216,12 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         initializeListBoxes();
     }
 
+    /**
+     * Show error dialog box.
+     *
+     * @param errorMsg
+     *            the error msg
+     */
     public void showErrorDialogBox(String errorMsg) {
         if (m_errorDialog == null) {
             m_errorDialog = new ErrorDialogBox();
@@ -183,6 +236,11 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
 
     }
 
+    /**
+     * Extract node id from location.
+     *
+     * @return the int
+     */
     public int extractNodeIdFromLocation() {
         if (Location.getParameter("node") != null) {
             return Integer.valueOf(Location.getParameter("node"));
@@ -192,6 +250,12 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
 
     }
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeId
+     *            the new node id
+     */
     public void setNodeId(int nodeId) {
         if (nodeId == -1) {
             nodeId = extractNodeIdFromLocation();
@@ -202,22 +266,47 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
 
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId() {
         return m_nodeId;
     }
 
+    /**
+     * Gets the node id from page.
+     *
+     * @return the node id from page
+     */
     public native void getNodeIdFromPage()/*-{
                                           this.@org.opennms.features.node.list.gwt.client.PageableNodeList::setNodeId(I)($wnd.nodeId == undefined? -1 : $wnd.nodeId);
                                           }-*/;
 
+    /**
+     * Update ip interface list.
+     *
+     * @param ipInterfaces
+     *            the ip interfaces
+     */
     public void updateIpInterfaceList(List<IpInterface> ipInterfaces) {
         m_ipIfaceDataProvider.setList(ipInterfaces);
     }
 
+    /**
+     * Update physical interface list.
+     *
+     * @param physicalInterfaces
+     *            the physical interfaces
+     */
     public void updatePhysicalInterfaceList(List<PhysicalInterface> physicalInterfaces) {
         m_physicalIfaceDataProvider.setList(physicalInterfaces);
     }
 
+    /**
+     * Initialize list boxes.
+     */
     private void initializeListBoxes() {
         m_ipSearchList.addItem("IP Address", "ipAddress");
         m_ipSearchList.addItem("IP Host Name", "ipHostName");
@@ -231,6 +320,9 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         m_physSearchList.addItem("SNMP ifPhysAddr", "physAddr");
     }
 
+    /**
+     * Initialize tables.
+     */
     private void initializeTables() {
 
         m_ipInterfaceTable.setPageSize(19);
@@ -266,6 +358,9 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
 
     }
 
+    /**
+     * Initialize tab bar.
+     */
     private void initializeTabBar() {
         m_tabLayoutPanel.setSize("100%", "520px");
         Node node = m_tabLayoutPanel.getElement().getChild(1);
@@ -273,6 +368,12 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         element.getStyle().setHeight(100, Unit.EM);
     }
 
+    /**
+     * Handle ip search btn click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_ipSearchBtn")
     public void handleIpSearchBtnClick(ClickEvent event) {
         String parameter = m_ipSearchList.getValue(m_ipSearchList.getSelectedIndex());
@@ -280,6 +381,12 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         m_nodeService.findIpInterfacesMatching(m_nodeId, parameter, value, new IpInterfacesRequestCallback());
     }
 
+    /**
+     * Handle phys search click.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_physSearchBtn")
     public void handlePhysSearchClick(ClickEvent event) {
         String parameter = m_physSearchList.getValue(m_physSearchList.getSelectedIndex());
@@ -287,10 +394,16 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         m_nodeService.findSnmpInterfacesMatching(getNodeId(), parameter, value, new SnmpInterfacesRequestCallback());
     }
 
+    /**
+     * On resize.
+     */
     public void onResize() {
         m_tabLayoutPanel.onResize();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.node.list.gwt.client.events.PhysicalInterfaceSelectionHandler#onPhysicalInterfaceSelected(org.opennms.features.node.list.gwt.client.events.PhysicalInterfaceSelectionEvent)
+     */
     @Override
     public void onPhysicalInterfaceSelected(PhysicalInterfaceSelectionEvent event) {
         StringBuilder urlBuilder = new StringBuilder();
@@ -301,6 +414,9 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         Location.assign(urlBuilder.toString());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.node.list.gwt.client.events.IpInterfaceSelectionHandler#onIpInterfaceSelection(org.opennms.features.node.list.gwt.client.events.IpInterfaceSelectionEvent)
+     */
     @Override
     public void onIpInterfaceSelection(IpInterfaceSelectionEvent event) {
         StringBuilder urlBuilder = new StringBuilder();
@@ -310,6 +426,11 @@ public class PageableNodeList extends Composite implements ProvidesResize, Physi
         Location.assign(urlBuilder.toString());
     }
 
+    /**
+     * Gets the base href.
+     *
+     * @return the base href
+     */
     public final native String getBaseHref() /*-{
                                              try{
                                              return $wnd.getBaseHref();

@@ -30,35 +30,76 @@ package org.opennms.features.node.list.gwt.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class IpInterface.
+ */
 public class IpInterface extends JavaScriptObject {
 
+    /**
+     * Instantiates a new ip interface.
+     */
     protected IpInterface() {
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native String getId()/*-{
                                       return this["@id"];
                                       }-*/;
 
+    /**
+     * Gets the ip address.
+     *
+     * @return the ip address
+     */
     public final native String getIpAddress() /*-{
                                               return this.ipAddress;
                                               }-*/;
 
+    /**
+     * Gets the ip host name.
+     *
+     * @return the ip host name
+     */
     public final native String getIpHostName() /*-{
                                                return this.hostName;
                                                }-*/;
 
+    /**
+     * Gets the managed.
+     *
+     * @return the managed
+     */
     public final native String getManaged() /*-{
                                             return this["@isManaged"];
                                             }-*/;
 
+    /**
+     * Checks if is down.
+     *
+     * @return the string
+     */
     public final native String isDown() /*-{
                                         return this["@isDown"];
                                         }-*/;
 
+    /**
+     * Gets the monitored service count.
+     *
+     * @return the monitored service count
+     */
     public final native String getMonitoredServiceCount()/*-{
                                                          return this["@monitoredServiceCount"];
                                                          }-*/;
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     public final native String getIfIndex() /*-{
                                             return this["@ifIndex"];
                                             }-*/;

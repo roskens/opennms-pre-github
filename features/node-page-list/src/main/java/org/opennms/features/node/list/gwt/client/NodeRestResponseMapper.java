@@ -37,11 +37,17 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 
+/**
+ * The Class NodeRestResponseMapper.
+ */
 public class NodeRestResponseMapper {
 
     /**
+     * Creates the ip interface data.
+     *
      * @param jsonString
-     * @return
+     *            the json string
+     * @return the list
      */
     public static List<IpInterface> createIpInterfaceData(String jsonString) {
         List<IpInterface> ipIfaceList = new ArrayList<IpInterface>();
@@ -65,17 +71,34 @@ public class NodeRestResponseMapper {
         return ipIfaceList;
     }
 
+    /**
+     * Creates the ip interface overlay.
+     *
+     * @param jso
+     *            the jso
+     * @return the ip interface
+     */
     public static native IpInterface createIpInterfaceOverlay(JavaScriptObject jso)/*-{
                                                                                    return jso;
                                                                                    }-*/;
 
+    /**
+     * Creates the ip interface data.
+     *
+     * @param jso
+     *            the jso
+     * @return the js array
+     */
     public static native JsArray<IpInterface> createIpInterfaceData(JavaScriptObject jso) /*-{
                                                                                           return jso;
                                                                                           }-*/;
 
     /**
+     * Creates the snmp interface data.
+     *
      * @param jsonString
-     * @return
+     *            the json string
+     * @return the list
      */
     public static List<PhysicalInterface> createSnmpInterfaceData(String jsonString) {
         List<PhysicalInterface> physIfaceList = new ArrayList<PhysicalInterface>();
@@ -99,10 +122,24 @@ public class NodeRestResponseMapper {
         return physIfaceList;
     }
 
+    /**
+     * Creates the snmp interface overlay.
+     *
+     * @param jso
+     *            the jso
+     * @return the physical interface
+     */
     public static native PhysicalInterface createSnmpInterfaceOverlay(JavaScriptObject jso) /*-{
                                                                                             return jso;
                                                                                             }-*/;
 
+    /**
+     * Creates the snmp interface data.
+     *
+     * @param jso
+     *            the jso
+     * @return the js array
+     */
     public static native JsArray<PhysicalInterface> createSnmpInterfaceData(JavaScriptObject jso) /*-{
                                                                                                   return jso;
                                                                                                   }-*/;

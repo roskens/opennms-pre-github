@@ -31,7 +31,14 @@ package org.opennms.features.node.list.gwt.client;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.CellTable.Style;
 
+/**
+ * The Interface OnmsTableResources.
+ */
 public interface OnmsTableResources extends CellTable.Resources {
+
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.cellview.client.CellTable.Resources#cellTableStyle()
+     */
     @Source({ "customCellTableStyles.css" })
     @Override
     Style cellTableStyle();

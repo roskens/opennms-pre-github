@@ -30,13 +30,58 @@ package org.opennms.features.node.list.gwt.client;
 
 import com.google.gwt.http.client.RequestCallback;
 
+/**
+ * The Interface NodeService.
+ */
 public interface NodeService {
 
+    /**
+     * Gets the all ip interfaces for node.
+     *
+     * @param nodeId
+     *            the node id
+     * @param callback
+     *            the callback
+     * @return the all ip interfaces for node
+     */
     public void getAllIpInterfacesForNode(int nodeId, RequestCallback callback);
 
+    /**
+     * Gets the all snmp interfaces for node.
+     *
+     * @param nodeId
+     *            the node id
+     * @param callback
+     *            the callback
+     * @return the all snmp interfaces for node
+     */
     public void getAllSnmpInterfacesForNode(int nodeId, RequestCallback callback);
 
+    /**
+     * Find ip interfaces matching.
+     *
+     * @param nodeId
+     *            the node id
+     * @param parameter
+     *            the parameter
+     * @param value
+     *            the value
+     * @param callback
+     *            the callback
+     */
     public void findIpInterfacesMatching(int nodeId, String parameter, String value, RequestCallback callback);
 
+    /**
+     * Find snmp interfaces matching.
+     *
+     * @param nodeId
+     *            the node id
+     * @param parameter
+     *            the parameter
+     * @param value
+     *            the value
+     * @param callback
+     *            the callback
+     */
     public void findSnmpInterfacesMatching(int nodeId, String parameter, String value, RequestCallback callback);
 }

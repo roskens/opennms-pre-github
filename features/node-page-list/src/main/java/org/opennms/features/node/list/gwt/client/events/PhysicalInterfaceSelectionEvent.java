@@ -30,30 +30,58 @@ package org.opennms.features.node.list.gwt.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * The Class PhysicalInterfaceSelectionEvent.
+ */
 public class PhysicalInterfaceSelectionEvent extends GwtEvent<PhysicalInterfaceSelectionHandler> {
 
+    /** The type. */
     public static Type<PhysicalInterfaceSelectionHandler> TYPE = new Type<PhysicalInterfaceSelectionHandler>();
 
+    /** The m_if index. */
     private String m_ifIndex;
 
+    /**
+     * Instantiates a new physical interface selection event.
+     *
+     * @param ifIndex
+     *            the if index
+     */
     public PhysicalInterfaceSelectionEvent(String ifIndex) {
         setIfIndex(ifIndex);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+     */
     @Override
     public Type<PhysicalInterfaceSelectionHandler> getAssociatedType() {
         return TYPE;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+     */
     @Override
     protected void dispatch(PhysicalInterfaceSelectionHandler handler) {
         handler.onPhysicalInterfaceSelected(this);
     }
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     public String getIfIndex() {
         return m_ifIndex;
     }
 
+    /**
+     * Sets the if index.
+     *
+     * @param ifIndex
+     *            the new if index
+     */
     public void setIfIndex(String ifIndex) {
         m_ifIndex = ifIndex;
     }

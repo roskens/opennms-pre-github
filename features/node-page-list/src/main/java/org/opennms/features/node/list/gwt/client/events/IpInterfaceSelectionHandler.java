@@ -30,6 +30,16 @@ package org.opennms.features.node.list.gwt.client.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * The Interface IpInterfaceSelectionHandler.
+ */
 public interface IpInterfaceSelectionHandler extends EventHandler {
+
+    /**
+     * On ip interface selection.
+     *
+     * @param event
+     *            the event
+     */
     void onIpInterfaceSelection(IpInterfaceSelectionEvent event);
 }

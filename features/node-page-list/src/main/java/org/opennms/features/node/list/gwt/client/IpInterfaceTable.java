@@ -40,15 +40,25 @@ import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class IpInterfaceTable.
+ */
 public class IpInterfaceTable extends CellTable<IpInterface> {
 
+    /** The m_event bus. */
     private SimpleEventBus m_eventBus = new SimpleEventBus();
 
+    /**
+     * Instantiates a new ip interface table.
+     */
     public IpInterfaceTable() {
         super(15, (CellTable.Resources) GWT.create(OnmsTableResources.class));
         initialize();
     }
 
+    /**
+     * Initialize.
+     */
     private void initialize() {
 
         setRowStyles(new RowStyles<IpInterface>() {
@@ -136,14 +146,31 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
 
     }
 
+    /**
+     * Sets the event bus.
+     *
+     * @param eventBus
+     *            the new event bus
+     */
     public void setEventBus(SimpleEventBus eventBus) {
         m_eventBus = eventBus;
     }
 
+    /**
+     * Gets the event bus.
+     *
+     * @return the event bus
+     */
     public SimpleEventBus getEventBus() {
         return m_eventBus;
     }
 
+    /**
+     * Adds the select event handler.
+     *
+     * @param handler
+     *            the handler
+     */
     public void addSelectEventHandler(IpInterfaceSelectionHandler handler) {
         getEventBus().addHandler(IpInterfaceSelectionEvent.TYPE, handler);
     }

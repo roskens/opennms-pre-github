@@ -65,6 +65,12 @@ public class NodeInterfaceList implements EntryPoint {
 
     }
 
+    /**
+     * Creates the view.
+     *
+     * @param elem
+     *            the elem
+     */
     private void createView(Element elem) {
         PageableNodeList nodeList = new PageableNodeList();
         RootPanel.get(elem.getId()).add(nodeList);

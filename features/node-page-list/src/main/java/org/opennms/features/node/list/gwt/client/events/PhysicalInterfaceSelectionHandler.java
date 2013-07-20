@@ -30,6 +30,16 @@ package org.opennms.features.node.list.gwt.client.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * The Interface PhysicalInterfaceSelectionHandler.
+ */
 public interface PhysicalInterfaceSelectionHandler extends EventHandler {
+
+    /**
+     * On physical interface selected.
+     *
+     * @param event
+     *            the event
+     */
     void onPhysicalInterfaceSelected(PhysicalInterfaceSelectionEvent event);
 }

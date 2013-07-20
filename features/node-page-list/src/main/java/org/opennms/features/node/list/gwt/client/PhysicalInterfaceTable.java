@@ -40,20 +40,36 @@ import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class PhysicalInterfaceTable.
+ */
 public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
 
+    /** The m_event bus. */
     SimpleEventBus m_eventBus = new SimpleEventBus();
 
+    /**
+     * Instantiates a new physical interface table.
+     */
     public PhysicalInterfaceTable() {
         super(15, (CellTable.Resources) GWT.create(OnmsTableResources.class));
         initialize();
     }
 
     // TODO:finish handler
+    /**
+     * Adds the select event handler.
+     *
+     * @param handler
+     *            the handler
+     */
     public void addSelectEventHandler(PhysicalInterfaceSelectionHandler handler) {
         getEventBus().addHandler(PhysicalInterfaceSelectionEvent.TYPE, handler);
     }
 
+    /**
+     * Initialize.
+     */
     private void initialize() {
         setRowStyles(new RowStyles<PhysicalInterface>() {
 
@@ -103,6 +119,9 @@ public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
 
     }
 
+    /**
+     * Adds the columns.
+     */
     private void addColumns() {
         DblClickTextColumn<PhysicalInterface> indexColumn = new DblClickTextColumn<PhysicalInterface>() {
 
@@ -164,10 +183,21 @@ public class PhysicalInterfaceTable extends CellTable<PhysicalInterface> {
         // addColumn(ipAddresColumn, "IP Address");
     }
 
+    /**
+     * Gets the event bus.
+     *
+     * @return the event bus
+     */
     public SimpleEventBus getEventBus() {
         return m_eventBus;
     }
 
+    /**
+     * Sets the event bus.
+     *
+     * @param eventBus
+     *            the new event bus
+     */
     public void setEventBus(SimpleEventBus eventBus) {
         m_eventBus = eventBus;
     }

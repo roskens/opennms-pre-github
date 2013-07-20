@@ -33,12 +33,21 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.text.shared.SimpleSafeHtmlRenderer;
 
+/**
+ * The Class DblClickTextCell.
+ */
 public class DblClickTextCell extends AbstractSafeHtmlCell<String> {
 
+    /**
+     * Instantiates a new dbl click text cell.
+     */
     public DblClickTextCell() {
         super(SimpleSafeHtmlRenderer.getInstance(), "dblclick");
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.cell.client.AbstractSafeHtmlCell#render(com.google.gwt.cell.client.Cell.Context, com.google.gwt.safehtml.shared.SafeHtml, com.google.gwt.safehtml.shared.SafeHtmlBuilder)
+     */
     @Override
     protected void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
         if (value != null) {

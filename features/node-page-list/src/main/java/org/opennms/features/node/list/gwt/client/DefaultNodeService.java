@@ -33,10 +33,15 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.URL;
 
+/**
+ * The Class DefaultNodeService.
+ */
 public class DefaultNodeService implements NodeService {
 
+    /** The base url. */
     private static String BASE_URL = "rest/nodes/";
 
+    /** The snmp interfaces test response. */
     public static String SNMP_INTERFACES_TEST_RESPONSE = "{" + "\"@totalCount\" : \"3\"," + "\"@count\" : \"3\","
             + "\"snmpInterface\" : [ {" + " \"@poll\" : \"false\"," + " \"@pollFlag\" : \"N\","
             + " \"@ifIndex\" : \"3\"," + " \"@id\" : \"240\"," + " \"@collect\" : \"false\","
@@ -58,6 +63,7 @@ public class DefaultNodeService implements NodeService {
             + " \"netMask\" : \"255.255.255.0\"," + " \"nodeId\" : \"11\"," + " \"physAddr\" : \"00163e13f215\""
             + " } ]" + "}";
 
+    /** The ip interfaces test response. */
     public static String IP_INTERFACES_TEST_RESPONSE = "{" + "\"@totalCount\" : \"23\"," + "\"@count\" : \"23\","
             + "\"ipInterface\" : [ {" + "\"@snmpPrimary\" : \"S\"," + "\"@monitoredServiceCount\" : \"0\","
             + "\"@isManaged\" : \"M\"," + "\"@id\" : \"42\"," + "\"@isDown\" : \"true\","
@@ -65,18 +71,27 @@ public class DefaultNodeService implements NodeService {
             + "\"@monitoredServiceCount\" : \"2\"," + "\"@isManaged\" : \"M\"," + "\"@id\" : \"30\","
             + "\"@isDown\" : \"false\"," + "\"ipAddress\" : \"161.221.89.118\"," + "\"nodeId\" : \"2\"" + "}]" + "}";
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.node.list.gwt.client.NodeService#getAllIpInterfacesForNode(int, com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void getAllIpInterfacesForNode(int nodeId, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/ipinterfaces?limit=0";
         sendRequest(callback, url);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.node.list.gwt.client.NodeService#getAllSnmpInterfacesForNode(int, com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void getAllSnmpInterfacesForNode(int nodeId, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/snmpinterfaces?limit=0";
         sendRequest(callback, url);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.node.list.gwt.client.NodeService#findIpInterfacesMatching(int, java.lang.String, java.lang.String, com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void findIpInterfacesMatching(int nodeId, String parameter, String value, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/ipinterfaces?" + parameter + "=" + value + "&comparator=contains&limit=0";
@@ -84,6 +99,9 @@ public class DefaultNodeService implements NodeService {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.node.list.gwt.client.NodeService#findSnmpInterfacesMatching(int, java.lang.String, java.lang.String, com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void findSnmpInterfacesMatching(int nodeId, String parameter, String value, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/snmpinterfaces?" + parameter + "=" + value;
@@ -95,6 +113,14 @@ public class DefaultNodeService implements NodeService {
 
     }
 
+    /**
+     * Send request.
+     *
+     * @param callback
+     *            the callback
+     * @param url
+     *            the url
+     */
     private void sendRequest(RequestCallback callback, String url) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
         builder.setHeader("accept", "application/json");

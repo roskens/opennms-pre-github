@@ -30,8 +30,17 @@ package org.opennms.features.node.list.gwt.client;
 
 import com.google.gwt.user.cellview.client.Column;
 
+/**
+ * The Class DblClickTextColumn.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public abstract class DblClickTextColumn<T> extends Column<T, String> {
 
+    /**
+     * Instantiates a new dbl click text column.
+     */
     public DblClickTextColumn() {
         super(new DblClickTextCell());
     }

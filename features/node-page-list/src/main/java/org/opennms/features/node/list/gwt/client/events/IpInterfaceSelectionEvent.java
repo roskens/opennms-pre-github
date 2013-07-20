@@ -30,30 +30,58 @@ package org.opennms.features.node.list.gwt.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * The Class IpInterfaceSelectionEvent.
+ */
 public class IpInterfaceSelectionEvent extends GwtEvent<IpInterfaceSelectionHandler> {
 
+    /** The Constant TYPE. */
     public static final Type<IpInterfaceSelectionHandler> TYPE = new Type<IpInterfaceSelectionHandler>();
 
+    /** The m_ip interface id. */
     private String m_ipInterfaceId;
 
+    /**
+     * Instantiates a new ip interface selection event.
+     *
+     * @param id
+     *            the id
+     */
     public IpInterfaceSelectionEvent(String id) {
         setIpInterfaceId(id);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+     */
     @Override
     public Type<IpInterfaceSelectionHandler> getAssociatedType() {
         return TYPE;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+     */
     @Override
     protected void dispatch(IpInterfaceSelectionHandler handler) {
         handler.onIpInterfaceSelection(this);
     }
 
+    /**
+     * Sets the ip interface id.
+     *
+     * @param ipInterfaceId
+     *            the new ip interface id
+     */
     public void setIpInterfaceId(String ipInterfaceId) {
         m_ipInterfaceId = ipInterfaceId;
     }
 
+    /**
+     * Gets the ip interface id.
+     *
+     * @return the ip interface id
+     */
     public String getIpInterfaceId() {
         return m_ipInterfaceId;
     }
